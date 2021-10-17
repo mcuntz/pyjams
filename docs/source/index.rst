@@ -3,8 +3,8 @@ pyjams Quickstart
 
 A general Python package with miscellaneous utility functions used in several other packages.
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4459598.svg
-   :target: https://doi.org/10.5281/zenodo.4459598
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.5574388.svg
+   :target: https://doi.org/10.5281/zenodo.5574388
    :alt: Zenodo DOI
 
 .. image:: https://badge.fury.io/py/pyjams.svg

@@ -16,6 +16,5 @@ Public API
    morris_method.rst
    screening.rst
    tee.rst
-   version.rst
 
 .. currentmodule:: pyjams

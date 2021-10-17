@@ -89,14 +89,14 @@ from __future__ import division, absolute_import, print_function
 import numpy as np
 
 
-__all__ = ['Pi', 'Pi2', 'Pi3', 'TwoPi', 'pi', 'pi2', 'pi3',
-           'Twopi', 'Sqrt2',
-           'Gravity', 'T0', 'P0', 'T25', 'sigma', 'R', 'R_air', 'R_H2O',
-           'Na', 'REarth', 'mmol_co2', 'mmol_h2o', 'mmol_air',
-           'density_quartz', 'cheat_quartz', 'cheat_water', 'cheat_air',
-           'latentheat_vaporization',
-           'R13VPDB', 'R18VSMOW', 'R2VSMOW',
-           'tiny', 'huge', 'eps']
+__all__ = [
+    'Pi', 'Pi2', 'Pi3', 'TwoPi', 'pi', 'pi2', 'pi3', 'Twopi', 'Sqrt2',
+    'Gravity', 'T0', 'P0', 'T25', 'sigma', 'R', 'R_air', 'R_H2O',
+    'Na', 'REarth', 'mmol_co2', 'mmol_h2o', 'mmol_air',
+    'density_quartz', 'cheat_quartz', 'cheat_water', 'cheat_air',
+    'latentheat_vaporization',
+    'R13VPDB', 'R18VSMOW', 'R2VSMOW',
+    'tiny', 'huge', 'eps']
 
 
 # Mathematical

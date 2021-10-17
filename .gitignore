@@ -110,3 +110,6 @@ tags
 
 # own stuff
 *.DS_Store
+
+# generated version file
+src/pyjams/_version.py

@@ -195,12 +195,12 @@ History
 """
 from __future__ import division, absolute_import, print_function
 import numpy as np
-try:        # import package
+try:         # import package
     from .logistic_function import logistic_p, logistic_offset_p
     from .logistic_function import logistic2_offset_p
     from ..const import T0, T25, R
 except:
-    try:    # e.g. python nee2gpp.py
+    try:     # e.g. python nee2gpp.py
         from functions.logistic_function import logistic_p, logistic_offset_p
         from functions.logistic_function import logistic2_offset_p
         from const import T0, T25, R

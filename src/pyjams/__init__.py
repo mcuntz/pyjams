@@ -24,22 +24,36 @@ Subpackages
    morris_method
    screening
    tee
-   version
-"""
-from __future__ import division, absolute_import, print_function
 
+History
+    * Written Oct 2021 by Matthias Cuntz (mc (at) macu (dot) de)
+    * v1.0, initial Github, PyPI, Zenodo commit, Oct 2021, Matthias Cuntz
+
+"""
 # version, author
-from .version import __version__, __author__
+try:
+    from ._version import __version__
+except ImportError:  # pragma: nocover
+    # package is not installed
+    __version__ = "0.0.0.dev0"
+__author__  = "Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda"
 
 # sub-packages without dependencies to rest of pyjams
 from . import const
 from . import functions
-
-# like unix tee
-from .tee import tee
 
 # has to be ordered for import: morris -> screening
 # Sampling of optimised trajectories for and calculation of Morris Measures / Elementary Effects
 from .morris_method import morris_sampling, elementary_effects
 # Sample trajectories, run model and return Morris Elementary Effects
 from .screening import screening, ee
+# like unix tee
+from .tee import tee
+
+
+__all__ = ["__version__", "__author__",
+           "const", "functions",
+           "morris_sampling", "elementary_effects",
+           "screening", "ee",
+           "tee",
+           ]

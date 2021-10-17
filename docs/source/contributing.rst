@@ -27,6 +27,7 @@ Do you have suggestions for new features?
 Do you want to enhance pyjams or fix something?
     * Fork the repo on GitHub_.
     * Fix a routine or add a new module in `src/pyjams`.
+    * Import a new routine in `src/pyjams/__init__.py` and add it to `__all__`.
     * Add some tests either in an existing `tests/test_*.py` file or create a
       new test class in a new file under `tests/`.
     * Add a new module to the automatic documentation by creating a
