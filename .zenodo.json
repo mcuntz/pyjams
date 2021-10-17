@@ -1,30 +1,33 @@
 {
-    "upload_type": "software",
-    "title": "pyjams: A general Python package with miscellaneous utility functions used in several other packages",
-    "creators": [
-        {
-            "name": "Matthias Cuntz",
-            "affiliation": "Institut National de Recherche pour l’Agriculture, l’Alimentation et l’Environnement - INRAE, Nancy, France",
-            "orcid": "0000-0002-5966-1829"
-        },
-        {
-            "name": "Juliane Mai",
-            "affiliation": "University of Waterloo, ON, Canada",
-            "orcid": "0000-0002-1132-2342"
-        },
-        {
-            "name": "Stephan Thober",
-            "affiliation": "Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany",
-            "orcid": "0000-0003-3939-1523"
-        },
-        {
-            "name": "Arndt Piayda",
-            "affiliation": "Johann Heinrich von Thünen Institute, Braunschweig, Germany"
-        }
-    ],
-    "description": "<b>pyjams</b> is a general Python package offering miscellaneous functions in different categories, such as reading different file formats, Julian date routines, or calculating Elementary Effects. It has several subpackages offering constants or special functions, or objective functions to be used with scipy.optimize.<br><br>The package modernises and makes available routines of the <a href='https://github.com/mcuntz/jams_python'>JAMS Python library</a>, which was created 2009 by Matthias Cuntz while at the Department of Computational Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany, and continued while at Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.<br><br>The complete documentation of <b>pyjams</b> is available at: <a href='http://pyjams.readthedocs.org/en/latest/'>http://pyjams.readthedocs.org/en/latest/</a><br>",
-    "license": "MIT",
     "language": "eng",
+    "license": "MIT",
+    "title": "pyjams: A general Python package with miscellaneous utility functions used in several other packages.",
+    "related_identifiers": [
+        {
+        "scheme": "url",
+        "identifier": "https://github.com/mcuntz/pyjams/",
+        "relation": "isDerivedFrom",
+        "resource_type": "software"
+    },
+        {
+        "scheme": "url",
+        "identifier": "https://pyjams.readthedocs.io/en/latest/",
+        "relation": "isDocumentedBy",
+        "resource_type": "publication-softwaredocumentation"
+    },
+        {
+        "scheme": "url",
+        "identifier": "https://pypi.org/project/pyjams/",
+        "relation": "isPublishedIn",
+        "resource_type": "software"
+    },
+        {
+        "scheme": "doi",
+        "identifier": "10.5281/zenodo.5574388",
+        "relation": "isVersionOf"
+    }
+    ],
+    "upload_type": "software",
     "keywords": [
         "Python utilities",
         "ASCII files",
@@ -34,21 +37,27 @@
         "JAMS",
         "Python"
     ],
-    "related_identifiers": [
+    "creators": [
         {
-            "identifier": "https://github.com/mcuntz/pyjams/",
-            "relation": "isSourceOf",
-            "resource_type": "software"
-        },
+        "orcid": "0000-0002-5966-1829",
+        "affiliation": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement - INRAE, Nancy, France",
+        "name": "Matthias Cuntz"
+    },
         {
-            "identifier": "https://pyjams.readthedocs.io/en/latest/",
-            "relation": "documents",
-            "resource_type": "softwaredocumentation"
-        },
+        "orcid": "0000-0002-1132-2342",
+        "affiliation": "University of Waterloo, ON, Canada",
+        "name": "Juliane Mai"
+    },
         {
-            "identifier": "https://pypi.org/project/pyjams/",
-            "relation": "isIdenticalTo",
-            "resource_type": "software"
-        }
-    ]
+        "orcid": "0000-0003-3939-1523",
+        "affiliation": "Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany",
+        "name": "Stephan Thober"
+    },
+        {
+        "affiliation": "Johann Heinrich von Th\u00fcnen Institute, Braunschweig, Germany",
+        "name": "Arndt Piayda"
+    }
+    ],
+    "access_right": "open",
+    "description": "<p><strong>pyjams</strong> is a general Python package offering miscellaneous functions in different categories, such as reading different file formats, Julian date routines, or calculating Elementary Effects. It has several subpackages offering constants or special functions, or objective functions to be used with scipy.optimize.</p>\n\n<p>The package modernises and makes available routines of the <a href=\"https://github.com/mcuntz/jams_python\">JAMS Python library</a>, which was created 2009 by Matthias Cuntz while at the Department of Computational Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany, and continued while at Institut National de Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy, France.</p>\n\n<p>The complete documentation of pyjams is available at: <a href=\"http://pyjams.readthedocs.org/en/latest/\">http://pyjams.readthedocs.org/en/latest/</a></p>"
 }
