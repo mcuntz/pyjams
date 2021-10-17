@@ -5,21 +5,21 @@
         {
             "name": "Matthias Cuntz",
             "affiliation": "Institut National de Recherche pour l’Agriculture, l’Alimentation et l’Environnement - INRAE, Nancy, France",
-            "orcid": "0000-0002-5966-1829",
+            "orcid": "0000-0002-5966-1829"
         },
         {
             "name": "Juliane Mai",
-            "affiliation": "University of Waterloo: Waterloo, ON, Canada",
-            "orcid": "0000-0002-1132-2342",
+            "affiliation": "University of Waterloo, ON, Canada",
+            "orcid": "0000-0002-1132-2342"
         },
         {
             "name": "Stephan Thober",
             "affiliation": "Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany",
-            "orcid": "0000-0003-3939-1523",
+            "orcid": "0000-0003-3939-1523"
         },
         {
             "name": "Arndt Piayda",
-            "affiliation": "Johann Heinrich von Thünen Institute, Braunschweig, Germany",
+            "affiliation": "Johann Heinrich von Thünen Institute, Braunschweig, Germany"
         }
     ],
     "description": "<b>pyjams</b> is a general Python package offering miscellaneous functions in different categories, such as reading different file formats, Julian date routines, or calculating Elementary Effects. It has several subpackages offering constants or special functions, or objective functions to be used with scipy.optimize.<br><br>The package modernises and makes available routines of the <a href='https://github.com/mcuntz/jams_python'>JAMS Python library</a>, which was created 2009 by Matthias Cuntz while at the Department of Computational Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany, and continued while at Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.<br><br>The complete documentation of <b>pyjams</b> is available at: <a href='http://pyjams.readthedocs.org/en/latest/'>http://pyjams.readthedocs.org/en/latest/</a><br>",
@@ -32,7 +32,7 @@
         "Hydrology",
         "Isotopes",
         "JAMS",
-        "Python",
+        "Python"
     ],
     "related_identifiers": [
         {
@@ -49,6 +49,6 @@
             "identifier": "https://pypi.org/project/pyjams/",
             "relation": "isIdenticalTo",
             "resource_type": "software"
-        },
-    ],
+        }
+    ]
 }
