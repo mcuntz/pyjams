@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+v1.1.x (Oct 2021)
+    * Minor updates fixing JSON format of Zenodo defaults file `.zenodo.json`,
+      using a combination of the successful metadata of Zenodo of v1.0, which
+      itself does not work as a template ;-( and the information given on
+      https://developers.zenodo.org/.
+
 v1.1 (Oct 2021)
     * Use automatic versioning with setuptools_scm. Delete
       `src/pyjams/version.py`.
