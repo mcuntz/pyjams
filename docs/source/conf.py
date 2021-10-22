@@ -129,7 +129,8 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = []
+exclude_patterns = ['.DS_Store']
+# exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
@@ -247,7 +248,7 @@ suppress_warnings = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    "Python":      ("https://docs.python.org/",                      None),
+    "Python":      ("https://docs.python.org/3/",                    None),
     "NumPy":       ("https://numpy.org/doc/stable/",                 None),
     "SciPy":       ("https://docs.scipy.org/doc/scipy/reference/",   None),
     "matplotlib":  ("https://matplotlib.org/",                       None),
