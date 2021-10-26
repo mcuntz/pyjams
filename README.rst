@@ -69,6 +69,7 @@ Content
 -------
 
 Modules and functions are currently provided in the following categories:
+    * `Array manipulation`_
     * Math_
     * Miscellaneous_
 
@@ -81,6 +82,8 @@ Functions and modules (alphabetical)
 
    * - Function/module
      - Short description
+   * - closest
+     - Index in array which entry is closest to a given number.
    * - const
      - Physical, mathematical, computational, isotope, and material constants.
    * - elementary_effects
@@ -98,6 +101,18 @@ Functions and modules (alphabetical)
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _Array manipulation:
+
+Array manipulation
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - closest
+         - Index in array which entry is closest to a given number.
 
 .. _Math:
 

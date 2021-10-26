@@ -67,6 +67,7 @@ Content
 -------
 
 Modules and functions are currently provided in the following categories:
+    * `Array manipulation`_
     * Math_
     * Miscellaneous_
 
@@ -79,23 +80,37 @@ Functions and modules (alphabetical)
 
    * - Function/module
      - Short description
+   * - :func:`~pyjams.closest`
+     - Index in array which entry is closest to a given number.
    * - :mod:`~pyjams.const`
      - Physical, mathematical, computational, isotope, and material constants.
-   * - :meth:`~pyjams.morris_method.elementary_effects`
+   * - :func:`~pyjams.morris_method.elementary_effects`
      - Morris measures mu, stddev and mu* 
    * - :mod:`~pyjams.functions`
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with :mod:`scipy.optimize`.
-   * - :meth:`~pyjams.morris_method.morris_sampling`
+   * - :func:`~pyjams.morris_method.morris_sampling`
      - Sampling of optimised trajectories for Morris measures / Elementary Effects
-   * - :meth:`~pyjams.screening`
+   * - :func:`~pyjams.screening`
      - Parameter screening using Morris' method of Elementary Effects.
-   * - :meth:`~pyjams.tee`
+   * - :func:`~pyjams.tee`
      - Prints arguments on screen and in file, like Unix/Linux tee utility.
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _Array manipulation:
+
+Array manipulation
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - :func:`~pyjams.closest`
+         - Index in array which entry is closest to a given number.
 
 .. _Math:
 
@@ -106,15 +121,15 @@ Math
 
        * - Function/module
          - Short description
-       * - :meth:`~pyjams.morris_method.elementary_effects`
+       * - :func:`~pyjams.morris_method.elementary_effects`
          - Morris measures mu, stddev and mu* 
        * - :mod:`~pyjams.functions`
          - Special functions for testing optimisations, sensitivity analysis,
            several forms of the logistic function and its derivatives, and other
            functions to be used with :mod:`scipy.optimize`.
-       * - :meth:`~pyjams.morris_method.morris_sampling`
+       * - :func:`~pyjams.morris_method.morris_sampling`
          - Sampling of optimised trajectories for Morris measures / Elementary Effects
-       * - :meth:`~pyjams.screening`
+       * - :func:`~pyjams.screening`
          - Parameter screening using Morris' method of Elementary Effects.
 
 .. _Miscellaneous:
@@ -128,7 +143,7 @@ Miscellaneous
          - Short description
        * - :mod:`~pyjams.const`
          - Physical, mathematical, computational, isotope, and material constants.
-       * - :meth:`~pyjams.tee`
+       * - :func:`~pyjams.tee`
          - Prints arguments on screen and in file, like Unix/Linux tee utility.
 
 

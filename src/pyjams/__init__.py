@@ -42,6 +42,8 @@ __author__  = "Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda"
 from . import const
 from . import functions
 
+# (index of) closest element in an array
+from .closest import closest
 # has to be ordered for import: morris -> screening
 # Sampling of optimised trajectories for and calculation of Morris Measures / Elementary Effects
 from .morris_method import morris_sampling, elementary_effects
@@ -53,6 +55,7 @@ from .tee import tee
 
 __all__ = ["__version__", "__author__",
            "const", "functions",
+           "closest",
            "morris_sampling", "elementary_effects",
            "screening", "ee",
            "tee",

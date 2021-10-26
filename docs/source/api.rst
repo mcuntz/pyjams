@@ -11,6 +11,7 @@ Public API
 
 .. toctree::
 
+   closest.rst
    const.rst
    functions.rst
    morris_method.rst

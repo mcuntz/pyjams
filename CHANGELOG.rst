@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.2 (Oct 2021)
+    * Added `closest`, which searches the closest element in an array.
+
 v1.1.x (Oct 2021)
     * Minor updates fixing JSON format of Zenodo defaults file `.zenodo.json`,
       using a combination of the successful metadata of Zenodo of v1.0, which
