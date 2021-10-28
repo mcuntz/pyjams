@@ -2,7 +2,7 @@
 """
 This is the unittest for the Logistic Functions module.
 
-python -m unittest -v test_logistic_function.py
+python -m unittest -v tests/test_logistic_function.py
 python -m pytest --cov-report term-missing -v tests/test_logistic_function.py
 
 """

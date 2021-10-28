@@ -2,7 +2,7 @@
 """
 This is the unittest for the Morris module.
 
-python -m unittest -v test_morris_method.py
+python -m unittest -v tests/test_morris_method.py
 python -m pytest --cov-report term-missing -v tests/test_morris_method.py
 
 """

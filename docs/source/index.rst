@@ -80,6 +80,12 @@ Functions and modules (alphabetical)
 
    * - Function/module
      - Short description
+   * - :func:`~pyjams.argmax`
+     - numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+   * - :func:`~pyjams.argmin`
+     - numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+   * - :func:`~pyjams.argsort`
+     - numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
    * - :func:`~pyjams.closest`
      - Index in array which entry is closest to a given number.
    * - :mod:`~pyjams.const`
@@ -109,6 +115,12 @@ Array manipulation
 
        * - Function/module
          - Short description
+       * - :func:`~pyjams.argmax`
+         - numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+       * - :func:`~pyjams.argmin`
+         - numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+       * - :func:`~pyjams.argsort`
+         - numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
        * - :func:`~pyjams.closest`
          - Index in array which entry is closest to a given number.
 

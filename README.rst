@@ -82,6 +82,12 @@ Functions and modules (alphabetical)
 
    * - Function/module
      - Short description
+   * - argmax
+     - numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+   * - argmin
+     - numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+   * - argsort
+     - numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
    * - closest
      - Index in array which entry is closest to a given number.
    * - const
@@ -111,6 +117,12 @@ Array manipulation
 
        * - Function/module
          - Short description
+       * - argmax
+         - numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+       * - argmin
+         - numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+       * - argsort
+         - numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
        * - closest
          - Index in array which entry is closest to a given number.
 

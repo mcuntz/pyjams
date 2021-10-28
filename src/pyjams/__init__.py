@@ -42,6 +42,8 @@ __author__  = "Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda"
 from . import const
 from . import functions
 
+# argmax, argmin and argsort for array_like and Python iterables
+from .argsort import argmax, argmin, argsort
 # (index of) closest element in an array
 from .closest import closest
 # has to be ordered for import: morris -> screening
@@ -55,6 +57,7 @@ from .tee import tee
 
 __all__ = ["__version__", "__author__",
            "const", "functions",
+           "argmax", "argmin", "argsort",
            "closest",
            "morris_sampling", "elementary_effects",
            "screening", "ee",

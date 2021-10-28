@@ -2,7 +2,7 @@
 """
 This is the unittest for closest module.
 
-python -m unittest -v test_closest.py
+python -m unittest -v tests/test_closest.py
 python -m pytest --cov-report term-missing -v tests/test_closest.py
 """
 from __future__ import division, absolute_import, print_function

@@ -11,6 +11,7 @@ Public API
 
 .. toctree::
 
+   argsort.rst
    closest.rst
    const.rst
    functions.rst

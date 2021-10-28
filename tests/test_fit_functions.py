@@ -2,7 +2,7 @@
 """
 This is the unittest for the Fit Functions module.
 
-python -m unittest -v test_fit_functions.py
+python -m unittest -v tests/test_fit_functions.py
 python -m pytest --cov-report term-missing -v tests/test_fit_functions.py
 
 """

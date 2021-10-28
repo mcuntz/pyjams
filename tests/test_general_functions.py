@@ -2,7 +2,7 @@
 """
 This is the unittest for the General Functions module.
 
-python -m unittest -v test_general_functions.py
+python -m unittest -v tests/test_general_functions.py
 python -m pytest --cov-report term-missing -v tests/test_general_functions.py
 
 """
