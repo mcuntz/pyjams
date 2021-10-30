@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.3 (Oct 2021)
+    * Added `division`, divides arrays dealing with zero in denominator.
+
 v1.2 (Oct 2021)
     * Added `closest`, which searches the closest element in an array.
 

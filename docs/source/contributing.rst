@@ -37,7 +37,7 @@ Do you want to enhance pyjams or fix something?
     * Add the functions with short descriptions to the alphabetical list and
       the list per category in `README.rst`. 
     * Do the same in `docs/source/index.rst` but using markup such as `:mod:`
-      and `:meth:`.
+      and `:func:`.
     * Add yourself to `AUTHORS.rst`, if you want to.
     * Push to your fork and submit a pull request.
 

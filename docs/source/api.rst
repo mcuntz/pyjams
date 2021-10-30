@@ -14,6 +14,7 @@ Public API
    argsort.rst
    closest.rst
    const.rst
+   division.rst
    functions.rst
    morris_method.rst
    screening.rst

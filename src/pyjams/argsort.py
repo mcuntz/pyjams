@@ -367,6 +367,7 @@ def argsort(a, *args, **kwargs):
 def _argmax(iterable):
     return max(enumerate(iterable), key=lambda x: x[1])[0]
 
+
 # same as numpy.argmin but for python iterables
 def _argmin(iterable):
     return min(enumerate(iterable), key=lambda x: x[1])[0]

@@ -83,27 +83,31 @@ Functions and modules (alphabetical)
    * - Function/module
      - Short description
    * - argmax
-     - numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+     - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables
    * - argmin
-     - numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+     - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables
    * - argsort
-     - numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
+     - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables
    * - closest
-     - Index in array which entry is closest to a given number.
+     - Index in array which entry is closest to a given number
    * - const
-     - Physical, mathematical, computational, isotope, and material constants.
+     - Physical, mathematical, computational, isotope, and material constants
+   * - division
+     - Divide two arrays, return 'otherwise' if division by 0
+   * - div
+     - Wrapper for division
    * - elementary_effects
      - Morris measures mu, stddev and mu* 
    * - functions
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
-       functions to be used with scipy.optimize.
+       functions to be used with scipy.optimize
    * - morris_sampling
      - Sampling of optimised trajectories for Morris measures / Elementary Effects
    * - screening
-     - Parameter screening using Morris' method of Elementary Effects.
+     - Parameter screening using Morris' method of Elementary Effects
    * - tee
-     - Prints arguments on screen and in file, like Unix/Linux tee utility.
+     - Prints arguments on screen and in file, like Unix/Linux tee utility
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,11 +122,11 @@ Array manipulation
        * - Function/module
          - Short description
        * - argmax
-         - numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+         - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
        * - argmin
-         - numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+         - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
        * - argsort
-         - numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
+         - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
        * - closest
          - Index in array which entry is closest to a given number.
 
@@ -135,16 +139,20 @@ Math
 
        * - Function/module
          - Short description
+       * - division
+         - Divide two arrays, return 'otherwise' if division by 0
+       * - div
+         - Wrapper for division
        * - elementary_effects
          - Morris measures mu, stddev and mu* 
        * - functions
          - Special functions for testing optimisations, sensitivity analysis,
            several forms of the logistic function and its derivatives, and other
-           functions to be used with scipy.optimize.
+           functions to be used with scipy.optimize
        * - morris_sampling
          - Sampling of optimised trajectories for Morris measures / Elementary Effects
        * - screening
-         - Parameter screening using Morris' method of Elementary Effects.
+         - Parameter screening using Morris' method of Elementary Effects
 
 .. _Miscellaneous:
 
@@ -156,9 +164,9 @@ Miscellaneous
        * - Function/module
          - Short description
        * - const
-         - Physical, mathematical, computational, isotope, and material constants.
+         - Physical, mathematical, computational, isotope, and material constants
        * - tee
-         - Prints arguments on screen and in file, like Unix/Linux tee utility.
+         - Prints arguments on screen and in file, like Unix/Linux tee utility
 
 
 License

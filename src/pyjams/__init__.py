@@ -19,7 +19,9 @@ https://github.com/mcuntz/jams_python
 Subpackages
 ===========
 .. autosummary::
+   argsort
    const
+   division
    functions
    morris_method
    screening
@@ -28,6 +30,9 @@ Subpackages
 History
     * Written Oct 2021 by Matthias Cuntz (mc (at) macu (dot) de)
     * v1.0, initial Github, PyPI, Zenodo commit, Oct 2021, Matthias Cuntz
+    * v1.1, automatic versioning, zenodo defaults, Oct 2021, Matthias Cuntz
+    * v1.2, added closest, Oct 2021, Matthias Cuntz
+    * v1.3, added division, Oct 2021, Matthias Cuntz
 
 """
 # version, author
@@ -46,6 +51,8 @@ from . import functions
 from .argsort import argmax, argmin, argsort
 # (index of) closest element in an array
 from .closest import closest
+# catch division by zero
+from .division import division, div
 # has to be ordered for import: morris -> screening
 # Sampling of optimised trajectories for and calculation of Morris Measures / Elementary Effects
 from .morris_method import morris_sampling, elementary_effects
@@ -59,6 +66,7 @@ __all__ = ["__version__", "__author__",
            "const", "functions",
            "argmax", "argmin", "argsort",
            "closest",
+           "division", "div",
            "morris_sampling", "elementary_effects",
            "screening", "ee",
            "tee",

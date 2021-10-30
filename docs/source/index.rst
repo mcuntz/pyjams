@@ -81,15 +81,21 @@ Functions and modules (alphabetical)
    * - Function/module
      - Short description
    * - :func:`~pyjams.argmax`
-     - numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+     - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
    * - :func:`~pyjams.argmin`
-     - numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+     - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
    * - :func:`~pyjams.argsort`
-     - numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
+     - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
    * - :func:`~pyjams.closest`
      - Index in array which entry is closest to a given number.
    * - :mod:`~pyjams.const`
      - Physical, mathematical, computational, isotope, and material constants.
+   * - :func:`~pyjams.division.division`
+     - Divide two arrays, return 'otherwise' if division by 0
+   * - :func:`~pyjams.division.div
+     - Alias for division
+   * - :func:`~pyjams.screening.ee`
+     - Alias for screening
    * - :func:`~pyjams.morris_method.elementary_effects`
      - Morris measures mu, stddev and mu* 
    * - :mod:`~pyjams.functions`
@@ -98,7 +104,7 @@ Functions and modules (alphabetical)
        functions to be used with :mod:`scipy.optimize`.
    * - :func:`~pyjams.morris_method.morris_sampling`
      - Sampling of optimised trajectories for Morris measures / Elementary Effects
-   * - :func:`~pyjams.screening`
+   * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects.
    * - :func:`~pyjams.tee`
      - Prints arguments on screen and in file, like Unix/Linux tee utility.
@@ -116,11 +122,11 @@ Array manipulation
        * - Function/module
          - Short description
        * - :func:`~pyjams.argmax`
-         - numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+         - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
        * - :func:`~pyjams.argmin`
-         - numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+         - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
        * - :func:`~pyjams.argsort`
-         - numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
+         - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
        * - :func:`~pyjams.closest`
          - Index in array which entry is closest to a given number.
 
@@ -133,6 +139,12 @@ Math
 
        * - Function/module
          - Short description
+       * - :func:`~pyjams.division.division`
+         - Divide two arrays, return 'otherwise' if division by 0
+       * - :func:`~pyjams.division.div
+         - Alias for division
+       * - :func:`~pyjams.screening.ee`
+         - Alias for screening
        * - :func:`~pyjams.morris_method.elementary_effects`
          - Morris measures mu, stddev and mu* 
        * - :mod:`~pyjams.functions`
@@ -141,7 +153,7 @@ Math
            functions to be used with :mod:`scipy.optimize`.
        * - :func:`~pyjams.morris_method.morris_sampling`
          - Sampling of optimised trajectories for Morris measures / Elementary Effects
-       * - :func:`~pyjams.screening`
+       * - :func:`~pyjams.screening.screening`
          - Parameter screening using Morris' method of Elementary Effects.
 
 .. _Miscellaneous:
