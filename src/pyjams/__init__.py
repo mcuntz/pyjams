@@ -33,6 +33,7 @@ History
     * v1.1, automatic versioning, zenodo defaults, Oct 2021, Matthias Cuntz
     * v1.2, added closest, Oct 2021, Matthias Cuntz
     * v1.3, added division, Oct 2021, Matthias Cuntz
+    * v1.4, added alpha_equ_h2o, Oct 2021, Matthias Cuntz
 
 """
 # version, author
@@ -47,6 +48,8 @@ __author__  = "Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda"
 from . import const
 from . import functions
 
+# isotopic fractionation factors during liquid-water vapour equilibration
+from .alpha_equ_h2o import alpha_equ_h2o
 # argmax, argmin and argsort for array_like and Python iterables
 from .argsort import argmax, argmin, argsort
 # (index of) closest element in an array
@@ -64,6 +67,7 @@ from .tee import tee
 
 __all__ = ["__version__", "__author__",
            "const", "functions",
+           "alpha_equ_h2o",
            "argmax", "argmin", "argsort",
            "closest",
            "division", "div",

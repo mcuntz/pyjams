@@ -65,7 +65,6 @@ class TestDivision(unittest.TestCase):
         assert isinstance(dd, np.ma.masked_array)
         self.assertEqual(list(dd), [0.5, 1.0, np.ma.masked])
 
-
     def test_div(self):
         import numpy as np
         from pyjams import div

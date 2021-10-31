@@ -70,6 +70,7 @@ Content
 
 Modules and functions are currently provided in the following categories:
     * `Array manipulation`_
+    * Isotopes_
     * Math_
     * Miscellaneous_
 
@@ -82,6 +83,8 @@ Functions and modules (alphabetical)
 
    * - Function/module
      - Short description
+   * - alpha_equ_h2o
+     - Equilibrium fractionation between liquid water and vapour
    * - argmax
      - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables
    * - argmin
@@ -129,6 +132,18 @@ Array manipulation
          - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
        * - closest
          - Index in array which entry is closest to a given number.
+
+.. _Isotopes:
+
+Isotopes
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - alpha_equ_h2o
+         - Equilibrium fractionation between liquid water and vapour
 
 .. _Math:
 

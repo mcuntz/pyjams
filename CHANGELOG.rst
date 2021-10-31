@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v1.4 (Oct 2021)
+    * Added `alpha_equ_h2o`, isotopic fractionation between liquid water and
+      vapour.
+
 v1.3 (Oct 2021)
     * Added `division`, divides arrays dealing with zero in denominator.
 
