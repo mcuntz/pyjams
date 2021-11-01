@@ -26,6 +26,12 @@ class TestAlpha_Equ_H2O(unittest.TestCase):
         self.assertEqual(list(alpha_equ_h2o(T1, isotope=0)),
                          [1.0, 1.0, 1.0, 1.0])
 
+        # tuple
+        T1 = tuple(T1)
+        assert isinstance(alpha_equ_h2o(T1), tuple)
+        self.assertEqual(list(np.around(alpha_equ_h2o(T1, isotope=1), 4)),
+                         [1.1123, 1.0977, 1.0911, 1.0793])
+
         # ndarray
         T  = np.array(T)
         assert isinstance(alpha_equ_h2o(T+T0), np.ndarray)
@@ -46,9 +52,20 @@ class TestAlpha_Equ_H2O(unittest.TestCase):
         self.assertEqual(list(np.around(epsilon, 4)),
                          [112.3194, 97.6829, 91.1296, 79.3443])
 
-        # epsilon, HO18O
+        # undef
+        T1 = np.array(T1)
+        T1[0] = -1.
+        alpha = alpha_equ_h2o(T1, undef=-1., isotope=1, eps=True) * 1000.
+        self.assertEqual(list(np.around(alpha, 4)),
+                         [-1000.0000, 97.6829, 91.1296, 79.3443])
+
+        # epsilon, HO18O, scalar
         epsilon = alpha_equ_h2o(0.+T0, isotope=2, eps=True) * 1000.
         self.assertEqual(np.around(epsilon, 4), 11.7187)
+
+        # undef, scalar
+        epsilon = alpha_equ_h2o(-9999., undef=-9999., isotope=2, eps=True)
+        self.assertEqual(epsilon, -9999.)
 
 
 if __name__ == "__main__":

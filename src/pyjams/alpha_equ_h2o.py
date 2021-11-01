@@ -20,6 +20,9 @@ The following functions are provided:
 History
     * Written, Sep 2014, Matthias Cuntz
     * Code refactoring, Sep 2021, Matthias Cuntz
+    * Tuple in/out, Oct 2021, Matthias Cuntz
+    * Do not use masked arrays for undef to avoid overflow warning,
+      Oct 2021, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -92,16 +95,25 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
 
     """
     # Check scalar, list or array
-    islist = False
-    if isinstance(temp, list):
-        islist = True
-        temp = np.array(temp)
-    isarr = np.ndim(temp)
-    if (isarr == 0):  # scalar
-        mtemp = temp
+    # -1: scalar, 0: tuple, 1: list, 2: ndarray, 3. masked_array
+    if np.iterable(temp):
+        if isinstance(temp, list):
+            islist = 1
+        elif isinstance(temp, np.ndarray):
+            islist = 2
+        elif isinstance(temp, np.ma.masked_array):
+            islist = 3
+        else:
+            islist = 0
+        # do not use masked array to avoid overflow
+        mtemp = np.where(temp == undef, 273.15, temp)
     else:
-        # mask undefined
-        mtemp = np.ma.array(temp, mask=(temp == undef))
+        # scalar
+        islist = -1
+        if temp == undef:
+            mtemp = 273.15
+        else:
+            mtemp = temp
 
     # Coefficients of exponential function
     if (isotope == 1):    # HDO
@@ -122,18 +134,23 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
 
     # alpha-
     if not greater1:
-        out = 1./out
+        out = 1. / out
 
     # epsilon
     if eps:
         out -= 1.
 
+    out = np.ma.where(temp == undef, undef, out)
+
     # return same as input type
-    if islist:
-        # fill undefined
+    if islist == 0:
+        return tuple(out.filled(undef))
+    elif islist == 1:
         return list(out.filled(undef))
-    elif isarr:
-        return out.filled(undef)
+    elif islist == 2:
+        return np.array(out.filled(undef))
+    elif islist == 3:
+        return out
     else:
         if temp == undef:
             return undef
