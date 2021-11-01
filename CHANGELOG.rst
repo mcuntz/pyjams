@@ -1,12 +1,16 @@
 Changelog
 ---------
 
-v1.4 (Oct 2021)
+v1.5 (Oct 2021)
     * Added `alpha_equ_h2o`, isotopic fractionation between liquid water and
       vapour.
 
-v1.3 (Oct 2021)
+v1.4 (Oct 2021)
     * Added `division`, divides arrays dealing with zero in denominator.
+
+v1.3 (Oct 2021)
+    * Added `argmax`, `argmin` and `argsort` for array_like and Python
+      iterables.
 
 v1.2 (Oct 2021)
     * Added `closest`, which searches the closest element in an array.
