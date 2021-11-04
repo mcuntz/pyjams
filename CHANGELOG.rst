@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+v1.7 (Nov 2021)
+    * Added `alpha_kin_h2o`, kinetic fractionation factors for molecular
+      diffusion of water isotopologues.
+
+v1.6 (Nov 2021)
+    * Avoid overflow warnings in `alpha_equ_h2o`.
+
 v1.5 (Oct 2021)
     * Added `alpha_equ_h2o`, isotopic fractionation between liquid water and
       vapour.

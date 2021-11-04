@@ -83,6 +83,8 @@ Functions and modules (alphabetical)
      - Short description
    * - :func:`~pyjams.alpha_equ_h2o`
      - Equilibrium fractionation between liquid water and vapour
+   * - :func:`~pyjams.alpha_kin_h2o`
+     - Kinetic fractionation of molecular diffusion of water vapour
    * - :func:`~pyjams.argmax`
      - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
    * - :func:`~pyjams.argmin`
@@ -144,6 +146,8 @@ Isotopes
          - Short description
        * - :func:`~pyjams.alpha_equ_h2o`
          - Equilibrium fractionation between liquid water and vapour
+       * - :func:`~pyjams.alpha_kin_h2o`
+         - Kinetic fractionation of molecular diffusion of water vapour
 
 .. _Math:
 

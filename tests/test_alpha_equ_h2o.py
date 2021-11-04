@@ -8,7 +8,7 @@ python -m pytest --cov-report term-missing -v tests/test_alpha_equ_h2o.py
 import unittest
 
 
-class TestAlpha_Equ_H2O(unittest.TestCase):
+class TestAlphaEquH2O(unittest.TestCase):
     """
     Tests for alpha_equ_h2o.py
     """

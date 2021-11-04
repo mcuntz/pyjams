@@ -85,6 +85,8 @@ Functions and modules (alphabetical)
      - Short description
    * - alpha_equ_h2o
      - Equilibrium fractionation between liquid water and vapour
+   * - alpha_kin_h2o
+     - Kinetic fractionation of molecular diffusion of water vapour
    * - argmax
      - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables
    * - argmin
@@ -144,6 +146,8 @@ Isotopes
          - Short description
        * - alpha_equ_h2o
          - Equilibrium fractionation between liquid water and vapour
+       * - alpha_kin_h2o
+         - Kinetic fractionation of molecular diffusion of water vapour
 
 .. _Math:
 

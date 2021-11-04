@@ -51,26 +51,23 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
     undef : float, optional
         Exclude `temp == undef` from calculations (default: -9999)
     eps : bool, optional
-        It True, reports fractionation epsilon=alpha-1 instead of fractionation
+        If True, reports fractionation epsilon=alpha-1 instead of fractionation
         factor alpha (default: alpha)
     greater1 : bool, optional
         If True (default), alpha > 1, which is not the atmospheric convention.
 
         If False, alpha < 1, which is the atmospheric convention.
 
-
     Returns
     -------
     alpha / epsilon : float or array-like
         Equilibrium fractionation factor (alpha) or fractionation (epsilon)
-
 
     Notes
     -----
     Majoube, M. (1971) Fractionnement en oxygene-18 entre la glace et la vapeur
         d'eau Journal De Chimie Physique Et De Physico-Chimie Biologique,
         68(4), 625-636.
-
 
     Examples
     --------
