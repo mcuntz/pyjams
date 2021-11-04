@@ -13,6 +13,10 @@ A general Python package with miscellaneous utility functions used in several ot
    :target: https://badge.fury.io/py/pyjams
    :alt: PyPI version
 
+.. image:: https://img.shields.io/conda/vn/conda-forge/pyjams.svg
+   :target: https://anaconda.org/conda-forge/pyjams
+   :alt: Conda version
+
 .. image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
    :target: https://github.com/mcuntz/pyjams/blob/master/LICENSE
    :alt: License
