@@ -66,6 +66,7 @@ The easiest way to install is via `pip`:
 Requirements
     * numpy_
     * scipy_
+    * matplotlib_
     * schwimmbad_
 
 
@@ -77,6 +78,7 @@ Modules and functions are currently provided in the following categories:
     * Isotopes_
     * Math_
     * Miscellaneous_
+    * Plotting_
 
 Functions and modules (alphabetical)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,6 +113,8 @@ Functions and modules (alphabetical)
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with scipy.optimize
+   * - mcPlot
+     - Matthias Cuntz' standard plotting class
    * - morris_sampling
      - Sampling of optimised trajectories for Morris measures / Elementary Effects
    * - screening
@@ -191,6 +195,18 @@ Miscellaneous
        * - tee
          - Prints arguments on screen and in file, like Unix/Linux tee utility
 
+.. _Plotting:
+
+Plotting
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - mcPlot
+         - Matthias Cuntz' standard plotting class
+
 
 License
 -------
@@ -207,6 +223,7 @@ by `Sebastian Müller`_.
 .. _JAMS Python library: https://github.com/mcuntz/jams_python
 .. _LICENSE: https://github.com/mcuntz/pyjams/blob/main/LICENSE
 .. _Sebastian Müller: https://github.com/MuellerSeb
+.. _matplotlib: https://matplotlib.org/
 .. _numpy: https://numpy.org/
 .. _scipy: https://scipy.org/
 .. _schwimmbad: https://github.com/adrn/schwimmbad/

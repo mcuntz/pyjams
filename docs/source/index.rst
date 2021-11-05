@@ -60,6 +60,7 @@ The easiest way to install is via `pip`:
 Requirements
     * numpy_
     * scipy_
+    * matplotlib_
     * schwimmbad_
 
 
@@ -71,6 +72,7 @@ Modules and functions are currently provided in the following categories:
     * Isotopes_
     * Math_
     * Miscellaneous_
+    * Plotting_
 
 Functions and modules (alphabetical)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,6 +109,8 @@ Functions and modules (alphabetical)
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with :mod:`scipy.optimize`.
+   * - :class:`~pyjams.mcPlot`
+     - Matthias Cuntz' standard plotting class
    * - :func:`~pyjams.morris_method.morris_sampling`
      - Sampling of optimised trajectories for Morris measures / Elementary Effects
    * - :func:`~pyjams.screening.screening`
@@ -189,6 +193,18 @@ Miscellaneous
        * - :func:`~pyjams.tee`
          - Prints arguments on screen and in file, like Unix/Linux tee utility.
 
+.. _Plotting:
+
+Plotting
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - :class:`~pyjams.mcPlot`
+         - Matthias Cuntz' standard plotting class
+
 
 License
 -------
@@ -209,3 +225,4 @@ by `Sebastian Müller`_.
 .. _scipy: https://scipy.org/
 .. _schwimmbad: https://github.com/adrn/schwimmbad/
 .. _welltestpy: https://github.com/GeoStat-Framework/welltestpy/
+.. _matplotlib: https://matplotlib.org/

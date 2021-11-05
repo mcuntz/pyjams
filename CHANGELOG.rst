@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.7 (Nov 2021)
+    * Add `mcPlot`, the standard plotting class of Matthias Cuntz.
+
 v1.6 (Nov 2021)
     * Avoid overflow warnings in `alpha_equ_h2o`.
     * Added `alpha_kin_h2o`, kinetic fractionation factors for molecular

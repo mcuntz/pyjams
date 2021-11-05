@@ -34,6 +34,8 @@ History
     * v1.2, added closest, Oct 2021, Matthias Cuntz
     * v1.3, added division, Oct 2021, Matthias Cuntz
     * v1.4, added alpha_equ_h2o, Oct 2021, Matthias Cuntz
+    * v1.5, added alpha_kin_h2o, Nov 2021, Matthias Cuntz
+    * v1.6, added mcPlot, Nov 2021, Matthias Cuntz
 
 """
 # version, author
@@ -58,6 +60,8 @@ from .argsort import argmax, argmin, argsort
 from .closest import closest
 # catch division by zero
 from .division import division, div
+# Matthias Cuntz' standard plotting class.
+from .mcplot import mcPlot
 # has to be ordered for import: morris -> screening
 # Sampling of optimised trajectories for and calculation of Morris Measures / Elementary Effects
 from .morris_method import morris_sampling, elementary_effects
@@ -73,6 +77,7 @@ __all__ = ["__version__", "__author__",
            "argmax", "argmin", "argsort",
            "closest",
            "division", "div",
+           "mcPlot",
            "morris_sampling", "elementary_effects",
            "screening", "ee",
            "tee",

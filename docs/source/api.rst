@@ -18,6 +18,7 @@ Public API
    const.rst
    division.rst
    functions.rst
+   mcplot.rst
    morris_method.rst
    screening.rst
    tee.rst
