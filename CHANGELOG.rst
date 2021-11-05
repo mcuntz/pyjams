@@ -3,6 +3,11 @@ Changelog
 
 v1.7 (Nov 2021)
     * Add `mcPlot`, the standard plotting class of Matthias Cuntz.
+      - It currently assumes that MyriadPro is installed for LaTeX if one wants
+        to typeset with latex (-u, --usetex). For installing MyriadPro on macOS
+        see https://github.com/mcuntz/setup_mac#myriad-pro This should be
+        similar on Linux.
+      - There are no tests for mcPlot yet.
 
 v1.6 (Nov 2021)
     * Avoid overflow warnings in `alpha_equ_h2o`.
@@ -12,6 +17,7 @@ v1.6 (Nov 2021)
 v1.5 (Oct 2021)
     * Added `alpha_equ_h2o`, isotopic fractionation between liquid water and
       vapour.
+    * Added `pyjams` to conda-forge.
 
 v1.4 (Oct 2021)
     * Added `division`, divides arrays dealing with zero in denominator.
