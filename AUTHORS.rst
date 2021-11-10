@@ -1,5 +1,5 @@
 Authors
-=======
+-------
 
 Created Oct 2021 by Matthias Cuntz from the `JAMS Python library`_.
 
