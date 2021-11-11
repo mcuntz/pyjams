@@ -3,7 +3,7 @@
 This is the unittest for the const module.
 
 python -m unittest -v test_const.py
-python -m pytest --cov-report term-missing -v tests/test_const.py
+python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_const.py
 
 """
 from __future__ import division, absolute_import, print_function

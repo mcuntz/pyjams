@@ -1,16 +1,21 @@
 Changelog
 ---------
 
-v1.8.x (Nov 2021)
+v1.8 (Nov 2021)
     * Write standard output file of mcPlot into current folder.
+    * Add `str2tex`, converting strings to LaTeX strings
+    * Bug in masked array input to `alpha_equ_h2o`, needed to check masked array
+      before ndarray because the former is also the latter.
+    * Enhanced tests of `alpha_equ_h2o`, `alpha_kin_h2o`, `fit_functions`,
+      `argsort` so that have 100% coverage.
 
 v1.7 (Nov 2021)
     * Add `mcPlot`, the standard plotting class of Matthias Cuntz.
-      - It currently assumes that MyriadPro is installed for LaTeX if one wants
-        to typeset with latex (-u, --usetex). For installing MyriadPro on macOS
-        see https://github.com/mcuntz/setup_mac#myriad-pro This should be
-        similar on Linux.
-      - There are no tests for mcPlot yet.
+        - It currently assumes that MyriadPro is installed for LaTeX if one
+          wants to typeset with latex (-u, --usetex). For installing MyriadPro
+          on macOS see https://github.com/mcuntz/setup_mac#myriad-pro This
+          should be similar on Linux.
+        - There are no tests for mcPlot yet.
 
 v1.6 (Nov 2021)
     * Avoid overflow warnings in `alpha_equ_h2o`.

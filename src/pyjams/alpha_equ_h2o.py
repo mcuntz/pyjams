@@ -23,6 +23,8 @@ History
     * Tuple in/out, Oct 2021, Matthias Cuntz
     * Do not use masked arrays for undef to avoid overflow warning,
       Oct 2021, Matthias Cuntz
+    * Bug masked array, need to check masked array before ndarray because the
+      former is also the latter, Nov 2021, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -96,9 +98,9 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
     if np.iterable(temp):
         if isinstance(temp, list):
             islist = 1
-        elif isinstance(temp, np.ndarray):
+        elif isinstance(temp, np.ma.MaskedArray):
             islist = 2
-        elif isinstance(temp, np.ma.masked_array):
+        elif isinstance(temp, np.ndarray):
             islist = 3
         else:
             islist = 0
@@ -145,9 +147,9 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
     elif islist == 1:
         return list(out.filled(undef))
     elif islist == 2:
-        return np.array(out.filled(undef))
-    elif islist == 3:
         return out
+    elif islist == 3:
+        return np.array(out.filled(undef))
     else:
         if temp == undef:
             return undef

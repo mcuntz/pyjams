@@ -88,18 +88,21 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.alpha_kin_h2o`
      - Kinetic fractionation of molecular diffusion of water vapour
    * - :func:`~pyjams.argmax`
-     - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+     - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+       iterables
    * - :func:`~pyjams.argmin`
-     - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+     - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+       iterables
    * - :func:`~pyjams.argsort`
-     - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
+     - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
+       iterables
    * - :func:`~pyjams.closest`
-     - Index in array which entry is closest to a given number.
+     - Index in array which entry is closest to a given number
    * - :mod:`~pyjams.const`
-     - Physical, mathematical, computational, isotope, and material constants.
+     - Physical, mathematical, computational, isotope, and material constants
    * - :func:`~pyjams.division.division`
      - Divide two arrays, return 'otherwise' if division by 0
-   * - :func:`~pyjams.division.div
+   * - :func:`~pyjams.division.div`
      - Alias for division
    * - :func:`~pyjams.screening.ee`
      - Alias for screening
@@ -108,15 +111,19 @@ Functions and modules (alphabetical)
    * - :mod:`~pyjams.functions`
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
-       functions to be used with :mod:`scipy.optimize`.
+       functions to be used with :mod:`scipy.optimize`
    * - :class:`~pyjams.mcPlot`
      - Matthias Cuntz' standard plotting class
    * - :func:`~pyjams.morris_method.morris_sampling`
-     - Sampling of optimised trajectories for Morris measures / Elementary Effects
+     - Sampling of optimised trajectories for Morris measures / Elementary
+       Effects
    * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects.
+   * - :func:`~pyjams.str2tex`
+     - Convert strings to LaTeX strings in math environment used by matplotlib's
+       usetex
    * - :func:`~pyjams.tee`
-     - Prints arguments on screen and in file, like Unix/Linux tee utility.
+     - Prints arguments on screen and in file, like Unix/Linux tee utility
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -131,13 +138,16 @@ Array manipulation
        * - Function/module
          - Short description
        * - :func:`~pyjams.argmax`
-         - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+         - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+           iterables
        * - :func:`~pyjams.argmin`
-         - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+         - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+           iterables
        * - :func:`~pyjams.argsort`
-         - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
+         - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for
+           Python iterables
        * - :func:`~pyjams.closest`
-         - Index in array which entry is closest to a given number.
+         - Index in array which entry is closest to a given number
 
 .. _Isotopes:
 
@@ -164,7 +174,7 @@ Math
          - Short description
        * - :func:`~pyjams.division.division`
          - Divide two arrays, return 'otherwise' if division by 0
-       * - :func:`~pyjams.division.div
+       * - :func:`~pyjams.division.div`
          - Alias for division
        * - :func:`~pyjams.screening.ee`
          - Alias for screening
@@ -173,11 +183,12 @@ Math
        * - :mod:`~pyjams.functions`
          - Special functions for testing optimisations, sensitivity analysis,
            several forms of the logistic function and its derivatives, and other
-           functions to be used with :mod:`scipy.optimize`.
+           functions to be used with :mod:`scipy.optimize`
        * - :func:`~pyjams.morris_method.morris_sampling`
-         - Sampling of optimised trajectories for Morris measures / Elementary Effects
+         - Sampling of optimised trajectories for Morris measures / Elementary
+           Effects
        * - :func:`~pyjams.screening.screening`
-         - Parameter screening using Morris' method of Elementary Effects.
+         - Parameter screening using Morris' method of Elementary Effects
 
 .. _Miscellaneous:
 
@@ -189,9 +200,10 @@ Miscellaneous
        * - Function/module
          - Short description
        * - :mod:`~pyjams.const`
-         - Physical, mathematical, computational, isotope, and material constants.
+         - Physical, mathematical, computational, isotope, and material
+           constants
        * - :func:`~pyjams.tee`
-         - Prints arguments on screen and in file, like Unix/Linux tee utility.
+         - Prints arguments on screen and in file, like Unix/Linux tee utility
 
 .. _Plotting:
 
@@ -204,6 +216,9 @@ Plotting
          - Short description
        * - :class:`~pyjams.mcPlot`
          - Matthias Cuntz' standard plotting class
+       * - :func:`~pyjams.str2tex`
+         - Convert strings to LaTeX strings in math environment used by
+           matplotlib's usetex
 
 
 License

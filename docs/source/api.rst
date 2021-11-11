@@ -21,6 +21,7 @@ Public API
    mcplot.rst
    morris_method.rst
    screening.rst
+   str2tex.rst
    tee.rst
 
 .. currentmodule:: pyjams

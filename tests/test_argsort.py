@@ -3,7 +3,8 @@
 This is the unittest for argsort module.
 
 python -m unittest -v tests/test_argsort.py
-python -m pytest --cov-report term-missing -v tests/test_argsort.py
+python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_argsort.py
+
 """
 from __future__ import division, absolute_import, print_function
 import unittest
@@ -114,6 +115,7 @@ class TestArgsort(unittest.TestCase):
         ii = argsort(a)
         b = [ a[i] for i in ii ]
         self.assertEqual(b, [0, 1, 2, 3, 4, 5, 5, 6])
+        self.assertRaises(KeyError, argsort, a, key=a)
 
         a = [0,4,6,2,1,5,3,5]
         ii = argsort(a, reverse=True)

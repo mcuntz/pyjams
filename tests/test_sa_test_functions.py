@@ -3,7 +3,8 @@
 This is the unittest for the Sensitivity Analysis Test Functions module.
 
 python -m unittest -v tests/test_sa_test_functions.py
-python -m pytest --cov-report term-missing -v tests/test_sa_test_functions.py
+python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_sa_test_functions.py
+
 """
 from __future__ import division, absolute_import, print_function
 import unittest

@@ -25,6 +25,7 @@ Subpackages
    functions
    morris_method
    screening
+   str2tex
    tee
 
 History
@@ -36,6 +37,7 @@ History
     * v1.4, added alpha_equ_h2o, Oct 2021, Matthias Cuntz
     * v1.5, added alpha_kin_h2o, Nov 2021, Matthias Cuntz
     * v1.6, added mcPlot, Nov 2021, Matthias Cuntz
+    * v1.7, added str2tex, Nov 2021, Matthias Cuntz
 
 """
 # version, author
@@ -67,6 +69,8 @@ from .mcplot import mcPlot
 from .morris_method import morris_sampling, elementary_effects
 # Sample trajectories, run model and return Morris Elementary Effects
 from .screening import screening, ee
+# Convert strings to LaTeX strings
+from .str2tex import str2tex
 # like unix tee
 from .tee import tee
 

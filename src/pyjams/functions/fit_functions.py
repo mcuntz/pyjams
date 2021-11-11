@@ -195,21 +195,24 @@ History
 """
 from __future__ import division, absolute_import, print_function
 import numpy as np
-try:         # import package
-    from .logistic_function import logistic_p, logistic_offset_p
-    from .logistic_function import logistic2_offset_p
-    from ..const import T0, T25, R
-except:
-    try:     # e.g. python nee2gpp.py
-        from functions.logistic_function import logistic_p, logistic_offset_p
-        from functions.logistic_function import logistic2_offset_p
-        from const import T0, T25, R
-    except:  # python fit_functions.py
-        from logistic_function import logistic_p, logistic_offset_p
-        from logistic_function import logistic2_offset_p
-        T0  = 273.15     # Celcius <-> Kelvin [K]
-        T25 = 298.15     # Standard ambient temperature [K]
-        R   = 8.3144621  # Ideal gas constant [J K^-1 mol^-1]
+from .logistic_function import logistic_p, logistic_offset_p
+from .logistic_function import logistic2_offset_p
+from ..const import T0, T25, R
+# try:         # import package
+#     from .logistic_function import logistic_p, logistic_offset_p
+#     from .logistic_function import logistic2_offset_p
+#     from ..const import T0, T25, R
+# except:
+#     try:     # e.g. python nee2gpp.py
+#         from functions.logistic_function import logistic_p, logistic_offset_p
+#         from functions.logistic_function import logistic2_offset_p
+#         from const import T0, T25, R
+#     except:  # python fit_functions.py
+#         from logistic_function import logistic_p, logistic_offset_p
+#         from logistic_function import logistic2_offset_p
+#         T0  = 273.15     # Celcius <-> Kelvin [K]
+#         T25 = 298.15     # Standard ambient temperature [K]
+#         R   = 8.3144621  # Ideal gas constant [J K^-1 mol^-1]
 
 
 __all__ = ['cost_abs', 'cost_square',

@@ -119,6 +119,8 @@ Functions and modules (alphabetical)
      - Sampling of optimised trajectories for Morris measures / Elementary Effects
    * - screening
      - Parameter screening using Morris' method of Elementary Effects
+   * - str2tex
+     - Convert strings to LaTeX strings in math environment used by matplotlib's usetex
    * - tee
      - Prints arguments on screen and in file, like Unix/Linux tee utility
 
@@ -206,6 +208,8 @@ Plotting
          - Short description
        * - mcPlot
          - Matthias Cuntz' standard plotting class
+       * - str2tex
+         - Convert strings to LaTeX strings in math environment used by matplotlib's usetex
 
 
 License

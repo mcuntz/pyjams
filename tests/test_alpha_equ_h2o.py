@@ -3,7 +3,8 @@
 This is the unittest for alpha_equ_h2o module.
 
 python -m unittest -v tests/test_alpha_equ_h2o.py
-python -m pytest --cov-report term-missing -v tests/test_alpha_equ_h2o.py
+python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_alpha_equ_h2o.py
+
 """
 import unittest
 
@@ -15,6 +16,7 @@ class TestAlphaEquH2O(unittest.TestCase):
 
     def test_alpha_equ_h2o(self):
         import numpy as np
+        from numpy.ma import masked
         from pyjams import alpha_equ_h2o
 
         T0 = 273.15
@@ -45,7 +47,7 @@ class TestAlphaEquH2O(unittest.TestCase):
                               isotope=2, greater1=False)
         assert isinstance(alpha, np.ndarray)
         self.assertEqual(list(np.around(alpha, 4)),
-                         [-9999.0000, 0.9894, 0.9899, 0.9907])
+                         [masked, 0.9894, 0.9899, 0.9907])
 
         # epsilon, HDO
         epsilon = alpha_equ_h2o(T+T0, isotope=1, eps=True) * 1000.
