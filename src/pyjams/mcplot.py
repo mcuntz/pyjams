@@ -84,6 +84,7 @@ The following classes are provided:
 
 History
     * Written Sep 2020 by Matthias Cuntz (mc (at) macu (dot) de)
+    * Write standard output file into current folder, Nov 2021, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -303,6 +304,9 @@ class mcPlot(object):
                        argstr="directory file")
 
         """
+        import argparse
+        import os
+
         if desc is None:
             idesc = "Matthias Cuntz' standard plotting class."
         else:
@@ -311,8 +315,6 @@ class mcPlot(object):
             iargstr = 'Command line arguments.'
         else:
             iargstr = argstr
-
-        import argparse
 
         plotname = ''
         serif    = False
@@ -324,7 +326,7 @@ class mcPlot(object):
             description=idesc)
         hstr  = 'Name of plot output file for types pdf, html, d3, or'
         hstr += ' plotly, and name basis for type png (default:'
-        hstr += ' ' + _filebase(__file__) + ').'
+        hstr += ' ' + _filebase(os.path.basename(__file__)) + ').'
         parser.add_argument('-p', '--plotname', action='store',
                             default=plotname, dest='plotname',
                             metavar='plotname', help=hstr)
@@ -741,6 +743,7 @@ class mcPlot(object):
     # plot begin
     #
     def plot_begin(self):
+        import os.path
         """
         Last step of initialisation. Set output filename depending on chosen
         output type. Opens output file if appropriate.
@@ -748,8 +751,9 @@ class mcPlot(object):
         """
         self.outtype_ends = ['', '.pdf', '_', '.html', '.html']
         if self.plotname == '':
-            self.plotfile  = _filebase(__file__) + self.outtype_ends[
-                self.outtypes.index(self.outtype)]
+            self.plotfile  = (_filebase(os.path.basename(__file__)) +
+                              self.outtype_ends[
+                                  self.outtypes.index(self.outtype)])
         else:
             self.plotfile = self.plotname
         if self.outtype == '':

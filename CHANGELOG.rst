@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.8.x (Nov 2021)
+    * Write standard output file of mcPlot into current folder.
+
 v1.7 (Nov 2021)
     * Add `mcPlot`, the standard plotting class of Matthias Cuntz.
       - It currently assumes that MyriadPro is installed for LaTeX if one wants
