@@ -15,6 +15,7 @@ Public API
    alpha_kin_h2o.rst
    argsort.rst
    closest.rst
+   color.rst
    const.rst
    division.rst
    functions.rst

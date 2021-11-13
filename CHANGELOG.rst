@@ -8,6 +8,7 @@ v1.8 (Nov 2021)
       before ndarray because the former is also the latter.
     * Enhanced tests of `alpha_equ_h2o`, `alpha_kin_h2o`, `fit_functions`,
       `argsort` so that have 100% coverage.
+    * Added `color`, a collection of color palettes and continuous color maps.
 
 v1.7 (Nov 2021)
     * Add `mcPlot`, the standard plotting class of Matthias Cuntz.

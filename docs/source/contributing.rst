@@ -25,21 +25,21 @@ Do you have suggestions for new features?
       about it.
 
 Do you want to enhance pyjams or fix something?
-    * Fork the repo on GitHub_.
-    * Fix a routine or add a new module in `src/pyjams`.
-    * Import a new routine in `src/pyjams/__init__.py` and add it to `__all__`.
-    * Add some tests either in an existing `tests/test_*.py` file or create a
-      new test class in a new file under `tests/`.
-    * Add a new module to the automatic documentation by creating a
-      reStructuredText file in `docs/source/` as in the example given by
-      `docs/source/tee.rst`.
-    * Add the name of the reStructuredText file to `docs/source/api.rst`.
-    * Add the functions with short descriptions to the alphabetical list and
-      the list per category in `README.rst`. 
-    * Do the same in `docs/source/index.rst` but using markup such as `:mod:`
-      and `:func:`.
-    * Add yourself to `AUTHORS.rst`, if you want to.
-    * Push to your fork and submit a pull request.
+    1. Fork the repo on GitHub_.
+    2. Fix a routine or add a new module in `src/pyjams`.
+    3. Import a new routine in `src/pyjams/__init__.py` and add it to `__all__`.
+    4. Add some tests either in an existing `tests/test_*.py` file or create a
+       new test class in a new file under `tests/`.
+    5. Add a new module to the automatic documentation by creating a
+       reStructuredText file in `docs/source/` as in the example given by
+       `docs/source/tee.rst`.
+    6. Add the name of the reStructuredText file to `docs/source/api.rst`.
+    7. Add the functions with short descriptions to the alphabetical list and
+       the list per category in `README.rst`. 
+    8. Do the same in `docs/source/index.rst` but using markup such as `:mod:`
+       and `:func:`.
+    9. Add yourself to `AUTHORS.rst`, if you want to.
+    10. Push to your fork and submit a pull request.
 
 
 .. _GitHub: https://github.com/mcuntz/pyjams

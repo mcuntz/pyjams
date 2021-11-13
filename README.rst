@@ -94,13 +94,18 @@ Functions and modules (alphabetical)
    * - alpha_kin_h2o
      - Kinetic fractionation of molecular diffusion of water vapour
    * - argmax
-     - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables
+     - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+       iterables
    * - argmin
-     - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables
+     - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+       iterables
    * - argsort
-     - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables
+     - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
+       iterables
    * - closest
      - Index in array which entry is closest to a given number
+   * - color
+     - Collection of color palettes and continuous color maps
    * - const
      - Physical, mathematical, computational, isotope, and material constants
    * - division
@@ -116,11 +121,13 @@ Functions and modules (alphabetical)
    * - mcPlot
      - Matthias Cuntz' standard plotting class
    * - morris_sampling
-     - Sampling of optimised trajectories for Morris measures / Elementary Effects
+     - Sampling of optimised trajectories for Morris measures / Elementary
+       Effects
    * - screening
      - Parameter screening using Morris' method of Elementary Effects
    * - str2tex
-     - Convert strings to LaTeX strings in math environment used by matplotlib's usetex
+     - Convert strings to LaTeX strings in math environment used by matplotlib's
+       usetex
    * - tee
      - Prints arguments on screen and in file, like Unix/Linux tee utility
 
@@ -137,11 +144,14 @@ Array manipulation
        * - Function/module
          - Short description
        * - argmax
-         - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
+         - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+           iterables.
        * - argmin
-         - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
+         - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+           iterables.
        * - argsort
-         - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
+         - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for
+           Python iterables.
        * - closest
          - Index in array which entry is closest to a given number.
 
@@ -179,7 +189,8 @@ Math
            several forms of the logistic function and its derivatives, and other
            functions to be used with scipy.optimize
        * - morris_sampling
-         - Sampling of optimised trajectories for Morris measures / Elementary Effects
+         - Sampling of optimised trajectories for Morris measures / Elementary
+           Effects
        * - screening
          - Parameter screening using Morris' method of Elementary Effects
 
@@ -193,7 +204,8 @@ Miscellaneous
        * - Function/module
          - Short description
        * - const
-         - Physical, mathematical, computational, isotope, and material constants
+         - Physical, mathematical, computational, isotope, and material
+           constants
        * - tee
          - Prints arguments on screen and in file, like Unix/Linux tee utility
 
@@ -206,10 +218,13 @@ Plotting
 
        * - Function/module
          - Short description
+       * - color
+         - Collection of color palettes and continuous color maps
        * - mcPlot
          - Matthias Cuntz' standard plotting class
        * - str2tex
-         - Convert strings to LaTeX strings in math environment used by matplotlib's usetex
+         - Convert strings to LaTeX strings in math environment used by
+           matplotlib's usetex
 
 
 License

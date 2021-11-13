@@ -19,25 +19,32 @@ https://github.com/mcuntz/jams_python
 Subpackages
 ===========
 .. autosummary::
+   alpha_equ_h2o
+   alpha_kin_h2o
    argsort
+   closest
+   color
    const
    division
    functions
+   mcplot
    morris_method
    screening
    str2tex
    tee
+
 
 History
     * Written Oct 2021 by Matthias Cuntz (mc (at) macu (dot) de)
     * v1.0, initial Github, PyPI, Zenodo commit, Oct 2021, Matthias Cuntz
     * v1.1, automatic versioning, zenodo defaults, Oct 2021, Matthias Cuntz
     * v1.2, added closest, Oct 2021, Matthias Cuntz
-    * v1.3, added division, Oct 2021, Matthias Cuntz
-    * v1.4, added alpha_equ_h2o, Oct 2021, Matthias Cuntz
-    * v1.5, added alpha_kin_h2o, Nov 2021, Matthias Cuntz
-    * v1.6, added mcPlot, Nov 2021, Matthias Cuntz
-    * v1.7, added str2tex, Nov 2021, Matthias Cuntz
+    * v1.3, added argsort, Oct 2021, Matthias Cuntz
+    * v1.4, added division, Oct 2021, Matthias Cuntz
+    * v1.5, added alpha_equ_h2o, Oct 2021, Matthias Cuntz
+    * v1.6, added alpha_kin_h2o, Nov 2021, Matthias Cuntz
+    * v1.7, added mcPlot, Nov 2021, Matthias Cuntz
+    * v1.8, added str2tex and color, Nov 2021, Matthias Cuntz
 
 """
 # version, author
@@ -49,7 +56,11 @@ except ImportError:  # pragma: nocover
 __author__  = "Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda"
 
 # sub-packages without dependencies to rest of pyjams
+# color palettes and continuous color maps
+from . import color
+# physical, mathematical, computational, isotope, and material constants
 from . import const
+# variety of specialised functions
 from . import functions
 
 # isotopic fractionation factors during liquid-water vapour equilibration

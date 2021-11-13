@@ -98,6 +98,8 @@ Functions and modules (alphabetical)
        iterables
    * - :func:`~pyjams.closest`
      - Index in array which entry is closest to a given number
+   * - :mod:`~pyjams.color`
+     - Collection of color palettes and continuous color maps
    * - :mod:`~pyjams.const`
      - Physical, mathematical, computational, isotope, and material constants
    * - :func:`~pyjams.division.division`
@@ -214,6 +216,8 @@ Plotting
 
        * - Function/module
          - Short description
+       * - :mod:`~pyjams.color`
+         - Collection of color palettes and continuous color maps
        * - :class:`~pyjams.mcPlot`
          - Matthias Cuntz' standard plotting class
        * - :func:`~pyjams.str2tex`
