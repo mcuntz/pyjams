@@ -21,6 +21,7 @@ Public API
    functions.rst
    mcplot.rst
    morris_method.rst
+   position.rst
    screening.rst
    str2tex.rst
    tee.rst

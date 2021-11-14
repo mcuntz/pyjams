@@ -18,6 +18,7 @@ fallback_version = "0.0.0.dev0"
     omit = [
         "*docs*",
         "*tests*",
+        "src/pyjams/mcplot.py",
     ]
 
     [tool.coverage.report]

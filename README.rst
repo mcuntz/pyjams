@@ -123,6 +123,8 @@ Functions and modules (alphabetical)
    * - morris_sampling
      - Sampling of optimised trajectories for Morris measures / Elementary
        Effects
+   * - position
+     - Position arrays of subplots to be used with add_axes
    * - screening
      - Parameter screening using Morris' method of Elementary Effects
    * - str2tex
@@ -222,6 +224,8 @@ Plotting
          - Collection of color palettes and continuous color maps
        * - mcPlot
          - Matthias Cuntz' standard plotting class
+       * - position
+         - Position arrays of subplots to be used with add_axes
        * - str2tex
          - Convert strings to LaTeX strings in math environment used by
            matplotlib's usetex

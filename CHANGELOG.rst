@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v1.9.x (Nov 2021)
+    * Add `position`, which positions arrays of subplots to be used with
+      Matplotlib's add_axes.
+
 v1.8 (Nov 2021)
     * Write standard output file of mcPlot into current folder.
     * Add `str2tex`, converting strings to LaTeX strings

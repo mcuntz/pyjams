@@ -29,6 +29,7 @@ Subpackages
    functions
    mcplot
    morris_method
+   position
    screening
    str2tex
    tee
@@ -45,6 +46,7 @@ History
     * v1.6, added alpha_kin_h2o, Nov 2021, Matthias Cuntz
     * v1.7, added mcPlot, Nov 2021, Matthias Cuntz
     * v1.8, added str2tex and color, Nov 2021, Matthias Cuntz
+    * v1.9, added position, Nov 2021, Matthias Cuntz
 
 """
 # version, author
@@ -78,6 +80,8 @@ from .mcplot import mcPlot
 # has to be ordered for import: morris -> screening
 # Sampling of optimised trajectories for and calculation of Morris Measures / Elementary Effects
 from .morris_method import morris_sampling, elementary_effects
+# positions of subplots, used with add_axes
+from .position import position
 # Sample trajectories, run model and return Morris Elementary Effects
 from .screening import screening, ee
 # Convert strings to LaTeX strings

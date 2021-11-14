@@ -119,6 +119,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.morris_method.morris_sampling`
      - Sampling of optimised trajectories for Morris measures / Elementary
        Effects
+   * - :func:`~pyjams.position`
+     - Position arrays of subplots to be used with add_axes
    * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects.
    * - :func:`~pyjams.str2tex`
@@ -220,6 +222,8 @@ Plotting
          - Collection of color palettes and continuous color maps
        * - :class:`~pyjams.mcPlot`
          - Matthias Cuntz' standard plotting class
+       * - :func:`~pyjams.position`
+         - Position arrays of subplots to be used with add_axes
        * - :func:`~pyjams.str2tex`
          - Convert strings to LaTeX strings in math environment used by
            matplotlib's usetex
