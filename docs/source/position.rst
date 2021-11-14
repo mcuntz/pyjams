@@ -1,5 +1,5 @@
-position function
------------------
+position
+--------
 
 .. automodule:: pyjams.position
    :members:

@@ -1,7 +1,7 @@
 .. _functions:
 
-Special functions
------------------
+Function module
+---------------
 
 .. automodule:: pyjams.functions
    :members:

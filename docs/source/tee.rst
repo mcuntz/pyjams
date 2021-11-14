@@ -1,5 +1,5 @@
-tee utility
------------
+tee
+---
 
 .. automodule:: pyjams.tee
    :members:

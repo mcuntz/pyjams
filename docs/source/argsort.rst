@@ -1,5 +1,5 @@
-argmax/min/sort
----------------
+argmax/argmin/argsort
+---------------------
 
 .. automodule:: pyjams.argsort
    :members:

@@ -95,59 +95,81 @@ def position(row=1, col=1, num=1,
     Examples
     --------
     Use, for example, as follows
-    fig1 = figure(1)
-    sub1 = fig1.add_axes(position(2, 2, 1))
-    sub2 = fig1.add_axes(position(2, 2, 2))
 
-    Give figsize ff you want to have true squares
-    figsize = matplotlib.rcParams['figure.figsize']
-    sub = fig1.add_axes(position(1, 1, 1, figsize=figsize, left=0.1))
+        fig1 = figure(1)
 
-    If you want to have a true golden ratio:
-    sub = fig1.add_axes(position(1,1,1,figsize=figsize,golden=True))
+        sub1 = fig1.add_axes(position(2, 2, 1))
 
-    # Doctest examples
+        sub2 = fig1.add_axes(position(2, 2, 2))
+
+    Give *figsize* and set same left and right margins if you want to have true
+    squares
+
+        figsize = matplotlib.rcParams['figure.figsize']
+
+        sub = fig1.add_axes(position(1, 1, 1, figsize=figsize, left=0.1,
+        right=0.9))
+
+    If you want to have a true golden ratio
+
+        sub = fig1.add_axes(position(1, 1, 1, golden=True))
+
     >>> import numpy as np
     >>> print(np.around(position(2, 2, 1), 3))
     [0.125 0.55  0.338 0.35 ]
+
     >>> print(np.around(position(2, 2, 1, sortcol=True), 3))
     [0.125 0.55  0.338 0.35 ]
+
     >>> print(np.around(position(2, 2, 1, golden=True), 3))
     [0.125 0.409 0.338 0.209]
+
     >>> print(np.around(position(2, 2, 1, inversegolden=True), 3))
     [0.125 0.55  0.216 0.35 ]
+
     >>> print(np.around(position(2, 2, 1, golden=True, sortcol=True), 3))
     [0.125 0.409 0.338 0.209]
+
     >>> print(np.around(position(2, 2, 1, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0.), 3))
     [0.  0.5 0.5 0.5]
+
     >>> print(np.around(position(2, 2, 2, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0.), 3))
     [0.5 0.5 0.5 0.5]
+
     >>> print(np.around(position(2, 2, 3, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0.), 3))
     [0.  0.  0.5 0.5]
+
     >>> print(np.around(position(2, 2, 4, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0.), 3))
     [0.5 0.  0.5 0.5]
+
     >>> print(np.around(position(2, 2, 1, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0., golden=True), 3))
     [0.    0.309 0.5   0.309]
+
     >>> print(np.around(position(2, 2, 2, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0., golden=True), 3))
     [0.5   0.309 0.5   0.309]
+
     >>> print(np.around(position(2, 2, 3, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0., golden=True), 3))
     [0.    0.    0.5   0.309]
+
     >>> print(np.around(position(2, 2, 4, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0., golden=True), 3))
     [0.5   0.    0.5   0.309]
+
     >>> figsize=[8, 11]
     >>> print(np.around(position(2, 2, 1, golden=True, sortcol=True,
     ...                          figsize=figsize), 3))
     [0.125 0.324 0.338 0.152]
+
     >>> print(np.around(position(2, 2, 1, figsize=figsize, left=0.1), 3))
     [0.1   0.427 0.35  0.255]
+
     >>> print(np.around(position(2, 2, 1, figsize=figsize, left=0.1,
     ...                          golden=True), 3))
     [0.1   0.33  0.35  0.157]

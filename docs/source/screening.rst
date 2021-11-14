@@ -1,4 +1,4 @@
-Screening
+screening
 ---------
 
 .. automodule:: pyjams.screening

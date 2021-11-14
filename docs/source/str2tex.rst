@@ -1,5 +1,5 @@
-str2tex function
-----------------
+str2tex
+-------
 
 .. automodule:: pyjams.str2tex
    :members:

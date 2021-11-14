@@ -1,7 +1,7 @@
 .. _const:
 
-Constants
----------
+Constant module
+---------------
 
 .. automodule:: pyjams.const
    :members:

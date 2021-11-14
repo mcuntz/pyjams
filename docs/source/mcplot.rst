@@ -1,5 +1,5 @@
-mcPlot class
-------------
+mcPlot
+------
 
 .. automodule:: pyjams.mcplot
    :members:

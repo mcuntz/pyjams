@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v1.9.x (Nov 2021)
+v1.9 (Nov 2021)
     * Add `position`, which positions arrays of subplots to be used with
       Matplotlib's add_axes.
 
