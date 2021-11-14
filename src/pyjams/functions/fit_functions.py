@@ -5,112 +5,120 @@ Common functions used in scipy's curve_fit or minimize parameter estimations.
 For all fit functions, it defines the functions in two forms (ex. of 3
 params):
 
-    * `func(x, p1, p2, p3)`
-    * `func_p(x, p)` with `p[0:3]`
+.. code-block:: python
+
+   func(x, p1, p2, p3)
+   func_p(x, p) with p[0:3]
 
 The first form can be used, for example, with
 `scipy.optimize.curve_fit` (ex. function f1x=a+b/x):
 
-    * `p, cov = scipy.optimize.curve_fit(functions.f1x, x, y, p0=[p0, p1])`
+.. code-block:: python
+
+   p, cov = scipy.optimize.curve_fit(functions.f1x, x, y, p0=[p0, p1])
 
 It also defines two cost functions along with the fit functions, one
 with the absolute sum, one with the squared sum of the deviations:
 
-    * `cost_func`    `sum(abs(obs-func))`
-    * `cost2_func`   `sum((obs-func)**2)`
+.. code-block:: python
+
+   cost_func    sum(abs(obs-func))
+   cost2_func   sum((obs-func)**2)
 
 These cost functions can be used, for example, with
 `scipy.optimize.minimize`:
 
-    * `p = scipy.optimize.minimize(
-      jams.functions.cost2_f1x,
-      np.array([p1, p2]),
-      args=(x, y),
-      method='Nelder-Mead',
-      options={'disp': False})`
+.. code-block:: python
+
+   p = scipy.optimize.minimize(
+           jams.functions.cost2_f1x, np.array([p1, p2]), args=(x, y),
+           method='Nelder-Mead', options={'disp': False})
 
 Note the different argument orders:
 
-    * `curvefit` needs `f(x, *p)` with the independent variable as the first
-      argument and the parameters to fit as separate remaining arguments.
-    * `minimize` is a general minimiser with respect to the first argument,
-      i.e. `func(p, *args)`.
+    1. `curvefit` needs `f(x, *p)` with the independent variable as the first
+       argument and the parameters to fit as separate remaining arguments.
+    2. `minimize` is a general minimiser with respect to the first argument,
+       i.e. `func(p, *args)`.
 
 The module provides also two common cost functions (absolute and
 squared deviations) where any function in the form `func(x, p)` can be
 used as second argument:
 
-    * `cost_abs(p, func, x, y)`
-    * `cost_square(p, func, x, y)`
+.. code-block:: python
+
+   cost_abs(p, func, x, y)
+   cost_square(p, func, x, y)
 
 This means, for example `cost_f1x(p, x, y)` is the same as
 `cost_abs(p, functions.f1x_p, x, y)`. For example:
 
-    * `p = scipy.optimize.minimize(
-      jams.functions.cost_abs,
-      np.array([p1, p2]),
-      args=(functions.f1x_p, x, y),
-      method='Nelder-Mead',
-      options={'disp': False})`
+.. code-block:: python
+
+   p = scipy.optimize.minimize(
+           jams.functions.cost_abs, np.array([p1, p2]),
+           args=(functions.f1x_p, x, y), method='Nelder-Mead',
+           options={'disp': False})
 
 There are the following functions in four forms. They have the name in the
 first column. The second form has a `_p` appended to the name. The cost
 functions have `cost_` or `cost2_` prepended to the name., e.g. gauss, gauss_p,
 cost_gauss, cost2_gauss:
 
-    arrhenius - 1 param
-        Arrhenius temperature dependence of biochemical rates:
-        :math:`\exp((T-TC25)*E/(T25*R*(T+T0)))`
+.. list-table::
+   :widths: 15 50
+   :header-rows: 1
 
-        parameter: E
+   * - Function - number of paramters
+     - Description
 
-    f1x - 2 params
-       General 1/x function: :math:`a + b/x`
+   * - arrhenius - 1 param (E)
+     - Arrhenius temperature dependence of biochemical rates:
+       :math:`\exp((T-TC25)*E/(T25*R*(T+T0)))`
 
-    fexp - 3 params
-       General exponential function: :math:`a + b * \exp(c*x)`
+   * - f1x - 2 params
+     - General 1/x function: :math:`a + b/x`
 
-    gauss - 2 params
-       Gauss function:
+   * - fexp - 3 params
+     - General exponential function: :math:`a + b * \exp(c*x)`
+
+   * - gauss - 2 params
+     - Gauss function:
        :math:`1/(\sigma*\sqrt(2*\pi)) * \exp(-(x-\mu)^2/(2*\sigma^2))`
 
-    lasslop - 6 params
-       Lasslop et al. (2010) is a rectangular, hyperbolic light-response GPP
-       with Lloyd & Taylor (1994) respiration and the maximum canopy uptake
-       rate at light saturation decreases exponentially with VPD
-       as in Koerner (1995).
+   * - lasslop - 6 params
+     - NEE of Lasslop et al (2010)
 
-    line0 - 1 params
-       Straight line: :math:`a*x`
+   * - line0 - 1 params
+     - Straight line: :math:`a*x`
 
-    line - 2 params
-       Straight line: :math:`a + b*x`
+   * - line - 2 params
+     - Straight line: :math:`a + b*x`
 
-    lloyd_fix - 2 params
-       Lloyd & Taylor (1994) Arrhenius type with :math:`T_0=-46.02` degC and
-       :math:`T_{ref}=10` degC
+   * - lloyd_fix - 2 params
+     - Heterotrophic respiration of Lloyd & Taylor (1994)
 
-    lloyd_only_rref - 1 param
-       Lloyd & Taylor (1994) Arrhenius type with fixed exponential term
+   * - lloyd_only_rref - 1 param
+     - Heterotrophic respiration of Lloyd & Taylor (1994) with fixed E0
 
-    logistic - 3 params
-       Logistic function: :math:`a/(1+\exp(-b(x-c)))`
+   * - logistic - 3 params
+     - Logistic function: :math:`a/(1+\exp(-b(x-c)))`
 
-    logistic_offset - 4 params
-       Logistic function with offset: :math:`a/(1+\exp(-b(x-c))) + d`
+   * - logistic_offset - 4 params
+     - Logistic function with offset: :math:`a/(1+\exp(-b(x-c))) + d`
 
-    logistic2_offset - 7 params
-       Double logistic function with offset
+   * - logistic2_offset - 7 params
+     - Double logistic function with offset
        :math:`L1/(1+\exp(-k1(x-x01))) - L2/(1+\exp(-k2(x-x02))) + a`
 
-    poly - n params
-       General polynomial: :math:`c_0 + c_1*x + c_2*x^2 + ... + c_n*x^n`
+   * - poly - n params
+     - General polynomial: :math:`c_0 + c_1*x + c_2*x^2 + ... + c_n*x^n`
 
-    sabx - 2 params
-       sqrt(f1x), i.e. general sqrt(1/x) function: :math:`\sqrt(a + b/x)`
+   * - sabx - 2 params
+     - sqrt(f1x), i.e. general sqrt(1/x) function: :math:`\sqrt(a + b/x)`
 
-    see - 3 params
-       Sequential Elementary Effects fitting function: :math:`a*(x-b)^c`
+   * - see - 3 params
+     - Sequential Elementary Effects fitting function: :math:`a*(x-b)^c`
 
 This module was written by Matthias Cuntz while at Department of
 Computational Hydrosystems, Helmholtz Centre for Environmental
@@ -238,7 +246,7 @@ __all__ = ['cost_abs', 'cost_square',
 # general cost functions
 def cost_abs(p, func, x, y):
     """
-    General cost function for robust optimising `func(x, p)` vs. `y` with sum
+    General cost function for robust optimising `func(x, p)` vs `y` with sum
     of absolute deviations.
 
     Parameters
@@ -262,7 +270,7 @@ def cost_abs(p, func, x, y):
 
 def cost_square(p, func, x, y):
     """
-    General cost function for optimising `func(x, p)` vs. `y` with sum of
+    General cost function for optimising `func(x, p)` vs `y` with sum of
     square deviations.
 
     Parameters
@@ -288,7 +296,7 @@ def cost_square(p, func, x, y):
 # arrhenius
 def arrhenius(T, E):
     """
-    Arrhenius temperature dependence of rates.
+    Arrhenius temperature dependence of rates
 
     Parameters
     ----------
@@ -307,7 +315,7 @@ def arrhenius(T, E):
 
 def arrhenius_p(T, p):
     """
-    Arrhenius temperature dependence of rates.
+    Arrhenius temperature dependence of rates
 
     Parameters
     ----------
@@ -326,7 +334,7 @@ def arrhenius_p(T, p):
 
 def cost_arrhenius(p, T, rate):
     """
-    Sum of absolute deviations of obs and arrhenius function.
+    Sum of absolute deviations of obs and arrhenius function
 
     Parameters
     ----------
@@ -347,7 +355,7 @@ def cost_arrhenius(p, T, rate):
 
 def cost2_arrhenius(p, T, rate):
     """
-    Sum of squared deviations of obs and arrhenius function.
+    Sum of squared deviations of obs and arrhenius function
 
     Parameters
     ----------
@@ -370,7 +378,7 @@ def cost2_arrhenius(p, T, rate):
 # a+b/x
 def f1x(x, a, b):
     """
-    General 1/x function: a + b/x
+    General 1/x function: :math:`a + b/x`
 
     Parameters
     ----------
@@ -391,7 +399,7 @@ def f1x(x, a, b):
 
 def f1x_p(x, p):
     """
-    General 1/x function: a + b/x
+    General 1/x function: :math:`a + b/x`
 
     Parameters
     ----------
@@ -414,7 +422,7 @@ def f1x_p(x, p):
 
 def cost_f1x(p, x, y):
     """
-    Sum of absolute deviations of obs and general 1/x function: a + b/x
+    Sum of absolute deviations of obs and general 1/x function: :math:`a + b/x`
 
     Parameters
     ----------
@@ -439,7 +447,7 @@ def cost_f1x(p, x, y):
 
 def cost2_f1x(p, x, y):
     """
-    Sum of squared deviations of obs and general 1/x function: a + b/x
+    Sum of squared deviations of obs and general 1/x function: :math:`a + b/x`
 
     Parameters
     ----------
@@ -466,7 +474,7 @@ def cost2_f1x(p, x, y):
 # a+b*exp(c*x)
 def fexp(x, a, b, c):
     """
-    General exponential function: a + b * exp(c*x)
+    General exponential function: :math:`a + b * exp(c*x)`
 
     Parameters
     ----------
@@ -489,7 +497,7 @@ def fexp(x, a, b, c):
 
 def fexp_p(x, p):
     """
-    General exponential function: a + b * exp(c*x)
+    General exponential function: :math:`a + b * exp(c*x)`
 
     Parameters
     ----------
@@ -514,8 +522,8 @@ def fexp_p(x, p):
 
 def cost_fexp(p, x, y):
     """
-    Sum of absolute deviations of obs and general exponential function: a + b *
-    exp(c*x)
+    Sum of absolute deviations of obs and general exponential function:
+    :math:`a + b * exp(c*x)`
 
     Parameters
     ----------
@@ -543,7 +551,7 @@ def cost_fexp(p, x, y):
 def cost2_fexp(p, x, y):
     """
     Sum of squared deviations of obs and general exponential function:
-    a + b * exp(c*x)
+    :math:`a + b * exp(c*x)`
 
     Parameters
     ----------
@@ -572,7 +580,8 @@ def cost2_fexp(p, x, y):
 # Gauss: 1/(sig*sqrt(2*pi)) *exp(-(x-mu)**2/(2*sig**2))
 def gauss(x, mu, sig):
     """
-    Gauss function: 1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )
+    Gauss function:
+    :math:`1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )`
 
     Parameters
     ----------
@@ -593,7 +602,8 @@ def gauss(x, mu, sig):
 
 def gauss_p(x, p):
     """
-    Gauss function: 1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )
+    Gauss function:
+    :math:`1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )`
 
     Parameters
     ----------
@@ -617,7 +627,7 @@ def gauss_p(x, p):
 def cost_gauss(p, x, y):
     """
     Sum of absolute deviations of obs and Gauss function:
-    1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )
+    :math:`1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )`
 
     Parameters
     ----------
@@ -643,7 +653,7 @@ def cost_gauss(p, x, y):
 def cost2_gauss(p, x, y):
     """
     Sum of squared deviations of obs and Gauss function:
-    1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )
+    :math:`1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )`
 
     Parameters
     ----------
@@ -670,6 +680,8 @@ def cost2_gauss(p, x, y):
 # lasslop
 def lasslop(Rg, et, VPD, alpha, beta0, k, Rref):
     """
+    NEE of Lasslop et al (2010)
+
     Lasslop et al. (2010) is the rectangular, hyperbolic light-response
     of NEE as by Falge et al. (2001), where the respiration is calculated
     with Lloyd & Taylor (1994), and the maximum canopy uptake rate at
@@ -710,6 +722,8 @@ def lasslop(Rg, et, VPD, alpha, beta0, k, Rref):
 
 def lasslop_p(Rg, et, VPD, p):
     """
+    NEE of Lasslop et al (2010)
+
     Lasslop et al. (2010) is the rectangular, hyperbolic light-response
     of NEE as by Falge et al. (2001), where the respiration is calculated
     with Lloyd & Taylor (1994), and the maximum canopy uptake rate at
@@ -752,7 +766,7 @@ def lasslop_p(Rg, et, VPD, p):
 
 def cost_lasslop(p, Rg, et, VPD, NEE):
     """
-    Sum of absolute deviations of obs and Lasslop.
+    Sum of absolute deviations of obs and Lasslop et al (2010)
 
     Parameters
     ----------
@@ -787,7 +801,7 @@ def cost_lasslop(p, Rg, et, VPD, NEE):
 
 def cost2_lasslop(p, Rg, et, VPD, NEE):
     """
-    Sum of squared deviations of obs and Lasslop.
+    Sum of squared deviations of obs and Lasslop et al (2010)
 
     Parameters
     ----------
@@ -824,7 +838,7 @@ def cost2_lasslop(p, Rg, et, VPD, NEE):
 # a+b*x
 def line(x, a, b):
     """
-    Straight line: a + b*x
+    Straight line: :math:`a + b*x`
 
     Parameters
     ----------
@@ -845,7 +859,7 @@ def line(x, a, b):
 
 def line_p(x, p):
     """
-    Straight line: a + b*x
+    Straight line: :math:`a + b*x`
 
     Parameters
     ----------
@@ -868,7 +882,7 @@ def line_p(x, p):
 
 def cost_line(p, x, y):
     """
-    Sum of absolute deviations of obs and straight line: a + b*x
+    Sum of absolute deviations of obs and straight line: :math:`a + b*x`
 
     Parameters
     ----------
@@ -893,7 +907,7 @@ def cost_line(p, x, y):
 
 def cost2_line(p, x, y):
     """
-    Sum of squared deviations of obs and straight line: a + b*x
+    Sum of squared deviations of obs and straight line: :math:`a + b*x`
 
     Parameters
     ----------
@@ -920,7 +934,7 @@ def cost2_line(p, x, y):
 # b*x
 def line0(x, a):
     """
-    Straight line through origin: a*x
+    Straight line through origin: :math:`a*x`
 
     Parameters
     ----------
@@ -939,7 +953,7 @@ def line0(x, a):
 
 def line0_p(x, p):
     """
-    Straight line through origin: a*x
+    Straight line through origin: :math:`a*x`
 
     Parameters
     ----------
@@ -958,7 +972,8 @@ def line0_p(x, p):
 
 def cost_line0(p, x, y):
     """
-    Sum of absolute deviations of obs and straight line through origin: a*x
+    Sum of absolute deviations of obs and straight line through origin:
+    :math:`a*x`
 
     Parameters
     ----------
@@ -979,7 +994,8 @@ def cost_line0(p, x, y):
 
 def cost2_line0(p, x, y):
     """
-    Sum of squared deviations of obs and straight line through origin: a*x
+    Sum of squared deviations of obs and straight line through origin:
+    :math:`a*x`
 
     Parameters
     ----------
@@ -1002,6 +1018,8 @@ def cost2_line0(p, x, y):
 # lloyd_fix
 def lloyd_fix(T, Rref, E0):
     """
+    Soil respiration of Lloyd & Taylor (1994)
+
     Lloyd & Taylor (1994) Arrhenius type with T0=-46.02 degC and Tref=10 degC
 
     Parameters
@@ -1025,6 +1043,8 @@ def lloyd_fix(T, Rref, E0):
 
 def lloyd_fix_p(T, p):
     """
+    Soil respiration of Lloyd & Taylor (1994)
+
     Lloyd & Taylor (1994) Arrhenius type with T0=-46.02 degC and Tref=10 degC
 
     Parameters
@@ -1102,6 +1122,8 @@ def cost2_lloyd_fix(p, T, resp):
 # lloyd_only_rref
 def lloyd_only_rref(et, Rref):
     """
+    Soil respiration of Lloyd & Taylor (1994) with fix E0
+
     If E0 is know in Lloyd & Taylor (1994) then one can calc
     the exponential term outside the routine and the fitting
     becomes linear. One could also use functions.line0.
@@ -1123,6 +1145,8 @@ def lloyd_only_rref(et, Rref):
 
 def lloyd_only_rref_p(et, p):
     """
+    Soil respiration of Lloyd & Taylor (1994) with fix E0
+
     If E0 is know in Lloyd & Taylor (1994) then one can calc
     the exponential term outside the routine and the fitting
     becomes linear. One could also use functions.line0.
@@ -1144,8 +1168,7 @@ def lloyd_only_rref_p(et, p):
 
 def cost_lloyd_only_rref(p, et, resp):
     """
-    Sum of absolute deviations of obs and Lloyd & Taylor with known exponential
-    term.
+    Sum of absolute deviations of obs and Lloyd & Taylor with fixed E0
 
     Parameters
     ----------
@@ -1166,8 +1189,7 @@ def cost_lloyd_only_rref(p, et, resp):
 
 def cost2_lloyd_only_rref(p, et, resp):
     """
-    Sum of squared deviations of obs and Lloyd & Taylor with known exponential
-    term.
+    Sum of squared deviations of obs and Lloyd & Taylor with fixed E0
 
     Parameters
     ----------
@@ -1191,7 +1213,7 @@ def cost2_lloyd_only_rref(p, et, resp):
 
 def sabx(x, a, b):
     """
-    Square root of general 1/x function: sqrt(a + b/x)
+    Square root of general 1/x function: :math:`sqrt(a + b/x)`
 
     Parameters
     ----------
@@ -1212,7 +1234,7 @@ def sabx(x, a, b):
 
 def sabx_p(x, p):
     """
-    Square root of general 1/x function: sqrt(a + b/x)
+    Square root of general 1/x function: :math:`sqrt(a + b/x)`
 
     Parameters
     ----------
@@ -1236,7 +1258,7 @@ def sabx_p(x, p):
 def cost_sabx(p, x, y):
     """
     Sum of absolute deviations of obs and square root of general 1/x function:
-    sqrt(a + b/x)
+    :math:`sqrt(a + b/x)`
 
     Parameters
     ----------
@@ -1262,7 +1284,7 @@ def cost_sabx(p, x, y):
 def cost2_sabx(p, x, y):
     """
     Sum of squared deviations of obs and square root of general 1/x function:
-    sqrt(a + b/x)
+    :math:`sqrt(a + b/x)`
 
     Parameters
     ----------
@@ -1289,7 +1311,7 @@ def cost2_sabx(p, x, y):
 # c0 + c1*x + c2*x**2 + ... + cn*x**n
 def poly(x, *args):
     """
-    General polynomial: c0 + c1*x + c2*x**2 + ... + cn*x**n
+    General polynomial: :math:`c0 + c1*x + c2*x**2 + ... + cn*x**n`
 
     Parameters
     ----------
@@ -1308,7 +1330,7 @@ def poly(x, *args):
 
 def poly_p(x, p):
     """
-    General polynomial: c0 + c1*x + c2*x**2 + ... + cn*x**n
+    General polynomial: :math:`c0 + c1*x + c2*x**2 + ... + cn*x**n`
 
     Parameters
     ----------
@@ -1328,7 +1350,7 @@ def poly_p(x, p):
 def cost_poly(p, x, y):
     """
     Sum of absolute deviations of obs and general polynomial:
-    c0 + c1*x + c2*x**2 + ... + cn*x**n
+    :math:`c0 + c1*x + c2*x**2 + ... + cn*x**n`
 
     Parameters
     ----------
@@ -1350,7 +1372,7 @@ def cost_poly(p, x, y):
 def cost2_poly(p, x, y):
     """
     Sum of squared deviations of obs and general polynomial:
-    c0 + c1*x + c2*x**2 + ... + cn*x**n
+    :math:`c0 + c1*x + c2*x**2 + ... + cn*x**n`
 
     Parameters
     ----------
@@ -1373,7 +1395,8 @@ def cost2_poly(p, x, y):
 # a/(1+exp(-b(x-c))) - logistic function
 def cost_logistic(p, x, y):
     """
-    Sum of absolute deviations of obs and logistic function L/(1+exp(-k(x-x0)))
+    Sum of absolute deviations of obs and logistic function
+    :math:`L/(1+exp(-k(x-x0)))`
 
     Parameters
     ----------
@@ -1400,7 +1423,8 @@ def cost_logistic(p, x, y):
 
 def cost2_logistic(p, x, y):
     """
-    Sum of squared deviations of obs and logistic function L/(1+exp(-k(x-x0)))
+    Sum of squared deviations of obs and logistic function
+    :math:`L/(1+exp(-k(x-x0)))`
 
     Parameters
     ----------
@@ -1430,7 +1454,7 @@ def cost2_logistic(p, x, y):
 def cost_logistic_offset(p, x, y):
     """
     Sum of absolute deviations of obs and logistic function 1/x function:
-    L/(1+exp(-k(x-x0))) + a
+    :math:`L/(1+exp(-k(x-x0))) + a`
 
     Parameters
     ----------
@@ -1460,7 +1484,7 @@ def cost_logistic_offset(p, x, y):
 def cost2_logistic_offset(p, x, y):
     """
     Sum of squared deviations of obs and logistic function 1/x function:
-    L/(1+exp(-k(x-x0))) + a
+    :math:`L/(1+exp(-k(x-x0))) + a`
 
     Parameters
     ----------
@@ -1493,7 +1517,7 @@ def cost2_logistic_offset(p, x, y):
 def cost_logistic2_offset(p, x, y):
     """
     Sum of absolute deviations of obs and double logistic function with offset:
-    L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a
+    :math:`L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
 
     Parameters
     ----------
@@ -1529,7 +1553,7 @@ def cost_logistic2_offset(p, x, y):
 def cost2_logistic2_offset(p, x, y):
     """
     Sum of squared deviations of obs and double logistic function with offset:
-    L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a
+    :math:`L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
 
     Parameters
     ----------
@@ -1566,7 +1590,7 @@ def cost2_logistic2_offset(p, x, y):
 # a*(x-b)**c - Sequential Elementary Effects fitting function
 def see(x, a, b, c):
     """
-    Fit function of Sequential Elementary Effects: a * (x-b)**c
+    Fit function of Sequential Elementary Effects: :math:`a * (x-b)**c`
 
     Parameters
     ----------
@@ -1589,7 +1613,7 @@ def see(x, a, b, c):
 
 def see_p(x, p):
     """
-    Fit function of Sequential Elementary Effects: a * (x-b)**c
+    Fit function of Sequential Elementary Effects: :math:`a * (x-b)**c`
 
     Parameters
     ----------
@@ -1615,7 +1639,7 @@ def see_p(x, p):
 def cost_see(p, x, y):
     """
     Sum of absolute deviations of obs and fit function of Sequential Elementary
-    Effects: a * (x-b)**c
+    Effects: :math:`a * (x-b)**c`
 
     Parameters
     ----------
@@ -1643,7 +1667,7 @@ def cost_see(p, x, y):
 def cost2_see(p, x, y):
     """
     Sum of squared deviations of obs and fit function of Sequential Elementary
-    Effects: a * (x-b)**c
+    Effects: :math:`a * (x-b)**c`
 
     Parameters
     ----------

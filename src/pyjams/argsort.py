@@ -41,11 +41,12 @@ def argmax(a, *args, **kwargs):
 
     Passes all keywords directly to the individual routines, i.e.
 
-        numpy.argmax(a, axis=None, out=None)
+    .. code-block:: python
 
-        numpy.ma.argmax(self, axis=None, fill_value=None, out=None)
+       numpy.argmax(a, axis=None, out=None)
+       numpy.ma.argmax(self, axis=None, fill_value=None, out=None)
 
-    No keyword will be passed to max routine for Python iterables.
+    No keyword will be passed to the max routine for Python iterables.
 
     Parameters
     ----------
@@ -67,7 +68,7 @@ def argmax(a, *args, **kwargs):
     --------
     >>> import numpy as np
 
-    # One-dimensional array
+    >>> # One-dimensional array
     >>> a = np.array([0,4,6,2,1,5,3,5])
     >>> ii = argmax(a)
     >>> print(ii)
@@ -75,7 +76,7 @@ def argmax(a, *args, **kwargs):
     >>> print(a[ii])
     6
 
-    # One-dimensional masked array
+    >>> # One-dimensional masked array
     >>> a = np.ma.array([0,4,6,2,1,5,3,5], mask=[0,0,1,1,0,0,0,0])
     >>> ii = argmax(a)
     >>> print(ii)
@@ -86,7 +87,7 @@ def argmax(a, *args, **kwargs):
     >>> print(ii)
     2
 
-    # List
+    >>> # List
     >>> a = [0,4,6,2,1,5,3,5]
     >>> ii = argmax(a)
     >>> print(ii)
@@ -106,7 +107,7 @@ def argmax(a, *args, **kwargs):
     >>> argmax(a, axis=1)
     array([2, 2])
 
-    # Indexes of the maximal elements of a N-dimensional array:
+    >>> # Indexes of the maximal elements of a N-dimensional array:
     >>> ind = np.unravel_index(np.argmax(a, axis=None), a.shape)
     >>> ind
     (1, 2)
@@ -140,11 +141,13 @@ def argmin(a, *args, **kwargs):
     iterables.
 
     Passes all keywords directly to the individual routines, i.e.
-        numpy.argmin(a, axis=None, out=None)
 
-        numpy.ma.argmin(self, axis=None, fill_value=None, out=None)
+    .. code-block:: python
 
-        No keyword will be passed to min routine for Python iterables.
+       numpy.argmin(a, axis=None, out=None)
+       numpy.ma.argmin(self, axis=None, fill_value=None, out=None)
+
+    No keyword will be passed to the min routine for Python iterables.
 
     Parameters
     ----------
@@ -166,7 +169,7 @@ def argmin(a, *args, **kwargs):
     --------
     >>> import numpy as np
 
-    # One-dimensional array
+    >>> # One-dimensional array
     >>> a = np.array([0,4,6,2,1,5,3,5])
     >>> ii = argmin(a)
     >>> print(ii)
@@ -174,7 +177,7 @@ def argmin(a, *args, **kwargs):
     >>> print(a[ii])
     0
 
-    # One-dimensional masked array
+    >>> # One-dimensional masked array
     >>> a = np.ma.array([0,4,6,2,1,5,3,5], mask=[1,0,1,1,0,0,0,0])
     >>> ii = argmin(a)
     >>> print(ii)
@@ -185,7 +188,7 @@ def argmin(a, *args, **kwargs):
     >>> print(ii)
     0
 
-    # List
+    >>> # List
     >>> a = [0,4,6,2,1,5,3,5]
     >>> ii = argmin(a)
     >>> print(ii)
@@ -205,7 +208,7 @@ def argmin(a, *args, **kwargs):
     >>> argmin(a, axis=1)
     array([0, 0])
 
-    # Indices of the minimum elements of a N-dimensional array:
+    >>> # Indices of the minimum elements of a N-dimensional array:
     >>> ind = np.unravel_index(argmin(a, axis=None), a.shape)
     >>> ind
     (0, 0)
@@ -240,12 +243,12 @@ def argsort(a, *args, **kwargs):
 
     Passes all keywords directly to the individual routines, i.e.
 
-        numpy.argsort(a, axis=-1, kind='quicksort', order=None)
+    .. code-block:: python
 
-        numpy.ma.argsort(a, axis=None, kind='quicksort', order=None,
-        fill_value=None)
-
-        sorted(iterable[, cmp[, key[, reverse]]])
+       numpy.argsort(a, axis=-1, kind='quicksort', order=None)
+       numpy.ma.argsort(a, axis=None, kind='quicksort', order=None,
+                        fill_value=None)
+       sorted(iterable[, cmp[, key[, reverse]]])
 
     Only key cannot be given for Python iterables because the input array is
     used as key in the sorted function.
@@ -265,13 +268,13 @@ def argsort(a, *args, **kwargs):
     -------
     index_array : ndarray, int
         Array of indices that sort `a` along the specified `axis`.
-        If `a` is one-dimensional, ``a[index_array]`` yields a sorted `a`.
+        If `a` is one-dimensional, `a[index_array]` yields a sorted `a`.
 
     Examples
     --------
     >>> import numpy as np
 
-    # 1D array
+    >>> # 1D array
     >>> a = np.array([0,4,6,2,1,5,3,5])
     >>> ii = argsort(a)
     >>> print(a[ii])
@@ -281,7 +284,7 @@ def argsort(a, *args, **kwargs):
     >>> print(a[ii])
     [0 1 2 3 4 5 5 6]
 
-    # 1D masked array
+    >>> # 1D masked array
     >>> a = np.ma.array([0,4,6,2,1,5,3,5], mask=[0,0,1,1,0,0,0,0])
     >>> ii = argsort(a)
     >>> print(a[ii])
@@ -291,7 +294,7 @@ def argsort(a, *args, **kwargs):
     >>> print(a[ii])
     [0 -- -- 1 3 4 5 5]
 
-    # list
+    >>> # list
     >>> a = [0,4,6,2,1,5,3,5]
     >>> ii = argsort(a)
     >>> b = [ a[i] for i in ii ]
@@ -305,8 +308,8 @@ def argsort(a, *args, **kwargs):
     [6, 5, 5, 4, 3, 2, 1, 0]
 
 
-    # from numpy.argsort docstring
-    # One-dimensional array:
+    >>> # from numpy.argsort docstring
+    >>> # One-dimensional array:
     >>> x = np.array([3, 1, 2])
     >>> argsort(x)
     array([1, 2, 0])
@@ -331,7 +334,7 @@ def argsort(a, *args, **kwargs):
     array([[0, 3],
            [2, 2]])
 
-    # Indices of the sorted elements of a N-dimensional array:
+    >>> # Indices of the sorted elements of a N-dimensional array:
     >>> ind = np.unravel_index(argsort(x, axis=None), x.shape)
     >>> ind
     (array([0, 1, 1, 0]), array([0, 0, 1, 1]))

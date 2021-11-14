@@ -72,9 +72,11 @@ def str2tex(strin, space2linebreak=False,
 
     Examples
     --------
-    fig = plt.figure()
-    tit = str2tex('A $S_{Ti}$ is great\\nbut use-less', usetex=usetex)
-    fig.suptitle(tit)
+    .. code-block:: python
+
+       fig = plt.figure()
+       tit = str2tex('A $S_{Ti}$ is great\\nbut use-less', usetex=usetex)
+       fig.suptitle(tit)
 
     """
     # Input type and shape

@@ -6,26 +6,31 @@ The current functions are the following. Each function has a second form with
 `_p` appended to the name, where parameters are given as a list, e.g.
 `logistic` and `logistic_p` = `logistic(x, *p)`:
 
-    logistic - Logistic function `L/(1+exp(-k(x-x0)))`
+.. list-table::
+   :widths: 15 50
+   :header-rows: 1
 
-    dlogistic - First derivative of logistic function
-
-    d2logistic - Second derivative of logistic function
-
-    logistic_offset - logistic function with offset `L/(1+exp(-k(x-x0))) + a`
-
-    dlogistic_offset - First derivative of logistic function with offset
-
-    d2logistic_offset - Second derivative of logistic function with offset
-
-    logistic2_offset - Double logistic function with offset
-    `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
-
-    dlogistic2_offset - First derivative of double logistic function with
-    offset
-
-    d2logistic2_offset - Second derivative of double logistic function with
-    offset
+   * - Function
+     - Description
+   * - logistic
+     - Logistic function `L/(1+exp(-k(x-x0)))`
+   * - dlogistic
+     - First derivative of logistic function
+   * - d2logistic
+     - Second derivative of logistic function
+   * - logistic_offset
+     - logistic function with offset `L/(1+exp(-k(x-x0))) + a`
+   * - dlogistic_offset
+     - First derivative of logistic function with offset
+   * - d2logistic_offset
+     - Second derivative of logistic function with offset
+   * - logistic2_offset
+     - Double logistic function with offset
+       `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
+   * - dlogistic2_offset
+     - First derivative of double logistic function with offset
+   * - d2logistic2_offset
+     - Second derivative of double logistic function with offset
 
 This module was written by Matthias Cuntz while at Department of
 Computational Hydrosystems, Helmholtz Centre for Environmental
@@ -92,7 +97,7 @@ __all__ = ['logistic', 'logistic_p',
 # a/(1+exp(-b(x-c))) - logistic function
 def logistic(x, L, k, x0):
     """
-    Logistic function:
+    Logistic function
 
         `L/(1+exp(-k(x-x0)))`
 
@@ -118,7 +123,7 @@ def logistic(x, L, k, x0):
 
 def logistic_p(x, p):
     """
-    Wrapper function for :func:`logistic`: `logistic(x, *p)`.
+    Wrapper function for :func:`logistic`: `logistic(x, *p)`
     """
     return logistic(x, *p)
 
@@ -127,7 +132,7 @@ def logistic_p(x, p):
 # 1st derivative of logistic functions
 def dlogistic(x, L, k, x0):
     """
-    First derivative of logistic function:
+    First derivative of :func:`logistic` function
 
         `L/(1+exp(-k(x-x0)))`
 
@@ -157,7 +162,7 @@ def dlogistic(x, L, k, x0):
 
 def dlogistic_p(x, p):
     """
-    Wrapper function for :func:`dlogistic`: `dlogistic(x, *p)`.
+    Wrapper function for :func:`dlogistic`: `dlogistic(x, *p)`
     """
     return dlogistic(x, *p)
 
@@ -166,7 +171,7 @@ def dlogistic_p(x, p):
 # 2nd derivative of logistic functions
 def d2logistic(x, L, k, x0):
     """
-    Second derivative of logistic function:
+    Second derivative of :func:`logistic` function
 
         `L/(1+exp(-k(x-x0)))`
 
@@ -197,7 +202,7 @@ def d2logistic(x, L, k, x0):
 
 def d2logistic_p(x, p):
     """
-    Wrapper function for :func:`d2logistic`: `d2logistic(x, *p)`.
+    Wrapper function for :func:`d2logistic`: `d2logistic(x, *p)`
     """
     return d2logistic(x, *p)
 
@@ -206,7 +211,7 @@ def d2logistic_p(x, p):
 # L/(1+exp(-k(x-x0))) + a - logistic function with offset
 def logistic_offset(x, L, k, x0, a):
     """
-    Logistic function with offset:
+    Logistic function with offset
 
         `L/(1+exp(-k(x-x0))) + a`
 
@@ -234,7 +239,7 @@ def logistic_offset(x, L, k, x0, a):
 
 def logistic_offset_p(x, p):
     """
-    Wrapper function for :func:`logistic_offset`: `logistic_offset(x, *p)`.
+    Wrapper function for :func:`logistic_offset`: `logistic_offset(x, *p)`
     """
     return logistic_offset(x, *p)
 
@@ -243,7 +248,7 @@ def logistic_offset_p(x, p):
 # 1st derivative of logistic functions with offset
 def dlogistic_offset(x, L, k, x0, a):
     """
-    First derivative of logistic function with offset:
+    First derivative of :func:`logistic_offset` function
 
         `L/(1+exp(-k(x-x0))) + a`
 
@@ -275,7 +280,7 @@ def dlogistic_offset(x, L, k, x0, a):
 
 def dlogistic_offset_p(x, p):
     """
-    Wrapper function for :func:`dlogistic_offset`: `dlogistic_offset(x, *p)`.
+    Wrapper function for :func:`dlogistic_offset`: `dlogistic_offset(x, *p)`
     """
     return dlogistic_offset(x, *p)
 
@@ -284,7 +289,7 @@ def dlogistic_offset_p(x, p):
 # 2nd derivative of logistic functions with offset
 def d2logistic_offset(x, L, k, x0, a):
     """
-    Second derivative of logistic function with offset
+    Second derivative of :func:`logistic_offset` function
 
         `L/(1+exp(-k(x-x0))) + a`
 
@@ -317,7 +322,7 @@ def d2logistic_offset(x, L, k, x0, a):
 
 def d2logistic_offset_p(x, p):
     """
-    Wrapper function for :func:`d2logistic_offset`: `d2logistic_offset(x, *p)`.
+    Wrapper function for :func:`d2logistic_offset`: `d2logistic_offset(x, *p)`
     """
     return d2logistic_offset(x, *p)
 
@@ -326,7 +331,7 @@ def d2logistic_offset_p(x, p):
 # L/(1+exp(-k(x-x0))) + a - logistic function with offset
 def logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     """
-    Double logistic function with offset:
+    Double logistic function with offset
 
         `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
 
@@ -359,7 +364,7 @@ def logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 
 def logistic2_offset_p(x, p):
     """
-    Wrapper function for :func:`logistic2_offset`: `logistic2_offset(x, *p)`.
+    Wrapper function for :func:`logistic2_offset`: `logistic2_offset(x, *p)`
     """
     return logistic2_offset(x, *p)
 
@@ -368,7 +373,7 @@ def logistic2_offset_p(x, p):
 # 1st derivative of logistic functions with offset
 def dlogistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     """
-    First derivative of double logistic function with offset:
+    First derivative of :func:`logistic2_offset` function
 
         `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
 
@@ -406,7 +411,7 @@ def dlogistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 
 def dlogistic2_offset_p(x, p):
     """
-    Wrapper function for :func:`dlogistic2_offset`: `dlogistic2_offset(x, *p)`.
+    Wrapper function for :func:`dlogistic2_offset`: `dlogistic2_offset(x, *p)`
     """
     return dlogistic2_offset(x, *p)
 
@@ -415,7 +420,7 @@ def dlogistic2_offset_p(x, p):
 # 2nd derivative of logistic functions with offset
 def d2logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     """
-    Second derivative of double logistic function with offset:
+    Second derivative of :func:`logistic_offset` function
 
         `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
 
@@ -457,7 +462,7 @@ def d2logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 def d2logistic2_offset_p(x, p):
     """
     Wrapper function for
-    :func:`d2logistic2_offset`: `d2logistic2_offset(x, *p)`.
+    :func:`d2logistic2_offset`: `d2logistic2_offset(x, *p)`
     """
     return d2logistic2_offset(x, *p)
 

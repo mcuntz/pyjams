@@ -15,56 +15,58 @@ background.
 
 The simplest way to use mcPlot is to extend the class:
 
-import numpy as np
-from jams import mcPlot
+.. code-block:: python
 
-class PlotIt(mcPlot):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # change e.g. colors
-        self.lcol1 = 'cyan'
-        # reset global values after colour changes, etc.
-        self.set_matplotlib_rcparams()
+   import numpy as np
+   from jams import mcPlot
 
-    def read_data(self):
-        # do something
-        self.dat = np.arange(10)
+   class PlotIt(mcPlot):
+       def __init__(self, *args, **kwargs):
+           super().__init__(*args, **kwargs)
+           # change e.g. colors
+           self.lcol1 = 'cyan'
+           # reset global values after colour changes, etc.
+           self.set_matplotlib_rcparams()
 
-    def plot_fig_1(self):
-        import matplotlib.pyplot as plt
+       def read_data(self):
+           # do something
+           self.dat = np.arange(10)
 
-        self.ifig += 1
-        fig = plt.figure(self.ifig)
+       def plot_fig_1(self):
+           import matplotlib.pyplot as plt
 
-        sub = fig.add_axes([0.125, 0.667, 0.3375, 0.233])
+           self.ifig += 1
+           fig = plt.figure(self.ifig)
 
-        larr = sub.plot(self.dat)
-        plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth, marker=None,
-                 color=self.lcol1)
+           sub = fig.add_axes([0.125, 0.667, 0.3375, 0.233])
 
-        self.plot_save(fig)
+           larr = sub.plot(self.dat)
+           plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
+                    marker=None, color=self.lcol1)
 
-    def plot_fig_2(self):
-        import matplotlib.pyplot as plt
+           self.plot_save(fig)
 
-        self.ifig += 1
-        fig = plt.figure(self.ifig)
+       def plot_fig_2(self):
+           import matplotlib.pyplot as plt
 
-        sub = fig.add_axes([0.125, 0.667, 0.3375, 0.233])
+           self.ifig += 1
+           fig = plt.figure(self.ifig)
 
-        larr = sub.plot(2*self.dat)
-        plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth, marker=None,
-                 color=self.lcols[-1])
+           sub = fig.add_axes([0.125, 0.667, 0.3375, 0.233])
 
-        self.plot_save(fig)
+           larr = sub.plot(2*self.dat)
+           plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
+                    marker=None, color=self.lcols[-1])
 
-if __name__ == '__main__':
-    iplot = PlotIt(desc='Test mcPlot',
-                   argstr='No argument wanted')
-    iplot.read_data()
-    iplot.plot_fig_1()
-    iplot.plot_fig_2()
-    iplot.close()
+           self.plot_save(fig)
+
+   if __name__ == '__main__':
+       iplot = PlotIt(desc='Test mcPlot',
+                      argstr='No argument wanted')
+       iplot.read_data()
+       iplot.plot_fig_1()
+       iplot.plot_fig_2()
+       iplot.close()
 
 Then call the script with -h to see the command line options.
 
@@ -119,7 +121,7 @@ def _filebase(f):
 
 class mcPlot(object):
     """
-    Standard plotting class of Matthias Cuntz.
+    Standard plotting class of Matthias Cuntz
 
     Upon initialisation,
     the command line arguments are gathered (get_command_line_arguments),
@@ -157,14 +159,18 @@ class mcPlot(object):
     Notes
     -----
     Several more methods are defined, which should probably not be changed.
+
     plot_begin() or plot_start()
         Open output file and similar at the beginning.
+
     plot_test()
         A simple plot as an example.
+
     set_matplotlib_rcparams()
         Set rcParams of Matplotlib depending on output type, and chosen layout.
         rcParams can also be re-set in the initialisation of the extending
         class.
+
     set_output_type()
         Set the format of the output such as pdf or png.
 
@@ -172,53 +178,55 @@ class mcPlot(object):
     --------
     The simplest way to use `mcPlot` is to extend the class:
 
-    import numpy as np
-    from jams import mcPlot
+    .. code-block:: python
 
-    class PlotIt(mcPlot):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            # change e.g. colors
-            self.lcol1 = 'cyan'
+       import numpy as np
+       from jams import mcPlot
 
-        def read_data(self):
-            # do something
-            self.dat = np.arange(10)
+       class PlotIt(mcPlot):
+           def __init__(self, *args, **kwargs):
+               super().__init__(*args, **kwargs)
+               # change e.g. colors
+               self.lcol1 = 'cyan'
 
-        def plot_fig_1(self):
-            import matplotlib.pyplot as plt
+           def read_data(self):
+               # do something
+               self.dat = np.arange(10)
 
-            self.ifig += 1
-            fig = plt.figure(self.ifig)
+           def plot_fig_1(self):
+               import matplotlib.pyplot as plt
 
-            sub = fig.add_axes([0.125, 0.667, 0.3375, 0.233])
+               self.ifig += 1
+               fig = plt.figure(self.ifig)
 
-            larr = sub.plot(self.dat)
-            plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
-                     marker=None, color=self.lcol1)
+               sub = fig.add_axes([0.125, 0.667, 0.3375, 0.233])
 
-            self.plot_save(fig)
+               larr = sub.plot(self.dat)
+               plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
+                        marker=None, color=self.lcol1)
 
-        def plot_fig_2(self):
-            import matplotlib.pyplot as plt
+               self.plot_save(fig)
 
-            self.ifig += 1
-            fig = plt.figure(self.ifig)
+           def plot_fig_2(self):
+               import matplotlib.pyplot as plt
 
-            sub = fig.add_axes([0.125, 0.667, 0.3375, 0.233])
+               self.ifig += 1
+               fig = plt.figure(self.ifig)
 
-            larr = sub.plot(2*self.dat)
-            plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
-                     marker=None, color=self.lcols[-1])
+               sub = fig.add_axes([0.125, 0.667, 0.3375, 0.233])
 
-            self.plot_save(fig)
+               larr = sub.plot(2*self.dat)
+               plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
+                        marker=None, color=self.lcols[-1])
 
-    if __name__ == '__main__':
-        iplot = PlotIt(desc='Test mcPlot')
-        iplot.read_data()
-        iplot.plot_fig_1()
-        iplot.plot_fig_2()
-        iplot.close()
+               self.plot_save(fig)
+
+       if __name__ == '__main__':
+           iplot = PlotIt(desc='Test mcPlot')
+           iplot.read_data()
+           iplot.plot_fig_1()
+           iplot.plot_fig_2()
+           iplot.close()
 
     Then call the script with -h to see the command line options.
 
@@ -241,9 +249,11 @@ class mcPlot(object):
         Examples
         --------
         An extending class should initialise with something similar to
-        `class UsemcPlot(mcPlot):
-            def __init__(self, *args, **kwargs):
-                super().__init__(*args, **kwargs)`
+
+        .. code-block:: python
+           class UsemcPlot(mcPlot):
+               def __init__(self, *args, **kwargs):
+                   super().__init__(*args, **kwargs)`
 
         """
         # get options
@@ -262,7 +272,7 @@ class mcPlot(object):
     #
     def get_command_line_arguments(self, desc=None, argstr=None):
         """
-        Standard command line parser with the default arguments
+        Standard command line parser with default arguments
         such as plot type, filename, etc.
 
         If extra arguments are needed, one should copy this routine
@@ -280,28 +290,35 @@ class mcPlot(object):
         Notes
         -----
         Standard command line arguments are:
-        positional arguments:
-          args                  Text will be replaced by `argstr`.
 
-        optional arguments:
-          -h, --help            show this help message and exit
-          -p plotname, --plotname plotname
-                                Name of plot output file for types pdf, html,
-                                d3, or plotly, and name basis for type png
-                                (default: calling_filename without extension).
-          -s, --serif           Use serif font; default sans serif.
-          -t outtype, --type outtype
-                                Output type is pdf, png, html, d3, or plotly
-                                (default: open screen windows).
-          -u, --usetex          Use LaTeX to render text in pdf, png and html.
-          -w, --white           White lines on transparent or black background;
-                                default: black lines on transparent or white
-                                background.
+        .. code-block:: bash
+
+           positional arguments:
+             args                  Text will be replaced by `argstr`.
+
+           optional arguments:
+             -h, --help            show this help message and exit
+             -p plotname, --plotname plotname
+                                   Name of plot output file for types pdf,
+                                   html, d3, or plotly, and name basis for type
+                                   png (default: calling_filename without
+                                   extension).
+             -s, --serif           Use serif font; default sans serif.
+             -t outtype, --type outtype
+                                   Output type is pdf, png, html, d3, or plotly
+                                   (default: open screen windows).
+             -u, --usetex          Use LaTeX to render text in pdf, png and
+                                   html.
+             -w, --white           White lines on transparent or black
+                                   background; default: black lines on
+                                   transparent or white background.
 
         Examples
         --------
-        iplot = mcPlot(desc="Test Matthias' plotting class.",
-                       argstr="directory file")
+        .. code-block:: python
+
+           iplot = mcPlot(desc="Test Matthias' plotting class.",
+                          argstr="directory file")
 
         """
         import argparse
@@ -363,71 +380,116 @@ class mcPlot(object):
     #
     def set_layout_options(self):
         """
-        Standard layout options that can be used in plotting methods.
+        Standard layout options that can be used in plotting methods
 
         One can either copy this routine into an extending class and adapt it,
         or add a new method that resets some of the layout options and call it
-        in the initialisation of an extending class,
-        or simply set layout options in the initialisation of an extending
-        class.
+        in the initialisation of an extending class, or simply set layout
+        options in the initialisation of an extending class.
 
         Current layout options are:
-        ================ ======================================================
-        Option           Description
-        ================ ======================================================
-        self.nrow        number of rows of subplots per figure
-        self.ncol        number of columns of subplots per figure
-        self.hspace      x-space between subplots
-        self.vspace      y-space between subplots
-        self.right       right space on page
-        self.textsize    standard text size
-        self.dxabc       % of (max-min) shift to the right of left y-axis for
-                         a,b,c,... labels
-        self.dyabc       % of (max-min) shift up from lower x-axis for
-                         a,b,c,... labels
-        self.lwidth      line width
-        self.elwidth     errorbar line width
-        self.alwidth     axis line width
-        self.msize       marker size
-        self.mwidth      marker edge width
-        self.fgcolor     foreground colour
-        self.bgcolor     background colour
-        self.mcols       list of marker colours
-        self.mcol1       marker colour 1
-        self.mcol2       marker colour 2
-        self.mcol3       marker colour 3
-        self.mcol4       marker colour 4
-        self.mcol5       marker colour 5
-        self.lcol1       list of line colours
-        self.lcol2       line colour 1
-        self.lcol3       line colour 2
-        self.lcol4       line colour 3
-        self.lcol5       line colour 4
-        self.lcols       line colour 5
-        self.ldashes     list of line styles
-        self.llxbbox     x-anchor legend bounding box
-        self.llybbox     y-anchor legend bounding box
-        self.llrspace    spacing between rows in legend
-        self.llcspace    spacing between columns in legend
-        self.llhtextpad  pad between the legend handle and text
-        self.llhlength   length of the legend handles
-        self.frameon     if True: draw a frame around the legend.
-                         If None: use rc
-        self.dpi         DPI of non-vector figure output
-        self.transparent True for transparent background in figure
-        self.bbox_inches Bbox in inches. If 'tight', try to figure out
-                         the tight bbox of the figure
-        self.pad_inches  Amount of padding when bbox_inches is 'tight'
-        ================ ======================================================
+
+        .. list-table::
+           :widths: 15 50
+           :header-rows: 1
+
+           * - Option
+             - Description
+           * - self.nrow
+             - number of rows of subplots per figure
+           * - self.ncol
+             - number of columns of subplots per figure
+           * - self.hspace
+             - x-space between subplots
+           * - self.vspace
+             - y-space between subplots
+           * - self.right
+             - right space on page
+           * - self.textsize
+             - standard text size
+           * - self.dxabc
+             - % of (max-min) shift to the right of left y-axis for a,b,c,...
+               labels
+           * - self.dyabc
+             - % of (max-min) shift up from lower x-axis for a,b,c,... labels
+           * - self.lwidth
+             - line width
+           * - self.elwidth
+             - errorbar line width
+           * - self.alwidth
+             - axis line width
+           * - self.msize
+             - marker size
+           * - self.mwidth
+             - marker edge width
+           * - self.fgcolor
+             - foreground colour
+           * - self.bgcolor
+             - background colour
+           * - self.mcols
+             - list of marker colours
+           * - self.mcol1
+             - marker colour 1
+           * - self.mcol2
+             - marker colour 2
+           * - self.mcol3
+             - marker colour 3
+           * - self.mcol4
+             - marker colour 4
+           * - self.mcol5
+             - marker colour 5
+           * - self.lcol1
+             - list of line colours
+           * - self.lcol2
+             - line colour 1
+           * - self.lcol3
+             - line colour 2
+           * - self.lcol4
+             - line colour 3
+           * - self.lcol5
+             - line colour 4
+           * - self.lcols
+             - line colour 5
+           * - self.ldashes
+             - list of line styles
+           * - self.llxbbox
+             - x-anchor legend bounding box
+           * - self.llybbox
+             - y-anchor legend bounding box
+           * - self.llrspace
+             - spacing between rows in legend
+           * - self.llcspace
+             - spacing between columns in legend
+           * - self.llhtextpad
+             - pad between the legend handle and text
+           * - self.llhlength
+             - length of the legend handles
+           * - self.frameon
+             - if True: draw a frame around the legend.
+               If None: use rc
+           * - self.dpi
+             - DPI of non-vector figure output
+           * - self.transparent
+             - True for transparent background in figure
+           * - self.bbox_inches
+             - Bbox in inches. If 'tight', try to figure out the tight bbox of the
+               figure
+           * - self.pad_inches
+             - Amount of padding when bbox_inches is 'tight'
 
         Examples
         --------
         Setting layout options in initialisation
-        `class UsemcPlot(mcPlot):
-            def __init__(self, *args, **kwargs):
-                super().__init__(*args, **kwargs)
-                self.lcol1     = 'black'
-                self.mynewcol = 'red'`
+
+        .. code-block:: python
+
+           class UsemcPlot(mcPlot):
+               def __init__(self, *args, **kwargs):
+                   super().__init__(*args, **kwargs)
+                   self.lcol1     = 'black'
+                   self.mynewcol = 'red'
+                   # reset global values after colour changes, etc.
+                   self.set_matplotlib_rcparams()
 
         """
         # layout and spaces
@@ -512,7 +574,7 @@ class mcPlot(object):
     #
     def plot_test(self):
         """
-        A simple test plot.
+        A simple test plot
 
         """
         import matplotlib.pyplot as plt
@@ -578,8 +640,10 @@ class mcPlot(object):
     #
     def set_output_type(self):
         """
-        Set type of chosen output. Fall back to standard html mode
-        if mlpd3 or plotly modules are not installed.
+        Set type of chosen output.
+
+        Fall back to standard html mode if mlpd3 or plotly modules are not
+        installed.
 
         """
         self.outtype  = self.outtype.lower()
@@ -618,35 +682,53 @@ class mcPlot(object):
         class.
 
         Current parameters set are:
-        ================ ======================================================
-        Parameter        Options
-        ================ ======================================================
-        ps               papersize, usedistiller
-        figure           figsize, edgecolor, facecolor
-        text             usetex, latex.preamble, color
-        font             family, sans-serif, size
-        savefig          dpi, format, edgecolor, facecolor
-        axes             linewidth, edgecolor, facecolor, labelcolor,
-                         prop_cycle
-        boxplot          boxprops.color, capprops.color, flierprops.color,
-                         flierprops.markeredgecolor, whiskerprops.color
-        grid             color
-        lines            linewidth, color
-        patch            edgecolor
-        path             simplify
-        xtick            color
-        ytick            color
-        ================ ======================================================
+
+        .. list-table::
+           :widths: 15 50
+           :header-rows: 1
+
+           * - Parameter
+             - Options
+           * - ps
+             - papersize, usedistiller
+           * - figure
+             - figsize, edgecolor, facecolor
+           * - text
+             - usetex, latex.preamble, color
+           * - font
+             - family, sans-serif, size
+           * - savefig
+             - dpi, format, edgecolor, facecolor
+           * - axes
+             - linewidth, edgecolor, facecolor, labelcolor, prop_cycle
+           * - boxplot
+             - boxprops.color, capprops.color, flierprops.color,
+               flierprops.markeredgecolor, whiskerprops.color
+           * - grid
+             - color
+           * - lines
+             - linewidth, color
+           * - patch
+             - edgecolor
+           * - path
+             - simplify
+           * - xtick
+             - color
+           * - ytick
+             - color
 
         Examples
         --------
         Setting rcParams in initialisation
-        `class UsemcPlot(mcPlot):
-            def __init__(self, *args, **kwargs):
-                import matplotlib as mpl
-                super().__init__(*args, **kwargs)
-                mpl.rc('grid', color='red')
-                mpl.rcParams['boxplot.boxprops.color'] = 'blue'`
+
+        .. code-block:: python
+
+           class UsemcPlot(mcPlot):
+               def __init__(self, *args, **kwargs):
+                   import matplotlib as mpl
+                   super().__init__(*args, **kwargs)
+                   mpl.rc('grid', color='red')
+                   mpl.rcParams['boxplot.boxprops.color'] = 'blue'
 
         """
         import matplotlib as mpl
@@ -745,8 +827,10 @@ class mcPlot(object):
     def plot_begin(self):
         import os.path
         """
-        Last step of initialisation. Set output filename depending on chosen
-        output type. Opens output file if appropriate.
+        Last step of initialisation
+
+        Set output filename depending on chosen output type. Opens output file
+        if appropriate.
 
         """
         self.outtype_ends = ['', '.pdf', '_', '.html', '.html']
@@ -783,7 +867,7 @@ class mcPlot(object):
         self.ifig = 0
 
     def plot_start(self):
-        """Alias for plot_begin()."""
+        """Alias for plot_begin()"""
         self.plot_begin()
 
     # -------------------------------------------------------------------------
@@ -791,7 +875,7 @@ class mcPlot(object):
     #
     def plot_save(self, fig):
         """
-        Save figure into output file.
+        Save figure into output file
 
         Parameters
         ----------
@@ -840,8 +924,9 @@ class mcPlot(object):
     #
     def plot_end(self):
         """
-        Finish off plotting. Close output file if appropriate or show
-        interactive plots.
+        Finish plotting
+
+        Close output file if appropriate or show interactive plots.
 
         """
         if (self.outtype == 'pdf'):
@@ -870,19 +955,19 @@ class mcPlot(object):
             plt.show()
 
     def plot_stop(self):
-        """Alias for plot_end()."""
+        """Alias for plot_end()"""
         self.plot_end()
 
     def plot_close(self):
-        """Alias for plot_end()."""
+        """Alias for plot_end()"""
         self.plot_end()
 
     def close(self):
-        """Alias for plot_end()."""
+        """Alias for plot_end()"""
         self.plot_end()
 
     def end(self):
-        """Alias for plot_end()."""
+        """Alias for plot_end()"""
         self.plot_end()
 
 

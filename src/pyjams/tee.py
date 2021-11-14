@@ -59,7 +59,7 @@ def tee(*args, **kwargs):
         removed, so that `*args` will be written to sys.stdout.
 
         If `file` is not given or None, `*args` will only be written to
-        sys.stdout, i.e. ``tee`` is a simple wrapper of the `print` function.
+        sys.stdout, i.e. *tee* is a simple wrapper of the `print` function.
 
     Examples
     --------

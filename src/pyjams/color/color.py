@@ -101,11 +101,14 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
 
     Returns
     -------
-    list of RGB tuples or :class:`matplotlib.colors.Colormap`
+    list or matplotlib.colors.Colormap
+        List of RGB tuples or :class:`matplotlib.colors.Colormap`
 
     Examples
     --------
-    cols = get_cmap('mathematica_dark_rainbow_256', 15)
+    .. code-block:: python
+
+       cols = get_cmap('mathematica_dark_rainbow_256', 15)
 
     """
     import matplotlib as mpl
@@ -248,11 +251,15 @@ def print_palettes(collection=''):
 
     Returns
     -------
-    Prints list of known color palettes and continuous color maps.
+    None
+        Prints list of known color palettes and continuous color maps to
+        terminal.
 
     Examples
     --------
-    print_palettes()
+    .. code-block:: python
+
+       print_palettes()
 
     """
     import matplotlib as mpl
@@ -395,11 +402,16 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
 
     Returns
     -------
-    Plots known color palettes and continuous color maps.
+    None
+        Plots known color palettes and continuous color maps in file or on
+        X-Window.
 
     Examples
     --------
-    show_palettes(outfile='pyjams_cmaps.pdf', collection=['mathematica', 'matplotlib'])
+    .. code-block:: python
+
+       show_palettes(outfile='pyjams_cmaps.pdf',
+                     collection=['mathematica', 'matplotlib'])
 
     """
     import pyjams.color

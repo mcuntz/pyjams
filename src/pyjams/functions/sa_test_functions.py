@@ -37,22 +37,37 @@ They were taken from
         English translation of Russian original paper Sobol' (1990).
 
 Current functions are:
-    B - B of Saltelli et al. (2010)
 
-    G / g - G-function attributed to Sobol' (1990, 1993), given by Saltelli et
-    al. (2008, 2010)
+.. list-table::
+   :widths: 15 50
+   :header-rows: 1
 
-    Gstar - G* of Saltelli et al. (2010)
-
-    ishigami_homma - Ishigami and Homma (1990), given by Saltelli et al. (2008,
-    page 179)
-
-    K / bratley - K of Saltelli et al. (2010)
-
-    fmorris / morris - After Morris (1991)
-
-    oakley_ohagan - Oakley and O'Hagan (2004), parameters given in Saltelli et
-    al. (2008) or on http://www.jeremy-oakley.staff.shef.ac.uk/psa_example.txt
+   * - Function
+     - Description
+   * - B
+     - B of Saltelli et al. (2010)
+   * - G / g
+     - G-function attributed to Sobol' (1990, 1993), given by Saltelli et al.
+       (2008, 2010)
+   * - Gstar
+     - G* of Saltelli et al. (2010)
+   * - ishigami_homma
+     - Ishigami and Homma (1990), given by Saltelli et al. (2008, page 179)
+   * - K / bratley
+     - K of Saltelli et al. (2010)
+   * - fmorris / morris
+     - After Morris (1991)
+   * - oakley_ohagan
+     - Oakley and O'Hagan (2004), parameters given in Saltelli et al. (2008) or
+       on http://www.jeremy-oakley.staff.shef.ac.uk/psa_example.txt
+   * - linear
+     - Linear test function :math:`Y = a*X + b`
+   * - product
+     - Product test function :math:`Y = X[0] * X[1]`
+   * - ratio
+     - Ration test function :math:`Y = X[0] / X[1]`
+   * - ishigami_homma_easy
+     - Simplified Ishigami and Homma function :math:`Y = sin(X[0]) + X[1]`
 
 This module was written by Matthias Cuntz & Juliane Mai while at
 Department of Computational Hydrosystems, Helmholtz Centre for
