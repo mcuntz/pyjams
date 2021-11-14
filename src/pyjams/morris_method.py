@@ -518,7 +518,7 @@ def Optimized_Groups(NumFact, lb, ub, r,
                         kk = 1
                         hplot[j*2+kk, i] = OptMatrix_b[j*sizeb+ii, i]
 
-        try:
+        try:  # pragma: no cover
             import matplotlib as mpl
             mpl.use('Agg')
             import matplotlib.pyplot as plt
@@ -535,7 +535,7 @@ def Optimized_Groups(NumFact, lb, ub, r,
             fig.savefig('morris_diag_new_strategy.png', transparent=False,
                         bbox_inches='tight', pad_inches=0.035)
             plt.close(fig)
-        except ImportError:
+        except ImportError:  # pragma: no cover
             pass
 
         # Plot the histogram for the original sampling strategy
@@ -555,7 +555,7 @@ def Optimized_Groups(NumFact, lb, ub, r,
                         kk = 1
                         Orihplot[j * 2 + kk, i] = OrigSample[j * sizeb + ii, i]
 
-        try:
+        try:  # pragma: no cover
             fig = plt.figure()
             fig.suptitle('Old Strategy')
             DimPlots = NumFact // 2 + (1 if NumFact % 2 > 0 else 0)
@@ -566,7 +566,7 @@ def Optimized_Groups(NumFact, lb, ub, r,
             fig.savefig('morris_diag_old_strategy.png', transparent=False,
                         bbox_inches='tight', pad_inches=0.035)
             plt.close(fig)
-        except:
+        except:  # pragma: no cover
             pass
 
         # Measure the quality of the sampling strategy

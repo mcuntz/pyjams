@@ -198,7 +198,7 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
     """
     # Get MPI communicator
-    try:
+    try:  # pragma: no cover
         from mpi4py import MPI
         comm  = MPI.COMM_WORLD
         csize = comm.Get_size()
@@ -242,7 +242,7 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
         ntotal = max(nt**2, 10*nt)
 
     # Seed random number generator
-    if seed is not None:
+    if seed is not None:  # pragma: no cover
         # same on all ranks because trajectories are sampled on all ranks
         np.random.seed(seed=seed)
 

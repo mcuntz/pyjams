@@ -49,6 +49,29 @@ def _rgb2rgb(col):
     return tuple([ i / 255. for i in col ])
 
 
+def _to_grey(col):
+    """
+    Transform RGB tuple to grey values
+
+    Parameters
+    ----------
+    col : iterable
+        RGB tuple
+
+    Returns
+    -------
+    RGB tuple with corresponding grey values
+
+    Examples
+    --------
+    col = (0, 0.5, 1)
+    col = _to_grey(col)
+
+    """
+    isgrey = 0.2125 * col[0] + 0.7154 * col[1] + 0.072 * col[2]
+    return (isgrey, isgrey, isgrey)
+
+
 def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
              reverse=False, grey=False):
     """
@@ -156,10 +179,13 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
                     for i in range(ncol1):
                         x = offset + float(i)/float(ncol1-1) * (upper-offset)
                         colors.append(tuple(dd[palette](x)))
-                else:
-                    raise ValueError('Unknown sron2012 palette. Coding Error.')
 
     if not found_palette:
+        # try:
+        #     amplmaps = mpl.pyplot.colormaps()
+        #     mplmaps = [ i for i in amplmaps if not i.endswith('_r') ]
+        # except AttributeError:
+        #     mplmaps = sorted(mpl.cm.datad.keys())
         amplmaps = mpl.pyplot.colormaps()
         mplmaps = [ i for i in amplmaps if not i.endswith('_r') ]
         if palette in mplmaps:
@@ -191,9 +217,7 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
         colors = colors[::-1]
 
     if grey:
-        for ii, cc in enumerate(colors):
-            isgrey = 0.2125 * cc[0] + 0.7154 * cc[1] + 0.072 * cc[2]
-            colors[ii] = (isgrey, isgrey, isgrey)
+        colors = [ _to_grey(i) for i in colors ]
 
     # subsample
     if (ncol > 0) and not nosubsample:
@@ -296,13 +320,19 @@ def print_palettes(collection=''):
 
     if 'matplotlib' in collections:
         print('matplotlib')
+        # try:
+        #     acmaps = mpl.pyplot.colormaps()
+        #     cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
+        #     cmaps.sort()
+        # except AttributeError:
+        #     cmaps = sorted(mpl.colorbar.cm.datad.keys())
         acmaps = mpl.pyplot.colormaps()
         cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
         cmaps.sort()
         print('   ', cmaps)
 
 
-def _newfig(ifig, ititle):
+def _newfig(ifig, ititle):  # pragma: no cover
     """ Helper function for show_palettes """
     import matplotlib.pyplot as plt
     fig = plt.figure(ifig)
@@ -313,7 +343,7 @@ def _newfig(ifig, ititle):
     return fig
 
 
-def _newsubplot(nrow, ncol, iplot, iname):
+def _newsubplot(nrow, ncol, iplot, iname):  # pragma: no cover
     """ Helper function for show_palettes """
     import numpy as np
     import matplotlib.pyplot as plt
@@ -333,7 +363,7 @@ def _newsubplot(nrow, ncol, iplot, iname):
     # return ax
 
 
-def _savefig(fig, ifig, outtype, outfile, pdf_pages):
+def _savefig(fig, ifig, outtype, outfile, pdf_pages):  # pragma: no cover
     """ Helper function for show_palettes """
     import matplotlib.pyplot as plt
     if (outtype == 'pdf'):
@@ -348,7 +378,7 @@ def _savefig(fig, ifig, outtype, outfile, pdf_pages):
         pass
 
 
-def show_palettes(outfile='', collection=''):
+def show_palettes(outfile='', collection=''):  # pragma: no cover
     """
     Show the known color palettes and continuous color maps
 
@@ -444,6 +474,12 @@ def show_palettes(outfile='', collection=''):
         for cc in sron2012_collections:
             all_collections.append(cc)
     if 'matplotlib' in collections:
+        # try:
+        #     acmaps = mpl.pyplot.colormaps()
+        #     cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
+        #     cmaps.sort()
+        # except AttributeError:
+        #     cmaps = sorted(mpl.colorbar.cm.datad.keys())
         acmaps = mpl.pyplot.colormaps()
         cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
         cmaps.sort()

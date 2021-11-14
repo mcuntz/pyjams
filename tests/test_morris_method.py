@@ -54,6 +54,31 @@ class TestMorrisMethod(unittest.TestCase):
         self.assertEqual(list(np.around(sa[0:5, 1], 3)),
                          [0.47, 0.502, 0.816, 0.722, 0.418])
 
+    def test_r_10_total(self):
+        import numpy as np
+        from pyjams import morris_sampling, elementary_effects
+
+        nt     = 10
+        nsteps = 6
+        ntotal = None
+        out = np.random.random(nt*(self.nparam+1))
+
+        # Check 1
+        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
+                                   nsteps=nsteps, ntotal=ntotal,
+                                   Diagnostic=self.Diagnostic)
+        self.assertEqual(list(np.around(mat[0, 0:5], 3)),
+                         [0.6, 2.2, 2., 4.6, 8.])
+        self.assertEqual(list(np.around(vec[0:5], 3)),
+                         [12., 11., 5., 1., 9.])
+
+        # Check 2
+        sa, res = elementary_effects(self.nparam, mat, vec, out, nsteps=nsteps)
+        self.assertEqual(list(np.around(res[0:5, 0], 3)),
+                         [0.485, 0.445, 0.438, 0.58, 0.645])
+        self.assertEqual(list(np.around(sa[0:5, 1], 3)),
+                         [0.47, 0.502, 0.816, 0.722, 0.418])
+
     def test_r_10_diag(self):
         import os
         import numpy as np
@@ -141,6 +166,34 @@ class TestMorrisMethod(unittest.TestCase):
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
                                    nsteps=nsteps, ntotal=ntotal,
                                    GroupMat=Groups, Diagnostic=self.Diagnostic)
+        self.assertEqual(list(np.around(mat[0, 0:5], 3)),
+                         [0.2, 1.8, 3.8, 7., 8.])
+        self.assertEqual(list(np.around(vec[0:5], 3)),
+                         [3., 0., 1., 4., 2.])
+
+        # Check 2
+        sa, res = elementary_effects(self.nparam, mat, vec, out, nsteps=nsteps,
+                                     Group=Groups)
+        self.assertEqual(list(np.around(res[0:5, 0], 3)),
+                         [0.531, 0.43, 0.432, 0.443, 0.443])
+        self.assertEqual(list(np.around(sa[0:5, 1], 3)),
+                         [0.279, 0.557, 0.557, 0.557, 0.557])
+
+    def test_groups_diagnostics(self):
+        import numpy as np
+        from pyjams import morris_sampling, elementary_effects
+
+        ngroup = 5
+        Groups = np.random.randint(0, 4, (self.nparam, ngroup))
+        nt     = 10
+        nsteps = 6
+        ntotal = 100
+        out = np.random.random(nt*(self.nparam+1))
+
+        # Check 1
+        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
+                                   nsteps=nsteps, ntotal=ntotal,
+                                   GroupMat=Groups, Diagnostic=1)
         self.assertEqual(list(np.around(mat[0, 0:5], 3)),
                          [0.2, 1.8, 3.8, 7., 8.])
         self.assertEqual(list(np.around(vec[0:5], 3)),

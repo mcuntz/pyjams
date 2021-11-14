@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v1.10.dev (Nov 2021)
+    * Added tests for `color`.
+    * Added 'pragma: no cover' to plot and MPI sections of codes so that they
+      are not included in coverage report.
+
 v1.9 (Nov 2021)
     * Add `position`, which positions arrays of subplots to be used with
       Matplotlib's add_axes.
