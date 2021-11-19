@@ -276,8 +276,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
 
     if as_cmap:
         colors = mpl.colors.ListedColormap(colors)
-        if miss is not None:
-            colors.set_bad(miss)
+        if mpl.__version__ > '3.4.0':
+            if miss is not None:
+                colors.set_bad(miss)
 
     return colors
 

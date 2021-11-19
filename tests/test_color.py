@@ -184,9 +184,10 @@ class TestColor(unittest.TestCase):
         cols = cmap.colors
         target = sron_iridescent
         self.assertEqual(cols, target)
-        miss = tuple(cmap.get_bad())
-        target = sron_iridescent_miss
-        self.assertEqual(miss, target)
+        if mpl.__version__ > '3.4.0':
+            miss = tuple(cmap.get_bad())
+            target = sron_iridescent_miss
+            self.assertEqual(miss, target)
 
         # sron_functions
         cmap = get_cmap('sron_rainbow_discrete', 3)
@@ -201,16 +202,18 @@ class TestColor(unittest.TestCase):
         cols = cmap.colors
         target = sron_rainbow_discrete_3
         self.assertEqual(cols, target)
-        miss = tuple(cmap.get_bad())
-        target = sron_rainbow_discrete_3_miss
-        self.assertEqual(miss, target)
+        if mpl.__version__ > '3.4.0':
+            miss = tuple(cmap.get_bad())
+            target = sron_rainbow_discrete_3_miss
+            self.assertEqual(miss, target)
         cmap = get_cmap('sron_rainbow_discrete', as_cmap=True)
         cols = cmap.colors
         target = sron_rainbow_discrete_23
         self.assertEqual(cols, target)
-        miss = tuple(cmap.get_bad())
-        target = sron_rainbow_discrete_23_miss
-        self.assertEqual(miss, target)
+        if mpl.__version__ > '3.4.0':
+            miss = tuple(cmap.get_bad())
+            target = sron_rainbow_discrete_23_miss
+            self.assertEqual(miss, target)
 
         # matplotlib - ListedColormap
         cmap = get_cmap('viridis')
