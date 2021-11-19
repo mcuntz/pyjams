@@ -40,18 +40,24 @@ class TestColor(unittest.TestCase):
         from pyjams.color import ncl_small
         from pyjams.color import oregon_sequential
         from pyjams.color import sron2012_colors, sron2012_functions
+        from pyjams.color import sron_colors, sron_colormaps, sron_functions
 
+        # brewer
         brewer_ylgn3 = brewer_sequential['brewer_ylgn3']
         brewer_ylgn3 = [ _rgb2rgb(i) for i in brewer_ylgn3 ]
 
+        # mathematica
         mathematica_dark_rainbow_8 = (
             mathematica_rainbow['mathematica_dark_rainbow_8'])
 
+        # ncl
         ncl_amwg = ncl_small['ncl_amwg']
 
+        # oregon
         osu_bu7 = oregon_sequential['osu_bu7']
         osu_bu7 = [ _rgb2rgb(i) for i in osu_bu7 ]
 
+        # sron2012
         sron2012_light = sron2012_colors['sron2012_light']
         sron2012_light = [ mpl.colors.colorConverter.to_rgb(i)
                            for i in sron2012_light ]
@@ -62,6 +68,31 @@ class TestColor(unittest.TestCase):
                               for i in range(3) ]
         sron2012_rainbow_3 = [ sron2012_functions['sron2012_rainbow'](i/2.)
                                for i in range(3) ]
+
+        # sron
+        sron_vibrant = sron_colors['sron_vibrant']
+        sron_vibrant = [ mpl.colors.colorConverter.to_rgb(i)
+                         for i in sron_vibrant ]
+
+        sron_iridescent = sron_colormaps['sron_iridescent']
+        sron_iridescent_miss = mpl.colors.colorConverter.to_rgba(
+            sron_iridescent[1])
+        sron_iridescent = [ mpl.colors.colorConverter.to_rgb(i)
+                            for i in sron_iridescent[0] ]
+
+        sron_rainbow_discrete = sron_functions['sron_rainbow_discrete']
+
+        sron_rainbow_discrete_3 = sron_rainbow_discrete(3)
+        sron_rainbow_discrete_3_miss = mpl.colors.colorConverter.to_rgba(
+            sron_rainbow_discrete_3[1])
+        sron_rainbow_discrete_3 = [ mpl.colors.colorConverter.to_rgb(i)
+                                    for i in sron_rainbow_discrete_3[0] ]
+
+        sron_rainbow_discrete_23 = sron_rainbow_discrete()
+        sron_rainbow_discrete_23_miss = mpl.colors.colorConverter.to_rgba(
+            sron_rainbow_discrete_23[1])
+        sron_rainbow_discrete_23 = [ mpl.colors.colorConverter.to_rgb(i)
+                                     for i in sron_rainbow_discrete_23[0] ]
 
         # brewer
         cmap = get_cmap('brewer_ylgn3')
@@ -137,6 +168,49 @@ class TestColor(unittest.TestCase):
         target = [ sron2012_functions['sron2012_rainbow'](0.2+i*0.7/2.)
                    for i in range(3) ]
         self.assertEqual(cmap, target)
+
+        # sron_colors
+        cmap = get_cmap('sron_vibrant')
+        target = sron_vibrant
+        self.assertEqual(cmap, target)
+
+        # sron_colormaps
+        cmap = get_cmap('sron_iridescent')
+        target = sron_iridescent
+        self.assertEqual(cmap, target)
+
+        # sron_colormaps - as_cmap, miss
+        cmap = get_cmap('sron_iridescent', as_cmap=True)
+        cols = cmap.colors
+        target = sron_iridescent
+        self.assertEqual(cols, target)
+        miss = tuple(cmap.get_bad())
+        target = sron_iridescent_miss
+        self.assertEqual(miss, target)
+
+        # sron_functions
+        cmap = get_cmap('sron_rainbow_discrete', 3)
+        target = sron_rainbow_discrete_3
+        self.assertEqual(cmap, target)
+        cmap = get_cmap('sron_rainbow_discrete', 23)
+        target = sron_rainbow_discrete_23
+        self.assertEqual(cmap, target)
+
+        # sron_functions - as_cmap, miss
+        cmap = get_cmap('sron_rainbow_discrete', ncol=3, as_cmap=True)
+        cols = cmap.colors
+        target = sron_rainbow_discrete_3
+        self.assertEqual(cols, target)
+        miss = tuple(cmap.get_bad())
+        target = sron_rainbow_discrete_3_miss
+        self.assertEqual(miss, target)
+        cmap = get_cmap('sron_rainbow_discrete', as_cmap=True)
+        cols = cmap.colors
+        target = sron_rainbow_discrete_23
+        self.assertEqual(cols, target)
+        miss = tuple(cmap.get_bad())
+        target = sron_rainbow_discrete_23_miss
+        self.assertEqual(miss, target)
 
         # matplotlib - ListedColormap
         cmap = get_cmap('viridis')

@@ -22,8 +22,6 @@ History
 __all__ = ['oregon_sequential', 'oregon_diverging', 'oregon_qualitative']
 
 
-# -------------------------------------------------------------------------------------------------
-
 # Oregon State University
 
 # sequential

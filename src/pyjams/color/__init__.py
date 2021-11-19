@@ -12,6 +12,7 @@ Subpackages
    ncl_palettes
    oregon_palettes
    sron2012_palettes
+   sron_palettes
    color
 
 """
@@ -23,6 +24,7 @@ from .ncl_palettes import ncl_large, ncl_small, ncl_meteo_swiss
 from .oregon_palettes import oregon_sequential, oregon_diverging
 from .oregon_palettes import oregon_qualitative
 from .sron2012_palettes import sron2012_colors, sron2012_functions
+from .sron_palettes import sron_colors, sron_colormaps, sron_functions
 # get, show, print color palettes
 from .color import get_cmap, print_palettes, show_palettes
 
@@ -32,5 +34,6 @@ __all__ = ['brewer_sequential', 'brewer_diverging', 'brewer_qualitative',
            'ncl_large', 'ncl_small', 'ncl_meteo_swiss',
            'oregon_sequential', 'oregon_diverging', 'oregon_qualitative',
            'sron2012_colors', 'sron2012_functions',
+           'sron_colors', 'sron_colormaps', 'sron_functions',
            'get_cmap', 'print_palettes', 'show_palettes',
            ]

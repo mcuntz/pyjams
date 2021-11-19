@@ -75,26 +75,26 @@ def _to_grey(col):
 def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
              reverse=False, grey=False):
     """
-    Get colors of defined palettes or continuous color maps
+    Get colors of defined palettes or continuous colormaps
 
     Parameters
     ----------
     palette : str
-        Name of color palette or continuous color map
+        Name of color palette or continuous colormap
     ncol : int, optional
         Number of desired colors
 
         If 0, all colors defined by the specific palette will be returned.
-        256 colors will be chosen for continuous color maps.
+        256 colors will be chosen for continuous colormaps.
 
         If > 0, existing color palettes will be subsampled to *ncol* colors.
-        *ncol* colors will be produced from continuous color maps.
+        *ncol* colors will be produced from continuous colormaps.
     offset : float (0-1), optional
-        Bottom fraction to exclude for subsample or continuous color maps
+        Bottom fraction to exclude for subsample or continuous colormaps
     upper : float (0-1), optional
-        Upper most fraction to include for subsample or continuous color maps
+        Upper most fraction to include for subsample or continuous colormaps
     reverse : bool, optional
-        If True, reverse color map. This can also be achieved by adding '_r' to
+        If True, reverse colormap. This can also be achieved by adding '_r' to
         the palette name. Palettes that end with '_r' will not be reversed.
     grey : bool, optional
         If True, return grey equivalent colors.
@@ -103,6 +103,21 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
     -------
     list or matplotlib.colors.Colormap
         List of RGB tuples or :class:`matplotlib.colors.Colormap`
+
+    Notes
+    -----
+    `get_cmap` always returns a list of RGB tuples or a Matplotlib
+    ListedColormap. You can use the *ncol*, *offset*, and *upper* keywords to
+    subsample colormaps. To get smoothly-varying colormaps, you can use the
+    method :meth:`matplotlib.colors.LinearSegmentedColormap.from_list`
+
+       cols = get_cmap('sron_ylorbr')
+
+       cmap = matplotlib.colors.LinearSegmentedColormap.from_list(cols)
+
+    You can get the color tuples from a LinearSegmentedColormap like this
+
+       colors = [ cmap(i) for i in range(cmap.N) ]
 
     Examples
     --------
@@ -134,9 +149,13 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
     sron2012_collections = [ i for i in dir(pyjams.color)
                              if i.startswith('sron2012_')
                              and not i.endswith('_palettes') ]
+    sron_collections = [ i for i in dir(pyjams.color)
+                         if i.startswith('sron_')
+                         and not i.endswith('_palettes') ]
 
     found_palette = False
     nosubsample = False
+    miss = None
     for bb in brewer_collections:
         dd = eval('pyjams.color.' + bb)
         if palette in dd:
@@ -182,6 +201,29 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
                     for i in range(ncol1):
                         x = offset + float(i)/float(ncol1-1) * (upper-offset)
                         colors.append(tuple(dd[palette](x)))
+
+    if not found_palette:
+        for bb in sron_collections:
+            dd = eval('pyjams.color.' + bb)
+            if palette in dd:
+                found_palette = True
+                if bb == 'sron_colors':
+                    colors = [ mpl.colors.colorConverter.to_rgb(i)
+                               for i in dd[palette] ]
+                elif bb == 'sron_colormaps':
+                    colors = [ mpl.colors.colorConverter.to_rgb(i)
+                               for i in dd[palette][0] ]
+                    miss = mpl.colors.colorConverter.to_rgb(dd[palette][1])
+                elif bb == 'sron_functions':
+                    nosubsample = True
+                    if ncol == 0:
+                        ncol1 = 23
+                    else:
+                        ncol1 = ncol
+                    cols = dd[palette](ncol1)
+                    colors = [ mpl.colors.colorConverter.to_rgb(i)
+                               for i in cols[0] ]
+                    miss = mpl.colors.colorConverter.to_rgb(cols[1])
 
     if not found_palette:
         # try:
@@ -234,25 +276,27 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
 
     if as_cmap:
         colors = mpl.colors.ListedColormap(colors)
+        if miss is not None:
+            colors.set_bad(miss)
 
     return colors
 
 
 def print_palettes(collection=''):
     """
-    Print the known color palettes and continuous color maps
+    Print the known color palettes and continuous colormaps
 
     Parameters
     ----------
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
         Known collections are 'brewer', 'mathematica', 'ncl',
-        'oregon', 'sron2012', and 'matplotlib'.
+        'oregon', 'sron2012', 'sron', and 'matplotlib'.
 
     Returns
     -------
     None
-        Prints list of known color palettes and continuous color maps to
+        Prints list of known color palettes and continuous colormaps to
         terminal.
 
     Examples
@@ -280,6 +324,9 @@ def print_palettes(collection=''):
     sron2012_collections = [ i for i in dir(pyjams.color)
                              if i.startswith('sron2012_')
                              and not i.endswith('_palettes') ]
+    sron_collections = [ i for i in dir(pyjams.color)
+                         if i.startswith('sron_')
+                         and not i.endswith('_palettes') ]
 
     if collection:
         if isinstance(collection, str):
@@ -288,7 +335,7 @@ def print_palettes(collection=''):
             collections = [ i.lower for i in collection ]
     else:
         collections = ['brewer', 'mathematica', 'ncl', 'oregon',
-                       'sron2012', 'matplotlib']
+                       'sron2012', 'sron', 'matplotlib']
 
     if 'brewer' in collections:
         print('brewer')
@@ -325,6 +372,13 @@ def print_palettes(collection=''):
             ll = eval('pyjams.color.' + cc + '.keys()')
             print('       ', list(ll))
 
+    if 'sron' in collections:
+        print('sron')
+        for cc in sron_collections:
+            print('   ', cc)
+            ll = eval('pyjams.color.' + cc + '.keys()')
+            print('       ', list(ll))
+
     if 'matplotlib' in collections:
         print('matplotlib')
         # try:
@@ -346,17 +400,17 @@ def _newfig(ifig, ititle):  # pragma: no cover
     fig.suptitle(ititle)
     plt.subplots_adjust(left=0.3, bottom=0.1,
                         right=0.95, top=0.95,
-                        wspace=0.05, hspace=0.2)
+                        wspace=0.05, hspace=0.5)
     return fig
 
 
-def _newsubplot(nrow, ncol, iplot, iname):  # pragma: no cover
+def _newsubplot(nrow, ncol, iplot, iname, ncolors=0):  # pragma: no cover
     """ Helper function for show_palettes """
     import numpy as np
     import matplotlib.pyplot as plt
     ax = plt.subplot(nrow, ncol, iplot)
     ax.axis('off')
-    cmap = get_cmap(iname, as_cmap=True)
+    cmap = get_cmap(iname, ncolors, as_cmap=True)
     # ax.pcolormesh(np.outer(np.ones(cmap.N), np.arange(cmap.N)),
     #               cmap=cmap)
     ax.imshow(np.outer(np.ones(cmap.N), np.arange(cmap.N)),
@@ -365,7 +419,11 @@ def _newsubplot(nrow, ncol, iplot, iname):  # pragma: no cover
     ymin, ymax = ax.get_ylim()
     dx = -0.01
     dy = 0.5
-    ax.text(xmin+dx*(xmax-xmin), ymin+dy*(ymax-ymin), iname,
+    if ncolors:
+        iiname = iname + '(' + str(ncolors) + ')'
+    else:
+        iiname = iname
+    ax.text(xmin+dx*(xmax-xmin), ymin+dy*(ymax-ymin), iiname,
             ha='right', va='center')
     # return ax
 
@@ -387,7 +445,7 @@ def _savefig(fig, ifig, outtype, outfile, pdf_pages):  # pragma: no cover
 
 def show_palettes(outfile='', collection=''):  # pragma: no cover
     """
-    Show the known color palettes and continuous color maps
+    Show the known color palettes and continuous colormaps
 
     Parameters
     ----------
@@ -396,14 +454,14 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
         Known collections are 'brewer', 'mathematica', 'ncl',
-        'oregon', 'sron2012', and 'matplotlib'.
+        'oregon', 'sron2012', 'sron', and 'matplotlib'.
 
         All palettes will be shown if collection is empty or 'all'.
 
     Returns
     -------
     None
-        Plots known color palettes and continuous color maps in file or on
+        Plots known color palettes and continuous colormaps in file or on
         X-Window.
 
     Examples
@@ -433,7 +491,7 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
 
     # which collections to include
     collections = ['brewer', 'mathematica', 'ncl', 'oregon',
-                   'sron2012', 'matplotlib']
+                   'sron2012', 'sron', 'matplotlib']
     if collection:
         if isinstance(collection, str):
             if collection.lower() != 'all':
@@ -468,6 +526,9 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     sron2012_collections = [ i for i in dir(pyjams.color)
                              if i.startswith('sron2012_')
                              and not i.endswith('_palettes') ]
+    sron_collections = [ i for i in dir(pyjams.color)
+                         if i.startswith('sron_')
+                         and not i.endswith('_palettes') ]
 
     all_collections = []
     if 'brewer' in collections:
@@ -484,6 +545,9 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
             all_collections.append(cc)
     if 'sron2012' in collections:
         for cc in sron2012_collections:
+            all_collections.append(cc)
+    if 'sron' in collections:
+        for cc in sron_collections:
             all_collections.append(cc)
     if 'matplotlib' in collections:
         # try:
@@ -523,6 +587,10 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
             ipanel += 1
             # ax = _newsubplot(nrow, 1, ipanel, iname)
             _newsubplot(nrow, 1, ipanel, iname)
+            if collname == 'sron_functions':
+                for ncolors in range(1, 24):
+                    ipanel += 1
+                    _newsubplot(nrow, 1, ipanel, iname, ncolors)
             if ipanel == nrow:
                 _savefig(fig, ifig, outtype, outfile, pdf_pages)
                 ipanel = 0

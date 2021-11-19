@@ -19,8 +19,6 @@ from math import erf
 __all__ = ['sron2012_colors', 'sron2012_functions']
 
 
-# -------------------------------------------------------------------------------------------------
-
 sron2012_colors = {
     # All references to sron_colourschemes.pdf of 2012
     # Fig.2 - regular pattern of hue
