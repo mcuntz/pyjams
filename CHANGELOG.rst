@@ -2,7 +2,9 @@ Changelog
 ---------
 
 v1.11.dev (Nov 2021)
-    * Added `signature2plot`, adding copyright notice on plot.
+    * Combine `abc2plot` and `signature2plot` in one file `text2plot.py`.
+    * Added `abc2plot`, adding a, B, iii), etc. onto a plot.
+    * Added `signature2plot`, adding a copyright notice onto a plot.
     * Added 'pyjams_color.pdf' as reference to available colormaps.
 
 v1.10 (Nov 2021)

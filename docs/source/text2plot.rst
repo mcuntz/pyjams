@@ -1,7 +1,7 @@
-signature2plot
---------------
+text2plot
+---------
 
-.. automodule:: pyjams.signature2plot
+.. automodule:: pyjams.text2plot
    :members:
    :undoc-members:
    :inherited-members:

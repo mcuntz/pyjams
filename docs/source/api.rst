@@ -23,7 +23,7 @@ Public API
    morris_method.rst
    position.rst
    screening.rst
-   signature2plot.rst
+   text2plot.rst
    str2tex.rst
    tee.rst
 

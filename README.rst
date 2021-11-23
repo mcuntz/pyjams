@@ -89,6 +89,8 @@ Functions and modules (alphabetical)
 
    * - Function/module
      - Short description
+   * - abc2plot
+     - Write a, B, iii), ... on a plot
    * - alpha_equ_h2o
      - Equilibrium fractionation between liquid water and vapour
    * - alpha_kin_h2o
@@ -222,6 +224,8 @@ Plotting
 
        * - Function/module
          - Short description
+       * - abc2plot
+         - Write a, B, iii), ... on a plot
        * - color
          - Collection of color palettes and continuous color maps
        * - mcPlot

@@ -83,6 +83,8 @@ Functions and modules (alphabetical)
 
    * - Function/module
      - Short description
+   * - :func:`~pyjams.abc2plot`
+     - Write a, B, iii), ... on a plot
    * - :func:`~pyjams.alpha_equ_h2o`
      - Equilibrium fractionation between liquid water and vapour
    * - :func:`~pyjams.alpha_kin_h2o`
@@ -220,6 +222,8 @@ Plotting
 
        * - Function/module
          - Short description
+       * - :func:`~pyjams.abc2plot`
+         - Write a, B, iii), ... on a plot
        * - :mod:`~pyjams.color`
          - Collection of color palettes and continuous color maps
        * - :class:`~pyjams.mcPlot`
