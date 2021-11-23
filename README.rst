@@ -127,6 +127,8 @@ Functions and modules (alphabetical)
      - Position arrays of subplots to be used with add_axes
    * - screening
      - Parameter screening using Morris' method of Elementary Effects
+   * - signature2plot
+     - Write a copyright notice on a plot
    * - str2tex
      - Convert strings to LaTeX strings in math environment used by matplotlib's
        usetex
@@ -226,6 +228,8 @@ Plotting
          - Matthias Cuntz' standard plotting class
        * - position
          - Position arrays of subplots to be used with add_axes
+       * - signature2plot
+         - Write a copyright notice on a plot
        * - str2tex
          - Convert strings to LaTeX strings in math environment used by
            matplotlib's usetex

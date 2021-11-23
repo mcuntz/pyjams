@@ -31,6 +31,7 @@ Subpackages
    morris_method
    position
    screening
+   signature2plot
    str2tex
    tee
 
@@ -47,6 +48,8 @@ History
     * v1.7, added mcPlot, Nov 2021, Matthias Cuntz
     * v1.8, added str2tex and color, Nov 2021, Matthias Cuntz
     * v1.9, added position, Nov 2021, Matthias Cuntz
+    * v1.10, added sron colors, Nov 2021, Matthias Cuntz
+    * v1.11, added signature2plot, Nov 2021, Matthias Cuntz
 
 """
 # version, author
@@ -86,18 +89,22 @@ from .position import position
 from .screening import screening, ee
 # Convert strings to LaTeX strings
 from .str2tex import str2tex
+# put copyright notice on plot (import after str2tex)
+from .signature2plot import signature2plot
+
 # like unix tee
 from .tee import tee
 
 
-__all__ = ["__version__", "__author__",
-           "const", "functions",
-           "alpha_equ_h2o", "alpha_kin_h2o",
-           "argmax", "argmin", "argsort",
-           "closest",
-           "division", "div",
-           "mcPlot",
-           "morris_sampling", "elementary_effects",
-           "screening", "ee",
-           "tee",
+__all__ = ['__version__', '__author__',
+           'const', 'functions',
+           'alpha_equ_h2o', 'alpha_kin_h2o',
+           'argmax', 'argmin', 'argsort',
+           'closest',
+           'division', 'div',
+           'mcPlot',
+           'morris_sampling', 'elementary_effects',
+           'screening', 'ee',
+           'signature2plot'
+           'tee',
            ]
