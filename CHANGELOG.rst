@@ -2,6 +2,8 @@ Changelog
 ---------
 
 v1.11.dev (Nov 2021)
+    * Added `int2roman` and `roman2int`, converting inter to and from
+      Roman literals.
     * Combine `abc2plot` and `signature2plot` in one file `text2plot.py`.
     * Added `abc2plot`, adding a, B, iii), etc. onto a plot.
     * Added `signature2plot`, adding a copyright notice onto a plot.

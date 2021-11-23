@@ -116,6 +116,8 @@ Functions and modules (alphabetical)
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with :mod:`scipy.optimize`
+   * - :func:`~pyjams.romanliterals.int2roman`
+     - Integer to Roman numeral conversion
    * - :class:`~pyjams.mcPlot`
      - Matthias Cuntz' standard plotting class
    * - :func:`~pyjams.morris_method.morris_sampling`
@@ -123,6 +125,8 @@ Functions and modules (alphabetical)
        Effects
    * - :func:`~pyjams.position`
      - Position arrays of subplots to be used with add_axes
+   * - :func:`~pyjams.romanliterals.roman2int`
+     - Roman numeral to integer conversion
    * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects
    * - :func:`~pyjams.signature2plot`
@@ -210,6 +214,10 @@ Miscellaneous
        * - :mod:`~pyjams.const`
          - Physical, mathematical, computational, isotope, and material
            constants
+       * - :func:`~pyjams.romanliterals.int2roman`
+         - Integer to Roman numeral conversion
+       * - :func:`~pyjams.romanliterals.roman2int`
+         - Roman numeral to integer conversion
        * - :func:`~pyjams.tee`
          - Prints arguments on screen and in file, like Unix/Linux tee utility
 

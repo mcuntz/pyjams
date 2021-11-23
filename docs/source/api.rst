@@ -22,6 +22,7 @@ Public API
    mcplot.rst
    morris_method.rst
    position.rst
+   romanliterals.rst
    screening.rst
    text2plot.rst
    str2tex.rst

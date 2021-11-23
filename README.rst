@@ -120,6 +120,8 @@ Functions and modules (alphabetical)
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with scipy.optimize
+   * - int2roman
+     - Integer to Roman numeral conversion
    * - mcPlot
      - Matthias Cuntz' standard plotting class
    * - morris_sampling
@@ -127,6 +129,8 @@ Functions and modules (alphabetical)
        Effects
    * - position
      - Position arrays of subplots to be used with add_axes
+   * - roman2int
+     - Roman numeral to integer conversion
    * - screening
      - Parameter screening using Morris' method of Elementary Effects
    * - signature2plot
@@ -212,6 +216,10 @@ Miscellaneous
        * - const
          - Physical, mathematical, computational, isotope, and material
            constants
+       * - int2roman
+         - Integer to Roman numeral conversion
+       * - roman2int
+         - Roman numeral to integer conversion
        * - tee
          - Prints arguments on screen and in file, like Unix/Linux tee utility
 

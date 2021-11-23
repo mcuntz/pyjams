@@ -85,26 +85,30 @@ from .mcplot import mcPlot
 from .morris_method import morris_sampling, elementary_effects
 # positions of subplots, used with add_axes
 from .position import position
+# Convert integer to and from Roman numerals
+from .romanliterals import int2roman, roman2int
 # Sample trajectories, run model and return Morris Elementary Effects
 from .screening import screening, ee
 # Convert strings to LaTeX strings
 from .str2tex import str2tex
+# like unix tee
+from .tee import tee
 # put text on plot (import after str2tex)
 from .text2plot import abc2plot, signature2plot
 
-# like unix tee
-from .tee import tee
-
 
 __all__ = ['__version__', '__author__',
-           'const', 'functions',
+           'color', 'const', 'functions',
            'alpha_equ_h2o', 'alpha_kin_h2o',
            'argmax', 'argmin', 'argsort',
            'closest',
            'division', 'div',
            'mcPlot',
            'morris_sampling', 'elementary_effects',
+           'position',
+           'int2roman', 'roman2int',
            'screening', 'ee',
-           'abc2plot', 'signature2plot',
+           'str2tex',
            'tee',
+           'abc2plot', 'signature2plot',
            ]
