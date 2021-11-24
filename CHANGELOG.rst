@@ -1,7 +1,8 @@
 Changelog
 ---------
 
-v1.11.dev (Nov 2021)
+v1.11 (Nov 2021)
+    * Use `text2plot` in `abc2plot` and `signature2plot`.
     * Better handling of linebreaks in Matplotlib and LaTeX mode in `str2tex`.
     * Added `text2plot`, adding text onto a plot.
     * Added `int2roman` and `roman2int`, converting inter to and from

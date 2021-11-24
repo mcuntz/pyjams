@@ -38,7 +38,7 @@ History
     * Assert that small or large is set if medium is not None (abc2plot),
       Feb 2014, Matthias Cuntz
     * Replace horizontalalignment='left' and verticalalignment='bottom'
-      by **kwargs mechanism (abc2plot), May 2014, Matthias Cuntz
+      by kwargs mechanism (abc2plot), May 2014, Matthias Cuntz
     * Added option italic (abc2plot), May 2014, Matthias Cuntz
     * Added options xlarge, xxlarge, xsmall, xxsmall (abc2plot),
       Oct 2015, Matthias Cuntz
@@ -48,6 +48,8 @@ History
       Nov 2020, Matthias Cuntz
     * Change option name parenthesis -> parentheses, Nov 2021, Matthias Cuntz
     * Written text2plot, Nov 2021, Matthias Cuntz
+    * Use text2plot for signature2plot, Nov 2021, Matthias Cuntz
+    * Use text2plot for abc2plot, Nov 2021, Matthias Cuntz
 
 """
 import time as ptime
@@ -106,7 +108,7 @@ def text2plot(handle, dx, dy, itext,
 
         False: No LaTeX math mode
     mathrm : bool, optional
-        True: Put signature into appropriate LaTeX mathrm/mathit/mathbf
+        True: Put text into appropriate LaTeX mathrm/mathit/mathbf
         environment if *usetex==True* and *italic==True* or *bold==True*
 
         False: Use standard math font if *usetex==True* (default)
@@ -125,8 +127,10 @@ def text2plot(handle, dx, dy, itext,
 
     Examples
     --------
-    text2plot(ax, 0.7, 0.6, r'CO$_2$', large=True,
-              usetex=usetex, mathrm=False)
+    .. code-block:: python
+
+       text2plot(ax, 0.7, 0.6, r'CO$_2$', large=True,
+                 usetex=usetex, mathrm=False)
 
     """
     import matplotlib.pyplot as plt
@@ -284,7 +288,7 @@ def abc2plot(handle, dx, dy, iplot,
 
         False: No LaTeX math mode
     mathrm : bool, optional
-        True: Put signature into appropriate LaTeX mathrm/mathit/mathbf
+        True: Put a, b, c, ... into appropriate LaTeX mathrm/mathit/mathbf
         environment if *usetex==True* and *italic==True* or *bold==True*
 
         False: Use standard math font if *usetex==True* (default)
@@ -301,27 +305,21 @@ def abc2plot(handle, dx, dy, iplot,
     -------
     Letter/number or string on plot
 
-    Note
-    ----
+    Notes
+    -----
     If output is a letter then iplot > 26 gives unexpected results.
 
     Examples
     --------
-    abc2plot(ax, 0.7, 0.6, 2, large=True, parentheses='both',
-             usetex=usetex, mathrm=False)
+    .. code-block:: python
+
+       abc2plot(ax, 0.7, 0.6, 2, large=True, parentheses='both',
+                usetex=usetex, mathrm=False)
 
     """
     import matplotlib.pyplot as plt
 
     # Check input
-    ifont = small + medium + large + xsmall + xxsmall + xlarge + xxlarge
-    assert ifont <= 1, ('only one of small, medium, large, xsmall, xxsmall'
-                        ' xlarge, or xxlarge font size can be chosen.')
-    if ifont == 0:
-        medium = True
-    if usetex and mathrm:
-        assert (bold + italic) <= 1, ('if usetex and mathrm: then bold and'
-                                      ' italic are mutually exclusive.')
     assert (roman + integer) < 2, ('either Roman literals or integers can'
                                    ' be chosen.')
     iparentheses = False
@@ -353,36 +351,6 @@ def abc2plot(handle, dx, dy, iplot,
                 t = chr(96+iplot)
             else:
                 t = chr(64+iplot)
-
-    # Size
-    if small:
-        fs = 'small'
-    elif medium:
-        fs = 'medium'
-    elif large:
-        fs = 'large'
-    elif xsmall:
-        fs = 'x-small'
-    elif xxsmall:
-        fs = 'xx-small'
-    elif xlarge:
-        fs = 'x-large'
-    elif xxlarge:
-        fs = 'xx-large'
-    else:  # just for security
-        fs = 'medium'
-
-    # Weight
-    if bold:
-        fw = 'bold'
-    else:
-        fw = 'normal'
-
-    # Style
-    if italic:
-        fst = 'italic'
-    else:
-        fst = 'normal'
 
     # parentheses
     if iparentheses:
@@ -443,41 +411,51 @@ def abc2plot(handle, dx, dy, iplot,
                 t = r'\mathrm{' + t + '}'
         t = r'$' + t + r'$'
 
-    xmin, xmax = handle.get_xlim()
-    ymin, ymax = handle.get_ylim()
-    idx = xmin + dx * (xmax - xmin)
-    idy = ymin + dy * (ymax - ymin)
-    handle.text(idx, idy, t,
-                fontsize=fs, fontweight=fw, fontstyle=fst,
-                **kwargs)
+    text2plot(handle, dx, dy, t,
+              small=small, medium=medium, large=large,
+              xsmall=xsmall, xxsmall=xxsmall, xlarge=xlarge, xxlarge=xxlarge,
+              bold=bold, italic=italic,
+              usetex=False, mathrm=False,
+              **kwargs)
 
 
-def signature2plot(handle, dx, dy, name,
+def signature2plot(handle, dx, dy, itext,
                    small=False, medium=False, large=False,
+                   xsmall=False, xxsmall=False, xlarge=False, xxlarge=False,
                    bold=False, italic=False,
                    usetex=False, mathrm=False,
                    **kwargs):  # pragma: no cover
     """
     Write a copyright notice on a plot
 
-    The notice is: '(C) *name* YYYY', where YYYY is the current 4-digit year.
+    The notice is: '(C) YYYY *itext*', where YYYY is the current 4-digit year.
 
-    Parameter
-    ---------
+    Parameters
+    ----------
     handle : :class:`matplotlib.axes` subclass
        Matplotlib axes handle
     dx : float
         % of xlim from min(xlim)
     dy : float
         % of ylim from min(ylim)
-    name : str
-        Name after (C)
+    itext : str
+        Text after '(C) YYYY', where YYYY is the current 4-digit year
+    itext : str
+        String to write on plot
     small : bool, optional
-        True: fontsize='small'
+        True: fontsize='small' (default: False)
     medium : bool, optional
         True: fontsize='medium' (default)
     large : bool, optional
-        True: fontsize='large'
+        True: fontsize='large' (default: False)
+    xlarge : bool, optional
+        True: fontsize='x-large' (default: False)
+    xsmall : bool, optional
+        True: fontsize='x-small' (default: False)
+    xxlarge : bool, optional
+        True: fontsize='xx-large' (default: False)
+    xxsmall : bool, optional
+        True: fontsize='xx-small' (default: False)
     bold : bool, optional
         True: fontweight='bold'
 
@@ -495,82 +473,48 @@ def signature2plot(handle, dx, dy, name,
         environment if *usetex==True* and *italic==True* or *bold==True*
 
         False: Use standard math font if *usetex==True* (default)
+    string : bool, optional
+        True: Treat iplot as literal string and not as number.
+        integer, roman and lower are disabled.
+
+        False: iplot is integer (default)
     **kwargs : dict, optional
         All additional parameters are passed passed to
         :meth:`matplotlib.axes.Axes.text()`
 
     Returns
     -------
-    '(C) name YYYY' or '(C) YYYY' on plot, where YYYY is the 4-digit year.
+    '(C) YYYY itext' or '(C) YYYY' on plot, where YYYY is the 4-digit year
+
+    Notes
+    -----
+    Signature will be right-aligned horizontally if horizontalalignment or
+    ha are not given in kwargs.
 
     Examples
     --------
-    signature2plot(ax, 0., 0.05, 'M Cuntz, INRAE',
-                   small=True, italic=True,
-                   usetex=usetex, mathrm=True)
+    .. code-block:: python
+
+       signature2plot(ax, 0., 0.05, 'M Cuntz, INRAE',
+                      small=True, italic=True,
+                      usetex=usetex, mathrm=True)
 
     """
-
-    # Check input
-    ifont = small + medium + large
-    assert ifont <= 1, ('only one of small, medium or large'
-                        ' font size can be chosen.')
-    if ifont == 0:
-        medium = True
-    if usetex and mathrm:
-        assert (bold+italic) <= 1, ('if usetex and mathrm: then bold and'
-                                    ' italic are mutually exclusive.')
-
-    # default dx/dy
-    xmin, xmax = handle.get_xlim()
-    ymin, ymax = handle.get_ylim()
-    idx = xmin + dx * (xmax - xmin)
-    if 'transform' in kwargs:
-        if kwargs['transform'] is handle.transAxes:
-            idx = dx
-    idy = ymin + dy * (ymax - ymin)
-    if 'transform' in kwargs:
-        if kwargs['transform'] is handle.transAxes:
-            idy = dy
-
-    # name
     year = str(ptime.localtime().tm_year)
-    s1 = str2tex(r'$\copyright$ ' + name.strip() + r' ' + year,
-                 usetex=usetex)
+    if itext.strip():
+        otext = r'$\copyright$ ' + year + ' ' + itext.strip()
+    else:
+        otext = r'$\copyright$ ' + year
 
-    if 'horizontalalignment' not in kwargs:
+    if ('horizontalalignment' not in kwargs) and ('ha' not in kwargs):
         kwargs['horizontalalignment'] = 'right'
 
-    if usetex:
-        if mathrm:
-            if bold:
-                s1 = s1.replace('mathrm', 'mathbf')
-            elif italic:
-                s1 = s1.replace('mathrm', 'mathit')
-
-    # Size
-    if small:
-        fs = 'small'
-    if medium:
-        fs = 'medium'
-    if large:
-        fs = 'large'
-
-    # Weight
-    if bold:
-        fw = 'bold'
-    else:
-        fw = 'normal'
-
-    # Style
-    if italic:
-        fst = 'italic'
-    else:
-        fst = 'normal'
-
-    label = handle.text(idx, idy, s1,
-                        fontsize=fs, fontweight=fw, fontstyle=fst,
-                        **kwargs)
+    text2plot(handle, dx, dy, otext,
+              small=small, medium=medium, large=large,
+              xsmall=xsmall, xxsmall=xxsmall, xlarge=xlarge, xxlarge=xxlarge,
+              bold=bold, italic=italic,
+              usetex=usetex, mathrm=mathrm,
+              **kwargs)
 
 
 if __name__ == '__main__':

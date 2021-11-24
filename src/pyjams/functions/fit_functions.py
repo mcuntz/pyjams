@@ -194,10 +194,10 @@ Functions:
 History
     * Written Dec 2012 by Matthias Cuntz (mc (at) macu (dot) de)
     * Ported to Python 3, Feb 2013, Matthias Cuntz
-    * Added general cost functions cost_abs and cost_square,
+    * Added general cost functions `cost_abs` and `cost_square`,
       May 2013, Matthias Cuntz
     * Added line0, Feb 2014, Matthias Cuntz
-    * Removed multiline_p, May 2020, Matthias Cuntz
+    * Removed `multiline_p`, May 2020, Matthias Cuntz
     * Changed to Sphinx docstring and numpydoc, May 2020, Matthias Cuntz
 
 """

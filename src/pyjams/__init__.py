@@ -54,9 +54,9 @@ History
 
 """
 # version, author
-try:
+try:  # pragma: no cover
     from ._version import __version__
-except ImportError:  # pragma: nocover
+except ImportError:  # pragma: no cover
     # package is not installed
     __version__ = "0.0.0.dev0"
 __author__  = "Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda"

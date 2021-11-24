@@ -18,8 +18,8 @@ The following functions are provided:
    int2roman
    roman2int
 
-Note
-----
+Notes
+-----
 Code adapted from Tim Valenta:
 http://code.activestate.com/recipes/81611-roman-numerals
 
@@ -63,8 +63,8 @@ def int2roman(i, lower=False):
     str
         Roman numeral
 
-    Note
-    ----
+    Notes
+    -----
     Code adapted from Tim Valenta:
     http://code.activestate.com/recipes/81611-roman-numerals
 
