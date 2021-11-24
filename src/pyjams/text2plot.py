@@ -15,9 +15,9 @@ l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 The following functions are provided:
 
 .. autosummary::
+   text2plot
    abc2plot
    signature2plot
-   text2plot
 
 History
     * Written Nov 2021 by Matthias Cuntz (mc (at) macu (dot) de)
@@ -47,6 +47,7 @@ History
     * dx, dy, and name mandatory parameters (signature2plot),
       Nov 2020, Matthias Cuntz
     * Change option name parenthesis -> parentheses, Nov 2021, Matthias Cuntz
+    * Written text2plot, Nov 2021, Matthias Cuntz
 
 """
 import time as ptime
@@ -56,7 +57,145 @@ from .romanliterals import int2roman
 # from pyjams.romanliterals import int2roman
 
 
-__all__ = ['abc2plot', 'signature2plot']
+__all__ = ['text2plot', 'abc2plot', 'signature2plot']
+
+
+def text2plot(handle, dx, dy, itext,
+              small=False, medium=False, large=False,
+              xsmall=False, xxsmall=False, xlarge=False, xxlarge=False,
+              bold=False, italic=False,
+              usetex=False, mathrm=False,
+              **kwargs):  # pragma: no cover
+    """
+    Write text on plot
+
+    Parameters
+    ----------
+    handle : :class:`matplotlib.axes` subclass
+       Matplotlib axes handle
+    dx : float
+        % of xlim from min(xlim)
+    dy : float
+        % of ylim from min(ylim)
+    itext : str
+        String to write on plot
+    small : bool, optional
+        True: fontsize='small' (default: False)
+    medium : bool, optional
+        True: fontsize='medium' (default)
+    large : bool, optional
+        True: fontsize='large' (default: False)
+    xlarge : bool, optional
+        True: fontsize='x-large' (default: False)
+    xsmall : bool, optional
+        True: fontsize='x-small' (default: False)
+    xxlarge : bool, optional
+        True: fontsize='xx-large' (default: False)
+    xxsmall : bool, optional
+        True: fontsize='xx-small' (default: False)
+    bold : bool, optional
+        True: fontweight='bold'
+
+        False: fontsize='normal' (default)
+    italic : bool, optional
+        True:    fontstyle='italic'
+
+        False:   fontstyle='normal' (default)
+    usetex : bool, optional
+        True: Embed into LaTeX math environment
+
+        False: No LaTeX math mode
+    mathrm : bool, optional
+        True: Put signature into appropriate LaTeX mathrm/mathit/mathbf
+        environment if *usetex==True* and *italic==True* or *bold==True*
+
+        False: Use standard math font if *usetex==True* (default)
+    string : bool, optional
+        True: Treat iplot as literal string and not as number.
+        integer, roman and lower are disabled.
+
+        False: iplot is integer (default)
+    **kwargs : dict, optional
+        All additional parameters are passed passed to
+        :meth:`matplotlib.axes.Axes.text()`
+
+    Returns
+    -------
+    String on plot
+
+    Examples
+    --------
+    text2plot(ax, 0.7, 0.6, r'CO$_2$', large=True,
+              usetex=usetex, mathrm=False)
+
+    """
+    import matplotlib.pyplot as plt
+
+    # Check input
+    ifont = small + medium + large + xsmall + xxsmall + xlarge + xxlarge
+    assert ifont <= 1, ('only one of small, medium, large, xsmall, xxsmall'
+                        ' xlarge, or xxlarge font size can be chosen.')
+    if ifont == 0:
+        medium = True
+    if usetex and mathrm:
+        assert (bold + italic) <= 1, ('if usetex and mathrm: then bold and'
+                                      ' italic are mutually exclusive.')
+
+    # Size
+    if small:
+        fs = 'small'
+    elif medium:
+        fs = 'medium'
+    elif large:
+        fs = 'large'
+    elif xsmall:
+        fs = 'x-small'
+    elif xxsmall:
+        fs = 'xx-small'
+    elif xlarge:
+        fs = 'x-large'
+    elif xxlarge:
+        fs = 'xx-large'
+    else:  # just for security
+        fs = 'medium'
+
+    # Weight
+    if bold:
+        fw = 'bold'
+    else:
+        fw = 'normal'
+
+    # Style
+    if italic:
+        fst = 'italic'
+    else:
+        fst = 'normal'
+
+    # usetex
+    istr = str2tex(itext, usetex=usetex)
+
+    if usetex:
+        if mathrm:
+            if bold:
+                istr = istr.replace('mathrm', 'mathbf')
+            elif italic:
+                istr = istr.replace('mathrm', 'mathit')
+
+    # x/y position
+    xmin, xmax = handle.get_xlim()
+    ymin, ymax = handle.get_ylim()
+    idx = xmin + dx * (xmax - xmin)
+    if 'transform' in kwargs:
+        if kwargs['transform'] is handle.transAxes:
+            idx = dx
+    idy = ymin + dy * (ymax - ymin)
+    if 'transform' in kwargs:
+        if kwargs['transform'] is handle.transAxes:
+            idy = dy
+
+    handle.text(idx, idy, istr,
+                fontsize=fs, fontweight=fw, fontstyle=fst,
+                **kwargs)
 
 
 def abc2plot(handle, dx, dy, iplot,
@@ -429,7 +568,6 @@ def signature2plot(handle, dx, dy, name,
     else:
         fst = 'normal'
 
-    print(s1)
     label = handle.text(idx, idy, s1,
                         fontsize=fs, fontweight=fw, fontstyle=fst,
                         **kwargs)
@@ -441,7 +579,7 @@ if __name__ == '__main__':
 
     # outtype = ''
     # # outtype = 'pdf'
-    # pdffile = 'abc2plot.pdf'
+    # pdffile = 'text2plot.pdf'
     # usetex  = True
     # textsize = 12
 
@@ -467,6 +605,30 @@ if __name__ == '__main__':
     #     print('Plot X')
     # figsize = mpl.rcParams['figure.figsize']
 
+    # # --------------------------------------------------------------
+    # # text2plot
+    # fig = plt.figure()
+    # sub = fig.add_axes([0.05, 0.05, 0.4, 0.4])
+    # m = plt.plot(range(100), 'k:')
+    # text2plot(sub, 0.0, 0.0, r'CO$_2$')
+    # text2plot(sub, 0.1, 0.1, 'CO2', usetex=usetex)
+    # text2plot(sub, 0.2, 0.2, r'$\frac{CO_2}{O_2}$', xxsmall=True,
+    #           usetex=usetex, mathrm=False)
+    # text2plot(sub, 0.3, 0.3, r'Units (m$^2$ s$^{-1}$)', xsmall=True,
+    #           usetex=usetex, mathrm=False)
+    # text2plot(sub, 0.4, 0.4, r'Two \n lines', medium=True,
+    #           usetex=False, mathrm=False)
+    # text2plot(sub, 0.5, 0.5, r'Units \newline (m$^2$ s$^{-1}$)', large=True,
+    #           usetex=usetex, mathrm=False)
+    # text2plot(sub, 0.6, 0.6, r'CO$_2$', xlarge=True,
+    #           usetex=usetex, mathrm=False)
+    # text2plot(sub, 0.7, 0.7, r'CO$_2$', xxlarge=True,
+    #           usetex=usetex, mathrm=False)
+    # text2plot(sub, 0.8, 0.8, r'CO$_2$', medium=True, bold=True,
+    #           usetex=usetex, mathrm=True)
+
+    # # --------------------------------------------------------------
+    # # abc2plot
     # fig = plt.figure()
     # sub = fig.add_axes([0.05, 0.05, 0.4, 0.4])
     # m = plt.plot(range(100), 'k:')
@@ -506,6 +668,29 @@ if __name__ == '__main__':
     #          horizontalalignment='left', verticalalignment='bottom')
     # abc2plot(sub, 0.8, 0.8, 2, medium=True, bold=True, braces='none',
     #          horizontalalignment='right', verticalalignment='top')
+
+    # # --------------------------------------------------------------
+    # # signature2plot
+    # import numpy as np
+    # fig = plt.figure()
+    # sub = fig.add_axes([0.05, 0.05, 0.4, 0.4])
+    # mulx = 1.
+    # muly = 1.
+    # m = plt.plot(mulx*np.arange(100)/99., muly*np.arange(100)/99., 'k:')
+    # signature2plot(sub, mulx*0.5, muly*0.5, 'Test1', usetex=usetex)
+    # signature2plot(sub, mulx*0.6, muly*0.6, 'MC1', small=True,
+    #                usetex=usetex)  # -
+    # signature2plot(sub, mulx*0.7, muly*0.7, 'Test2', large=True,
+    #                usetex=usetex, italic=True)
+    # signature2plot(sub, mulx*0.8, muly*0.8, 'MC2', bold=True, usetex=usetex,
+    #                ha='left', mathrm=True)
+    # signature2plot(sub, mulx*0.8, muly*0.8, 'MC2', bold=True)
+    # signature2plot(sub, mulx*0.9, muly*0.9, 'Test3', large=True,
+    #                usetex=usetex, italic=True, mathrm=True)
+    # signature2plot(sub, mulx*1.0, muly*1.0, 'MC3', usetex=usetex, bold=True,
+    #                horizontalalignment='left')
+    # signature2plot(sub, 0.9, 0.1, 'MM', transform=sub.transAxes,
+    #                usetex=usetex, bold=True, horizontalalignment='center')
 
     # if (outtype == 'pdf'):
     #     pdf_pages.savefig(fig)

@@ -83,7 +83,7 @@ Functions and modules (alphabetical)
 
    * - Function/module
      - Short description
-   * - :func:`~pyjams.abc2plot`
+   * - :func:`~pyjams.text2plot.abc2plot`
      - Write a, B, iii), ... on a plot
    * - :func:`~pyjams.alpha_equ_h2o`
      - Equilibrium fractionation between liquid water and vapour
@@ -129,13 +129,15 @@ Functions and modules (alphabetical)
      - Roman numeral to integer conversion
    * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects
-   * - :func:`~pyjams.signature2plot`
+   * - :func:`~pyjams.text2plot.signature2plot`
      - Write a copyright notice on a plot
    * - :func:`~pyjams.str2tex`
      - Convert strings to LaTeX strings in math environment used by matplotlib's
        usetex
    * - :func:`~pyjams.tee`
      - Prints arguments on screen and in file, like Unix/Linux tee utility
+   * - :func:`~pyjams.text2plot.text2plot`
+     - Write text on a plot
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -230,7 +232,7 @@ Plotting
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.abc2plot`
+       * - :func:`~pyjams.text2plot.abc2plot`
          - Write a, B, iii), ... on a plot
        * - :mod:`~pyjams.color`
          - Collection of color palettes and continuous color maps
@@ -238,11 +240,13 @@ Plotting
          - Matthias Cuntz' standard plotting class
        * - :func:`~pyjams.position`
          - Position arrays of subplots to be used with add_axes
-       * - :func:`~pyjams.signature2plot`
+       * - :func:`~pyjams.text2plot.signature2plot`
          - Write a copyright notice on a plot
        * - :func:`~pyjams.str2tex`
          - Convert strings to LaTeX strings in math environment used by
            matplotlib's usetex
+       * - :func:`~pyjams.text2plot.text2plot`
+         - Write text on a plot
 
 
 License

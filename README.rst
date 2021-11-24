@@ -140,6 +140,8 @@ Functions and modules (alphabetical)
        usetex
    * - tee
      - Prints arguments on screen and in file, like Unix/Linux tee utility
+   * - text2plot
+     - Write text on a plot
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -245,6 +247,8 @@ Plotting
        * - str2tex
          - Convert strings to LaTeX strings in math environment used by
            matplotlib's usetex
+       * - text2plot
+         - Write text on a plot
 
 
 License

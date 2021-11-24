@@ -26,6 +26,8 @@ History
     * Bug in escaping %, Nov 2021, Matthias Cuntz
     * Remove trailing $\\mathrm{}$, Nov 2021, Matthias Cuntz
     * Ported into pyjams, Nov 2021, Matthias Cuntz
+    * Better handling of linebreaks in Matplotlib and LaTeX mode,
+      Nov 2021, Matthias Cuntz
 
 """
 import numpy as np
@@ -35,7 +37,7 @@ __all__ = ['str2tex']
 
 
 def str2tex(strin, space2linebreak=False,
-            bold=False, italic=False, usetex=True):
+            bold=False, italic=False, usetex=False):
     """
     Convert strings to LaTeX strings in math environment used by matplotlib's
     usetex
@@ -61,9 +63,9 @@ def str2tex(strin, space2linebreak=False,
 
         default: False
     usetex : bool, optional
-        False: do only ``space2linebreak`` if needed, otherwise nothing
+        False: only linebreaks and comments treated
 
-        default: True
+        default: False
 
     Returns
     -------
@@ -79,6 +81,8 @@ def str2tex(strin, space2linebreak=False,
        fig.suptitle(tit)
 
     """
+    import matplotlib.pyplot as plt
+
     # Input type and shape
     if isinstance(strin, list):
         from copy import copy
@@ -111,36 +115,51 @@ def str2tex(strin, space2linebreak=False,
     # helpers
     a0 = chr(0)  # ascii 0
     # string replacements
-    rep_n        = lambda s: s.replace(r'\n', '}$' + a0 + r'\n' + a0 + mtex)
+    if usetex:
+        # no '\n' in LaTeX, use '\newline'
+        rep_n       = lambda s: s.replace(r'\n', '}$' + a0 + r'\newline'
+                                          + a0 + mtex)
+        rep_newline = lambda s: s.replace(r'\newline', '}$' + a0 + r'\newline'
+                                          + a0 + mtex)
+    else:
+        # '\n' has to be unicode string and not raw string in Matplotlib
+        rep_n       = lambda s: s.replace(r'\n', '' + a0 + '\n'
+                                          + a0 + '')
+        rep_newline = lambda s: s.replace(r'\newline', '' + a0 + '\n'
+                                          + a0 + '')
     rep_down     = lambda s: s.replace('_', r'\_')
     rep_up       = lambda s: s.replace('^', r'\^')
     rep_hash     = lambda s: s.replace('#', r'\#')
     rep_percent  = lambda s: s.replace('%', r'\%')
     rep_space    = lambda s: s.replace(' ', r'\ ')
     rep_minus    = lambda s: s.replace('-', '}$' + ttex + '-}$' + mtex)
-    rep_a02space = lambda s: s.replace(a0, ' ')
-    rep_space2n  = lambda s: s.replace(' ', r'\n')
-    rep_empty    = lambda s: s.replace(empty, '')
-
-    if space2linebreak:
-        istrin = [ rep_space2n(i) for i in istrin ]
+    rep_a02empty = lambda s: s.replace(a0, '')
+    if usetex or (plt.get_backend() == 'pdf'):
+        rep_space2n = lambda s: s.replace(' ', '}$' + a0 + r'\newline'
+                                          + a0 + mtex)
+    else:
+        rep_space2n = lambda s: s.replace(' ', ''+'\n'+'')
+    rep_empty = lambda s: s.replace(empty, '')
 
     if usetex:
         for j, s in enumerate(istrin):
             if '$' in s:
                 cleanempty = empty not in s
-                # -, _, ^ only escaped if not between $
                 ss = s.split('$')
+                # outside $...$
+                # -, _, ^ only escaped if not between $
                 for ii in range(0, len(ss), 2):
-                    ss[ii] = mtex+ss[ii]+'}$'
+                    ss[ii] = mtex + ss[ii] + '}$'
                     # - not minus sign
                     if '-' in ss[ii]:
                         ss[ii] = rep_minus(ss[ii])
                         if ss[ii].endswith('{}$'):
                             ss[ii] = ss[ii][:-11]  # rm trailing $\mathrm{}$
                     # \n not in tex mode but normal matplotlib
-                    if r'\n' in ss[ii]:
+                    if (r'\n' in ss[ii]) and not (r'\newline' in ss[ii]):
                         ss[ii] = rep_n(ss[ii])
+                    elif (r'\newline' in ss[ii]):
+                        ss[ii] = rep_newline(ss[ii])
                     # escape _
                     if '_' in ss[ii]:
                         ss[ii] = rep_down(ss[ii])
@@ -153,21 +172,29 @@ def str2tex(strin, space2linebreak=False,
                     # escape %
                     if ('%' in ss[ii]) and not (r'\%' in ss[ii]):
                         ss[ii] = rep_percent(ss[ii])
+                    if space2linebreak:
+                        if ' ' in ss[ii]:
+                            ss[ii] = rep_space2n(ss[ii])
+
+                # reassemble string
                 istrin[j] = '$'.join(ss)
+
                 if s[0] == '$':
-                    # rm leading $\mathrm{}$ if started with $
+                    # rm leading $\mathrm{}$ if string started with $
                     istrin[j] = istrin[j][11:]
             else:
                 cleanempty = True
-                istrin[j] = mtex+s+'}$'
+                istrin[j] = mtex + s + '}$'
                 # - not minus sign
                 if '-' in istrin[j]:
                     istrin[j] = rep_minus(istrin[j])
                     if istrin[j].endswith('{}$'):
                         istrin[j] = istrin[j][:-11]  # rm trailing $\mathrm{}$
                 # \n not in tex mode but normal matplotlib
-                if r'\n' in istrin[j]:
+                if (r'\n' in istrin[j]) and not (r'\newline' in istrin[j]):
                     istrin[j] = rep_n(istrin[j])
+                elif (r'\newline' in istrin[j]):
+                    istrin[j] = rep_newline(istrin[j])
                 # escape _
                 if '_' in istrin[j]:
                     istrin[j] = rep_down(istrin[j])
@@ -180,7 +207,11 @@ def str2tex(strin, space2linebreak=False,
                 # escape %
                 if ('%' in istrin[j]) and not (r'\%' in istrin[j]):
                     istrin[j] = rep_percent(istrin[j])
+                if space2linebreak:
+                    if ' ' in istrin[j]:
+                        istrin[j] = rep_space2n(istrin[j])
 
+            # rm $\mathrm{}$
             if cleanempty:
                 istrin[j] = rep_empty(istrin[j])
 
@@ -190,11 +221,27 @@ def str2tex(strin, space2linebreak=False,
 
             # rm ascii character 0 around linebreaks introduced above
             if a0 in istrin[j]:
-                istrin[j] = rep_a02space(istrin[j])
+                istrin[j] = rep_a02empty(istrin[j])
     else:
         # escape %
         istrin = [ rep_percent(i) if ('%' in i) and not (r'\%' in i) else i
                    for i in istrin ]
+        # '\n' is Matplotlib but nor LaTeX
+        for j, s in enumerate(istrin):
+            if (r'\n' in istrin[j]) and not (r'\newline' in istrin[j]):
+                istrin[j] = rep_n(istrin[j])
+            elif (r'\newline' in istrin[j]):
+                istrin[j] = rep_newline(istrin[j])
+            if a0 in istrin[j]:
+                istrin[j] = rep_a02empty(istrin[j])
+            if space2linebreak:
+                if ' ' in istrin[j]:
+                    istrin[j] = rep_space2n(istrin[j])
+        if (plt.get_backend() == 'pdf'):  # pragma: no cover
+            # pdf backend uses LaTeX
+            istrin = [ i.replace(r'\n', r'\newline')
+                       if (r'\n' in i) and not (r'\newline' in i) else i
+                       for i in istrin ]
 
     # Return right type
     if isinstance(strin, list):
@@ -226,3 +273,17 @@ if __name__ == '__main__':
     # # ['One', 'One-', 'One-Two', 'One Two', 'One\nTwo', 'A $S_{Ti}$ is great\nbut use-less']
     # print(str2tex(strin, space2linebreak=True, usetex=False))
     # # ['One', 'One-', 'One-Two', 'One\nTwo', 'One\nTwo', 'A\n$S_{Ti}$\nis\ngreat\nbut\nuse-less']
+
+    # strin = [r'A $S_{Ti}$ is great\nbut use-less-']
+    # outsp = [r'A\n$S_{Ti}$\nis\ngreat\nbut\nuse-less-']
+    # outsp = [ s.replace(r'\n', '' + '\n' + '') for s in outsp ]
+    # print(outsp)
+    # print(str2tex(strin, space2linebreak=True))
+
+    # strin = [r'A $S_{Ti}$ is great\nbut use-less-']
+    # outsp = [r'$\mathrm{A}$\newline$S_{Ti}$\newline$\mathrm{is}$'
+    #          r'\newline$\mathrm{great}$\newline$\mathrm{but}$'
+    #          r'\newline$\mathrm{use}$$\textrm{-}$$\mathrm{less}$'
+    #          r'$\textrm{-}$']
+    # print(outsp)
+    # print(str2tex(strin, space2linebreak=True, usetex=True))

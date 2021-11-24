@@ -49,7 +49,8 @@ History
     * v1.8, added str2tex and color, Nov 2021, Matthias Cuntz
     * v1.9, added position, Nov 2021, Matthias Cuntz
     * v1.10, added sron colors, Nov 2021, Matthias Cuntz
-    * v1.11, added abc2plot, signature2plot, Nov 2021, Matthias Cuntz
+    * v1.11, added text2plot, abc2plot, signature2plot,
+      Nov 2021, Matthias Cuntz
 
 """
 # version, author
@@ -94,7 +95,7 @@ from .str2tex import str2tex
 # like unix tee
 from .tee import tee
 # put text on plot (import after str2tex)
-from .text2plot import abc2plot, signature2plot
+from .text2plot import text2plot, abc2plot, signature2plot
 
 
 __all__ = ['__version__', '__author__',
@@ -110,5 +111,5 @@ __all__ = ['__version__', '__author__',
            'screening', 'ee',
            'str2tex',
            'tee',
-           'abc2plot', 'signature2plot',
+           'text2plot', 'abc2plot', 'signature2plot',
            ]
