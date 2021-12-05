@@ -14,6 +14,7 @@ Public API
    alpha_equ_h2o.rst
    alpha_kin_h2o.rst
    argsort.rst
+   ascii2ascii.rst
    closest.rst
    color.rst
    const.rst

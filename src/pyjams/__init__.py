@@ -71,10 +71,13 @@ from . import functions
 
 # isotopic fractionation factors during liquid-water vapour equilibration
 from .alpha_equ_h2o import alpha_equ_h2o
-# kinetic fractionation of molecular diffusion of water vapour.
+# kinetic fractionation of molecular diffusion of water vapour
 from .alpha_kin_h2o import alpha_kin_h2o
 # argmax, argmin and argsort for array_like and Python iterables
 from .argsort import argmax, argmin, argsort
+# convert date notations between different regional variants
+from .ascii2ascii import ascii2ascii, ascii2en, ascii2fr, ascii2us
+from .ascii2ascii import en2ascii, fr2ascii, us2ascii
 # (index of) closest element in an array
 from .closest import closest
 # catch division by zero
@@ -102,6 +105,9 @@ __all__ = ['__version__', '__author__',
            'color', 'const', 'functions',
            'alpha_equ_h2o', 'alpha_kin_h2o',
            'argmax', 'argmin', 'argsort',
+           'ascii2ascii',
+           'ascii2en', 'ascii2fr', 'ascii2us',
+           'en2ascii', 'fr2ascii', 'us2ascii',
            'closest',
            'division', 'div',
            'mcPlot',

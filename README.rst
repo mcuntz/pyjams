@@ -74,7 +74,8 @@ Content
 -------
 
 Modules and functions are currently provided in the following categories:
-    * `Array manipulation`_
+    * `Array Manipulation`_
+    * `Date and Time`_
     * Isotopes_
     * Math_
     * Miscellaneous_
@@ -104,6 +105,14 @@ Functions and modules (alphabetical)
    * - argsort
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
+   * - ascii2ascii
+     - Convert date notations between to ascii date format DD.MM.YYYY hh:mm:ss
+   * - ascii2en
+     - Convert date notations to English date format YYYY-MM-DD hh:mm:ss
+   * - ascii2fr
+     - Convert date notations to French date format DD/MM/YYYY hh:mm:ss
+   * - ascii2us
+     - Convert date notations to American date format MM/DD/YYYY hh:mm:ss
    * - closest
      - Index in array which entry is closest to a given number
    * - color
@@ -115,7 +124,11 @@ Functions and modules (alphabetical)
    * - div
      - Wrapper for division
    * - elementary_effects
-     - Morris measures mu, stddev and mu* 
+     - Morris measures mu, stddev and mu*
+   * - en2ascii
+     - Convert date notations from English YYYY-MM-DD to ascii date format DD.MM.YYYY hh:mm:ss
+   * - fr2ascii
+     - Convert date notations from French DD/MM/YYYT to ascii date format DD.MM.YYYY hh:mm:ss
    * - functions
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
@@ -142,13 +155,15 @@ Functions and modules (alphabetical)
      - Prints arguments on screen and in file, like Unix/Linux tee utility
    * - text2plot
      - Write text on a plot
+   * - us2ascii
+     - Convert date notations from American MM/DD/YYYY to ascii format DD.MM.YYYY hh:mm:ss
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _Array manipulation:
+.. _Array Manipulation:
 
-Array manipulation
+Array Manipulation
     .. list-table::
        :widths: 10 25
        :header-rows: 1
@@ -166,6 +181,30 @@ Array manipulation
            Python iterables.
        * - closest
          - Index in array which entry is closest to a given number.
+
+.. _Date and Time:
+
+Date and Time
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - ascii2ascii
+         - Convert date notations between to ascii date format DD.MM.YYYY hh:mm:ss
+       * - ascii2en
+         - Convert date notations to English date format YYYY-MM-DD hh:mm:ss
+       * - ascii2fr
+         - Convert date notations to French date format DD/MM/YYYY hh:mm:ss
+       * - ascii2us
+         - Convert date notations to American date format MM/DD/YYYY hh:mm:ss
+       * - en2ascii
+         - Convert date notations from English YYYY-MM-DD to ascii date format DD.MM.YYYY hh:mm:ss
+       * - fr2ascii
+         - Convert date notations from French DD/MM/YYYT to ascii date format DD.MM.YYYY hh:mm:ss
+       * - us2ascii
+         - Convert date notations from American MM/DD/YYYY to ascii format DD.MM.YYYY hh:mm:ss
 
 .. _Isotopes:
 
