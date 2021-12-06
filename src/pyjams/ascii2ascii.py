@@ -43,7 +43,13 @@ History
 
 """
 import numpy as np
-
+# ToDo
+#     - one converter routine with frin/usin
+#     - dall it date instead of ascii
+#     - split at ., /, or - instead of 2-digit formats
+#     - output format of strftime
+#     - time separator, e.g ' ' or 'T'
+#     - wrappers date2en and also wrappers fr2allother
 
 __all__ = ['ascii2ascii',
            'ascii2en', 'ascii2fr', 'ascii2us',
@@ -339,16 +345,14 @@ def ascii2us(edate, **kwarg):
     --------
     >>> edate = ['2014-11-12 12:00', '01.03.2015 17:56:00',
     ...          '1990-12-01', '04.05.1786']
-    >>> print(", ".join(ascii2ascii(edate, us=True)))
+    >>> print(", ".join(ascii2us(edate)))
     11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786
 
-    >>> print(", ".join(ascii2ascii(ascii2ascii(edate, en=True),
-    ...                             us=True, full=True)))
+    >>> print(", ".join(ascii2us(ascii2en(edate), full=True)))
     11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
-    >>> print(", ".join(ascii2ascii(ascii2ascii(edate, en=True, YY=True),
-    ...                             us=True, full=True)))
+    >>> print(", ".join(ascii2us(ascii2en(edate, YY=True), full=True)))
     11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00
 
     """
@@ -373,7 +377,7 @@ def en2ascii(edate, **kwarg):
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
-    >>> edate = ascii2ascii(edate, en=True, YY=True)
+    >>> edate = ascii2en(edate, YY=True)
     >>> print(", ".join(en2ascii(edate, full=True)))
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00
 
@@ -486,7 +490,7 @@ def us2ascii(edate, **kwarg):
     --------
     >>> edate = ['2014-11-12 12:00', '01.03.2015 17:56:00',
     ...          '1990-12-01', '04.05.1786']
-    >>> edate = ascii2ascii(edate, us=True)
+    >>> edate = ascii2us(edate)
     >>> print(", ".join(us2ascii(edate)))
     12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786
 
@@ -494,7 +498,7 @@ def us2ascii(edate, **kwarg):
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
-    >>> edate = ascii2ascii(edate, us=True, YY=True)
+    >>> edate = ascii2us(edate, YY=True)
     >>> print(", ".join(us2ascii(edate, full=True)))
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00
 
