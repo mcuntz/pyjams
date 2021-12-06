@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v1.12.x (Dec 2021)
+    * Added `ascii2ascii`, which converts date notations between different
+      regional variants.
+
 v1.11 (Nov 2021)
     * Use `text2plot` in `abc2plot` and `signature2plot`.
     * Better handling of linebreaks in Matplotlib and LaTeX mode in `str2tex`.

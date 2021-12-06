@@ -3,9 +3,9 @@
 Convert date notations between different regional variants.
 
 Converts between date formats called English *YYYY-MM-DD hh:mm:ss*, US-English
-*MM/DD/YYYY hh:mm:ss*, french *DD/MM/YYYY hh:mm:ss*, and ascii *DD.MM.YYYY hh:mm:ss*.
-The routines take list of dates of different formats and return date strings in
-one of the four formats.
+*MM/DD/YYYY hh:mm:ss*, french *DD/MM/YYYY hh:mm:ss*, and ascii *DD.MM.YYYY
+hh:mm:ss*. The routines take list of dates of different formats and return date
+strings in one of the four formats.
 
 This module was written by Matthias Cuntz while at Department of
 Computational Hydrosystems, Helmholtz Centre for Environmental
@@ -56,17 +56,18 @@ def ascii2ascii(edate, full=False, en=False, fr=False, us=False,
     Convert date notations between different regional variants.
 
     Convert date notations between ascii *DD.MM.YYYY hh:mm:ss*, English
-    *YYYY-MM-DD hh:mm:ss*, American *MM/DD/YYYY hh:mm:ss*, and French *DD/MM/YYYY
-    hh:mm:ss*. Input can only be ascii, English and American. Output can also be
-    French *DD/MM/YYYY hh:mm:ss*. Use fr2ascii first for French input formats.
+    *YYYY-MM-DD hh:mm:ss*, American *MM/DD/YYYY hh:mm:ss*, and French
+    *DD/MM/YYYY hh:mm:ss*. Input can only be ascii, English and American.
+    Output can also be French *DD/MM/YYYY hh:mm:ss*. Use fr2ascii first for
+    French input formats.
 
     Parameters
     ----------
     edate : array_like
         date strings in ascii, English or American format.
     full : bool, optional
-        True: output dates arr all in full format *DD.MM.YYYY hh:mm:ss*; missing
-        time inputs are 00 on output
+        True: output dates arr all in full format *DD.MM.YYYY hh:mm:ss*;
+        missing time inputs are 00 on output
 
         False: output dates are as long as input dates (default), e.g.
         *[YYYY-MM-DD, YYYY-MM-DD hh:mm]* gives *[DD.MM.YYYY, DD.MM.YYYY hh:mm]*
@@ -392,8 +393,8 @@ def fr2ascii(edate, full=False, YY=False):
     edate : array_like
         date strings in French date format *DD/MM/YYYY [hh:mm:ss]*
     full : bool, optional
-        True: output dates arr all in full format *DD.MM.YYYY hh:mm:ss*; missing
-        time inputs are 00 on output
+        True: output dates arr all in full format *DD.MM.YYYY hh:mm:ss*;
+        missing time inputs are 00 on output
 
         False: output dates are as long as input dates (default),
         e.g. *[DD/MM/YYYY, DD/MM/YYYY hh:mm]* gives
@@ -496,6 +497,7 @@ def us2ascii(edate, **kwarg):
     >>> edate = ascii2ascii(edate, us=True, YY=True)
     >>> print(", ".join(us2ascii(edate, full=True)))
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00
+
     """
     return ascii2ascii(edate, **kwarg)
 
