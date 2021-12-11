@@ -5,9 +5,11 @@ Color palettes from the University of Oregon
 Colormaps from Geography, University of Oregon
 A. Light and P. J. Bartlein (2004) The End of the Rainbow? Color Schemes for
 Improved Data Graphics, EOS 85(40), 385-391
-Old weblink does not work anymore:
-  http://geography.uoregon.edu/datagraphics/color_scales.htm
 
+Old weblink does not work anymore:
+    http://geography.uoregon.edu/datagraphics/color_scales.htm
+
+.. moduleauthor:: Matthias Cuntz
 
 History
     * Written Jun 2013, Matthias Cuntz
@@ -15,7 +17,7 @@ History
       Mar 2015, Matthias Cuntz
     * Ported to pyjams, Nov 2021, Matthias Cuntz
     * flake8 compatible, Nov 2021, Matthias Cuntz
-    * Prepend osu_ to all palette names, Nov 2021, Matthias Cuntz
+    * Prepend osu to all palette names, Nov 2021, Matthias Cuntz
 
 """
 

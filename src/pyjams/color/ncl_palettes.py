@@ -5,6 +5,7 @@ Color palettes from the NCAR Command Language (NCL)
 Colormaps from PyNGL, the Python interface to the NCAR Command Language (NCL)
   http://www.pyngl.ucar.edu/Graphics/color_table_gallery.shtml
 
+.. moduleauthor:: Stephan Thober and Matthias Cuntz
 
 History
     * Written Mar 2014, Stephan Thober
@@ -15,7 +16,7 @@ History
     * Removed double meteo swiss maps, Nov 2021, Matthias Cuntz
     * Removed black and white at beginning of meteo swiss maps,
       Nov 2021, Matthias Cuntz
-    * Prepend ncl_ to all palette names, Nov 2021, Matthias Cuntz
+    * Prepend ncl to all palette names, Nov 2021, Matthias Cuntz
 
 """
 

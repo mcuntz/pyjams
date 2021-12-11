@@ -140,17 +140,16 @@ Mathematical constant :math:`\sqrt{\pi}`
 # Physical
 Gravity = 9.81
 r"""
-Standard average Earth's gravity :math:`[m^2 s^{-1}]`
+Standard average Earth's gravity (:math:`m^2 s^{-1}`)
 """
 T0 = 273.15
 """
 0 degree Celsius in Kelvin.
-
 Conversion constant from Celsius to Kelvin.
 """
 P0 = 101325.
 """
-Standard pressure [Pa]
+Standard pressure (Pa)
 """
 T25 = 298.15
 r"""
@@ -158,86 +157,85 @@ Standard ambient temperature of 25 :math:`^\circ C` in Kelvin [K]
 """
 sigma = 5.67e-08
 """
-Stefan-Boltzmann constant :math:`[W m^{-2} K^{-4}]`
+Stefan-Boltzmann constant (:math:`W\,m^{-2} K^{-4}`)
 """
 R = 8.3144621
 """
-Ideal gas constant :math:`[J K^{-1} mol^{-1}]`
+Ideal gas constant (:math:`J\,K^{-1} mol^{-1}`)
 """
 R_air = 287.06
 """
-Gas constant of dry air :math:`[J K^{-1} kg^{-1}]`
+Gas constant of dry air (:math:`J\,K^{-1} kg^{-1}`)
 """
 R_H2O = 461.4
 """
-Gas constant of water vapour :math:`[J K^{-1} kg^{-1}]`
+Gas constant of water vapour (:math:`J\,K^{-1} kg^{-1}`)
 """
 Na = 6.02214129e23
 """
-Avogrado number :math:`[mol^{-1}]`
+Avogrado number (:math:`mol^{-1}`)
 """
 REarth = 6371009.
 """
-Radius of the Earth [m]
+Radius of the Earth (m)
 """
 
 # Material
 mmol_co2 = 44.01
 """
-Molar mass of CO_2 :math:`[g mol^{-1}]`
+Molar mass of :math:`CO_2` (:math:`g\,mol^{-1}`)
 """
 mmol_h2o = 18.01528
 """
-Molar mass of water :math:`[g mol^{-1}]`
+Molar mass of water (:math:`g\,mol^{-1}`)
 """
 mmol_air = 28.9644
 """
-Molar mass of dry air :math:`[g mol^{-1}]`
+Molar mass of dry air (:math:`g\,mol^{-1}`)
 """
 # from Cambell G (1985) Soil Physics with BASIC, Elsevier Science
 density_quartz = 2.65
 """
-Density of quartz :math:`[g cm^{-3}]`
+Density of quartz (:math:`g\,cm^{-3}`)
 """
 cheat_quartz = 800.
 """
-Heat capacity of quartz :math:`[J kg^-1 K^-1]`
+Heat capacity of quartz (:math:`J\,kg^-1 K^-1`)
 """
 cheat_water = 4180.
 """
-Heat capacity of water :math:`[J kg^{-1} K^{-1}]`
+Heat capacity of water (:math:`J\,kg^{-1} K^{-1}`)
 """
 cheat_air = 1010.
 """
-Heat capacity of air :math:`[J kg^{-1} K^{-1}]`
+Heat capacity of air (:math:`J\,kg^{-1} K^{-1}`)
 """
 latentheat_vaporization = 2.45e6
 """
-Latent heat of vaporization of water :math:`[J kg^{-1}]`
+Latent heat of vaporization of water (:math:`J\,kg^{-1}`)
 """
 
 # Isotope
 R13VPDB = 0.0112372
 """
-^{13}C isotope ratio of VPDB
+:math:`^{13}C` isotope ratio of VPDB
 """
 R18VSMOW = 2005.2e-6
 """
-^{18}O isotope ratio of VSMOW
+:math:`^{18}O` isotope ratio of VSMOW
 """
 R2VSMOW = 155.76e-6
 """
-Deuterium=^2H isotope ratio of VSMOW
+Deuterium= :math:`^{2}H` isotope ratio of VSMOW
 """
 
 # Computational
 eps = np.finfo(float).eps
 """
 Numerical precision of floats.
-
 The difference between 1.0 and the next smallest representable float larger
 than 1.0. For example, for 64-bit binary floats in the IEEE-754 standard,
-math:`eps = 2^{-52}`, approximately 2.22e-16.
+:math:`eps = 2^{-52}`, approximately 2.22e-16.
 """
 huge = np.finfo(float).max
 """

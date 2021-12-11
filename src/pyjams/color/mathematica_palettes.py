@@ -2,13 +2,15 @@
 """
 Color palettes from Mathematica
 
+.. moduleauthor:: Juliane Mai and Matthias Cuntz
+
 History
     * Written Sep 2014, Juliane Mai
     * Made dictionaries with color palettes,
       Mar 2015, Matthias Cuntz
     * Ported to pyjams, Nov 2021, Matthias Cuntz
     * flake8 compatible, Nov 2021, Matthias Cuntz
-    * Prepend mathematica_ to all palette names, Nov 2021, Matthias Cuntz
+    * Prepend mathematica to all palette names, Nov 2021, Matthias Cuntz
 
 """
 

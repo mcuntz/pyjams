@@ -14,6 +14,12 @@ Color module
    :maxdepth: 1
 
    color.color.rst
+   color.brewer_palettes.rst
+   color.mathematica_palettes.rst
+   color.ncl_palettes.rst
+   color.oregon_palettes.rst
+   color.sron2012_palettes.rst
+   color.sron_palettes.rst
 
 .. raw:: latex
 

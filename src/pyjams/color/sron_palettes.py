@@ -5,15 +5,16 @@ Research
 
 These are the color maps of:
     https://personal.sron.nl/~pault/data/colourschemes.pdf
-See
+
+For details see:
     https://personal.sron.nl/~pault
-for details.
 
 The color maps are published under the licence: Standard 3-clause BSD
 
+.. moduleauthor:: Matthias Cuntz
 
 History
-    * Written Nov 2021 from code tol_colors.py
+    * Written Nov 2021 from code *tol_colors.py*
       of Paul Tol, Matthias Cuntz
 
 """

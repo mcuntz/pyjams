@@ -64,6 +64,11 @@ def argmax(a, *args, **kwargs):
         same shape as `a.shape` with the dimension along `axis` removed.
         `a[np.unravel_index(argmax(a), a.shape)]` is the maximum value of `a`.
 
+    Notes
+    -----
+    argmax for iterables was taken from
+    https://stackoverflow.com/questions/16945518/finding-the-index-of-the-value-which-is-the-min-or-max-in-python
+
     Examples
     --------
     >>> import numpy as np
@@ -121,11 +126,6 @@ def argmax(a, *args, **kwargs):
     >>> argmax(b)  # Only the first occurrence is returned.
     1
 
-    Notes
-    -----
-    argmax for iterables was taken from
-    https://stackoverflow.com/questions/16945518/finding-the-index-of-the-value-which-is-the-min-or-max-in-python
-
     """
     if isinstance(a, np.ma.MaskedArray):
         return np.ma.argmax(a, *args, **kwargs)
@@ -164,6 +164,11 @@ def argmin(a, *args, **kwargs):
         Array of indices of the largest element in input array `a`. It has the
         same shape as `a.shape` with the dimension along `axis` removed.
         `a[np.unravel_index(argmin(a), a.shape)]` is the minimum value of `a`.
+
+    Notes
+    -----
+    argmin for iterables was taken from
+    https://stackoverflow.com/questions/16945518/finding-the-index-of-the-value-which-is-the-min-or-max-in-python
 
     Examples
     --------
@@ -222,11 +227,6 @@ def argmin(a, *args, **kwargs):
     >>> argmin(b)  # Only the first occurrence is returned.
     0
 
-    Notes
-    -----
-    argmin for iterables was taken from
-    https://stackoverflow.com/questions/16945518/finding-the-index-of-the-value-which-is-the-min-or-max-in-python
-
     """
     if isinstance(a, np.ma.MaskedArray):
         return np.ma.argmin(a, *args, **kwargs)
@@ -269,6 +269,12 @@ def argsort(a, *args, **kwargs):
     index_array : ndarray, int
         Array of indices that sort `a` along the specified `axis`.
         If `a` is one-dimensional, `a[index_array]` yields a sorted `a`.
+
+    Notes
+    -----
+    argsort for iterables was taken from
+    http://stackoverflow.com/questions/3382352/equivalent-of-numpy-argsort-in-basic-python
+    http://stackoverflow.com/questions/3071415/efficient-method-to-calculate-the-rank-vector-of-a-list-in-python
 
     Examples
     --------
@@ -350,12 +356,6 @@ def argsort(a, *args, **kwargs):
     array([1, 0])
     >>> argsort(x, order=('y','x'))
     array([0, 1])
-
-    Notes
-    -----
-    argsort for iterables was taken from
-    http://stackoverflow.com/questions/3382352/equivalent-of-numpy-argsort-in-basic-python
-    http://stackoverflow.com/questions/3071415/efficient-method-to-calculate-the-rank-vector-of-a-list-in-python
 
     """
     if isinstance(a, np.ma.MaskedArray):

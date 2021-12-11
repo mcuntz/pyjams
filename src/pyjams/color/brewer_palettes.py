@@ -2,7 +2,7 @@
 """
 Color palettes from ColorBrewer2
 
-It includes palettes from colorbrewer2.org:
+It includes palettes from colorbrewer2.org.
 
 Colorbrewer License
 -------------------
@@ -20,6 +20,7 @@ software distributed under the License is distributed on an
 either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 
+.. moduleauthor:: Matthias Cuntz
 
 History
     * Written Sep 2012, Matthias Cuntz
@@ -27,7 +28,7 @@ History
       Mar 2015, Matthias Cuntz
     * Ported to pyjams, Nov 2021, Matthias Cuntz
     * flake8 compatible, Nov 2021, Matthias Cuntz
-    * Prepend brewer_ to all palette names, Nov 2021, Matthias Cuntz
+    * Prepend brewer to all palette names, Nov 2021, Matthias Cuntz
 
 """
 

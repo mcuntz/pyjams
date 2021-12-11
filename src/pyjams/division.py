@@ -57,12 +57,10 @@ def division(a, b, otherwise=np.nan, prec=0.):
     Returns
     -------
     ratio : numpy array or masked array
-        a/b        if `|b| >  |prec|`
-
-        otherwise  if `|b| <= |prec|`
+        *a/b* if *|b| >  |prec|*, *otherwise* if *|b| <= |prec|*
 
         Output is numpy array. It is a masked array if at least one
-        of `a` or `b` is a masked array.
+        of *a* or *b* is a masked array.
 
     Examples
     --------

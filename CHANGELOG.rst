@@ -4,7 +4,7 @@ Changelog
 v1.12 (Dec 2021)
     * Added `date2date`, which converts date representations between different
       regional variants.
-    * Change documentation to 'alabaster' theme.
+    * Change documentation to Alabaster theme with custom CSS file.
 
 v1.11 (Nov 2021)
     * Use `text2plot` in `abc2plot` and `signature2plot`.

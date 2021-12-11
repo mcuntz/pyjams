@@ -96,23 +96,26 @@ def position(row=1, col=1, num=1,
     --------
     Use, for example, as follows
 
-        fig1 = figure(1)
+    .. code-block:: python
 
-        sub1 = fig1.add_axes(position(2, 2, 1))
-
-        sub2 = fig1.add_axes(position(2, 2, 2))
+       fig1 = figure(1)
+       sub1 = fig1.add_axes(position(2, 2, 1))
+       sub2 = fig1.add_axes(position(2, 2, 2))
 
     Give *figsize* and set same left and right margins if you want to have true
     squares
 
-        figsize = matplotlib.rcParams['figure.figsize']
+    .. code-block:: python
 
-        sub = fig1.add_axes(position(1, 1, 1, figsize=figsize, left=0.1,
-        right=0.9))
+       figsize = matplotlib.rcParams['figure.figsize']
+       sub = fig1.add_axes(position(1, 1, 1, figsize=figsize, left=0.1,
+                                    right=0.9))
 
     If you want to have a true golden ratio
+    
+    .. code-block:: python
 
-        sub = fig1.add_axes(position(1, 1, 1, golden=True))
+       sub = fig1.add_axes(position(1, 1, 1, golden=True))
 
     >>> import numpy as np
     >>> print(np.around(position(2, 2, 1), 3))

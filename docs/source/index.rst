@@ -1,5 +1,5 @@
 Quickstart
-----------
+==========
 
 A general Python package with miscellaneous utility functions used in several other packages.
 
@@ -10,6 +10,10 @@ A general Python package with miscellaneous utility functions used in several ot
 .. image:: https://badge.fury.io/py/pyjams.svg
    :target: https://badge.fury.io/py/pyjams
    :alt: PyPI version
+
+.. image:: https://img.shields.io/conda/vn/conda-forge/pyjams.svg
+   :target: https://anaconda.org/conda-forge/pyjams
+   :alt: Conda version
 
 .. image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
    :target: https://github.com/mcuntz/pyjams/blob/master/LICENSE
@@ -90,13 +94,13 @@ Functions and modules (alphabetical)
      - Equilibrium fractionation between liquid water and vapour
    * - :func:`~pyjams.alpha_kin_h2o`
      - Kinetic fractionation of molecular diffusion of water vapour
-   * - :func:`~pyjams.argmax`
+   * - :func:`~pyjams.argsort.argmax`
      - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
        iterables
-   * - :func:`~pyjams.argmin`
+   * - :func:`~pyjams.argsort.argmin`
      - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
        iterables
-   * - :func:`~pyjams.argsort`
+   * - :func:`~pyjams.argsort.argsort`
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
    * - :func:`~pyjams.closest`
@@ -139,7 +143,7 @@ Functions and modules (alphabetical)
        functions to be used with :mod:`scipy.optimize`
    * - :func:`~pyjams.romanliterals.int2roman`
      - Integer to Roman numeral conversion
-   * - :class:`~pyjams.mcPlot`
+   * - :class:`~pyjams.mcplot.mcPlot`
      - Matthias Cuntz' standard plotting class
    * - :func:`~pyjams.morris_method.morris_sampling`
      - Sampling of optimised trajectories for Morris measures / Elementary
@@ -178,13 +182,13 @@ Array Manipulation
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.argmax`
+       * - :func:`~pyjams.argsort.argmax`
          - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
            iterables
-       * - :func:`~pyjams.argmin`
+       * - :func:`~pyjams.argsort.argmin`
          - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
            iterables
-       * - :func:`~pyjams.argsort`
+       * - :func:`~pyjams.argsort.argsort`
          - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for
            Python iterables
        * - :func:`~pyjams.closest`

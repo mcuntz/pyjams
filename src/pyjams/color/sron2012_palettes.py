@@ -6,6 +6,7 @@ Research
 These are the color maps of the 2012 version of:
     https://personal.sron.nl/~pault/data/colourschemes.pdf
 
+.. moduleauthor:: Matthias Cuntz
 
 History
     * Written Nov 2021 from code of May 2016, Matthias Cuntz
