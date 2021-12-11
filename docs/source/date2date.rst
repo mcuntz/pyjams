@@ -1,7 +1,7 @@
-ascii2ascii module
-------------------
+date2date module
+----------------
 
-.. automodule:: pyjams.ascii2ascii
+.. automodule:: pyjams.date2date
    :members:
    :undoc-members:
    :inherited-members:

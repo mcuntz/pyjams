@@ -1,8 +1,8 @@
 Changelog
 ---------
 
-v1.12.x (Dec 2021)
-    * Added `ascii2ascii`, which converts date notations between different
+v1.12 (Dec 2021)
+    * Added `date2date`, which converts date representations between different
       regional variants.
 
 v1.11 (Nov 2021)

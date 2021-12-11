@@ -75,11 +75,14 @@ from .alpha_equ_h2o import alpha_equ_h2o
 from .alpha_kin_h2o import alpha_kin_h2o
 # argmax, argmin and argsort for array_like and Python iterables
 from .argsort import argmax, argmin, argsort
-# convert date notations between different regional variants
-from .ascii2ascii import ascii2ascii, ascii2en, ascii2fr, ascii2us
-from .ascii2ascii import en2ascii, fr2ascii, us2ascii
 # (index of) closest element in an array
 from .closest import closest
+# convert date representations between different regional variants
+from .date2date import date2date
+from .date2date import date2en, date2fr, date2us
+from .date2date import en2date, en2fr, en2us
+from .date2date import fr2date, fr2en, fr2us
+from .date2date import us2date, us2en, us2fr
 # catch division by zero
 from .division import division, div
 # Matthias Cuntz' standard plotting class.
@@ -105,10 +108,12 @@ __all__ = ['__version__', '__author__',
            'color', 'const', 'functions',
            'alpha_equ_h2o', 'alpha_kin_h2o',
            'argmax', 'argmin', 'argsort',
-           'ascii2ascii',
-           'ascii2en', 'ascii2fr', 'ascii2us',
-           'en2ascii', 'fr2ascii', 'us2ascii',
            'closest',
+           'date2date',
+           'date2en', 'date2fr', 'date2us',
+           'en2date', 'en2fr', 'en2us',
+           'fr2date', 'fr2en', 'fr2us',
+           'us2date', 'us2en', 'us2fr',
            'division', 'div',
            'mcPlot',
            'morris_sampling', 'elementary_effects',

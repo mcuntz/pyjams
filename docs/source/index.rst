@@ -99,20 +99,20 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.argsort`
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
-   * - :func:`~pyjams.ascii2ascii.ascii2ascii`
-     - Convert date notations between to ascii date format DD.MM.YYYY hh:mm:ss
-   * - :func:`~pyjams.ascii2ascii.ascii2en`
-     - Convert date notations to English date format YYYY-MM-DD hh:mm:ss
-   * - :func:`~pyjams.ascii2ascii.ascii2fr`
-     - Convert date notations to French date format DD/MM/YYYY hh:mm:ss
-   * - :func:`~pyjams.ascii2ascii.ascii2us`
-     - Convert date notations to American date format MM/DD/YYYY hh:mm:ss
    * - :func:`~pyjams.closest`
      - Index in array which entry is closest to a given number
    * - :mod:`~pyjams.color`
      - Collection of color palettes and continuous color maps
    * - :mod:`~pyjams.const`
      - Physical, mathematical, computational, isotope, and material constants
+   * - :func:`~pyjams.date2date.date2date`
+     - Convert date representations between different regional variants
+   * - :func:`~pyjams.date2date.date2en`
+     - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+   * - :func:`~pyjams.date2date.date2fr`
+     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - :func:`~pyjams.date2date.date2us`
+     - Convert dates to American date format MM/DD/YYYY hh:mm:ss
    * - :func:`~pyjams.division.division`
      - Divide two arrays, return 'otherwise' if division by 0
    * - :func:`~pyjams.division.div`
@@ -121,10 +121,18 @@ Functions and modules (alphabetical)
      - Alias for screening
    * - :func:`~pyjams.morris_method.elementary_effects`
      - Morris measures mu, stddev and mu* 
-   * - :func:`~pyjams.ascii2ascii.en2ascii`
-     - Convert date notations from English YYYY-MM-DD to ascii date format DD.MM.YYYY hh:mm:ss
-   * - :func:`~pyjams.ascii2ascii.fr2ascii`
-     - Convert date notations from French DD/MM/YYYT to ascii date format DD.MM.YYYY hh:mm:ss
+   * - :func:`~pyjams.date2date.en2date`
+     - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+   * - :func:`~pyjams.date2date.en2fr`
+     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - :func:`~pyjams.date2date.en2us`
+     - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - :func:`~pyjams.date2date.fr2date`
+     - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
+   * - :func:`~pyjams.date2date.fr2en`
+     - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
+   * - :func:`~pyjams.date2date.fr2us`
+     - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
    * - :mod:`~pyjams.functions`
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
@@ -151,8 +159,12 @@ Functions and modules (alphabetical)
      - Prints arguments on screen and in file, like Unix/Linux tee utility
    * - :func:`~pyjams.text2plot.text2plot`
      - Write text on a plot
-   * - :func:`~pyjams.ascii2ascii.us2ascii`
-     - Convert date notations from American MM/DD/YYYY to ascii format DD.MM.YYYY hh:mm:ss
+   * - :func:`~pyjams.date2date.us2date`
+     - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+   * - :func:`~pyjams.date2date.us2en`
+     - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+   * - :func:`~pyjams.date2date.us2fr`
+     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -187,20 +199,32 @@ Date and Time
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.ascii2ascii.ascii2ascii`
-         - Convert date notations between to ascii date format DD.MM.YYYY hh:mm:ss
-       * - :func:`~pyjams.ascii2ascii.ascii2en`
-         - Convert date notations to English date format YYYY-MM-DD hh:mm:ss
-       * - :func:`~pyjams.ascii2ascii.ascii2fr`
-         - Convert date notations to French date format DD/MM/YYYY hh:mm:ss
-       * - :func:`~pyjams.ascii2ascii.ascii2us`
-         - Convert date notations to American date format MM/DD/YYYY hh:mm:ss
-       * - :func:`~pyjams.ascii2ascii.en2ascii`
-         - Convert date notations from English YYYY-MM-DD to ascii date format DD.MM.YYYY hh:mm:ss
-       * - :func:`~pyjams.ascii2ascii.fr2ascii`
-         - Convert date notations from French DD/MM/YYYT to ascii date format DD.MM.YYYY hh:mm:ss
-       * - :func:`~pyjams.ascii2ascii.us2ascii`
-         - Convert date notations from American MM/DD/YYYY to ascii format DD.MM.YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.date2date`
+         - Convert date representations between different regional variants
+       * - :func:`~pyjams.date2date.date2en`
+         - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+       * - :func:`~pyjams.date2date.date2fr`
+         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.date2us`
+         - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.en2date`
+         - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.en2fr`
+         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.en2us`
+         - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.fr2date`
+         - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.fr2en`
+         - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
+       * - :func:`~pyjams.date2date.fr2us`
+         - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.us2date`
+         - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+       * - :func:`~pyjams.date2date.us2en`
+         - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+       * - :func:`~pyjams.date2date.us2fr`
+         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
 
 .. _Isotopes:
 

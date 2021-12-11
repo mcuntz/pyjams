@@ -105,30 +105,38 @@ Functions and modules (alphabetical)
    * - argsort
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
-   * - ascii2ascii
-     - Convert date notations between to ascii date format DD.MM.YYYY hh:mm:ss
-   * - ascii2en
-     - Convert date notations to English date format YYYY-MM-DD hh:mm:ss
-   * - ascii2fr
-     - Convert date notations to French date format DD/MM/YYYY hh:mm:ss
-   * - ascii2us
-     - Convert date notations to American date format MM/DD/YYYY hh:mm:ss
    * - closest
      - Index in array which entry is closest to a given number
    * - color
      - Collection of color palettes and continuous color maps
    * - const
      - Physical, mathematical, computational, isotope, and material constants
+   * - date2date
+     - Convert date representations between different regional variants
+   * - date2en
+     - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+   * - date2fr
+     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - date2us
+     - Convert dates to American date format MM/DD/YYYY hh:mm:ss
    * - division
      - Divide two arrays, return 'otherwise' if division by 0
    * - div
      - Wrapper for division
    * - elementary_effects
      - Morris measures mu, stddev and mu*
-   * - en2ascii
-     - Convert date notations from English YYYY-MM-DD to ascii date format DD.MM.YYYY hh:mm:ss
-   * - fr2ascii
-     - Convert date notations from French DD/MM/YYYT to ascii date format DD.MM.YYYY hh:mm:ss
+   * - en2date
+     - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+   * - en2fr
+     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - en2us
+     - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - fr2date
+     - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
+   * - fr2en
+     - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
+   * - fr2us
+     - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
    * - functions
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
@@ -155,8 +163,12 @@ Functions and modules (alphabetical)
      - Prints arguments on screen and in file, like Unix/Linux tee utility
    * - text2plot
      - Write text on a plot
-   * - us2ascii
-     - Convert date notations from American MM/DD/YYYY to ascii format DD.MM.YYYY hh:mm:ss
+   * - us2date
+     - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+   * - us2en
+     - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+   * - us2fr
+     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -191,20 +203,32 @@ Date and Time
 
        * - Function/module
          - Short description
-       * - ascii2ascii
-         - Convert date notations between to ascii date format DD.MM.YYYY hh:mm:ss
-       * - ascii2en
-         - Convert date notations to English date format YYYY-MM-DD hh:mm:ss
-       * - ascii2fr
-         - Convert date notations to French date format DD/MM/YYYY hh:mm:ss
-       * - ascii2us
-         - Convert date notations to American date format MM/DD/YYYY hh:mm:ss
-       * - en2ascii
-         - Convert date notations from English YYYY-MM-DD to ascii date format DD.MM.YYYY hh:mm:ss
-       * - fr2ascii
-         - Convert date notations from French DD/MM/YYYT to ascii date format DD.MM.YYYY hh:mm:ss
-       * - us2ascii
-         - Convert date notations from American MM/DD/YYYY to ascii format DD.MM.YYYY hh:mm:ss
+       * - date2date
+         - Convert date representations between different regional variants
+       * - date2en
+         - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+       * - date2fr
+         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+       * - date2us
+         - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+       * - en2date
+         - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+       * - en2fr
+         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+       * - en2us
+         - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+       * - fr2date
+         - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
+       * - fr2en
+         - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
+       * - fr2us
+         - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
+       * - us2date
+         - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+       * - us2en
+         - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+       * - us2fr
+         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
 
 .. _Isotopes:
 
