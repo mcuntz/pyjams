@@ -100,8 +100,7 @@ def _ensure_year(yr, isyr2):
 
 
 def date2date(edate, fr=False, format='', timesep=' ', full=False):
-    """
-    Convert date representations between different regional variants.
+    """Convert date representations between different regional variants.
 
     Convert date notations between standard *DD.MM.YYYY hh:mm:ss*, English
     *YYYY-MM-DD hh:mm:ss*, American *MM/DD/YYYY hh:mm:ss*, and French
@@ -160,11 +159,12 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
     then every year that is above the current year of the century will be taken
     as being in 1900, i.e. 90 will be taken as 1990, while all other years are
     taken in the 21st century, i.e. 20 will be 2020. 3-digit years will throw
-    an ValueError.
+    a ValueError.
 
-    The function uses :mod:`datetime` if a format string for
-    :func:`datetime.strftime` is given. This limits the minimum year to the
-    limit of :mod:`datetime` in this case, which is year '0001'.
+    Negative years are not supported. The function uses :mod:`datetime` if a
+    format string for :func:`datetime.strftime` is given. This limits the
+    minimum year to the limit of :mod:`datetime` in this case, which is year
+    '0001'.
 
     Examples
     --------

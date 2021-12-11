@@ -325,7 +325,7 @@ class TestDate2Date(unittest.TestCase):
                 '01/12/1990 00:00:00', '04/05/1786 00:00:00']
         self.assertEqual(soll, out)
 
-        out  = fr2en(edate, format='%Y%m%d%H%M%S', full=True, timesep='T')
+        out  = en2fr(edate, format='%Y%m%d%H%M%S', full=True, timesep='T')
         assert isinstance(out, list)
         soll = ['20141112120000', '20150301175600',
                 '19901201000000', '17860504000000']
