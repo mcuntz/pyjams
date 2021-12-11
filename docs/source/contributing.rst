@@ -1,5 +1,5 @@
-Contributing to pyjams
-======================
+Contributing
+------------
 
 ``pyjams`` development is driven by user feedback, and your contributions help
 to find bugs, add features, and improve performance. This is a small guide to

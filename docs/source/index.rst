@@ -1,5 +1,5 @@
-pyjams Quickstart
-=================
+Quickstart
+----------
 
 A general Python package with miscellaneous utility functions used in several other packages.
 
