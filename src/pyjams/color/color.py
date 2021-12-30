@@ -20,6 +20,7 @@ The following functions are provided:
 
 History
     * Written Nov 2021, Matthias Cuntz
+    * Change order of color maps, Dec 2021, Matthias Cuntz
 
 """
 
@@ -82,11 +83,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
     palette : str
         Name of color palette or continuous colormap
     ncol : int, optional
-        Number of desired colors
-
+        Number of desired colors.
         If 0, all colors defined by the specific palette will be returned.
         256 colors will be chosen for continuous colormaps.
-
         If > 0, existing color palettes will be subsampled to *ncol* colors.
         *ncol* colors will be produced from continuous colormaps.
     offset : float (0-1), optional
@@ -456,16 +455,15 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
         Output file name. Output type will be determined from file suffix.
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
-        Known collections are 'sron', 'sron2012', 'mathematica',
-        'oregon', 'ncl', 'matplotlib', and 'brewer'.
-
         All palettes will be shown if collection is empty or 'all'.
+        Known collections are: 'sron', 'sron2012', 'mathematica',
+        'oregon', 'ncl', 'matplotlib', and 'brewer'.
 
     Returns
     -------
     None
         Plots known color palettes and continuous colormaps in file or on
-        X-Window.
+        plotting window.
 
     Examples
     --------
