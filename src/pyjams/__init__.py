@@ -25,16 +25,18 @@ Subpackages
    closest
    color
    const
+   date2date
    division
+   fsread
    functions
    mcplot
    morris_method
    position
+   romanliterals
    screening
    str2tex
    tee
    text2plot
-
 
 History
     * Written Oct 2021 by Matthias Cuntz (mc (at) macu (dot) de)
@@ -51,6 +53,8 @@ History
     * v1.10, added sron colors, Nov 2021, Matthias Cuntz
     * v1.11, added text2plot, abc2plot, signature2plot,
       Nov 2021, Matthias Cuntz
+    * v1.12, added date2dec and all its wrappers, Dec 2021, Matthias Cuntz
+    * v1.13, added fsread, fread, sread, Dec 2021, Matthias Cuntz
 
 """
 # version, author
@@ -85,6 +89,8 @@ from .date2date import fr2date, fr2en, fr2us
 from .date2date import us2date, us2en, us2fr
 # catch division by zero
 from .division import division, div
+# read numbers and strings from a file into 2D float and string arrays
+from .fsread import fsread, fread, sread
 # Matthias Cuntz' standard plotting class.
 from .mcplot import mcPlot
 # has to be ordered for import: morris -> screening
@@ -115,6 +121,7 @@ __all__ = ['__version__', '__author__',
            'fr2date', 'fr2en', 'fr2us',
            'us2date', 'us2en', 'us2fr',
            'division', 'div',
+           'fsread', 'fread', 'sread',
            'mcPlot',
            'morris_sampling', 'elementary_effects',
            'position',

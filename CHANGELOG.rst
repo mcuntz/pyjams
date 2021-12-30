@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+v1.13 (Dec 2021)
+    * Added `fsread`, `fread`, and `sread`, reading numbers and strings from a
+      file into 2D float and string arrays.
+    * Changed order of color maps in printing and plotting.
+    * Edited docstrings of color module to follow closer numpydoc.
+
 v1.12 (Dec 2021)
     * Added `date2date`, which converts date representations between different
       regional variants.
@@ -10,7 +16,7 @@ v1.11 (Nov 2021)
     * Use `text2plot` in `abc2plot` and `signature2plot`.
     * Better handling of linebreaks in Matplotlib and LaTeX mode in `str2tex`.
     * Added `text2plot`, adding text onto a plot.
-    * Added `int2roman` and `roman2int`, converting inter to and from
+    * Added `int2roman` and `roman2int`, converting integer to and from
       Roman literals.
     * Combine `abc2plot` and `signature2plot` in one file `text2plot.py`.
     * Added `abc2plot`, adding a, B, iii), etc. onto a plot.

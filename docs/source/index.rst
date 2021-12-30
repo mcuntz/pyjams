@@ -73,6 +73,7 @@ Content
 
 Modules and functions are currently provided in the following categories:
     * `Array Manipulation`_
+    * `Ascii Files`_
     * `Date and Time`_
     * Isotopes_
     * Math_
@@ -137,6 +138,10 @@ Functions and modules (alphabetical)
      - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
    * - :func:`~pyjams.date2date.fr2us`
      - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
+   * - :func:`~pyjams.fsread.fread`
+     - Read numbers from a file into 2D float array
+   * - :func:`~pyjams.fsread.fsread`
+     - Read numbers and strings from a file into 2D float and string arrays
    * - :mod:`~pyjams.functions`
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
@@ -156,6 +161,8 @@ Functions and modules (alphabetical)
      - Parameter screening using Morris' method of Elementary Effects
    * - :func:`~pyjams.text2plot.signature2plot`
      - Write a copyright notice on a plot
+   * - :func:`~pyjams.fsread.sread`
+     - Read strings from a file into 2D string array
    * - :func:`~pyjams.str2tex`
      - Convert strings to LaTeX strings in math environment used by matplotlib's
        usetex
@@ -193,6 +200,22 @@ Array Manipulation
            Python iterables
        * - :func:`~pyjams.closest`
          - Index in array which entry is closest to a given number
+
+.. _Ascii Files:
+
+Ascii Files
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - :func:`~pyjams.fsread.fread`
+         - Read numbers from a file into 2D float array
+       * - :func:`~pyjams.fsread.fsread`
+         - Read numbers and strings from a file into 2D float and string arrays
+       * - :func:`~pyjams.fsread.sread`
+         - Read strings from a file into 2D string array
 
 .. _Date and Time:
 
