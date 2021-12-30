@@ -134,73 +134,28 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
         palette = palette[:-2]
         reverse = True
 
-    brewer_collections = [ i for i in dir(pyjams.color)
-                           if i.startswith('brewer_')
-                           and not i.endswith('_palettes') ]
-    mathematica_collections = [ i for i in dir(pyjams.color)
-                                if i.startswith('mathematica_')
-                                and not i.endswith('_palettes') ]
-    ncl_collections = [ i for i in dir(pyjams.color)
-                        if i.startswith('ncl_')
-                        and not i.endswith('_palettes') ]
-    oregon_collections = [ i for i in dir(pyjams.color)
-                           if i.startswith('oregon_')
-                           and not i.endswith('_palettes') ]
-    sron2012_collections = [ i for i in dir(pyjams.color)
-                             if i.startswith('sron2012_')
-                             and not i.endswith('_palettes') ]
     sron_collections = [ i for i in dir(pyjams.color)
                          if i.startswith('sron_')
                          and not i.endswith('_palettes') ]
+    sron2012_collections = [ i for i in dir(pyjams.color)
+                             if i.startswith('sron2012_')
+                             and not i.endswith('_palettes') ]
+    mathematica_collections = [ i for i in dir(pyjams.color)
+                                if i.startswith('mathematica_')
+                                and not i.endswith('_palettes') ]
+    oregon_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('oregon_')
+                           and not i.endswith('_palettes') ]
+    ncl_collections = [ i for i in dir(pyjams.color)
+                        if i.startswith('ncl_')
+                        and not i.endswith('_palettes') ]
+    brewer_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('brewer_')
+                           and not i.endswith('_palettes') ]
 
     found_palette = False
     nosubsample = False
     miss = None
-    for bb in brewer_collections:
-        dd = eval('pyjams.color.' + bb)
-        if palette in dd:
-            found_palette = True
-            colors = [ _rgb2rgb(i) for i in dd[palette] ]
-
-    if not found_palette:
-        for bb in mathematica_collections:
-            dd = eval('pyjams.color.' + bb)
-            if palette in dd:
-                found_palette = True
-                colors = dd[palette]
-
-    if not found_palette:
-        for bb in ncl_collections:
-            dd = eval('pyjams.color.' + bb)
-            if palette in dd:
-                found_palette = True
-                colors = dd[palette]
-
-    if not found_palette:
-        for bb in oregon_collections:
-            dd = eval('pyjams.color.' + bb)
-            if palette in dd:
-                found_palette = True
-                colors = [ _rgb2rgb(i) for i in dd[palette] ]
-
-    if not found_palette:
-        for bb in sron2012_collections:
-            dd = eval('pyjams.color.' + bb)
-            if palette in dd:
-                found_palette = True
-                if bb == 'sron2012_colors':
-                    colors = [ mpl.colors.colorConverter.to_rgb(i)
-                               for i in dd[palette] ]
-                elif bb == 'sron2012_functions':
-                    nosubsample = True
-                    colors = []
-                    if ncol == 0:
-                        ncol1 = 256
-                    else:
-                        ncol1 = ncol
-                    for i in range(ncol1):
-                        x = offset + float(i)/float(ncol1-1) * (upper-offset)
-                        colors.append(tuple(dd[palette](x)))
 
     if not found_palette:
         for bb in sron_collections:
@@ -224,6 +179,46 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
                     colors = [ mpl.colors.colorConverter.to_rgb(i)
                                for i in cols[0] ]
                     miss = mpl.colors.colorConverter.to_rgb(cols[1])
+
+    if not found_palette:
+        for bb in sron2012_collections:
+            dd = eval('pyjams.color.' + bb)
+            if palette in dd:
+                found_palette = True
+                if bb == 'sron2012_colors':
+                    colors = [ mpl.colors.colorConverter.to_rgb(i)
+                               for i in dd[palette] ]
+                elif bb == 'sron2012_functions':
+                    nosubsample = True
+                    colors = []
+                    if ncol == 0:
+                        ncol1 = 256
+                    else:
+                        ncol1 = ncol
+                    for i in range(ncol1):
+                        x = offset + float(i)/float(ncol1-1) * (upper-offset)
+                        colors.append(tuple(dd[palette](x)))
+
+    if not found_palette:
+        for bb in mathematica_collections:
+            dd = eval('pyjams.color.' + bb)
+            if palette in dd:
+                found_palette = True
+                colors = dd[palette]
+
+    if not found_palette:
+        for bb in oregon_collections:
+            dd = eval('pyjams.color.' + bb)
+            if palette in dd:
+                found_palette = True
+                colors = [ _rgb2rgb(i) for i in dd[palette] ]
+
+    if not found_palette:
+        for bb in ncl_collections:
+            dd = eval('pyjams.color.' + bb)
+            if palette in dd:
+                found_palette = True
+                colors = dd[palette]
 
     if not found_palette:
         # try:
@@ -254,6 +249,13 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
                 except AttributeError:
                     # mpl.colors.LinearSegmentedColormap
                     colors = [ cmap(i) for i in range(cmap.N) ]
+
+    if not found_palette:
+        for bb in brewer_collections:
+            dd = eval('pyjams.color.' + bb)
+            if palette in dd:
+                found_palette = True
+                colors = [ _rgb2rgb(i) for i in dd[palette] ]
 
     if not found_palette:
         raise ValueError(palette+' color palette not found.')
@@ -291,8 +293,8 @@ def print_palettes(collection=''):
     ----------
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
-        Known collections are 'brewer', 'mathematica', 'ncl',
-        'oregon', 'sron2012', 'sron', and 'matplotlib'.
+        Known collections are 'sron', 'sron2012', 'mathematica',
+        'oregon', 'ncl', 'matplotlib', and 'brewer'.
 
     Returns
     -------
@@ -310,24 +312,24 @@ def print_palettes(collection=''):
     import matplotlib as mpl
     import pyjams.color
 
-    brewer_collections = [ i for i in dir(pyjams.color)
-                           if i.startswith('brewer_')
-                           and not i.endswith('_palettes') ]
-    mathematica_collections = [ i for i in dir(pyjams.color)
-                                if i.startswith('mathematica_')
-                                and not i.endswith('_palettes') ]
-    ncl_collections = [ i for i in dir(pyjams.color)
-                        if i.startswith('ncl_')
-                        and not i.endswith('_palettes') ]
-    oregon_collections = [ i for i in dir(pyjams.color)
-                           if i.startswith('oregon_')
-                           and not i.endswith('_palettes') ]
-    sron2012_collections = [ i for i in dir(pyjams.color)
-                             if i.startswith('sron2012_')
-                             and not i.endswith('_palettes') ]
     sron_collections = [ i for i in dir(pyjams.color)
                          if i.startswith('sron_')
                          and not i.endswith('_palettes') ]
+    sron2012_collections = [ i for i in dir(pyjams.color)
+                             if i.startswith('sron2012_')
+                             and not i.endswith('_palettes') ]
+    mathematica_collections = [ i for i in dir(pyjams.color)
+                                if i.startswith('mathematica_')
+                                and not i.endswith('_palettes') ]
+    oregon_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('oregon_')
+                           and not i.endswith('_palettes') ]
+    ncl_collections = [ i for i in dir(pyjams.color)
+                        if i.startswith('ncl_')
+                        and not i.endswith('_palettes') ]
+    brewer_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('brewer_')
+                           and not i.endswith('_palettes') ]
 
     if collection:
         if isinstance(collection, str):
@@ -335,33 +337,12 @@ def print_palettes(collection=''):
         else:
             collections = [ i.lower for i in collection ]
     else:
-        collections = ['brewer', 'mathematica', 'ncl', 'oregon',
-                       'sron2012', 'sron', 'matplotlib']
+        collections = ['sron', 'sron2012', 'mathematica', 'oregon', 'ncl',
+                       'matplotlib', 'brewer']
 
-    if 'brewer' in collections:
-        print('brewer')
-        for cc in brewer_collections:
-            print('   ', cc)
-            ll = eval('pyjams.color.' + cc + '.keys()')
-            print('       ', list(ll))
-
-    if 'mathematica' in collections:
-        print('mathematica')
-        for cc in mathematica_collections:
-            print('   ', cc)
-            ll = eval('pyjams.color.' + cc + '.keys()')
-            print('       ', list(ll))
-
-    if 'ncl' in collections:
-        print('ncl')
-        for cc in ncl_collections:
-            print('   ', cc)
-            ll = eval('pyjams.color.' + cc + '.keys()')
-            print('       ', list(ll))
-
-    if 'oregon' in collections:
-        print('oregon')
-        for cc in oregon_collections:
+    if 'sron' in collections:
+        print('sron')
+        for cc in sron_collections:
             print('   ', cc)
             ll = eval('pyjams.color.' + cc + '.keys()')
             print('       ', list(ll))
@@ -373,9 +354,23 @@ def print_palettes(collection=''):
             ll = eval('pyjams.color.' + cc + '.keys()')
             print('       ', list(ll))
 
-    if 'sron' in collections:
-        print('sron')
-        for cc in sron_collections:
+    if 'mathematica' in collections:
+        print('mathematica')
+        for cc in mathematica_collections:
+            print('   ', cc)
+            ll = eval('pyjams.color.' + cc + '.keys()')
+            print('       ', list(ll))
+
+    if 'oregon' in collections:
+        print('oregon')
+        for cc in oregon_collections:
+            print('   ', cc)
+            ll = eval('pyjams.color.' + cc + '.keys()')
+            print('       ', list(ll))
+
+    if 'ncl' in collections:
+        print('ncl')
+        for cc in ncl_collections:
             print('   ', cc)
             ll = eval('pyjams.color.' + cc + '.keys()')
             print('       ', list(ll))
@@ -392,6 +387,13 @@ def print_palettes(collection=''):
         cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
         cmaps.sort()
         print('   ', cmaps)
+
+    if 'brewer' in collections:
+        print('brewer')
+        for cc in brewer_collections:
+            print('   ', cc)
+            ll = eval('pyjams.color.' + cc + '.keys()')
+            print('       ', list(ll))
 
 
 def _newfig(ifig, ititle):  # pragma: no cover
@@ -454,8 +456,8 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
         Output file name. Output type will be determined from file suffix.
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
-        Known collections are 'brewer', 'mathematica', 'ncl',
-        'oregon', 'sron2012', 'sron', and 'matplotlib'.
+        Known collections are 'sron', 'sron2012', 'mathematica',
+        'oregon', 'ncl', 'matplotlib', and 'brewer'.
 
         All palettes will be shown if collection is empty or 'all'.
 
@@ -491,8 +493,8 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     import matplotlib.pyplot as plt
 
     # which collections to include
-    collections = ['brewer', 'mathematica', 'ncl', 'oregon',
-                   'sron2012', 'sron', 'matplotlib']
+    collections = ['sron', 'sron2012', 'mathematica', 'oregon', 'ncl',
+                   'matplotlib', 'brewer']
     if collection:
         if isinstance(collection, str):
             if collection.lower() != 'all':
@@ -512,43 +514,40 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     nrow = 35
 
     # get collections
-    brewer_collections = [ i for i in dir(pyjams.color)
-                           if i.startswith('brewer_')
-                           and not i.endswith('_palettes') ]
-    mathematica_collections = [ i for i in dir(pyjams.color)
-                                if i.startswith('mathematica_')
-                                and not i.endswith('_palettes') ]
-    ncl_collections = [ i for i in dir(pyjams.color)
-                        if i.startswith('ncl_')
-                        and not i.endswith('_palettes') ]
-    oregon_collections = [ i for i in dir(pyjams.color)
-                           if i.startswith('oregon_')
-                           and not i.endswith('_palettes') ]
-    sron2012_collections = [ i for i in dir(pyjams.color)
-                             if i.startswith('sron2012_')
-                             and not i.endswith('_palettes') ]
     sron_collections = [ i for i in dir(pyjams.color)
                          if i.startswith('sron_')
                          and not i.endswith('_palettes') ]
+    sron2012_collections = [ i for i in dir(pyjams.color)
+                             if i.startswith('sron2012_')
+                             and not i.endswith('_palettes') ]
+    mathematica_collections = [ i for i in dir(pyjams.color)
+                                if i.startswith('mathematica_')
+                                and not i.endswith('_palettes') ]
+    oregon_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('oregon_')
+                           and not i.endswith('_palettes') ]
+    ncl_collections = [ i for i in dir(pyjams.color)
+                        if i.startswith('ncl_')
+                        and not i.endswith('_palettes') ]
+    brewer_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('brewer_')
+                           and not i.endswith('_palettes') ]
 
     all_collections = []
-    if 'brewer' in collections:
-        for cc in brewer_collections:
-            all_collections.append(cc)
-    if 'mathematica' in collections:
-        for cc in mathematica_collections:
-            all_collections.append(cc)
-    if 'ncl' in collections:
-        for cc in ncl_collections:
-            all_collections.append(cc)
-    if 'oregon' in collections:
-        for cc in oregon_collections:
+    if 'sron' in collections:
+        for cc in sron_collections:
             all_collections.append(cc)
     if 'sron2012' in collections:
         for cc in sron2012_collections:
             all_collections.append(cc)
-    if 'sron' in collections:
-        for cc in sron_collections:
+    if 'mathematica' in collections:
+        for cc in mathematica_collections:
+            all_collections.append(cc)
+    if 'oregon' in collections:
+        for cc in oregon_collections:
+            all_collections.append(cc)
+    if 'ncl' in collections:
+        for cc in ncl_collections:
             all_collections.append(cc)
     if 'matplotlib' in collections:
         # try:
@@ -561,6 +560,9 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
         cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
         cmaps.sort()
         all_collections.extend(cmaps)
+    if 'brewer' in collections:
+        for cc in brewer_collections:
+            all_collections.append(cc)
 
     # plotting
     ifig = 0
