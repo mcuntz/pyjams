@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.14 (??? 2022)
+    * Bug in `alpha_equ_h2o` for scalar in/out.
+
 v1.13 (Dec 2021)
     * Added `fsread`, `fread`, and `sread`, reading numbers and strings from a
       file into 2D float and string arrays.

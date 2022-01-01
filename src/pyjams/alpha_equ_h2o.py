@@ -25,9 +25,10 @@ History
       Oct 2021, Matthias Cuntz
     * Bug masked array, need to check masked array before ndarray because the
       former is also the latter, Nov 2021, Matthias Cuntz
+    * Bug if scalar, was still masked array, Jan 2022, Matthias Cuntz
+    * Do not use astr in docstring examples, Jan 2022, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
 
 
@@ -73,23 +74,22 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
 
     Examples
     --------
-    >>> from autostring import astr
     >>> T0 = 273.15
     >>> T  = np.array([0, 10., 15., 25.])
-    >>> print(astr(alpha_equ_h2o(T+T0, isotope=0), 4))
-    ['1.0000' '1.0000' '1.0000' '1.0000']
+    >>> print(np.around(alpha_equ_h2o(T+T0, isotope=0), 4))
+    [1. 1. 1. 1.]
 
-    >>> print(astr(alpha_equ_h2o(T+T0, isotope=2), 4))
-    ['1.0117' '1.0107' '1.0102' '1.0094']
+    >>> print(np.around(alpha_equ_h2o(T+T0, isotope=2), 4))
+    [1.0117 1.0107 1.0102 1.0094]
 
-    >>> print(astr(alpha_equ_h2o(np.ma.array(T+T0, mask=(T==0.)),
-    ...                          isotope=2, greater1=False), 4))
-    ['-9999.0000' '    0.9894' '    0.9899' '    0.9907']
+    >>> print(np.around(alpha_equ_h2o(np.ma.array(T+T0, mask=(T==0.)),
+    ...                               isotope=2, greater1=False), 4))
+    [-- 0.9894 0.9899 0.9907]
 
-    >>> print(astr(alpha_equ_h2o(T+T0, isotope=1, eps=True)*1000., 4))
-    ['112.3194' ' 97.6829' ' 91.1296' ' 79.3443']
+    >>> print(np.around(alpha_equ_h2o(T+T0, isotope=1, eps=True)*1000., 4))
+    [112.3194 97.6829 91.1296 79.3443]
 
-    >>> print(astr(alpha_equ_h2o(0.+T0, isotope=2, eps=True)*1000., 4))
+    >>> print(np.around(alpha_equ_h2o(0.+T0, isotope=2, eps=True)*1000., 4))
     11.7187
 
     """
@@ -139,7 +139,8 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
     if eps:
         out -= 1.
 
-    out = np.ma.where(temp == undef, undef, out)
+    if islist > -1:
+        out = np.ma.where(temp == undef, undef, out)
 
     # return same as input type
     if islist == 0:

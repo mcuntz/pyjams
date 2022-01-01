@@ -21,6 +21,10 @@ class TestAlphaEquH2O(unittest.TestCase):
 
         T0 = 273.15
 
+        # scalar
+        assert isinstance(alpha_equ_h2o(T0), float)
+        assert np.around(alpha_equ_h2o(T0, isotope=1), 4) == 1.1123
+
         # list
         T = [0., 10., 15., 25.]
         T1 = [ tt + T0 for tt in T ]
