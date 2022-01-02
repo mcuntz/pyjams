@@ -6,7 +6,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-:copyright: Copyright 2021- Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2021-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -21,6 +21,7 @@ The following functions are provided:
 History
     * Written Nov 2021, Matthias Cuntz
     * Change order of color maps, Dec 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 
@@ -93,10 +94,11 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
     upper : float (0-1), optional
         Upper most fraction to include for subsample or continuous colormaps
     reverse : bool, optional
-        If True, reverse colormap. This can also be achieved by adding '_r' to
-        the palette name. Palettes that end with '_r' will not be reversed.
+        Reverse colormap if True (default: False). This can also be achieved by
+        adding '_r' to the palette name. Palettes that end with '_r' will not
+        be reversed.
     grey : bool, optional
-        If True, return grey equivalent colors.
+        Return grey equivalent colors if True (default: False).
 
     Returns
     -------
