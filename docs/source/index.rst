@@ -182,7 +182,7 @@ Functions and modules per category
 
 .. _Array Manipulation:
 
-Array Manipulation
+**Array Manipulation**
     .. list-table::
        :widths: 10 25
        :header-rows: 1
@@ -203,7 +203,7 @@ Array Manipulation
 
 .. _Ascii Files:
 
-Ascii Files
+**Ascii Files**
     .. list-table::
        :widths: 10 25
        :header-rows: 1
@@ -219,7 +219,7 @@ Ascii Files
 
 .. _Date and Time:
 
-Date and Time
+**Date and Time**
     .. list-table::
        :widths: 10 25
        :header-rows: 1
@@ -255,7 +255,7 @@ Date and Time
 
 .. _Isotopes:
 
-Isotopes
+**Isotopes**
     .. list-table::
        :widths: 10 25
        :header-rows: 1
@@ -269,7 +269,7 @@ Isotopes
 
 .. _Math:
 
-Math
+**Math**
     .. list-table::
        :widths: 10 25
        :header-rows: 1
@@ -296,7 +296,7 @@ Math
 
 .. _Miscellaneous:
 
-Miscellaneous
+**Miscellaneous**
     .. list-table::
        :widths: 10 25
        :header-rows: 1
@@ -315,7 +315,7 @@ Miscellaneous
 
 .. _Plotting:
 
-Plotting
+**Plotting**
     .. list-table::
        :widths: 10 25
        :header-rows: 1
@@ -326,10 +326,14 @@ Plotting
          - Write a, B, iii), ... on a plot
        * - :mod:`~pyjams.color`
          - Collection of color palettes and continuous color maps
+       * - :func:`~pyjams.romanliterals.int2roman`
+         - Integer to Roman numeral conversion
        * - :class:`~pyjams.mcPlot`
          - Matthias Cuntz' standard plotting class
        * - :func:`~pyjams.position`
          - Position arrays of subplots to be used with add_axes
+       * - :func:`~pyjams.romanliterals.roman2int`
+         - Roman numeral to integer conversion
        * - :func:`~pyjams.text2plot.signature2plot`
          - Write a copyright notice on a plot
        * - :func:`~pyjams.str2tex`
@@ -345,7 +349,7 @@ License
 ``pyjams`` is distributed under the MIT License. See the LICENSE_ file for
 details.
 
-Copyright (c) 2012-2021 Matthias Cuntz, Juliane Mai, Stephan Thober, and Arndt
+Copyright (c) 2012-2022 Matthias Cuntz, Juliane Mai, Stephan Thober, and Arndt
 Piayda
 
 The project structure of ``pyjams`` has borrowed heavily from welltestpy_

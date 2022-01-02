@@ -75,7 +75,7 @@ Environmental Research - UFZ, Leipzig, Germany, and continued by
 Matthias Cuntz while at Institut National de Recherche pour l'Agriculture,
 l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2015-2021 Matthias Cuntz, Juliane Mai, see AUTHORS.rst
+:copyright: Copyright 2015-2022 Matthias Cuntz, Juliane Mai, see AUTHORS.rst
             for details.
 :license: MIT License, see LICENSE for details.
 
@@ -108,9 +108,9 @@ History
     * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz
     * Distinguish iterable and array_like parameter types,
       Jan 2020, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
 
 
@@ -135,7 +135,8 @@ def B(X):
     Returns
     -------
     B : float or ndarray
-        float or (npoints,) floats of B function values at `X`
+        float or (npoints,) floats of B function values at *X*
+
     """
     # Parameter sets are assumed to be in following ordering:
     # (x_1, x_2, ..., X_m, w_1, w_2, ..., w_m)
@@ -180,8 +181,9 @@ def g(X, a):
     Returns
     -------
     G : float or ndarray
-        float or (npoints,) floats of G function values at `X`
-        with parameters `a`
+        float or (npoints,) floats of G function values at *X*
+        with parameters *a*
+
     """
     return Gstar(X, np.ones(len(a)), np.zeros(len(a)), a)
 
@@ -208,8 +210,9 @@ def G(X, a):
     Returns
     -------
     g : float or ndarray
-        float or (npoints,) floats of G function values at `X`
-        with parameters `a`
+        float or (npoints,) floats of G function values at *X*
+        with parameters *a*
+
     """
     return Gstar(X, np.ones(len(a)), np.zeros(len(a)), a)
 
@@ -237,8 +240,9 @@ def Gstar(X, alpha, delta, a):
     Returns
     -------
     G* : float or ndarray
-        float or (npoints,) floats of G* function values at `X` with
-        parameters `alpha`, `delta` and `a`
+        float or (npoints,) floats of G* function values at *X* with
+        parameters *alpha*, *delta* and *a*
+
     """
     # Model output for given parameter set(s) is returned
     # X: dim1 = # of parameters = 10
@@ -279,7 +283,8 @@ def linear(X, a, b):
     """
     Linear test function
 
-        `Y = a*X + b`
+    .. math::
+       Y = a*X + b
 
     Parameters
     ----------
@@ -293,8 +298,9 @@ def linear(X, a, b):
     Returns
     -------
     linear : float or ndarray
-        float or (npoints,) floats of linear function values at `X` with
-        parameters `a` and `b`
+        float or (npoints,) floats of linear function values at *X* with
+        parameters *a* and *b*
+
     """
     # Model output for given parameter set(s) is returned
     # X:    dim1 = # of parameters = 1
@@ -324,7 +330,8 @@ def product(X):
     """
     Product test function
 
-        `Y = X[0] * X[1]`
+    .. math::
+       Y = X[0] * X[1]
 
     Parameters
     ----------
@@ -334,7 +341,8 @@ def product(X):
     Returns
     -------
     product : float or ndarray
-        float or (npoints,) floats of product function values at `X`
+        float or (npoints,) floats of product function values at *X*
+
     """
     # Model output for given parameter set(s) is returned
     # X:    dim1 = # of parameters = 2
@@ -364,7 +372,8 @@ def ratio(X):
     """
     Ratio test function
 
-        `Y = X[0] / X[1]`
+    .. math::
+       Y = X[0] / X[1]
 
     Simple nonlinear model proposed by Liu et al. (2006):
 
@@ -388,7 +397,8 @@ def ratio(X):
     Returns
     -------
     ratio : float or ndarray
-        float or (npoints,) floats of ratio function values at `X`
+        float or (npoints,) floats of ratio function values at *X*
+
     """
     # Model output for given parameter set(s) is returned
     # X:    dim1 = # of parameters = 2
@@ -418,7 +428,8 @@ def ishigami_homma_easy(X):
     """
     Simplified Ishigami and Homma function
 
-        `Y = sin(X[0]) + X[1]`
+    .. math::
+       Y = sin(X[0]) + X[1]
 
     with `X[0], X[1]` ~ `Uniform[-Pi, Pi]`
 
@@ -431,7 +442,8 @@ def ishigami_homma_easy(X):
     -------
     ishigami_homma_easy : float or ndarray
         float or (npoints,) floats of simplified Ishigami and Homma function
-        values at `X`
+        values at *X*
+
     """
     # Model output for given parameter set(s) is returned
     # X:    dim1 = # of parameters = 2
@@ -476,7 +488,8 @@ def ishigami_homma(X, a, b):
     -------
     ishigami_homma : float or ndarray
         float or (npoints,) floats of Ishigami and Homma function values at
-        `X` with parameters `a` and `b`
+        *X* with parameters *a* and *b*
+
     """
     # Model output for given parameter set(s) is returned
     # X: dim1 = # of parameters = 3
@@ -517,7 +530,8 @@ def K(X):
     Returns
     -------
     K : float or ndarray
-        float or (npoints,) floats of K function values at `X`
+        float or (npoints,) floats of K function values at *X*
+
     """
     # Model output for given parameter set(s) is returned
     # X: dim1 = # of parameters = 10
@@ -559,7 +573,8 @@ def bratley(*args):
     Returns
     -------
     bratley : float or ndarray
-        float or (npoints,) floats of K function values at `X`
+        float or (npoints,) floats of K function values at *X*
+
     """
     return K(*args)
 
@@ -591,8 +606,9 @@ def fmorris(X, beta0, beta1, beta2, beta3, beta4):
     Returns
     -------
     fmorris : float or ndarray
-        float or (npoints,) floats of Morris function values at `X` with
-        parameters `beta0-beta4`
+        float or (npoints,) floats of Morris function values at *X* with
+        parameters *beta0-beta4*
+
     """
     X = np.array(X)
     if X.ndim == 1:
@@ -645,23 +661,24 @@ def morris(*args):
     Parameters
     ----------
     X : array_like
-        (20,) or (20,npoints) array of floats
+        (20,) or (20, npoints) array of floats
     beta0 : float
         float
     beta1 : array_like
         (20,) array of floats
     beta2 : array_like
-        (20,20) array of floats
+        (20, 20) array of floats
     beta3 : array_like
-        (20,20,20) array of floats
+        (20, 20, 20) array of floats
     beta4 : array_like
-        (20,20,20,20) array of floats
+        (20, 20, 20, 20) array of floats
 
     Returns
     -------
     morris : float or ndarray
-        float or (npoints,) floats of Morris function values at `X` with
-        parameters `beta0-beta4`
+        float or (npoints,) floats of Morris function values at *X* with
+        parameters *beta0-beta4*
+
     """
     return fmorris(*args)
 
@@ -678,12 +695,13 @@ def oakley_ohagan(X):
     Parameters
     ----------
     X : array_like
-        (15,) or (15,npoints) array of floats
+        (15,) or (15, npoints) array of floats
 
     Returns
     -------
     oakley_ohagan : float or ndarray
-        float or (npoints,) floats of Oakley and O'Hagan function values at `X`
+        float or (npoints,) floats of Oakley and O'Hagan function values at *X*
+
     """
     X = np.array(X)
     if X.ndim == 1:

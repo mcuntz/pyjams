@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v1.14 (??? 2022)
+    * Organize API reference documentation by categories.
     * More consistent docstrings across routines.
     * Bug in `alpha_equ_h2o` for scalar in/out.
 

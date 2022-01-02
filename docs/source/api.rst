@@ -1,7 +1,7 @@
 .. _api:
 
-Public API
-----------
+API Reference
+-------------
 
 .. automodule:: pyjams
 
@@ -10,24 +10,15 @@ Public API
     \clearpage
 
 .. toctree::
+   :includehidden:
+   :maxdepth: 2
 
-   alpha_equ_h2o.rst
-   alpha_kin_h2o.rst
-   argsort.rst
-   closest.rst
-   color.rst
-   const.rst
-   date2date.rst
-   division.rst
-   fsread.rst
-   functions.rst
-   mcplot.rst
-   morris_method.rst
-   position.rst
-   romanliterals.rst
-   screening.rst
-   str2tex.rst
-   tee.rst
-   text2plot.rst
+   array_manipulation.rst
+   ascii_files.rst
+   date_time.rst
+   isotopes.rst
+   math.rst
+   miscellaneous.rst
+   plotting.rst
 
 .. currentmodule:: pyjams

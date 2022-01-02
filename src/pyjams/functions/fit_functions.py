@@ -71,52 +71,52 @@ functions have `cost_` or `cost2_` prepended to the name, for example :func:`gau
    * - Function - number of paramters
      - Description
 
-   * - :func:`arrhenius` - 1 param (E)
+   * - :func:`arrhenius`
      - Arrhenius temperature dependence of biochemical rates:
        :math:`\exp((T-TC25)*E/(T25*R*(T+T0)))`
 
-   * - :func:`f1x` - 2 params
+   * - :func:`f1x`
      - General 1/x function: :math:`a + b/x`
 
-   * - :func:`fexp` - 3 params
+   * - :func:`fexp`
      - General exponential function: :math:`a + b * \exp(c*x)`
 
-   * - :func:`gauss` - 2 params
+   * - :func:`gauss`
      - Gauss function:
        :math:`1/(\sigma*\sqrt(2*\pi)) * \exp(-(x-\mu)^2/(2*\sigma^2))`
 
-   * - :func:`lasslop` - 6 params
+   * - :func:`lasslop`
      - NEE of Lasslop et al. (2010)
 
-   * - :func:`line0` - 1 params
+   * - :func:`line0`
      - Straight line: :math:`a*x`
 
-   * - :func:`line` - 2 params
+   * - :func:`line`
      - Straight line: :math:`a + b*x`
 
-   * - :func:`lloyd_fix` - 2 params
+   * - :func:`lloyd_fix`
      - Heterotrophic respiration of Lloyd & Taylor (1994)
 
-   * - :func:`lloyd_only_rref` - 1 param
+   * - :func:`lloyd_only_rref`
      - Heterotrophic respiration of Lloyd & Taylor (1994) with fixed E0
 
-   * - :func:`logistic` - 3 params
+   * - :func:`logistic`
      - Logistic function: :math:`a/(1+\exp(-b(x-c)))`
 
-   * - :func:`logistic_offset` - 4 params
+   * - :func:`logistic_offset`
      - Logistic function with offset: :math:`a/(1+\exp(-b(x-c))) + d`
 
-   * - :func:`logistic2_offset` - 7 params
+   * - :func:`logistic2_offset`
      - Double logistic function with offset
        :math:`L1/(1+\exp(-k1(x-x01))) - L2/(1+\exp(-k2(x-x02))) + a`
 
-   * - :func:`poly` - n params
+   * - :func:`poly`
      - General polynomial: :math:`c_0 + c_1*x + c_2*x^2 + ... + c_n*x^n`
 
-   * - :func:`sabx` - 2 params
+   * - :func:`sabx`
      - sqrt(f1x), i.e. general sqrt(1/x) function: :math:`\sqrt(a + b/x)`
 
-   * - :func:`see` - 3 params
+   * - :func:`see`
      - Sequential Elementary Effects fitting function: :math:`a*(x-b)^c`
 
 This module was written by Matthias Cuntz while at Department of

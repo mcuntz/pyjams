@@ -30,7 +30,7 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2013-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2013-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -49,6 +49,7 @@ History
     * Written Oct 2013 by Matthias Cuntz (mc (at) macu (dot) de)
     * Rearrange function library, Mar 2015, Matthias Cuntz
     * Changed to Sphinx docstring and numpydoc, May 2020, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -76,6 +77,7 @@ def ackley(x):
     -------
     float
        Value of Ackley function.
+
     """
     a = 20.0
     b = 0.2
@@ -101,15 +103,14 @@ def griewank(x):
     ----------
     x : array
         multi-dimensional x-values.
-
         `len(x)=2` or `len(x)=10`.
-
         `x[i]` bound to [-600, 600] for all i.
 
     Returns
     -------
     float
        Value of Griewank function.
+
     """
     nopt = np.size(x)
     # if (nopt == 2) | (nopt == 10):
@@ -141,13 +142,13 @@ def goldstein_price(x):
     ----------
     x : array
         2 x-values. `len(x)=2`.
-
         `x[i]` bound to [-2, 2] for i=1 and 2.
 
     Returns
     -------
     float
        Value of Goldstein-Price function.
+
     """
     x1 = x[0]
     x2 = x[1]
@@ -173,13 +174,13 @@ def rastrigin(x):
     ----------
     x : array
         2 x-values. `len(x)=2`.
-
         `x[i]` bound to [-1, 1] for i=1 and 2.
 
     Returns
     -------
     float
        Value of Rastrigin function.
+
     """
     x1 = x[0]
     x2 = x[1]
@@ -199,15 +200,14 @@ def rosenbrock(x):
     ----------
     x : array
         2 x-values. `len(x)=2`.
-
         `x[1]` bound to [-5, 5].
-
         `x[2]` bound to [-2, 8].
 
     Returns
     -------
     float
        Value of Rosenbrock function.
+
     """
 
     x1 = x[0]
@@ -230,13 +230,13 @@ def six_hump_camelback(x):
     ----------
     x : array
         2 x-values. `len(x)=2`.
-
         `x[i]` bound to [-5, 5] for i=1 and 2.
 
     Returns
     -------
     float
        Value of Six-hump Camelback function.
+
     """
     x1 = x[0]
     x2 = x[1]

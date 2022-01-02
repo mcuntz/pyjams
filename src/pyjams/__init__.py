@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 """
-Purpose
-=======
-
 pyjams is a general Python package with miscellaneous utility functions used in
 several other packages. It is offering miscellaneous functions in different
 categories, such as reading different file formats, julian date routines, or
@@ -13,7 +10,7 @@ scipy.optimize.fmin or scipy.optimize.curvefit, and much more.
 The package has evolved from its predecessor the JAMS Python package
 https://github.com/mcuntz/jams_python
 
-:copyright: Copyright 2021 Matthias Cuntz, see AUTHORS.md for details.
+:copyright: Copyright 2021-2022 Matthias Cuntz, see AUTHORS.md for details.
 :license: MIT License, see LICENSE for details.
 
 Subpackages

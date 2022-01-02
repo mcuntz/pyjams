@@ -12,7 +12,7 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2015-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2015-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -25,10 +25,11 @@ Functions:
 History
     * Written Mar 2015 by Matthias Cuntz (mc (at) macu (dot) de)
     * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz
-    * Split logistic and curvature into separate files, May 2020, Matthias
-      Cuntz
+    * Split logistic and curvature into separate files,
+      May 2020, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
+
 """
-from __future__ import division, absolute_import, print_function
 
 
 __all__ = ['curvature']
@@ -41,27 +42,36 @@ def curvature(x, dfunc, d2func, *args, **kwargs):
     Curvature of a function f
 
     .. math::
-        f''/(1+f'^2)^{3/2}
+       f''/(1+f'^2)^{3/2}
 
     Parameters
     ----------
     x : array_like
         Independent variable to evalute curvature
     dfunc : callable
-        Function giving first derivative of function f: f', to be called
+        Function giving first derivative of function *f*: *f'*, to be called
         `dfunc(x, *args, **kwargs)`
     d2func : callable
-        Function giving second derivative of function f: f'', to be called
+        Function giving second derivative of function *f*: *f''*, to be called
         `d2func(x, *args, **kwargs)`
     args : iterable
-        Arguments passed to `dfunc` and `d2func`
+        Arguments passed to *dfunc* and *d2func*
     kwargs : dict
-        Keyword arguments passed to `dfunc` and `d2func`
+        Keyword arguments passed to *dfunc* and *d2func*
 
     Returns
     -------
     float or ndarray
-        Curvature of function f at `x`
+        Curvature of function *f* at *x*
+
+    Examples
+    --------
+    .. code-block:: python
+
+       from pyjams.functions import dlogistic_offset, d2logistic_offset
+       curvature(1., dlogistic_offset, d2logistic_offset,
+                 [1., 2., 2., 1.])
+
     """
     return ( d2func(x, *args, **kwargs) /
              (1. + dfunc(x, *args, **kwargs)**2)**1.5 )

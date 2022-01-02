@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-Several forms of the logistic function and their first and second derivatives.
+Several forms of the logistic function and their first and second derivatives
 
 The current functions are the following. Each function has a second form with
-`_p` appended to the name, where parameters are given as a list, e.g.
+`_p` appended to the name, where parameters are given as an iterable, e.g.
 `logistic` and `logistic_p` = `logistic(x, *p)`:
 
 .. list-table::
@@ -38,7 +38,7 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2015-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2015-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -76,8 +76,9 @@ History
       derivatives, Feb 2020, Matthias Cuntz
     * Split logistic and curvature into separate files,
       May 2020, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
+
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import scipy.special as sp
 
@@ -99,7 +100,8 @@ def logistic(x, L, k, x0):
     """
     Logistic function
 
-        `L/(1+exp(-k(x-x0)))`
+    .. math::
+       L/(1+exp(-k(x-x0)))
 
     Parameters
     ----------
@@ -115,8 +117,9 @@ def logistic(x, L, k, x0):
     Returns
     -------
     float or ndarray
-        Logistic function at `x` with maximum `L`, steepness `k` and inflection
-        point `x0`
+        Logistic function at *x* with maximum *L*, steepness *k* and inflection
+        point *x0*
+
     """
     return L * sp.expit(k * (x - x0))
 
@@ -124,6 +127,7 @@ def logistic(x, L, k, x0):
 def logistic_p(x, p):
     """
     Wrapper function for :func:`logistic`: `logistic(x, *p)`
+
     """
     return logistic(x, *p)
 
@@ -134,11 +138,13 @@ def dlogistic(x, L, k, x0):
     """
     First derivative of :func:`logistic` function
 
-        `L/(1+exp(-k(x-x0)))`
+    .. math::
+       L/(1+exp(-k(x-x0)))
 
     which is
 
-        `k.L/(2(cosh(k(x-x0))+1))`
+    .. math::
+       k.L/(2(cosh(k(x-x0))+1))
 
     Parameters
     ----------
@@ -154,8 +160,9 @@ def dlogistic(x, L, k, x0):
     Returns
     -------
     float or ndarray
-        First derivative of logistic function at `x` with maximum `L`,
-        steepness `k` and inflection point `x0`
+        First derivative of logistic function at *x* with maximum *L*,
+        steepness *k* and inflection point *x0*
+
     """
     return k * L / (2. * (np.cosh(k * (x - x0)) + 1.))
 
@@ -163,6 +170,7 @@ def dlogistic(x, L, k, x0):
 def dlogistic_p(x, p):
     """
     Wrapper function for :func:`dlogistic`: `dlogistic(x, *p)`
+
     """
     return dlogistic(x, *p)
 
@@ -173,11 +181,13 @@ def d2logistic(x, L, k, x0):
     """
     Second derivative of :func:`logistic` function
 
-        `L/(1+exp(-k(x-x0)))`
+    .. math::
+       L/(1+exp(-k(x-x0)))
 
     which is
 
-        `-k^2.L.sinh(k(x-x0))/(2(cosh(k(x-x0))+1)^2)`
+    .. math::
+       -k^2.L.sinh(k(x-x0))/(2(cosh(k(x-x0))+1)^2)
 
     Parameters
     ----------
@@ -193,8 +203,9 @@ def d2logistic(x, L, k, x0):
     Returns
     -------
     float or ndarray
-        Second derivative of logistic function at `x` with maximum `L`,
-        steepness `k` and inflection point `x0`
+        Second derivative of logistic function at *x* with maximum *L*,
+        steepness *k* and inflection point *x0*
+
     """
     return ( -k**2 * L * np.sinh(k * (x - x0)) /
              (2. * (np.cosh(k * (x - x0)) + 1.)**2) )
@@ -203,6 +214,7 @@ def d2logistic(x, L, k, x0):
 def d2logistic_p(x, p):
     """
     Wrapper function for :func:`d2logistic`: `d2logistic(x, *p)`
+
     """
     return d2logistic(x, *p)
 
@@ -213,7 +225,8 @@ def logistic_offset(x, L, k, x0, a):
     """
     Logistic function with offset
 
-        `L/(1+exp(-k(x-x0))) + a`
+    .. math::
+       L/(1+exp(-k(x-x0))) + a
 
     Parameters
     ----------
@@ -231,8 +244,9 @@ def logistic_offset(x, L, k, x0, a):
     Returns
     -------
     float or ndarray
-        Logistic function at `x` with maximum `L`, steepness `k`, inflection
-        point `x0` and offset `a`
+        Logistic function at *x* with maximum *L*, steepness *k*, inflection
+        point *x0* and offset *a*
+
     """
     return L * sp.expit(k * (x - x0)) + a
 
@@ -240,6 +254,7 @@ def logistic_offset(x, L, k, x0, a):
 def logistic_offset_p(x, p):
     """
     Wrapper function for :func:`logistic_offset`: `logistic_offset(x, *p)`
+
     """
     return logistic_offset(x, *p)
 
@@ -250,11 +265,13 @@ def dlogistic_offset(x, L, k, x0, a):
     """
     First derivative of :func:`logistic_offset` function
 
-        `L/(1+exp(-k(x-x0))) + a`
+    .. math::
+       L/(1+exp(-k(x-x0))) + a
 
     which is
 
-        `k.L/(2(cosh(k(x-x0))+1))`
+    .. math::
+       k.L/(2(cosh(k(x-x0))+1))
 
     Parameters
     ----------
@@ -272,8 +289,9 @@ def dlogistic_offset(x, L, k, x0, a):
     Returns
     -------
     float or ndarray
-        First derivative of logistic function with offset at `x` with maximum
-        `L`, steepness `k`, inflection point `x0`, and offset `a`
+        First derivative of logistic function with offset at *x* with maximum
+        *L*, steepness *k*, inflection point *x0*, and offset *a*
+
     """
     return k * L / (2. * (np.cosh(k * (x - x0)) + 1.))
 
@@ -281,6 +299,7 @@ def dlogistic_offset(x, L, k, x0, a):
 def dlogistic_offset_p(x, p):
     """
     Wrapper function for :func:`dlogistic_offset`: `dlogistic_offset(x, *p)`
+
     """
     return dlogistic_offset(x, *p)
 
@@ -291,11 +310,13 @@ def d2logistic_offset(x, L, k, x0, a):
     """
     Second derivative of :func:`logistic_offset` function
 
-        `L/(1+exp(-k(x-x0))) + a`
+    .. math::
+       L/(1+exp(-k(x-x0))) + a
 
     which is
 
-        `-k^2.L.sinh(k(x-x0))/(2(cosh(k(x-x0))+1)^2)`
+    .. math::
+       -k^2.L.sinh(k(x-x0))/(2(cosh(k(x-x0))+1)^2)
 
     Parameters
     ----------
@@ -313,8 +334,9 @@ def d2logistic_offset(x, L, k, x0, a):
     Returns
     -------
     float or ndarray
-        Second derivative of logistic function at `x` with maximum `L`,
-        steepness `k`, inflection point `x0`, and offset `a`
+        Second derivative of logistic function at *x* with maximum *L*,
+        steepness *k*, inflection point *x0*, and offset *a*
+
     """
     return ( -k**2 * L * np.sinh(k * (x - x0)) /
              (2. * (np.cosh(k * (x - x0)) + 1.)**2) )
@@ -323,6 +345,7 @@ def d2logistic_offset(x, L, k, x0, a):
 def d2logistic_offset_p(x, p):
     """
     Wrapper function for :func:`d2logistic_offset`: `d2logistic_offset(x, *p)`
+
     """
     return d2logistic_offset(x, *p)
 
@@ -333,7 +356,8 @@ def logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     """
     Double logistic function with offset
 
-        `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
+    .. math::
+       L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a
 
     Parameters
     ----------
@@ -357,7 +381,8 @@ def logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     Returns
     -------
     float or ndarray
-        Double Logistic function at `x`
+        Double Logistic function at *x*
+
     """
     return L1 * sp.expit(k1 * (x - x01)) - L2 * sp.expit(k2 * (x - x02)) + a
 
@@ -365,6 +390,7 @@ def logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 def logistic2_offset_p(x, p):
     """
     Wrapper function for :func:`logistic2_offset`: `logistic2_offset(x, *p)`
+
     """
     return logistic2_offset(x, *p)
 
@@ -375,11 +401,13 @@ def dlogistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     """
     First derivative of :func:`logistic2_offset` function
 
-        `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
+    .. math::
+       L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a
 
     which is
 
-        `k1.L1/(2(cosh(k1(x-x01))+1)) - k2.L2/(2(cosh(k2(x-x02))+1))`
+    .. math::
+       k1.L1/(2(cosh(k1(x-x01))+1)) - k2.L2/(2(cosh(k2(x-x02))+1))
 
     Parameters
     ----------
@@ -403,7 +431,8 @@ def dlogistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     Returns
     -------
     float or ndarray
-        First derivative of double logistic function with offset at `x`
+        First derivative of double logistic function with offset at *x*
+
     """
     return ( k1 * L1 / (2. * (np.cosh(k1 * (x - x01)) + 1.)) -
              k2 * L2 / (2. * (np.cosh(k2 * (x - x02)) + 1.)) )
@@ -412,6 +441,7 @@ def dlogistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 def dlogistic2_offset_p(x, p):
     """
     Wrapper function for :func:`dlogistic2_offset`: `dlogistic2_offset(x, *p)`
+
     """
     return dlogistic2_offset(x, *p)
 
@@ -422,12 +452,14 @@ def d2logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     """
     Second derivative of :func:`logistic_offset` function
 
-        `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
+    .. math::
+       L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a
 
     which is
 
-        `-k1^2.L1.sinh(k1(x-x01))/(2(cosh(k1(x-x01))+1)^2) +
-        k2^2.L2.sinh(k2(x-x02))/(2(cosh(k2(x-x02))+1)^2)`
+    .. math::
+       - k1^2.L1.sinh(k1(x-x01)) / (2(cosh(k1(x-x01))+1)^2)
+       + k2^2.L2.sinh(k2(x-x02)) / (2(cosh(k2(x-x02))+1)^2)
 
     Parameters
     ----------
@@ -451,7 +483,8 @@ def d2logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
     Returns
     -------
     float or ndarray
-        Second derivative of double logistic function with offset at `x`
+        Second derivative of double logistic function with offset at *x*
+
     """
     return ( -k1**2 * L1 * np.sinh(k1 * (x - x01)) /
              (2. * (np.cosh(k1 * (x - x01)) + 1.)**2) +
@@ -463,6 +496,7 @@ def d2logistic2_offset_p(x, p):
     """
     Wrapper function for
     :func:`d2logistic2_offset`: `d2logistic2_offset(x, *p)`
+
     """
     return d2logistic2_offset(x, *p)
 
