@@ -7,7 +7,7 @@ Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,
 Germany, and continued while at Institut National de Recherche pour
 l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2014-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2014-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -50,13 +50,14 @@ History
     * Written text2plot, Nov 2021, Matthias Cuntz
     * Use text2plot for signature2plot, Nov 2021, Matthias Cuntz
     * Use text2plot for abc2plot, Nov 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 import time as ptime
-from .str2tex import str2tex
-from .romanliterals import int2roman
-# from pyjams.str2tex import str2tex
-# from pyjams.romanliterals import int2roman
+# from .str2tex import str2tex
+# from .romanliterals import int2roman
+from pyjams.str2tex import str2tex
+from pyjams.romanliterals import int2roman
 
 
 __all__ = ['text2plot', 'abc2plot', 'signature2plot']
@@ -74,7 +75,7 @@ def text2plot(handle, dx, dy, itext,
     Parameters
     ----------
     handle : :class:`matplotlib.axes` subclass
-       Matplotlib axes handle
+        Matplotlib axes handle
     dx : float
         % of xlim from min(xlim)
     dy : float
@@ -82,41 +83,34 @@ def text2plot(handle, dx, dy, itext,
     itext : str
         String to write on plot
     small : bool, optional
-        True: fontsize='small' (default: False)
+        fontsize='small' if True (default: False)
     medium : bool, optional
-        True: fontsize='medium' (default)
+        fontsize='medium' if True (default: False).
+        Medium is taken if no other fontsize is chosen.
     large : bool, optional
-        True: fontsize='large' (default: False)
+        fontsize='large' if True (default: False)
     xlarge : bool, optional
-        True: fontsize='x-large' (default: False)
+        fontsize='x-large' if True (default: False)
     xsmall : bool, optional
-        True: fontsize='x-small' (default: False)
+        fontsize='x-small' if True (default: False)
     xxlarge : bool, optional
-        True: fontsize='xx-large' (default: False)
+        fontsize='xx-large' if True (default: False)
     xxsmall : bool, optional
-        True: fontsize='xx-small' (default: False)
+        fontsize='xx-small' if True (default: False)
     bold : bool, optional
-        True: fontweight='bold'
-
-        False: fontsize='normal' (default)
+        fontweight='bold' if True, else fontsize='normal' (default)
     italic : bool, optional
-        True:    fontstyle='italic'
-
-        False:   fontstyle='normal' (default)
+        fontstyle='italic' if True, else fontstyle='normal' (default)
     usetex : bool, optional
-        True: Embed into LaTeX math environment
-
-        False: No LaTeX math mode
+        Embed into LaTeX math environment if True,
+        else no LaTeX math mode (default)
     mathrm : bool, optional
-        True: Put text into appropriate LaTeX mathrm/mathit/mathbf
-        environment if *usetex==True* and *italic==True* or *bold==True*
-
-        False: Use standard math font if *usetex==True* (default)
+        If True, put text into appropriate LaTeX mathrm/mathit/mathbf
+        environment if *usetex==True* and *italic==True* or *bold==True*.
+        If False, use standard math font if *usetex==True* (default).
     string : bool, optional
-        True: Treat iplot as literal string and not as number.
-        integer, roman and lower are disabled.
-
-        False: iplot is integer (default)
+        Treat *iplot* as literal string and not as integer if True (default:
+        False). *integer*, *roman* and *lower* are disabled then.
     **kwargs : dict, optional
         All additional parameters are passed passed to
         :meth:`matplotlib.axes.Axes.text()`
@@ -205,8 +199,6 @@ def text2plot(handle, dx, dy, itext,
 def abc2plot(handle, dx, dy, iplot,
              integer=False, roman=False, lower=False,
              parentheses=None, brackets=None, braces=None,
-             small=False, medium=False, large=False,
-             xsmall=False, xxsmall=False, xlarge=False, xxlarge=False,
              bold=False, italic=False,
              usetex=False, mathrm=False, string=False,
              **kwargs):  # pragma: no cover
@@ -228,78 +220,48 @@ def abc2plot(handle, dx, dy, iplot,
     roman : bool, optional
         Use Roman literals instead of a, b, c if True (default: False)
     lower : bool, optional
-        Use lowercase letters for a, b, c if True
-
-        Use uppercase letters for a, b, c if False (default)
+        Use lowercase letters for a, b, c if True,
+        else use uppercase letters (default)
     parentheses : str or None, optional
-        'open': opening parentheses in front of number
-
-        'close': closing parentheses after number
-
-        'both': opening and closing parentheses at number
-
-        'None': no parentheses
-
-        None: no parentheses (default)
+        Parentheses before or after the letter/number. Possible values are
+        'open', 'close', 'both', 'None', and *None*.
+        'open' puts opening parentheses in front of the letter/number.
+        'close' puts closing parentheses after the letter/number.
+        'both' puts opening and closing parentheses around the letter/number.
+        'None' and *None* do not put any parentheses before or after the
+        letter/number (default).
     brackets : str or None, optional
-        'open': opening brackets in front of number
-
-        'close': closing brackets after number
-
-        'both': opening and closing brackets at number
-
-        'None': no brackets
-
-        None: no brackets (default)
+        Brackets before or after the letter/number. Possible values are
+        'open', 'close', 'both', 'None', and *None*.
+        'open' puts opening brackets in front of the letter/number.
+        'close' puts closing brackets after the letter/number.
+        'both' puts opening and closing brackets around the letter/number.
+        'None' and *None* do not put any brackets before or after the
+        letter/number (default).
     braces : str or None, optional
-        'open': opening braces in front of number
-
-        'close': closing braces after number
-
-        'both': opening and closing braces at number
-
-        'None': no braces
-
-        None: no braces (default)
-    small : bool, optional
-        True: fontsize='small' (default: False)
-    medium : bool, optional
-        True: fontsize='medium' (default)
-    large : bool, optional
-        True: fontsize='large' (default: False)
-    xlarge : bool, optional
-        True: fontsize='x-large' (default: False)
-    xsmall : bool, optional
-        True: fontsize='x-small' (default: False)
-    xxlarge : bool, optional
-        True: fontsize='xx-large' (default: False)
-    xxsmall : bool, optional
-        True: fontsize='xx-small' (default: False)
+        Braces before or after the letter/number. Possible values are
+        'open', 'close', 'both', 'None', and *None*.
+        'open' puts opening braces in front of the letter/number.
+        'close' puts closing braces after the letter/number.
+        'both' puts opening and closing braces around the letter/number.
+        'None' and *None* do not put any braces before or after the
+        letter/number (default).
     bold : bool, optional
-        True: fontweight='bold'
-
-        False: fontsize='normal' (default)
+        fontweight='bold' if True, else fontsize='normal' (default)
     italic : bool, optional
-        True:    fontstyle='italic'
-
-        False:   fontstyle='normal' (default)
+        fontstyle='italic' if True, else fontstyle='normal' (default)
     usetex : bool, optional
-        True: Embed into LaTeX math environment
-
-        False: No LaTeX math mode
+        Embed into LaTeX math environment if True,
+        else no LaTeX math mode (default)
     mathrm : bool, optional
-        True: Put a, b, c, ... into appropriate LaTeX mathrm/mathit/mathbf
-        environment if *usetex==True* and *italic==True* or *bold==True*
-
-        False: Use standard math font if *usetex==True* (default)
+        If True, put text into appropriate LaTeX mathrm/mathit/mathbf
+        environment if *usetex==True* and *italic==True* or *bold==True*.
+        If False, use standard math font if *usetex==True* (default).
     string : bool, optional
-        True: Treat iplot as literal string and not as number.
-        integer, roman and lower are disabled.
-
-        False: iplot is integer (default)
+        Treat *iplot* as literal string and not as integer if True (default:
+        False). *integer*, *roman* and *lower* are disabled then.
     **kwargs : dict, optional
-        All additional parameters are passed passed to
-        :meth:`matplotlib.axes.Axes.text()`
+        All additional parameters are passed passed to :func:`text2plot()`
 
     Returns
     -------
@@ -412,18 +374,12 @@ def abc2plot(handle, dx, dy, iplot,
         t = r'$' + t + r'$'
 
     text2plot(handle, dx, dy, t,
-              small=small, medium=medium, large=large,
-              xsmall=xsmall, xxsmall=xxsmall, xlarge=xlarge, xxlarge=xxlarge,
               bold=bold, italic=italic,
               usetex=False, mathrm=False,
               **kwargs)
 
 
 def signature2plot(handle, dx, dy, itext,
-                   small=False, medium=False, large=False,
-                   xsmall=False, xxsmall=False, xlarge=False, xxlarge=False,
-                   bold=False, italic=False,
-                   usetex=False, mathrm=False,
                    **kwargs):  # pragma: no cover
     """
     Write a copyright notice on a plot
@@ -440,47 +396,8 @@ def signature2plot(handle, dx, dy, itext,
         % of ylim from min(ylim)
     itext : str
         Text after '(C) YYYY', where YYYY is the current 4-digit year
-    itext : str
-        String to write on plot
-    small : bool, optional
-        True: fontsize='small' (default: False)
-    medium : bool, optional
-        True: fontsize='medium' (default)
-    large : bool, optional
-        True: fontsize='large' (default: False)
-    xlarge : bool, optional
-        True: fontsize='x-large' (default: False)
-    xsmall : bool, optional
-        True: fontsize='x-small' (default: False)
-    xxlarge : bool, optional
-        True: fontsize='xx-large' (default: False)
-    xxsmall : bool, optional
-        True: fontsize='xx-small' (default: False)
-    bold : bool, optional
-        True: fontweight='bold'
-
-        False: fontsize='normal' (default)
-    italic : bool, optional
-        True:    fontstyle='italic'
-
-        False:   fontstyle='normal' (default)
-    usetex : bool, optional
-        True: Embed into LaTeX math environment
-
-        False: No LaTeX math mode
-    mathrm : bool, optional
-        True: Put signature into appropriate LaTeX mathrm/mathit/mathbf
-        environment if *usetex==True* and *italic==True* or *bold==True*
-
-        False: Use standard math font if *usetex==True* (default)
-    string : bool, optional
-        True: Treat iplot as literal string and not as number.
-        integer, roman and lower are disabled.
-
-        False: iplot is integer (default)
     **kwargs : dict, optional
-        All additional parameters are passed passed to
-        :meth:`matplotlib.axes.Axes.text()`
+        All additional parameters are passed passed to :func:`text2plot()`
 
     Returns
     -------
@@ -509,12 +426,7 @@ def signature2plot(handle, dx, dy, itext,
     if ('horizontalalignment' not in kwargs) and ('ha' not in kwargs):
         kwargs['horizontalalignment'] = 'right'
 
-    text2plot(handle, dx, dy, otext,
-              small=small, medium=medium, large=large,
-              xsmall=xsmall, xxsmall=xxsmall, xlarge=xlarge, xxlarge=xxlarge,
-              bold=bold, italic=italic,
-              usetex=usetex, mathrm=mathrm,
-              **kwargs)
+    text2plot(handle, dx, dy, otext, **kwargs)
 
 
 if __name__ == '__main__':

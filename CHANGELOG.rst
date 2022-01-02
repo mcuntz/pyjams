@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v1.14 (??? 2022)
+    * More consistent docstrings across routines.
     * Bug in `alpha_equ_h2o` for scalar in/out.
 
 v1.13 (Dec 2021)

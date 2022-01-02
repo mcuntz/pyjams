@@ -7,7 +7,7 @@ Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,
 Germany, and continued while at Institut National de Recherche pour
 l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2012-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -32,6 +32,7 @@ History
     * Use assert mechanism, Apr 2014, Matthias Cuntz
     * Make numpy docstring format, Nov 2021, Matthias Cuntz
     * Ported into pyjams, Nov 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 
@@ -54,9 +55,8 @@ def int2roman(i, lower=False):
     i : int
         Integer number to convert
     lower : bool, optional
-        True: output lowercase numerals
-
-        False: output uppercase numerals (default)
+        Output lowercase numerals if True,
+        else output uppercase numerals (default)
 
     Returns
     -------
@@ -72,14 +72,11 @@ def int2roman(i, lower=False):
     --------
     >>> print(int2roman(1))
     I
-
     >>> print(int2roman(19))
     XIX
-
     >>> print(int2roman(159))
     CLIX
-
-    >>> print(int2roman(159,lower=True))
+    >>> print(int2roman(159, lower=True))
     clix
 
     """
@@ -122,13 +119,10 @@ def roman2int(n):
     --------
     >>> print(roman2int('I'))
     1
-
     >>> print(roman2int('i'))
     1
-
     >>> print(roman2int('iv'))
     4
-
     >>> print(roman2int('MCCCLIV'))
     1354
 
@@ -147,12 +141,3 @@ def roman2int(n):
 if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
-
-    # print int2roman(1)
-    # print int2roman(19)
-    # print int2roman(159)
-    # print int2roman(159,lower=True)
-    # print roman2int('I')
-    # print roman2int('i')
-    # print roman2int('iv')
-    # print roman2int('MCCCLIV')

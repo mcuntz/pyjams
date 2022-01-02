@@ -7,7 +7,7 @@ Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,
 Germany, and continued while at Institut National de Recherche pour
 l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2014-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2014-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -22,6 +22,7 @@ History
     * Allow that file keyword not given, Nov 2016, Matthias Cuntz
     * Make numpy doctsring format, Dec 2019, Matthias Cuntz
     * Code refactoring, Sep 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -57,7 +58,6 @@ def tee(*args, **kwargs):
         If `file` is given and not None, then print will be called with `*args`
         and `**kwargs` and a second time with the `file` keyword argument
         removed, so that `*args` will be written to sys.stdout.
-
         If `file` is not given or None, `*args` will only be written to
         sys.stdout, i.e. *tee* is a simple wrapper of the `print` function.
 
@@ -65,7 +65,6 @@ def tee(*args, **kwargs):
     --------
     >>> st = 'Output on screen and in log file'
     >>> ff = 'tee_log.txt'
-
     >>> f = open(ff, 'w')
     >>> tee(st, file=f)
     Output on screen and in log file
@@ -74,19 +73,16 @@ def tee(*args, **kwargs):
     >>> f = open(ff, 'r')
     >>> test = f.readline()
     >>> f.close()
-    >>> test = test[:-1] # rm trailing newline character
-    >>> if test == st:
-    ...     print('Yes')
-    ... else:
-    ...     print('No')
-    Yes
-
+    >>> print(test[:-1])  # rm trailing newline character
+    Output on screen and in log file
     >>> import os
     >>> os.remove(ff)
 
     >>> f=None
     >>> st = 'Output only on screen'
     >>> tee(st, file=f)
+    Output only on screen
+    >>> tee(st)
     Output only on screen
 
     """
@@ -100,24 +96,3 @@ def tee(*args, **kwargs):
 if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
-
-    # st = 'Output on screen and in log file'
-    # ff = 'tee_log.txt'
-    # # write
-    # f = open(ff, 'w')
-    # tee(st, file=f)
-    # f.close()
-
-    # # test
-    # f = open(ff, 'r')
-    # test = f.readline()
-    # f.close()
-    # # rm trailing newline character
-    # test = test[:-1]
-    # if test == st:
-    #     print('Yes')
-    # else:
-    #     print('No')
-
-    # import os
-    # os.remove(ff)

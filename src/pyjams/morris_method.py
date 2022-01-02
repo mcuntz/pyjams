@@ -27,7 +27,7 @@ Environmental Research - UFZ, Leipzig, Germany, and continued while at
 Institut National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2012-2021 Stijn Van Hoey, Matthias Cuntz, see AUTHORS.rst
+:copyright: Copyright 2012-2022 Stijn Van Hoey, Matthias Cuntz, see AUTHORS.rst
             for details.
 :license: MIT License, see LICENSE for details.
 
@@ -74,6 +74,7 @@ History
       Feb 2020, Matthias Cuntz
     * Sample not only from uniform distribution but allow all distributions of
       scipy.stats, Mar 2020, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -800,7 +801,7 @@ def morris_sampling(nparam, lb, ub, nt,
                     dist=None, distparam=None,
                     GroupMat=np.array([]), Diagnostic=0):
     """
-    Sample trajectories in parameter space.
+    Sample trajectories in parameter space
 
     Optimisation in the choice of trajectories for Morris experiment, that
     means elementary effects.
@@ -813,15 +814,13 @@ def morris_sampling(nparam, lb, ub, nt,
         (nparam,) Lower bound of the uniform distribution for each parameter /
         factor or lower fraction of percent point function ppf if distribution
         given.
-
-        Be aware that the percent point function ppf of most continuous
+        Be aware that the percent point function *ppf* of most continuous
         distributions is infinite at 0.
     ub : array_like
         (nparam,) Upper bound of the uniform distribution for each parameter /
         factor or upper fraction of percent point function ppf if distribution
         given.
-
-        Be aware that the percent point function ppf of most continuous
+        Be aware that the percent point function *ppf* of most continuous
         distributions is infinite at 1.
     nt : int
         Final number of optimal trajectories
@@ -833,10 +832,8 @@ def morris_sampling(nparam, lb, ub, nt,
     dist : list, optional
         List of None or scipy.stats distribution objects for each factor having
         the method ppf, Percent Point Function (Inverse of CDF) (default: None)
-
         If None, the uniform distribution will be sampled from lower bound `lb`
         to upper bound `ub`.
-
         If `dist` is scipy.stats.uniform, the ppf will be sampled from the
         lower fraction given in `lb` and the upper fraction in `ub`. The
         sampling interval is then given by the parameters `loc=lower` and
@@ -847,27 +844,21 @@ def morris_sampling(nparam, lb, ub, nt,
     distparam : list, optional
         List with tuples with parameters as required for `dist` (default:
         (0,1)).
-
         All distributions of scipy.stats have location and scale parameters, at
         least. `loc` and `scale` are implemented as keyword arguments in
         scipy.stats. Other parameters such as the shape parameter of the gamma
         distribution must hence be given first, e.g. `(shape,loc,scale)` for
         the gamma distribution.
-
         `distparam` is ignored if `dist` is None.
-
         The percent point function ppf is called like this:
         `dist(*distparam).ppf(x)`
     GroupMat : ndarray, optional
         (nparam,ngroup) Matrix describing the groups. (default: np.array([]))
-
         Each column represents a group. The elements of each column are zero
         if the parameter / factor is not in the group, otherwise it is 1.
-    Diagnostic : int, optional
-        1: plot the histograms and compute the efficiency of the samplign or
-        not,
-
-        0: otherwise (default)
+    Diagnostic : bool, optional
+        Plot the histograms and compute the efficiency of the sampling if True
+        (default: False)
 
     Returns
     -------
@@ -899,8 +890,8 @@ def morris_sampling(nparam, lb, ub, nt,
     >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt,
     ...                                 nsteps=nsteps, ntotal=ntotal,
     ...                                 Diagnostic=False)
-    >>> # Set input vector to trajectories and masked elements = x0
-    >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara) # default to x0
+    >>> # Set input vector to trajectories and masked elements to x0
+    >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara)  # default to x0
     >>> x[:,mask] = tmatrix  # replaced unmasked with trajectorie values
     >>> print(x[0,:])
     [0.6 0.4 0.8 0.6 0.6 0.5 0.4 0.5 0.  0.5]
@@ -913,7 +904,7 @@ def morris_sampling(nparam, lb, ub, nt,
     >>> lb    = np.zeros(npara)
     >>> ub    = np.ones(npara)
     >>> dist  = [ stats.uniform for i in range(npara) ]
-    >>> dpara = [ (lb[i],ub[i]-lb[i]) for i in range(npara) ]
+    >>> distparam = [ (lb[i], ub[i]-lb[i]) for i in range(npara) ]
     >>> mask  = np.ones(npara, dtype=bool)
     >>> mask[5::2] = False
     >>> nmask = np.sum(mask)
@@ -922,10 +913,10 @@ def morris_sampling(nparam, lb, ub, nt,
     >>> nsteps = 6
     >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt,
     ...                                 nsteps=nsteps, ntotal=ntotal,
-    ...                                 dist=dist, distparam=dpara,
+    ...                                 dist=dist, distparam=distparam,
     ...                                 Diagnostic=False)
-    >>> # Set input vector to trajectories and masked elements = x0
-    >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara) # default to x0
+    >>> # Set input vector to trajectories and masked elements to x0
+    >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara)  # default to x0
     >>> x[:,mask] = tmatrix  # replaced unmasked with trajectory values
     >>> print(x[0,:])
     [0.6 0.4 0.8 0.6 0.6 0.5 0.4 0.5 0.  0.5]
@@ -961,19 +952,15 @@ def elementary_effects(nparam, OptMatrix, OptOutVec, Output,
         Number of levels, i.e. intervals in trajectories (default: 4)
     Group : ndarray, optional
         (nparam,NumGroups) Matrix describing the groups. (default: [])
-
         Each column represents a group. The elements of each column are zero
         if the parameter / factor is not in the group, otherwise it is 1.
-    Diagnostic : boolean, optional
-        True:  print out diagnostics
-
-        False: otherwise (default)
+    Diagnostic : bool, optional
+        Print out diagnostics if True (default: False)
 
     Returns
     -------
     SA, OutMatrix : list of ndarrays
-        SA(nparam*Output.shape[1],N) individual sensitivity measures
-
+        SA(nparam*Output.shape[1],N) individual sensitivity measures,
         OutMatrix(nparam*Output.shape[1], 3) = [Mu*, Mu, StDev] Morris Measures
 
         It gives the three measures of each parameter / factor for each output.
@@ -1002,8 +989,8 @@ def elementary_effects(nparam, OptMatrix, OptOutVec, Output,
     >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt,
     ...                                 ntotal=ntotal, nsteps=nsteps,
     ...                                 Diagnostic=False)
-    >>> # Set input vector to trajectories and masked elements = x0
-    >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara) # default to x0
+    >>> # Set input vector to trajectories and masked elements to x0
+    >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara)  # default to x0
     >>> x[:,mask] = tmatrix  # replaced unmasked with trajectorie values
     >>> func = np.sum
     >>> fx = np.array(list(map(func,x)))

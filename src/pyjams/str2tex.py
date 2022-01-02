@@ -8,7 +8,7 @@ Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,
 Germany, and continued while at Institut National de Recherche pour
 l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2015-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2015-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -28,6 +28,7 @@ History
     * Ported into pyjams, Nov 2021, Matthias Cuntz
     * Better handling of linebreaks in Matplotlib and LaTeX mode,
       Nov 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 import numpy as np
@@ -51,21 +52,13 @@ def str2tex(strin, space2linebreak=False,
     strin : str or array-like of str
         string (array)
     space2linebreak : bool, optional
-        True: replace space (' ') by linebreak ('\\n')
-
-        default: False
+        Replace space (' ') by linebreak ('\\n') if True (default: False)
     bold : bool, optional
-        True: use '\\mathbf' instead of '\\mathrm'
-
-        default: False
+        Use '\\mathbf' instead of '\\mathrm' if True (default: False)
     italic : bool, optional
-        True: use '\\mathit' instead of '\\mathrm'
-
-        default: False
+        Use '\\mathit' instead of '\\mathrm' if True (default: False)
     usetex : bool, optional
-        False: only linebreaks and comments treated
-
-        default: False
+        Treat only linebreaks and comments if False (default)
 
     Returns
     -------

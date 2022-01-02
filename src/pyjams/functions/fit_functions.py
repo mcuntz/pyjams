@@ -22,8 +22,8 @@ with the absolute sum, one with the squared sum of the deviations:
 
 .. code-block:: python
 
-   cost_func    sum(abs(obs-func))
-   cost2_func   sum((obs-func)**2)
+   cost_func  = sum(abs(obs-func))
+   cost2_func = sum((obs-func)**2)
 
 These cost functions can be used, for example, with
 `scipy.optimize.minimize`:
@@ -35,7 +35,6 @@ These cost functions can be used, for example, with
            method='Nelder-Mead', options={'disp': False})
 
 Note the different argument orders:
-
     1. `curvefit` needs `f(x, *p)` with the independent variable as the first
        argument and the parameters to fit as separate remaining arguments.
     2. `minimize` is a general minimiser with respect to the first argument,
@@ -62,8 +61,8 @@ This means, for example `cost_f1x(p, x, y)` is the same as
 
 There are the following functions in four forms. They have the name in the
 first column. The second form has a `_p` appended to the name. The cost
-functions have `cost_` or `cost2_` prepended to the name., e.g. gauss, gauss_p,
-cost_gauss, cost2_gauss:
+functions have `cost_` or `cost2_` prepended to the name, for example :func:`gauss`,
+:func:`gauss_p`, :func:`cost_gauss`, :func:`cost2_gauss`:
 
 .. list-table::
    :widths: 15 50
@@ -72,52 +71,52 @@ cost_gauss, cost2_gauss:
    * - Function - number of paramters
      - Description
 
-   * - arrhenius - 1 param (E)
+   * - :func:`arrhenius` - 1 param (E)
      - Arrhenius temperature dependence of biochemical rates:
        :math:`\exp((T-TC25)*E/(T25*R*(T+T0)))`
 
-   * - f1x - 2 params
+   * - :func:`f1x` - 2 params
      - General 1/x function: :math:`a + b/x`
 
-   * - fexp - 3 params
+   * - :func:`fexp` - 3 params
      - General exponential function: :math:`a + b * \exp(c*x)`
 
-   * - gauss - 2 params
+   * - :func:`gauss` - 2 params
      - Gauss function:
        :math:`1/(\sigma*\sqrt(2*\pi)) * \exp(-(x-\mu)^2/(2*\sigma^2))`
 
-   * - lasslop - 6 params
-     - NEE of Lasslop et al (2010)
+   * - :func:`lasslop` - 6 params
+     - NEE of Lasslop et al. (2010)
 
-   * - line0 - 1 params
+   * - :func:`line0` - 1 params
      - Straight line: :math:`a*x`
 
-   * - line - 2 params
+   * - :func:`line` - 2 params
      - Straight line: :math:`a + b*x`
 
-   * - lloyd_fix - 2 params
+   * - :func:`lloyd_fix` - 2 params
      - Heterotrophic respiration of Lloyd & Taylor (1994)
 
-   * - lloyd_only_rref - 1 param
+   * - :func:`lloyd_only_rref` - 1 param
      - Heterotrophic respiration of Lloyd & Taylor (1994) with fixed E0
 
-   * - logistic - 3 params
+   * - :func:`logistic` - 3 params
      - Logistic function: :math:`a/(1+\exp(-b(x-c)))`
 
-   * - logistic_offset - 4 params
+   * - :func:`logistic_offset` - 4 params
      - Logistic function with offset: :math:`a/(1+\exp(-b(x-c))) + d`
 
-   * - logistic2_offset - 7 params
+   * - :func:`logistic2_offset` - 7 params
      - Double logistic function with offset
        :math:`L1/(1+\exp(-k1(x-x01))) - L2/(1+\exp(-k2(x-x02))) + a`
 
-   * - poly - n params
+   * - :func:`poly` - n params
      - General polynomial: :math:`c_0 + c_1*x + c_2*x^2 + ... + c_n*x^n`
 
-   * - sabx - 2 params
+   * - :func:`sabx` - 2 params
      - sqrt(f1x), i.e. general sqrt(1/x) function: :math:`\sqrt(a + b/x)`
 
-   * - see - 3 params
+   * - :func:`see` - 3 params
      - Sequential Elementary Effects fitting function: :math:`a*(x-b)^c`
 
 This module was written by Matthias Cuntz while at Department of
@@ -126,7 +125,7 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2012-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -199,6 +198,7 @@ History
     * Added line0, Feb 2014, Matthias Cuntz
     * Removed `multiline_p`, May 2020, Matthias Cuntz
     * Changed to Sphinx docstring and numpydoc, May 2020, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -322,7 +322,7 @@ def arrhenius_p(T, p):
     T : float or array_like of floats
         temperature [degC]
     p : iterable
-        `p[0]` is activation energy [J]
+        `p[0]` = activation energy [J]
 
     Returns
     -------
@@ -339,7 +339,7 @@ def cost_arrhenius(p, T, rate):
     Parameters
     ----------
     p : iterable of floats
-        `p[0]` is activation energy [J]
+        `p[0]` = activation energy [J]
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -360,7 +360,7 @@ def cost2_arrhenius(p, T, rate):
     Parameters
     ----------
     p : iterable of floats
-        `p[0]` is activation energy [J]
+        `p[0]` = activation energy [J]
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -407,10 +407,8 @@ def f1x_p(x, p):
         independent variable
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
 
     Returns
     -------
@@ -428,10 +426,8 @@ def cost_f1x(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -453,10 +449,8 @@ def cost2_f1x(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -505,12 +499,9 @@ def fexp_p(x, p):
         independent variable
     p : iterable of floats
         parameters (`len(p)=3`)
-
-        `p[0]` a
-
-        `p[1]` b
-
-        `p[2]` c
+          - `p[0]` = a
+          - `p[1]` = b
+          - `p[2]` = c
 
     Returns
     -------
@@ -529,12 +520,9 @@ def cost_fexp(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=3`)
-
-        `p[0]` a
-
-        `p[1]` b
-
-        `p[2]` c
+          - `p[0]` = a
+          - `p[1]` = b
+          - `p[2]` = c
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -557,12 +545,9 @@ def cost2_fexp(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=3`)
-
-        `p[0]` a
-
-        `p[1]` b
-
-        `p[2]` c
+          - `p[0]` = a
+          - `p[1]` = b
+          - `p[2]` = c
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -611,10 +596,8 @@ def gauss_p(x, p):
         independent variable
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` mean mu
-
-        `p[1]` width sig
+          - `p[0]` = mean mu
+          - `p[1]` = width sig
 
     Returns
     -------
@@ -633,10 +616,8 @@ def cost_gauss(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` mean
-
-        `p[1]` width
+          - `p[0]` = mean mu
+          - `p[1]` = width sig
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -659,10 +640,8 @@ def cost2_gauss(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` mean
-
-        `p[1]` width
+          - `p[0]` = mean mu
+          - `p[1]` = width sig
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -739,16 +718,12 @@ def lasslop_p(Rg, et, VPD, p):
         Vapour Pressure Deficit [Pa]
     p : iterable of floats
         parameters (`len(p)=4`)
-
-        `p[0]` Light use efficiency, i.e. initial slope of light response curve
-               [umol(C) J-1]
-
-        `p[1]` Maximum CO2 uptake rate at VPD0=10 hPa [umol(C) m-2 s-1]
-
-        `p[2]` e-folding of exponential decrease of maximum CO2 uptake with
-               VPD increase [Pa-1]
-
-        `p[3]` Respiration at Tref (10 degC) [umol(C) m-2 s-1]
+          - `p[0]` = Light use efficiency, i.e. initial slope of light response
+            curve [umol(C) J-1]
+          - `p[1]` = Maximum CO2 uptake rate at VPD0=10 hPa [umol(C) m-2 s-1]
+          - `p[2]` = e-folding of exponential decrease of maximum CO2 uptake
+            with VPD increase [Pa-1]
+          - `p[3]` = Respiration at Tref (10 degC) [umol(C) m-2 s-1]
 
     Returns
     -------
@@ -772,16 +747,12 @@ def cost_lasslop(p, Rg, et, VPD, NEE):
     ----------
     p : iterable of floats
         parameters (`len(p)=4`)
-
-        `p[0]` Light use efficiency, i.e. initial slope of light response curve
-               [umol(C) J-1]
-
-        `p[1]` Maximum CO2 uptake rate at VPD0=10 hPa [umol(C) m-2 s-1]
-
-        `p[2]` e-folding of exponential decrease of maximum CO2 uptake with
-               VPD increase [Pa-1]
-
-        `p[3]` Respiration at Tref (10 degC) [umol(C) m-2 s-1]
+          - `p[0]` = Light use efficiency, i.e. initial slope of light response
+            curve [umol(C) J-1]
+          - `p[1]` = Maximum CO2 uptake rate at VPD0=10 hPa [umol(C) m-2 s-1]
+          - `p[2]` = e-folding of exponential decrease of maximum CO2 uptake
+            with VPD increase [Pa-1]
+          - `p[3]` = Respiration at Tref (10 degC) [umol(C) m-2 s-1]
     Rg : float or array_like of floats
         Global radiation [W m-2]
     et : float or array_like of floats
@@ -807,16 +778,12 @@ def cost2_lasslop(p, Rg, et, VPD, NEE):
     ----------
     p : iterable of floats
         parameters (`len(p)=4`)
-
-        `p[0]` Light use efficiency, i.e. initial slope of light response curve
-               [umol(C) J-1]
-
-        `p[1]` Maximum CO2 uptake rate at VPD0=10 hPa [umol(C) m-2 s-1]
-
-        `p[2]` e-folding of exponential decrease of maximum CO2 uptake with
-               VPD increase [Pa-1]
-
-        `p[3]` Respiration at Tref (10 degC) [umol(C) m-2 s-1]
+          - `p[0]` = Light use efficiency, i.e. initial slope of light response
+            curve [umol(C) J-1]
+          - `p[1]` = Maximum CO2 uptake rate at VPD0=10 hPa [umol(C) m-2 s-1]
+          - `p[2]` = e-folding of exponential decrease of maximum CO2 uptake
+            with VPD increase [Pa-1]
+          - `p[3]` = Respiration at Tref (10 degC) [umol(C) m-2 s-1]
     Rg : float or array_like of floats
         Global radiation [W m-2]
     et : float or array_like of floats
@@ -867,10 +834,8 @@ def line_p(x, p):
         independent variable
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
 
     Returns
     -------
@@ -888,10 +853,8 @@ def cost_line(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -913,10 +876,8 @@ def cost2_line(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -960,7 +921,7 @@ def line0_p(x, p):
     x : float or array_like of floats
         independent variable
     p : iterable of floats
-        `p[0]` is a
+        `p[0]` = a
 
     Returns
     -------
@@ -978,7 +939,7 @@ def cost_line0(p, x, y):
     Parameters
     ----------
     p : iterable of floats
-        `p[0]` is a
+        `p[0]` = a
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1000,7 +961,7 @@ def cost2_line0(p, x, y):
     Parameters
     ----------
     p : iterable of floats
-        `p[0]` is a
+        `p[0]` = a
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1053,10 +1014,8 @@ def lloyd_fix_p(T, p):
         Temperature [K]
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` Respiration at Tref=10 degC [umol(C) m-2 s-1]
-
-        `p[1]` Activation energy [K]
+          - `p[0]` = Respiration at Tref=10 degC [umol(C) m-2 s-1]
+          - `p[1]` = Activation energy [K]
 
     Returns
     -------
@@ -1076,10 +1035,8 @@ def cost_lloyd_fix(p, T, resp):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` Respiration at Tref=10 degC [umol(C) m-2 s-1]
-
-        `p[1]` Activation energy [K]
+          - `p[0]` = Respiration at Tref=10 degC [umol(C) m-2 s-1]
+          - `p[1]` = Activation energy [K]
     T : float or array_like of floats
         Temperature [K]
     resp : float or array_like of floats
@@ -1101,10 +1058,8 @@ def cost2_lloyd_fix(p, T, resp):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` Respiration at Tref=10 degC [umol(C) m-2 s-1]
-
-        `p[1]` Activation energy [K]
+          - `p[0]` = Respiration at Tref=10 degC [umol(C) m-2 s-1]
+          - `p[1]` = Activation energy [K]
     T : float or array_like of floats
         Temperature [K]
     resp : float or array_like of floats
@@ -1156,7 +1111,7 @@ def lloyd_only_rref_p(et, p):
     et : float or array_like of floats
         exp-term in Lloyd & Taylor
     p : iterable of floats
-        `p[0]` is respiration at Tref=10 degC [umol(C) m-2 s-1]
+        `p[0]` = Respiration at Tref=10 degC [umol(C) m-2 s-1]
 
     Returns
     -------
@@ -1173,7 +1128,7 @@ def cost_lloyd_only_rref(p, et, resp):
     Parameters
     ----------
     p : iterable of floats
-        `p[0]` is respiration at Tref=10 degC [umol(C) m-2 s-1]
+        `p[0]` = Respiration at Tref=10 degC [umol(C) m-2 s-1]
     et : float or array_like of floats
         exp-term in Lloyd & Taylor
     resp : float or array_like of floats
@@ -1194,7 +1149,7 @@ def cost2_lloyd_only_rref(p, et, resp):
     Parameters
     ----------
     p : iterable of floats
-        `p[0]` is respiration at Tref=10 degC [umol(C) m-2 s-1]
+        `p[0]` = Respiration at Tref=10 degC [umol(C) m-2 s-1]
     et : float or array_like of floats
         exp-term in Lloyd & Taylor
     resp : float or array_like of floats
@@ -1242,10 +1197,8 @@ def sabx_p(x, p):
         independent variable
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
 
     Returns
     -------
@@ -1264,10 +1217,8 @@ def cost_sabx(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1290,10 +1241,8 @@ def cost2_sabx(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=2`)
-
-        `p[0]` a
-
-        `p[1]` b
+          - `p[0]` = a
+          - `p[1]` = b
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1402,12 +1351,9 @@ def cost_logistic(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=3`)
-
-        `p[0]` L  - Maximum of logistic function
-
-        `p[1]` k  - Steepness of logistic function
-
-        `p[2]` x0 - Inflection point of logistic function
+          - `p[0]` = L  = Maximum of logistic function
+          - `p[1]` = k  = Steepness of logistic function
+          - `p[2]` = x0 = Inflection point of logistic function
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1430,12 +1376,9 @@ def cost2_logistic(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=3`)
-
-        `p[0]` L  - Maximum of logistic function
-
-        `p[1]` k  - Steepness of logistic function
-
-        `p[2]` x0 - Inflection point of logistic function
+          - `p[0]` = L  = Maximum of logistic function
+          - `p[1]` = k  = Steepness of logistic function
+          - `p[2]` = x0 = Inflection point of logistic function
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1460,14 +1403,10 @@ def cost_logistic_offset(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=4`)
-
-        `p[0]` L  - Maximum of logistic function
-
-        `p[1]` k  - Steepness of logistic function
-
-        `p[2]` x0 - Inflection point of logistic function
-
-        `p[3]` a  - Offset of logistic function
+          - `p[0]` = L  = Maximum of logistic function
+          - `p[1]` = k  = Steepness of logistic function
+          - `p[2]` = x0 = Inflection point of logistic function
+          - `p[3]` = a  = Offset of logistic function
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1490,14 +1429,10 @@ def cost2_logistic_offset(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=4`)
-
-        `p[0]` L  - Maximum of logistic function
-
-        `p[1]` k  - Steepness of logistic function
-
-        `p[2]` x0 - Inflection point of logistic function
-
-        `p[3]` a  - Offset of logistic function
+          - `p[0]` = L  = Maximum of logistic function
+          - `p[1]` = k  = Steepness of logistic function
+          - `p[2]` = x0 = Inflection point of logistic function
+          - `p[3]` = a  = Offset of logistic function
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1523,20 +1458,13 @@ def cost_logistic2_offset(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=7`)
-
-        `p[0]` L1  - Maximum of first logistic function
-
-        `p[1]` k1  - Steepness of first logistic function
-
-        `p[2]` x01 - Inflection point of first logistic function
-
-        `p[3]` L2  - Maximum of second logistic function
-
-        `p[4]` k2  - Steepness of second logistic function
-
-        `p[5]` x02 - Inflection point of second logistic function
-
-        `p[6]` a   - Offset of double logistic function
+          - `p[0]` = L1  = Maximum of first logistic function
+          - `p[1]` = k1  = Steepness of first logistic function
+          - `p[2]` = x01 = Inflection point of first logistic function
+          - `p[3]` = L2  = Maximum of second logistic function
+          - `p[4]` = k2  = Steepness of second logistic function
+          - `p[5]` = x02 = Inflection point of second logistic function
+          - `p[6]` = a  = Offset of double logistic function
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1559,20 +1487,13 @@ def cost2_logistic2_offset(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=7`)
-
-        `p[0]` L1  - Maximum of first logistic function
-
-        `p[1]` k1  - Steepness of first logistic function
-
-        `p[2]` x01 - Inflection point of first logistic function
-
-        `p[3]` L2  - Maximum of second logistic function
-
-        `p[4]` k2  - Steepness of second logistic function
-
-        `p[5]` x02 - Inflection point of second logistic function
-
-        `p[6]` a   - Offset of double logistic function
+          - `p[0]` = L1  = Maximum of first logistic function
+          - `p[1]` = k1  = Steepness of first logistic function
+          - `p[2]` = x01 = Inflection point of first logistic function
+          - `p[3]` = L2  = Maximum of second logistic function
+          - `p[4]` = k2  = Steepness of second logistic function
+          - `p[5]` = x02 = Inflection point of second logistic function
+          - `p[6]` = a  = Offset of double logistic function
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1621,12 +1542,9 @@ def see_p(x, p):
         independent variable
     p : iterable of floats
         parameters (`len(p)=3`)
-
-        `p[0]` a
-
-        `p[1]` b
-
-        `p[2]` c
+          - `p[0]` = a
+          - `p[1]` = b
+          - `p[2]` = c
 
     Returns
     -------
@@ -1645,12 +1563,9 @@ def cost_see(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=3`)
-
-        `p[0]` a
-
-        `p[1]` b
-
-        `p[2]` c
+          - `p[0]` = a
+          - `p[1]` = b
+          - `p[2]` = c
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats
@@ -1673,12 +1588,9 @@ def cost2_see(p, x, y):
     ----------
     p : iterable of floats
         parameters (`len(p)=3`)
-
-        `p[0]` a
-
-        `p[1]` b
-
-        `p[2]` c
+          - `p[0]` = a
+          - `p[1]` = b
+          - `p[2]` = c
     x : float or array_like of floats
         independent variable
     y : float or array_like of floats

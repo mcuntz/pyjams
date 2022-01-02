@@ -6,7 +6,7 @@ This function was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-:copyright: Copyright 2017-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2017-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -39,6 +39,7 @@ History
     * Sample not only from uniform distribution but allow all distributions of
       scipy.stats, Mar 2020, Matthias Cuntz
     * Code refactoring, Sep 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -63,18 +64,16 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
     Parameters
     ----------
     func : callable
-        Python function callable as `func(x)` with `x` the function parameters.
+        Python function callable as `func(x)` with the function parameters *x*.
     lb : array_like
         Lower bounds of parameters
         or lower fraction of percent point function ppf if distribution given.
-
-        Be aware that the percent point function ppf of most continuous
+        Be aware that the percent point function *ppf* of most continuous
         distributions is infinite at 0.
     ub : array_like
         Upper bounds of parameters
         or upper fraction of percent point function ppf if distribution given.
-
-        Be aware that the percent point function ppf of most continuous
+        Be aware that the percent point function *ppf* of most continuous
         distributions is infinite at 1.
     nt : int
         Number of trajectories used for screening.
@@ -91,11 +90,9 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
         If None: `max(nt**2,10*nt)` (default: None)
     dist : list, optional
         List of None or scipy.stats distribution objects for each factor having
-        the method ppf, Percent Point Function (Inverse of CDF) (default: None)
-
+        the method ppf, Percent Point Function (Inverse of CDF) (default: None).
         If None, the uniform distribution will be sampled from lower bound `lb`
         to upper bound `ub`.
-
         If dist is scipy.stats.uniform, the ppf will be sampled from the lower
         fraction given in `lb` and the upper fraction in `ub`. The sampling
         interval is then given by the parameters `loc=lower` and
@@ -105,17 +102,14 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
         `lb=0`, `ub=1`, `dist=scipy.stats.uniform`, `distparam=[a,b-a]`
     distparam : list, optional
         List with tuples with parameters as required for `dist` (default:
-        (0,1)).
-
+        (0, 1)).
         All distributions of scipy.stats have location and scale parameters, at
         least. `loc` and `scale` are implemented as keyword arguments in
         scipy.stats. Other parameters such as the shape parameter of the gamma
         distribution must hence be given first, e.g. `(shape,loc,scale)` for
         the gamma distribution.
-
         `distparam` is ignored if `dist` is None.
-
-        The percent point function ppf is called like this:
+        The percent point function *ppf* is called like this:
         `dist(*distparam).ppf(x)`
     seed : int or array_like
         Seed for numpy's random number generator (default: None).
@@ -126,42 +120,31 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
         Generic map function used from module `schwimmbad
         <https://schwimmbad.readthedocs.io/en/latest/>`_, which provides,
         serial, multiprocessor, and MPI mapping functions (default: None).
+        The pool will be chosen automatically if `pool` is None. It is chosen
+        with:
 
-        The pool is chosen with:
+        .. code-block:: python
 
-            schwimmbad.choose_pool(mpi=True/False, processes=processes).
-
-        The pool will be chosen automatically if `pool` is None.
+           schwimmbad.choose_pool(mpi=True/False, processes=processes).
 
         MPI pools can only be opened and closed once. If you want to use
         screening several times in one program, then you have to choose the
         pool, pass it to screening, and later close the pool in the calling
-        progam.
+        program.
 
     verbose : int, optional
         Print progress report during execution if `verbose>0` (default: 0).
 
     Returns
     -------
-    (nparameter,3) ndarray
-            if nt>1:
+    (nparameter, 3) ndarray
+        2D-array with 3 entries per parameters:
 
-                2D-array - (nparameter,3) with per parameter
-
-                    1. mean of absolute elementary effects over all
-                       nt trajectories (`mu*`)
-                    2. mean of elementary effects over all nt trajectories
-                       (`mu`)
-                    3. standard deviation of elementary effects over all
-                       nt trajectories (`sigma`)
-
-            else:
-
-                2D-array - (nparameter,3) with per parameter
-
-                    1. absolute elementary effect of each parameter
-                    2. elementary effect of each parameter
-                    3. zeros
+            1. mean of absolute elementary effects over all nt trajectories
+               (`mu*`)
+            2. mean of elementary effects over all nt trajectories (`mu`)
+            3. standard deviation of elementary effects over all
+               nt trajectories (`sigma`) or zero if `nt==1`
 
     Examples
     --------

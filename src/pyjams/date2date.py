@@ -13,7 +13,7 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2015-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2015-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -51,6 +51,7 @@ History
     * New more versatile date2date function replacing ascii2ascii,
       Dec 2021, Matthias Cuntz
     * Wrapper functions between all standard formats, Dec 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 import time as ptime
@@ -122,27 +123,24 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
         Date strings in any of three formats standard, English, or
         American/French.
     fr : bool, optional
-        False: input dates with '/' separators are interpreted as American
-        format *MM/DD/YYYY hh:mm:ss* (default).
-
-        True: input dates with '/' separators are interpreted as French format
-        *DD/MM/YYYY hh:mm:ss*.
+        Input dates with '/' separators are interpreted as American format
+        *MM/DD/YYYY hh:mm:ss* if False (default). Input dates with '/'
+        separators are interpreted as French format *DD/MM/YYYY hh:mm:ss* if
+        True.
     format : str, optional
         Output format. Can be any of '' (default), 'en', 'us', and 'fr' for
         standard *DD.MM.YYYY hh:mm:ss*, English *YYYY-MM-DD hh:mm:ss*, American
         *MM/DD/YYYY hh:mm:ss*, and French *DD/MM/YYYY hh:mm:ss* format.
-
         *format* can also be any format string understood by
         :func:`datetime.strftime`.
     timesep : str, optional
         Separator string between date and time if *format* is '', 'en', 'us',
         or 'fr'. Default is space ' ', but ISO 8601 uses 'T', for example.
     full : bool, optional
-        False: output dates are as long as input dates (default), e.g.
-        *[YYYY-MM-DD, YYYY-MM-DD hh:mm]*,
-
-        True: output dates all in full format *DD.MM.YYYY hh:mm:ss*;
-        missing time info on input is 00 on output.
+        Output dates are as long as input dates if False (default), e.g.
+        *[YYYY-MM-DD, YYYY-MM-DD hh:mm]*. Output dates are all in full format
+        *DD.MM.YYYY hh:mm:ss* if True; missing time info on input is 00 on
+        output.
 
     Returns
     -------
@@ -153,7 +151,7 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
     Notes
     -----
     Year, month and day must be given while second, minute and hour can be
-    missing.
+    missing (assumed zero).
 
     Years are supposed to be 4-digit years. If they have only 1 or 2 digits,
     then every year that is above the current year of the century will be taken
@@ -172,45 +170,33 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
     ...          '1990-12-01', '04.05.1786']
     >>> print(", ".join(date2date(edate)))
     12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786
-
     >>> print(", ".join(date2date(edate, full=True)))
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00
-
     >>> print(", ".join(date2date(edate, format='en')))
     2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01, 1786-05-04
-
     >>> print(", ".join(date2date(edate, format='en', full=True)))
     2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00, 1786-05-04 00:00:00
-
     >>> print(", ".join(date2date(edate, format='en', full=True, timesep='T')))
     2014-11-12T12:00:00, 2015-03-01T17:56:00, 1990-12-01T00:00:00, 1786-05-04T00:00:00
-
-    >>> print(date2date(list(edate, format='%Y%m%d%H%M%S')))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
-
+    >>> print(list(date2date(edate, format='%Y%m%d%H%M%S')))
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
     >>> print(date2date(tuple(edate)))
     ('12.11.2014 12:00', '01.03.2015 17:56:00', '01.12.1990', '04.05.1786')
-
     >>> print(date2date(np.array(edate)))
     ['12.11.2014 12:00' '01.03.2015 17:56:00' '01.12.1990' '04.05.1786']
-
     >>> print(date2date(edate[0]))
     12.11.2014 12:00
-
     >>> print(", ".join(date2date(edate, format='us')))
     11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786
-
     >>> print(", ".join(date2date(date2date(edate, format='en'),
     ...                           format='us', full=True)))
     11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00
-
     >>> print(", ".join(date2date(edate, format='fr')))
     12/11/2014 12:00, 01/03/2015 17:56:00, 01/12/1990, 04/05/1786
-
     >>> print(", ".join(date2date(edate, format='fr', full=True)))
     12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00, 04/05/1786 00:00:00
 
-    # 2-digit year
+    2-digit year
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> print(", ".join(date2date(edate)))
@@ -362,12 +348,10 @@ def date2en(edate, **kwargs):
     ...          '1990-12-01', '04.05.1786']
     >>> print(", ".join(date2en(edate)))
     2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01, 1786-05-04
-
     >>> print(", ".join(date2en(edate, full=True)))
     2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00, 1786-05-04 00:00:00
-
     >>> print(date2en(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> print(", ".join(date2en(edate, full=True)))
@@ -392,12 +376,10 @@ def date2fr(edate, **kwargs):
     ...          '1990-12-01', '04.05.1786']
     >>> print(", ".join(date2fr(edate)))
     12/11/2014 12:00, 01/03/2015 17:56:00, 01/12/1990, 04/05/1786
-
     >>> print(", ".join(date2fr(edate, full=True)))
     12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00, 04/05/1786 00:00:00
-
     >>> print(date2fr(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> print(", ".join(date2fr(edate, full=True)))
@@ -422,12 +404,10 @@ def date2us(edate, **kwargs):
     ...          '1990-12-01', '04.05.1786']
     >>> print(", ".join(date2us(edate)))
     11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786
-
     >>> print(", ".join(date2us(edate, full=True)))
     11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00
-
     >>> print(date2us(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> print(", ".join(date2us(edate, full=True)))
@@ -452,12 +432,10 @@ def en2date(edate, **kwargs):
     >>> edate = date2date(edate, format='en')
     >>> print(", ".join(en2date(edate)))
     12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786
-
     >>> print(", ".join(en2date(edate, full=True)))
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00
-
     >>> print(en2date(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> edate = date2en(edate)
@@ -481,12 +459,10 @@ def en2fr(edate, **kwargs):
     ...          '1990-12-01', '04.05.1786']
     >>> print(", ".join(en2fr(edate)))
     12/11/2014 12:00, 01/03/2015 17:56:00, 01/12/1990, 04/05/1786
-
     >>> print(", ".join(en2fr(edate, full=True)))
     12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00, 04/05/1786 00:00:00
-
     >>> print(en2fr(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> print(", ".join(en2fr(edate, full=True)))
@@ -511,12 +487,10 @@ def en2us(edate, **kwargs):
     ...          '1990-12-01', '04.05.1786']
     >>> print(", ".join(en2us(edate)))
     11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786
-
     >>> print(", ".join(en2us(edate, full=True)))
     11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00
-
     >>> print(en2us(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> print(", ".join(en2us(edate, full=True)))
@@ -542,28 +516,22 @@ def fr2date(edate, **kwargs):
     ...          '01/12/1990', '04/05/1786']
     >>> print(", ".join(fr2date(edate)))
     12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786
-
     >>> print(", ".join(fr2date(edate, full=True)))
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00
-
     >>> print(fr2date(list(edate), format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
-
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
     >>> print(fr2date(tuple(edate)))
     ('12.11.2014 12:00', '01.03.2015 17:56:00', '01.12.1990', '04.05.1786')
-
     >>> print(fr2date(np.array(edate)))
     ['12.11.2014 12:00' '01.03.2015 17:56:00' '01.12.1990' '04.05.1786']
-
     >>> print(fr2date(edate[0]))
     12.11.2014 12:00
 
-    # 2-digit year
+    2-digit year
 
     >>> edate = ['12/11/14 12:00', '01/03/15 17:56:00', '01/12/90']
     >>> print(", ".join(fr2date(edate)))
     12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990
-
     >>> print(", ".join(fr2date(edate, full=True)))
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00
 
@@ -588,12 +556,10 @@ def fr2en(edate, **kwargs):
     ...          '01/12/1990', '04/05/1786']
     >>> print(", ".join(fr2en(edate)))
     2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01, 1786-05-04
-
     >>> print(", ".join(fr2en(edate, full=True)))
     2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00, 1786-05-04 00:00:00
-
     >>> print(fr2en(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['12/11/14 12:00', '01/03/15 17:56:00', '01/12/90']
     >>> print(", ".join(fr2en(edate, full=True)))
@@ -622,12 +588,10 @@ def fr2us(edate, **kwargs):
     ...          '01/12/1990', '04/05/1786']
     >>> print(", ".join(fr2us(edate)))
     11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786
-
     >>> print(", ".join(fr2us(edate, full=True)))
     11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00
-
     >>> print(fr2us(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['12/11/14 12:00', '01/03/15 17:56:00', '01/12/90']
     >>> print(", ".join(fr2us(edate, full=True)))
@@ -653,12 +617,10 @@ def us2date(edate, **kwargs):
     ...          '12/01/1990', '1786-05-04']
     >>> print(", ".join(us2date(edate)))
     12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786
-
     >>> print(", ".join(us2date(edate, full=True)))
     12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00
-
     >>> print(us2date(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> edate = date2en(edate)
@@ -682,12 +644,10 @@ def us2en(edate, **kwargs):
     ...          '12/01/1990', '1786-05-04']
     >>> print(", ".join(us2en(edate)))
     2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01, 1786-05-04
-
     >>> print(", ".join(us2en(edate, full=True)))
     2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00, 1786-05-04 00:00:00
-
     >>> print(us2en(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> print(", ".join(us2en(edate, full=True)))
@@ -712,12 +672,10 @@ def us2fr(edate, **kwargs):
     ...          '12/01/1990', '1786-05-04']
     >>> print(", ".join(us2fr(edate)))
     12/11/2014 12:00, 01/03/2015 17:56:00, 01/12/1990, 04/05/1786
-
     >>> print(", ".join(us2fr(edate, full=True)))
     12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00, 04/05/1786 00:00:00
-
     >>> print(us2fr(edate, format='%Y%m%d%H%M%S'))
-    ['201411121200', '20150301175600', '19901201000000', '17860504000000']
+    ['20141112120000', '20150301175600', '19901201000000', '17860504000000']
 
     >>> edate = ['14-11-12 12:00', '01.03.15 17:56:00', '90-12-01']
     >>> print(", ".join(us2fr(edate, full=True)))

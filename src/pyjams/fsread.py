@@ -8,7 +8,7 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2009-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2009-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -57,6 +57,7 @@ History
       strarr is only used with header=True now, Dec 2021, Matthias Cuntz
     * fread and sread are simple calls of fsread, Dec 2021, Matthias Cuntz
     * header returns also 2D arrays by default, Dec 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 import codecs
@@ -104,7 +105,7 @@ def _determine_indices(f, head, nres,
     hskip : int, optional
         Number of lines in skip that do not belong to header (default: 0)
     hstrip : bool, optional
-        Strip header cells to match *cname* if True (default), otherwise do
+        Strip header cells to match *cname* if True (default), else
         take the header cells literally.
     sep : str, optional
         Column separator. Whitespace is used if not given.
@@ -112,7 +113,7 @@ def _determine_indices(f, head, nres,
     Returns
     -------
     list, list
-        List of indices (int) to be read as floats,
+        list of indices (int) to be read as floats,
         list of indices (int) to be read as strings
 
     '''
@@ -260,7 +261,7 @@ def _get_header(head, sep, iinc, iisnc,
         dimension, possibly resulting in a vector, otherwise output is always
         2-dimensional.
     fill : bool, optional
-        Fills in `fill_value` if not enough columns in line if *fill==True*,
+        Fills in `fill_value` if True and not enough columns in input line,
         otherwise raises ValueError (default).
     fill_value : float, optional
          Value to fill in float array in empty cells or if not enough columns
@@ -383,7 +384,7 @@ def _get_separator(f, separator=None, skip_blank=False, comment=None):
          sequence. Sequence must be iterable such as string, list and tuple,
          such as '#' or ['#', '!'].
     skip_blank : bool, optional
-        Continues reading after a blank line if True, otherwise stops reading
+        Continues reading after a blank line if True, else stops reading
         at the first blank line (default).
 
     Returns
@@ -513,15 +514,15 @@ def fsread(infile,
         dimension, possibly resulting in a vector, otherwise output is always
         2-dimensional.
     skip_blank : bool, optional
-        Continues reading after a blank line if True, otherwise stops reading
+        Continues reading after a blank line if True, else stops reading
         at the first blank line (default).
     comment : iterable, optional
         Line gets excluded if the first character is in comment sequence.
         Sequence must be iterable such as string, list and tuple, .e.g '#' or
         ['#', '!'].
     fill : bool, optional
-        Fills in `fill_value` if not enough columns in line if *fill==True*,
-        otherwise raises ValueError (default).
+        Fills in `fill_value` if True and not enough columns in input line,
+        else raises ValueError (default).
     fill_value : float, optional
         Value to fill in float array in empty cells or if not enough columns
         in line and *fill==True* (default: 0).
@@ -535,8 +536,8 @@ def fsread(infile,
         If *strip* is set to *False* then nothing is stripped and reading is
         about 30% faster.
     hstrip : bool, optional
-        Strip header cells to match *cname* if True (default), otherwise do
-        take the header cells literally.
+        Strip header cells to match *cname* if True (default), else take header
+        cells literally.
     encoding : str, optional
         Specifies the encoding which is to be used for the file
         (default: 'ascii').

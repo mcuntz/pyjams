@@ -7,7 +7,7 @@ Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,
 Germany, and continued while at Institut National de Recherche pour
 l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2009-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2009-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -24,6 +24,7 @@ History
     * Use assert instead of raise Error, Apr 2014, Matthias Cuntz
     * Added height and width, Feb 2016, Stephan Thober
     * Ported to pyjams, Nov 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 
@@ -73,13 +74,14 @@ def position(row=1, col=1, num=1,
     height : float, optional
         Prescribe height of plots (default: calculated *row*, *top*, etc.)
     sortcol : bool, optional
-        If True, fill columns then rows (default: False)
+        Fill columns then rows if True (default: False)
     golden : bool, optional
-        If True, golden ratio of width/height = (1+sqrt(5))/2
+        Ratio of width/height = (1+sqrt(5))/2 if True, i.e. the golden ratio
         (default: False)
     inversegolden : bool, optional
-        If true, golden ratio of height/width (overwritten by golden)
-        (default: False)
+        Ratio of height/width = (1+sqrt(5))/2 if True, i.e. the golden ratio
+        (default: False). The *golden* keyword takes precedence over
+        *inversegolden*.
     figsize : tuple of 2 float, optional
         (width, height) of figure as given by e.g.
         matplotlib.rcParams['figure.figsize'].
@@ -112,7 +114,7 @@ def position(row=1, col=1, num=1,
                                     right=0.9))
 
     If you want to have a true golden ratio
-    
+
     .. code-block:: python
 
        sub = fig1.add_axes(position(1, 1, 1, golden=True))
@@ -120,47 +122,35 @@ def position(row=1, col=1, num=1,
     >>> import numpy as np
     >>> print(np.around(position(2, 2, 1), 3))
     [0.125 0.55  0.338 0.35 ]
-
     >>> print(np.around(position(2, 2, 1, sortcol=True), 3))
     [0.125 0.55  0.338 0.35 ]
-
     >>> print(np.around(position(2, 2, 1, golden=True), 3))
     [0.125 0.409 0.338 0.209]
-
     >>> print(np.around(position(2, 2, 1, inversegolden=True), 3))
     [0.125 0.55  0.216 0.35 ]
-
     >>> print(np.around(position(2, 2, 1, golden=True, sortcol=True), 3))
     [0.125 0.409 0.338 0.209]
-
     >>> print(np.around(position(2, 2, 1, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0.), 3))
     [0.  0.5 0.5 0.5]
-
     >>> print(np.around(position(2, 2, 2, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0.), 3))
     [0.5 0.5 0.5 0.5]
-
     >>> print(np.around(position(2, 2, 3, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0.), 3))
     [0.  0.  0.5 0.5]
-
     >>> print(np.around(position(2, 2, 4, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0.), 3))
     [0.5 0.  0.5 0.5]
-
     >>> print(np.around(position(2, 2, 1, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0., golden=True), 3))
     [0.    0.309 0.5   0.309]
-
     >>> print(np.around(position(2, 2, 2, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0., golden=True), 3))
     [0.5   0.309 0.5   0.309]
-
     >>> print(np.around(position(2, 2, 3, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0., golden=True), 3))
     [0.    0.    0.5   0.309]
-
     >>> print(np.around(position(2, 2, 4, top=1., bottom=0., left=0., right=1.,
     ...                          hspace=0., vspace=0., golden=True), 3))
     [0.5   0.    0.5   0.309]
@@ -169,10 +159,8 @@ def position(row=1, col=1, num=1,
     >>> print(np.around(position(2, 2, 1, golden=True, sortcol=True,
     ...                          figsize=figsize), 3))
     [0.125 0.324 0.338 0.152]
-
     >>> print(np.around(position(2, 2, 1, figsize=figsize, left=0.1), 3))
     [0.1   0.427 0.35  0.255]
-
     >>> print(np.around(position(2, 2, 1, figsize=figsize, left=0.1,
     ...                          golden=True), 3))
     [0.1   0.33  0.35  0.157]

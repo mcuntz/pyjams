@@ -8,7 +8,7 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2014-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2014-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -25,6 +25,7 @@ History
     * Added argmin, argmax, Jul 2019, Matthias Cuntz
     * Using numpy docstring format, extending examples from numpy docstrings,
       May 2020, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -71,9 +72,9 @@ def argmax(a, *args, **kwargs):
 
     Examples
     --------
-    >>> import numpy as np
+    One-dimensional array
 
-    >>> # One-dimensional array
+    >>> import numpy as np
     >>> a = np.array([0,4,6,2,1,5,3,5])
     >>> ii = argmax(a)
     >>> print(ii)
@@ -81,7 +82,8 @@ def argmax(a, *args, **kwargs):
     >>> print(a[ii])
     6
 
-    >>> # One-dimensional masked array
+    One-dimensional masked array
+
     >>> a = np.ma.array([0,4,6,2,1,5,3,5], mask=[0,0,1,1,0,0,0,0])
     >>> ii = argmax(a)
     >>> print(ii)
@@ -92,7 +94,8 @@ def argmax(a, *args, **kwargs):
     >>> print(ii)
     2
 
-    >>> # List
+    List
+
     >>> a = [0,4,6,2,1,5,3,5]
     >>> ii = argmax(a)
     >>> print(ii)
@@ -100,7 +103,8 @@ def argmax(a, *args, **kwargs):
     >>> print(a[ii])
     6
 
-    >>> # from numpy.argmax docstring
+    Examples from numpy.argmax docstring
+
     >>> a = np.arange(6).reshape(2,3) + 10
     >>> a
     array([[10, 11, 12],
@@ -138,7 +142,7 @@ def argmax(a, *args, **kwargs):
 def argmin(a, *args, **kwargs):
     """
     Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
-    iterables.
+    iterables
 
     Passes all keywords directly to the individual routines, i.e.
 
@@ -172,9 +176,9 @@ def argmin(a, *args, **kwargs):
 
     Examples
     --------
-    >>> import numpy as np
+    One-dimensional array
 
-    >>> # One-dimensional array
+    >>> import numpy as np
     >>> a = np.array([0,4,6,2,1,5,3,5])
     >>> ii = argmin(a)
     >>> print(ii)
@@ -182,7 +186,8 @@ def argmin(a, *args, **kwargs):
     >>> print(a[ii])
     0
 
-    >>> # One-dimensional masked array
+    One-dimensional masked array
+
     >>> a = np.ma.array([0,4,6,2,1,5,3,5], mask=[1,0,1,1,0,0,0,0])
     >>> ii = argmin(a)
     >>> print(ii)
@@ -193,7 +198,8 @@ def argmin(a, *args, **kwargs):
     >>> print(ii)
     0
 
-    >>> # List
+    List
+
     >>> a = [0,4,6,2,1,5,3,5]
     >>> ii = argmin(a)
     >>> print(ii)
@@ -201,7 +207,8 @@ def argmin(a, *args, **kwargs):
     >>> print(a[ii])
     0
 
-    >>> # from numpy.argmin docstring
+    Examples from numpy.argmin docstring
+
     >>> a = np.arange(6).reshape(2,3) + 10
     >>> a
     array([[10, 11, 12],
@@ -239,7 +246,7 @@ def argmin(a, *args, **kwargs):
 def argsort(a, *args, **kwargs):
     """
     Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
-    iterables.
+    iterables
 
     Passes all keywords directly to the individual routines, i.e.
 
@@ -278,9 +285,9 @@ def argsort(a, *args, **kwargs):
 
     Examples
     --------
-    >>> import numpy as np
+    1D array
 
-    >>> # 1D array
+    >>> import numpy as np
     >>> a = np.array([0,4,6,2,1,5,3,5])
     >>> ii = argsort(a)
     >>> print(a[ii])
@@ -290,7 +297,8 @@ def argsort(a, *args, **kwargs):
     >>> print(a[ii])
     [0 1 2 3 4 5 5 6]
 
-    >>> # 1D masked array
+    1D masked array
+
     >>> a = np.ma.array([0,4,6,2,1,5,3,5], mask=[0,0,1,1,0,0,0,0])
     >>> ii = argsort(a)
     >>> print(a[ii])
@@ -300,7 +308,8 @@ def argsort(a, *args, **kwargs):
     >>> print(a[ii])
     [0 -- -- 1 3 4 5 5]
 
-    >>> # list
+    list
+
     >>> a = [0,4,6,2,1,5,3,5]
     >>> ii = argsort(a)
     >>> b = [ a[i] for i in ii ]
@@ -314,7 +323,8 @@ def argsort(a, *args, **kwargs):
     [6, 5, 5, 4, 3, 2, 1, 0]
 
 
-    >>> # from numpy.argsort docstring
+    Examples from numpy.argsort docstring
+
     >>> # One-dimensional array:
     >>> x = np.array([3, 1, 2])
     >>> argsort(x)

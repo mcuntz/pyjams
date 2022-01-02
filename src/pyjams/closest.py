@@ -7,7 +7,7 @@ Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,
 Germany, and continued while at Institut National de Recherche pour
 l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2012-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -22,6 +22,7 @@ History
     * Ported to Python 3, Feb 2013, Matthias Cuntz
     * Make numpy docstring format, Apr 2020, Matthias Cuntz
     * Ported into pyjams, Oct 2021, Matthias Cuntz
+    * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
 from __future__ import division, absolute_import, print_function
@@ -45,7 +46,7 @@ def closest(arr, num, value=False):
     num : number
         Number to which the closest entry is searched for in arr
     value : bool, optional
-        If true, give closest array element instead of index (default: False)
+        Returns closest array element instead of index if True (default: False)
 
     Returns
     -------
@@ -68,9 +69,10 @@ def closest(arr, num, value=False):
     3.131
     >>> print(closest(arr, 3.125))
     62
-    >>> print(np.unravel_index(closest(arr, 3.125), arr.shape))
+    >>> ii = np.unravel_index(closest(arr, 3.125), arr.shape)
+    >>> print(ii)
     (6, 2)
-    >>> out = arr[np.unravel_index(closest(arr, 3.125), arr.shape)]
+    >>> out = arr[ii]
     >>> print('{:.3f}'.format(out))
     3.131
 
