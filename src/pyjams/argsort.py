@@ -28,7 +28,6 @@ History
     * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
 
 

@@ -118,6 +118,10 @@ Functions and modules (alphabetical)
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
    * - :func:`~pyjams.date2date.date2us`
      - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - :func:`~pyjams.fgui.directories_from_gui`
+     - Open dialog to select one directory
+   * - :func:`~pyjams.fgui.directory_from_gui`
+     - Open dialog to select several directories
    * - :func:`~pyjams.division.division`
      - Divide two arrays, return 'otherwise' if division by 0
    * - :func:`~pyjams.division.div`
@@ -138,6 +142,10 @@ Functions and modules (alphabetical)
      - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
    * - :func:`~pyjams.date2date.fr2us`
      - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
+   * - :func:`~pyjams.fgui.file_from_gui`
+     - Open dialog to select one file
+   * - :func:`~pyjams.fgui.files_from_gui`
+     - Open dialog to select one or several files
    * - :func:`~pyjams.fsread.fread`
      - Read numbers from a file into 2D float array
    * - :func:`~pyjams.fsread.fsread`
@@ -306,6 +314,14 @@ Functions and modules per category
        * - :mod:`~pyjams.const`
          - Physical, mathematical, computational, isotope, and material
            constants
+       * - :func:`~pyjams.fgui.directories_from_gui`
+         - Open dialog to select one directory
+       * - :func:`~pyjams.fgui.directory_from_gui`
+         - Open dialog to select several directories
+       * - :func:`~pyjams.fgui.file_from_gui`
+         - Open dialog to select one file
+       * - :func:`~pyjams.fgui.files_from_gui`
+         - Open dialog to select one or several files
        * - :func:`~pyjams.romanliterals.int2roman`
          - Integer to Roman numeral conversion
        * - :func:`~pyjams.romanliterals.roman2int`

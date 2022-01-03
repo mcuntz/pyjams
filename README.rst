@@ -120,6 +120,10 @@ Functions and modules (alphabetical)
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
    * - date2us
      - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - directories_from_gui
+     - Open dialog to select one directory
+   * - directory_from_gui
+     - Open dialog to select several directories
    * - division
      - Divide two arrays, return 'otherwise' if division by 0
    * - div
@@ -132,6 +136,10 @@ Functions and modules (alphabetical)
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
    * - en2us
      - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - file_from_gui
+     - Open dialog to select one file
+   * - files_from_gui
+     - Open dialog to select one or several files
    * - fr2date
      - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
    * - fr2en
@@ -304,6 +312,14 @@ Functions and modules per category
        * - const
          - Physical, mathematical, computational, isotope, and material
            constants
+       * - directories_from_gui
+         - Open dialog to select one directory
+       * - directory_from_gui
+         - Open dialog to select several directories
+       * - file_from_gui
+         - Open dialog to select one file
+       * - files_from_gui
+         - Open dialog to select one or several files
        * - int2roman
          - Integer to Roman numeral conversion
        * - roman2int

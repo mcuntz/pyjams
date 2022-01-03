@@ -1,7 +1,10 @@
 Changelog
 ---------
 
-v1.14 (??? 2022)
+v1.14 (Jan 2022)
+    * Added `directory_from_gui`, `directories_from_gui`, `file_from_gui`, and
+      `files_from_gui`, GUI dialogs to choose directories and files using
+      Tkinter
     * Organize API reference documentation by categories.
     * More consistent docstrings across routines.
     * Bug in `alpha_equ_h2o` for scalar in/out.
