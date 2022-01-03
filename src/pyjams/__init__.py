@@ -24,6 +24,7 @@ Subpackages
    const
    date2date
    division
+   fgui
    fsread
    functions
    mcplot
@@ -52,6 +53,8 @@ History
       Nov 2021, Matthias Cuntz
     * v1.12, added date2dec and all its wrappers, Dec 2021, Matthias Cuntz
     * v1.13, added fsread, fread, sread, Dec 2021, Matthias Cuntz
+    * v1.14, added GUI dialogs to choose files and directories using Tkinter,
+      Jan 2022, Matthias Cuntz
 
 """
 # version, author
@@ -86,6 +89,9 @@ from .date2date import fr2date, fr2en, fr2us
 from .date2date import us2date, us2en, us2fr
 # catch division by zero
 from .division import division, div
+# GUI dialogs to choose files and directories using Tkinter
+from .fgui import directory_from_gui, directories_from_gui
+from .fgui import file_from_gui, files_from_gui
 # read numbers and strings from a file into 2D float and string arrays
 from .fsread import fsread, fread, sread
 # Matthias Cuntz' standard plotting class.
@@ -118,6 +124,8 @@ __all__ = ['__version__', '__author__',
            'fr2date', 'fr2en', 'fr2us',
            'us2date', 'us2en', 'us2fr',
            'division', 'div',
+           'directory_from_gui', 'directories_from_gui',
+           'file_from_gui', 'files_from_gui',
            'fsread', 'fread', 'sread',
            'mcPlot',
            'morris_sampling', 'elementary_effects',

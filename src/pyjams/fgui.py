@@ -76,12 +76,12 @@ def directory_from_gui(
     # focus on (hidden) window so that child is on top
     root.tk.call('wm', 'attributes', '.', '-topmost', 1)
 
-    dirs = tkFileDialog.askdirectory(
+    direcs = tkFileDialog.askdirectory(
         parent=root, title=title, initialdir=initialdir)
 
     root.destroy()
 
-    return dirs
+    return direcs
 
 
 # -------------------------------------------------------------------------
@@ -110,9 +110,9 @@ def directories_from_gui(
     --------
     .. code-block:: python
 
-       if not dirs:
-           dirs = directories_from_gui()
-           if not dirs:
+       if not direcs:
+           direcs = directories_from_gui()
+           if not direcs:
                raise ValueError('Error: no directories given.')
 
     """
@@ -127,18 +127,18 @@ def directories_from_gui(
     root.tk.call('wm', 'attributes', '.', '-topmost', 1)
 
     idir = initialdir
-    alldirs = []
+    alldirecs = []
     while True:
-        dirs = tkFileDialog.askdirectory(
+        direcs = tkFileDialog.askdirectory(
             parent=root, title=title, initialdir=idir)
-        if not dirs:
+        if not direcs:
             break
-        alldirs.append(dirs)
-        idir = dirs
+        alldirecs.append(direcs)
+        idir = direcs
 
     root.destroy()
 
-    return alldirs
+    return alldirecs
 
 
 # -------------------------------------------------------------------------
