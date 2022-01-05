@@ -81,10 +81,12 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
     .. [1] Goff Gratch formulation
        Smithsonian Meteorological Tables, 5th edition, p. 350, 1984
        Original source: Goff and Gratch (1946), p. 107
+
     .. [2] Intended WMO formulation, originally published by Goff (1957)
        incorrectly referenced by WMO technical regulations,
        WMO-NO 49, Vol I, General Meteorological Standards and
        Recommended Practices, App. A, 1988, Corrigendum Aug 2000
+
     .. [3] Wagner W. and A. Pruss (2002)
        The IAPWS formulation 1995 for the thermodynamic properties
        of ordinary water substance for general and scientific use,
@@ -93,23 +95,31 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
        Association for the Properties of Water and Steam
        The valid range of this formulation is 273.16 <= T <= 647.096 K
        and is based on the ITS90 temperature scale.
+
     .. [4] Murray, F. W., On the computation of saturation vapour pressure,
        J. Appl. Meteorol., 6, 203-204, 1967
+
     .. [5] Marti, J. and K Mauersberger, A survey and new measurements of
        ice vapour pressure at temperatures between 170 and 250 K,
        GRL 20, 363-366, 1993
+
     .. [6] Bucks vapour pressure formulation based on Tetens formula
        Buck, A. L., New equations for computing vapour pressure and
        enhancement factor, J. Appl. Meteorol., 20, 1527-1532, 1981
+
     .. [7] Bucks vapour pressure formulation based on Tetens formula
        Buck Research, Model CR-1A Hygrometer Operating Manual, Sep 2001
+
     .. [8] Wexler, A., Vapour pressure formulation for ice
        Journal of Research of the National Bureau of Standards-A.
        81A, 5-20, 1977
+
     .. [9] Sonntag, D., Advancements in the field of hygrometry,
        Meteorol. Z., N. F., 3, 51-66, 1994
+
     .. [10] Bolton, D., The computation of equivalent potential temperature
        Monthly Weather Report, 108, 1046-1053, 1980. equation (10)
+
     .. [11] Fukuta, N. and C. M. Gramada, Vapour pressure measurement of
        supercooled water, J. Atmos. Sci., 60, 1871-1875, 2003
        This paper does not give a vapour pressure formulation,
@@ -117,9 +127,11 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
        Thus calculate the table value first, then use the correction
        to get to the measured value.
        This is done only for -39 < TC < 0.
+
     .. [12] Hyland, R. W. and A. Wexler, Formulations for the Thermodynamic
        Properties of the saturated Phases of H2O from 173.15K to
        473.15K, ASHRAE Trans, 89(2A), 500-519, 1983
+
     .. [13] Murphy and Koop, Review of the vapour pressure of ice and
        supercooled water for atmospheric applications
        Q. J. R. Meteorol. Soc (2005), 131, pp. 1539-1565
