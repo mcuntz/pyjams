@@ -52,7 +52,7 @@ def directory_from_gui(
         Title of GUI (default: 'Choose directory')
 
     Returns
-    ------
+    -------
     str
         Selected directory
 
@@ -102,7 +102,7 @@ def directories_from_gui(
         Title of GUI (default: 'Choose one or several directories')
 
     Returns
-    ------
+    -------
     list
         Selected directories
 
@@ -186,12 +186,12 @@ def files_from_gui(initialdir='.', title='Choose file(s)',
         else it is only possible to select one single file.
 
     Returns
-    ------
+    -------
     list
         Selected file(s)
 
-    Note
-    ----
+    Notes
+    -----
     It always returns a list even with `multiple=False`.
 
     Examples

@@ -24,6 +24,7 @@ Subpackages
    const
    date2date
    division
+   esat
    fgui
    fsread
    functions
@@ -55,6 +56,7 @@ History
     * v1.13, added fsread, fread, sread, Dec 2021, Matthias Cuntz
     * v1.14, added GUI dialogs to choose files and directories using Tkinter,
       Jan 2022, Matthias Cuntz
+    * v1.15, added esat, Jan 2022, Matthias Cuntz
 
 """
 # version, author
@@ -89,6 +91,8 @@ from .date2date import fr2date, fr2en, fr2us
 from .date2date import us2date, us2en, us2fr
 # catch division by zero
 from .division import division, div
+# saturation vapour pressure over water and ice
+from .esat import esat
 # GUI dialogs to choose files and directories using Tkinter
 from .fgui import directory_from_gui, directories_from_gui
 from .fgui import file_from_gui, files_from_gui
@@ -97,7 +101,8 @@ from .fsread import fsread, fread, sread
 # Matthias Cuntz' standard plotting class.
 from .mcplot import mcPlot
 # has to be ordered for import: morris -> screening
-# Sampling of optimised trajectories for and calculation of Morris Measures / Elementary Effects
+# Sampling of optimised trajectories for and calculation of Morris Measures /
+# Elementary Effects
 from .morris_method import morris_sampling, elementary_effects
 # positions of subplots, used with add_axes
 from .position import position
@@ -124,6 +129,7 @@ __all__ = ['__version__', '__author__',
            'fr2date', 'fr2en', 'fr2us',
            'us2date', 'us2en', 'us2fr',
            'division', 'div',
+           'esat',
            'directory_from_gui', 'directories_from_gui',
            'file_from_gui', 'files_from_gui',
            'fsread', 'fread', 'sread',

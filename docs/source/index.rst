@@ -77,6 +77,7 @@ Modules and functions are currently provided in the following categories:
     * `Date and Time`_
     * Isotopes_
     * Math_
+    * Meteorology_
     * Miscellaneous_
     * Plotting_
 
@@ -136,6 +137,8 @@ Functions and modules (alphabetical)
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
    * - :func:`~pyjams.date2date.en2us`
      - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - :func:`~pyjams.esat`
+     - Saturation vapour pressure over water and ice
    * - :func:`~pyjams.date2date.fr2date`
      - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
    * - :func:`~pyjams.date2date.fr2en`
@@ -301,6 +304,18 @@ Functions and modules per category
            Effects
        * - :func:`~pyjams.screening.screening`
          - Parameter screening using Morris' method of Elementary Effects
+
+.. _Meteorology:
+
+**Meteorology**
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - :func:`~pyjams.esat`
+         - Saturation vapour pressure over water and ice
 
 .. _Miscellaneous:
 

@@ -18,6 +18,7 @@ API Reference
    date_time.rst
    isotopes.rst
    math.rst
+   meteorology.rst
    miscellaneous.rst
    plotting.rst
 

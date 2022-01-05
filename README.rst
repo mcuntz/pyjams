@@ -79,6 +79,7 @@ Modules and functions are currently provided in the following categories:
     * `Date and Time`_
     * Isotopes_
     * Math_
+    * Meteorology_
     * Miscellaneous_
     * Plotting_
 
@@ -136,6 +137,8 @@ Functions and modules (alphabetical)
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
    * - en2us
      - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - esat
+     - Saturation vapour pressure over water and ice
    * - file_from_gui
      - Open dialog to select one file
    * - files_from_gui
@@ -299,6 +302,18 @@ Functions and modules per category
            Effects
        * - screening
          - Parameter screening using Morris' method of Elementary Effects
+
+.. _Meteorology:
+
+**Meteorology**
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - esat
+         - Saturation vapour pressure over water and ice
 
 .. _Miscellaneous:
 

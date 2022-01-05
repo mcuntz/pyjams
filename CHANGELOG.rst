@@ -1,10 +1,14 @@
 Changelog
 ---------
 
+v1.15 (Jan 2022)
+    * Added `esat`, giving saturation vapour pressure over water and ice.
+    * Bug in `alpha_equ_h2o` in return type if list or tuple and undef.
+
 v1.14 (Jan 2022)
     * Added `directory_from_gui`, `directories_from_gui`, `file_from_gui`, and
       `files_from_gui`, GUI dialogs to choose directories and files using
-      Tkinter
+      Tkinter.
     * Organize API reference documentation by categories.
     * More consistent docstrings across routines.
     * Bug in `alpha_equ_h2o` for scalar in/out.
