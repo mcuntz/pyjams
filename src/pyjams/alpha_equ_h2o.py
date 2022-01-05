@@ -28,6 +28,8 @@ History
     * Bug if scalar, was still masked array, Jan 2022, Matthias Cuntz
     * Do not use astr in docstring examples, Jan 2022, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Bug in return type if list or tuple and undef,
+      Jan 2022, Matthias Cuntz
 
 """
 import numpy as np
@@ -53,7 +55,7 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
         Select water isotopologue: 1: HDO; 2: H218O; else: no fractionation,
         i.e. return 1 (default)
     undef : float, optional
-        Exclude `temp == undef` from calculations (default: -9999)
+        Exclude `temp == undef` from calculations (default: -9999.)
     eps : bool, optional
         Reports fractionation epsilon=alpha-1 instead of fractionation
         factor alpha if True (default: return alpha)
@@ -99,21 +101,26 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
     if np.iterable(temp):
         if isinstance(temp, list):
             islist = 1
+            mtemp = np.array(temp)
+            mtemp = np.where(mtemp == undef, 273.15, mtemp)
         elif isinstance(temp, np.ma.MaskedArray):
             islist = 2
+            mtemp = np.ma.where(temp == undef, 273.15, temp).filled(273.15)
         elif isinstance(temp, np.ndarray):
             islist = 3
+            # do not use masked array to avoid overflow
+            mtemp = np.where(temp == undef, 273.15, temp)
         else:
             islist = 0
-        # do not use masked array to avoid overflow
-        mtemp = np.where(temp == undef, 273.15, temp)
+            mtemp = np.array(temp)
+            mtemp = np.where(mtemp == undef, 273.15, mtemp)
     else:
         # scalar
         islist = -1
         if temp == undef:
-            mtemp = 273.15
+            mtemp = np.array(273.15)
         else:
-            mtemp = temp
+            mtemp = np.array(temp)
 
     # Coefficients of exponential function
     if (isotope == 1):    # HDO
@@ -130,7 +137,7 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
         c = 0.
 
     # alpha+
-    out = np.ma.exp( (a / mtemp + b) / mtemp + c)
+    out = np.exp( (a / mtemp + b) / mtemp + c)
 
     # alpha-
     if not greater1:
@@ -140,23 +147,22 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
     if eps:
         out -= 1.
 
-    if islist > -1:
-        out = np.ma.where(temp == undef, undef, out)
-
-    # return same as input type
+    # return same type as input type
     if islist == 0:
-        return tuple(out.filled(undef))
+        mtemp = np.array(temp)
+        out = tuple(np.where(mtemp == undef, undef, out))
     elif islist == 1:
-        return list(out.filled(undef))
+        mtemp = np.array(temp)
+        out = list(np.where(mtemp == undef, undef, out))
     elif islist == 2:
-        return out
+        out = np.ma.array(out, mask=((temp == undef) | (temp.mask)))
     elif islist == 3:
-        return np.array(out.filled(undef))
+        out = np.where(temp == undef, undef, out)
     else:
         if temp == undef:
-            return undef
-        else:
-            return out
+            out = undef
+
+    return out
 
 
 if __name__ == '__main__':

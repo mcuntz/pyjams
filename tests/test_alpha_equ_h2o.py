@@ -50,28 +50,51 @@ class TestAlphaEquH2O(unittest.TestCase):
         alpha = alpha_equ_h2o(np.ma.array(T+T0, mask=(T == 0.)),
                               isotope=2, greater1=False)
         assert isinstance(alpha, np.ndarray)
+        assert isinstance(alpha, np.ma.MaskedArray)
         self.assertEqual(list(np.around(alpha, 4)),
                          [masked, 0.9894, 0.9899, 0.9907])
+
+        # epsilon, HO18O, scalar
+        epsilon = alpha_equ_h2o(0.+T0, isotope=2, eps=True) * 1000.
+        self.assertEqual(np.around(epsilon, 4), 11.7187)
 
         # epsilon, HDO
         epsilon = alpha_equ_h2o(T+T0, isotope=1, eps=True) * 1000.
         self.assertEqual(list(np.around(epsilon, 4)),
                          [112.3194, 97.6829, 91.1296, 79.3443])
 
-        # undef
-        T1 = np.array(T1)
+        # undef, scalar
+        epsilon = alpha_equ_h2o(-9998., undef=-9998., isotope=2, eps=True)
+        self.assertEqual(epsilon, -9998.)
+        epsilon = alpha_equ_h2o(-9999., isotope=2, eps=True)
+        self.assertEqual(epsilon, -9999.)
+
+        # undef, list
+        T1 = list(T1)
         T1[0] = -1.
+        alpha = alpha_equ_h2o(T1, undef=-1., isotope=1, eps=True)
+        alpha = [ a * 1000. for a in alpha ]
+        self.assertEqual(list(np.around(alpha, 4)),
+                         [-1000.0000, 97.6829, 91.1296, 79.3443])
+
+        # undef, tuple
+        T1 = tuple(T1)
+        alpha = alpha_equ_h2o(T1, undef=-1., isotope=1, eps=True)
+        alpha = [ a * 1000. for a in alpha ]
+        self.assertEqual(list(np.around(alpha, 4)),
+                         [-1000.0000, 97.6829, 91.1296, 79.3443])
+
+        # undef, np.array
+        T1 = np.array(T1)
         alpha = alpha_equ_h2o(T1, undef=-1., isotope=1, eps=True) * 1000.
         self.assertEqual(list(np.around(alpha, 4)),
                          [-1000.0000, 97.6829, 91.1296, 79.3443])
 
-        # epsilon, HO18O, scalar
-        epsilon = alpha_equ_h2o(0.+T0, isotope=2, eps=True) * 1000.
-        self.assertEqual(np.around(epsilon, 4), 11.7187)
-
-        # undef, scalar
-        epsilon = alpha_equ_h2o(-9999., undef=-9999., isotope=2, eps=True)
-        self.assertEqual(epsilon, -9999.)
+        # undef, masked_array
+        T1 = np.ma.array(T1, mask=(T == 10.))
+        alpha = alpha_equ_h2o(T1, undef=-1., isotope=1, eps=True) * 1000.
+        self.assertEqual(list(np.around(alpha, 4)),
+                         [masked, masked, 91.1296, 79.3443])
 
 
 if __name__ == "__main__":
