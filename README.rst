@@ -231,7 +231,7 @@ Functions and modules per category
        * - sread
          - Read strings from a file into 2D string array
 
-.. _Data Processing
+.. _Data Processing:
 
 **Data Processing**
     .. list-table::
