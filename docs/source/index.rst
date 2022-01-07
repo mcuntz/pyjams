@@ -74,6 +74,7 @@ Content
 Modules and functions are currently provided in the following categories:
     * `Array Manipulation`_
     * `Ascii Files`_
+    * `Data Processing`_
     * `Date and Time`_
     * Isotopes_
     * Math_
@@ -159,6 +160,8 @@ Functions and modules (alphabetical)
        functions to be used with :mod:`scipy.optimize`
    * - :func:`~pyjams.romanliterals.int2roman`
      - Integer to Roman numeral conversion
+   * - :func:`~pyjams.mad`
+     - Median absolute deviation test
    * - :class:`~pyjams.mcplot.mcPlot`
      - Matthias Cuntz' standard plotting class
    * - :func:`~pyjams.morris_method.morris_sampling`
@@ -227,6 +230,18 @@ Functions and modules per category
          - Read numbers and strings from a file into 2D float and string arrays
        * - :func:`~pyjams.fsread.sread`
          - Read strings from a file into 2D string array
+
+.. _Data Processing:
+
+**Data Processing**
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - :func:`~pyjams.mad`
+         - Median absolute deviation test
 
 .. _Date and Time:
 

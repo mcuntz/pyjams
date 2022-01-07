@@ -15,6 +15,7 @@ API Reference
 
    array_manipulation.rst
    ascii_files.rst
+   data_processing.rst
    date_time.rst
    isotopes.rst
    math.rst

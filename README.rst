@@ -76,6 +76,7 @@ Content
 Modules and functions are currently provided in the following categories:
     * `Array Manipulation`_
     * `Ascii Files`_
+    * `Data Processing`_
     * `Date and Time`_
     * Isotopes_
     * Math_
@@ -159,6 +160,8 @@ Functions and modules (alphabetical)
        functions to be used with scipy.optimize
    * - int2roman
      - Integer to Roman numeral conversion
+   * - mad
+     - Median absolute deviation test
    * - mcPlot
      - Matthias Cuntz' standard plotting class
    * - morris_sampling
@@ -227,6 +230,18 @@ Functions and modules per category
          - Read numbers and strings from a file into 2D float and string arrays
        * - sread
          - Read strings from a file into 2D string array
+
+.. _Data Processing
+
+**Data Processing**
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - mad
+         - Median absolute deviation test
 
 .. _Date and Time:
 

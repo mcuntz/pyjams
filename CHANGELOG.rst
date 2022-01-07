@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.16 (Jan 2022)
+    * Added `mad`, median absolute deviation test.
+
 v1.15 (Jan 2022)
     * Added `esat`, giving saturation vapour pressure over water and ice.
     * Bug in `alpha_equ_h2o` in return type if list or tuple and undef.
