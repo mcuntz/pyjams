@@ -81,6 +81,7 @@ Modules and functions are currently provided in the following categories:
     * Meteorology_
     * Miscellaneous_
     * Plotting_
+    * `Special Files`_
 
 Functions and modules (alphabetical)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -190,6 +191,12 @@ Functions and modules (alphabetical)
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - :func:`~pyjams.date2date.us2fr`
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - :func:`~pyjams.fsread.xlsread`
+     - Same as `xread`
+   * - :func:`~pyjams.fsread.xlsxread`
+     - Same as `xread`
+   * - :func:`~pyjams.fsread.xread`
+     - Read numbers and strings from Excel file into 2D float and string arrays
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -387,6 +394,22 @@ Functions and modules per category
            matplotlib's usetex
        * - :func:`~pyjams.text2plot.text2plot`
          - Write text on a plot
+
+.. _Special Files:
+
+**Special Files**
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - :func:`~pyjams.fsread.xlsread`
+         - Same as `xread`
+       * - :func:`~pyjams.fsread.xlsxread`
+         - Same as `xread`
+       * - :func:`~pyjams.fsread.xread`
+         - Read numbers and strings from Excel file into 2D float and string arrays
 
 
 License

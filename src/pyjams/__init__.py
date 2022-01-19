@@ -59,6 +59,7 @@ History
       Jan 2022, Matthias Cuntz
     * v1.15, added esat, Jan 2022, Matthias Cuntz
     * v1.16, added mad, Jan 2022, Matthias Cuntz
+    * v1.17, added xread, xlsread, and xlsxread, Jan 2022, Matthias Cuntz
 
 """
 # version, author
@@ -100,6 +101,7 @@ from .fgui import directory_from_gui, directories_from_gui
 from .fgui import file_from_gui, files_from_gui
 # read numbers and strings from a file into 2D float and string arrays
 from .fsread import fsread, fread, sread
+from .fsread import xread, xlsread, xlsxread
 # median absolute deviation test
 from .mad import mad
 # Matthias Cuntz' standard plotting class.
@@ -137,6 +139,7 @@ __all__ = ['__version__', '__author__',
            'directory_from_gui', 'directories_from_gui',
            'file_from_gui', 'files_from_gui',
            'fsread', 'fread', 'sread',
+           'xread', 'xlsread', 'xlsxread',
            'mad',
            'mcPlot',
            'morris_sampling', 'elementary_effects',

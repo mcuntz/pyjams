@@ -19,6 +19,9 @@ The following functions are provided
    fsread
    fread
    sread
+   xread
+   xlsread
+   xlsxread
 
 History
     * Written fread and sread Jul 2009 by
@@ -34,10 +37,12 @@ History
     * Written fsread Feb 2015 by
       Matthias Cuntz (mc (at) macu (dot) de)
     * nc<=-1 removed in case of nc is list, Nov 2016, Matthias Cuntz
+    * Added xread from modifying fsread, Feb 2017, Matthias Cuntz
     * range instead of np.arange, Nov 2017, Matthias Cuntz
     * Keywords cname, sname, hstrip, rename file to infile,
       Nov 2017, Matthias Cuntz
     * full_header=True returns vector of strings, Nov 2017, Matthias Cuntz
+    * NA -> NaN, i.e. R to Python convention in xread, Feb 2019, Matthias Cuntz
     * Ignore unicode characters on read, Jun 2019, Matthias Cuntz
     * Make ignoring unicode characters campatible with Python 2 and Python 3,
       Jul 2019, Matthias Cuntz
@@ -45,43 +50,171 @@ History
     * Return as list keyword, Dec 2019, Stephan Thober
     * Return as array as default, Jan 2020, Matthias Cuntz
     * Using numpy docstring format, May 2020, Matthias Cuntz
-    * flake8 compatible, Mar 2021, Matthias Cuntz
-    * Preserve trailing whitespace column delimiters, Mar 2021, Matthias Cuntz
+    * Use openpyxl for xlsx files in xread, Jul 2020, Matthias Cuntz
+    * flake8 compatible xread, Jul 2020, Matthias Cuntz
+    * flake8 compatible fsread, Mar 2021, Matthias Cuntz
+    * Preserve trailing whitespace in column delimiters,
+      Mar 2021, Matthias Cuntz
     * Code refactoring, Sep 2021, Matthias Cuntz
     * Cleaner code by using local functions, Dec 2021, Matthias Cuntz
     * Make float and string code symmetric in behaviour,
       Dec 2021, Matthias Cuntz
-    * Always return float and string, Dec 2021, Matthias Cuntz
+    * Always return float and string in fsread, Dec 2021, Matthias Cuntz
     * Removed reform option, Dec 2021, Matthias Cuntz
     * Return always string array if not return as list option is set;
       strarr is only used with header=True now, Dec 2021, Matthias Cuntz
     * fread and sread are simple calls of fsread, Dec 2021, Matthias Cuntz
     * header returns also 2D arrays by default, Dec 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Merged xread into module, Jan 2022, Matthias Cuntz
 
 """
 import codecs
 import numpy as np
 
 
-__all__ = ['fsread', 'fread', 'sread']
+__all__ = ['fsread', 'fread', 'sread',
+           'xread', 'xlsread', 'xlsxread']
 
 
 # --------------------------------------------------------------------
+
+
+def _read_head(f, skip=0, hskip=0):
+    '''
+    Return the *skip-hskip* lines after the first *hskip* lines as header
+    from text file
+
+    Parameters
+    ----------
+    f : file handle
+        Open file handle such as codecs.StreamReaderWriter
+    skip : int, optional
+        Number of lines to skip at the beginning of file (default: 0)
+    hskip : int, optional
+        Number of lines in skip that do not belong to header (default: 0)
+
+    Returns
+    -------
+    list
+        List with strings of file header
+
+    '''
+    head = []
+    # Skip lines
+    if hskip > 0:
+        ihskip = 0
+        while ihskip < hskip:
+            tmp = f.readline()
+            ihskip += 1
+    # Read header
+    if skip > 0:
+        head = ['']*(skip-hskip)
+        iskip = 0
+        while iskip < (skip-hskip):
+            head[iskip] = str(f.readline().rstrip('\r\n'))
+            iskip += 1
+    return head
+
+
+def _xread_row(sh, irow, ixls=False):
+    '''
+    Read one row from Excel sheet
+
+    Parameters
+    ----------
+    sh : Excel sheet handle
+        Handle to sheet in open Excel file
+    irow : int
+        Row index, zero-based
+    ixls : bool, optional
+        Use xlrd if True, otherwise use openpyxl (default)
+
+    Returns
+    -------
+    list
+        List with row values
+
+    '''
+    if ixls:
+        # xlrd starts counting at 0
+        res = sh.row(irow)
+    else:
+        # openpyxl starts counting at 1
+        res = sh[irow + 1]
+    return [ cc.value for cc in res ]
+
+
+def _xread_head(sh, skip=0, hskip=0, ixls=False):
+    '''
+    Return the *skip-hskip* lines after the first *hskip* lines as header
+    from Excel sheet
+
+    Parameters
+    ----------
+    sh : Excel sheet handle
+        Handle to sheet in open Excel file
+    skip : int, optional
+        Number of lines to skip at the beginning of file (default: 0)
+    hskip : int, optional
+        Number of lines in skip that do not belong to header (default: 0)
+    ixls : bool, optional
+        Use xlrd if True, otherwise use openpyxl (default)
+
+    Returns
+    -------
+    list
+        List with strings of file header
+
+    '''
+    head = []
+    # Read header
+    if skip > 0:
+        for iskip in range(skip-hskip):
+            head.append(_xread_row(sh, iskip, ixls=ixls))
+    return head
+
+
+def _close_file(f, ixls=False):
+    '''
+    Closes file
+
+    Parameters
+    ----------
+    f : file handle
+        Open file handle such as codecs.StreamReaderWriter
+    ixls : bool, optional
+        Use xlrd if True, otherwise use openpyxl (default)
+
+    Returns
+    -------
+    None
+
+    '''
+    if ixls:
+        f.release_resources()
+    else:
+        f.close()
+    return
 
 
 def _determine_indices(f, head, nres,
                        nc=0, cname=None,
                        snc=0, sname=None,
                        skip=0, cskip=0, hskip=0,
-                       hstrip=True, sep=None):
+                       hstrip=True, sep=None,
+                       ixls=False):
     '''
     Determine the indices to be read from lines as floats and as strings
 
     Parameters
     ----------
     f : file handle
-        Open file handle such as codecs.StreamReaderWriter
+        Open file handle will be closed if error
+    head : list
+        List with header lines read with _read_head.
+    nres : int
+        Number of columns in first non-header line
     nc : int or iterable, optional
         Number of columns to be read as floats [default: all (*nc<=0*)]. *nc*
         can be an int or a vector of column indexes, starting with 0. If
@@ -109,6 +242,8 @@ def _determine_indices(f, head, nres,
         take the header cells literally.
     sep : str, optional
         Column separator. Whitespace is used if not given.
+    ixls : bool, optional
+        Use xlrd if True, otherwise use openpyxl (default)
 
     Returns
     -------
@@ -119,19 +254,24 @@ def _determine_indices(f, head, nres,
     '''
     # Determine indices
     if nc != 0 and cname is not None:
-        f.close()
+        _close_file(f, ixls=ixls)
         raise ValueError('nc and cname are mutually exclusive.')
     if snc != 0 and sname is not None:
-        f.close()
+        _close_file(f, ixls=ixls)
         raise ValueError('snc and sname are mutually exclusive.')
     # cname or sname
     if (cname is not None) or (sname is not None):
         # from first header line
         if (skip-hskip) <= 0:
-            f.close()
+            _close_file(f, ixls=ixls)
             raise ValueError('No header line left for choosing'
                              ' columns by name.')
-        hres = head[0].split(sep)
+        if isinstance(head[0], (tuple, list)):
+            # from _xread_head
+            hres = head[0]
+        else:
+            # from _read_head
+            hres = head[0].split(sep)
         if hstrip:
             hres = [ h.strip() for h in hres ]
     if cname is not None:
@@ -299,12 +439,20 @@ def _get_header(head, sep, iinc, iisnc,
     if full_header:
         var = head
         if strarr:
-            var  = np.array(var, dtype=str)
+            var = np.array(var, dtype=str)
+        elif isinstance(var[0], tuple):
+            # from _xread_head if openpyxl
+            var = [ list(ll) for ll in var ]
         return var, svar
     else:
         k = 0
         while k < nhead:
-            hres = head[k].split(sep)
+            if isinstance(head[k], (tuple, list)):
+                # from _xread_head
+                hres = head[k]
+            else:
+                # from _read_head
+                hres = head[k].split(sep)
             nhres = len(hres)
             miianc = -1
             if iinc:
@@ -420,42 +568,6 @@ def _get_separator(f, separator=None, skip_blank=False, comment=None):
         sep = separator
         res = s.split(sep)
     return sep, res
-
-
-def _read_head(f, skip=0, hskip=0):
-    '''
-    Return the *skip-hskip* lines after the first *hskip* lines as header
-
-    Parameters
-    ----------
-    f : file handle
-        Open file handle such as codecs.StreamReaderWriter
-    skip : int, optional
-        Number of lines to skip at the beginning of file (default: 0)
-    hskip : int, optional
-        Number of lines in skip that do not belong to header (default: 0)
-
-    Returns
-    -------
-    list
-        List with strings of file header
-
-    '''
-    head = []
-    # Skip lines
-    if hskip > 0:
-        ihskip = 0
-        while ihskip < hskip:
-            tmp = f.readline()
-            ihskip += 1
-    # Read header
-    if skip > 0:
-        head = ['']*(skip-hskip)
-        iskip = 0
-        while iskip < (skip-hskip):
-            head[iskip] = str(f.readline().rstrip('\r\n'))
-            iskip += 1
-    return head
 
 
 # --------------------------------------------------------------------
@@ -1360,6 +1472,438 @@ def sread(infile,
         return dat
     else:
         return sdat
+
+
+def xread(infile, sheet=None,
+          nc=0, cname=None, snc=0, sname=None,
+          skip=0, cskip=0, hskip=0,
+          squeeze=False,
+          fill=False, fill_value=0, sfill_value='',
+          strip=None, hstrip=True,
+          header=False, full_header=False,
+          transpose=False, strarr=False,
+          return_list=False):
+    """
+    Read numbers and strings from Excel file into 2D float and string arrays
+
+    This routine is analog to fsread but for Excel files.
+
+    Columns can be picked specifically by index or name. The header can be read
+    separately with the (almost) same call as reading the numbers or string.
+
+    Parameters
+    ----------
+    infile : str
+        Excel source file name
+    sheet : str, optional
+        Name or number of Excel sheet (default: first sheet)
+    nc : int or iterable, optional
+        Number of columns to be read as floats [default: none (*nc=0*)]. *nc*
+        can be an int or a vector of column indexes, starting with 0. If
+        *snc!=0*, then *nc* must be iterable, or -1 to read all other columns
+        as floats. If both *nc* and *snc* are int, then first *snc* string
+        columns will be read and then *nc* float columns will be read.
+    cname : iterable of str, optional
+        Columns for floats can be chosen by the values in the first header
+        line; must be an iterable with strings.
+    snc : int or iterable, optional
+        Number of columns to be read as strings [default: none (*snc=0*)].
+        *snc* can be an int or a vector of column indexes, starting with 0. If
+        *nc!=0*, then *snc* must be iterable, or -1 to read all other columns
+        as strings. If both *nc* and *snc* are int, then first *snc* string
+        columns will be read and then *nc* float columns will be read.
+    sname : iterable of str, optional
+        Columns for strings can be chosen by the values in the first header
+        line; must be an iterable with strings.
+    skip : int, optional
+        Number of lines to skip at the beginning of file (default: 0)
+    cskip : int, optional
+        Number of columns to skip at the beginning of each line (default: 0)
+    hskip : int, optional
+        Number of lines in skip that do not belong to header (default: 0)
+    squeeze : bool, optional
+        If set to *True*, the 2-dim array will be cleaned of degenerated
+        dimension, possibly resulting in a vector, otherwise output is always
+        2-dimensional.
+    fill : bool, optional
+        Fills in `fill_value` if True and not enough columns in input line,
+        else raises ValueError (default).
+    fill_value : float, optional
+        Value to fill in float array in empty cells or if not enough columns
+        in line and *fill==True* (default: 0).
+    sfill_value : str, optional
+        Value to fill in string array in empty cells or if not enough columns
+        in line and *fill==True* (default: '').
+    strip : str, optional
+        Strip strings with *str.strip(strip)*. If *strip* is *None*, quotes "
+        and ' are stripped from input fields (default), otherwise the character
+        in *strip* is stripped from the input fields.
+        If *strip* is set to *False* then nothing is stripped and reading is
+        about 30% faster for text files.
+    hstrip : bool, optional
+        Strip header cells to match *cname* if True (default), else take header
+        cells literally.
+    header : bool, optional
+        Return header strings instead of numbers/strings in rest of file. This
+        allows to use (almost) the same call to get values and header:
+
+        .. code-block:: python
+
+           head, shead = xread(ifile, nc=1, snc=1, header=True)
+           data, sdata = xread(ifile, nc=1, snc=1)
+           temp = data[:, head[0].index('temp')]
+
+    full_header : bool, optional
+        Header will be a list of the header lines if set.
+    transpose : bool, optional
+        `fsread` reads in row-major format, i.e. the first dimension are the
+        rows and second dimension are the columns *out(:nrow, :ncol)*. This
+        will be transposed to column-major format *out(:ncol, :nrow)* if
+        *transpose* is set.
+    strarr : bool, optional
+        Return header as numpy array rather than list.
+    return_list : bool, optional
+        Return lists rather than arrays.
+
+    Returns
+    -------
+    array of floats, array of strings
+        First array is also string if header. Array is replaced by an empty
+        string if this output is not demanded such as with *nc=0*.
+
+    Notes
+    -----
+    If *header==True* then skip is counterintuitive because it is
+    actually the number of header rows to be read. This is to
+    be able to have the exact same call of the function, once
+    with *header=False* and once with *header=True*.
+
+    ``xread`` needs module :mod:`xlrd` for reading xls-files, and
+    module :mod:`openpyxl` for reading xlsx-files. Raises IOError
+    during read if relevant module is not installed.
+
+    Examples
+    --------
+    Using xlrd for xls files
+
+    >>> filename = 'test_readexcel.xls'
+    >>> dat, sdat = xread(filename, skip=1, nc=-1)
+    >>> print(dat)
+    [[1.1 1.2 1.3 1.4]
+     [2.1 2.2 2.3 2.4]
+     [3.1 3.2 3.3 3.4]
+     [4.1 4.2 4.3 4.4]]
+    >>> print(sdat)
+    []
+    >>> dat, sdat = xread(filename, skip=1, nc=[2], squeeze=True)
+    >>> print(dat)
+    [1.3 2.3 3.3 4.3]
+    >>> dat, sdat = xread(filename, skip=1, cname=['head1', 'head2'])
+    >>> print(dat)
+    [[1.1 1.2]
+     [2.1 2.2]
+     [3.1 3.2]
+     [4.1 4.2]]
+    >>> dat, sdat = xread(filename, sheet='Sheet3', nc=[1], snc=[0, 2], skip=1,
+    ...                   squeeze=True)
+    >>> print(dat)
+    [1.2 2.2 3.2 4.2]
+    >>> print(sdat)
+    [['name1' 'name5']
+     ['name2' 'name6']
+     ['name3' 'name7']
+     ['name4' 'name8']]
+    >>> dat, sdat = xread(filename, sheet=2, cname='head2', snc=[0, 2], skip=1,
+    ...                   squeeze=True)
+    >>> print(dat)
+    [1.2 2.2 3.2 4.2]
+    >>> print(sdat)
+    [['name1' 'name5']
+     ['name2' 'name6']
+     ['name3' 'name7']
+     ['name4' 'name8']]
+    >>> dat, sdat = xread(filename, sheet='Sheet2', cname=['head2', 'head4'],
+    ...                   snc=[0, 2], skip=1, fill=True, fill_value=-9,
+    ...                   sfill_value='-8')
+    >>> print(dat)
+    [[-9.  1.4]
+     [ 2.2 2.4]
+     [ 3.2 3.4]
+     [ 4.2 4.4]]
+    >>> print(sdat)
+    [['1.1' '1.3']
+     ['2.1' '2.3']
+     ['3.1' '-8']
+     ['4.1' '4.3']]
+    >>> dat, sdat = xread(filename, sheet='Sheet2', cname=['head2', 'head4'],
+    ...                   snc=[0, 2], skip=1, header=True)
+    >>> print(dat)
+    [['head2', 'head4']]
+    >>> print(sdat)
+    [['head1', 'head3']]
+    >>> dat, sdat = xread(filename, sheet='Sheet2', cname=['head2', 'head4'],
+    ...                   snc=[0, 2], skip=1, header=True, squeeze=True)
+    >>> print(dat)
+    ['head2', 'head4']
+    >>> print(sdat)
+    ['head1', 'head3']
+    >>> dat, sdat = xread(filename, sheet='Sheet2', nc=-1, skip=1, header=True)
+    >>> print(dat)
+    [['head1', 'head2', 'head3', 'head4']]
+    >>> dat, sdat = xread(filename, sheet='Sheet2', cname=[' head2', 'head4'],
+    ...                   snc=[0, 2], skip=1, fill=True, fill_value=-9,
+    ...                   sfill_value='-8',hstrip=False)
+    >>> print(dat)
+    [[1.4]
+     [2.4]
+     [3.4]
+     [4.4]]
+
+    Using openpyxl for xlsx files
+
+    >>> filename = 'test_readexcel.xlsx'
+    >>> dat, sdat = xread(filename, skip=1, nc=-1)
+    >>> print(dat)
+    [[1.1 1.2 1.3 1.4]
+     [2.1 2.2 2.3 2.4]
+     [3.1 3.2 3.3 3.4]
+     [4.1 4.2 4.3 4.4]]
+    >>> print(sdat)
+    []
+    >>> dat, sdat = xread(filename, skip=1, nc=[2], squeeze=True)
+    >>> print(dat)
+    [1.3 2.3 3.3 4.3]
+    >>> dat, sdat = xread(filename, skip=1, cname=['head1', 'head2'])
+    >>> print(dat)
+    [[1.1 1.2]
+     [2.1 2.2]
+     [3.1 3.2]
+     [4.1 4.2]]
+    >>> dat, sdat = xread(filename, sheet='Sheet3', nc=[1], snc=[0, 2], skip=1,
+    ...                   squeeze=True)
+    >>> print(dat)
+    [1.2 2.2 3.2 4.2]
+    >>> print(sdat)
+    [['name1' 'name5']
+     ['name2' 'name6']
+     ['name3' 'name7']
+     ['name4' 'name8']]
+    >>> dat, sdat = xread(filename, sheet=2, cname='head2', snc=[0, 2], skip=1,
+    ...                   squeeze=True)
+    >>> print(dat)
+    [1.2 2.2 3.2 4.2]
+    >>> print(sdat)
+    [['name1' 'name5']
+     ['name2' 'name6']
+     ['name3' 'name7']
+     ['name4' 'name8']]
+    >>> dat, sdat = xread(filename, sheet='Sheet2', cname=['head2', 'head4'],
+    ...                   snc=[0, 2], skip=1, fill=True, fill_value=-9,
+    ...                   sfill_value='-8')
+    >>> print(dat)
+    [[-9.  1.4]
+     [ 2.2 2.4]
+     [ 3.2 3.4]
+     [ 4.2 4.4]]
+    >>> print(sdat)
+    [['1.1' '1.3']
+     ['2.1' '2.3']
+     ['3.1' '-8']
+     ['4.1' '4.3']]
+    >>> dat, sdat = xread(filename, sheet='Sheet2', cname=['head2', 'head4'],
+    ...                   snc=[0, 2], skip=1, header=True)
+    >>> print(dat)
+    [['head2', 'head4']]
+    >>> print(sdat)
+    [['head1', 'head3']]
+    >>> dat, sdat = xread(filename, sheet='Sheet2', cname=['head2', 'head4'],
+    ...                   snc=[0, 2], skip=1, header=True, squeeze=True)
+    >>> print(dat)
+    ['head2', 'head4']
+    >>> print(sdat)
+    ['head1', 'head3']
+    >>> dat, sdat = xread(filename, sheet='Sheet2', nc=-1, skip=1, header=True)
+    >>> print(dat)
+    [['head1', 'head2', 'head3', 'head4']]
+    >>> print(sdat)
+    []
+    >>> dat, sdat = xread(filename, sheet='Sheet2', cname=[' head2', 'head4'],
+    ...                   snc=[0, 2], skip=1, fill=True, fill_value=-9,
+    ...                   sfill_value='-8', hstrip=False)
+    >>> print(dat)
+    [[1.4]
+     [2.4]
+     [3.4]
+     [4.4]]
+
+    """
+    # Input error
+    if isinstance(nc, int) and isinstance(snc, int):
+        if (nc <= -1) and (snc <= -1):
+            raise ValueError('nc and snc must be integer or list of indices;'
+                             ' < 0 means to read the rest of the columns.'
+                             ' nc and snc cannot both be < 0.')
+
+    # Open file
+    try:
+        import xlrd
+        wb = xlrd.open_workbook(infile)
+        ixls = True
+    except (ModuleNotFoundError, xlrd.biffh.XLRDError):
+        try:
+            import openpyxl
+            wb = openpyxl.open(infile, read_only=True, data_only=True)
+            ixls = False
+        except ModuleNotFoundError:
+            raise IOError('Cannot open file (1) '+infile)
+    except IOError:
+        raise IOError('Cannot open file (2) '+infile)
+
+    # Get Sheet
+    if sheet is None:
+        if ixls:
+            sh = wb.sheet_by_index(0)
+        else:
+            sh = wb[wb.sheetnames[0]]
+    else:
+        if type(sheet) is str:
+            try:
+                if ixls:
+                    sh = wb.sheet_by_name(sheet)
+                else:
+                    sh = wb[sheet]
+            except IOError:
+                _close_file(wb, ixls=ixls)
+                raise IOError('Sheet '+sheet+' not in Excel file '+infile)
+        else:
+            if ixls:
+                nsheets = wb.nsheets
+            else:
+                nsheets = len(wb.sheetnames)
+            if sheet > nsheets:
+                _close_file(wb, ixls=ixls)
+                raise IOError(f'Error extracting sheet {str(sheet)}.'
+                              f'Only {nsheets} sheets in Excel'
+                              f' file {infile}.')
+            if ixls:
+                sh = wb.sheet_by_index(sheet)
+            else:
+                sh = wb[wb.sheetnames[sheet]]
+
+    # Read header and skip lines
+    head = _xread_head(sh, skip, hskip, ixls)
+
+    if ixls:
+        ncol = sh.ncols
+        nrow = sh.nrows - skip
+    else:
+        ncol = sh.max_column
+        nrow = sh.max_row - skip
+
+    # Read first row
+    res = _xread_row(sh, skip, ixls=ixls)
+    nres = len(res)
+    if not nres:
+        _close_file(wb, ixls=ixls)
+        raise ValueError('No line to determine separator.')
+
+    # Determine indices
+    iinc, iisnc = _determine_indices(wb, head, nres,
+                                     nc=nc, cname=cname,
+                                     snc=snc, sname=sname,
+                                     skip=skip, cskip=cskip, hskip=hskip,
+                                     hstrip=hstrip, sep=None, ixls=ixls)
+    aiinc = list(iinc)
+    aiinc.extend(iisnc)
+    miianc = max(aiinc)
+
+    # Header
+    if header:
+        var, svar = _get_header(
+            head, None, iinc, iisnc,
+            squeeze=squeeze,
+            fill=fill, fill_value=fill_value, sfill_value=sfill_value,
+            strip=strip, full_header=full_header,
+            transpose=transpose, strarr=strarr)
+        _close_file(wb, ixls=ixls)
+        return var, svar
+
+    # Values - first line
+    if (miianc >= nres) and (not fill):
+        _close_file(wb, ixls=ixls)
+        sres = ';'.join(res)
+        raise ValueError('Line has not enough columns to index: ' + sres)
+    var  = list()
+    svar = list()
+    if iinc:
+        null = _line2var(res, var, iinc, False)
+    if iisnc:
+        null = _line2var(res, svar, iisnc, False if strip is None else strip)
+
+    # Values - rest of file
+    for iline in range(2, nrow+1):
+        res = _xread_row(sh, skip + iline - 1, ixls=ixls)
+        nres = len(res)
+        if (miianc >= nres) and (not fill):
+            _close_file(wb, ixls=ixls)
+            sres = ';'.join(res)
+            raise ValueError('Line has not enough columns to index: ' + sres)
+        if iinc:
+            null = _line2var(res, var, iinc, False)
+            var[-1] = [ 'NaN' if iv == 'NA' else iv for iv in var[-1] ]
+        if iisnc:
+            null = _line2var(res, svar, iisnc,
+                             False if strip is None else strip)
+    _close_file(wb, ixls=ixls)
+
+    # Return correct shape and type
+    if var:
+        var = np.array(var, dtype=str)
+        if fill:
+            var = np.where((var == '') | (var == 'None'),
+                           str(fill_value), var)
+        var = np.array(var, dtype=float)
+        if squeeze:
+            var = var.squeeze()
+        if transpose:
+            var = var.T
+        if return_list:
+            if var.ndim == 1:
+                var = [ i for i in var ]
+            else:
+                var = [ [ var[i, j] for j in range(var.shape[1]) ]
+                        for i in range(var.shape[0]) ]
+    if svar:
+        svar = np.array(svar, dtype=str)
+        if fill:
+            svar = np.where((svar == '') | (svar == 'None'),
+                            sfill_value, svar)
+        if squeeze:
+            svar = svar.squeeze()
+        if transpose:
+            svar = svar.T
+        if return_list:
+            if svar.ndim == 1:
+                svar = [ i for i in svar ]
+            else:
+                svar = [ [ svar[i, j] for j in range(svar.shape[1]) ]
+                         for i in range(svar.shape[0]) ]
+
+    return var, svar
+
+
+def xlsread(*args, **kwargs):
+    """
+    Wrapper for :func:`xread`
+    """
+    return xread(*args, **kwargs)
+
+
+def xlsxread(*args, **kwargs):
+    """
+    Wrapper for :func:`xread`
+    """
+    return xread(*args, **kwargs)
 
 
 # --------------------------------------------------------------------

@@ -83,6 +83,7 @@ Modules and functions are currently provided in the following categories:
     * Meteorology_
     * Miscellaneous_
     * Plotting_
+    * `Special Files`_
 
 Functions and modules (alphabetical)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -190,6 +191,12 @@ Functions and modules (alphabetical)
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - us2fr
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - xlsread
+     - Same as `xread`
+   * - xlsxread
+     - Same as `xread`
+   * - xread
+     - Read numbers and strings from Excel file into 2D float and string arrays
 
 Functions and modules per category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -385,6 +392,22 @@ Functions and modules per category
            matplotlib's usetex
        * - text2plot
          - Write text on a plot
+
+.. _Special Files:
+
+**Special Files**
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - xlsread
+         - Same as `xread`
+       * - xlsxread
+         - Same as `xread`
+       * - xread
+         - Read numbers and strings from Excel file into 2D float and string arrays
 
 
 License

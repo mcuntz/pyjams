@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v1.17 (??? 2022)
+    * Added `xread`, `xlsread`, and `xlsxread`, reading numbers and strings from an
+      Excel file into 2D float and string arrays.
+
 v1.16 (Jan 2022)
     * Added `mad`, median absolute deviation test.
 
