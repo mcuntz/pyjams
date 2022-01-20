@@ -67,6 +67,7 @@ History
     * header returns also 2D arrays by default, Dec 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
     * Merged xread into module, Jan 2022, Matthias Cuntz
+    * Use iterators to read rows in Excel file, Jan 2022, Matthias Cuntz
 
 """
 import codecs
@@ -117,35 +118,49 @@ def _read_head(f, skip=0, hskip=0):
     return head
 
 
-def _xread_row(sh, irow, ixls=False):
+def _xread_get_iter_rows(sh, ixls=False):
     '''
-    Read one row from Excel sheet
+    Get iterator for rows in Excel sheet
 
     Parameters
     ----------
-    sh : Excel sheet handle
+    sh : handle of Excel sheet
         Handle to sheet in open Excel file
-    irow : int
-        Row index, zero-based
     ixls : bool, optional
         Use xlrd if True, otherwise use openpyxl (default)
 
     Returns
     -------
-    list
-        List with row values
+    iterator
 
     '''
     if ixls:
-        # xlrd starts counting at 0
-        res = sh.row(irow)
+        rows = sh.get_row()
     else:
-        # openpyxl starts counting at 1
-        res = sh[irow + 1]
-    return [ cc.value for cc in res ]
+        rows = sh.rows
+    return rows
 
 
-def _xread_head(sh, skip=0, hskip=0, ixls=False):
+def _xread_next_row(rows):
+    '''
+    Get next row in Excel sheet
+
+    Parameters
+    ----------
+    rows : iterator, generator
+        Iterator of rows in Excel sheet
+
+    Returns
+    -------
+    list
+        List with values in next row
+
+    '''
+    row = rows.__next__()
+    return [ cc.value for cc in row ]
+
+
+def _xread_head(rows, skip=0, hskip=0):
     '''
     Return the *skip-hskip* lines after the first *hskip* lines as header
     from Excel sheet
@@ -158,8 +173,6 @@ def _xread_head(sh, skip=0, hskip=0, ixls=False):
         Number of lines to skip at the beginning of file (default: 0)
     hskip : int, optional
         Number of lines in skip that do not belong to header (default: 0)
-    ixls : bool, optional
-        Use xlrd if True, otherwise use openpyxl (default)
 
     Returns
     -------
@@ -170,8 +183,10 @@ def _xread_head(sh, skip=0, hskip=0, ixls=False):
     head = []
     # Read header
     if skip > 0:
+        for iskip in range(hskip):
+            _ = _xread_next_row(rows)
         for iskip in range(skip-hskip):
-            head.append(_xread_row(sh, iskip, ixls=ixls))
+            head.append(_xread_next_row(rows))
     return head
 
 
@@ -1789,9 +1804,10 @@ def xread(infile, sheet=None,
                 sh = wb.sheet_by_index(sheet)
             else:
                 sh = wb[wb.sheetnames[sheet]]
+    rows = _xread_get_iter_rows(sh, ixls=ixls)
 
     # Read header and skip lines
-    head = _xread_head(sh, skip, hskip, ixls)
+    head = _xread_head(rows, skip, hskip)
 
     if ixls:
         ncol = sh.ncols
@@ -1801,7 +1817,7 @@ def xread(infile, sheet=None,
         nrow = sh.max_row - skip
 
     # Read first row
-    res = _xread_row(sh, skip, ixls=ixls)
+    res = _xread_next_row(rows)
     nres = len(res)
     if not nres:
         _close_file(wb, ixls=ixls)
@@ -1837,12 +1853,13 @@ def xread(infile, sheet=None,
     svar = list()
     if iinc:
         null = _line2var(res, var, iinc, False)
+        var[-1] = [ 'NaN' if iv == 'NA' else iv for iv in var[-1] ]
     if iisnc:
         null = _line2var(res, svar, iisnc, False if strip is None else strip)
 
     # Values - rest of file
     for iline in range(2, nrow+1):
-        res = _xread_row(sh, skip + iline - 1, ixls=ixls)
+        res = _xread_next_row(rows)
         nres = len(res)
         if (miianc >= nres) and (not fill):
             _close_file(wb, ixls=ixls)
