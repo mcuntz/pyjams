@@ -30,8 +30,11 @@ History
     * More consistent docstrings, Jan 2022, Matthias Cuntz
     * Bug in return type if list or tuple and undef,
       Jan 2022, Matthias Cuntz
+    * Change handling of return type to allow more (unspecific) iterable types
+      such as pandas time series, Jan 2022, Matthias Cuntz
 
 """
+from collections.abc import Iterable
 import numpy as np
 
 
@@ -96,31 +99,18 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
     11.7187
 
     """
-    # Check scalar, list or array
-    # -1: scalar, 0: tuple, 1: list, 2: ndarray, 3. masked_array
-    if np.iterable(temp):
-        if isinstance(temp, list):
-            islist = 1
-            mtemp = np.array(temp)
-            mtemp = np.where(mtemp == undef, 273.15, mtemp)
-        elif isinstance(temp, np.ma.MaskedArray):
-            islist = 2
-            mtemp = np.ma.where(temp == undef, 273.15, temp).filled(273.15)
-        elif isinstance(temp, np.ndarray):
-            islist = 3
-            # do not use masked array to avoid overflow
-            mtemp = np.where(temp == undef, 273.15, temp)
+    # Constants
+    T0 = 273.15  # Celcius <-> Kelvin [K]
+    # Check input type
+    if isinstance(temp, Iterable):
+        if isinstance(temp, np.ma.MaskedArray):
+            mtemp = np.ma.where(temp == undef, T0, temp).filled(T0)
         else:
-            islist = 0
             mtemp = np.array(temp)
-            mtemp = np.where(mtemp == undef, 273.15, mtemp)
+            mtemp = np.where(mtemp == undef, T0, mtemp)
     else:
         # scalar
-        islist = -1
-        if temp == undef:
-            mtemp = np.array(273.15)
-        else:
-            mtemp = np.array(temp)
+        mtemp = np.array(T0) if (temp == undef) else np.array(temp)
 
     # Coefficients of exponential function
     if (isotope == 1):    # HDO
@@ -148,16 +138,15 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
         out -= 1.
 
     # return same type as input type
-    if islist == 0:
-        mtemp = np.array(temp)
-        out = tuple(np.where(mtemp == undef, undef, out))
-    elif islist == 1:
-        mtemp = np.array(temp)
-        out = list(np.where(mtemp == undef, undef, out))
-    elif islist == 2:
-        out = np.ma.array(out, mask=((temp == undef) | (temp.mask)))
-    elif islist == 3:
-        out = np.where(temp == undef, undef, out)
+    if isinstance(temp, Iterable):
+        if isinstance(temp, np.ma.MaskedArray):
+            out = np.ma.array(out, mask=((temp == undef) | (temp.mask)))
+        elif isinstance(temp, np.ndarray):
+            out = np.where(temp == undef, undef, out)
+        else:
+            mtemp = np.array(temp)
+            out = np.where(mtemp == undef, undef, out)
+            out = type(temp)(out)
     else:
         if temp == undef:
             out = undef

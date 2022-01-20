@@ -29,8 +29,11 @@ History
     * Raise AssertionError rather than assuming Celcius,
       Jan 2022, Matthias Cuntz
     * Use warnings for T < 100 K, Jan 2022, Matthias Cuntz
+    * Change handling of return type to allow more (unspecific) iterable types
+      such as pandas time series, Jan 2022, Matthias Cuntz
 
 """
+from collections.abc import Iterable
 import numpy as np
 
 
@@ -197,32 +200,16 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
                   'MurphyKoop', 'Sonntag', 'Vaisala', 'Wexler', 'WMO']
     lknown = [ i.lower() for i in knownforms ]
 
-    # Check input
-    # Check scalar, list or array
-    # -1: scalar, 0: tuple, 1: list, 2: ndarray, 3. masked_array
-    if np.iterable(T):
-        if isinstance(T, list):
-            islist = 1
-            mT = np.array(T)
-            mT = np.where(mT == undef, T0, mT)
-        elif isinstance(T, np.ma.MaskedArray):
-            islist = 2
+    # Check input type
+    if isinstance(T, Iterable):
+        if isinstance(T, np.ma.MaskedArray):
             mT = np.ma.where(T == undef, T0, T)
-        elif isinstance(T, np.ndarray):
-            islist = 3
-            # do not use masked array to avoid overflow
-            mT = np.where(T == undef, T0, T)
         else:
-            islist = 0
             mT = np.array(T)
             mT = np.where(mT == undef, T0, mT)
     else:
         # scalar
-        islist = -1
-        if T == undef:
-            mT = np.array(T0)
-        else:
-            mT = np.array(T)
+        mT = np.array(T0) if (T == undef) else np.array(T)
     # Check unfeasible temperatures
     assert np.ma.all(mT > 0.), (
         'Temperature below 0 K; probably given in Celsius instead of Kelvin.')
@@ -239,10 +226,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
                          '{:s}'.format(', '.join(knownforms)))
 
     # Split input into masked arrays
-    if liquid:
-        Tlim = 1e-3
-    else:
-        Tlim = T0
+    Tlim = 1e-3 if liquid else T0
     if mT.size > 1:
         ii = np.ma.where(mT >= Tlim)[0]
         jj = np.ma.where(mT < Tlim)[0]
@@ -363,7 +347,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
             raise ValueError('Formula not known for liquid:'
                              ' {:s}'.format(formula))  # pragma: no cover
         esat_liq *= 100.  # hPa -> Pa
-        if islist > -1:
+        if isinstance(T, Iterable):
             out[ii] = esat_liq
         else:
             out = esat_liq
@@ -416,22 +400,21 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
             raise ValueError('Formula not known for ice:'
                              ' {:s}'.format(formula))  # pragma: no cover
         esat_ice *= 100.  # hPa -> Pa
-        if islist > -1:
+        if isinstance(T, Iterable):
             out[jj] = esat_ice
         else:
             out = esat_ice
 
     # return same type as input type
-    if islist == 0:
-        mT = np.array(T)
-        out = tuple(np.where(mT == undef, undef, out))
-    elif islist == 1:
-        mT = np.array(T)
-        out = list(np.where(mT == undef, undef, out))
-    elif islist == 2:
-        out = np.ma.array(out, mask=((T == undef) | (T.mask)))
-    elif islist == 3:
-        out = np.where(T == undef, undef, out)
+    if isinstance(T, Iterable):
+        if isinstance(T, np.ma.MaskedArray):
+            out = np.ma.array(out, mask=((T == undef) | (T.mask)))
+        elif isinstance(T, np.ndarray):
+            out = np.where(T == undef, undef, out)
+        else:
+            mT = np.array(T)
+            out = np.where(mT == undef, undef, out)
+            out = type(T)(out)
     else:
         if T == undef:
             out = undef

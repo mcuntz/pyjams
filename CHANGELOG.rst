@@ -2,6 +2,8 @@ Changelog
 ---------
 
 v1.17 (??? 2022)
+    * Change handling of return type to allow more (unspecific) iterable types
+      such as pandas time series in `esat` and `alpha_equ_h2o`.
     * Added `xread`, `xlsread`, and `xlsxread`, reading numbers and strings from an
       Excel file into 2D float and string arrays.
 
