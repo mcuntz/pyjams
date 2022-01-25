@@ -11,7 +11,15 @@ import unittest
 
 def _flatten(itr):
     import numpy as np
-    return list(np.array(itr).flatten())
+    fitr = np.array(itr).flatten()
+    if len(fitr) == 0:
+        return list(fitr)
+    else:
+        if isinstance(fitr[0], str):
+            return [ i for i in fitr ]
+        else:
+            return [ i if np.isfinite(i) else np.finfo(float).max
+                     for i in fitr ]
 
 
 class TestFsread(unittest.TestCase):
@@ -359,7 +367,7 @@ class TestFsread(unittest.TestCase):
 
         fout, sout = fsread(file_comma, nc=[1, 3], skip=1, fill=True,
                             strarr=True)
-        fsoll = [[1.2, 1.4], [0., 0.]]
+        fsoll = [[1.2, 1.4], [np.nan, np.nan]]
         ssoll = []
         assert isinstance(fout, np.ndarray)
         assert isinstance(sout, list)
@@ -841,6 +849,785 @@ class TestFsread(unittest.TestCase):
             os.remove(file_semicolon)
         if os.path.exists(file_comma):
             os.remove(file_comma)
+
+    def test_xread(self):
+        import numpy as np
+        from pyjams import xread, xlsread, xlsxread
+
+        # Excel files
+        file_xls  = 'tests/test_readexcel.xls'
+        file_xlsx = 'tests/test_readexcel.xlsx'
+
+        # Start tests - xls
+
+        # Read sample as with fread - see fread for more examples
+        fout, sout = xread(file_xls, nc=[1, 3], skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, nc=2, skip=1, header=True)
+        fsoll = [['head1', 'head2']]
+        ssoll = []
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, nc=2, skip=1, header=True,
+                           squeeze=True)
+        fsoll = ['head1', 'head2']
+        ssoll = []
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Read sample as with sread - see sread for more examples
+        fout, sout = xlsread(file_xls, snc=[1, 3], skip=1)
+        fsoll = []
+        ssoll = [['1.2', '1.4'], ['2.2', '2.4'],
+                 ['3.2', '3.4'], ['4.2', '4.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Read float and string columns - 1
+        fout, sout = xread(file_xls, nc=1, snc=-1, skip=1)
+        fsoll = [[1.1], [2.1], [3.1], [4.1]]
+        ssoll = [['1.2', '1.3', '1.4'], ['2.2', '2.3', '2.4'],
+                 ['3.2', '3.3', '3.4'], ['4.2', '4.3', '4.4']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, nc=-1, skip=1)
+        fsoll = [[1.1, 1.2, 1.3, 1.4], [2.1, 2.2, 2.3, 2.4],
+                 [3.1, 3.2, 3.3, 3.4], [4.1, 4.2, 4.3, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, snc=-1, skip=1)
+        fsoll = []
+        ssoll = [['1.1', '1.2', '1.3', '1.4'], ['2.1', '2.2', '2.3', '2.4'],
+                 ['3.1', '3.2', '3.3', '3.4'], ['4.1', '4.2', '4.3', '4.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # strip
+        fout, sout = xlsread(file_xls, snc=-1, skip=1, strip=False)
+        fsoll = []
+        ssoll = [['1.1', '1.2', '1.3', '1.4'], ['2.1', '2.2', '2.3', '2.4'],
+                 ['3.1', '3.2', '3.3', '3.4'], ['4.1', '4.2', '4.3', '4.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, snc=-1, skip=1, strip='1')
+        fsoll = []
+        ssoll = [['.', '.2', '.3', '.4'], ['2.', '2.2', '2.3', '2.4'],
+                 ['3.', '3.2', '3.3', '3.4'], ['4.', '4.2', '4.3', '4.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Read float and string columns - 2
+        fout, sout = xlsread(file_xls, sheet='Sheet3', nc=[1, 3], skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet=2, nc=[1, 3], snc=[0, 2], skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['name1', 'name5'], ['name2', 'name6'],
+                 ['name3', 'name7'], ['name4', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet=2, nc=[1, 3], snc=[0, 2],
+                             skip=1, transpose=True)
+        fsoll = [[1.2, 2.2, 3.2, 4.2], [1.4, 2.4, 3.4, 4.4]]
+        ssoll = [['name1', 'name2', 'name3', 'name4'],
+                 ['name5', 'name6', 'name7', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                           skip=1, return_list=True)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['name1', 'name5'], ['name2', 'name6'],
+                 ['name3', 'name7'], ['name4', 'name8']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet3', nc=[1, 3], snc=-1,
+                             skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['name1', 'name5'], ['name2', 'name6'],
+                 ['name3', 'name7'], ['name4', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet3', nc=-1, snc=[0, 2], skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['name1', 'name5'], ['name2', 'name6'],
+                 ['name3', 'name7'], ['name4', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet3', nc=-1, snc=3, skip=1)
+        fsoll = [[1.4], [2.4], [3.4], [4.4]]
+        ssoll = [['name1', '1.2', 'name5'], ['name2', '2.2', 'name6'],
+                 ['name3', '3.2', 'name7'], ['name4', '4.2', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet3', nc=-1, snc=3, skip=1,
+                           squeeze=True, return_list=True)
+        fsoll = [1.4, 2.4, 3.4, 4.4]
+        ssoll = [['name1', '1.2', 'name5'], ['name2', '2.2', 'name6'],
+                 ['name3', '3.2', 'name7'], ['name4', '4.2', 'name8']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Read header
+        fout, sout = xlsread(file_xls, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                             skip=1, header=True)
+        fsoll = [['head2', 'head4']]
+        ssoll = [['head1', 'head3']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                           skip=1, header=True, squeeze=True)
+        fsoll = ['head2', 'head4']
+        ssoll = ['head1', 'head3']
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                             skip=1, hskip=1, header=True)
+        fsoll = []
+        ssoll = []
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet4', nc=[1, 3], snc=[0, 2],
+                           skip=2, hskip=1, header=True, squeeze=True)
+        fsoll = ['head2', 'head4']
+        ssoll = ['head1', 'head3']
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                             skip=2, header=True, full_header=True,
+                             strarr=True)
+        fsoll = [['head1', 'head2', 'head3', 'head4'],
+                 ['name1', '1.2', 'name5', '1.4']]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                           skip=2, header=True)
+        fsoll = [['head2', 'head4'], ['1.2', '1.4']]
+        ssoll = [['head1', 'head3'], ['name1', 'name5']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                             skip=2, header=True, strarr=True)
+        fsoll = [['head2', 'head4'], ['1.2', '1.4']]
+        ssoll = [['head1', 'head3'], ['name1', 'name5']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet3', nc=[1], snc=[0], skip=2,
+                           header=True, squeeze=True)
+        fsoll = ['head2', '1.2']
+        ssoll = ['head1', 'name1']
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet3', nc=[1], snc=[0], skip=2,
+                             header=True, strarr=True, squeeze=True)
+        fsoll = ['head2', '1.2']
+        ssoll = ['head1', 'name1']
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet=2, nc=[1, 3], snc=[0, 2], skip=2,
+                           header=True, transpose=True)
+        fsoll = [['head2', '1.2'],
+                 ['head4', '1.4']]
+        ssoll = [['head1', 'name1'],
+                 ['head3', 'name5']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet=2, nc=[1, 3], snc=[0, 2], skip=2,
+                             header=True, strarr=True, transpose=True)
+        fsoll = [['head2', '1.2'],
+                 ['head4', '1.4']]
+        ssoll = [['head1', 'name1'],
+                 ['head3', 'name5']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # missing values
+        fout, sout = xread(file_xls, sheet='Sheet2', nc=[1, 3], skip=1,
+                           fill=True, fill_value=-1)
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet2', nc=[1, 3], skip=1,
+                             fill=True, strarr=True)
+        fsoll = [[np.nan, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # cname, sname
+        fout, sout = xread(file_xls, sheet=1, cname='head2', snc=[0, 2],
+                           skip=1, fill=True, fill_value=-1, sfill_value='NA',
+                           squeeze=True)
+        fsoll = [-1., 2.2, 3.2, 4.2]
+        ssoll = [['1.1', '1.3'], ['2.1', '2.3'],
+                 ['3.1', 'NA'], ['4.1', '4.3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet=1, cname=['head2', 'head4'],
+                             snc=[0], skip=1, fill=True, fill_value=-1,
+                             squeeze=True)
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = ['1.1', '2.1', '3.1', '4.1']
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet2', cname=['head2', 'head4'],
+                           snc=[0], skip=1, fill=True, fill_value=-1,
+                           squeeze=True, return_list=True)
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = ['1.1', '2.1', '3.1', '4.1']
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet2',
+                             cname=['head2', 'head4'],
+                             snc=-1, skip=1, fill=True, fill_value=-1,
+                             sfill_value='NA')
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['1.1', '1.3'], ['2.1', '2.3'],
+                 ['3.1', 'NA'], ['4.1', '4.3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet='Sheet2', nc=[1, 3],
+                           sname=['head1', 'head3'], skip=1, fill=True,
+                           fill_value=-1, strarr=True, header=True)
+        fsoll = [['head2', 'head4']]
+        ssoll = [['head1', 'head3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsread(file_xls, sheet='Sheet2',
+                             cname=['head2', 'head4'],
+                             snc=-1, skip=1, header=True, full_header=True)
+        fsoll = [['head1', 'head2', 'head3', 'head4']]
+        ssoll = []
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet=1, nc=[1, 3], sname='head1',
+                           skip=1, fill=True, fill_value=-1, strarr=True,
+                           header=True)
+        fsoll = [['head2', 'head4']]
+        ssoll = [['head1']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # hstrip
+        fout, sout = xlsread(file_xls, sheet=1, cname=['  head2', 'head4'],
+                             snc=-1, skip=1, fill=True, fill_value=-1,
+                             hstrip=False, sfill_value='NA')
+        fsoll = [[1.4, 2.4, 3.4, 4.4]]
+        ssoll = [['1.1', 'NA', '1.3'],
+                 ['2.1', '2.2', '2.3'],
+                 ['3.1', '3.2', 'NA'],
+                 ['4.1', '4.2', '4.3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xls, sheet=1, cname=['  head2', 'head4'],
+                           snc=-1, skip=1, fill=True, fill_value=-1,
+                           sfill_value='NA', hstrip=True)
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['1.1', '1.3'], ['2.1', '2.3'],
+                 ['3.1', 'NA'], ['4.1', '4.3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Start tests - xlsx
+
+        # Read sample as with fread - see fread for more examples
+        fout, sout = xread(file_xlsx, nc=[1, 3], skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, nc=2, skip=1, header=True)
+        fsoll = [['head1', 'head2']]
+        ssoll = []
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, nc=2, skip=1, header=True,
+                           squeeze=True)
+        fsoll = ['head1', 'head2']
+        ssoll = []
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Read sample as with sread - see sread for more examples
+        fout, sout = xlsxread(file_xlsx, snc=[1, 3], skip=1)
+        fsoll = []
+        ssoll = [['1.2', '1.4'], ['2.2', '2.4'],
+                 ['3.2', '3.4'], ['4.2', '4.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Read float and string columns - 1
+        fout, sout = xread(file_xlsx, nc=1, snc=-1, skip=1)
+        fsoll = [[1.1], [2.1], [3.1], [4.1]]
+        ssoll = [['1.2', '1.3', '1.4'], ['2.2', '2.3', '2.4'],
+                 ['3.2', '3.3', '3.4'], ['4.2', '4.3', '4.4']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, nc=-1, skip=1)
+        fsoll = [[1.1, 1.2, 1.3, 1.4], [2.1, 2.2, 2.3, 2.4],
+                 [3.1, 3.2, 3.3, 3.4], [4.1, 4.2, 4.3, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, snc=-1, skip=1)
+        fsoll = []
+        ssoll = [['1.1', '1.2', '1.3', '1.4'], ['2.1', '2.2', '2.3', '2.4'],
+                 ['3.1', '3.2', '3.3', '3.4'], ['4.1', '4.2', '4.3', '4.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # strip
+        fout, sout = xlsxread(file_xlsx, snc=-1, skip=1, strip=False)
+        fsoll = []
+        ssoll = [['1.1', '1.2', '1.3', '1.4'], ['2.1', '2.2', '2.3', '2.4'],
+                 ['3.1', '3.2', '3.3', '3.4'], ['4.1', '4.2', '4.3', '4.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, snc=-1, skip=1, strip='1')
+        fsoll = []
+        ssoll = [['.', '.2', '.3', '.4'], ['2.', '2.2', '2.3', '2.4'],
+                 ['3.', '3.2', '3.3', '3.4'], ['4.', '4.2', '4.3', '4.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Read float and string columns - 2
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet3', nc=[1, 3], skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet=2, nc=[1, 3], snc=[0, 2], skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['name1', 'name5'], ['name2', 'name6'],
+                 ['name3', 'name7'], ['name4', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet=2, nc=[1, 3], snc=[0, 2],
+                              skip=1, transpose=True)
+        fsoll = [[1.2, 2.2, 3.2, 4.2], [1.4, 2.4, 3.4, 4.4]]
+        ssoll = [['name1', 'name2', 'name3', 'name4'],
+                 ['name5', 'name6', 'name7', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                           skip=1, return_list=True)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['name1', 'name5'], ['name2', 'name6'],
+                 ['name3', 'name7'], ['name4', 'name8']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet3', nc=[1, 3], snc=-1,
+                              skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['name1', 'name5'], ['name2', 'name6'],
+                 ['name3', 'name7'], ['name4', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet3', nc=-1, snc=[0, 2],
+                           skip=1)
+        fsoll = [[1.2, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['name1', 'name5'], ['name2', 'name6'],
+                 ['name3', 'name7'], ['name4', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet3', nc=-1, snc=3, skip=1)
+        fsoll = [[1.4], [2.4], [3.4], [4.4]]
+        ssoll = [['name1', '1.2', 'name5'], ['name2', '2.2', 'name6'],
+                 ['name3', '3.2', 'name7'], ['name4', '4.2', 'name8']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet3', nc=-1, snc=3, skip=1,
+                           squeeze=True, return_list=True)
+        fsoll = [1.4, 2.4, 3.4, 4.4]
+        ssoll = [['name1', '1.2', 'name5'], ['name2', '2.2', 'name6'],
+                 ['name3', '3.2', 'name7'], ['name4', '4.2', 'name8']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # Read header
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                              skip=1, header=True)
+        fsoll = [['head2', 'head4']]
+        ssoll = [['head1', 'head3']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                           skip=1, header=True, squeeze=True)
+        fsoll = ['head2', 'head4']
+        ssoll = ['head1', 'head3']
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                              skip=1, hskip=1, header=True)
+        fsoll = []
+        ssoll = []
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet4', nc=[1, 3], snc=[0, 2],
+                           skip=2, hskip=1, header=True, squeeze=True)
+        fsoll = ['head2', 'head4']
+        ssoll = ['head1', 'head3']
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                              skip=2, header=True, full_header=True,
+                              strarr=True)
+        fsoll = [['head1', 'head2', 'head3', 'head4'],
+                 ['name1', '1.2', 'name5', '1.4']]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                           skip=2, header=True)
+        fsoll = [['head2', 'head4'], ['1.2', '1.4']]
+        ssoll = [['head1', 'head3'], ['name1', 'name5']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet3', nc=[1, 3], snc=[0, 2],
+                              skip=2, header=True, strarr=True)
+        fsoll = [['head2', 'head4'], ['1.2', '1.4']]
+        ssoll = [['head1', 'head3'], ['name1', 'name5']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet3', nc=[1], snc=[0], skip=2,
+                           header=True, squeeze=True)
+        fsoll = ['head2', '1.2']
+        ssoll = ['head1', 'name1']
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet3', nc=[1], snc=[0],
+                              skip=2, header=True, strarr=True, squeeze=True)
+        fsoll = ['head2', '1.2']
+        ssoll = ['head1', 'name1']
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet=2, nc=[1, 3], snc=[0, 2], skip=2,
+                           header=True, transpose=True)
+        fsoll = [['head2', '1.2'],
+                 ['head4', '1.4']]
+        ssoll = [['head1', 'name1'],
+                 ['head3', 'name5']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet=2, nc=[1, 3], snc=[0, 2],
+                              skip=2, header=True, strarr=True, transpose=True)
+        fsoll = [['head2', '1.2'],
+                 ['head4', '1.4']]
+        ssoll = [['head1', 'name1'],
+                 ['head3', 'name5']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # missing values
+        fout, sout = xread(file_xlsx, sheet='Sheet2', nc=[1, 3], skip=1,
+                           fill=True, fill_value=-1)
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet2', nc=[1, 3], skip=1,
+                              fill=True, strarr=True)
+        fsoll = [[np.nan, 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = []
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # cname, sname
+        fout, sout = xread(file_xlsx, sheet=1, cname='head2', snc=[0, 2],
+                           skip=1, fill=True, fill_value=-1, sfill_value='NA',
+                           squeeze=True)
+        fsoll = [-1., 2.2, 3.2, 4.2]
+        ssoll = [['1.1', '1.3'], ['2.1', '2.3'],
+                 ['3.1', 'NA'], ['4.1', '4.3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet=1, cname=['head2', 'head4'],
+                              snc=[0], skip=1, fill=True, fill_value=-1,
+                              squeeze=True)
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = ['1.1', '2.1', '3.1', '4.1']
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet2', cname=['head2', 'head4'],
+                           snc=[0], skip=1, fill=True, fill_value=-1,
+                           squeeze=True, return_list=True)
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = ['1.1', '2.1', '3.1', '4.1']
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet2',
+                              cname=['head2', 'head4'],
+                              snc=-1, skip=1, fill=True, fill_value=-1,
+                              sfill_value='NA')
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['1.1', '1.3'], ['2.1', '2.3'],
+                 ['3.1', 'NA'], ['4.1', '4.3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet='Sheet2', nc=[1, 3],
+                           sname=['head1', 'head3'], skip=1, fill=True,
+                           fill_value=-1, strarr=True, header=True)
+        fsoll = [['head2', 'head4']]
+        ssoll = [['head1', 'head3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xlsxread(file_xlsx, sheet='Sheet2',
+                              cname=['head2', 'head4'],
+                              snc=-1, skip=1, header=True, full_header=True)
+        fsoll = [['head1', 'head2', 'head3', 'head4']]
+        ssoll = []
+        assert isinstance(fout, list)
+        assert isinstance(sout, list)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet=1, nc=[1, 3], sname='head1',
+                           skip=1, fill=True, fill_value=-1, strarr=True,
+                           header=True)
+        fsoll = [['head2', 'head4']]
+        ssoll = [['head1']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # hstrip
+        fout, sout = xlsxread(file_xlsx, sheet=1, cname=['  head2', 'head4'],
+                              snc=-1, skip=1, fill=True, fill_value=-1,
+                              hstrip=False, sfill_value='NA')
+        fsoll = [[1.4, 2.4, 3.4, 4.4]]
+        ssoll = [['1.1', 'NA', '1.3'],
+                 ['2.1', '2.2', '2.3'],
+                 ['3.1', '3.2', 'NA'],
+                 ['4.1', '4.2', '4.3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = xread(file_xlsx, sheet=1, cname=['  head2', 'head4'],
+                           snc=-1, skip=1, fill=True, fill_value=-1,
+                           sfill_value='NA', hstrip=True)
+        fsoll = [[-1., 1.4], [2.2, 2.4], [3.2, 3.4], [4.2, 4.4]]
+        ssoll = [['1.1', '1.3'], ['2.1', '2.3'],
+                 ['3.1', 'NA'], ['4.1', '4.3']]
+        assert isinstance(fout, np.ndarray)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
 
 
 if __name__ == "__main__":

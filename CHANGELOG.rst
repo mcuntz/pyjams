@@ -2,6 +2,10 @@ Changelog
 ---------
 
 v1.17 (??? 2022)
+    * Always close open files in module `fsread`.
+    * Set default fill_value to NaN for floats in module `fsread`.
+    * Remove read_only mode for openpyxl in `xread` because closing is disabled
+      in this case.
     * Change handling of return type to allow more (unspecific) iterable types
       such as pandas time series in `esat` and `alpha_equ_h2o`.
     * Added `xread`, `xlsread`, and `xlsxread`, reading numbers and strings from an

@@ -68,6 +68,10 @@ History
     * More consistent docstrings, Jan 2022, Matthias Cuntz
     * Merged xread into module, Jan 2022, Matthias Cuntz
     * Use iterators to read rows in Excel file, Jan 2022, Matthias Cuntz
+    * Always close open files, Jan 2022, Matthias Cuntz
+    * Default fill_value is NaN, Jan 2022, Matthias Cuntz
+    * Remove read_only mode for openpyxl because closing is disabled
+      in this case, Jan 2022, Matthias Cuntz
 
 """
 import codecs
@@ -135,7 +139,7 @@ def _xread_get_iter_rows(sh, ixls=False):
 
     '''
     if ixls:
-        rows = sh.get_row()
+        rows = sh.get_rows()
     else:
         rows = sh.rows
     return rows
@@ -153,11 +157,11 @@ def _xread_next_row(rows):
     Returns
     -------
     list
-        List with values in next row
+        List with strings of values in next row
 
     '''
     row = rows.__next__()
-    return [ cc.value for cc in row ]
+    return [ str(cc.value) for cc in row ]
 
 
 def _xread_head(rows, skip=0, hskip=0):
@@ -311,6 +315,7 @@ def _determine_indices(f, head, nres,
         isinstance(snc, (list, tuple, np.ndarray))):
         # both indices
         if np.in1d(nc, snc, assume_unique=True).any():
+            _close_file(f, ixls=ixls)
             raise ValueError('float and string indices overlap.')
         iinc  = nc
         iisnc = snc
@@ -393,16 +398,19 @@ def _line2var(res, var, iinc, strip=None):
     return var
 
 
-def _get_header(head, sep, iinc, iisnc,
+def _get_header(f, head, sep, iinc, iisnc,
                 squeeze=False,
-                fill=False, fill_value=0, sfill_value='',
+                fill=False, fill_value='NaN', sfill_value='',
                 strip=None, full_header=False,
-                transpose=False, strarr=False):
+                transpose=False, strarr=False,
+                ixls=False):
     '''
     Return header for float and string arrays
 
     Parameters
     ----------
+    f : file handle
+        Open file handle will be closed if error
     head : list
         List of input header files
     sep : str
@@ -420,7 +428,7 @@ def _get_header(head, sep, iinc, iisnc,
         otherwise raises ValueError (default).
     fill_value : float, optional
          Value to fill in float array in empty cells or if not enough columns
-         in line and *fill==True* (default: 0).
+         in line and *fill==True* (default: 'NaN').
     sfill_value : str, optional
          Value to fill in string array in empty cells or if not enough columns
          in line and *fill==True* (default: '').
@@ -439,6 +447,8 @@ def _get_header(head, sep, iinc, iisnc,
         *transpose* is set.
     strarr : bool, optional
         Return header as numpy array rather than list.
+    ixls : bool, optional
+        Use xlrd if True, otherwise use openpyxl (default)
 
     Returns
     -------
@@ -455,9 +465,6 @@ def _get_header(head, sep, iinc, iisnc,
         var = head
         if strarr:
             var = np.array(var, dtype=str)
-        elif isinstance(var[0], tuple):
-            # from _xread_head if openpyxl
-            var = [ list(ll) for ll in var ]
         return var, svar
     else:
         k = 0
@@ -475,6 +482,7 @@ def _get_header(head, sep, iinc, iisnc,
             if iisnc:
                 miianc = max(miianc, max(iisnc))
             if (miianc >= nhres) and (not fill):
+                _close_file(f, ixls=ixls)
                 raise ValueError(f'Line has not enough columns to index:'
                                  f' {head[k]}')
             if iinc:
@@ -593,7 +601,7 @@ def fsread(infile,
            skip=0, cskip=0, hskip=0,
            separator=None, squeeze=False,
            skip_blank=False, comment=None,
-           fill=False, fill_value=0, sfill_value='',
+           fill=False, fill_value=np.nan, sfill_value='',
            strip=None, hstrip=True,
            encoding='ascii', errors='ignore',
            header=False, full_header=False,
@@ -652,7 +660,7 @@ def fsread(infile,
         else raises ValueError (default).
     fill_value : float, optional
         Value to fill in float array in empty cells or if not enough columns
-        in line and *fill==True* (default: 0).
+        in line and *fill==True* (default: numpy.nan).
     sfill_value : str, optional
         Value to fill in string array in empty cells or if not enough columns
         in line and *fill==True* (default: '').
@@ -882,6 +890,7 @@ def fsread(infile,
     sep, res = _get_separator(f, separator, skip_blank, comment)
     nres = len(res)
     if not nres:
+        f.close()
         raise ValueError('No line to determine separator.')
 
     # Determine indices
@@ -895,11 +904,15 @@ def fsread(infile,
     miianc = max(aiinc)
 
     # Header
+    if np.isfinite(fill_value):
+        fval = str(fill_value)
+    else:
+        fval = 'NaN'
     if header:
         var, svar = _get_header(
-            head, sep, iinc, iisnc,
+            f, head, sep, iinc, iisnc,
             squeeze=squeeze,
-            fill=fill, fill_value=fill_value, sfill_value=sfill_value,
+            fill=fill, fill_value=fval, sfill_value=sfill_value,
             strip=strip, full_header=full_header,
             transpose=transpose, strarr=strarr)
         f.close()
@@ -947,7 +960,7 @@ def fsread(infile,
     if var:
         var = np.array(var, dtype=str)
         if fill:
-            var = np.where(var == '', str(fill_value), var)
+            var = np.where(var == '', fval, var)
         var = np.array(var, dtype=float)
         if squeeze:
             var = var.squeeze()
@@ -1480,7 +1493,7 @@ def sread(infile,
         nc = -1
     dat, sdat = fsread(infile,
                        nc=0, cname=None, snc=nc, sname=cname,
-                       fill_value=0, sfill_value=fill_value,
+                       fill_value=np.nan, sfill_value=fill_value,
                        header=header, full_header=full_header,
                        **kwargs)
     if header and full_header:
@@ -1493,7 +1506,7 @@ def xread(infile, sheet=None,
           nc=0, cname=None, snc=0, sname=None,
           skip=0, cskip=0, hskip=0,
           squeeze=False,
-          fill=False, fill_value=0, sfill_value='',
+          fill=False, fill_value=np.nan, sfill_value='',
           strip=None, hstrip=True,
           header=False, full_header=False,
           transpose=False, strarr=False,
@@ -1545,7 +1558,7 @@ def xread(infile, sheet=None,
         else raises ValueError (default).
     fill_value : float, optional
         Value to fill in float array in empty cells or if not enough columns
-        in line and *fill==True* (default: 0).
+        in line and *fill==True* (default: numpy.nan).
     sfill_value : str, optional
         Value to fill in string array in empty cells or if not enough columns
         in line and *fill==True* (default: '').
@@ -1667,7 +1680,7 @@ def xread(infile, sheet=None,
     [['head1', 'head2', 'head3', 'head4']]
     >>> dat, sdat = xread(filename, sheet='Sheet2', cname=[' head2', 'head4'],
     ...                   snc=[0, 2], skip=1, fill=True, fill_value=-9,
-    ...                   sfill_value='-8',hstrip=False)
+    ...                   sfill_value='-8', hstrip=False)
     >>> print(dat)
     [[1.4]
      [2.4]
@@ -1767,7 +1780,8 @@ def xread(infile, sheet=None,
     except (ModuleNotFoundError, xlrd.biffh.XLRDError):
         try:
             import openpyxl
-            wb = openpyxl.open(infile, read_only=True, data_only=True)
+            # wb = openpyxl.open(infile, read_only=True, data_only=True)
+            wb = openpyxl.open(infile, data_only=True)
             ixls = False
         except ModuleNotFoundError:
             raise IOError('Cannot open file (1) '+infile)
@@ -1834,13 +1848,17 @@ def xread(infile, sheet=None,
     miianc = max(aiinc)
 
     # Header
+    if np.isfinite(fill_value):
+        fval = str(fill_value)
+    else:
+        fval = 'NaN'
     if header:
         var, svar = _get_header(
-            head, None, iinc, iisnc,
+            wb, head, None, iinc, iisnc,
             squeeze=squeeze,
-            fill=fill, fill_value=fill_value, sfill_value=sfill_value,
+            fill=fill, fill_value=fval, sfill_value=sfill_value,
             strip=strip, full_header=full_header,
-            transpose=transpose, strarr=strarr)
+            transpose=transpose, strarr=strarr, ixls=ixls)
         _close_file(wb, ixls=ixls)
         return var, svar
 
@@ -1877,8 +1895,7 @@ def xread(infile, sheet=None,
     if var:
         var = np.array(var, dtype=str)
         if fill:
-            var = np.where((var == '') | (var == 'None'),
-                           str(fill_value), var)
+            var = np.where((var == '') | (var == 'None'), fval, var)
         var = np.array(var, dtype=float)
         if squeeze:
             var = var.squeeze()
