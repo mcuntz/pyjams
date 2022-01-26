@@ -1523,7 +1523,7 @@ def xread(infile, sheet=None,
     ----------
     infile : str
         Excel source file name
-    sheet : str, optional
+    sheet : str or int, optional
         Name or number of Excel sheet (default: first sheet)
     nc : int or iterable, optional
         Number of columns to be read as floats [default: none (*nc=0*)]. *nc*
@@ -1596,8 +1596,10 @@ def xread(infile, sheet=None,
     Returns
     -------
     array of floats, array of strings
-        First array is also string if header. Array is replaced by an empty
-        string if this output is not demanded such as with *nc=0*.
+        First array is also string if *header==True*.
+        The array of floats or of strings is replaced by an
+        empty list if the output is not demanded, e.g. the array of float
+        is set to [] if *nc=0*.
 
     Notes
     -----
@@ -1796,14 +1798,17 @@ def xread(infile, sheet=None,
             sh = wb[wb.sheetnames[0]]
     else:
         if type(sheet) is str:
-            try:
-                if ixls:
-                    sh = wb.sheet_by_name(sheet)
-                else:
-                    sh = wb[sheet]
-            except IOError:
+            if ixls:
+                sheetnames = wb.sheet_names()
+            else:
+                sheetnames = wb.sheetnames
+            if sheet not in sheetnames:
                 _close_file(wb, ixls=ixls)
-                raise IOError('Sheet '+sheet+' not in Excel file '+infile)
+                raise ValueError('Sheet '+sheet+' not in Excel file '+infile)
+            if ixls:
+                sh = wb.sheet_by_name(sheet)
+            else:
+                sh = wb[sheet]
         else:
             if ixls:
                 nsheets = wb.nsheets
@@ -1811,9 +1816,9 @@ def xread(infile, sheet=None,
                 nsheets = len(wb.sheetnames)
             if sheet > nsheets:
                 _close_file(wb, ixls=ixls)
-                raise IOError(f'Error extracting sheet {str(sheet)}.'
-                              f'Only {nsheets} sheets in Excel'
-                              f' file {infile}.')
+                raise ValueError(f'Error extracting sheet {str(sheet)}.'
+                                 f'Only {nsheets} sheets in Excel'
+                                 f' file {infile}.')
             if ixls:
                 sh = wb.sheet_by_index(sheet)
             else:
@@ -1833,7 +1838,8 @@ def xread(infile, sheet=None,
     # Read first row
     res = _xread_next_row(rows)
     nres = len(res)
-    if not nres:
+    if not nres:  # pragma: no cover
+        # should not happen
         _close_file(wb, ixls=ixls)
         raise ValueError('No line to determine separator.')
 
@@ -1863,7 +1869,8 @@ def xread(infile, sheet=None,
         return var, svar
 
     # Values - first line
-    if (miianc >= nres) and (not fill):
+    if (miianc >= nres) and (not fill):  # pragma: no cover
+        # should not happen
         _close_file(wb, ixls=ixls)
         sres = ';'.join(res)
         raise ValueError('Line has not enough columns to index: ' + sres)
@@ -1879,7 +1886,8 @@ def xread(infile, sheet=None,
     for iline in range(2, nrow+1):
         res = _xread_next_row(rows)
         nres = len(res)
-        if (miianc >= nres) and (not fill):
+        if (miianc >= nres) and (not fill):  # pragma: no cover
+            # should not happen
             _close_file(wb, ixls=ixls)
             sres = ';'.join(res)
             raise ValueError('Line has not enough columns to index: ' + sres)

@@ -73,9 +73,18 @@ class TestFsread(unittest.TestCase):
         with open(file_blank, 'w') as ff:
             print('head1 head2 head3 head4', file=ff)
             print('1.1 1.2 1.3 1.4', file=ff)
-            print('', file=ff)
             print('2.1 2.2 2.3 2.4', file=ff)
             print('', file=ff)
+            print('', file=ff)
+            print('3.1 3.2 3.3 3.4', file=ff)
+
+        file_blank1 = 'test_fsread_blank1.dat'
+        with open(file_blank1, 'w') as ff:
+            print('head1 head2 head3 head4', file=ff)
+            print('', file=ff)
+            print('# Comment', file=ff)
+            print('1.1 1.2 1.3 1.4', file=ff)
+            print('2.1 2.2 2.3 2.4', file=ff)
             print('3.1 3.2 3.3 3.4', file=ff)
 
         file_blank2 = 'test_fsread_blank2.dat'
@@ -500,13 +509,25 @@ class TestFsread(unittest.TestCase):
         # skip_blank
         fout, sout = fsread(file_blank, snc=-1, skip=1, skip_blank=False)
         fsoll = []
-        ssoll = [['1.1', '1.2', '1.3', '1.4']]
+        ssoll = [['1.1', '1.2', '1.3', '1.4'],
+                 ['2.1', '2.2', '2.3', '2.4']]
         assert isinstance(fout, list)
         assert isinstance(sout, np.ndarray)
         self.assertEqual(_flatten(fout), _flatten(fsoll))
         self.assertEqual(_flatten(sout), _flatten(ssoll))
 
         fout, sout = fsread(file_blank, snc=-1, skip=1, skip_blank=True)
+        fsoll = []
+        ssoll = [['1.1', '1.2', '1.3', '1.4'],
+                 ['2.1', '2.2', '2.3', '2.4'],
+                 ['3.1', '3.2', '3.3', '3.4']]
+        assert isinstance(fout, list)
+        assert isinstance(sout, np.ndarray)
+        self.assertEqual(_flatten(fout), _flatten(fsoll))
+        self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        fout, sout = fsread(file_blank1, snc=-1, skip=1, skip_blank=True,
+                            comment='#')
         fsoll = []
         ssoll = [['1.1', '1.2', '1.3', '1.4'],
                  ['2.1', '2.2', '2.3', '2.4'],
@@ -592,6 +613,8 @@ class TestFsread(unittest.TestCase):
                           comment='!')
         # first line is blank
         self.assertRaises(ValueError, fsread, file_blank2, snc=-1, skip=1)
+        # cannot determine indices because first line blank
+        self.assertRaises(ValueError, fsread, file_blank1, snc=-1, skip=1, skip_blank=False)
 
         if os.path.exists(file_whitespace):
             os.remove(file_whitespace)
@@ -605,6 +628,8 @@ class TestFsread(unittest.TestCase):
             os.remove(file_short_columns2)
         if os.path.exists(file_blank):
             os.remove(file_blank)
+        if os.path.exists(file_blank1):
+            os.remove(file_blank1)
         if os.path.exists(file_blank2):
             os.remove(file_blank2)
         if os.path.exists(file_comment):
@@ -1628,6 +1653,18 @@ class TestFsread(unittest.TestCase):
         assert isinstance(sout, np.ndarray)
         self.assertEqual(_flatten(fout), _flatten(fsoll))
         self.assertEqual(_flatten(sout), _flatten(ssoll))
+
+        # errors
+        # both nc=-1 and snc=-1
+        self.assertRaises(ValueError, xread, file_xlsx, nc=-1, snc=-1)
+        # cannot open file (2)
+        self.assertRaises(IOError, xread, 'dummy', nc=-1)
+        # sheet not in file - name
+        self.assertRaises(ValueError, xread, file_xls, 'Sheetx', nc=-1)
+        self.assertRaises(ValueError, xread, file_xlsx, 'Sheetx', nc=-1)
+        # sheet not in file - number
+        self.assertRaises(ValueError, xread, file_xls, 99, nc=-1)
+        self.assertRaises(ValueError, xread, file_xlsx, 99, nc=-1)
 
 
 if __name__ == "__main__":

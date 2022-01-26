@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v1.17 (??? 2022)
+v1.17 (Jan 2022)
     * Always close open files in module `fsread`.
     * Set default fill_value to NaN for floats in module `fsread`.
     * Remove read_only mode for openpyxl in `xread` because closing is disabled
