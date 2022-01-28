@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v1.18 (??? 2022)
+    * Return numpy array if type(input)(output) fails for unknown iterable
+      types in `esat` and `alpha_equ_h2o`.
+
 v1.17 (Jan 2022)
     * Always close open files in module `fsread`.
     * Set default fill_value to NaN for floats in module `fsread`.

@@ -32,6 +32,8 @@ History
       Jan 2022, Matthias Cuntz
     * Change handling of return type to allow more (unspecific) iterable types
       such as pandas time series, Jan 2022, Matthias Cuntz
+    * Return numpy array if type(input)(output) fails for unknown iterable
+      types, Jan 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -146,7 +148,10 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
         else:
             mtemp = np.array(temp)
             out = np.where(mtemp == undef, undef, out)
-            out = type(temp)(out)
+            try:
+                out = type(temp)(out)
+            except:
+                pass
     else:
         if temp == undef:
             out = undef

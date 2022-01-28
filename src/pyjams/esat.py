@@ -31,6 +31,8 @@ History
     * Use warnings for T < 100 K, Jan 2022, Matthias Cuntz
     * Change handling of return type to allow more (unspecific) iterable types
       such as pandas time series, Jan 2022, Matthias Cuntz
+    * Return numpy array if type(input)(output) fails for unknown iterable
+      types, Jan 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -414,7 +416,10 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
         else:
             mT = np.array(T)
             out = np.where(mT == undef, undef, out)
-            out = type(T)(out)
+            try:
+                out = type(T)(out)
+            except:
+                pass
     else:
         if T == undef:
             out = undef
