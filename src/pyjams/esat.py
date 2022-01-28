@@ -33,10 +33,13 @@ History
       such as pandas time series, Jan 2022, Matthias Cuntz
     * Return numpy array if type(input)(output) fails for unknown iterable
       types, Jan 2022, Matthias Cuntz
+    * Use helper functions input2array and array2input,
+      Jan 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
 import numpy as np
+from .helper import input2array, array2input
 
 
 __all__ = ['esat']
@@ -203,15 +206,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
     lknown = [ i.lower() for i in knownforms ]
 
     # Check input type
-    if isinstance(T, Iterable):
-        if isinstance(T, np.ma.MaskedArray):
-            mT = np.ma.where(T == undef, T0, T)
-        else:
-            mT = np.array(T)
-            mT = np.where(mT == undef, T0, mT)
-    else:
-        # scalar
-        mT = np.array(T0) if (T == undef) else np.array(T)
+    mT = input2array(T, undef=undef, default=T0)
     # Check unfeasible temperatures
     assert np.ma.all(mT > 0.), (
         'Temperature below 0 K; probably given in Celsius instead of Kelvin.')
@@ -408,21 +403,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
             out = esat_ice
 
     # return same type as input type
-    if isinstance(T, Iterable):
-        if isinstance(T, np.ma.MaskedArray):
-            out = np.ma.array(out, mask=((T == undef) | (T.mask)))
-        elif isinstance(T, np.ndarray):
-            out = np.where(T == undef, undef, out)
-        else:
-            mT = np.array(T)
-            out = np.where(mT == undef, undef, out)
-            try:
-                out = type(T)(out)
-            except:
-                pass
-    else:
-        if T == undef:
-            out = undef
+    out = array2input(out, T, undef=undef)
 
     return out
 

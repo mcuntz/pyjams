@@ -34,10 +34,12 @@ History
       such as pandas time series, Jan 2022, Matthias Cuntz
     * Return numpy array if type(input)(output) fails for unknown iterable
       types, Jan 2022, Matthias Cuntz
+    * Use helper functions input2array and array2input,
+      Jan 2022, Matthias Cuntz
 
 """
-from collections.abc import Iterable
 import numpy as np
+from .helper import input2array, array2input
 
 
 __all__ = ['alpha_equ_h2o']
@@ -104,15 +106,7 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
     # Constants
     T0 = 273.15  # Celcius <-> Kelvin [K]
     # Check input type
-    if isinstance(temp, Iterable):
-        if isinstance(temp, np.ma.MaskedArray):
-            mtemp = np.ma.where(temp == undef, T0, temp).filled(T0)
-        else:
-            mtemp = np.array(temp)
-            mtemp = np.where(mtemp == undef, T0, mtemp)
-    else:
-        # scalar
-        mtemp = np.array(T0) if (temp == undef) else np.array(temp)
+    mtemp = input2array(temp, undef=undef, default=T0)
 
     # Coefficients of exponential function
     if (isotope == 1):    # HDO
@@ -140,21 +134,7 @@ def alpha_equ_h2o(temp, isotope=None, undef=-9999., eps=False, greater1=True):
         out -= 1.
 
     # return same type as input type
-    if isinstance(temp, Iterable):
-        if isinstance(temp, np.ma.MaskedArray):
-            out = np.ma.array(out, mask=((temp == undef) | (temp.mask)))
-        elif isinstance(temp, np.ndarray):
-            out = np.where(temp == undef, undef, out)
-        else:
-            mtemp = np.array(temp)
-            out = np.where(mtemp == undef, undef, out)
-            try:
-                out = type(temp)(out)
-            except:
-                pass
-    else:
-        if temp == undef:
-            out = undef
+    out = array2input(out, temp, undef=undef)
 
     return out
 

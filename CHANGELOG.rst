@@ -2,6 +2,10 @@ Changelog
 ---------
 
 v1.18 (??? 2022)
+    * Added functions `array2input` and `input2array` in new `helper` module to
+      assure same input and output types. Use them in `esat` and
+      `alpha_equ_h2o`. The `helper` module is not in `__init__.py` nor in the
+      documentation (yet?).
     * Return numpy array if type(input)(output) fails for unknown iterable
       types in `esat` and `alpha_equ_h2o`.
 
