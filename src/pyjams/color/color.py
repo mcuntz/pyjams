@@ -22,9 +22,9 @@ History
     * Written Nov 2021, Matthias Cuntz
     * Change order of color maps, Dec 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Added 'order' keyword, Feb 2022, Matthias Cuntz
 
 """
-
 
 __all__ = ['get_cmap', 'print_palettes', 'show_palettes']
 
@@ -40,7 +40,8 @@ def _rgb2rgb(col):
 
     Returns
     -------
-    RGB tuple with values from 0-1
+    tuple
+        RGB tuple with values from 0-1
 
     Examples
     --------
@@ -62,7 +63,8 @@ def _to_grey(col):
 
     Returns
     -------
-    RGB tuple with corresponding grey values
+    tuple
+        RGB tuple with corresponding grey values
 
     Examples
     --------
@@ -75,7 +77,7 @@ def _to_grey(col):
 
 
 def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
-             reverse=False, grey=False):
+             reverse=False, grey=False, order=None):
     """
     Get colors of defined palettes or continuous colormaps
 
@@ -99,6 +101,10 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
         be reversed.
     grey : bool, optional
         Return grey equivalent colors if True (default: False).
+    order : str, optional
+        Order colors by 'hue', 'saturation', or 'value'.
+        This is done before *reverse* and *grey*
+        (default: order from color sources).
 
     Returns
     -------
@@ -128,7 +134,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
 
     """
     import matplotlib as mpl
+    import matplotlib.pyplot as plt
     import pyjams.color
+    from pyjams import argsort
 
     # _r at end of palette is same as reverse=True
     if palette.endswith('_r'):
@@ -223,11 +231,11 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
 
     if not found_palette:
         # try:
-        #     amplmaps = mpl.pyplot.colormaps()
+        #     amplmaps = plt.colormaps()
         #     mplmaps = [ i for i in amplmaps if not i.endswith('_r') ]
         # except AttributeError:
         #     mplmaps = sorted(mpl.cm.datad.keys())
-        amplmaps = mpl.pyplot.colormaps()
+        amplmaps = plt.colormaps()
         mplmaps = [ i for i in amplmaps if not i.endswith('_r') ]
         if palette in mplmaps:
             found_palette = True
@@ -260,6 +268,16 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
 
     if not found_palette:
         raise ValueError(palette+' color palette not found.')
+
+    if order is not None:
+        hsv = ['hue', 'saturation', 'value']
+        if order.lower() in hsv:
+            oo = hsv.index(order.lower())
+        else:
+            raise ValueError('Sort order not known: ' + order)
+        ii = argsort([ mpl.colors.rgb_to_hsv(cc)[oo]
+                       for cc in colors ])
+        colors = [ colors[i] for i in ii ]
 
     if reverse:
         colors = colors[::-1]
@@ -311,6 +329,7 @@ def print_palettes(collection=''):
 
     """
     import matplotlib as mpl
+    import matplotlib.pyplot as plt
     import pyjams.color
 
     sron_collections = [ i for i in dir(pyjams.color)
@@ -379,12 +398,12 @@ def print_palettes(collection=''):
     if 'matplotlib' in collections:
         print('matplotlib')
         # try:
-        #     acmaps = mpl.pyplot.colormaps()
+        #     acmaps = plt.colormaps()
         #     cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
         #     cmaps.sort()
         # except AttributeError:
         #     cmaps = sorted(mpl.colorbar.cm.datad.keys())
-        acmaps = mpl.pyplot.colormaps()
+        acmaps = plt.colormaps()
         cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
         cmaps.sort()
         print('   ', cmaps)
@@ -475,8 +494,9 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
                      collection=['mathematica', 'matplotlib'])
 
     """
-    import pyjams.color
     import matplotlib as mpl
+    import matplotlib.pyplot as plt
+    import pyjams.color
     # outtype
     if '.' in outfile:
         outtype = outfile[outfile.rfind('.')+1:]
@@ -551,12 +571,12 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
             all_collections.append(cc)
     if 'matplotlib' in collections:
         # try:
-        #     acmaps = mpl.pyplot.colormaps()
+        #     acmaps = plt.colormaps()
         #     cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
         #     cmaps.sort()
         # except AttributeError:
         #     cmaps = sorted(mpl.colorbar.cm.datad.keys())
-        acmaps = mpl.pyplot.colormaps()
+        acmaps = plt.colormaps()
         cmaps  = [ i for i in acmaps if not i.endswith('_r') ]
         cmaps.sort()
         all_collections.extend(cmaps)

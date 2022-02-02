@@ -122,6 +122,23 @@ class TestColor(unittest.TestCase):
         target = [ _to_grey(i) for i in brewer_ylgn3 ]
         self.assertEqual(cmap, target)
 
+        # order
+        cmap = get_cmap('brewer_ylgn3', order='HUE')
+        target = brewer_ylgn3
+        self.assertEqual(cmap, target)
+
+        cmap = get_cmap('brewer_ylgn3', order='Saturation')
+        target = brewer_ylgn3
+        self.assertEqual(cmap, target)
+
+        cmap = get_cmap('brewer_ylgn3', order='value')
+        target = brewer_ylgn3[::-1]
+        self.assertEqual(cmap, target)
+
+        cmap = get_cmap('brewer_ylgn3', order='value', reverse=True)
+        target = brewer_ylgn3
+        self.assertEqual(cmap, target)
+
         # mathematica
         cmap = get_cmap('mathematica_dark_rainbow_8')
         target = mathematica_dark_rainbow_8
@@ -239,6 +256,10 @@ class TestColor(unittest.TestCase):
 
         # nonsense name
         self.assertRaises(ValueError, get_cmap, 'NonSense')
+
+        # unknown order
+        self.assertRaises(ValueError, get_cmap, 'brewer_ylgn3',
+                          order='luminance')
 
     def test_print_palettes(self):
         from pyjams.color import print_palettes
