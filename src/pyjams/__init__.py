@@ -60,6 +60,7 @@ History
     * v1.15, added esat, Jan 2022, Matthias Cuntz
     * v1.16, added mad, Jan 2022, Matthias Cuntz
     * v1.17, added xread, xlsread, and xlsxread, Jan 2022, Matthias Cuntz
+    * v1.18, helper module to preserve input types, Mar 2022, Matthias Cuntz
 
 """
 # version, author

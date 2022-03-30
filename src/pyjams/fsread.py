@@ -1785,7 +1785,8 @@ def xread(infile, sheet=None,
             # wb = openpyxl.open(infile, read_only=True, data_only=True)
             wb = openpyxl.open(infile, data_only=True)
             ixls = False
-        except ModuleNotFoundError:
+        except ModuleNotFoundError:  # pragma: no cover
+            # too much hassle to test in special environment only for cover
             raise IOError('Cannot open file (1) '+infile)
     except IOError:
         raise IOError('Cannot open file (2) '+infile)

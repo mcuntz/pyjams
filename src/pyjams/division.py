@@ -31,10 +31,13 @@ History
     * Using numpy docstring format, May 2020, Matthias Cuntz
     * Output type is input type, Oct 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Use helper functions input2array and array2input,
+      Mar 2022, Matthias Cuntz
+    * Do not use geterr/seterr, Mar 2022, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
+from .helper import input2array, array2input
 
 
 __all__ = ['division', 'div']
@@ -98,34 +101,15 @@ def division(a, b, otherwise=np.nan, prec=0.):
     [0.5 1.0 --]
 
     """
-    oldsettings = np.geterr()
-    np.seterr(divide='ignore')
+    aa = input2array(a, undef=np.nan, default=0)
+    bb = input2array(b, undef=np.nan, default=1)
 
-    # 0; tuple, 1: list, 2: ndarray, 3: np.ma.ndarray
-    if isinstance(a, np.ma.masked_array) or isinstance(b, np.ma.masked_array):
-        inp = 3
-    elif isinstance(a, np.ndarray) or isinstance(b, np.ndarray):
-        inp = 2
-    elif isinstance(a, list) or isinstance(b, list):
-        inp = 1
-    else:
-        inp = 0
+    bbb = np.where(np.abs(bb) > np.abs(prec), bb, 1)
+    out = np.where(np.abs(bb) > np.abs(prec), aa/bbb, otherwise)
 
-    if inp == 3:
-        out = np.ma.where(np.ma.abs(np.ma.array(b)) > np.abs(prec),
-                          np.ma.array(a)/np.ma.array(b), otherwise)
-    else:
-        out = np.where(np.abs(np.array(b)) > np.abs(prec),
-                       np.array(a)/np.array(b), otherwise)
+    out = array2input(out, a, b, undef=np.nan)
 
-    np.seterr(**oldsettings)
-
-    if inp == 0:
-        return tuple(out)
-    elif inp == 1:
-        return list(out)
-    else:
-        return out
+    return out
 
 
 def div(*args, **kwargs):

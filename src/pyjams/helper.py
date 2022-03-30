@@ -19,27 +19,66 @@ The following functions are provided:
 
 History
     * Written input2array and array2input, Jan 2022, Matthias Cuntz
+    * Added isundef, Mar 2022, Matthias Cuntz
+    * Second input to array2input, Mar 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
 import numpy as np
 
 
-__all__ = ['array2input', 'input2array']
+__all__ = ['isundef', 'array2input', 'input2array']
 
 
-def array2input(outin, inp, undef=-9999.):
+def isundef(arr, undef):
+    """
+    Check if *arr* is undef
+
+    Return arr==undef, taking care of NaN and Inf.
+
+    Parameters
+    ----------
+    arr : scalar or numpy array
+        Input scalar array
+    undef : float
+        Check if arr equals *undef*.
+        Can use np.nan or np.inf for *undef*.
+
+    Returns
+    -------
+    numpy array with *arr==undef*
+
+    Examples
+    --------
+    >>> inp = [253.15, -9999.]
+    >>> print(isundef(inp, -9999.))
+    [False True]
+
+    """
+    if np.isnan(undef):
+        return np.isnan(arr)
+    elif np.isinf(undef):
+        return np.isinf(arr)
+    else:
+        return arr == undef
+
+
+def array2input(outin, inp, inp2=None, undef=-9999.):
     """
     Transforms numpy array to same type as input
 
     The numpy array *outin* will be transformed to the same type as *inp*.
-    Masked values on *inp* will be masked on output, undefined values in *inp*
-    will result in undefined output values.
+    Masked values on *inp* will be masked on output,
+    undefined values in *inp* will result in undefined output values.
+
+    If *inp2* is given, then type of *inp* will take precedence,
+    except if *inp* is a scalar or *inp2* is a masked array in which case
+    the type of *inp2* will be taken.
 
     The function is supposed to work with :func:`input2array`, which makes the
     input a numpy array, setting masked values and undefined values to some
-    default values to avoid math over- and underflow. `array2input` transforms
-    the output back to the input format.
+    default values to avoid math over- and underflow. `array2input`
+    transforms the output back to the input format.
 
     Parameters
     ----------
@@ -48,13 +87,17 @@ def array2input(outin, inp, undef=-9999.):
     inp : scalar or iterable of numbers
         Original input variable that was transformed to numpy array with
         :func:`input2array`
+    inp2 : scalar or iterable of numbers, optional
+        Second input variable that was transformed to numpy array with
+        :func:`input2array` (default: None)
     undef : float, optional
         Values in *inp* having value *undef* will result in ouput set to
         *undef* (default: numpy.nan)
 
     Returns
     -------
-    *outin* as same type as *inp*
+    *outin* as same type as *inp*, or the type of *inp2* if *inp* is
+    a scalar or *inp2* is a masked array
 
     Examples
     --------
@@ -64,20 +107,26 @@ def array2input(outin, inp, undef=-9999.):
     [253.15 -9999.]
 
     """
+    if inp2 is not None:
+        if ( (not isinstance(inp, Iterable)) or
+             isinstance(inp2, np.ma.MaskedArray) ):
+            return array2input(outin, inp2, undef=undef)
+
     if isinstance(inp, Iterable):
         if isinstance(inp, np.ma.MaskedArray):
-            outout = np.ma.array(outin, mask=((inp == undef) | (inp.mask)))
+            outout = np.ma.array(outin,
+                                 mask=(isundef(inp, undef) | (inp.mask)))
         elif isinstance(inp, np.ndarray):
-            outout = np.where(inp == undef, undef, outin)
+            outout = np.where(isundef(inp, undef), undef, outin)
         else:
-            outout = np.where(np.array(inp) == undef, undef, outin)
+            outout = np.where(isundef(np.array(inp), undef), undef, outin)
             try:
                 outout = type(inp)(outout)
             except:  # pragma: no cover
                 # unknown iterables so no cover
                 pass
     else:
-        if inp == undef:
+        if isundef(inp, undef):
             outout = undef
         else:
             try:
@@ -128,13 +177,14 @@ def input2array(inp, undef=-9999., default=1):
     """
     if isinstance(inp, Iterable):
         if isinstance(inp, np.ma.MaskedArray):
-            out = np.ma.where(inp == undef, default, inp).filled(default)
+            out = np.ma.where(isundef(inp, undef), default,
+                              inp).filled(default)
         else:
             out = np.array(inp)
-            out = np.where(out == undef, default, out)
+            out = np.where(isundef(out, undef), default, out)
     else:
         # scalar
-        out = np.array(default) if (inp == undef) else np.array(inp)
+        out = np.array(default) if isundef(inp, undef) else np.array(inp)
 
     return out
 

@@ -69,6 +69,16 @@ class TestAlphaEquH2O(unittest.TestCase):
         epsilon = alpha_equ_h2o(-9999., isotope=2, eps=True)
         self.assertEqual(epsilon, -9999.)
 
+        # undef is NaN, scalar
+        epsilon = alpha_equ_h2o(np.nan, undef=np.nan, isotope=2, eps=True)
+        assert np.isnan(epsilon)
+        epsilon = alpha_equ_h2o(np.nan, isotope=2, eps=True)
+        assert np.isnan(epsilon)
+
+        # undef is Inf, scalar
+        epsilon = alpha_equ_h2o(np.inf, undef=np.inf, isotope=2, eps=True)
+        assert np.isinf(epsilon)
+
         # undef, list
         T1 = list(T1)
         T1[0] = -1.

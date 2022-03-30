@@ -1,7 +1,11 @@
 Changelog
 ---------
 
-v1.18 (??? 2022)
+v1.18 (Mar 2022)
+    * Use `array2input` and `input2array` in `division`, correcting bug with
+      scalar input and getting rid of numpy geterr and seterr.
+    * Enhanced `array2input` to take second input variable.
+    * Added functions `isundef` in `helper` module to deal with NaN and Inf.
     * Added 'order' keyword to `get_cmap`.
     * Added functions `array2input` and `input2array` in new `helper` module to
       assure same input and output types. Use them in `esat` and
