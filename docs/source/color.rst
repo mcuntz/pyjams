@@ -20,6 +20,7 @@ Color module
    color.oregon_palettes.rst
    color.sron2012_palettes.rst
    color.sron_palettes.rst
+   color.ufz_palettes.rst
 
 .. raw:: latex
 

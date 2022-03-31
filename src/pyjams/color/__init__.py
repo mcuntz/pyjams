@@ -13,6 +13,7 @@ Subpackages
    oregon_palettes
    sron2012_palettes
    sron_palettes
+   ufz_palettes
    color
 
 """
@@ -25,8 +26,9 @@ from .oregon_palettes import oregon_sequential, oregon_diverging
 from .oregon_palettes import oregon_qualitative
 from .sron2012_palettes import sron2012_colors, sron2012_functions
 from .sron_palettes import sron_colors, sron_colormaps, sron_functions
+from .ufz_palettes import ufz_colors
 # get, show, print color palettes
-from .color import get_cmap, print_palettes, show_palettes
+from .color import get_color, get_cmap, print_palettes, show_palettes
 
 
 __all__ = ['brewer_sequential', 'brewer_diverging', 'brewer_qualitative',
@@ -35,5 +37,6 @@ __all__ = ['brewer_sequential', 'brewer_diverging', 'brewer_qualitative',
            'oregon_sequential', 'oregon_diverging', 'oregon_qualitative',
            'sron2012_colors', 'sron2012_functions',
            'sron_colors', 'sron_colormaps', 'sron_functions',
-           'get_cmap', 'print_palettes', 'show_palettes',
+           'ufz_colors',
+           'get_color', 'get_cmap', 'print_palettes', 'show_palettes',
            ]

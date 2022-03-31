@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v1.19 (??? 2022)
+    * Add `get_color` to get value of named colors known to Matplotlib.
+    * Added named colors of the guidelines of the Helmholtz Centre for
+      Environmental Research - UFZ, Leipzig, Germany.
+
 v1.18 (Mar 2022)
     * Use `array2input` and `input2array` in `division`, correcting bug with
       scalar input and getting rid of numpy geterr and seterr.

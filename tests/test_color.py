@@ -30,6 +30,27 @@ class TestColor(unittest.TestCase):
     Tests for color.py
     """
 
+    def test_get_color(self):
+        import matplotlib as mpl
+        mpl.use('Agg')
+        import matplotlib.pyplot as plt  # needed to work
+        from pyjams.color import get_color
+        from pyjams.color import ufz_colors
+
+        # ufz
+        ufz = ufz_colors
+
+        # ufz
+        get_color()
+        for cc in ufz:
+            cmap = plt.cm.colors.get_named_colors_mapping()[cc]
+            target = ufz[cc]
+            self.assertEqual(cmap, target)
+        for cc in ufz:
+            cmap = get_color(cc)
+            target = ufz[cc]
+            self.assertEqual(cmap, target)
+
     def test_get_cmap(self):
         import matplotlib as mpl
         mpl.use('Agg')

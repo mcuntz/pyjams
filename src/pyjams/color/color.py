@@ -14,6 +14,7 @@ France.
 The following functions are provided:
 
 .. autosummary::
+   get_color
    get_cmap
    print_palettes
    show_palettes
@@ -23,10 +24,11 @@ History
     * Change order of color maps, Dec 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
     * Added 'order' keyword, Feb 2022, Matthias Cuntz
+    * 'get_color', Mar 2022, Matthias Cuntz
 
 """
 
-__all__ = ['get_cmap', 'print_palettes', 'show_palettes']
+__all__ = ['get_color', 'get_cmap', 'print_palettes', 'show_palettes']
 
 
 def _rgb2rgb(col):
@@ -74,6 +76,41 @@ def _to_grey(col):
     """
     isgrey = 0.2125 * col[0] + 0.7154 * col[1] + 0.072 * col[2]
     return (isgrey, isgrey, isgrey)
+
+
+def get_color(cname=''):
+    """
+    Register new named colors with Matplotlib and return named color
+
+    Registers the named colors given in ufz_palettes.
+    Optionally returns the value of the named color, which can be any color
+    name known by Matplotlib.
+
+    Parameters
+    ----------
+    cname : str, optional
+        Colour name
+
+    Examples
+    --------
+    .. code-block:: python
+
+       col1 = get_color('ufz:blue')
+       col2 = get_color('xkcd:blue')
+
+    """
+    import matplotlib.pyplot as plt
+    import pyjams.color
+
+    mapping = plt.cm.colors.get_named_colors_mapping
+    ufz_colors = [ i for i in dir(pyjams.color)
+                   if i.startswith('ufz_')
+                   and not i.endswith('_palettes') ]
+    ufz_colors = eval('pyjams.color.' + ufz_colors[0])
+    mapping().update(ufz_colors)
+
+    if cname:
+        return mapping()[cname]
 
 
 def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,

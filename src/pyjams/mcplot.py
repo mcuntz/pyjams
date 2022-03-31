@@ -89,7 +89,6 @@ History
     * Write standard output file into current folder, Nov 2021, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
 
 
