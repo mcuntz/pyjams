@@ -61,6 +61,7 @@ History
     * v1.16, added mad, Jan 2022, Matthias Cuntz
     * v1.17, added xread, xlsread, and xlsxread, Jan 2022, Matthias Cuntz
     * v1.18, helper module to preserve input types, Mar 2022, Matthias Cuntz
+    * v1.19, added readnetcdf, Mar 2022, Matthias Cuntz
 
 """
 # version, author
@@ -113,6 +114,8 @@ from .mcplot import mcPlot
 from .morris_method import morris_sampling, elementary_effects
 # positions of subplots, used with add_axes
 from .position import position
+# get variables from or print information of a netcdf file
+from .readnetcdf import infonetcdf, ncinfo, readnetcdf, ncread
 # Convert integer to and from Roman numerals
 from .romanliterals import int2roman, roman2int
 # Sample trajectories, run model and return Morris Elementary Effects
@@ -145,6 +148,7 @@ __all__ = ['__version__', '__author__',
            'mcPlot',
            'morris_sampling', 'elementary_effects',
            'position',
+           'infonetcdf', 'ncinfo', 'readnetcdf', 'ncread',
            'int2roman', 'roman2int',
            'screening', 'ee',
            'str2tex',

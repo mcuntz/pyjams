@@ -1,7 +1,9 @@
 Changelog
 ---------
 
-v1.19 (??? 2022)
+v1.19 (Mar 2022)
+    * Add `infonetcdf` and `readnetcdf` to get variables from or print
+      information of a netcdf file.
     * Add `get_color` to get value of named colors known to Matplotlib.
     * Added named colors of the guidelines of the Helmholtz Centre for
       Environmental Research - UFZ, Leipzig, Germany.

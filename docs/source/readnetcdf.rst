@@ -1,7 +1,7 @@
-fsread / xread
---------------
+info/readnetcdf
+---------------
 
-.. automodule:: pyjams.fsread
+.. automodule:: pyjams.readnetcdf
    :members:
    :undoc-members:
    :inherited-members:

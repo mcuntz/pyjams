@@ -130,7 +130,9 @@ Functions and modules (alphabetical)
    * - division
      - Divide two arrays, return 'otherwise' if division by 0
    * - div
-     - Wrapper for division
+     - Same as `division`
+   * - ee
+     - Same as `screening`
    * - elementary_effects
      - Morris measures mu, stddev and mu*
    * - en2date
@@ -159,6 +161,8 @@ Functions and modules (alphabetical)
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with scipy.optimize
+   * - infonetcdf
+     - Extract information from netCDF file
    * - int2roman
      - Integer to Roman numeral conversion
    * - mad
@@ -168,8 +172,14 @@ Functions and modules (alphabetical)
    * - morris_sampling
      - Sampling of optimised trajectories for Morris measures / Elementary
        Effects
+   * - ncinfo
+     - Same as `infonetcdf`
+   * - ncread
+     - Same as `readnetcdf`
    * - position
      - Position arrays of subplots to be used with add_axes
+   * - readnetcdf
+     - Read variables from netCDF file
    * - roman2int
      - Roman numeral to integer conversion
    * - screening
@@ -312,7 +322,9 @@ Functions and modules per category
        * - division
          - Divide two arrays, return 'otherwise' if division by 0
        * - div
-         - Wrapper for division
+         - Same as `division`
+       * - ee
+         - Same as `screening`
        * - elementary_effects
          - Morris measures mu, stddev and mu* 
        * - functions
@@ -402,6 +414,14 @@ Functions and modules per category
 
        * - Function/module
          - Short description
+       * - infonetcdf
+         - Extract information from netCDF file
+       * - ncinfo
+         - Same as `infonetcdf`
+       * - ncread
+         - Same as `readnetcdf`
+       * - readnetcdf
+         - Read variables from netCDF file
        * - xlsread
          - Same as `xread`
        * - xlsxread

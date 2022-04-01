@@ -128,9 +128,9 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.division.division`
      - Divide two arrays, return 'otherwise' if division by 0
    * - :func:`~pyjams.division.div`
-     - Alias for division
+     - Same as `division`
    * - :func:`~pyjams.screening.ee`
-     - Alias for screening
+     - Same as `screening`
    * - :func:`~pyjams.morris_method.elementary_effects`
      - Morris measures mu, stddev and mu* 
    * - :func:`~pyjams.date2date.en2date`
@@ -161,6 +161,8 @@ Functions and modules (alphabetical)
        functions to be used with :mod:`scipy.optimize`
    * - :func:`~pyjams.romanliterals.int2roman`
      - Integer to Roman numeral conversion
+   * - :func:`~pyjams.readnetcdf.infonetcdf`
+     - Extract information from netCDF file
    * - :func:`~pyjams.mad`
      - Median absolute deviation test
    * - :class:`~pyjams.mcplot.mcPlot`
@@ -168,8 +170,14 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.morris_method.morris_sampling`
      - Sampling of optimised trajectories for Morris measures / Elementary
        Effects
+   * - :func:`~pyjams.readnetcdf.ncinfo`
+     - Same as `infonetcdf`
+   * - :func:`~pyjams.readnetcdf.ncread`
+     - Same as `readnetcdf`
    * - :func:`~pyjams.position`
      - Position arrays of subplots to be used with add_axes
+   * - :func:`~pyjams.readnetcdf.readnetcdf`
+     - Read variables from netCDF file
    * - :func:`~pyjams.romanliterals.roman2int`
      - Roman numeral to integer conversion
    * - :func:`~pyjams.screening.screening`
@@ -312,9 +320,9 @@ Functions and modules per category
        * - :func:`~pyjams.division.division`
          - Divide two arrays, return 'otherwise' if division by 0
        * - :func:`~pyjams.division.div`
-         - Alias for division
+         - Same as `division`
        * - :func:`~pyjams.screening.ee`
-         - Alias for screening
+         - Same as `screening`
        * - :func:`~pyjams.morris_method.elementary_effects`
          - Morris measures mu, stddev and mu* 
        * - :mod:`~pyjams.functions`
@@ -404,6 +412,14 @@ Functions and modules per category
 
        * - Function/module
          - Short description
+       * - :func:`~pyjams.readnetcdf.infonetcdf`
+         - Extract information from netCDF file
+       * - :func:`~pyjams.readnetcdf.ncinfo`
+         - Same as `infonetcdf`
+       * - :func:`~pyjams.readnetcdf.ncread`
+         - Same as `readnetcdf`
+       * - :func:`~pyjams.readnetcdf.readnetcdf`
+         - Read variables from netCDF file
        * - :func:`~pyjams.fsread.xlsread`
          - Same as `xread`
        * - :func:`~pyjams.fsread.xlsxread`

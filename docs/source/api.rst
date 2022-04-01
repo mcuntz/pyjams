@@ -22,5 +22,6 @@ API Reference
    meteorology.rst
    miscellaneous.rst
    plotting.rst
+   special_files.rst
 
 .. currentmodule:: pyjams
