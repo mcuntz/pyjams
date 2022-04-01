@@ -47,10 +47,10 @@ __all__ = ['infonetcdf', 'ncinfo',
 
 
 def infonetcdf(ncfile,
+               var='', code=-1, dims=False, attributes=False,
                variables=False, codes=False,
                long_names=False, units=False,
-               sort=False,
-               var='', code=-1, dims=False, attributes=False):
+               sort=False):
     """
     Get information on variables in a netcdf file
 
@@ -58,20 +58,6 @@ def infonetcdf(ncfile,
     ----------
     ncfile : str
         netCDF file name
-    variables : bool, optional
-        Get list of variables in *ncfile*
-    codes : bool, optional
-        Get list of variable attributes *code*
-        Missing codes will be filled with -1.
-    long_names : bool, optional
-        Get list of variable attributes *long_name*
-        Missing long_names will be filled with ''.
-    units : bool, optional
-        Get list of variable attributes *units*.
-        Missing units will be filled with ''.
-    sort : bool, optional
-        Sort output of *variables*, *codes*, *units*, and *long_names*
-        with variable name as the sort key
     var : str, optional
         Variable name, only relevant if *dims* or *attributes* are True
         *var* takes precedence over *code*.
@@ -86,6 +72,20 @@ def infonetcdf(ncfile,
         Get dictionary of all attributes of variable with name *var* or number
         *code*, or all file attributes of *ncfile* if *var* and *code* are not
         given
+    variables : bool, optional
+        Get list of variables in *ncfile*
+    codes : bool, optional
+        Get list of variable attributes *code*
+        Missing codes will be filled with -1.
+    long_names : bool, optional
+        Get list of variable attributes *long_name*
+        Missing long_names will be filled with ''.
+    units : bool, optional
+        Get list of variable attributes *units*.
+        Missing units will be filled with ''.
+    sort : bool, optional
+        Sort output of *variables*, *codes*, *units*, and *long_names*
+        with variable name as the sort key
 
     Returns
     -------

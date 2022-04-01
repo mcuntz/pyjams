@@ -88,6 +88,12 @@ class TestInfonetcdf(unittest.TestCase):
         assert isinstance(fout, tuple)
         self.assertEqual(fout, fsoll)
 
+        # dims, var
+        fout = infonetcdf(ncfile, 'is1', dims=True)
+        fsoll = ('y', 'x')
+        assert isinstance(fout, tuple)
+        self.assertEqual(fout, fsoll)
+
         # dims, code
         fout = infonetcdf(ncfile, code=128, dims=True)
         fsoll = ('y', 'x')
@@ -96,6 +102,14 @@ class TestInfonetcdf(unittest.TestCase):
 
         # variable attributes, var
         fout = infonetcdf(ncfile, var='is1', attributes=True)
+        fsoll = ['code', 'long_name', 'units']
+        assert isinstance(fout, dict)
+        fout = sorted(fout.keys())
+        fsoll = sorted(fsoll)
+        self.assertEqual(fout, fsoll)
+
+        # variable attributes, var
+        fout = infonetcdf(ncfile, 'is1', attributes=True)
         fsoll = ['code', 'long_name', 'units']
         assert isinstance(fout, dict)
         fout = sorted(fout.keys())
@@ -198,6 +212,12 @@ class TestInfonetcdf(unittest.TestCase):
         assert isinstance(fout, tuple)
         self.assertEqual(fout, fsoll)
 
+        # dims, var
+        fout = ncinfo(ncfile, 'is1', dims=True)
+        fsoll = ('y', 'x')
+        assert isinstance(fout, tuple)
+        self.assertEqual(fout, fsoll)
+
         # dims, code
         fout = ncinfo(ncfile, code=128, dims=True)
         fsoll = ('y', 'x')
@@ -206,6 +226,14 @@ class TestInfonetcdf(unittest.TestCase):
 
         # variable attributes, var
         fout = ncinfo(ncfile, var='is1', attributes=True)
+        fsoll = ['code', 'long_name', 'units']
+        assert isinstance(fout, dict)
+        fout = sorted(fout.keys())
+        fsoll = sorted(fsoll)
+        self.assertEqual(fout, fsoll)
+
+        # variable attributes, var
+        fout = ncinfo(ncfile, 'is1', attributes=True)
         fsoll = ['code', 'long_name', 'units']
         assert isinstance(fout, dict)
         fout = sorted(fout.keys())
