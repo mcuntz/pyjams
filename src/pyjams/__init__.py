@@ -19,6 +19,7 @@ Subpackages
    alpha_equ_h2o
    alpha_kin_h2o
    argsort
+   cellarea
    closest
    color
    const
@@ -32,6 +33,7 @@ Subpackages
    mcplot
    morris_method
    position
+   readnetcdf
    romanliterals
    screening
    str2tex
@@ -62,6 +64,7 @@ History
     * v1.17, added xread, xlsread, and xlsxread, Jan 2022, Matthias Cuntz
     * v1.18, helper module to preserve input types, Mar 2022, Matthias Cuntz
     * v1.19, added readnetcdf, Mar 2022, Matthias Cuntz
+    * v1.20, added cellarea, Apr 2022, Matthias Cuntz
 
 """
 # version, author
@@ -86,6 +89,8 @@ from .alpha_equ_h2o import alpha_equ_h2o
 from .alpha_kin_h2o import alpha_kin_h2o
 # argmax, argmin and argsort for array_like and Python iterables
 from .argsort import argmax, argmin, argsort
+# Area of grid cells on Earth
+from .cellarea import cellarea
 # (index of) closest element in an array
 from .closest import closest
 # convert date representations between different regional variants
@@ -132,6 +137,7 @@ __all__ = ['__version__', '__author__',
            'color', 'const', 'functions',
            'alpha_equ_h2o', 'alpha_kin_h2o',
            'argmax', 'argmin', 'argsort',
+           'cellarea',
            'closest',
            'date2date',
            'date2en', 'date2fr', 'date2us',

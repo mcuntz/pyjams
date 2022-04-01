@@ -76,6 +76,7 @@ Modules and functions are currently provided in the following categories:
     * `Ascii Files`_
     * `Data Processing`_
     * `Date and Time`_
+    * `Grids and Polygons`_
     * Isotopes_
     * Math_
     * Meteorology_
@@ -107,6 +108,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.argsort.argsort`
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
+   * - :func:`~pyjams.cellarea`
+     - Area of grid cells on Earth
    * - :func:`~pyjams.closest`
      - Index in array which entry is closest to a given number
    * - :mod:`~pyjams.color`
@@ -293,6 +296,18 @@ Functions and modules per category
          - Convert dates to English date format YYYY-MM-DD hh:mm:ss
        * - :func:`~pyjams.date2date.us2fr`
          - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+
+.. _Grids and Polygons:
+
+**Grids and Polygons**
+    .. list-table::
+       :widths: 10 25
+       :header-rows: 1
+
+       * - Function/module
+         - Short description
+       * - :func:`~pyjams.cellarea`
+         - Area of grid cells on Earth
 
 .. _Isotopes:
 

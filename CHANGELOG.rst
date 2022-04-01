@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v1.20 (??? 2022)
+    * Add `cellarea` to calculate the area of grid cells on Earth in square
+      metre.
+
 v1.19 (Mar 2022)
     * Add `infonetcdf` and `readnetcdf` to get variables from or print
       information of a netcdf file.

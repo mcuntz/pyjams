@@ -17,6 +17,7 @@ API Reference
    ascii_files.rst
    data_processing.rst
    date_time.rst
+   grids_polygons.rst
    isotopes.rst
    math.rst
    meteorology.rst
