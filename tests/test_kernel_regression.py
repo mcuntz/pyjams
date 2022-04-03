@@ -141,35 +141,35 @@ class TestKernelRegression(unittest.TestCase):
         # using kernel_regression_h
         h = kernel_regression_h(x, y)
         fout = kernel_regression(x, y, h)
-        fsoll = [0.52240941, 0.52569869, 0.54179589, 0.51780751,
-                 0.47644245, 0.49230196, 0.60344806, 0.77747177,
-                 0.95450468, 1.0960389]
+        fsoll = [0.52241, 0.5257, 0.5418, 0.51781,
+                 0.47644, 0.49230, 0.60345, 0.77747,
+                 0.95450, 1.09604]
         assert isinstance(fout, np.ndarray)
-        self.assertEqual(list(np.around(fout, 8)), fsoll)
+        self.assertEqual(list(np.around(fout, 5)), fsoll)
 
         # using given kernel
         fout = kernel_regression(x, y, 0.2)
-        fsoll = [0.70404103, 0.01294352, 1.04777665, 0.54772199,
-                 0.29020837, 0.38250561, 0.59918264, 0.84297652,
-                 1.04019479, 1.17067274]
+        fsoll = [0.70404, 0.01294, 1.04778, 0.54772,
+                 0.29021, 0.38251, 0.59918, 0.84298,
+                 1.04019, 1.17067]
         assert isinstance(fout, np.ndarray)
-        self.assertEqual(list(np.around(fout, 8)), fsoll)
+        self.assertEqual(list(np.around(fout, 5)), fsoll)
 
         # w/o kernel_regression_h
         fout = kernel_regression(x, y)
-        fsoll = [0.52240941, 0.52569869, 0.54179589, 0.51780751,
-                 0.47644245, 0.49230196, 0.60344806, 0.77747177,
-                 0.95450468, 1.0960389]
+        fsoll = [0.52241, 0.5257, 0.5418, 0.51781,
+                 0.47644, 0.49230, 0.60345, 0.77747,
+                 0.95450, 1.09604]
         assert isinstance(fout, np.ndarray)
-        self.assertEqual(list(np.around(fout, 8)), fsoll)
+        self.assertEqual(list(np.around(fout, 5)), fsoll)
 
         # silverman
         fout = kernel_regression(x, y, silverman=True)
-        fsoll = [0.69115273, 0.42280858, 0.54584447, 0.53431539,
-                 0.52149406, 0.55542563, 0.64206536, 0.76189995,
-                 0.88777986, 1.00014619]
+        fsoll = [0.69115, 0.42281, 0.54584, 0.53432,
+                 0.52149, 0.55543, 0.64207, 0.7619,
+                 0.88778, 1.00015]
         assert isinstance(fout, np.ndarray)
-        self.assertEqual(list(np.around(fout, 8)), fsoll)
+        self.assertEqual(list(np.around(fout, 5)), fsoll)
 
         # xout
         fout = kernel_regression(x, y, silverman=True, xout=xout)
