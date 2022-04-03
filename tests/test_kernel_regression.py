@@ -71,7 +71,7 @@ class TestKernelRegression(unittest.TestCase):
         hout = kernel_regression_h(x, y, silverman=True)
         hsoll = [0.22919, 1.90338]
         assert isinstance(hout, np.ndarray)
-        self.assertEqual(list(np.around(hout, 8)), hsoll)
+        self.assertEqual(list(np.around(hout, 5)), hsoll)
 
         # errors
         # shapes
