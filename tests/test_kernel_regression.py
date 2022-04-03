@@ -63,13 +63,13 @@ class TestKernelRegression(unittest.TestCase):
 
         # cross-validation
         hout  = kernel_regression_h(x, y)
-        hsoll = [0.1726799, 9.51690721]
+        hsoll = [0.17268, 9.51691]
         assert isinstance(hout, np.ndarray)
-        self.assertEqual(list(np.around(hout, 8)), hsoll)
+        self.assertEqual(list(np.around(hout, 5)), hsoll)
 
         # silverman
         hout = kernel_regression_h(x, y, silverman=True)
-        hsoll = [0.22919046, 1.90338144]
+        hsoll = [0.22919, 1.90338]
         assert isinstance(hout, np.ndarray)
         self.assertEqual(list(np.around(hout, 8)), hsoll)
 
