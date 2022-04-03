@@ -29,6 +29,7 @@ Subpackages
    fgui
    fsread
    functions
+   kernel_regression
    mad
    mcplot
    morris_method
@@ -64,7 +65,7 @@ History
     * v1.17, added xread, xlsread, and xlsxread, Jan 2022, Matthias Cuntz
     * v1.18, helper module to preserve input types, Mar 2022, Matthias Cuntz
     * v1.19, added readnetcdf, Mar 2022, Matthias Cuntz
-    * v1.20, added cellarea, Apr 2022, Matthias Cuntz
+    * v1.20, added cellarea and kernel_regression, Apr 2022, Matthias Cuntz
 
 """
 # version, author
@@ -109,6 +110,8 @@ from .fgui import file_from_gui, files_from_gui
 # read numbers and strings from a file into 2D float and string arrays
 from .fsread import fsread, fread, sread
 from .fsread import xread, xlsread, xlsxread
+# multi-dimensional non-parametric kernel regression
+from .kernel_regression import kernel_regression_h, kernel_regression
 # median absolute deviation test
 from .mad import mad
 # Matthias Cuntz' standard plotting class.
@@ -150,6 +153,7 @@ __all__ = ['__version__', '__author__',
            'file_from_gui', 'files_from_gui',
            'fsread', 'fread', 'sread',
            'xread', 'xlsread', 'xlsxread',
+           'kernel_regression_h', 'kernel_regression'
            'mad',
            'mcPlot',
            'morris_sampling', 'elementary_effects',

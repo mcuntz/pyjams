@@ -166,6 +166,10 @@ Functions and modules (alphabetical)
      - Integer to Roman numeral conversion
    * - :func:`~pyjams.readnetcdf.infonetcdf`
      - Extract information from netCDF file
+   * - :func:`~pyjams.kernel_regression`
+     - Multi-dimensional non-parametric kernel regression
+   * - :func:`~pyjams.kernel_regression_h`
+     - Determination of bandwidth for kernel regression
    * - :func:`~pyjams.mad`
      - Median absolute deviation test
    * - :class:`~pyjams.mcplot.mcPlot`
@@ -258,6 +262,10 @@ Functions and modules per category
 
        * - Function/module
          - Short description
+       * - :func:`~pyjams.kernel_regression`
+         - Multi-dimensional non-parametric kernel regression
+       * - :func:`~pyjams.kernel_regression_h`
+         - Determination of bandwidth for kernel regression
        * - :func:`~pyjams.mad`
          - Median absolute deviation test
 

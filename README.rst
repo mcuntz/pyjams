@@ -168,6 +168,10 @@ Functions and modules (alphabetical)
      - Extract information from netCDF file
    * - int2roman
      - Integer to Roman numeral conversion
+   * - kernel_regression
+     - Multi-dimensional non-parametric kernel regression
+   * - kernel_regression_h
+     - Determination of bandwidth for kernel regression
    * - mad
      - Median absolute deviation test
    * - mcPlot
@@ -260,6 +264,10 @@ Functions and modules per category
 
        * - Function/module
          - Short description
+       * - kernel_regression
+         - Multi-dimensional non-parametric kernel regression
+       * - kernel_regression_h
+         - Determination of bandwidth for kernel regression
        * - mad
          - Median absolute deviation test
 

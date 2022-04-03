@@ -1,9 +1,11 @@
 Changelog
 ---------
 
-v1.20 (??? 2022)
+v1.20 (Apr 2022)
     * Add `cellarea` to calculate the area of grid cells on Earth in square
       metre.
+    * Add `kernel_regression` and `kernel_regression_h` for multi-dimensional
+      non-parametric kernel regression.
 
 v1.19 (Mar 2022)
     * Add `infonetcdf` and `readnetcdf` to get variables from or print
