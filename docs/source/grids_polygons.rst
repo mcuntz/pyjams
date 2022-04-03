@@ -3,4 +3,4 @@ Grids and Polygons
 
 .. toctree::
 
-   cellarea.rst
+   gridcellarea.rst

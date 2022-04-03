@@ -110,7 +110,7 @@ Functions and modules (alphabetical)
    * - argsort
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
-   * - cellarea
+   * - gridcellarea
      - Area of grid cells on Earth
    * - closest
      - Index in array which entry is closest to a given number
@@ -316,7 +316,7 @@ Functions and modules per category
 
        * - Function/module
          - Short description
-       * - cellarea
+       * - gridcellarea
          - Area of grid cells on Earth
 
 .. _Isotopes:

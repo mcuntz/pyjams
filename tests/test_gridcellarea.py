@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-This is the unittest for cellarea module.
+This is the unittest for gridcellarea module.
 
-python -m unittest -v tests/test_cellarea.py
-python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_cellarea.py
+python -m unittest -v tests/test_gridcellarea.py
+python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_gridcellarea.py
 
 """
 import unittest
@@ -22,14 +22,14 @@ def _flatten(itr):
                      for i in fitr ]
 
 
-class TestCellarea(unittest.TestCase):
+class TestGridcellarea(unittest.TestCase):
     """
-    Tests for cellarea.py
+    Tests for gridcellarea.py
     """
 
-    def test_cellarea(self):
+    def test_gridcellarea(self):
         import numpy as np
-        from pyjams import cellarea
+        from pyjams import gridcellarea
 
         lat = [0., 2.5, 5.0]
         lon = [0., 3.75, 7.5]
@@ -53,42 +53,42 @@ class TestCellarea(unittest.TestCase):
         lon180 = [180., -180.+3.75, -180.+7.5]
 
         # list
-        fout  = cellarea(lat, lon)
+        fout  = gridcellarea(lat, lon)
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
         # tuple, list
-        fout  = cellarea(tuple(lat), lon)
+        fout  = gridcellarea(tuple(lat), lon)
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
         # 2 tuple
-        fout  = cellarea(tuple(lat), tuple(lon))
+        fout  = gridcellarea(tuple(lat), tuple(lon))
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
         # array, list
-        fout  = cellarea(np.array(lat), lon)
+        fout  = gridcellarea(np.array(lat), lon)
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
         # 2 array
-        fout  = cellarea(np.array(lat), np.array(lon))
+        fout  = gridcellarea(np.array(lat), np.array(lon))
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
         # rearth
-        fout  = cellarea(lat, lon, rearth=rearth)
+        fout  = gridcellarea(lat, lon, rearth=rearth)
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
         # rearth classic
-        fout  = cellarea(lat, lon, rearth=rearth1)
+        fout  = gridcellarea(lat, lon, rearth=rearth1)
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll1))
 
         # globe
-        fout  = cellarea(lat, lon, globe=True)
+        fout  = gridcellarea(lat, lon, globe=True)
         fsoll2 = [[3.79774834e+12, 3.79774834e+12, 3.79774834e+12],
                   [1.15796240e+11, 1.15796240e+11, 1.15796240e+11],
                   [3.61823239e+12, 3.61823239e+12, 3.61823239e+12]]
@@ -96,24 +96,24 @@ class TestCellarea(unittest.TestCase):
         self.assertEqual(_flatten(np.around(fout, -4)), _flatten(fsoll2))
 
         # descending lats
-        fout  = cellarea(dlat, lon, globe=True)
+        fout  = gridcellarea(dlat, lon, globe=True)
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -4)), _flatten(fsoll2))
 
         # meridian in lon
-        fout  = cellarea(lat, lon360)
+        fout  = gridcellarea(lat, lon360)
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
         # date line in lon
-        fout  = cellarea(lat, lon180)
+        fout  = gridcellarea(lat, lon180)
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
         # errors
         # lat > 90
         lat1 = [0., 2.5, 95.0]
-        self.assertRaises(AssertionError, cellarea, lat1, lon)
+        self.assertRaises(AssertionError, gridcellarea, lat1, lon)
 
 
 if __name__ == "__main__":

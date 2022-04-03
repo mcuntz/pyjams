@@ -16,7 +16,7 @@ l'Environnement (INRAE), Nancy, France.
 The following functions are provided
 
 .. autosummary::
-   cellarea
+   gridcellarea
 
 History
     * Written Jul 2009 by Matthias Cuntz - mc (at) macu (dot) de
@@ -28,15 +28,16 @@ History
     * Removed assertion of nlat/nlon > 2, Apr 2022, Matthias Cuntz
     * Keyword radius of Earth and changed default from 6371000 to 6371009
       as in the rest of pyjams, Apr 2022, Matthias Cuntz
+    * Rename cellarea to gridcellarea, Apr 2022, Matthias Cuntz
 
 """
 import numpy as np
 
 
-__all__ = ['cellarea']
+__all__ = ['gridcellarea']
 
 
-def cellarea(lat, lon, globe=False, rearth=6371009.):
+def gridcellarea(lat, lon, globe=False, rearth=6371009.):
     """
     Area of grid cells on a spherical Earth in square metre
 
@@ -71,13 +72,13 @@ def cellarea(lat, lon, globe=False, rearth=6371009.):
     >>> lat = np.array([ 12.98898858, 9.27785325, 5.56671363])
     >>> lon = np.array([ 0., 3.75, 7.5])
 
-    >>> print(cellarea(lat, lon)[0,:])
+    >>> print(gridcellarea(lat, lon)[0,:])
     [1.67639557e+11 1.67639557e+11 1.67639557e+11]
 
-    >>> print(cellarea(lat, lon)[1,:])
+    >>> print(gridcellarea(lat, lon)[1,:])
     [1.69790907e+11 1.69790907e+11 1.69790907e+11]
 
-    >>> print(cellarea(lat, lon)[2,:])
+    >>> print(gridcellarea(lat, lon)[2,:])
     [1.71230373e+11 1.71230373e+11 1.71230373e+11]
 
     """
@@ -90,7 +91,7 @@ def cellarea(lat, lon, globe=False, rearth=6371009.):
     # assert -90 < lat < 90
     assert np.abs(lat).max() <= 90., (
         'probably swapped lat and lon in call:'
-        ' def cellarea(lat, lon, globe=False):')
+        ' def gridcellarea(lat, lon, globe=False):')
 
     # lat size in degrees
     # still + or -

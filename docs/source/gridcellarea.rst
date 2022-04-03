@@ -1,7 +1,7 @@
-cellarea
---------
+gridcellarea
+------------
 
-.. automodule:: pyjams.cellarea
+.. automodule:: pyjams.gridcellarea
    :members:
    :undoc-members:
    :inherited-members:

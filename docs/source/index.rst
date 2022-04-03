@@ -108,7 +108,7 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.argsort.argsort`
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
-   * - :func:`~pyjams.cellarea`
+   * - :func:`~pyjams.gridcellarea`
      - Area of grid cells on Earth
    * - :func:`~pyjams.closest`
      - Index in array which entry is closest to a given number
@@ -314,7 +314,7 @@ Functions and modules per category
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.cellarea`
+       * - :func:`~pyjams.gridcellarea`
          - Area of grid cells on Earth
 
 .. _Isotopes:
