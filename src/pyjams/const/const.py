@@ -157,19 +157,19 @@ Standard ambient temperature of 25 :math:`^\circ C` in Kelvin [K]
 """
 sigma = 5.67e-08
 """
-Stefan-Boltzmann constant (:math:`W\,m^{-2} K^{-4}`)
+Stefan-Boltzmann constant (:math:`W m^{-2} K^{-4}`)
 """
 R = 8.3144621
 """
-Ideal gas constant (:math:`J\,K^{-1} mol^{-1}`)
+Ideal gas constant (:math:`J K^{-1} mol^{-1}`)
 """
 R_air = 287.06
 """
-Gas constant of dry air (:math:`J\,K^{-1} kg^{-1}`)
+Gas constant of dry air (:math:`J K^{-1} kg^{-1}`)
 """
 R_H2O = 461.4
 """
-Gas constant of water vapour (:math:`J\,K^{-1} kg^{-1}`)
+Gas constant of water vapour (:math:`J K^{-1} kg^{-1}`)
 """
 Na = 6.02214129e23
 """
@@ -183,36 +183,36 @@ Radius of the Earth (m)
 # Material
 mmol_co2 = 44.01
 """
-Molar mass of :math:`CO_2` (:math:`g\,mol^{-1}`)
+Molar mass of :math:`CO_2` (:math:`g mol^{-1}`)
 """
 mmol_h2o = 18.01528
 """
-Molar mass of water (:math:`g\,mol^{-1}`)
+Molar mass of water (:math:`g mol^{-1}`)
 """
 mmol_air = 28.9644
 """
-Molar mass of dry air (:math:`g\,mol^{-1}`)
+Molar mass of dry air (:math:`g mol^{-1}`)
 """
 # from Cambell G (1985) Soil Physics with BASIC, Elsevier Science
 density_quartz = 2.65
 """
-Density of quartz (:math:`g\,cm^{-3}`)
+Density of quartz (:math:`g cm^{-3}`)
 """
 cheat_quartz = 800.
 """
-Heat capacity of quartz (:math:`J\,kg^-1 K^-1`)
+Heat capacity of quartz (:math:`J kg^-1 K^-1`)
 """
 cheat_water = 4180.
 """
-Heat capacity of water (:math:`J\,kg^{-1} K^{-1}`)
+Heat capacity of water (:math:`J kg^{-1} K^{-1}`)
 """
 cheat_air = 1010.
 """
-Heat capacity of air (:math:`J\,kg^{-1} K^{-1}`)
+Heat capacity of air (:math:`J kg^{-1} K^{-1}`)
 """
 latentheat_vaporization = 2.45e6
 """
-Latent heat of vaporization of water (:math:`J\,kg^{-1}`)
+Latent heat of vaporization of water (:math:`J kg^{-1}`)
 """
 
 # Isotope
