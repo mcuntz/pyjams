@@ -11,6 +11,7 @@ Subpackages
    mathematica_palettes
    ncl_palettes
    oregon_palettes
+   pyjams_palettes
    sron2012_palettes
    sron_palettes
    ufz_palettes
@@ -24,6 +25,7 @@ from .mathematica_palettes import mathematica_rainbow
 from .ncl_palettes import ncl_large, ncl_small, ncl_meteo_swiss
 from .oregon_palettes import oregon_sequential, oregon_diverging
 from .oregon_palettes import oregon_qualitative
+from .pyjams_palettes import pyjams_cmaps
 from .sron2012_palettes import sron2012_colors, sron2012_functions
 from .sron_palettes import sron_colors, sron_colormaps, sron_functions
 from .ufz_palettes import ufz_colors
@@ -35,6 +37,7 @@ __all__ = ['brewer_sequential', 'brewer_diverging', 'brewer_qualitative',
            'mathematica_rainbow',
            'ncl_large', 'ncl_small', 'ncl_meteo_swiss',
            'oregon_sequential', 'oregon_diverging', 'oregon_qualitative',
+           'pyjams_cmaps',
            'sron2012_colors', 'sron2012_functions',
            'sron_colors', 'sron_colormaps', 'sron_functions',
            'ufz_colors',

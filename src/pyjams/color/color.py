@@ -180,6 +180,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
         palette = palette[:-2]
         reverse = True
 
+    pyjams_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('pyjams_')
+                           and not i.endswith('_palettes') ]
     sron_collections = [ i for i in dir(pyjams.color)
                          if i.startswith('sron_')
                          and not i.endswith('_palettes') ]
@@ -202,6 +205,13 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
     found_palette = False
     nosubsample = False
     miss = None
+
+    if not found_palette:
+        for bb in pyjams_collections:
+            dd = eval('pyjams.color.' + bb)
+            if palette in dd:
+                found_palette = True
+                colors = dd[palette]
 
     if not found_palette:
         for bb in sron_collections:
@@ -349,7 +359,7 @@ def print_palettes(collection=''):
     ----------
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
-        Known collections are 'sron', 'sron2012', 'mathematica',
+        Known collections are 'pyjams', sron', 'sron2012', 'mathematica',
         'oregon', 'ncl', 'matplotlib', and 'brewer'.
 
     Returns
@@ -369,6 +379,9 @@ def print_palettes(collection=''):
     import matplotlib.pyplot as plt
     import pyjams.color
 
+    pyjams_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('pyjams_')
+                           and not i.endswith('_palettes') ]
     sron_collections = [ i for i in dir(pyjams.color)
                          if i.startswith('sron_')
                          and not i.endswith('_palettes') ]
@@ -394,8 +407,15 @@ def print_palettes(collection=''):
         else:
             collections = [ i.lower for i in collection ]
     else:
-        collections = ['sron', 'sron2012', 'mathematica', 'oregon', 'ncl',
-                       'matplotlib', 'brewer']
+        collections = ['pyjams', 'sron', 'sron2012', 'mathematica',
+                       'oregon', 'ncl', 'matplotlib', 'brewer']
+
+    if 'pyjams' in collections:
+        print('pyjams')
+        for cc in pyjams_collections:
+            print('   ', cc)
+            ll = eval('pyjams.color.' + cc + '.keys()')
+            print('       ', list(ll))
 
     if 'sron' in collections:
         print('sron')
@@ -514,7 +534,7 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
         All palettes will be shown if collection is empty or 'all'.
-        Known collections are: 'sron', 'sron2012', 'mathematica',
+        Known collections are: 'pyjams', sron', 'sron2012', 'mathematica',
         'oregon', 'ncl', 'matplotlib', and 'brewer'.
 
     Returns
@@ -550,8 +570,8 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     import matplotlib.pyplot as plt
 
     # which collections to include
-    collections = ['sron', 'sron2012', 'mathematica', 'oregon', 'ncl',
-                   'matplotlib', 'brewer']
+    collections = ['pyjams', 'sron', 'sron2012', 'mathematica', 'oregon',
+                   'ncl', 'matplotlib', 'brewer']
     if collection:
         if isinstance(collection, str):
             if collection.lower() != 'all':
@@ -571,6 +591,9 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     nrow = 35
 
     # get collections
+    pyjams_collections = [ i for i in dir(pyjams.color)
+                           if i.startswith('pyjams_')
+                           and not i.endswith('_palettes') ]
     sron_collections = [ i for i in dir(pyjams.color)
                          if i.startswith('sron_')
                          and not i.endswith('_palettes') ]
@@ -591,6 +614,9 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
                            and not i.endswith('_palettes') ]
 
     all_collections = []
+    if 'pyjams' in collections:
+        for cc in pyjams_collections:
+            all_collections.append(cc)
     if 'sron' in collections:
         for cc in sron_collections:
             all_collections.append(cc)

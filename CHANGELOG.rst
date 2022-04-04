@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.21 (??? 2022)
+    * Added `pyjams_amwg` color map.
+
 v1.20 (Apr 2022)
     * Add `gridcellarea` to calculate the area of grid cells on Earth in
       square metre.
