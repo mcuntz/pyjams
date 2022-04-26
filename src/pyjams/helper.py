@@ -21,6 +21,7 @@ History
     * Written input2array and array2input, Jan 2022, Matthias Cuntz
     * Added isundef, Mar 2022, Matthias Cuntz
     * Second input to array2input, Mar 2022, Matthias Cuntz
+    * undef=np.nan by default, Apr 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -63,7 +64,7 @@ def isundef(arr, undef):
         return arr == undef
 
 
-def array2input(outin, inp, inp2=None, undef=-9999.):
+def array2input(outin, inp, inp2=None, undef=np.nan):
     """
     Transforms numpy array to same type as input
 
@@ -138,7 +139,7 @@ def array2input(outin, inp, inp2=None, undef=-9999.):
     return outout
 
 
-def input2array(inp, undef=-9999., default=1):
+def input2array(inp, undef=np.nan, default=1):
     """
     Makes numpy array from iterable or scalar input with masked or undef values
     are set to a default value
