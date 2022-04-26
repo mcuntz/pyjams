@@ -27,6 +27,12 @@ class TestKernelRegression(unittest.TestCase):
     Tests for kernel_regression.py
     """
 
+    def setUp(self):
+        import numpy as np
+        # seed for reproducible results
+        self.seed = 1234
+        np.random.seed(seed=self.seed)
+
     def test_kernel_regression_h(self):
         import numpy as np
         from pyjams import kernel_regression_h
@@ -131,6 +137,11 @@ class TestKernelRegression(unittest.TestCase):
         assert isinstance(fout, tuple)
         self.assertEqual(list(np.around(fout, 4)), fsoll)
 
+        fout = kernel_regression(x, np.ma.array(y), silverman=True, xout=xout)
+        fsoll = [13.0172, 13.6, 13.66, 13.6791, 13.2663]
+        assert isinstance(fout, np.ma.masked_array)
+        self.assertEqual(list(np.around(fout, 4)), fsoll)
+
         fout = kernel_regression(list(x), y)
         fsoll = [13.0172, 13.3331, 13.693, 13.6816, 13.3306]
         assert isinstance(fout, np.ndarray)
@@ -144,11 +155,6 @@ class TestKernelRegression(unittest.TestCase):
         fout = kernel_regression(np.ma.array(x), y)
         fsoll = [13.0172, 13.3331, 13.693, 13.6816, 13.3306]
         assert isinstance(fout, np.ndarray)
-        self.assertEqual(list(np.around(fout[::50], 4)), fsoll)
-
-        fout = kernel_regression(x, np.ma.array(y))
-        fsoll = [13.0172, 13.3331, 13.693, 13.6816, 13.3306]
-        assert isinstance(fout, np.ma.masked_array)
         self.assertEqual(list(np.around(fout[::50], 4)), fsoll)
 
         #

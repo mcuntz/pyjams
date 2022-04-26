@@ -22,7 +22,7 @@ History
     * Added isundef, Mar 2022, Matthias Cuntz
     * Second input to array2input, Mar 2022, Matthias Cuntz
     * undef=np.nan by default, Apr 2022, Matthias Cuntz
-    * Mask or set array to undef only if shapes of array and input agree in
+    * Array masked or set to undef only if shapes of array and input agree in
       array2input, Apr 2022, Matthias Cuntz
 
 """
