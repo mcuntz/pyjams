@@ -22,6 +22,8 @@ History
     * Added isundef, Mar 2022, Matthias Cuntz
     * Second input to array2input, Mar 2022, Matthias Cuntz
     * undef=np.nan by default, Apr 2022, Matthias Cuntz
+    * Mask or set array to undef only if shapes of array and input agree in
+      array2input, Apr 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -69,8 +71,8 @@ def array2input(outin, inp, inp2=None, undef=np.nan):
     Transforms numpy array to same type as input
 
     The numpy array *outin* will be transformed to the same type as *inp*.
-    Masked values on *inp* will be masked on output,
-    undefined values in *inp* will result in undefined output values.
+    If shapes agree then masked values on *inp* will be masked on output
+    and undefined values in *inp* will result in undefined output values.
 
     If *inp2* is given, then type of *inp* will take precedence,
     except if *inp* is a scalar or *inp2* is a masked array in which case
@@ -115,12 +117,21 @@ def array2input(outin, inp, inp2=None, undef=np.nan):
 
     if isinstance(inp, Iterable):
         if isinstance(inp, np.ma.MaskedArray):
-            outout = np.ma.array(outin,
-                                 mask=(isundef(inp, undef) | (inp.mask)))
+            if np.array(outin).shape == inp.shape:
+                outout = np.ma.array(outin,
+                                     mask=(isundef(inp, undef) | (inp.mask)))
+            else:
+                outout = np.ma.array(outin)
         elif isinstance(inp, np.ndarray):
-            outout = np.where(isundef(inp, undef), undef, outin)
+            if np.array(outin).shape == inp.shape:
+                outout = np.where(isundef(inp, undef), undef, outin)
+            else:
+                outout = np.array(outin)
         else:
-            outout = np.where(isundef(np.array(inp), undef), undef, outin)
+            if np.array(outin).shape == np.array(inp).shape:
+                outout = np.where(isundef(np.array(inp), undef), undef, outin)
+            else:
+                outout = outin
             try:
                 outout = type(inp)(outout)
             except:  # pragma: no cover

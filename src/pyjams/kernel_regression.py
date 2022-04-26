@@ -32,6 +32,7 @@ History
     * Use helper function array2input to assure correct output type,
       Apr 2022, Matthias Cuntz
     * Return scalar h if 1-dimensional, Apr 2022, Matthias Cuntz
+    * Output type is same as y instead of x or xout, Apr 2022, Matthias Cuntz
 
 """
 import numpy as np
@@ -231,7 +232,7 @@ def kernel_regression(x, y, h=None, silverman=False, xout=None):
 
     Returns
     -------
-    array_like as *x* or *xout* if given
+    array_like with same type as *x*, or *xout* if given
         Fitted values at *x*, or at *xout* if given
 
     References
@@ -295,9 +296,6 @@ def kernel_regression(x, y, h=None, silverman=False, xout=None):
     # deal with 1d-arrays and save 1d input type
     if xx.ndim == 1:
         xx = xx[:, np.newaxis]
-        xtype = x
-    else:
-        xtype = x[:, 0]
     d = xx.shape[1]
 
     # determine h
@@ -315,11 +313,6 @@ def kernel_regression(x, y, h=None, silverman=False, xout=None):
         xxout = xx
     else:
         xxout = np.array(xout)
-        # save 1d input type
-        if xxout.ndim == 1:
-            xtype = xout
-        else:
-            xtype = xout[:, 0]
     if xxout.ndim == 1:
         xxout = xxout[:, np.newaxis]
     nout  = xxout.shape[0]
@@ -334,7 +327,7 @@ def kernel_regression(x, y, h=None, silverman=False, xout=None):
         # nadaraya-watson estimator of gaussian multivariate kernel
         out[i] = _nadaraya_watson(z, y)
 
-    out = array2input(out, xtype, undef=np.nan)
+    out = array2input(out, y, undef=np.nan)
 
     return out
 

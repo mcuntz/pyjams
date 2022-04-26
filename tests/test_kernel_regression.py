@@ -120,6 +120,37 @@ class TestKernelRegression(unittest.TestCase):
         assert isinstance(fout, np.ndarray)
         self.assertEqual(list(np.around(fout, 4)), fsoll)
 
+        # different input/output types
+        fout = kernel_regression(x, list(y), silverman=True, xout=xout)
+        fsoll = [13.0172, 13.6, 13.66, 13.6791, 13.2663]
+        assert isinstance(fout, list)
+        self.assertEqual(list(np.around(fout, 4)), fsoll)
+
+        fout = kernel_regression(x, tuple(y), silverman=True, xout=xout)
+        fsoll = [13.0172, 13.6, 13.66, 13.6791, 13.2663]
+        assert isinstance(fout, tuple)
+        self.assertEqual(list(np.around(fout, 4)), fsoll)
+
+        fout = kernel_regression(list(x), y)
+        fsoll = [13.0172, 13.3331, 13.693, 13.6816, 13.3306]
+        assert isinstance(fout, np.ndarray)
+        self.assertEqual(list(np.around(fout[::50], 4)), fsoll)
+
+        fout = kernel_regression(tuple(x), y)
+        fsoll = [13.0172, 13.3331, 13.693, 13.6816, 13.3306]
+        assert isinstance(fout, np.ndarray)
+        self.assertEqual(list(np.around(fout[::50], 4)), fsoll)
+
+        fout = kernel_regression(np.ma.array(x), y)
+        fsoll = [13.0172, 13.3331, 13.693, 13.6816, 13.3306]
+        assert isinstance(fout, np.ndarray)
+        self.assertEqual(list(np.around(fout[::50], 4)), fsoll)
+
+        fout = kernel_regression(x, np.ma.array(y))
+        fsoll = [13.0172, 13.3331, 13.693, 13.6816, 13.3306]
+        assert isinstance(fout, np.ma.masked_array)
+        self.assertEqual(list(np.around(fout[::50], 4)), fsoll)
+
         #
 
         # made up multidimensional data
@@ -174,6 +205,35 @@ class TestKernelRegression(unittest.TestCase):
         # xout
         fout = kernel_regression(x, y, silverman=True, xout=xout)
         fsoll = [0.6055, 0.5428, 0.4945, 0.5267, 0.6951]
+        assert isinstance(fout, np.ndarray)
+        self.assertEqual(list(np.around(fout, 4)), fsoll)
+
+        # different input/output types
+        fout = kernel_regression(x, list(y))
+        fsoll = [0.5224, 0.5257, 0.5418, 0.5178,
+                 0.4764, 0.4923, 0.6034, 0.7775,
+                 0.9545, 1.0960]
+        assert isinstance(fout, list)
+        self.assertEqual(list(np.around(fout, 4)), fsoll)
+
+        fout = kernel_regression(x, tuple(y))
+        fsoll = [0.5224, 0.5257, 0.5418, 0.5178,
+                 0.4764, 0.4923, 0.6034, 0.7775,
+                 0.9545, 1.0960]
+        assert isinstance(fout, tuple)
+        self.assertEqual(list(np.around(fout, 4)), fsoll)
+
+        fout = kernel_regression(x, np.ma.array(y))
+        fsoll = [0.5224, 0.5257, 0.5418, 0.5178,
+                 0.4764, 0.4923, 0.6034, 0.7775,
+                 0.9545, 1.0960]
+        assert isinstance(fout, np.ma.masked_array)
+        self.assertEqual(list(np.around(fout, 4)), fsoll)
+
+        fout = kernel_regression(np.ma.array(x), y)
+        fsoll = [0.5224, 0.5257, 0.5418, 0.5178,
+                 0.4764, 0.4923, 0.6034, 0.7775,
+                 0.9545, 1.0960]
         assert isinstance(fout, np.ndarray)
         self.assertEqual(list(np.around(fout, 4)), fsoll)
 

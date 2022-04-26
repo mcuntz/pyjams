@@ -3,6 +3,13 @@ Changelog
 
 v1.21 (??? 2022)
     * Added `pyjams_amwg` color map.
+    * Bandwidth h output of `kernel_regression_h` is scalar if one-dimensional.
+    * undef=np.nan is default in helper functions `array2input` and
+      `input2array`.
+    * Array masked or set to undef only if shapes of array and input agree in
+      `array2input`.
+    * Output of `kernel_regression` now has the type of `y` and not `x` or
+      `xout`.
 
 v1.20 (Apr 2022)
     * Add `gridcellarea` to calculate the area of grid cells on Earth in
