@@ -10,6 +10,9 @@ v1.21 (??? 2022)
       `array2input`.
     * Output of `kernel_regression` now has the type of `y` and not `x` or
       `xout`.
+    * `get_color` can get list of colors and not only single colors.
+    * Register ufz colors only once with `get_color`.
+    * Add `print_colors` to print known named colors to console.
 
 v1.20 (Apr 2022)
     * Add `gridcellarea` to calculate the area of grid cells on Earth in

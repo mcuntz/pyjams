@@ -15,6 +15,7 @@ The following functions are provided:
 
 .. autosummary::
    get_color
+   print_colors
    get_cmap
    print_palettes
    show_palettes
@@ -25,10 +26,14 @@ History
     * More consistent docstrings, Jan 2022, Matthias Cuntz
     * Added 'order' keyword, Feb 2022, Matthias Cuntz
     * 'get_color', Mar 2022, Matthias Cuntz
+    * 'cname' can be list of names in 'get_color', Apr 2022, Matthias Cuntz
+    * Register ufz colors only once, Apr 2022, Matthias Cuntz
+    * Added print_colors, Apr 2022, Matthias Cuntz
 
 """
 
-__all__ = ['get_color', 'get_cmap', 'print_palettes', 'show_palettes']
+__all__ = ['get_color', 'print_colors',
+           'get_cmap', 'print_palettes', 'show_palettes']
 
 
 def _rgb2rgb(col):
@@ -80,16 +85,16 @@ def _to_grey(col):
 
 def get_color(cname=''):
     """
-    Register new named colors with Matplotlib and return named color
+    Register new named colors with Matplotlib and return named color(s)
 
     Registers the named colors given in ufz_palettes.
-    Optionally returns the value of the named color, which can be any color
-    name known by Matplotlib.
+    Optionally returns the value(s) of the named color(s),
+    which can be any color name known to Matplotlib.
 
     Parameters
     ----------
-    cname : str, optional
-        Colour name
+    cname : str or iterable of str, optional
+        Colour name(s)
 
     Examples
     --------
@@ -97,20 +102,94 @@ def get_color(cname=''):
 
        col1 = get_color('ufz:blue')
        col2 = get_color('xkcd:blue')
+       cols = get_color(['blue', 'red'])
+
+    """
+    from collections.abc import Iterable
+    import matplotlib.pyplot as plt
+    import pyjams.color
+
+    mapping = plt.cm.colors.get_named_colors_mapping
+    # register ufz colors if not yet done
+    if 'ufz:blue' not in mapping().keys():
+        ufz_colors = [ i for i in dir(pyjams.color)
+                       if i.startswith('ufz_')
+                       and not i.endswith('_palettes') ]
+        # ufz has only 1 list with colors
+        ufz_colors = eval('pyjams.color.' + ufz_colors[0])
+        mapping().update(ufz_colors)
+
+    if cname:
+        if isinstance(cname, Iterable) and (not isinstance(cname, str)):
+            out = [ mapping()[i] for i in cname ]
+            return out
+        else:
+            return mapping()[cname]
+
+
+def print_colors(collection=''):
+    """
+    Print the known named colors
+
+    Parameters
+    ----------
+    collection : str or list of strings, optional
+        Name(s) of color collection(s).
+        Known collections are 'base', 'tableau', 'ufz', 'css',
+        and 'xkcd'.
+
+    Returns
+    -------
+    None
+        Prints list of known named colors to console.
+
+    Examples
+    --------
+    .. code-block:: python
+
+       print_colors()
 
     """
     import matplotlib.pyplot as plt
     import pyjams.color
 
-    mapping = plt.cm.colors.get_named_colors_mapping
-    ufz_colors = [ i for i in dir(pyjams.color)
-                   if i.startswith('ufz_')
-                   and not i.endswith('_palettes') ]
-    ufz_colors = eval('pyjams.color.' + ufz_colors[0])
-    mapping().update(ufz_colors)
+    if collection:
+        if isinstance(collection, str):
+            collections = [collection.lower()]
+        else:
+            collections = [ i.lower for i in collection ]
+    else:
+        collections = ['base', 'tableau', 'ufz', 'css', 'xkcd']
 
-    if cname:
-        return mapping()[cname]
+    # register ufz colors if needed
+    get_color()
+    mapping = plt.cm.colors.get_named_colors_mapping
+    colors = mapping().keys()
+
+    if 'base' in collections:
+        print('base')
+        ll = [ cc for cc in colors if len(cc) == 1 ]
+        print('       ', list(ll))
+
+    if 'tableau' in collections:
+        print('tableau')
+        ll = [ cc for cc in colors if cc.startswith('tab:') ]
+        print('       ', list(ll))
+
+    if 'ufz' in collections:
+        print('ufz')
+        ll = [ cc for cc in colors if cc.startswith('ufz:') ]
+        print('       ', list(ll))
+
+    if 'css' in collections:
+        print('css')
+        ll = [ cc for cc in colors if (':' not in cc) and (len(cc) > 1) ]
+        print('       ', list(ll))
+
+    if 'xkcd' in collections:
+        print('xkcd')
+        ll = [ cc for cc in colors if cc.startswith('xkcd:') ]
+        print('       ', list(ll))
 
 
 def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
@@ -359,14 +438,14 @@ def print_palettes(collection=''):
     ----------
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
-        Known collections are 'pyjams', sron', 'sron2012', 'mathematica',
+        Known collections are 'pyjams', 'sron', 'sron2012', 'mathematica',
         'oregon', 'ncl', 'matplotlib', and 'brewer'.
 
     Returns
     -------
     None
         Prints list of known color palettes and continuous colormaps to
-        terminal.
+        console.
 
     Examples
     --------
@@ -534,7 +613,7 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
         All palettes will be shown if collection is empty or 'all'.
-        Known collections are: 'pyjams', sron', 'sron2012', 'mathematica',
+        Known collections are: 'pyjams', 'sron', 'sron2012', 'mathematica',
         'oregon', 'ncl', 'matplotlib', and 'brewer'.
 
     Returns

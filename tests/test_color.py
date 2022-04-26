@@ -40,16 +40,30 @@ class TestColor(unittest.TestCase):
         # ufz
         ufz = ufz_colors
 
-        # ufz
+        # register ufz colors
         get_color()
         for cc in ufz:
             cmap = plt.cm.colors.get_named_colors_mapping()[cc]
             target = ufz[cc]
             self.assertEqual(cmap, target)
+
+        # get single colors
         for cc in ufz:
             cmap = get_color(cc)
             target = ufz[cc]
             self.assertEqual(cmap, target)
+
+        # get list of colors
+        cmap = get_color(ufz.keys())
+        target = list(ufz.values())
+        self.assertEqual(cmap, target)
+
+    def test_print_colors(self):
+        from pyjams.color import print_colors
+
+        assert print_colors('base') is None
+        assert print_colors(['base', 'ufz']) is None
+        assert print_colors() is None
 
     def test_get_cmap(self):
         import matplotlib as mpl
@@ -59,6 +73,7 @@ class TestColor(unittest.TestCase):
         from pyjams.color import brewer_sequential
         from pyjams.color import mathematica_rainbow
         from pyjams.color import ncl_small
+        from pyjams.color import pyjams_cmaps
         from pyjams.color import oregon_sequential
         from pyjams.color import sron2012_colors, sron2012_functions
         from pyjams.color import sron_colors, sron_colormaps, sron_functions
@@ -73,6 +88,9 @@ class TestColor(unittest.TestCase):
 
         # ncl
         ncl_amwg = ncl_small['ncl_amwg']
+
+        # pyjams
+        pyjams_amwg = pyjams_cmaps['pyjams_amwg']
 
         # oregon
         osu_bu7 = oregon_sequential['osu_bu7']
@@ -168,6 +186,11 @@ class TestColor(unittest.TestCase):
         # ncl
         cmap = get_cmap('ncl_amwg')
         target = ncl_amwg
+        self.assertEqual(cmap, target)
+
+        # pyjams
+        cmap = get_cmap('pyjams_amwg')
+        target = pyjams_amwg
         self.assertEqual(cmap, target)
 
         # oregon
@@ -285,8 +308,8 @@ class TestColor(unittest.TestCase):
     def test_print_palettes(self):
         from pyjams.color import print_palettes
 
-        assert print_palettes('mathetamica') is None
-        assert print_palettes(['mathetamica', 'matplotlib']) is None
+        assert print_palettes('mathematica') is None
+        assert print_palettes(['mathematica', 'matplotlib']) is None
         assert print_palettes() is None
 
 
