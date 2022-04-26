@@ -42,15 +42,15 @@ class TestKernelRegression(unittest.TestCase):
 
         # bootstrap h
         hout  = kernel_regression_h(x, y)
-        hsoll = [4.46598]
-        assert isinstance(hout, np.ndarray)
-        self.assertEqual(list(np.around(hout, 5)), hsoll)
+        hsoll = 4.46598
+        assert isinstance(hout, np.float64)
+        self.assertEqual(np.around(hout, 5), hsoll)
 
         # silverman
         hout  = kernel_regression_h(x, y, silverman=True)
-        hsoll = [4.46598]
-        assert isinstance(hout, np.ndarray)
-        self.assertEqual(list(np.around(hout, 5)), hsoll)
+        hsoll = 4.46598
+        assert isinstance(hout, np.float64)
+        self.assertEqual(np.around(hout, 5), hsoll)
 
         #
 

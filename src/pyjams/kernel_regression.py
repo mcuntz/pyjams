@@ -31,12 +31,15 @@ History
       Apr 2022, Matthias Cuntz
     * Use helper function array2input to assure correct output type,
       Apr 2022, Matthias Cuntz
+    * Return scalar h if 1-dimensional, Apr 2022, Matthias Cuntz
 
 """
 import numpy as np
 import scipy.optimize as opt
 from .division import division
 from .helper import array2input
+# from division import division
+# from helper import array2input
 
 
 __all__ = ['kernel_regression_h', 'kernel_regression']
@@ -125,7 +128,7 @@ def kernel_regression_h(x, y, silverman=False):
     Returns
     -------
     float or array
-        Optimal bandwidth *h*. If multidimensional regression then *h* is an
+        Optimal bandwidth *h*. If multidimensional regression then *h* is a
         1d-array, assuming a diagonal bandwidth matrix.
 
     References
@@ -151,6 +154,18 @@ def kernel_regression_h(x, y, silverman=False):
     >>> h = kernel_regression_h(x, y, silverman=True)
     >>> print(np.allclose(h, [0.229190, 1.903381], atol=0.0001))
     True
+
+    >>> n = 10
+    >>> x = np.arange(n, dtype=float) / float(n-1)
+    >>> y = 1. + x**2 - np.sin(x)**2
+
+    >>> h = kernel_regression_h(x, y)
+    >>> print(np.around(h, 4))
+    0.045
+
+    >>> h = kernel_regression_h(x, y, silverman=True)
+    >>> print(np.around(h, 4))
+    0.2248
 
     """
     xx = np.array(x)
@@ -182,6 +197,9 @@ def kernel_regression_h(x, y, silverman=False):
                 _boot_h, h, args=(xx, yy), method='TNC', bounds=bounds,
                 options={'ftol': 1e-10, 'xtol': 1e-10, 'maxfun': 1000})
             h = res.x
+
+    if len(h) == 1:
+        h = h[0]
 
     return h
 

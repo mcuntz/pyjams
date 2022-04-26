@@ -38,6 +38,7 @@ History
 """
 import numpy as np
 from .helper import input2array, array2input
+# from helper import input2array, array2input
 
 
 __all__ = ['division', 'div']
