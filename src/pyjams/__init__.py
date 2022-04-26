@@ -66,6 +66,8 @@ History
     * v1.18, helper module to preserve input types, Mar 2022, Matthias Cuntz
     * v1.19, added readnetcdf, Mar 2022, Matthias Cuntz
     * v1.20, added gridcellarea and kernel_regression, Apr 2022, Matthias Cuntz
+    * v1.21, enhancements in color and kernel_regression,
+      Apr 2022, Matthias Cuntz
 
 """
 # version, author

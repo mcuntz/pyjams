@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v1.21 (??? 2022)
+v1.21 (Apr 2022)
     * Added `pyjams_amwg` color map.
     * Bandwidth h output of `kernel_regression_h` is scalar if one-dimensional.
     * undef=np.nan is default in helper functions `array2input` and
