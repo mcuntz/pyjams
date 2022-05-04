@@ -18,7 +18,7 @@ The simplest way to use mcPlot is to extend the class:
 .. code-block:: python
 
    import numpy as np
-   from jams import mcPlot
+   from pyjams import mcPlot
 
    class PlotIt(mcPlot):
        def __init__(self, *args, **kwargs):
@@ -70,11 +70,12 @@ The simplest way to use mcPlot is to extend the class:
 
 Then call the script with -h to see the command line options.
 
+
 This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-:copyright: Copyright 2020-2021 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2020-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -87,6 +88,8 @@ The following classes are provided:
 History
     * Written Sep 2020 by Matthias Cuntz (mc (at) macu (dot) de)
     * Write standard output file into current folder, Nov 2021, Matthias Cuntz
+    * Change from NCL amwg color palette to pyjams amwg,
+      May 2021, Matthias Cuntz
 
 """
 import numpy as np
@@ -180,7 +183,7 @@ class mcPlot(object):
     .. code-block:: python
 
        import numpy as np
-       from jams import mcPlot
+       from pyjams import mcPlot
 
        class PlotIt(mcPlot):
            def __init__(self, *args, **kwargs):
@@ -514,28 +517,26 @@ class mcPlot(object):
         else:
             self.fgcolor = 'black'
             self.bgcolor = 'white'
-        # NCL's amwg colour map without the first three colours
+        # pyjams' amwg color map without the first three colours
         # white, black and purple
-        amwg = [(0., 0., 0.784),        # dark blue
-                (0.235, 0.392, 0.902),  # medium blue
-                (0.471, 0.608, 0.949),  # light blue
-                (0.69, 0.878, 0.902),   # cyan
-                (0.125, 0.698, 0.667),  # turquoise
-                (0.604, 0.804, 0.196),  # light green
-                (0.18, 0.545, 0.341),   # dark green
-                (0.961, 0.902, 0.745),  # sand
-                (0.871, 0.722, 0.529),  # beige
-                (1., 0.882, 0.),        # yellow
-                (1., 0.647, 0.),        # orange
-                (1., 0.271, 0.),        # light red
-                (0.698, 0.133, 0.133),  # dark red
-                (1., 0.714, 0.757),     # rose
-                (1., 0.078, 0.576)]     # pink
+        amwg = [(0.141, 0.129, 0.408),  # dark blue
+                (0.141, 0.357, 0.6),    # medium blue
+                (0.365, 0.533, 0.725),  # light blue
+                (0.608, 0.8, 0.835),    # cyan
+                (0.0, 0.596, 0.639),    # turquoise
+                (0.553, 0.725, 0.259),  # light green
+                (0.055, 0.518, 0.345),  # dark green
+                (0.937, 0.863, 0.714),  # sand
+                (0.808, 0.675, 0.51),   # beige
+                (0.957, 0.816, 0.169),  # yellow
+                (0.898, 0.6, 0.165),    # orange
+                (0.835, 0.294, 0.157),  # light red
+                (0.568, 0.176, 0.196)]  # dark red
         self.mcols = amwg
         self.mcol1 = self.mcols[0]   # dark blue
-        self.mcol2 = self.mcols[-3]  # dark red
+        self.mcol2 = self.mcols[12]  # dark red
         self.mcol3 = self.mcols[2]   # light blue
-        self.mcol4 = self.mcols[-4]  # orange
+        self.mcol4 = self.mcols[10]  # orange
         self.mcol5 = self.mcols[6]   # dark green
         self.lcol1 = self.mcol1
         self.lcol2 = self.mcol2
