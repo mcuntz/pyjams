@@ -1773,6 +1773,9 @@ def xread(infile, sheet=None,
             raise ValueError('nc and snc must be integer or list of indices;'
                              ' < 0 means to read the rest of the columns.'
                              ' nc and snc cannot both be < 0.')
+        elif (nc == 0) and (snc == 0) and (cname is None) and (sname is None):
+            raise ValueError('Either: nc != 0, snc != 0, cname is not None, or'
+                             ' sname is not None must be given.')
 
     # Open file
     try:
