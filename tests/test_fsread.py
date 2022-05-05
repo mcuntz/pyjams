@@ -1657,6 +1657,8 @@ class TestFsread(unittest.TestCase):
         # errors
         # both nc=-1 and snc=-1
         self.assertRaises(ValueError, xread, file_xlsx, nc=-1, snc=-1)
+        # no nc, snc, cname, or sname given
+        self.assertRaises(ValueError, xread, file_xlsx)
         # cannot open file (2)
         self.assertRaises(IOError, xread, 'dummy', nc=-1)
         # sheet not in file - name
