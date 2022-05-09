@@ -47,7 +47,7 @@ __all__ = ['infonetcdf', 'ncinfo',
 
 
 def infonetcdf(ncfile,
-               var='', code=-1, dims=False, attributes=False,
+               var='', code=-1, dims=False, shape=False, attributes=False,
                variables=False, codes=False,
                long_names=False, units=False,
                sort=False):
@@ -68,6 +68,8 @@ def infonetcdf(ncfile,
     dims : bool, optional
         Get tuple of dimension names for the variable with name *var*
         or number *code*.
+    shape : bool, optional
+        Get shape of the variable with name *var* or number *code*.
     attributes : bool, optional
         Get dictionary of all attributes of variable with name *var* or number
         *code*, or all file attributes of *ncfile* if *var* and *code* are not
@@ -89,6 +91,7 @@ def infonetcdf(ncfile,
 
     Returns
     -------
+    tuple of variable dimension names,
     tuple of variable dimensions,
     list of variable names, codes, units, long_names, or
     dictionary of attributes
@@ -129,6 +132,11 @@ def infonetcdf(ncfile,
 
     >>> print([ str(i) for i in infonetcdf(ncfile, var='is1', dims=True) ])
     ['y', 'x']
+
+    Get shape
+
+    >>> print(infonetcdf(ncfile, var='is1', shape=True))
+    (2, 4)
 
     Get attributes
 
@@ -215,6 +223,32 @@ def infonetcdf(ncfile,
             dimensions = f.variables[var].dimensions
             f.close()
             return dimensions
+
+    # shape
+    if shape:
+        if (not var) and (code == -1):
+            raise ValueError('var or code has to be given for'
+                             ' inquiring its shape.')
+        if var:
+            if var not in svars:
+                f.close()
+                raise ValueError(f'Variable {var} not in file {ncfile}.')
+            shape = f.variables[var].shape
+            f.close()
+            return shape
+        if code > -1:
+            cods = [-1]*nvars
+            for i, v in enumerate(svars):
+                attr = f.variables[v].ncattrs()
+                if 'code' in attr:
+                    cods[i] = getattr(f.variables[v], 'code')
+            if code not in cods:
+                f.close()
+                raise ValueError(f'Code {code} not in file {ncfile}.')
+            var = svars[cods.index(code)]
+            shape = f.variables[var].shape
+            f.close()
+            return shape
 
     # attributes
     if attributes:

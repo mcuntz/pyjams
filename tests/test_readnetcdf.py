@@ -88,15 +88,21 @@ class TestInfonetcdf(unittest.TestCase):
         assert isinstance(fout, tuple)
         self.assertEqual(fout, fsoll)
 
-        # dims, var
-        fout = infonetcdf(ncfile, 'is1', dims=True)
+        # dims, code
+        fout = infonetcdf(ncfile, code=128, dims=True)
         fsoll = ('y', 'x')
         assert isinstance(fout, tuple)
         self.assertEqual(fout, fsoll)
 
-        # dims, code
-        fout = infonetcdf(ncfile, code=128, dims=True)
-        fsoll = ('y', 'x')
+        # shape, var
+        fout = infonetcdf(ncfile, var='is1', shape=True)
+        fsoll = (2, 4)
+        assert isinstance(fout, tuple)
+        self.assertEqual(fout, fsoll)
+
+        # shape, code
+        fout = infonetcdf(ncfile, code=128, shape=True)
+        fsoll = (2, 4)
         assert isinstance(fout, tuple)
         self.assertEqual(fout, fsoll)
 
@@ -141,9 +147,19 @@ class TestInfonetcdf(unittest.TestCase):
         # dims, no var
         self.assertRaises(ValueError, infonetcdf, ncfile, dims=True)
         # dims, var does not exist
-        self.assertRaises(ValueError, infonetcdf, ncfile, dims=True, var='is3')
+        self.assertRaises(ValueError, infonetcdf, ncfile, dims=True,
+                          var='is3')
         # dims, code does not exist
-        self.assertRaises(ValueError, infonetcdf, ncfile, dims=True, code=130)
+        self.assertRaises(ValueError, infonetcdf, ncfile, dims=True,
+                          code=130)
+        # shape, no var
+        self.assertRaises(ValueError, infonetcdf, ncfile, shape=True)
+        # shape, var does not exist
+        self.assertRaises(ValueError, infonetcdf, ncfile, shape=True,
+                          var='is3')
+        # shape, code does not exist
+        self.assertRaises(ValueError, infonetcdf, ncfile, shape=True,
+                          code=130)
         # attributes, var does not exist
         self.assertRaises(ValueError, infonetcdf, ncfile, attributes=True,
                           var='is3')
@@ -212,15 +228,21 @@ class TestInfonetcdf(unittest.TestCase):
         assert isinstance(fout, tuple)
         self.assertEqual(fout, fsoll)
 
-        # dims, var
-        fout = ncinfo(ncfile, 'is1', dims=True)
+        # dims, code
+        fout = ncinfo(ncfile, code=128, dims=True)
         fsoll = ('y', 'x')
         assert isinstance(fout, tuple)
         self.assertEqual(fout, fsoll)
 
-        # dims, code
-        fout = ncinfo(ncfile, code=128, dims=True)
-        fsoll = ('y', 'x')
+        # shape, var
+        fout = ncinfo(ncfile, var='is1', shape=True)
+        fsoll = (2, 4)
+        assert isinstance(fout, tuple)
+        self.assertEqual(fout, fsoll)
+
+        # shape, code
+        fout = ncinfo(ncfile, code=128, shape=True)
+        fsoll = (2, 4)
         assert isinstance(fout, tuple)
         self.assertEqual(fout, fsoll)
 
@@ -265,9 +287,19 @@ class TestInfonetcdf(unittest.TestCase):
         # dims, no var
         self.assertRaises(ValueError, ncinfo, ncfile, dims=True)
         # dims, var does not exist
-        self.assertRaises(ValueError, ncinfo, ncfile, dims=True, var='is3')
+        self.assertRaises(ValueError, ncinfo, ncfile, dims=True,
+                          var='is3')
         # dims, code does not exist
-        self.assertRaises(ValueError, ncinfo, ncfile, dims=True, code=130)
+        self.assertRaises(ValueError, ncinfo, ncfile, dims=True,
+                          code=130)
+        # shape, no var
+        self.assertRaises(ValueError, ncinfo, ncfile, shape=True)
+        # shape, var does not exist
+        self.assertRaises(ValueError, ncinfo, ncfile, shape=True,
+                          var='is3')
+        # shape, code does not exist
+        self.assertRaises(ValueError, ncinfo, ncfile, shape=True,
+                          code=130)
         # attributes, var does not exist
         self.assertRaises(ValueError, ncinfo, ncfile, attributes=True,
                           var='is3')
