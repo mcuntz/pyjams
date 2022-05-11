@@ -110,8 +110,6 @@ Functions and modules (alphabetical)
    * - argsort
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
-   * - gridcellarea
-     - Area of grid cells on Earth
    * - closest
      - Index in array which entry is closest to a given number
    * - color
@@ -164,6 +162,8 @@ Functions and modules (alphabetical)
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with scipy.optimize
+   * - gridcellarea
+     - Area of grid cells on Earth
    * - infonetcdf
      - Extract information from netCDF file
    * - int2roman
@@ -181,6 +181,9 @@ Functions and modules (alphabetical)
        Effects
    * - ncinfo
      - Same as `infonetcdf`
+   * - ncio
+     - netCDF4 functions to copy a netcdf file while doing some
+       transformations on variables and dimensions
    * - ncread
      - Same as `readnetcdf`
    * - position
@@ -441,6 +444,9 @@ Functions and modules per category
          - Extract information from netCDF file
        * - ncinfo
          - Same as `infonetcdf`
+       * - ncio
+         - netCDF4 functions to copy a netcdf file while doing some
+           transformations on variables and dimensions
        * - ncread
          - Same as `readnetcdf`
        * - readnetcdf

@@ -108,8 +108,6 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.argsort.argsort`
      - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
        iterables
-   * - :func:`~pyjams.gridcellarea`
-     - Area of grid cells on Earth
    * - :func:`~pyjams.closest`
      - Index in array which entry is closest to a given number
    * - :mod:`~pyjams.color`
@@ -162,10 +160,12 @@ Functions and modules (alphabetical)
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with :mod:`scipy.optimize`
-   * - :func:`~pyjams.romanliterals.int2roman`
-     - Integer to Roman numeral conversion
+   * - :func:`~pyjams.gridcellarea`
+     - Area of grid cells on Earth
    * - :func:`~pyjams.readnetcdf.infonetcdf`
      - Extract information from netCDF file
+   * - :func:`~pyjams.romanliterals.int2roman`
+     - Integer to Roman numeral conversion
    * - :func:`~pyjams.kernel_regression`
      - Multi-dimensional non-parametric kernel regression
    * - :func:`~pyjams.kernel_regression_h`
@@ -179,6 +179,9 @@ Functions and modules (alphabetical)
        Effects
    * - :func:`~pyjams.readnetcdf.ncinfo`
      - Same as `infonetcdf`
+   * - :mod:`~pyjams.ncio`
+     - netCDF4 functions to copy a netcdf file while doing some
+       transformations on variables and dimensions
    * - :func:`~pyjams.readnetcdf.ncread`
      - Same as `readnetcdf`
    * - :func:`~pyjams.position`
@@ -439,6 +442,9 @@ Functions and modules per category
          - Extract information from netCDF file
        * - :func:`~pyjams.readnetcdf.ncinfo`
          - Same as `infonetcdf`
+       * - :mod:`~pyjams.ncio`
+         - netCDF4 functions to copy a netcdf file while doing some
+           transformations on variables and dimensions
        * - :func:`~pyjams.readnetcdf.ncread`
          - Same as `readnetcdf`
        * - :func:`~pyjams.readnetcdf.readnetcdf`

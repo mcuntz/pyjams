@@ -1,6 +1,15 @@
 Changelog
 ---------
 
+v1.22 (May 2022)
+    * Added module `ncio` with netCDF4 functions to copy netcdf files while
+      doing some transformations on variables and dimensions.
+    * Added shape keyword to `infonetcdf`.
+    * Assert that at least one of nc, snc, cname, or sname is given in call to
+      `xread`.
+    * Change from NCL amwg to pyjams amwg as the default color palette in
+      `mcPlot`.
+
 v1.21 (Apr 2022)
     * Added `pyjams_amwg` color map.
     * Bandwidth h output of `kernel_regression_h` is scalar if one-dimensional.

@@ -33,6 +33,7 @@ Subpackages
    mad
    mcplot
    morris_method
+   ncio
    position
    readnetcdf
    romanliterals
@@ -68,6 +69,7 @@ History
     * v1.20, added gridcellarea and kernel_regression, Apr 2022, Matthias Cuntz
     * v1.21, enhancements in color and kernel_regression,
       Apr 2022, Matthias Cuntz
+    * v1.22, added ncio, May 2022, Matthias Cuntz
 
 """
 # version, author
@@ -85,6 +87,9 @@ from . import color
 from . import const
 # variety of specialised functions
 from . import functions
+# netCDF4 functions to copy netcdf file while doing some transformations on
+# variables and dimensions.
+from . import ncio
 
 # isotopic fractionation factors during liquid-water vapour equilibration
 from .alpha_equ_h2o import alpha_equ_h2o
