@@ -90,6 +90,9 @@ History
     * Write standard output file into current folder, Nov 2021, Matthias Cuntz
     * Change from NCL amwg color palette to pyjams amwg,
       May 2021, Matthias Cuntz
+    * Add **kwargs to plot_save, May 2022, Matthias Cuntz
+    * Add self.transparent to pdf output in plot_save, May 2022, Matthias Cuntz
+    * Add --transparent as a standard option, May 2022, Matthias Cuntz
 
 """
 import numpy as np
@@ -149,7 +152,7 @@ class mcPlot(object):
         it to its needs, keeping the existing optional arguments.
     plot_end() or plot_stop() or or plot_close() or end() or stop()
         Finish, closing opened output files.
-    plot_save(fig)
+    plot_save(fig, **kwargs)
         Save, close or show `figure`.
     set_layout_options()
         Sets the colours and styles that can be used in plots.
@@ -309,6 +312,8 @@ class mcPlot(object):
              -t outtype, --type outtype
                                    Output type is pdf, png, html, d3, or plotly
                                    (default: open screen windows).
+             --transparent         Transparent figure background
+                                   (default: black or white).
              -u, --usetex          Use LaTeX to render text in pdf, png and
                                    html.
              -w, --white           White lines on transparent or black
@@ -338,29 +343,34 @@ class mcPlot(object):
         plotname = ''
         serif    = False
         outtype  = ''
+        transparent = False
         usetex   = False
         dowhite  = False
         parser   = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description=idesc)
-        hstr  = 'Name of plot output file for types pdf, html, d3, or'
-        hstr += ' plotly, and name basis for type png (default:'
-        hstr += ' ' + _filebase(os.path.basename(__file__)) + ').'
+        default = _filebase(os.path.basename(__file__))
+        hstr = (f'Name of plot output file for types pdf, html, d3, or'
+                f' plotly, and name basis for type png (default:'
+                f' {default}).')
         parser.add_argument('-p', '--plotname', action='store',
                             default=plotname, dest='plotname',
                             metavar='plotname', help=hstr)
         hstr = 'Use serif font; default sans serif.'
         parser.add_argument('-s', '--serif', action='store_true',
                             default=serif, dest='serif', help=hstr)
-        hstr = 'Output type is pdf, png, html, d3, or plotly'
-        hstr = hstr + ' (default: open screen windows).'
+        hstr = ('Output type is pdf, png, html, d3, or plotly'
+                ' (default: open screen windows).')
         parser.add_argument('-t', '--type', action='store', default=outtype,
                             dest='outtype', metavar='outtype', help=hstr)
+        hstr = ('Transparent figure background (default: black or white).')
+        parser.add_argument('--transparent', action='store_true',
+                            default=transparent, dest='transparent', help=hstr)
         hstr = 'Use LaTeX to render text in pdf, png and html.'
         parser.add_argument('-u', '--usetex', action='store_true',
                             default=usetex, dest='usetex', help=hstr)
-        hstr  = 'White lines on transparent or black background;'
-        hstr += ' default: black lines on transparent or white background.'
+        hstr = ('White lines on transparent or black background;'
+                ' default: black lines on transparent or white background.')
         parser.add_argument('-w', '--white', action='store_true',
                             default=dowhite, dest='dowhite', help=hstr)
         parser.add_argument('cargs', nargs='*', default=None,
@@ -368,12 +378,13 @@ class mcPlot(object):
 
         args = parser.parse_args()
 
-        self.args     = args.cargs
-        self.plotname = args.plotname
-        self.serif    = args.serif
-        self.outtype  = args.outtype
-        self.usetex   = args.usetex
-        self.dowhite  = args.dowhite
+        self.args        = args.cargs
+        self.plotname    = args.plotname
+        self.serif       = args.serif
+        self.outtype     = args.outtype
+        self.transparent = args.transparent
+        self.usetex      = args.usetex
+        self.dowhite     = args.dowhite
 
         del parser, args
 
@@ -565,7 +576,6 @@ class mcPlot(object):
                                  # If None, use rc
         # png
         self.dpi         = 300
-        self.transparent = False
         self.bbox_inches = 'tight'
         self.pad_inches  = 0.035
 
@@ -873,40 +883,56 @@ class mcPlot(object):
     # -------------------------------------------------------------------------
     # plot save
     #
-    def plot_save(self, fig):
+    def plot_save(self, fig, **kwargs):
         """
         Save figure into output file
 
         Parameters
         ----------
         fig : matplotlib.figure.Figure
-            Matplotlib figure object.
+            Matplotlib figure object.    argstr : string, optional
+        kwargs : dict, optional
+            Additional keywords will be passed to *savefig* for 'pdf',
+            'png', and 'html'; to *fig_to_html* for 'd3', and to
+            *offline.plot* for 'plotly'. This overwrites *self.transparent*,
+            *self.bbox_inches*, *self.pad_inches* for 'pdf', 'png', and 'html',
+            and *auto_open=False* for 'plotly'.
 
         """
         import matplotlib.pyplot as plt
         # save pages
         if (self.outtype == 'pdf'):
-            self.pdf_pages.savefig(fig)
+            if 'transparent' not in kwargs:
+                kwargs.update({'transparent': self.transparent})
+            self.pdf_pages.savefig(fig, **kwargs)
             plt.close(fig)
         elif (self.outtype == 'png'):
             pngfile = self.plotfile+"{0:04d}".format(self.ifig)+".png"
-            fig.savefig(pngfile, transparent=self.transparent,
-                        bbox_inches=self.bbox_inches,
-                        pad_inches=self.pad_inches)
+            if 'transparent' not in kwargs:
+                kwargs.update({'transparent': self.transparent})
+            if 'bbox_inches' not in kwargs:
+                kwargs.update({'bbox_inches': self.bbox_inches})
+            if 'pad_inches' not in kwargs:
+                kwargs.update({'pad_inches': self.pad_inches})
+            fig.savefig(pngfile, **kwargs)
             plt.close(fig)
         elif (self.outtype == 'html'):
             pngfile  = _filebase(self.plotfile) + "_"
             pngfile += "{0:04d}".format(self.ifig) + ".png"
-            fig.savefig(pngfile, transparent=self.transparent,
-                        bbox_inches=self.bbox_inches,
-                        pad_inches=self.pad_inches)
+            if 'transparent' not in kwargs:
+                kwargs.update({'transparent': self.transparent})
+            if 'bbox_inches' not in kwargs:
+                kwargs.update({'bbox_inches': self.bbox_inches})
+            if 'pad_inches' not in kwargs:
+                kwargs.update({'pad_inches': self.pad_inches})
+            fig.savefig(pngfile, **kwargs)
             print('<p><img src='+pngfile+'></p>', file=self.fhtml)
             plt.close(fig)
         elif (self.outtype == 'd3'):
             import mpld3
             # Does not work:
             #     mpld3.plugins.connect(fig, mpld3.plugins.LinkedBrush(line1))
-            d3str = mpld3.fig_to_html(fig)
+            d3str = mpld3.fig_to_html(fig, **kwargs)
             print(d3str, file=self.fhtml)
             plt.close(fig)
         elif (self.outtype == 'plotly'):
@@ -914,8 +940,9 @@ class mcPlot(object):
             import plotly.offline
             htmlfile = self.plotfile+"{0:04d}".format(self.ifig)+".html"
             plotly_fig = plotly.tools.mpl_to_plotly(fig)
-            ff = plotly.offline.plot(plotly_fig, filename=htmlfile,
-                                     auto_open=False)
+            if 'auto_open' not in kwargs:
+                kwargs.update({'auto_open': False})
+            ff = plotly.offline.plot(plotly_fig, filename=htmlfile, **kwargs)
             self.htmlfiles.append(htmlfile)
             plt.close(fig)
 
