@@ -24,6 +24,9 @@ History
     * undef=np.nan by default, Apr 2022, Matthias Cuntz
     * Array masked or set to undef only if shapes of array and input agree in
       array2input, Apr 2022, Matthias Cuntz
+    * Allow string arrays, Jun 2022, Matthias Cuntz
+    * Allow undef=='' in isundef, Jun 2022, Matthias Cuntz
+    * Single string input as 1-element array, Jun 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -58,7 +61,9 @@ def isundef(arr, undef):
     [False True]
 
     """
-    if np.isnan(undef):
+    if not undef:
+        return arr == undef
+    elif np.isnan(undef):
         return np.isnan(arr)
     elif np.isinf(undef):
         return np.isinf(arr)
@@ -127,6 +132,11 @@ def array2input(outin, inp, inp2=None, undef=np.nan):
                 outout = np.where(isundef(inp, undef), undef, outin)
             else:
                 outout = np.array(outin)
+        elif isinstance(inp, str):
+            if isundef(inp, undef):
+                outout = undef
+            else:
+                outout = outin[0]
         else:
             if np.array(outin).shape == np.array(inp).shape:
                 outout = np.where(isundef(np.array(inp), undef), undef, outin)
@@ -191,6 +201,9 @@ def input2array(inp, undef=np.nan, default=1):
         if isinstance(inp, np.ma.MaskedArray):
             out = np.ma.where(isundef(inp, undef), default,
                               inp).filled(default)
+        elif isinstance(inp, str):
+            out = np.array([inp])
+            out = np.where(isundef(out, undef), default, out)
         else:
             out = np.array(inp)
             out = np.where(isundef(out, undef), default, out)
