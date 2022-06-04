@@ -65,6 +65,7 @@ Requirements
     * numpy_
     * scipy_
     * matplotlib_
+    * netCDF4_
     * schwimmbad_
 
 
@@ -472,8 +473,9 @@ by `Sebastian Müller`_.
 .. _JAMS Python library: https://github.com/mcuntz/jams_python
 .. _LICENSE: https://github.com/mcuntz/pyjams/blob/main/LICENSE
 .. _Sebastian Müller: https://github.com/MuellerSeb
-.. _numpy: https://numpy.org/
-.. _scipy: https://scipy.org/
-.. _schwimmbad: https://github.com/adrn/schwimmbad/
-.. _welltestpy: https://github.com/GeoStat-Framework/welltestpy/
 .. _matplotlib: https://matplotlib.org/
+.. _netCDF4: https://github.com/Unidata/netcdf4-python
+.. _numpy: https://numpy.org/
+.. _schwimmbad: https://github.com/adrn/schwimmbad/
+.. _scipy: https://scipy.org/
+.. _welltestpy: https://github.com/GeoStat-Framework/welltestpy/

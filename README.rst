@@ -67,6 +67,7 @@ Requirements
     * numpy_
     * scipy_
     * matplotlib_
+    * netCDF4_
     * schwimmbad_
 
 
@@ -475,6 +476,7 @@ by `Sebastian Müller`_.
 .. _LICENSE: https://github.com/mcuntz/pyjams/blob/main/LICENSE
 .. _Sebastian Müller: https://github.com/MuellerSeb
 .. _matplotlib: https://matplotlib.org/
+.. _netCDF4: https://github.com/Unidata/netcdf4-python
 .. _numpy: https://numpy.org/
 .. _scipy: https://scipy.org/
 .. _schwimmbad: https://github.com/adrn/schwimmbad/

@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v1.23 (Jun 2022)
+    * Make netCDF4 an requirement of ``pyjams``.
     * Use I/O type helpers in `str2tex`.
     * Use I/O type helpers in `date2date`.
     * Allow strings and string arrays in `array2input` and `input2array`.
