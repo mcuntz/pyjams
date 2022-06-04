@@ -1,6 +1,14 @@
 Changelog
 ---------
 
+v1.23 (Jun 2022)
+    * Use I/O type helpers in `str2tex`.
+    * Use I/O type helpers in `date2date`.
+    * Allow strings and string arrays in `array2input` and `input2array`.
+    * Add kwargs mechanism to `plot_save` in `mcPlot` to pass arguments
+      to save_file.
+    * Add --transparent as a standard option in `mcPlot`.
+
 v1.22 (May 2022)
     * Added module `ncio` with netCDF4 functions to copy netcdf files while
       doing some transformations on variables and dimensions.

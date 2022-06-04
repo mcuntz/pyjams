@@ -52,11 +52,13 @@ History
       Dec 2021, Matthias Cuntz
     * Wrapper functions between all standard formats, Dec 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Use input2array, array2input, Jun 2022, Matthias Cuntz
 
 """
 import time as ptime
 import datetime as dt
 import numpy as np
+from .helper import input2array, array2input
 
 
 __all__ = ['date2date',
@@ -212,19 +214,12 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
 
     """
     # Input type and shape
-    if isinstance(edate, list):
-        idate = edate
-    elif isinstance(edate, tuple):
-        idate = list(edate)
-    elif isinstance(edate, np.ndarray):
-        idate = list(edate.flatten())
-    else:
-        idate = [edate]
-    ndate = len(idate)
+    idate = input2array(edate, undef='',
+                        default='01.01.0001 00:00:00')
 
     # Convert to given output type
     isyr2 = int(ptime.asctime()[-2:])
-    odate = list()
+    odate = np.zeros_like(idate)
     for i, d in enumerate(idate):
         dd = d.strip()
         # analyse date
@@ -322,17 +317,11 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
                                  int(_leading_zero(dminute)),
                                  int(_leading_zero(dsecond)))
             out = dattim.strftime(format)
-        odate.append(out)
+        odate[i] = out
 
     # Return right type
-    if isinstance(edate, list):
-        return odate
-    elif isinstance(edate, tuple):
-        return tuple(odate)
-    elif isinstance(edate, np.ndarray):
-        return np.array(odate).reshape(edate.shape)
-    else:
-        return odate[0]
+    out = array2input(odate, edate, undef='')
+    return out
 
 
 def date2en(edate, **kwargs):

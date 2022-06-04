@@ -29,9 +29,11 @@ History
     * Better handling of linebreaks in Matplotlib and LaTeX mode,
       Nov 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Use input2array, array2input, Jun 2022, Matthias Cuntz
 
 """
 import numpy as np
+from .helper import input2array, array2input
 
 
 __all__ = ['str2tex']
@@ -77,16 +79,8 @@ def str2tex(strin, space2linebreak=False,
     import matplotlib.pyplot as plt
 
     # Input type and shape
-    if isinstance(strin, list):
-        from copy import copy
-        istrin = copy(strin)
-    elif isinstance(strin, tuple):
-        istrin = list(strin)
-    elif isinstance(strin, np.ndarray):
-        istrin = list(strin.flatten())
-    else:
-        istrin = [strin]
-    # nstrin = len(istrin)
+    # use list because numpy array cannot change to raw strings
+    istrin = list(input2array(strin, undef='', default=''))
 
     # font style
     if (bold+italic) > 1:
@@ -177,7 +171,7 @@ def str2tex(strin, space2linebreak=False,
                     istrin[j] = istrin[j][11:]
             else:
                 cleanempty = True
-                istrin[j] = mtex + s + '}$'
+                istrin[j] = mtex + s + r'}$'
                 # - not minus sign
                 if '-' in istrin[j]:
                     istrin[j] = rep_minus(istrin[j])
@@ -237,14 +231,8 @@ def str2tex(strin, space2linebreak=False,
                        for i in istrin ]
 
     # Return right type
-    if isinstance(strin, list):
-        return istrin
-    elif isinstance(strin, tuple):
-        return tuple(istrin)
-    elif isinstance(strin, np.ndarray):
-        return np.array(istrin).reshape(strin.shape)
-    else:
-        return istrin[0]
+    out = array2input(istrin, strin, undef='')
+    return out
 
 
 if __name__ == '__main__':
