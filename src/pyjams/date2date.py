@@ -103,14 +103,17 @@ def _ensure_year(yr, isyr2):
 
 
 def date2date(edate, fr=False, format='', timesep=' ', full=False):
-    """Convert date representations between different regional variants.
+    """
+    Convert date representations between different regional variants
 
     Convert date notations between standard *DD.MM.YYYY hh:mm:ss*, English
     *YYYY-MM-DD hh:mm:ss*, American *MM/DD/YYYY hh:mm:ss*, and French
-    *DD/MM/YYYY hh:mm:ss* format. The routine determines the input date format
-    by the date separator '.', '-', or '/'. If the latter is detected, the
-    American format is assumed. One can set *fr=True* so that '/' detects the
-    French date format instead. The separator between date and time can be
+    *DD/MM/YYYY hh:mm:ss* format ('%d.%m.%Y %H:%M:%S', '%Y-%m-%d %H:%M:%S',
+    '%m/%d/%Y %H:%M:%S', and '%d/%m/%Y %H:%M:%S' in datetime.strftime/strptime
+    format notation, respectively). The routine determines the input date
+    format by the date separator '.', '-', or '/'. If the latter is detected,
+    the American format is assumed. One can set *fr=True* so that '/' detects
+    the French date format instead. The separator between date and time can be
     space ' ' or 'T', such as *YYYY-MM-DDThh:mm:ss*.
 
     Output format is given either by the calling name of the function (e.g.
