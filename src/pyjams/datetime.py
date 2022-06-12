@@ -624,7 +624,7 @@ def _dates2decimal(dates, calendar):
     [1990., 1991.]
 
     """
-    mdates = input2array(dates, default=datetime(1, 1, 1))
+    mdates = input2array(dates, default=datetime(1990, 1, 1))
 
     # wrapper might be slow
     out = [ _date2decimal(dd, calendar) for dd in mdates ]
@@ -720,7 +720,7 @@ def _dates2absolute(dates, units):
     [19900101.0, 19910101.0]
 
     """
-    mdates = input2array(dates, default=datetime(1, 1, 1))
+    mdates = input2array(dates, default=datetime(1990, 1, 1))
 
     # wrapper might be slow
     out = [ _date2absolute(dd, units) for dd in mdates ]
@@ -1063,9 +1063,9 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             iform = format
         else:
             iform = '%Y-%m-%d %H:%M:%S'
-        default = cf.real_datetime(1, 1, 1).strftime(iform)
+        default = cf.real_datetime(1990, 1, 1).strftime(iform)
     else:
-        default = cf.real_datetime(1, 1, 1)
+        default = cf.real_datetime(1990, 1, 1)
     mdates = input2array(dates, default=default)
 
     if calendar:
@@ -1089,9 +1089,9 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             iform = '%Y-%m-%d %H:%M:%S'
         mmdates = [ cf.real_datetime.strptime(dd, iform)
                     for dd in mdates ]
-        mdates = input2array(mmdates, default=cf.real_datetime(1, 1, 1))
+        mdates = input2array(mmdates, default=cf.real_datetime(1990, 1, 1))
     else:
-        mdates = input2array(dates, default=cf.real_datetime(1, 1, 1))
+        mdates = input2array(dates, default=cf.real_datetime(1990, 1, 1))
 
     # input calendar
     date0 = mdates[0]
@@ -1335,7 +1335,17 @@ def num2date(times, units='', calendar='standard',
 
         # shortcut
         if format:
-            out = [ dt.strftime(format) for dt in cfdates ]
+            # Assure 4 digit years on all platforms
+            # see https://bugs.python.org/issue32195
+            iform = format
+            if '%Y' in format:
+                format04 = format.replace('%Y', '%04Y')
+                dttest = cfdates[0].strftime(format04)
+                if '4Y' in dttest:
+                    iform = format
+                else:
+                    iform = format04
+            out = [ dt.strftime(iform) for dt in cfdates ]
             out = array2input(out, times)
             return out
 
@@ -1395,7 +1405,17 @@ def num2date(times, units='', calendar='standard',
         return year, month, day, hour, minute, second, microsecond
     else:
         if format:
-            out = [ dt.strftime(format) for dt in out ]
+            # Assure 4 digit years on all platforms
+            # see https://bugs.python.org/issue32195
+            iform = format
+            if '%Y' in format:
+                format04 = format.replace('%Y', '%04Y')
+                dttest = out[0].strftime(format04)
+                if '4Y' in dttest:
+                    iform = format
+                else:
+                    iform = format04
+            out = [ dt.strftime(iform) for dt in out ]
 
         out = array2input(out, times)
         return out
@@ -1491,11 +1511,13 @@ class datetime(object):
         if not self.has_year_zero:
             if self.year == 0:
                 raise ValueError("Invalid year provided in {0!r}".format(self))
-        if ( ((self.calendar == 'excel') or (self.calendar == 'excel1900')) and
-             self.year < 1900):
-            raise ValueError('Year must be >= 1900 for Excel dates')
-        if ( (self.calendar == 'excel1904') and self.year < 1904):
-            raise ValueError('Year must be >= 1904 for Excel1904 dates')
+        # Comment next block to allow negative days with Excel calendars,
+        # which does not exist in Excel
+        # if ( ((self.calendar == 'excel') or (self.calendar == 'excel1900')) and
+        #      self.year < 1900):
+        #     raise ValueError('Year must be >= 1900 for Excel dates')
+        # if ( (self.calendar == 'excel1904') and self.year < 1904):
+        #     raise ValueError('Year must be >= 1904 for Excel1904 dates')
 
         # month
         if (self.month < 1) or (self.month > 12):

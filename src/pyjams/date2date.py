@@ -319,7 +319,15 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
                                  int(_leading_zero(dhour)),
                                  int(_leading_zero(dminute)),
                                  int(_leading_zero(dsecond)))
-            out = dattim.strftime(format)
+            # Assure 4 digit years on all platforms
+            # see https://bugs.python.org/issue32195
+            if '%Y' in format:
+                format04 = format.replace('%Y', '%04Y')
+                out = dattim.strftime(format04)
+                if '4Y' in out:
+                    out = dattim.strftime(format)
+            else:
+                out = dattim.strftime(format)
         odate[i] = out
 
     # Return right type
