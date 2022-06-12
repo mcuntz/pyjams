@@ -25,6 +25,7 @@ Subpackages
    const
    date2date
    division
+   datetime
    esat
    fgui
    fsread
@@ -70,6 +71,7 @@ History
     * v1.21, enhancements in color and kernel_regression,
       Apr 2022, Matthias Cuntz
     * v1.22, added ncio, May 2022, Matthias Cuntz
+    * v1.23, added datetime module, Jun 2022, Matthias Cuntz
 
 """
 # version, author
@@ -109,6 +111,8 @@ from .date2date import fr2date, fr2en, fr2us
 from .date2date import us2date, us2en, us2fr
 # catch division by zero
 from .division import division, div
+# cftime extension
+from .datetime import date2dec, date2num, dec2date, num2date, datetime
 # saturation vapour pressure over water and ice
 from .esat import esat
 # GUI dialogs to choose files and directories using Tkinter
@@ -155,6 +159,7 @@ __all__ = ['__version__', '__author__',
            'fr2date', 'fr2en', 'fr2us',
            'us2date', 'us2en', 'us2fr',
            'division', 'div',
+           'date2dec', 'date2num', 'dec2date', 'num2date', 'datetime',
            'esat',
            'directory_from_gui', 'directories_from_gui',
            'file_from_gui', 'files_from_gui',

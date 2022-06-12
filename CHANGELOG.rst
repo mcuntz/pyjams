@@ -2,6 +2,14 @@ Changelog
 ---------
 
 v1.23 (Jun 2022)
+    * Added module `datetime` with class `datetime` that mimics cftime.datetime
+      but for non-CF-conform calendars. It also adds the functions `date2num`
+      and `num2date` for conversion between datetime objects or string
+      representations and numerical times. It adds the convenience wrappers
+      `date2dec` and `dec2date` for easier portability of older code using
+      JAMS.
+    * Allows more usage of helper functions `input2array` and `array2input`
+      by allowing undef=None in and making it the default.
     * Make netCDF4 an requirement of ``pyjams``.
     * Use I/O type helpers in `str2tex`.
     * Use I/O type helpers in `date2date`.
@@ -65,8 +73,8 @@ v1.17 (Jan 2022)
       in this case.
     * Change handling of return type to allow more (unspecific) iterable types
       such as pandas time series in `esat` and `alpha_equ_h2o`.
-    * Added `xread`, `xlsread`, and `xlsxread`, reading numbers and strings from an
-      Excel file into 2D float and string arrays.
+    * Added `xread`, `xlsread`, and `xlsxread`, reading numbers and strings
+      from an Excel file into 2D float and string arrays.
 
 v1.16 (Jan 2022)
     * Added `mad`, median absolute deviation test.

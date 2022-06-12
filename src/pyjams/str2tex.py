@@ -32,7 +32,6 @@ History
     * Use input2array, array2input, Jun 2022, Matthias Cuntz
 
 """
-import numpy as np
 from .helper import input2array, array2input
 
 

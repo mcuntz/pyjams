@@ -117,12 +117,20 @@ Functions and modules (alphabetical)
      - Physical, mathematical, computational, isotope, and material constants
    * - :func:`~pyjams.date2date.date2date`
      - Convert date representations between different regional variants
+   * - :func:`~pyjams.datetime.date2dec`
+     - Same as `date2num`
    * - :func:`~pyjams.date2date.date2en`
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - :func:`~pyjams.date2date.date2fr`
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - :func:`~pyjams.datetime.date2num`
+     - Return numeric time values given datetime objects or strings
    * - :func:`~pyjams.date2date.date2us`
      - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - :func:`~pyjams.datetime.datetime`
+     - Class as cftime.datetime for non-CF-conform calendars
+   * - :func:`~pyjams.datetime.dec2date`
+     - Same as `num2date`
    * - :func:`~pyjams.fgui.directories_from_gui`
      - Open dialog to select one directory
    * - :func:`~pyjams.fgui.directory_from_gui`
@@ -185,6 +193,8 @@ Functions and modules (alphabetical)
        transformations on variables and dimensions
    * - :func:`~pyjams.readnetcdf.ncread`
      - Same as `readnetcdf`
+   * - :func:`~pyjams.datetime.num2date`
+     - Return datetime objects given numeric time values
    * - :func:`~pyjams.position`
      - Position arrays of subplots to be used with add_axes
    * - :func:`~pyjams.readnetcdf.readnetcdf`
@@ -284,12 +294,20 @@ Functions and modules per category
          - Short description
        * - :func:`~pyjams.date2date.date2date`
          - Convert date representations between different regional variants
+       * - :func:`~pyjams.datetime.date2dec`
+         - Same as `date2num`
        * - :func:`~pyjams.date2date.date2en`
          - Convert dates to English date format YYYY-MM-DD hh:mm:ss
        * - :func:`~pyjams.date2date.date2fr`
          - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+       * - :func:`~pyjams.datetime.date2num`
+         - Return numeric time values given datetime objects or strings
        * - :func:`~pyjams.date2date.date2us`
          - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+       * - :func:`~pyjams.datetime.datetime`
+         - Class as cftime.datetime for non-CF-conform calendars
+       * - :func:`~pyjams.datetime.dec2date`
+         - Same as `num2date`
        * - :func:`~pyjams.date2date.en2date`
          - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
        * - :func:`~pyjams.date2date.en2fr`
@@ -308,6 +326,8 @@ Functions and modules per category
          - Convert dates to English date format YYYY-MM-DD hh:mm:ss
        * - :func:`~pyjams.date2date.us2fr`
          - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+       * - :func:`~pyjams.datetime.num2date`
+         - Return datetime objects given numeric time values
 
 .. _Grids and Polygons:
 

@@ -119,12 +119,20 @@ Functions and modules (alphabetical)
      - Physical, mathematical, computational, isotope, and material constants
    * - date2date
      - Convert date representations between different regional variants
+   * - date2dec
+     - Same as `date2num`
    * - date2en
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - date2fr
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - date2num
+     - Return numeric time values given datetime objects or strings
    * - date2us
      - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+   * - datetime
+     - Class as cftime.datetime for non-CF-conform calendars
+   * - dec2date
+     - Same as `num2date`
    * - directories_from_gui
      - Open dialog to select one directory
    * - directory_from_gui
@@ -187,6 +195,8 @@ Functions and modules (alphabetical)
        transformations on variables and dimensions
    * - ncread
      - Same as `readnetcdf`
+   * - num2date
+     - Return datetime objects given numeric time values
    * - position
      - Position arrays of subplots to be used with add_axes
    * - readnetcdf
@@ -286,12 +296,20 @@ Functions and modules per category
          - Short description
        * - date2date
          - Convert date representations between different regional variants
+       * - date2dec
+         - Same as `date2num`
        * - date2en
          - Convert dates to English date format YYYY-MM-DD hh:mm:ss
        * - date2fr
          - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+       * - date2num
+         - Return numeric time values given datetime objects or strings
        * - date2us
          - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+       * - datetime
+         - Class as cftime.datetime for non-CF-conform calendars
+       * - dec2date
+         - Same as `num2date`
        * - en2date
          - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
        * - en2fr
@@ -304,6 +322,8 @@ Functions and modules per category
          - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
        * - fr2us
          - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
+       * - num2date
+         - Return datetime objects given numeric time values
        * - us2date
          - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
        * - us2en
