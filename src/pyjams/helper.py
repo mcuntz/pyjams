@@ -27,6 +27,10 @@ History
     * Allow string arrays, Jun 2022, Matthias Cuntz
     * Allow undef=='' in isundef, Jun 2022, Matthias Cuntz
     * Single string input as 1-element array, Jun 2022, Matthias Cuntz
+    * Allow undef=None, Jun 2022, Matthias Cuntz
+    * undef=None by default, Jun 2022, Matthias Cuntz
+    * Refine using undef=None with numpy.array and list,
+      Jun 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -46,9 +50,9 @@ def isundef(arr, undef):
     ----------
     arr : scalar or numpy array
         Input scalar array
-    undef : float
-        Check if arr equals *undef*.
-        Can use np.nan or np.inf for *undef*.
+    undef : object
+        Check if *arr == undef*.
+        It is also possible to use None, '', np.nan, or np.inf for *undef*.
 
     Returns
     -------
@@ -61,7 +65,9 @@ def isundef(arr, undef):
     [False True]
 
     """
-    if not undef:
+    if undef is None:
+        return False
+    elif not undef:
         return arr == undef
     elif np.isnan(undef):
         return np.isnan(arr)
@@ -71,7 +77,7 @@ def isundef(arr, undef):
         return arr == undef
 
 
-def array2input(outin, inp, inp2=None, undef=np.nan):
+def array2input(outin, inp, inp2=None, undef=None):
     """
     Transforms numpy array to same type as input
 
@@ -100,7 +106,7 @@ def array2input(outin, inp, inp2=None, undef=np.nan):
         :func:`input2array` (default: None)
     undef : float, optional
         Values in *inp* having value *undef* will result in ouput set to
-        *undef* (default: numpy.nan)
+        *undef* (default: None)
 
     Returns
     -------
@@ -126,20 +132,39 @@ def array2input(outin, inp, inp2=None, undef=np.nan):
                 outout = np.ma.array(outin,
                                      mask=(isundef(inp, undef) | (inp.mask)))
             else:
-                outout = np.ma.array(outin)
+                if isinstance(outin, np.ma.MaskedArray):
+                    outout = outin
+                else:
+                    outout = np.ma.array(outin)
         elif isinstance(inp, np.ndarray):
             if np.array(outin).shape == inp.shape:
-                outout = np.where(isundef(inp, undef), undef, outin)
+                if np.any(isundef(inp, undef)):
+                    outout = np.where(isundef(inp, undef), undef, outin)
+                else:
+                    if isinstance(outin, np.ndarray):
+                        outout = outin
+                    else:
+                        outout = np.array(outin)
             else:
-                outout = np.array(outin)
+                if isinstance(outin, np.ndarray):
+                    outout = outin
+                else:
+                    outout = np.array(outin)
         elif isinstance(inp, str):
             if isundef(inp, undef):
                 outout = undef
             else:
-                outout = outin[0]
+                if isinstance(outin, str):
+                    outout = outin
+                else:
+                    outout = outin[0]
         else:
             if np.array(outin).shape == np.array(inp).shape:
-                outout = np.where(isundef(np.array(inp), undef), undef, outin)
+                if np.any(isundef(np.array(inp), undef)):
+                    outout = np.where(isundef(np.array(inp), undef),
+                                      undef, outin)
+                else:
+                    outout = outin
             else:
                 outout = outin
             try:
@@ -160,7 +185,7 @@ def array2input(outin, inp, inp2=None, undef=np.nan):
     return outout
 
 
-def input2array(inp, undef=np.nan, default=1):
+def input2array(inp, undef=None, default=1):
     """
     Makes numpy array from iterable or scalar input with masked or undef values
     are set to a default value
@@ -180,7 +205,7 @@ def input2array(inp, undef=np.nan, default=1):
         Input variable to transform to numpy array
     undef : float, optional
         Values in *inp* having value *undef* will be set to *default*
-        (default: numpy.nan)
+        (default: None)
     default : number
         Values in *inp* having value *undef* will be set to *default*
         (default: 1)
