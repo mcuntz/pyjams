@@ -1,0 +1,569 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>datetime module &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Grids and Polygons" href="grids_polygons.html" />
+    <link rel="prev" title="date2date module" href="date2date.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyjams.datetime">
+<span id="datetime-module"></span><h1>datetime module<a class="headerlink" href="#module-pyjams.datetime" title="Permalink to this headline">¶</a></h1>
+<p>Conversion of datetime formats</p>
+<p>The module enhances cftime by non-CF date formats.</p>
+<p>This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy,
+France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright</dt>
+<dd class="field-odd"><p>Copyright 2022- Matthias Cuntz, see AUTHORS.rst for details.</p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
+<p>The following functions are provided:</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.date2dec" title="pyjams.datetime.date2dec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date2dec</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Wrapper for <a class="reference internal" href="#pyjams.datetime.date2num" title="pyjams.datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.datetime.date2num" title="pyjams.datetime.date2num"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date2num</span></code></a>(dates[, units, calendar, ...])</p></td>
+<td><p>Return numeric time values given datetime objects or strings</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dec2date</span></code>(*args, **kwargs)</p></td>
+<td><p>Wrapper for <a class="reference internal" href="#pyjams.datetime.num2date" title="pyjams.datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.datetime.num2date" title="pyjams.datetime.num2date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num2date</span></code></a>(times[, units, calendar, ...])</p></td>
+<td><p>Return datetime objects given numeric time values</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.datetime" title="pyjams.datetime.datetime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datetime</span></code></a>(year, month, day[, hour, minute, ...])</p></td>
+<td><p>This class mimics cftime.datetime but for non-CF-conform calendars</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Jun 2022, Matthias Cuntz</p></li>
+</ul>
+</dd>
+<dt>ToDo</dt><dd><ul class="simple">
+<li><p>make PR cftime - missing precision in _idealized_calendars</p></li>
+<li><p>Add old history from JAMS</p></li>
+<li><p>Complete test_datetime.py</p></li>
+<li><p>add microsecond to tests</p></li>
+<li><p>add raise errors</p></li>
+<li><p>check why datetime + timedelta but not timedelta + datetime</p></li>
+<li><p>check ==</p></li>
+<li><p>add date2index</p></li>
+<li><p>add time2index</p></li>
+<li><p>implement fromordinal</p></li>
+<li><p>implement change_calendar</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microsecond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofwk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofyr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This class mimics cftime.datetime but for non-CF-conform calendars</p>
+<p>The cftime.datetime class mimics itself datetime.datetime but
+supports calendars other than the proleptic Gregorian calendar.</p>
+<p>This class supports timedelta operations by overloading +/-, and
+comparisons with other instances using the same calendar.</p>
+<p>Current supported calendars are <em>excel</em>, <em>excel1900</em>, <em>excel1904</em>,
+and <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>. Excel
+calendars are supposedly Julian calendars with other reference dates.
+Day 0 of <em>excel</em>/<em>excel1900</em> starts at 1899-12-31 00:00:00 and day 0
+of <em>excel1904</em> (old Lotus date) starts at 1903-12-31 00:00:00.
+Decimal calendars have the form “%Y.%f”, where the fractional year
+assumes leap years as the proleptic Gregorian calendar, or fixed 360,
+365, or 366 days per year.</p>
+<p>If the has_year_zero keyword argument is set to True, astronomical year
+numbering is used and the year zero exists, which is the default for the
+decimal calendars. The keyword will be ignored for Excel calendars.</p>
+<p>The class has the methods isoformat, strftime, timetuple, replace,
+dayofwk, dayofyr, daysinmonth, __repr__, __format__, __add__, __sub__,
+__str__, and comparison methods.</p>
+<p>The default format of the string produced by strftime is controlled by
+self.format (default %Y-%m-%d %H:%M:%S).</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.assert_valid_date" title="pyjams.datetime.datetime.assert_valid_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_valid_date</span></code></a>()</p></td>
+<td><p>Check that datetime is a valid date for given calendar</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.dayofwk" title="pyjams.datetime.datetime.dayofwk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dayofwk</span></code></a>()</p></td>
+<td><p>Day of the week</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.dayofyr" title="pyjams.datetime.datetime.dayofyr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dayofyr</span></code></a>()</p></td>
+<td><p>Day of year</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.daysinmonth" title="pyjams.datetime.datetime.daysinmonth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">daysinmonth</span></code></a>()</p></td>
+<td><p>Number of days in current month</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.format" title="pyjams.datetime.datetime.format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format</span></code></a>()</p></td>
+<td><p>Standard date representation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.isoformat" title="pyjams.datetime.datetime.isoformat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isoformat</span></code></a>([sep, timespec])</p></td>
+<td><p>ISO date representation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.replace" title="pyjams.datetime.datetime.replace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace</span></code></a>(**kwargs)</p></td>
+<td><p>Return datetime with new specified fields</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.strftime" title="pyjams.datetime.datetime.strftime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strftime</span></code></a>([format])</p></td>
+<td><p>Return a string representing the date, controlled by an explicit format string</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.timetuple" title="pyjams.datetime.datetime.timetuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timetuple</span></code></a>()</p></td>
+<td><p>Return a time.struct_time such as returned by time.localtime()</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.to_tuple" title="pyjams.datetime.datetime.to_tuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_tuple</span></code></a>()</p></td>
+<td><p>Tuple with year, month, day, hour, minute, second, microsecond</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.toordinal" title="pyjams.datetime.datetime.toordinal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toordinal</span></code></a>([fractional])</p></td>
+<td><p>Julian day (integer) ordinal</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 66%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>change_calendar</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>fromordinal</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.assert_valid_date">
+<span class="sig-name descname"><span class="pre">assert_valid_date</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.assert_valid_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.assert_valid_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that datetime is a valid date for given calendar</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.change_calendar">
+<span class="sig-name descname"><span class="pre">change_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.change_calendar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.change_calendar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.dayofwk">
+<span class="sig-name descname"><span class="pre">dayofwk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.dayofwk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.dayofwk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Day of the week</p>
+<p>Identical to cftime.datetime</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.dayofyr">
+<span class="sig-name descname"><span class="pre">dayofyr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.dayofyr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.dayofyr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Day of year</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.daysinmonth">
+<span class="sig-name descname"><span class="pre">daysinmonth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.daysinmonth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.daysinmonth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of days in current month</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard date representation</p>
+<p>Identical to cftime.datetime</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.fromordinal">
+<span class="sig-name descname"><span class="pre">fromordinal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.fromordinal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.fromordinal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.isoformat">
+<span class="sig-name descname"><span class="pre">isoformat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'T'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timespec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.isoformat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.isoformat" title="Permalink to this definition">¶</a></dt>
+<dd><p>ISO date representation</p>
+<p>Identical to cftime.datetime</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return datetime with new specified fields</p>
+<p>Identical to cftime.datetime</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.strftime">
+<span class="sig-name descname"><span class="pre">strftime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.strftime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.strftime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string representing the date, controlled by an explicit format
+string</p>
+<p>For a complete list of formatting directives, see section ‘strftime()
+and strptime() Behavior’ in the base Python documentation.</p>
+<p>Identical to cftime.datetime</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.timetuple">
+<span class="sig-name descname"><span class="pre">timetuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.timetuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.timetuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a time.struct_time such as returned by time.localtime()</p>
+<p>The DST flag is -1. d.timetuple() is equivalent to
+time.struct_time((d.year, d.month, d.day, d.hour, d.minute,
+d.second, d.weekday(), yday, dst)), where yday is the
+day number within the current year starting with 1 for January 1st.</p>
+<p>Identical to cftime.datetime</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.to_tuple">
+<span class="sig-name descname"><span class="pre">to_tuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.to_tuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.to_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuple with year, month, day, hour, minute, second, microsecond</p>
+<p>Identical to cftime.datetime</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.datetime.datetime.toordinal">
+<span class="sig-name descname"><span class="pre">toordinal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fractional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.toordinal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.toordinal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Julian day (integer) ordinal</p>
+<p>Day 0 starts at noon January 1 of the year -4713 for the
+Excel calendars.</p>
+<p>Day 0 starts at noon on January 1 of the year zero for
+the decimal calendars.</p>
+<p>If fractional=True, fractional part of day is included (default
+False).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.datetime.date2dec">
+<span class="sig-name descname"><span class="pre">date2dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#date2dec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.date2dec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#pyjams.datetime.date2num" title="pyjams.datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.datetime.date2num">
+<span class="sig-name descname"><span class="pre">date2num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timesep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#date2num"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.date2num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return numeric time values given datetime objects or strings</p>
+<p>The units of the numeric time values are described by the
+<em>units</em> and <em>calendar</em> keywords for CF-conform calendars, i.e.
+<em>standard</em>, <em>gregorian</em>, <em>julian</em>, <em>proleptic_gregorian</em>,
+<em>360_day</em>, <em>365_day</em>, <em>366_day</em>, <em>noleap</em>, <em>all_leap</em>.
+See <a class="reference external" href="http://cfconventions.org/cf-conventions/cf-conventions#calendar">http://cfconventions.org/cf-conventions/cf-conventions#calendar</a>
+These times will be passed to cftime.num2date.</p>
+<p>Standard <em>units</em> are used for the non-CF-conform calendars
+<em>excel</em>, <em>excel1900</em>, <em>excel1904</em>, and
+<em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>,
+and given <em>units</em> will hence be ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dates</strong> (<em>datetime instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, or </em><em>array_like of datetime</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – datetime objects or strings with string representations.
+datetime objects can either be Python datetime.datetime,
+cf.datetime, or pyjams.datetime objects. If <em>dates</em> are strings,
+then <em>format</em> keyword is relevant.</p></li>
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Units string such as ‘seconds since 1900-01-01 00:00:00’ or
+‘day as %Y%m%d.%f’. Standard units corresponding to days after
+day 0 of a given calendar will be used if omitted, i.e. assuming
+Julian day ordinals.</p>
+<p>In the form <em>time_units since reference_time</em>,
+<em>time_units</em> can be days, hours, minutes, seconds, milliseconds,
+or microseconds. <em>reference_time</em> is the time origin.
+<em>months since</em> is allowed only for the <em>360_day</em> calendar
+and <em>common_years since</em> is allowed only for the <em>365_day</em> calendar.</p>
+<p>There are currently only three valid forms for <em>time_units as format</em>:
+‘day as %Y%m%d.%f’, ‘month as %Y%m.%f’, ‘year as %Y.%f’. The latter is
+the same as ‘calendar=decimal’. <em>calendar=’decimal’ will be set in
+case units *time_units as format</em>.</p>
+</p></li>
+<li><p><strong>calendar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – One of the support calendars, i.e. the CF-conform calendars
+<em>standard</em>, <em>gregorian</em>, <em>julian</em>, <em>proleptic_gregorian</em>,
+<em>360_day</em>, <em>365_day</em>, <em>366_day</em>, <em>noleap</em>, <em>all_leap</em>,
+as well as the non-CF-conform calendars
+<em>excel</em>, <em>excel1900</em>, <em>excel1904</em>, and
+<em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>.
+<em>standard</em> will be taken by default, which is a mixed
+Julian/Gregorian calendar.</p></li>
+<li><p><strong>has_year_zero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Astronomical year numbering is used and the year zero exists, if set to
+True. If set to False for real-world calendars, then historical year
+numbering is used and the year 1 is preceded by year -1 and no year
+zero exists.
+The defaults are set to conform with CF version 1.9 conventions, i.e.
+False for ‘standard’, ‘gregorian’, and ‘julian’, True
+for ‘proleptic_gregorian’ (ISO 8601), and True for the idealized
+calendars ‘noleap’/’365_day’, ‘360_day’, 366_day’/’all_leap’.
+Excel calendars <em>excel</em>, <em>excel1900</em>, <em>excel1904</em> start only 1900
+or above so <em>has_year_zero</em> is always False.
+Decimal calendars <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>
+have always year 0, i.e. <em>has_year_zero</em> is True.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – If <em>dates</em> are strings, then <em>format</em> is the Python
+datetime.strftime/strptime format string if given. If empty (default),
+then the routine pyjams.date2date will be used, which converts between
+formats ‘%Y-%m-%d %H:%M:%S’, ‘%d.%m.%Y %H:%M:%S’, and ‘%m/%d/%Y
+%H:%M:%S’ (called English <em>YYYY-MM-DD hh:mm:ss</em>, standard
+<em>DD.MM.YYYY hh:mm:ss</em>, and American <em>MM/DD/YYYY hh:mm:ss</em> in
+pyjams.date2date), where times can be partial or missing.</p></li>
+<li><p><strong>timesep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Separator string between date and time used by pyjams.date2date if
+if <em>dates</em> are strings and <em>format</em> is empty (default: ‘ ‘)</p></li>
+<li><p><strong>fr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, pyjams.date2date will interpret input dates with ‘/’
+separators not as the American format ‘%m/%d/%Y %H:%M:%S’ but the
+French way as ‘%d/%m/%Y %H:%M:%S’, if <em>dates</em> are strings and
+<em>format</em> is empty</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numeric time values</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array_like</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">idates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2000-01-05 12:30:15&#39;</span><span class="p">,</span> <span class="s1">&#39;1810-04-24 16:15:10&#39;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;1630-07-15 10:20:40&#39;</span><span class="p">,</span> <span class="s1">&#39;1510-09-20 14:35:50&#39;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;1271-03-18 19:41:34&#39;</span><span class="p">,</span> <span class="s1">&#39;0619-08-27 11:08:37&#39;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;0001-01-01 12:00:00&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decimal</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">idates</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">num2date</span><span class="p">(</span><span class="n">decimal</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="go">[&#39;2000-01-05 12:30:15&#39;,</span>
+<span class="go"> &#39;1810-04-24 16:15:10&#39;,</span>
+<span class="go"> &#39;1630-07-15 10:20:40&#39;,</span>
+<span class="go"> &#39;1510-09-20 14:35:50&#39;,</span>
+<span class="go"> &#39;1271-03-18 19:41:34&#39;,</span>
+<span class="go"> &#39;0619-08-27 11:08:37&#39;,</span>
+<span class="go"> &#39;0001-01-01 12:00:00&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.datetime.num2date">
+<span class="sig-name descname"><span class="pre">num2date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_cftime_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_python_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#num2date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.num2date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return datetime objects given numeric time values</p>
+<p>The units of the numeric time values are described by the
+<em>units</em> and <em>calendar</em> keywords for CF-conform calendars, i.e.
+<em>standard</em>, <em>gregorian</em>, <em>julian</em>, <em>proleptic_gregorian</em>,
+<em>360_day</em>, <em>365_day</em>, <em>366_day</em>, <em>noleap</em>, <em>all_leap</em>.
+See <a class="reference external" href="http://cfconventions.org/cf-conventions/cf-conventions#calendar">http://cfconventions.org/cf-conventions/cf-conventions#calendar</a>
+These times will be passed to cftime.num2date.</p>
+<p>Standard <em>units</em> are used for the non-CF-conform calendars
+<em>excel</em>, <em>excel1900</em>, <em>excel1904</em>, and
+<em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>,
+and given <em>units</em> will hence be ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like</em>) – Numeric time values</p></li>
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Units string such as ‘seconds since 1900-01-01 00:00:00’ or
+‘day as %Y%m%d.%f’. Standard units corresponding to days after
+day 0 of a given calendar will be used if omitted, i.e. assuming
+Julian day ordinals.</p>
+<p>In the form <em>time_units since reference_time</em>,
+<em>time_units</em> can be days, hours, minutes, seconds, milliseconds,
+or microseconds. <em>reference_time</em> is the time origin.
+<em>months since</em> is allowed only for the <em>360_day</em> calendar
+and <em>common_years since</em> is allowed only for the <em>365_day</em> calendar.</p>
+<p>There are currently only three valid forms for <em>time_units as format</em>:
+‘day as %Y%m%d.%f’, ‘month as %Y%m.%f’, ‘year as %Y.%f’. The latter is
+the same as ‘calendar=decimal’. <em>calendar=’decimal’ will be set in
+case units *time_units as format</em>.</p>
+</p></li>
+<li><p><strong>calendar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – One of the support calendars, i.e. the CF-conform calendars
+<em>standard</em>, <em>gregorian</em>, <em>julian</em>, <em>proleptic_gregorian</em>,
+<em>360_day</em>, <em>365_day</em>, <em>366_day</em>, <em>noleap</em>, <em>all_leap</em>,
+as well as the non-CF-conform calendars
+<em>excel</em>, <em>excel1900</em>, <em>excel1904</em>, and
+<em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>.
+<em>standard</em> will be taken by default, which is a mixed
+Julian/Gregorian calendar.</p></li>
+<li><p><strong>only_use_cftime_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime and cftime.datetime objects are returned by default.
+Only if only_use_cftime_datetimes is set to False (default: True)
+and only_use_python_datetimes is set to True then Python
+datetime.datetime objects will be returned where possible.</p></li>
+<li><p><strong>only_use_python_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime and cftime.datetime objects are returned by default.
+Only if only_use_python_datetimes is set to True (default: False)
+and only_use_cftime_datetimes is set to False then Python
+datetime.datetime objects will be returned where possible.</p></li>
+<li><p><strong>has_year_zero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Astronomical year numbering is used and the year zero exists, if set to
+True. If set to False for real-world calendars, then historical year
+numbering is used and the year 1 is preceded by year -1 and no year
+zero exists.
+The defaults are set to conform with CF version 1.9 conventions, i.e.
+False for ‘standard’, ‘gregorian’, and ‘julian’, True
+for ‘proleptic_gregorian’ (ISO 8601), and True for the idealized
+calendars ‘noleap’/’365_day’, ‘360_day’, 366_day’/’all_leap’.
+Excel calendars <em>excel</em>, <em>excel1900</em>, <em>excel1904</em> start only 1900
+or above so <em>has_year_zero</em> is always False.
+Decimal calendars <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>
+have always year 0, i.e. <em>has_year_zero</em> is True.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – If format string is given than a string representation of the
+datetime objects will be returned.</p></li>
+<li><p><strong>return_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, then return a tuple with individual arrays for
+year, month, day, hour, minute, second, microsecond</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>datetime instances or string representations of datetime objects, or
+tuple with individual arrays for year, month, day, hour, minute,
+second, microsecond</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array_like</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">idates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2000-01-05 12:30:15&#39;</span><span class="p">,</span> <span class="s1">&#39;1810-04-24 16:15:10&#39;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;1630-07-15 10:20:40&#39;</span><span class="p">,</span> <span class="s1">&#39;1510-09-20 14:35:50&#39;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;1271-03-18 19:41:34&#39;</span><span class="p">,</span> <span class="s1">&#39;0619-08-27 11:08:37&#39;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;0001-01-01 12:00:00&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decimal</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">idates</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">num2date</span><span class="p">(</span><span class="n">decimal</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="go">[&#39;2000-01-05 12:30:15&#39;,</span>
+<span class="go"> &#39;1810-04-24 16:15:10&#39;,</span>
+<span class="go"> &#39;1630-07-15 10:20:40&#39;,</span>
+<span class="go"> &#39;1510-09-20 14:35:50&#39;,</span>
+<span class="go"> &#39;1271-03-18 19:41:34&#39;,</span>
+<span class="go"> &#39;0619-08-27 11:08:37&#39;,</span>
+<span class="go"> &#39;0001-01-01 12:00:00&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="date_time.html">Date and Time</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="date2date.html">date2date module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">datetime module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="date_time.html">Date and Time</a><ul>
+      <li>Previous: <a href="date2date.html" title="previous chapter">date2date module</a></li>
+      <li>Next: <a href="grids_polygons.html" title="next chapter">Grids and Polygons</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/datetime.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

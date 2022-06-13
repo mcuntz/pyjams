@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Changelog &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="info/readnetcdf" href="readnetcdf.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="changelog">
+<span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>v1.23 (Jun 2022)</dt><dd><ul class="simple">
+<li><p>Added module <cite>datetime</cite> with class <cite>datetime</cite> that mimics cftime.datetime
+but for non-CF-conform calendars. It also adds the functions <cite>date2num</cite>
+and <cite>num2date</cite> for conversion between datetime objects or string
+representations and numerical times. It adds the convenience wrappers
+<cite>date2dec</cite> and <cite>dec2date</cite> for easier portability of older code using
+JAMS.</p></li>
+<li><p>Allows more usage of helper functions <cite>input2array</cite> and <cite>array2input</cite>
+by allowing undef=None in and making it the default.</p></li>
+<li><p>Make netCDF4 an requirement of <code class="docutils literal notranslate"><span class="pre">pyjams</span></code>.</p></li>
+<li><p>Use I/O type helpers in <cite>str2tex</cite>.</p></li>
+<li><p>Use I/O type helpers in <cite>date2date</cite>.</p></li>
+<li><p>Allow strings and string arrays in <cite>array2input</cite> and <cite>input2array</cite>.</p></li>
+<li><p>Add kwargs mechanism to <cite>plot_save</cite> in <cite>mcPlot</cite> to pass arguments
+to save_file.</p></li>
+<li><p>Add –transparent as a standard option in <cite>mcPlot</cite>.</p></li>
+</ul>
+</dd>
+<dt>v1.22 (May 2022)</dt><dd><ul class="simple">
+<li><p>Added module <cite>ncio</cite> with netCDF4 functions to copy netcdf files while
+doing some transformations on variables and dimensions.</p></li>
+<li><p>Added shape keyword to <cite>infonetcdf</cite>.</p></li>
+<li><p>Assert that at least one of nc, snc, cname, or sname is given in call to
+<cite>xread</cite>.</p></li>
+<li><p>Change from NCL amwg to pyjams amwg as the default color palette in
+<cite>mcPlot</cite>.</p></li>
+</ul>
+</dd>
+<dt>v1.21 (Apr 2022)</dt><dd><ul class="simple">
+<li><p>Added <cite>pyjams_amwg</cite> color map.</p></li>
+<li><p>Bandwidth h output of <cite>kernel_regression_h</cite> is scalar if one-dimensional.</p></li>
+<li><p>undef=np.nan is default in helper functions <cite>array2input</cite> and
+<cite>input2array</cite>.</p></li>
+<li><p>Array masked or set to undef only if shapes of array and input agree in
+<cite>array2input</cite>.</p></li>
+<li><p>Output of <cite>kernel_regression</cite> now has the type of <cite>y</cite> and not <cite>x</cite> or
+<cite>xout</cite>.</p></li>
+<li><p><cite>get_color</cite> can get list of colors and not only single colors.</p></li>
+<li><p>Register ufz colors only once with <cite>get_color</cite>.</p></li>
+<li><p>Add <cite>print_colors</cite> to print known named colors to console.</p></li>
+</ul>
+</dd>
+<dt>v1.20 (Apr 2022)</dt><dd><ul class="simple">
+<li><p>Add <cite>gridcellarea</cite> to calculate the area of grid cells on Earth in
+square metre.</p></li>
+<li><p>Add <cite>kernel_regression</cite> and <cite>kernel_regression_h</cite> for multi-dimensional
+non-parametric kernel regression.</p></li>
+</ul>
+</dd>
+<dt>v1.19 (Mar 2022)</dt><dd><ul class="simple">
+<li><p>Add <cite>infonetcdf</cite> and <cite>readnetcdf</cite> to get variables from or print
+information of a netcdf file.</p></li>
+<li><p>Add <cite>get_color</cite> to get value of named colors known to Matplotlib.</p></li>
+<li><p>Added named colors of the guidelines of the Helmholtz Centre for
+Environmental Research - UFZ, Leipzig, Germany.</p></li>
+</ul>
+</dd>
+<dt>v1.18 (Mar 2022)</dt><dd><ul class="simple">
+<li><p>Use <cite>array2input</cite> and <cite>input2array</cite> in <cite>division</cite>, correcting bug with
+scalar input and getting rid of numpy geterr and seterr.</p></li>
+<li><p>Enhanced <cite>array2input</cite> to take second input variable.</p></li>
+<li><p>Added functions <cite>isundef</cite> in <cite>helper</cite> module to deal with NaN and Inf.</p></li>
+<li><p>Added ‘order’ keyword to <cite>get_cmap</cite>.</p></li>
+<li><p>Added functions <cite>array2input</cite> and <cite>input2array</cite> in new <cite>helper</cite> module to
+assure same input and output types. Use them in <cite>esat</cite> and
+<cite>alpha_equ_h2o</cite>. The <cite>helper</cite> module is not in <cite>__init__.py</cite> nor in the
+documentation (yet?).</p></li>
+<li><p>Return numpy array if type(input)(output) fails for unknown iterable
+types in <cite>esat</cite> and <cite>alpha_equ_h2o</cite>.</p></li>
+</ul>
+</dd>
+<dt>v1.17 (Jan 2022)</dt><dd><ul class="simple">
+<li><p>Always close open files in module <cite>fsread</cite>.</p></li>
+<li><p>Set default fill_value to NaN for floats in module <cite>fsread</cite>.</p></li>
+<li><p>Remove read_only mode for openpyxl in <cite>xread</cite> because closing is disabled
+in this case.</p></li>
+<li><p>Change handling of return type to allow more (unspecific) iterable types
+such as pandas time series in <cite>esat</cite> and <cite>alpha_equ_h2o</cite>.</p></li>
+<li><p>Added <cite>xread</cite>, <cite>xlsread</cite>, and <cite>xlsxread</cite>, reading numbers and strings
+from an Excel file into 2D float and string arrays.</p></li>
+</ul>
+</dd>
+<dt>v1.16 (Jan 2022)</dt><dd><ul class="simple">
+<li><p>Added <cite>mad</cite>, median absolute deviation test.</p></li>
+</ul>
+</dd>
+<dt>v1.15 (Jan 2022)</dt><dd><ul class="simple">
+<li><p>Added <cite>esat</cite>, giving saturation vapour pressure over water and ice.</p></li>
+<li><p>Bug in <cite>alpha_equ_h2o</cite> in return type if list or tuple and undef.</p></li>
+</ul>
+</dd>
+<dt>v1.14 (Jan 2022)</dt><dd><ul class="simple">
+<li><p>Added <cite>directory_from_gui</cite>, <cite>directories_from_gui</cite>, <cite>file_from_gui</cite>, and
+<cite>files_from_gui</cite>, GUI dialogs to choose directories and files using
+Tkinter.</p></li>
+<li><p>Organize API reference documentation by categories.</p></li>
+<li><p>More consistent docstrings across routines.</p></li>
+<li><p>Bug in <cite>alpha_equ_h2o</cite> for scalar in/out.</p></li>
+</ul>
+</dd>
+<dt>v1.13 (Dec 2021)</dt><dd><ul class="simple">
+<li><p>Added <cite>fsread</cite>, <cite>fread</cite>, and <cite>sread</cite>, reading numbers and strings from a
+file into 2D float and string arrays.</p></li>
+<li><p>Changed order of color maps in printing and plotting.</p></li>
+<li><p>Edited docstrings of color module to follow closer numpydoc.</p></li>
+</ul>
+</dd>
+<dt>v1.12 (Dec 2021)</dt><dd><ul class="simple">
+<li><p>Added <cite>date2date</cite>, which converts date representations between different
+regional variants.</p></li>
+<li><p>Change documentation to Alabaster theme with custom CSS file.</p></li>
+</ul>
+</dd>
+<dt>v1.11 (Nov 2021)</dt><dd><ul class="simple">
+<li><p>Use <cite>text2plot</cite> in <cite>abc2plot</cite> and <cite>signature2plot</cite>.</p></li>
+<li><p>Better handling of linebreaks in Matplotlib and LaTeX mode in <cite>str2tex</cite>.</p></li>
+<li><p>Added <cite>text2plot</cite>, adding text onto a plot.</p></li>
+<li><p>Added <cite>int2roman</cite> and <cite>roman2int</cite>, converting integer to and from
+Roman literals.</p></li>
+<li><p>Combine <cite>abc2plot</cite> and <cite>signature2plot</cite> in one file <cite>text2plot.py</cite>.</p></li>
+<li><p>Added <cite>abc2plot</cite>, adding a, B, iii), etc. onto a plot.</p></li>
+<li><p>Added <cite>signature2plot</cite>, adding a copyright notice onto a plot.</p></li>
+<li><p>Added ‘pyjams_color.pdf’ as reference to available colormaps.</p></li>
+</ul>
+</dd>
+<dt>v1.10 (Nov 2021)</dt><dd><ul class="simple">
+<li><p>Added tests for <cite>color</cite>.</p></li>
+<li><p>Added ‘pragma: no cover’ to plot and MPI sections of codes so that they
+are not included in coverage report.</p></li>
+<li><p>Cleaned mcPlot docstrings.</p></li>
+<li><p>Cleaned formats in all docstrings.</p></li>
+<li><p>Added current colors of Paul Tol, i.e. sron color palettes.</p></li>
+</ul>
+</dd>
+<dt>v1.9 (Nov 2021)</dt><dd><ul class="simple">
+<li><p>Add <cite>position</cite>, which positions arrays of subplots to be used with
+Matplotlib’s add_axes.</p></li>
+</ul>
+</dd>
+<dt>v1.8 (Nov 2021)</dt><dd><ul class="simple">
+<li><p>Write standard output file of mcPlot into current folder.</p></li>
+<li><p>Add <cite>str2tex</cite>, converting strings to LaTeX strings</p></li>
+<li><p>Bug in masked array input to <cite>alpha_equ_h2o</cite>, needed to check masked array
+before ndarray because the former is also the latter.</p></li>
+<li><p>Enhanced tests of <cite>alpha_equ_h2o</cite>, <cite>alpha_kin_h2o</cite>, <cite>fit_functions</cite>,
+<cite>argsort</cite> so that have 100% coverage.</p></li>
+<li><p>Added <cite>color</cite>, a collection of color palettes and continuous color maps.</p></li>
+</ul>
+</dd>
+<dt>v1.7 (Nov 2021)</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>Add <cite>mcPlot</cite>, the standard plotting class of Matthias Cuntz.</dt><dd><ul>
+<li><p>It currently assumes that MyriadPro is installed for LaTeX if one
+wants to typeset with latex (-u, –usetex). For installing MyriadPro
+on macOS see <a class="reference external" href="https://github.com/mcuntz/setup_mac#myriad-pro">https://github.com/mcuntz/setup_mac#myriad-pro</a> This
+should be similar on Linux.</p></li>
+<li><p>There are no tests for mcPlot yet.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>v1.6 (Nov 2021)</dt><dd><ul class="simple">
+<li><p>Avoid overflow warnings in <cite>alpha_equ_h2o</cite>.</p></li>
+<li><p>Added <cite>alpha_kin_h2o</cite>, kinetic fractionation factors for molecular
+diffusion of water isotopologues.</p></li>
+</ul>
+</dd>
+<dt>v1.5 (Oct 2021)</dt><dd><ul class="simple">
+<li><p>Added <cite>alpha_equ_h2o</cite>, isotopic fractionation between liquid water and
+vapour.</p></li>
+<li><p>Added <cite>pyjams</cite> to conda-forge.</p></li>
+</ul>
+</dd>
+<dt>v1.4 (Oct 2021)</dt><dd><ul class="simple">
+<li><p>Added <cite>division</cite>, divides arrays dealing with zero in denominator.</p></li>
+</ul>
+</dd>
+<dt>v1.3 (Oct 2021)</dt><dd><ul class="simple">
+<li><p>Added <cite>argmax</cite>, <cite>argmin</cite> and <cite>argsort</cite> for array_like and Python
+iterables.</p></li>
+</ul>
+</dd>
+<dt>v1.2 (Oct 2021)</dt><dd><ul class="simple">
+<li><p>Added <cite>closest</cite>, which searches the closest element in an array.</p></li>
+</ul>
+</dd>
+<dt>v1.1.x (Oct 2021)</dt><dd><ul class="simple">
+<li><p>Minor updates fixing JSON format of Zenodo defaults file <cite>.zenodo.json</cite>,
+using a combination of the successful metadata of Zenodo of v1.0, which
+itself does not work as a template ;-( and the information given on
+<a class="reference external" href="https://developers.zenodo.org/">https://developers.zenodo.org/</a>.</p></li>
+</ul>
+</dd>
+<dt>v1.1 (Oct 2021)</dt><dd><ul class="simple">
+<li><p>Use automatic versioning with setuptools_scm. Delete
+<cite>src/pyjams/version.py</cite>.</p></li>
+<li><p>Edited zenodo defaults for new releases.</p></li>
+<li><p>Updated DOI in all documentation.</p></li>
+<li><p>Use __all__ in all __init__.py.</p></li>
+</ul>
+</dd>
+<dt>v1.0 (Oct 2021)</dt><dd><ul class="simple">
+<li><p>Initial release on Github, PyPI, and Zenodo.</p></li>
+<li><p>Copied routines from JAMS package <a class="reference external" href="https://github.com/mcuntz/jams_python">https://github.com/mcuntz/jams_python</a>,
+formatted docstrings in numpydoc format, made the code flake8 compatible,
+and added extensive tests. Routines in JAMS get DeprecationWarning.</p></li>
+<li><p>Provide basic documentation.</p></li>
+<li><p>Added <cite>tee</cite>, which mimics the Unix/Linux tee utility, i.e. prints
+arguments on screen and in a file.</p></li>
+<li><p>Added module <cite>const</cite>, which provides physical, mathematical,
+computational, isotope, and material constants, such as <cite>Pi =
+3.141592653589793238462643383279502884197</cite>.</p></li>
+<li><p>Added module <cite>functions</cite>, which provides a variety of special functions,
+including common test functions for parameter estimations such as
+Rosenbrock and Griewank, test functions for parameter sensitivity analysis
+such as the Ishigami and Homma function, several forms of the logistic
+function and its first and second derivatives, and a variety of other
+functions together with robust and square cost functions to use with the
+scipy.optimize package.</p></li>
+<li><p>Added <cite>morris_method.py</cite> for Morris’ Method with functions
+<cite>morris_sampling</cite> and <cite>elementary_effects</cite> to sample trajectories in
+parameter space and to calculate Elementary Effects from model output on
+trajectories.</p></li>
+<li><p>Added <cite>screening.py</cite> for applying Morris’ Method on arbitrary functions,
+providing the function <cite>screening</cite> that samples trajectories with
+<cite>morris_sampling</cite> of <cite>morris_method.py</cite>, applies a function on these
+trajectories, and calculates Elementary Effects with function
+<cite>elementary_effects</cite> of <cite>morris_method.py</cite>.
+It also provides a wrapper function <cite>ee</cite> for <cite>screening</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+      <li>Previous: <a href="readnetcdf.html" title="previous chapter">info/readnetcdf</a></li>
+      <li>Next: <a href="contributing.html" title="next chapter">Contributing</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/changelog.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

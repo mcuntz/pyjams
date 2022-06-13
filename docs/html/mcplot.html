@@ -1,0 +1,776 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mcPlot &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="position" href="position.html" />
+    <link rel="prev" title="UFZ colors" href="color.ufz_palettes.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyjams.mcplot">
+<span id="mcplot"></span><h1>mcPlot<a class="headerlink" href="#module-pyjams.mcplot" title="Permalink to this headline">¶</a></h1>
+<p>Standard plotting class of Matthias Cuntz.</p>
+<p>It has the same functionality as the old mc_template.py by Matthias Cuntz but
+uses the object-oriented approach of st_template.py of Stephan Thober.</p>
+<p>It allows plotting on screen, into PDF and PNG files, as well as in HTML
+files as a wrapper for PNG images or in D3 format (and plotly currently only
+with older Matplotlib versions).</p>
+<p>It is optimised for publication ready plots, either on white or black
+background.</p>
+<p>The simplest way to use mcPlot is to extend the class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">mcPlot</span>
+
+<span class="k">class</span> <span class="nc">PlotIt</span><span class="p">(</span><span class="n">mcPlot</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># change e.g. colors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lcol1</span> <span class="o">=</span> <span class="s1">&#39;cyan&#39;</span>
+        <span class="c1"># reset global values after colour changes, etc.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_matplotlib_rcparams</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># do something</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_fig_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifig</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ifig</span><span class="p">)</span>
+
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.667</span><span class="p">,</span> <span class="mf">0.3375</span><span class="p">,</span> <span class="mf">0.233</span><span class="p">])</span>
+
+        <span class="n">larr</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dat</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">larr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lwidth</span><span class="p">,</span>
+                 <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lcol1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_save</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_fig_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifig</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ifig</span><span class="p">)</span>
+
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.667</span><span class="p">,</span> <span class="mf">0.3375</span><span class="p">,</span> <span class="mf">0.233</span><span class="p">])</span>
+
+        <span class="n">larr</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dat</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">larr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lwidth</span><span class="p">,</span>
+                 <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lcols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_save</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">iplot</span> <span class="o">=</span> <span class="n">PlotIt</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Test mcPlot&#39;</span><span class="p">,</span>
+                   <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;No argument wanted&#39;</span><span class="p">)</span>
+    <span class="n">iplot</span><span class="o">.</span><span class="n">read_data</span><span class="p">()</span>
+    <span class="n">iplot</span><span class="o">.</span><span class="n">plot_fig_1</span><span class="p">()</span>
+    <span class="n">iplot</span><span class="o">.</span><span class="n">plot_fig_2</span><span class="p">()</span>
+    <span class="n">iplot</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then call the script with -h to see the command line options.</p>
+<p>This module was written by Matthias Cuntz while at Institut National de
+Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy,
+France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright</dt>
+<dd class="field-odd"><p>Copyright 2020-2022 Matthias Cuntz, see AUTHORS.rst for details.</p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
+<p>The following classes are provided:</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot" title="pyjams.mcplot.mcPlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mcPlot</span></code></a>([desc, argstr])</p></td>
+<td><p>Standard plotting class of Matthias Cuntz</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Sep 2020 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>Write standard output file into current folder, Nov 2021, Matthias Cuntz</p></li>
+<li><p>Change from NCL amwg color palette to pyjams amwg,
+May 2021, Matthias Cuntz</p></li>
+<li><p>Add <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs to plot_save, May 2022, Matthias Cuntz</p></li>
+<li><p>Add self.transparent to pdf output in plot_save, May 2022, Matthias Cuntz</p></li>
+<li><p>Add –transparent as a standard option, May 2022, Matthias Cuntz</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">mcPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argstr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Standard plotting class of Matthias Cuntz</p>
+<p>Upon initialisation,
+the command line arguments are gathered (get_command_line_arguments),
+the output type is set (set_output_type),
+standard layout options are added to self (set_layout_options),
+global rcParams are set for Matplotlib (set_matplotlib_rcparams), and
+the output plotting file is opened (plot_begin).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><a class="headerlink" href="#pyjams.mcplot.mcPlot.desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description for command line parser, which will be shown when
+called with -h.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.argstr">
+<span class="sig-name descname"><span class="pre">argstr</span></span><a class="headerlink" href="#pyjams.mcplot.mcPlot.argstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>String given as description for the positional arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.get_command_line_arguments">
+<span class="sig-name descname"><span class="pre">get_command_line_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argstr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.get_command_line_arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.get_command_line_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard command line parser with the default arguments
+such as plot type, filename, etc. If extra arguments are needed,
+one should copy this routine into the extending class and adapt
+it to its needs, keeping the existing optional arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_end">
+<span class="sig-name descname"><span class="pre">plot_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">)</span> <span class="pre">or</span> <span class="pre">plot_stop()</span> <span class="pre">or</span> <span class="pre">or</span> <span class="pre">plot_close()</span> <span class="pre">or</span> <span class="pre">end()</span> <span class="pre">or</span> <span class="pre">stop(</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish, closing opened output files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_save">
+<span class="sig-name descname"><span class="pre">plot_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fig</span></em>, <em class="sig-param"><span class="pre">\*\*kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save, close or show <cite>figure</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.set_layout_options">
+<span class="sig-name descname"><span class="pre">set_layout_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.set_layout_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.set_layout_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the colours and styles that can be used in plots.
+One can either copy this routine into the extending class and adapt it,
+or add a new method that resets some of the layout options and call it
+in the initialisation of the extending class, or simply set layout
+options in the initialisation of the extending class.</p>
+</dd></dl>
+
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Several more methods are defined, which should probably not be changed.</p>
+<dl class="simple">
+<dt>plot_begin() or plot_start()</dt><dd><p>Open output file and similar at the beginning.</p>
+</dd>
+<dt>plot_test()</dt><dd><p>A simple plot as an example.</p>
+</dd>
+<dt>set_matplotlib_rcparams()</dt><dd><p>Set rcParams of Matplotlib depending on output type, and chosen layout.
+rcParams can also be re-set in the initialisation of the extending
+class.</p>
+</dd>
+<dt>set_output_type()</dt><dd><p>Set the format of the output such as pdf or png.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The simplest way to use <cite>mcPlot</cite> is to extend the class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">mcPlot</span>
+
+<span class="k">class</span> <span class="nc">PlotIt</span><span class="p">(</span><span class="n">mcPlot</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># change e.g. colors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lcol1</span> <span class="o">=</span> <span class="s1">&#39;cyan&#39;</span>
+
+    <span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># do something</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_fig_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifig</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ifig</span><span class="p">)</span>
+
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.667</span><span class="p">,</span> <span class="mf">0.3375</span><span class="p">,</span> <span class="mf">0.233</span><span class="p">])</span>
+
+        <span class="n">larr</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dat</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">larr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lwidth</span><span class="p">,</span>
+                 <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lcol1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_save</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_fig_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifig</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ifig</span><span class="p">)</span>
+
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.667</span><span class="p">,</span> <span class="mf">0.3375</span><span class="p">,</span> <span class="mf">0.233</span><span class="p">])</span>
+
+        <span class="n">larr</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dat</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">larr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lwidth</span><span class="p">,</span>
+                 <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lcols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_save</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">iplot</span> <span class="o">=</span> <span class="n">PlotIt</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Test mcPlot&#39;</span><span class="p">)</span>
+    <span class="n">iplot</span><span class="o">.</span><span class="n">read_data</span><span class="p">()</span>
+    <span class="n">iplot</span><span class="o">.</span><span class="n">plot_fig_1</span><span class="p">()</span>
+    <span class="n">iplot</span><span class="o">.</span><span class="n">plot_fig_2</span><span class="p">()</span>
+    <span class="n">iplot</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then call the script with -h to see the command line options.</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.close" title="pyjams.mcplot.mcPlot.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
+<td><p>Alias for plot_end()</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.end" title="pyjams.mcplot.mcPlot.end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">end</span></code></a>()</p></td>
+<td><p>Alias for plot_end()</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="pyjams.mcplot.mcPlot.get_command_line_arguments"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_command_line_arguments</span></code></a>([desc, argstr])</p></td>
+<td><p>Standard command line parser with default arguments such as plot type, filename, etc.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.plot_begin" title="pyjams.mcplot.mcPlot.plot_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_begin</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.plot_close" title="pyjams.mcplot.mcPlot.plot_close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_close</span></code></a>()</p></td>
+<td><p>Alias for plot_end()</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#id3" title="pyjams.mcplot.mcPlot.plot_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_end</span></code></a>()</p></td>
+<td><p>Finish plotting</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id4" title="pyjams.mcplot.mcPlot.plot_save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_save</span></code></a>(fig, **kwargs)</p></td>
+<td><p>Save figure into output file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.plot_start" title="pyjams.mcplot.mcPlot.plot_start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_start</span></code></a>()</p></td>
+<td><p>Alias for plot_begin()</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.plot_stop" title="pyjams.mcplot.mcPlot.plot_stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_stop</span></code></a>()</p></td>
+<td><p>Alias for plot_end()</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.plot_test" title="pyjams.mcplot.mcPlot.plot_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_test</span></code></a>()</p></td>
+<td><p>A simple test plot</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id5" title="pyjams.mcplot.mcPlot.set_layout_options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_layout_options</span></code></a>()</p></td>
+<td><p>Standard layout options that can be used in plotting methods</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.set_matplotlib_rcparams" title="pyjams.mcplot.mcPlot.set_matplotlib_rcparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_matplotlib_rcparams</span></code></a>()</p></td>
+<td><p>Set rcParams depending on output type and other options such as using LaTeX, serif fonts, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.set_output_type" title="pyjams.mcplot.mcPlot.set_output_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_output_type</span></code></a>()</p></td>
+<td><p>Set type of chosen output.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for plot_end()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.end">
+<span class="sig-name descname"><span class="pre">end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for plot_end()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">get_command_line_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argstr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.get_command_line_arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard command line parser with default arguments
+such as plot type, filename, etc.</p>
+<p>If extra arguments are needed, one should copy this routine
+into an extending class and adapt it to its needs,
+keeping the existing optional arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>desc</strong> (<em>string</em><em>, </em><em>optional</em>) – Description for command line parser, which will be shown when
+called with -h.</p></li>
+<li><p><strong>argstr</strong> (<em>string</em><em>, </em><em>optional</em>) – String given as description for the positional arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Standard command line arguments are:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  args                  Text will be replaced by <span class="sb">`</span>argstr<span class="sb">`</span>.
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  -p plotname, --plotname plotname
+                        Name of plot output file <span class="k">for</span> types pdf,
+                        html, d3, or plotly, and name basis <span class="k">for</span> <span class="nb">type</span>
+                        png <span class="o">(</span>default: calling_filename without
+                        extension<span class="o">)</span>.
+  -s, --serif           Use serif font<span class="p">;</span> default sans serif.
+  -t outtype, --type outtype
+                        Output <span class="nb">type</span> is pdf, png, html, d3, or plotly
+                        <span class="o">(</span>default: open screen windows<span class="o">)</span>.
+  --transparent         Transparent figure background
+                        <span class="o">(</span>default: black or white<span class="o">)</span>.
+  -u, --usetex          Use LaTeX to render text <span class="k">in</span> pdf, png and
+                        html.
+  -w, --white           White lines on transparent or black
+                        background<span class="p">;</span> default: black lines on
+                        transparent or white background.
+</pre></div>
+</div>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iplot</span> <span class="o">=</span> <span class="n">mcPlot</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Test Matthias&#39; plotting class.&quot;</span><span class="p">,</span>
+               <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;directory file&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_begin">
+<span class="sig-name descname"><span class="pre">plot_begin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_begin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_begin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_close">
+<span class="sig-name descname"><span class="pre">plot_close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for plot_end()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">plot_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish plotting</p>
+<p>Close output file if appropriate or show interactive plots.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">plot_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save figure into output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.2)"><em>matplotlib.figure.Figure</em></a>) – Matplotlib figure object.    argstr : string, optional</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Additional keywords will be passed to <em>savefig</em> for ‘pdf’,
+‘png’, and ‘html’; to <em>fig_to_html</em> for ‘d3’, and to
+<em>offline.plot</em> for ‘plotly’. This overwrites <em>self.transparent</em>,
+<em>self.bbox_inches</em>, <em>self.pad_inches</em> for ‘pdf’, ‘png’, and ‘html’,
+and <em>auto_open=False</em> for ‘plotly’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_start">
+<span class="sig-name descname"><span class="pre">plot_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for plot_begin()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_stop">
+<span class="sig-name descname"><span class="pre">plot_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for plot_end()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_test">
+<span class="sig-name descname"><span class="pre">plot_test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple test plot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">set_layout_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.set_layout_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard layout options that can be used in plotting methods</p>
+<p>One can either copy this routine into an extending class and adapt it,
+or add a new method that resets some of the layout options and call it
+in the initialisation of an extending class, or simply set layout
+options in the initialisation of an extending class.</p>
+<p>Current layout options are:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>self.nrow</p></td>
+<td><p>number of rows of subplots per figure</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.ncol</p></td>
+<td><p>number of columns of subplots per figure</p></td>
+</tr>
+<tr class="row-even"><td><p>self.hspace</p></td>
+<td><p>x-space between subplots</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.vspace</p></td>
+<td><p>y-space between subplots</p></td>
+</tr>
+<tr class="row-even"><td><p>self.right</p></td>
+<td><p>right space on page</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.textsize</p></td>
+<td><p>standard text size</p></td>
+</tr>
+<tr class="row-even"><td><p>self.dxabc</p></td>
+<td><p>% of (max-min) shift to the right of left y-axis for a,b,c,…
+labels</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.dyabc</p></td>
+<td><p>% of (max-min) shift up from lower x-axis for a,b,c,… labels</p></td>
+</tr>
+<tr class="row-even"><td><p>self.lwidth</p></td>
+<td><p>line width</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.elwidth</p></td>
+<td><p>errorbar line width</p></td>
+</tr>
+<tr class="row-even"><td><p>self.alwidth</p></td>
+<td><p>axis line width</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.msize</p></td>
+<td><p>marker size</p></td>
+</tr>
+<tr class="row-even"><td><p>self.mwidth</p></td>
+<td><p>marker edge width</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.fgcolor</p></td>
+<td><p>foreground colour</p></td>
+</tr>
+<tr class="row-even"><td><p>self.bgcolor</p></td>
+<td><p>background colour</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.mcols</p></td>
+<td><p>list of marker colours</p></td>
+</tr>
+<tr class="row-even"><td><p>self.mcol1</p></td>
+<td><p>marker colour 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.mcol2</p></td>
+<td><p>marker colour 2</p></td>
+</tr>
+<tr class="row-even"><td><p>self.mcol3</p></td>
+<td><p>marker colour 3</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.mcol4</p></td>
+<td><p>marker colour 4</p></td>
+</tr>
+<tr class="row-even"><td><p>self.mcol5</p></td>
+<td><p>marker colour 5</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.lcol1</p></td>
+<td><p>list of line colours</p></td>
+</tr>
+<tr class="row-even"><td><p>self.lcol2</p></td>
+<td><p>line colour 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.lcol3</p></td>
+<td><p>line colour 2</p></td>
+</tr>
+<tr class="row-even"><td><p>self.lcol4</p></td>
+<td><p>line colour 3</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.lcol5</p></td>
+<td><p>line colour 4</p></td>
+</tr>
+<tr class="row-even"><td><p>self.lcols</p></td>
+<td><p>line colour 5</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.ldashes</p></td>
+<td><p>list of line styles</p></td>
+</tr>
+<tr class="row-even"><td><p>self.llxbbox</p></td>
+<td><p>x-anchor legend bounding box</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.llybbox</p></td>
+<td><p>y-anchor legend bounding box</p></td>
+</tr>
+<tr class="row-even"><td><p>self.llrspace</p></td>
+<td><p>spacing between rows in legend</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.llcspace</p></td>
+<td><p>spacing between columns in legend</p></td>
+</tr>
+<tr class="row-even"><td><p>self.llhtextpad</p></td>
+<td><p>pad between the legend handle and text</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.llhlength</p></td>
+<td><p>length of the legend handles</p></td>
+</tr>
+<tr class="row-even"><td><p>self.frameon</p></td>
+<td><p>if True: draw a frame around the legend.
+If None: use rc</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.dpi</p></td>
+<td><p>DPI of non-vector figure output</p></td>
+</tr>
+<tr class="row-even"><td><p>self.transparent</p></td>
+<td><p>True for transparent background in figure</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.bbox_inches</p></td>
+<td><p>Bbox in inches. If ‘tight’, try to figure out the tight bbox of the
+figure</p></td>
+</tr>
+<tr class="row-even"><td><p>self.pad_inches</p></td>
+<td><p>Amount of padding when bbox_inches is ‘tight’</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Setting layout options in initialisation</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UsemcPlot</span><span class="p">(</span><span class="n">mcPlot</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lcol1</span>     <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mynewcol</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+        <span class="c1"># reset global values after colour changes, etc.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_matplotlib_rcparams</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.set_matplotlib_rcparams">
+<span class="sig-name descname"><span class="pre">set_matplotlib_rcparams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.set_matplotlib_rcparams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.set_matplotlib_rcparams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set rcParams depending on output type and other options such as using
+LaTeX, serif fonts, etc.</p>
+<p>rcParams can be overwritten in the initialisation of an extending
+class.</p>
+<p>Current parameters set are:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Options</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ps</p></td>
+<td><p>papersize, usedistiller</p></td>
+</tr>
+<tr class="row-odd"><td><p>figure</p></td>
+<td><p>figsize, edgecolor, facecolor</p></td>
+</tr>
+<tr class="row-even"><td><p>text</p></td>
+<td><p>usetex, latex.preamble, color</p></td>
+</tr>
+<tr class="row-odd"><td><p>font</p></td>
+<td><p>family, sans-serif, size</p></td>
+</tr>
+<tr class="row-even"><td><p>savefig</p></td>
+<td><p>dpi, format, edgecolor, facecolor</p></td>
+</tr>
+<tr class="row-odd"><td><p>axes</p></td>
+<td><p>linewidth, edgecolor, facecolor, labelcolor, prop_cycle</p></td>
+</tr>
+<tr class="row-even"><td><p>boxplot</p></td>
+<td><p>boxprops.color, capprops.color, flierprops.color,
+flierprops.markeredgecolor, whiskerprops.color</p></td>
+</tr>
+<tr class="row-odd"><td><p>grid</p></td>
+<td><p>color</p></td>
+</tr>
+<tr class="row-even"><td><p>lines</p></td>
+<td><p>linewidth, color</p></td>
+</tr>
+<tr class="row-odd"><td><p>patch</p></td>
+<td><p>edgecolor</p></td>
+</tr>
+<tr class="row-even"><td><p>path</p></td>
+<td><p>simplify</p></td>
+</tr>
+<tr class="row-odd"><td><p>xtick</p></td>
+<td><p>color</p></td>
+</tr>
+<tr class="row-even"><td><p>ytick</p></td>
+<td><p>color</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Setting rcParams in initialisation</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UsemcPlot</span><span class="p">(</span><span class="n">mcPlot</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;grid&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+        <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;boxplot.boxprops.color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.set_output_type">
+<span class="sig-name descname"><span class="pre">set_output_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.set_output_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.set_output_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set type of chosen output.</p>
+<p>Fall back to standard html mode if mlpd3 or plotly modules are not
+installed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="plotting.html">Plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="color.html">Color module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">mcPlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="plotting.html">Plotting</a><ul>
+      <li>Previous: <a href="color.ufz_palettes.html" title="previous chapter">UFZ colors</a></li>
+      <li>Next: <a href="position.html" title="next chapter">position</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/mcplot.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

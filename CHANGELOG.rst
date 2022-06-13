@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v1.24 (Jun 2022)
+    * Removed documentation from `Read the Docs` and moved to Github Pages:
+      https://mcuntz.github.io/pyjams/
+    * More `datetime` tests and bug fixes.
+
 v1.23 (Jun 2022)
     * Added module `datetime` with class `datetime` that mimics cftime.datetime
       but for non-CF-conform calendars. It also adds the functions `date2num`

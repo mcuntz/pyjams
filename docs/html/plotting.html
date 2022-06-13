@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plotting &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Color module" href="color.html" />
+    <link rel="prev" title="tee" href="tee.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="plotting">
+<h1>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="color.html">Color module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="color.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.color.html">Color functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.brewer_palettes.html">Brewer palettes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="color.brewer_palettes.html#colorbrewer-license">Colorbrewer License</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="color.mathematica_palettes.html">Mathematica palettes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.ncl_palettes.html">NCL palettes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.oregon_palettes.html">Oregon palettes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.sron2012_palettes.html">SRON2012 palettes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.sron_palettes.html">SRON palettes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="color.ufz_palettes.html">UFZ colors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="position.html">position</a></li>
+<li class="toctree-l1"><a class="reference internal" href="romanliterals.html">Roman literals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="romanliterals.html#history">History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="str2tex.html">str2tex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="text2plot.html">text2plot</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="color.html">Color module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+      <li>Previous: <a href="tee.html" title="previous chapter">tee</a></li>
+      <li>Next: <a href="color.html" title="next chapter">Color module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/plotting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

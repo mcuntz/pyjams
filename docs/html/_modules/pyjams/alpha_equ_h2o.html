@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyjams.alpha_equ_h2o &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pyjams.alpha_equ_h2o</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Isotopic fractionation factors during liquid-water vapour equilibration.</span>
+
+<span class="sd">This module was written by Matthias Cuntz while at Department of Computational</span>
+<span class="sd">Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,</span>
+<span class="sd">Germany, and continued while at Institut National de Recherche pour</span>
+<span class="sd">l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy, France.</span>
+
+<span class="sd">:copyright: Copyright 2014-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided:</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   alpha_equ_h2o</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written, Sep 2014, Matthias Cuntz</span>
+<span class="sd">    * Code refactoring, Sep 2021, Matthias Cuntz</span>
+<span class="sd">    * Tuple in/out, Oct 2021, Matthias Cuntz</span>
+<span class="sd">    * Do not use masked arrays for undef to avoid overflow warning,</span>
+<span class="sd">      Oct 2021, Matthias Cuntz</span>
+<span class="sd">    * Bug masked array, need to check masked array before ndarray because the</span>
+<span class="sd">      former is also the latter, Nov 2021, Matthias Cuntz</span>
+<span class="sd">    * Bug if scalar, was still masked array, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Do not use astr in docstring examples, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Bug in return type if list or tuple and undef,</span>
+<span class="sd">      Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Change handling of return type to allow more (unspecific) iterable types</span>
+<span class="sd">      such as pandas time series, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Return numpy array if type(input)(output) fails for unknown iterable</span>
+<span class="sd">      types, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Use helper functions input2array and array2input,</span>
+<span class="sd">      Jan 2022, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">input2array</span><span class="p">,</span> <span class="n">array2input</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;alpha_equ_h2o&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="alpha_equ_h2o"><a class="viewcode-back" href="../../alpha_equ_h2o.html#pyjams.alpha_equ_h2o.alpha_equ_h2o">[docs]</a><span class="k">def</span> <span class="nf">alpha_equ_h2o</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">isotope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">undef</span><span class="o">=-</span><span class="mf">9999.</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">greater1</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Isotopic fractionation factors during liquid-water vapour equilibration.</span>
+
+<span class="sd">    Calculates isotopic fractionation factors during liquid-water vapour</span>
+<span class="sd">    equilibration at temperature temp [K].</span>
+<span class="sd">    It does not use the atmospheric convention, i.e. factor &lt; 1, by default</span>
+<span class="sd">    but sets factor &gt; 1 (greater1=True).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    temp : float or array-like</span>
+<span class="sd">        Temperature [K]</span>
+<span class="sd">    isotope : int, optional</span>
+<span class="sd">        Select water isotopologue: 1: HDO; 2: H218O; else: no fractionation,</span>
+<span class="sd">        i.e. return 1 (default)</span>
+<span class="sd">    undef : float, optional</span>
+<span class="sd">        Exclude `temp == undef` from calculations (default: -9999.)</span>
+<span class="sd">    eps : bool, optional</span>
+<span class="sd">        Reports fractionation epsilon=alpha-1 instead of fractionation</span>
+<span class="sd">        factor alpha if True (default: return alpha)</span>
+<span class="sd">    greater1 : bool, optional</span>
+<span class="sd">        alpha &gt; 1 if True (default), which is not the atmospheric convention.</span>
+<span class="sd">        alpha &lt; 1 if False, which is the atmospheric convention.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    alpha / epsilon : float or array-like</span>
+<span class="sd">        Equilibrium fractionation factor (alpha) or fractionation (epsilon)</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Majoube, M. (1971) Fractionnement en oxygene-18 entre la glace et la vapeur</span>
+<span class="sd">        d&#39;eau Journal De Chimie Physique Et De Physico-Chimie Biologique,</span>
+<span class="sd">        68(4), 625-636.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Fractionation factors</span>
+
+<span class="sd">    &gt;&gt;&gt; T0 = 273.15</span>
+<span class="sd">    &gt;&gt;&gt; T  = np.array([0, 10., 15., 25.])</span>
+<span class="sd">    &gt;&gt;&gt; print(np.around(alpha_equ_h2o(T+T0, isotope=0), 4))</span>
+<span class="sd">    [1. 1. 1. 1.]</span>
+<span class="sd">    &gt;&gt;&gt; print(np.around(alpha_equ_h2o(T+T0, isotope=2), 4))</span>
+<span class="sd">    [1.0117 1.0107 1.0102 1.0094]</span>
+<span class="sd">    &gt;&gt;&gt; print(np.around(alpha_equ_h2o(np.ma.array(T+T0, mask=(T==0.)),</span>
+<span class="sd">    ...                               isotope=2, greater1=False), 4))</span>
+<span class="sd">    [-- 0.9894 0.9899 0.9907]</span>
+
+<span class="sd">    Fractionations</span>
+
+<span class="sd">    &gt;&gt;&gt; print(np.around(alpha_equ_h2o(T+T0, isotope=1, eps=True)*1000., 4))</span>
+<span class="sd">    [112.3194 97.6829 91.1296 79.3443]</span>
+<span class="sd">    &gt;&gt;&gt; print(np.around(alpha_equ_h2o(0.+T0, isotope=2, eps=True)*1000., 4))</span>
+<span class="sd">    11.7187</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Constants</span>
+    <span class="n">T0</span> <span class="o">=</span> <span class="mf">273.15</span>  <span class="c1"># Celcius &lt;-&gt; Kelvin [K]</span>
+    <span class="c1"># Check input type</span>
+    <span class="n">mtemp</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">T0</span><span class="p">)</span>
+
+    <span class="c1"># Coefficients of exponential function</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">isotope</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>    <span class="c1"># HDO</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="o">+</span><span class="mf">2.4844e+4</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">7.6248e+1</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="o">+</span><span class="mf">5.261e-2</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">isotope</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>  <span class="c1"># H218O</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="o">+</span><span class="mf">1.137e+3</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.156e-1</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.067e-3</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mf">0.</span>
+
+    <span class="c1"># alpha+</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">mtemp</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">mtemp</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span>
+
+    <span class="c1"># alpha-</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">greater1</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">out</span>
+
+    <span class="c1"># epsilon</span>
+    <span class="k">if</span> <span class="n">eps</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">-=</span> <span class="mf">1.</span>
+
+    <span class="c1"># return same type as input type</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../contents.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

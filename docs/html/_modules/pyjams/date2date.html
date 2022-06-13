@@ -1,0 +1,802 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyjams.date2date &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pyjams.date2date</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Convert date representations between different regional variants.</span>
+
+<span class="sd">Converts between date formats called English *YYYY-MM-DD hh:mm:ss*, US-English</span>
+<span class="sd">*MM/DD/YYYY hh:mm:ss*, French *DD/MM/YYYY hh:mm:ss*, and standard *DD.MM.YYYY</span>
+<span class="sd">hh:mm:ss*. The routines take list of dates of different formats and return date</span>
+<span class="sd">strings in one of the four formats.</span>
+
+<span class="sd">This module was written by Matthias Cuntz while at Department of</span>
+<span class="sd">Computational Hydrosystems, Helmholtz Centre for Environmental</span>
+<span class="sd">Research - UFZ, Leipzig, Germany, and continued while at Institut</span>
+<span class="sd">National de Recherche pour l&#39;Agriculture, l&#39;Alimentation et</span>
+<span class="sd">l&#39;Environnement (INRAE), Nancy, France.</span>
+
+<span class="sd">:copyright: Copyright 2015-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   date2date</span>
+<span class="sd">   date2en</span>
+<span class="sd">   date2fr</span>
+<span class="sd">   date2us</span>
+<span class="sd">   en2date</span>
+<span class="sd">   en2fr</span>
+<span class="sd">   en2us</span>
+<span class="sd">   fr2date</span>
+<span class="sd">   fr2en</span>
+<span class="sd">   fr2us</span>
+<span class="sd">   us2date</span>
+<span class="sd">   us2en</span>
+<span class="sd">   us2fr</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Feb 2015 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * Removed usage of date2dec and dec2date, Nov 2016, Matthias Cuntz</span>
+<span class="sd">    * Adapted docstrings to Python 2 and 3, Nov 2016, Matthias Cuntz</span>
+<span class="sd">    * Written fr2ascii, Mar 2018, Matthias Cuntz</span>
+<span class="sd">    * Added us and fr keywords, renamed eng to en, Mar 2018, Matthias Cuntz</span>
+<span class="sd">    * Added two-digit year YY, Nov 2018, Matthias Cuntz</span>
+<span class="sd">    * Removed bug from usage of en and old name eng, Jun 2019, Matthias Cuntz</span>
+<span class="sd">    * Using numpy docstring format, May 2020, Matthias Cuntz</span>
+<span class="sd">    * flake8, Dec 2021, Matthias Cuntz</span>
+<span class="sd">    * Remove eng, Dec 2021, Matthias Cuntz</span>
+<span class="sd">    * Renamed &#39;ascii&#39; in function names to &#39;date&#39;, and to &#39;standard&#39; in</span>
+<span class="sd">      docstrings and comments, Dec 2021, Matthias Cuntz</span>
+<span class="sd">    * New more versatile date2date function replacing ascii2ascii,</span>
+<span class="sd">      Dec 2021, Matthias Cuntz</span>
+<span class="sd">    * Wrapper functions between all standard formats, Dec 2021, Matthias Cuntz</span>
+<span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Use input2array, array2input, Jun 2022, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">ptime</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">input2array</span><span class="p">,</span> <span class="n">array2input</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date2date&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;date2en&#39;</span><span class="p">,</span> <span class="s1">&#39;date2fr&#39;</span><span class="p">,</span> <span class="s1">&#39;date2us&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;en2date&#39;</span><span class="p">,</span> <span class="s1">&#39;en2fr&#39;</span><span class="p">,</span> <span class="s1">&#39;en2us&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;fr2date&#39;</span><span class="p">,</span> <span class="s1">&#39;fr2en&#39;</span><span class="p">,</span> <span class="s1">&#39;fr2us&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;us2date&#39;</span><span class="p">,</span> <span class="s1">&#39;us2en&#39;</span><span class="p">,</span> <span class="s1">&#39;us2fr&#39;</span><span class="p">,</span>
+           <span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_leading_zero</span><span class="p">(</span><span class="n">l1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add leading 0 if necessary</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">l1</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">l1</span>
+
+
+<span class="k">def</span> <span class="nf">_ensure_year</span><span class="p">(</span><span class="n">yr</span><span class="p">,</span> <span class="n">isyr2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensure 4-digit year</span>
+
+<span class="sd">    Years are supposed to be 4-digit years. If they have only 1 or 2 digits,</span>
+<span class="sd">    then every year that is above the current year of the century will be taken</span>
+<span class="sd">    as being in 1900, i.e. 90 will be taken as 1990, while all other years are</span>
+<span class="sd">    taken in the 21st century, i.e. 20 will be 2020. 3-digit years will throw</span>
+<span class="sd">    an ValueError.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lyr</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lyr</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">yr</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">iyr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">iyr</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">iyr</span> <span class="o">&gt;</span> <span class="n">isyr2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;19&#39;</span> <span class="o">+</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;20&#39;</span> <span class="o">+</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">yr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;3-digit years not supported: </span><span class="si">{</span><span class="n">yr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="date2date"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.date2date">[docs]</a><span class="k">def</span> <span class="nf">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="n">fr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">timesep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert date representations between different regional variants</span>
+
+<span class="sd">    Convert date notations between standard *DD.MM.YYYY hh:mm:ss*, English</span>
+<span class="sd">    *YYYY-MM-DD hh:mm:ss*, American *MM/DD/YYYY hh:mm:ss*, and French</span>
+<span class="sd">    *DD/MM/YYYY hh:mm:ss* format (&#39;%d.%m.%Y %H:%M:%S&#39;, &#39;%Y-%m-%d %H:%M:%S&#39;,</span>
+<span class="sd">    &#39;%m/%d/%Y %H:%M:%S&#39;, and &#39;%d/%m/%Y %H:%M:%S&#39; in datetime.strftime/strptime</span>
+<span class="sd">    format notation, respectively). The routine determines the input date</span>
+<span class="sd">    format by the date separator &#39;.&#39;, &#39;-&#39;, or &#39;/&#39;. If the latter is detected,</span>
+<span class="sd">    the American format is assumed. One can set *fr=True* so that &#39;/&#39; detects</span>
+<span class="sd">    the French date format instead. The separator between date and time can be</span>
+<span class="sd">    space &#39; &#39; or &#39;T&#39;, such as *YYYY-MM-DDThh:mm:ss*.</span>
+
+<span class="sd">    Output format is given either by the calling name of the function (e.g.</span>
+<span class="sd">    :func:`date2en`) or by the *format* keyword. It allows &#39;&#39;, &#39;en&#39;, &#39;us&#39;, and</span>
+<span class="sd">    &#39;fr&#39; for standard, English, American, and French date format, respectively.</span>
+<span class="sd">    One can also give any format string understood by</span>
+<span class="sd">    :func:`datetime.strftime`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    edate : array_like</span>
+<span class="sd">        Date strings in any of three formats standard, English, or</span>
+<span class="sd">        American/French.</span>
+<span class="sd">    fr : bool, optional</span>
+<span class="sd">        Input dates with &#39;/&#39; separators are interpreted as American format</span>
+<span class="sd">        *MM/DD/YYYY hh:mm:ss* if False (default). Input dates with &#39;/&#39;</span>
+<span class="sd">        separators are interpreted as French format *DD/MM/YYYY hh:mm:ss* if</span>
+<span class="sd">        True.</span>
+<span class="sd">    format : str, optional</span>
+<span class="sd">        Output format. Can be any of &#39;&#39; (default), &#39;en&#39;, &#39;us&#39;, and &#39;fr&#39; for</span>
+<span class="sd">        standard *DD.MM.YYYY hh:mm:ss*, English *YYYY-MM-DD hh:mm:ss*, American</span>
+<span class="sd">        *MM/DD/YYYY hh:mm:ss*, and French *DD/MM/YYYY hh:mm:ss* format.</span>
+<span class="sd">        *format* can also be any format string understood by</span>
+<span class="sd">        :func:`datetime.strftime`.</span>
+<span class="sd">    timesep : str, optional</span>
+<span class="sd">        Separator string between date and time if *format* is &#39;&#39;, &#39;en&#39;, &#39;us&#39;,</span>
+<span class="sd">        or &#39;fr&#39;. Default is space &#39; &#39;, but ISO 8601 uses &#39;T&#39;, for example.</span>
+<span class="sd">    full : bool, optional</span>
+<span class="sd">        Output dates are as long as input dates if False (default), e.g.</span>
+<span class="sd">        *[YYYY-MM-DD, YYYY-MM-DD hh:mm]*. Output dates are all in full format</span>
+<span class="sd">        *DD.MM.YYYY hh:mm:ss* if True; missing time info on input is 00 on</span>
+<span class="sd">        output.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array_like</span>
+<span class="sd">        Date representations in chosen format. Output type will be the same as</span>
+<span class="sd">        the input type.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Year, month and day must be given while second, minute and hour can be</span>
+<span class="sd">    missing (assumed zero).</span>
+
+<span class="sd">    Years are supposed to be 4-digit years. If they have only 1 or 2 digits,</span>
+<span class="sd">    then every year that is above the current year of the century will be taken</span>
+<span class="sd">    as being in 1900, i.e. 90 will be taken as 1990, while all other years are</span>
+<span class="sd">    taken in the 21st century, i.e. 20 will be 2020. 3-digit years will throw</span>
+<span class="sd">    a ValueError.</span>
+
+<span class="sd">    Negative years are not supported. The function uses :mod:`datetime` if a</span>
+<span class="sd">    format string for :func:`datetime.strftime` is given. This limits the</span>
+<span class="sd">    minimum year to the limit of :mod:`datetime` in this case, which is year</span>
+<span class="sd">    &#39;0001&#39;.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;2014-11-12 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;1990-12-01&#39;, &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate)))</span>
+<span class="sd">    12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, full=True)))</span>
+<span class="sd">    12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;en&#39;)))</span>
+<span class="sd">    2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01, 1786-05-04</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;en&#39;, full=True)))</span>
+<span class="sd">    2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00, 1786-05-04 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;en&#39;, full=True, timesep=&#39;T&#39;)))</span>
+<span class="sd">    2014-11-12T12:00:00, 2015-03-01T17:56:00, 1990-12-01T00:00:00, 1786-05-04T00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(list(date2date(edate, format=&#39;%Y%m%d%H%M%S&#39;)))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(date2date(tuple(edate)))</span>
+<span class="sd">    (&#39;12.11.2014 12:00&#39;, &#39;01.03.2015 17:56:00&#39;, &#39;01.12.1990&#39;, &#39;04.05.1786&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; print(date2date(np.array(edate)))</span>
+<span class="sd">    [&#39;12.11.2014 12:00&#39; &#39;01.03.2015 17:56:00&#39; &#39;01.12.1990&#39; &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(date2date(edate[0]))</span>
+<span class="sd">    12.11.2014 12:00</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;us&#39;)))</span>
+<span class="sd">    11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(date2date(edate, format=&#39;en&#39;),</span>
+<span class="sd">    ...                           format=&#39;us&#39;, full=True)))</span>
+<span class="sd">    11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;fr&#39;)))</span>
+<span class="sd">    12/11/2014 12:00, 01/03/2015 17:56:00, 01/12/1990, 04/05/1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;fr&#39;, full=True)))</span>
+<span class="sd">    12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00, 04/05/1786 00:00:00</span>
+
+<span class="sd">    2-digit year</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate)))</span>
+<span class="sd">    12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;en&#39;)))</span>
+<span class="sd">    2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;us&#39;)))</span>
+<span class="sd">    11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;us&#39;, full=True)))</span>
+<span class="sd">    11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2date(edate, format=&#39;fr&#39;, full=True)))</span>
+<span class="sd">    12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Input type and shape</span>
+    <span class="n">idate</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;01.01.0001 00:00:00&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Convert to given output type</span>
+    <span class="n">isyr2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ptime</span><span class="o">.</span><span class="n">asctime</span><span class="p">()[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+    <span class="n">odate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">idate</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">idate</span><span class="p">):</span>
+        <span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="c1"># analyse date</span>
+        <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">:</span>
+            <span class="n">datesep</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">:</span>
+            <span class="n">datesep</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">:</span>
+            <span class="n">datesep</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No date separator could be determined: </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># analyse date time separation if time present</span>
+        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">:</span>
+            <span class="n">datetimesep</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;T&#39;</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">:</span>
+            <span class="n">datetimesep</span> <span class="o">=</span> <span class="s1">&#39;T&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">datetimesep</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># split date and time</span>
+        <span class="k">if</span> <span class="n">datetimesep</span><span class="p">:</span>
+            <span class="n">ddate</span><span class="p">,</span> <span class="n">dtime</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">datetimesep</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ddate</span> <span class="o">=</span> <span class="n">dd</span>
+            <span class="n">dtime</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># split date</span>
+        <span class="n">d0</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">ddate</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">datesep</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">datesep</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+            <span class="n">dyear</span>  <span class="o">=</span> <span class="n">_ensure_year</span><span class="p">(</span><span class="n">d0</span><span class="p">,</span> <span class="n">isyr2</span><span class="p">)</span>
+            <span class="n">dmonth</span> <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+            <span class="n">dday</span>   <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">datesep</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fr</span><span class="p">:</span>
+                <span class="n">dyear</span>  <span class="o">=</span> <span class="n">_ensure_year</span><span class="p">(</span><span class="n">d2</span><span class="p">,</span> <span class="n">isyr2</span><span class="p">)</span>
+                <span class="n">dmonth</span> <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+                <span class="n">dday</span>   <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dyear</span>  <span class="o">=</span> <span class="n">_ensure_year</span><span class="p">(</span><span class="n">d2</span><span class="p">,</span> <span class="n">isyr2</span><span class="p">)</span>
+                <span class="n">dmonth</span> <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span>
+                <span class="n">dday</span>   <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">datesep</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+            <span class="n">dyear</span>  <span class="o">=</span> <span class="n">_ensure_year</span><span class="p">(</span><span class="n">d2</span><span class="p">,</span> <span class="n">isyr2</span><span class="p">)</span>
+            <span class="n">dmonth</span> <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+            <span class="n">dday</span>   <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span>
+        <span class="c1"># split time</span>
+        <span class="k">if</span> <span class="n">dtime</span><span class="p">:</span>
+            <span class="n">tt</span> <span class="o">=</span> <span class="n">dtime</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">dhour</span>   <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">dminute</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">dsecond</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">dhour</span>   <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">dminute</span> <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">dsecond</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">dhour</span>   <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">dminute</span> <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">dsecond</span> <span class="o">=</span> <span class="n">_leading_zero</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Only hour, minute, second supported&#39;</span>
+                                 <span class="sa">f</span><span class="s1">&#39; in time: </span><span class="si">{</span><span class="n">dtime</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># set for case that strftime is given</span>
+            <span class="n">dhour</span>   <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">dminute</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">dsecond</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># make output</span>
+        <span class="k">if</span> <span class="nb">format</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;us&#39;</span><span class="p">,</span> <span class="s1">&#39;fr&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">format</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;en&#39;</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">dyear</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">dmonth</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">dday</span>
+            <span class="k">elif</span> <span class="nb">format</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;us&#39;</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">dmonth</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">dday</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">dyear</span>
+            <span class="k">elif</span> <span class="nb">format</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;fr&#39;</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">dday</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">dmonth</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">dyear</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">dday</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">dmonth</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">dyear</span>
+            <span class="k">if</span> <span class="n">dtime</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">+=</span> <span class="n">timesep</span> <span class="o">+</span> <span class="n">dhour</span>
+                <span class="k">if</span> <span class="n">dminute</span><span class="p">:</span>
+                    <span class="n">out</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="n">dminute</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">full</span><span class="p">:</span>
+                        <span class="n">out</span> <span class="o">+=</span> <span class="s1">&#39;:00&#39;</span>
+                <span class="k">if</span> <span class="n">dsecond</span><span class="p">:</span>
+                    <span class="n">out</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="n">dsecond</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">full</span><span class="p">:</span>
+                        <span class="n">out</span> <span class="o">+=</span> <span class="s1">&#39;:00&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">full</span><span class="p">:</span>
+                    <span class="n">out</span> <span class="o">+=</span> <span class="n">timesep</span> <span class="o">+</span> <span class="s1">&#39;00:00:00&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dattim</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dyear</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dmonth</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dday</span><span class="p">),</span>
+                                 <span class="nb">int</span><span class="p">(</span><span class="n">_leading_zero</span><span class="p">(</span><span class="n">dhour</span><span class="p">)),</span>
+                                 <span class="nb">int</span><span class="p">(</span><span class="n">_leading_zero</span><span class="p">(</span><span class="n">dminute</span><span class="p">)),</span>
+                                 <span class="nb">int</span><span class="p">(</span><span class="n">_leading_zero</span><span class="p">(</span><span class="n">dsecond</span><span class="p">)))</span>
+            <span class="c1"># Assure 4 digit years on all platforms</span>
+            <span class="c1"># see https://bugs.python.org/issue32195</span>
+            <span class="k">if</span> <span class="s1">&#39;%Y&#39;</span> <span class="ow">in</span> <span class="nb">format</span><span class="p">:</span>
+                <span class="n">format04</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">,</span> <span class="s1">&#39;%04Y&#39;</span><span class="p">)</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">dattim</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format04</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;4Y&#39;</span> <span class="ow">in</span> <span class="n">out</span><span class="p">:</span>
+                    <span class="n">out</span> <span class="o">=</span> <span class="n">dattim</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">dattim</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
+        <span class="n">odate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span>
+
+    <span class="c1"># Return right type</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">odate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="date2en"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.date2en">[docs]</a><span class="k">def</span> <span class="nf">date2en</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`date2date` with English date format output</span>
+
+<span class="sd">    That means `date2date(edate, format=&#39;en&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* given in call will overwrite *format=&#39;en&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;2014-11-12 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;1990-12-01&#39;, &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2en(edate)))</span>
+<span class="sd">    2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01, 1786-05-04</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2en(edate, full=True)))</span>
+<span class="sd">    2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00, 1786-05-04 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(date2en(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2en(edate, full=True)))</span>
+<span class="sd">    2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;en&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="date2fr"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.date2fr">[docs]</a><span class="k">def</span> <span class="nf">date2fr</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`date2date` with French date format output</span>
+
+<span class="sd">    That means `date2date(edate, format=&#39;fr&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* given in call will overwrite *format=&#39;fr&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;2014-11-12 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;1990-12-01&#39;, &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2fr(edate)))</span>
+<span class="sd">    12/11/2014 12:00, 01/03/2015 17:56:00, 01/12/1990, 04/05/1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2fr(edate, full=True)))</span>
+<span class="sd">    12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00, 04/05/1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(date2fr(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2fr(edate, full=True)))</span>
+<span class="sd">    12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;fr&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="date2us"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.date2us">[docs]</a><span class="k">def</span> <span class="nf">date2us</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`date2date` with US-English date format output</span>
+
+<span class="sd">    That means `date2date(edate, format=&#39;us&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* given in call will overwrite *format=&#39;us&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;2014-11-12 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;1990-12-01&#39;, &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2us(edate)))</span>
+<span class="sd">    11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2us(edate, full=True)))</span>
+<span class="sd">    11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(date2us(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(date2us(edate, full=True)))</span>
+<span class="sd">    11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;us&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="en2date"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.en2date">[docs]</a><span class="k">def</span> <span class="nf">en2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for date2date with standard date format output (default)</span>
+
+<span class="sd">    That means `date2date(edate, **kwargs)`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;2014-11-12 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;1990-12-01&#39;, &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; edate = date2date(edate, format=&#39;en&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2date(edate)))</span>
+<span class="sd">    12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2date(edate, full=True)))</span>
+<span class="sd">    12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(en2date(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; edate = date2en(edate)</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2date(edate, full=True)))</span>
+<span class="sd">    12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="en2fr"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.en2fr">[docs]</a><span class="k">def</span> <span class="nf">en2fr</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for date2date with French date format output</span>
+
+<span class="sd">    That means `date2date(edate, format=&#39;fr&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* given in call will overwrite *format=&#39;fr&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;2014-11-12 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;1990-12-01&#39;, &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2fr(edate)))</span>
+<span class="sd">    12/11/2014 12:00, 01/03/2015 17:56:00, 01/12/1990, 04/05/1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2fr(edate, full=True)))</span>
+<span class="sd">    12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00, 04/05/1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(en2fr(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2fr(edate, full=True)))</span>
+<span class="sd">    12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;fr&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="en2us"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.en2us">[docs]</a><span class="k">def</span> <span class="nf">en2us</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`date2date` with US-English date format output</span>
+
+<span class="sd">    That means `date2date(edate, format=&#39;us&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* given in call will overwrite *format=&#39;us&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;2014-11-12 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;1990-12-01&#39;, &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2us(edate)))</span>
+<span class="sd">    11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2us(edate, full=True)))</span>
+<span class="sd">    11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(en2us(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(en2us(edate, full=True)))</span>
+<span class="sd">    11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;us&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fr2date"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.fr2date">[docs]</a><span class="k">def</span> <span class="nf">fr2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`date2date` with French input and</span>
+<span class="sd">    standard output date formats</span>
+
+<span class="sd">    That means `date2date(edate, fr=True, **kwargs)`;</span>
+<span class="sd">    but *fr* given in call will overwrite *fr=True*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;12/11/2014 12:00&#39;, &#39;01/03/2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;01/12/1990&#39;, &#39;04/05/1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2date(edate)))</span>
+<span class="sd">    12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2date(edate, full=True)))</span>
+<span class="sd">    12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(fr2date(list(edate), format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(fr2date(tuple(edate)))</span>
+<span class="sd">    (&#39;12.11.2014 12:00&#39;, &#39;01.03.2015 17:56:00&#39;, &#39;01.12.1990&#39;, &#39;04.05.1786&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; print(fr2date(np.array(edate)))</span>
+<span class="sd">    [&#39;12.11.2014 12:00&#39; &#39;01.03.2015 17:56:00&#39; &#39;01.12.1990&#39; &#39;04.05.1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(fr2date(edate[0]))</span>
+<span class="sd">    12.11.2014 12:00</span>
+
+<span class="sd">    2-digit year</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;12/11/14 12:00&#39;, &#39;01/03/15 17:56:00&#39;, &#39;01/12/90&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2date(edate)))</span>
+<span class="sd">    12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2date(edate, full=True)))</span>
+<span class="sd">    12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;fr&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;fr&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fr2en"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.fr2en">[docs]</a><span class="k">def</span> <span class="nf">fr2en</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`date2date` with French input and</span>
+<span class="sd">    English output date formats</span>
+
+<span class="sd">    That means `date2date(edate, fr=True, format=&#39;en&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* and *fr* given in call will overwrite *fr=True* and</span>
+<span class="sd">    *format=&#39;en&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;12/11/2014 12:00&#39;, &#39;01/03/2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;01/12/1990&#39;, &#39;04/05/1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2en(edate)))</span>
+<span class="sd">    2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01, 1786-05-04</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2en(edate, full=True)))</span>
+<span class="sd">    2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00, 1786-05-04 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(fr2en(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;12/11/14 12:00&#39;, &#39;01/03/15 17:56:00&#39;, &#39;01/12/90&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2en(edate, full=True)))</span>
+<span class="sd">    2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;fr&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;fr&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;en&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fr2us"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.fr2us">[docs]</a><span class="k">def</span> <span class="nf">fr2us</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`date2date` with French input and</span>
+<span class="sd">    US-English output date formats</span>
+
+<span class="sd">    That means `date2date(edate, fr=True, format=&#39;us&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* and *fr* given in call will overwrite *fr=True* and</span>
+<span class="sd">    *format=&#39;us&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;12/11/2014 12:00&#39;, &#39;01/03/2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;01/12/1990&#39;, &#39;04/05/1786&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2us(edate)))</span>
+<span class="sd">    11/12/2014 12:00, 03/01/2015 17:56:00, 12/01/1990, 05/04/1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2us(edate, full=True)))</span>
+<span class="sd">    11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00, 05/04/1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(fr2us(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;12/11/14 12:00&#39;, &#39;01/03/15 17:56:00&#39;, &#39;01/12/90&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(fr2us(edate, full=True)))</span>
+<span class="sd">    11/12/2014 12:00:00, 03/01/2015 17:56:00, 12/01/1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;fr&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;fr&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;us&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="us2date"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.us2date">[docs]</a><span class="k">def</span> <span class="nf">us2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for date2date with standard date format output (default)</span>
+
+<span class="sd">    That means `date2date(edate, **kwargs)`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;11/12/2014 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;12/01/1990&#39;, &#39;1786-05-04&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2date(edate)))</span>
+<span class="sd">    12.11.2014 12:00, 01.03.2015 17:56:00, 01.12.1990, 04.05.1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2date(edate, full=True)))</span>
+<span class="sd">    12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00, 04.05.1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(us2date(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; edate = date2en(edate)</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2date(edate, full=True)))</span>
+<span class="sd">    12.11.2014 12:00:00, 01.03.2015 17:56:00, 01.12.1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="us2en"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.us2en">[docs]</a><span class="k">def</span> <span class="nf">us2en</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`date2date` with English date format output</span>
+
+<span class="sd">    That means `date2date(edate, format=&#39;en&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* given in call will overwrite *format=&#39;en&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;11/12/2014 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;12/01/1990&#39;, &#39;1786-05-04&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2en(edate)))</span>
+<span class="sd">    2014-11-12 12:00, 2015-03-01 17:56:00, 1990-12-01, 1786-05-04</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2en(edate, full=True)))</span>
+<span class="sd">    2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00, 1786-05-04 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(us2en(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2en(edate, full=True)))</span>
+<span class="sd">    2014-11-12 12:00:00, 2015-03-01 17:56:00, 1990-12-01 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;en&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="us2fr"><a class="viewcode-back" href="../../date2date.html#pyjams.date2date.us2fr">[docs]</a><span class="k">def</span> <span class="nf">us2fr</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for date2date with French date format output</span>
+
+<span class="sd">    That means `date2date(edate, format=&#39;fr&#39;, **kwargs)`;</span>
+<span class="sd">    but *format* given in call will overwrite *format=&#39;fr&#39;*.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;11/12/2014 12:00&#39;, &#39;01.03.2015 17:56:00&#39;,</span>
+<span class="sd">    ...          &#39;12/01/1990&#39;, &#39;1786-05-04&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2fr(edate)))</span>
+<span class="sd">    12/11/2014 12:00, 01/03/2015 17:56:00, 01/12/1990, 04/05/1786</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2fr(edate, full=True)))</span>
+<span class="sd">    12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00, 04/05/1786 00:00:00</span>
+<span class="sd">    &gt;&gt;&gt; print(us2fr(edate, format=&#39;%Y%m%d%H%M%S&#39;))</span>
+<span class="sd">    [&#39;20141112120000&#39;, &#39;20150301175600&#39;, &#39;19901201000000&#39;, &#39;17860504000000&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; edate = [&#39;14-11-12 12:00&#39;, &#39;01.03.15 17:56:00&#39;, &#39;90-12-01&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;, &quot;.join(us2fr(edate, full=True)))</span>
+<span class="sd">    12/11/2014 12:00:00, 01/03/2015 17:56:00, 01/12/1990 00:00:00</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;format&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;fr&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">date2date</span><span class="p">(</span><span class="n">edate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../contents.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

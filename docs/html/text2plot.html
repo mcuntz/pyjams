@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>text2plot &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Special Files" href="special_files.html" />
+    <link rel="prev" title="str2tex" href="str2tex.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyjams.text2plot">
+<span id="text2plot"></span><h1>text2plot<a class="headerlink" href="#module-pyjams.text2plot" title="Permalink to this headline">¶</a></h1>
+<p>Write text on a plot</p>
+<p>This module was written by Matthias Cuntz while at Department of Computational
+Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,
+Germany, and continued while at Institut National de Recherche pour
+l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy, France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright</dt>
+<dd class="field-odd"><p>Copyright 2014-2022 Matthias Cuntz, see AUTHORS.rst for details.</p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
+<p>The following functions are provided:</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.text2plot.text2plot" title="pyjams.text2plot.text2plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text2plot</span></code></a>(handle, dx, dy, itext[, small, ...])</p></td>
+<td><p>Write text on plot</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.text2plot.abc2plot" title="pyjams.text2plot.abc2plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">abc2plot</span></code></a>(handle, dx, dy, iplot[, integer, ...])</p></td>
+<td><p>Write a, B, iii, IV, e), etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.text2plot.signature2plot" title="pyjams.text2plot.signature2plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signature2plot</span></code></a>(handle, dx, dy, itext, **kwargs)</p></td>
+<td><p>Write a copyright notice on a plot</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Nov 2021 by Matthias Cuntz (mc (at) macu (dot) de)
+combining abc2plot and signature2plot</p></li>
+<li><p>Written abc2plot, May 2012, Matthias Cuntz</p></li>
+<li><p>Added parenthesis option to abc2plot, Feb 2013, Arndt Piayda</p></li>
+<li><p>Ported to Python 3, Feb 2013, Matthias Cuntz</p></li>
+<li><p>Added opening and closing parentheses, brackets, braces,
+Feb 2013, Matthias Cuntz</p></li>
+<li><p>Options usetex and mathrm, Feb 2013, Matthias Cuntz</p></li>
+<li><p>Options mathbf, large and making medium the default,
+Feb 2013, Matthias Cuntz</p></li>
+<li><p>Added string option, Nov 2013, Matthias Cuntz</p></li>
+<li><p>Corrected bug in medium as default, Nov 2013, Matthias Cuntz</p></li>
+<li><p>Make usetex work with fontsize keyword of axis.text()
+of matplotllib v1.1.0, Nov 2013, Matthias Cuntz</p></li>
+<li><p>Written signature2plot, Jan 2014, Matthias Cuntz</p></li>
+<li><p>Assert that small or large is set if medium is not None (abc2plot),
+Feb 2014, Matthias Cuntz</p></li>
+<li><p>Replace horizontalalignment=’left’ and verticalalignment=’bottom’
+by kwargs mechanism (abc2plot), May 2014, Matthias Cuntz</p></li>
+<li><p>Added option italic (abc2plot), May 2014, Matthias Cuntz</p></li>
+<li><p>Added options xlarge, xxlarge, xsmall, xxsmall (abc2plot),
+Oct 2015, Matthias Cuntz</p></li>
+<li><p>Make numpy docstring format (abc2plot), Nov 2020, Matthias Cuntz</p></li>
+<li><p>Ported into pyjams, Nov 2021, Matthias Cuntz</p></li>
+<li><p>dx, dy, and name mandatory parameters (signature2plot),
+Nov 2020, Matthias Cuntz</p></li>
+<li><p>Change option name parenthesis -&gt; parentheses, Nov 2021, Matthias Cuntz</p></li>
+<li><p>Written text2plot, Nov 2021, Matthias Cuntz</p></li>
+<li><p>Use text2plot for signature2plot, Nov 2021, Matthias Cuntz</p></li>
+<li><p>Use text2plot for abc2plot, Nov 2021, Matthias Cuntz</p></li>
+<li><p>More consistent docstrings, Jan 2022, Matthias Cuntz</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.text2plot.abc2plot">
+<span class="sig-name descname"><span class="pre">abc2plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iplot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roman</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parentheses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brackets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">braces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">italic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usetex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mathrm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/text2plot.html#abc2plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.text2plot.abc2plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a, B, iii, IV, e), etc. on plots</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.axes</span></code> subclass) – Matplotlib axes handle</p></li>
+<li><p><strong>dx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – % of xlim from min(xlim)</p></li>
+<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – % of ylim from min(ylim)</p></li>
+<li><p><strong>iplot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Number of plot starting with 1, or string if ‘string==True’</p></li>
+<li><p><strong>integer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Use integers instead of a, b, c if True (default: False)</p></li>
+<li><p><strong>roman</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Use Roman literals instead of a, b, c if True (default: False)</p></li>
+<li><p><strong>lower</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Use lowercase letters for a, b, c if True,
+else use uppercase letters (default)</p></li>
+<li><p><strong>parentheses</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>optional</em>) – Parentheses before or after the letter/number. Possible values are
+‘open’, ‘close’, ‘both’, ‘None’, and <em>None</em>.
+‘open’ puts opening parentheses in front of the letter/number.
+‘close’ puts closing parentheses after the letter/number.
+‘both’ puts opening and closing parentheses around the letter/number.
+‘None’ and <em>None</em> do not put any parentheses before or after the
+letter/number (default).</p></li>
+<li><p><strong>brackets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>optional</em>) – Brackets before or after the letter/number. Possible values are
+‘open’, ‘close’, ‘both’, ‘None’, and <em>None</em>.
+‘open’ puts opening brackets in front of the letter/number.
+‘close’ puts closing brackets after the letter/number.
+‘both’ puts opening and closing brackets around the letter/number.
+‘None’ and <em>None</em> do not put any brackets before or after the
+letter/number (default).</p></li>
+<li><p><strong>braces</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a><em>, </em><em>optional</em>) – Braces before or after the letter/number. Possible values are
+‘open’, ‘close’, ‘both’, ‘None’, and <em>None</em>.
+‘open’ puts opening braces in front of the letter/number.
+‘close’ puts closing braces after the letter/number.
+‘both’ puts opening and closing braces around the letter/number.
+‘None’ and <em>None</em> do not put any braces before or after the
+letter/number (default).</p></li>
+<li><p><strong>bold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontweight=’bold’ if True, else fontsize=’normal’ (default)</p></li>
+<li><p><strong>italic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontstyle=’italic’ if True, else fontstyle=’normal’ (default)</p></li>
+<li><p><strong>usetex</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Embed into LaTeX math environment if True,
+else no LaTeX math mode (default)</p></li>
+<li><p><strong>mathrm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, put text into appropriate LaTeX mathrm/mathit/mathbf
+environment if <em>usetex==True</em> and <em>italic==True</em> or <em>bold==True</em>.
+If False, use standard math font if <em>usetex==True</em> (default).</p></li>
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Treat <em>iplot</em> as literal string and not as integer if True (default:
+False). <em>integer</em>, <em>roman</em> and <em>lower</em> are disabled then.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – All additional parameters are passed passed to <a class="reference internal" href="#pyjams.text2plot.text2plot" title="pyjams.text2plot.text2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">text2plot()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Letter/number or string on plot</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>If output is a letter then iplot &gt; 26 gives unexpected results.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">abc2plot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">large</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parentheses</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
+         <span class="n">usetex</span><span class="o">=</span><span class="n">usetex</span><span class="p">,</span> <span class="n">mathrm</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.text2plot.signature2plot">
+<span class="sig-name descname"><span class="pre">signature2plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itext</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/text2plot.html#signature2plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.text2plot.signature2plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a copyright notice on a plot</p>
+<p>The notice is: ‘(C) YYYY <em>itext</em>’, where YYYY is the current 4-digit year.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.axes</span></code> subclass) – Matplotlib axes handle</p></li>
+<li><p><strong>dx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – % of xlim from min(xlim)</p></li>
+<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – % of ylim from min(ylim)</p></li>
+<li><p><strong>itext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Text after ‘(C) YYYY’, where YYYY is the current 4-digit year</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – All additional parameters are passed passed to <a class="reference internal" href="#pyjams.text2plot.text2plot" title="pyjams.text2plot.text2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">text2plot()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>‘(C) YYYY itext’ or ‘(C) YYYY’ on plot, where YYYY is the 4-digit year</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Signature will be right-aligned horizontally if horizontalalignment or
+ha are not given in kwargs.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">signature2plot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;M Cuntz, INRAE&#39;</span><span class="p">,</span>
+               <span class="n">small</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+               <span class="n">usetex</span><span class="o">=</span><span class="n">usetex</span><span class="p">,</span> <span class="n">mathrm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.text2plot.text2plot">
+<span class="sig-name descname"><span class="pre">text2plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itext</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">large</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xsmall</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxsmall</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlarge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xxlarge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">italic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usetex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mathrm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/text2plot.html#text2plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.text2plot.text2plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write text on plot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>handle</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.axes</span></code> subclass) – Matplotlib axes handle</p></li>
+<li><p><strong>dx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – % of xlim from min(xlim)</p></li>
+<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – % of ylim from min(ylim)</p></li>
+<li><p><strong>itext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – String to write on plot</p></li>
+<li><p><strong>small</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontsize=’small’ if True (default: False)</p></li>
+<li><p><strong>medium</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontsize=’medium’ if True (default: False).
+Medium is taken if no other fontsize is chosen.</p></li>
+<li><p><strong>large</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontsize=’large’ if True (default: False)</p></li>
+<li><p><strong>xlarge</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontsize=’x-large’ if True (default: False)</p></li>
+<li><p><strong>xsmall</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontsize=’x-small’ if True (default: False)</p></li>
+<li><p><strong>xxlarge</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontsize=’xx-large’ if True (default: False)</p></li>
+<li><p><strong>xxsmall</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontsize=’xx-small’ if True (default: False)</p></li>
+<li><p><strong>bold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontweight=’bold’ if True, else fontsize=’normal’ (default)</p></li>
+<li><p><strong>italic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – fontstyle=’italic’ if True, else fontstyle=’normal’ (default)</p></li>
+<li><p><strong>usetex</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Embed into LaTeX math environment if True,
+else no LaTeX math mode (default)</p></li>
+<li><p><strong>mathrm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, put text into appropriate LaTeX mathrm/mathit/mathbf
+environment if <em>usetex==True</em> and <em>italic==True</em> or <em>bold==True</em>.
+If False, use standard math font if <em>usetex==True</em> (default).</p></li>
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Treat <em>iplot</em> as literal string and not as integer if True (default:
+False). <em>integer</em>, <em>roman</em> and <em>lower</em> are disabled then.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – All additional parameters are passed passed to
+<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.text.html#matplotlib.axes.Axes.text" title="(in Matplotlib v3.5.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">matplotlib.axes.Axes.text()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>String on plot</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text2plot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;CO$_2$&#39;</span><span class="p">,</span> <span class="n">large</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">usetex</span><span class="o">=</span><span class="n">usetex</span><span class="p">,</span> <span class="n">mathrm</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="plotting.html">Plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="color.html">Color module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">text2plot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="plotting.html">Plotting</a><ul>
+      <li>Previous: <a href="str2tex.html" title="previous chapter">str2tex</a></li>
+      <li>Next: <a href="special_files.html" title="next chapter">Special Files</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/text2plot.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

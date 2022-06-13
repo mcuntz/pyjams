@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color module &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Color functions" href="color.color.html" />
+    <link rel="prev" title="Plotting" href="plotting.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyjams.color">
+<span id="color-module"></span><span id="color"></span><h1>Color module<a class="headerlink" href="#module-pyjams.color" title="Permalink to this headline">¶</a></h1>
+<p>Collection of color palettes and continuous color maps</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright</dt>
+<dd class="field-odd"><p>Copyright 2021- Matthias Cuntz, see AUTHORS.md for details.</p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="color.brewer_palettes.html#module-pyjams.color.brewer_palettes" title="pyjams.color.brewer_palettes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brewer_palettes</span></code></a></p></td>
+<td><p>Color palettes from ColorBrewer2</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="color.mathematica_palettes.html#module-pyjams.color.mathematica_palettes" title="pyjams.color.mathematica_palettes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mathematica_palettes</span></code></a></p></td>
+<td><p>Color palettes from Mathematica</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="color.ncl_palettes.html#module-pyjams.color.ncl_palettes" title="pyjams.color.ncl_palettes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncl_palettes</span></code></a></p></td>
+<td><p>Color palettes from the NCAR Command Language (NCL)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="color.oregon_palettes.html#module-pyjams.color.oregon_palettes" title="pyjams.color.oregon_palettes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oregon_palettes</span></code></a></p></td>
+<td><p>Color palettes from the University of Oregon</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyjams_palettes</span></code></p></td>
+<td><p>pyjams own color palettes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="color.sron2012_palettes.html#module-pyjams.color.sron2012_palettes" title="pyjams.color.sron2012_palettes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sron2012_palettes</span></code></a></p></td>
+<td><p>Color palettes of 2012 of Paul Tol at SRON - Netherlands Institute for Space Research</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="color.sron_palettes.html#module-pyjams.color.sron_palettes" title="pyjams.color.sron_palettes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sron_palettes</span></code></a></p></td>
+<td><p>Color palettes of Paul Tol at SRON - Netherlands Institute for Space Research</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="color.ufz_palettes.html#module-pyjams.color.ufz_palettes" title="pyjams.color.ufz_palettes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ufz_palettes</span></code></a></p></td>
+<td><p>Colors from the guidelines of the Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany from 18.01.2007</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="color.color.html#module-pyjams.color.color" title="pyjams.color.color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">color</span></code></a></p></td>
+<td><p>Get, show, print color palettes</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.color.get_cmap">
+<span class="sig-name descname"><span class="pre">get_cmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">palette</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/color/color.html#get_cmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.color.get_cmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get colors of defined palettes or continuous colormaps</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>palette</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of color palette or continuous colormap</p></li>
+<li><p><strong>ncol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Number of desired colors.
+If 0, all colors defined by the specific palette will be returned.
+256 colors will be chosen for continuous colormaps.
+If &gt; 0, existing color palettes will be subsampled to <em>ncol</em> colors.
+<em>ncol</em> colors will be produced from continuous colormaps.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> (</em><em>0-1</em><em>)</em><em>, </em><em>optional</em>) – Bottom fraction to exclude for subsample or continuous colormaps</p></li>
+<li><p><strong>upper</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> (</em><em>0-1</em><em>)</em><em>, </em><em>optional</em>) – Upper most fraction to include for subsample or continuous colormaps</p></li>
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Reverse colormap if True (default: False). This can also be achieved by
+adding ‘_r’ to the palette name. Palettes that end with ‘_r’ will not
+be reversed.</p></li>
+<li><p><strong>grey</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Return grey equivalent colors if True (default: False).</p></li>
+<li><p><strong>order</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Order colors by ‘hue’, ‘saturation’, or ‘value’.
+This is done before <em>reverse</em> and <em>grey</em>
+(default: order from color sources).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of RGB tuples or <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v3.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.colors.Colormap</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a> or <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v3.5.2)">matplotlib.colors.Colormap</a></p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p><cite>get_cmap</cite> always returns a list of RGB tuples or a Matplotlib
+ListedColormap. You can use the <em>ncol</em>, <em>offset</em>, and <em>upper</em> keywords to
+subsample colormaps. To get smoothly-varying colormaps, you can use the
+method <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap.from_list" title="(in Matplotlib v3.5.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">matplotlib.colors.LinearSegmentedColormap.from_list()</span></code></a></p>
+<blockquote>
+<div><p>cols = get_cmap(‘sron_ylorbr’)</p>
+<p>cmap = matplotlib.colors.LinearSegmentedColormap.from_list(cols)</p>
+</div></blockquote>
+<p>You can get the color tuples from a LinearSegmentedColormap like this</p>
+<blockquote>
+<div><p>colors = [ cmap(i) for i in range(cmap.N) ]</p>
+</div></blockquote>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;mathematica_dark_rainbow_256&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.color.get_color">
+<span class="sig-name descname"><span class="pre">get_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/color/color.html#get_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.color.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register new named colors with Matplotlib and return named color(s)</p>
+<p>Registers the named colors given in ufz_palettes.
+Optionally returns the value(s) of the named color(s),
+which can be any color name known to Matplotlib.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>iterable of str</em><em>, </em><em>optional</em>) – Colour name(s)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">col1</span> <span class="o">=</span> <span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;ufz:blue&#39;</span><span class="p">)</span>
+<span class="n">col2</span> <span class="o">=</span> <span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;xkcd:blue&#39;</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">get_color</span><span class="p">([</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.color.print_colors">
+<span class="sig-name descname"><span class="pre">print_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/color/color.html#print_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.color.print_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the known named colors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color collection(s).
+Known collections are ‘base’, ‘tableau’, ‘ufz’, ‘css’,
+and ‘xkcd’.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Prints list of known named colors to console.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">print_colors</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.color.print_palettes">
+<span class="sig-name descname"><span class="pre">print_palettes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/color/color.html#print_palettes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.color.print_palettes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the known color palettes and continuous colormaps</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color palette collection(s).
+Known collections are ‘pyjams’, ‘sron’, ‘sron2012’, ‘mathematica’,
+‘oregon’, ‘ncl’, ‘matplotlib’, and ‘brewer’.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Prints list of known color palettes and continuous colormaps to
+console.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">print_palettes</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.color.show_palettes">
+<span class="sig-name descname"><span class="pre">show_palettes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/color/color.html#show_palettes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.color.show_palettes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the known color palettes and continuous colormaps</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Output file name. Output type will be determined from file suffix.</p></li>
+<li><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color palette collection(s).
+All palettes will be shown if collection is empty or ‘all’.
+Known collections are: ‘pyjams’, ‘sron’, ‘sron2012’, ‘mathematica’,
+‘oregon’, ‘ncl’, ‘matplotlib’, and ‘brewer’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Plots known color palettes and continuous colormaps in file or on
+plotting window.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">show_palettes</span><span class="p">(</span><span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;pyjams_cmaps.pdf&#39;</span><span class="p">,</span>
+              <span class="n">collection</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mathematica&#39;</span><span class="p">,</span> <span class="s1">&#39;matplotlib&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="color.color.html">Color functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.brewer_palettes.html">Brewer palettes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.mathematica_palettes.html">Mathematica palettes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.ncl_palettes.html">NCL palettes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.oregon_palettes.html">Oregon palettes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.sron2012_palettes.html">SRON2012 palettes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.sron_palettes.html">SRON palettes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.ufz_palettes.html">UFZ colors</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="plotting.html">Plotting</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Color module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="plotting.html">Plotting</a><ul>
+      <li>Previous: <a href="plotting.html" title="previous chapter">Plotting</a></li>
+      <li>Next: <a href="color.color.html" title="next chapter">Color functions</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/color.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

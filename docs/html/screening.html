@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>screening &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Meteorology" href="meteorology.html" />
+    <link rel="prev" title="Morris Method / Elementary Effects" href="morris_method.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyjams.screening">
+<span id="screening"></span><h1>screening<a class="headerlink" href="#module-pyjams.screening" title="Permalink to this headline">¶</a></h1>
+<p>Function for Morris’ method of Elementary Effects.</p>
+<p>This function was written by Matthias Cuntz while at Institut National de
+Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy,
+France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright</dt>
+<dd class="field-odd"><p>Copyright 2017-2022 Matthias Cuntz, see AUTHORS.rst for details.</p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
+<p>The following functions are provided</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.screening.ee" title="pyjams.screening.ee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ee</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Wrapper function for <a class="reference internal" href="#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screening</span></code></a>(func, lb, ub, nt[, x0, mask, ...])</p></td>
+<td><p>Parameter screening using Morris' method of Elementary Effects.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Dec 2017 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>Output also (npara,3)-array for nt=1, Dec 2017, Matthias Cuntz</p></li>
+<li><p>Removed call to external programs: use exe_wrappers,
+Jan 2018, Matthias Cuntz</p></li>
+<li><p>Function can return multiple outputs, e.g. time series,
+Jan 2018, Matthias Cuntz</p></li>
+<li><p>Python 3: map returns iterator, so list(map), Jul 2018, Fabio Gennaretti</p></li>
+<li><p>Bug: default ntotal was not set if ntotal&lt;0 (but nt instead),
+Dec 2019, Matthias Cuntz</p></li>
+<li><p>Make numpy docstring format, Dec 2019, Matthias Cuntz</p></li>
+<li><p>x0 optional, Jan 2020, Matthias Cuntz</p></li>
+<li><p>Distinguish iterable and array_like parameter types;
+added seed keyword to screening/ee, Jan 2020, Matthias Cuntz</p></li>
+<li><p>InputError does not exist, use TypeError, Feb 2020, Matthias Cuntz</p></li>
+<li><p>Use new names of kwargs of morris_sampling and elementary_effects,
+Feb 2020, Matthias Cuntz</p></li>
+<li><p>Make number of final trajectories an argument instead of a keyword
+argument, Feb 2020, Matthias Cuntz</p></li>
+<li><p>Sample not only from uniform distribution but allow all distributions of
+scipy.stats, Mar 2020, Matthias Cuntz</p></li>
+<li><p>Code refactoring, Sep 2021, Matthias Cuntz</p></li>
+<li><p>More consistent docstrings, Jan 2022, Matthias Cuntz</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.screening.ee">
+<span class="sig-name descname"><span class="pre">ee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/screening.html#ee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.screening.ee" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper function for <a class="reference internal" href="#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.screening.screening">
+<span class="sig-name descname"><span class="pre">screening</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsteps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ntotal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distparam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/screening.html#screening"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.screening.screening" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter screening using Morris’ method of Elementary Effects.</p>
+<p>Note, the input function must be callable as <cite>func(x)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – Python function callable as <cite>func(x)</cite> with the function parameters <em>x</em>.</p></li>
+<li><p><strong>lb</strong> (<em>array_like</em>) – Lower bounds of parameters
+or lower fraction of percent point function ppf if distribution given.
+Be aware that the percent point function <em>ppf</em> of most continuous
+distributions is infinite at 0.</p></li>
+<li><p><strong>ub</strong> (<em>array_like</em>) – Upper bounds of parameters
+or upper fraction of percent point function ppf if distribution given.
+Be aware that the percent point function <em>ppf</em> of most continuous
+distributions is infinite at 1.</p></li>
+<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of trajectories used for screening.</p></li>
+<li><p><strong>x0</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Parameter values used with <cite>mask==0</cite>.</p></li>
+<li><p><strong>mask</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Include (1,True) or exclude (0,False) parameters in screening (default:
+include all parameters).</p></li>
+<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Number of steps along one trajectory (default: 6)</p></li>
+<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories to select the nt most different
+trajectories.
+If None: <cite>max(nt**2,10*nt)</cite> (default: None)</p></li>
+<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
+the method ppf, Percent Point Function (Inverse of CDF) (default: None).
+If None, the uniform distribution will be sampled from lower bound <cite>lb</cite>
+to upper bound <cite>ub</cite>.
+If dist is scipy.stats.uniform, the ppf will be sampled from the lower
+fraction given in <cite>lb</cite> and the upper fraction in <cite>ub</cite>. The sampling
+interval is then given by the parameters <cite>loc=lower</cite> and
+<cite>scale=interval=upper-lower</cite> in distparam. This means
+<cite>dist=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite>
+corresponds to
+<cite>lb=0</cite>, <cite>ub=1</cite>, <cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a,b-a]</cite></p></li>
+<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
+(0, 1)).
+All distributions of scipy.stats have location and scale parameters, at
+least. <cite>loc</cite> and <cite>scale</cite> are implemented as keyword arguments in
+scipy.stats. Other parameters such as the shape parameter of the gamma
+distribution must hence be given first, e.g. <cite>(shape,loc,scale)</cite> for
+the gamma distribution.
+<cite>distparam</cite> is ignored if <cite>dist</cite> is None.
+The percent point function <em>ppf</em> is called like this:
+<cite>dist(*distparam).ppf(x)</cite></p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><em>array_like</em>) – Seed for numpy’s random number generator (default: None).</p></li>
+<li><p><strong>processes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The number of processes to use to evaluate objective function and
+constraints (default: 1).</p></li>
+<li><p><strong>pool</strong> (<cite>schwimmbad</cite> pool object, optional) – <p>Generic map function used from module <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/">schwimmbad</a>, which provides,
+serial, multiprocessor, and MPI mapping functions (default: None).
+The pool will be chosen automatically if <cite>pool</cite> is None. It is chosen
+with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">schwimmbad</span><span class="o">.</span><span class="n">choose_pool</span><span class="p">(</span><span class="n">mpi</span><span class="o">=</span><span class="kc">True</span><span class="o">/</span><span class="kc">False</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="n">processes</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>MPI pools can only be opened and closed once. If you want to use
+screening several times in one program, then you have to choose the
+pool, pass it to screening, and later close the pool in the calling
+program.</p>
+</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Print progress report during execution if <cite>verbose&gt;0</cite> (default: 0).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>2D-array with 3 entries per parameters:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>mean of absolute elementary effects over all nt trajectories
+(<cite>mu*</cite>)</p></li>
+<li><p>mean of elementary effects over all nt trajectories (<cite>mu</cite>)</p></li>
+<li><p>standard deviation of elementary effects over all
+nt trajectories (<cite>sigma</cite>) or zero if <cite>nt==1</cite></p></li>
+</ol>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(nparameter, 3) ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">function_wrapper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyjams.functions</span> <span class="kn">import</span> <span class="n">fmorris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1023</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">npars</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta0</span>              <span class="o">=</span> <span class="mf">0.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta1</span>              <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta1</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>         <span class="o">=</span> <span class="mf">20.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta2</span>              <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">npars</span><span class="p">,</span><span class="n">npars</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta2</span><span class="p">[:</span><span class="mi">6</span><span class="p">,:</span><span class="mi">6</span><span class="p">]</span>       <span class="o">=</span> <span class="o">-</span><span class="mf">15.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta3</span>              <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">npars</span><span class="p">,</span><span class="n">npars</span><span class="p">,</span><span class="n">npars</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta3</span><span class="p">[:</span><span class="mi">5</span><span class="p">,:</span><span class="mi">5</span><span class="p">,:</span><span class="mi">5</span><span class="p">]</span>    <span class="o">=</span> <span class="o">-</span><span class="mf">10.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta4</span>              <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">npars</span><span class="p">,</span><span class="n">npars</span><span class="p">,</span><span class="n">npars</span><span class="p">,</span><span class="n">npars</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta4</span><span class="p">[:</span><span class="mi">4</span><span class="p">,:</span><span class="mi">4</span><span class="p">,:</span><span class="mi">4</span><span class="p">,:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arg</span>   <span class="o">=</span> <span class="p">[</span><span class="n">beta0</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">beta3</span><span class="p">,</span> <span class="n">beta4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kwarg</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">func</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">function_wrapper</span><span class="p">,</span> <span class="n">fmorris</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">kwarg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lb</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ub</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nt</span>      <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ntotal</span>  <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">nt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nsteps</span>  <span class="o">=</span> <span class="mi">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">nsteps</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="n">ntotal</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">[60.7012889  67.33372626 48.46673528]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="math.html">Math</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="division.html">division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.html">Function module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">screening</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="math.html">Math</a><ul>
+      <li>Previous: <a href="morris_method.html" title="previous chapter">Morris Method / Elementary Effects</a></li>
+      <li>Next: <a href="meteorology.html" title="next chapter">Meteorology</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/screening.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

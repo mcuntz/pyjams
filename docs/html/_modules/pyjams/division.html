@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyjams.division &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pyjams.division</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Divide two arrays, return `otherwise` if division by 0.</span>
+
+<span class="sd">This module was written by Matthias Cuntz while at Department of</span>
+<span class="sd">Computational Hydrosystems, Helmholtz Centre for Environmental</span>
+<span class="sd">Research - UFZ, Leipzig, Germany, and continued while at Institut</span>
+<span class="sd">National de Recherche pour l&#39;Agriculture, l&#39;Alimentation et</span>
+<span class="sd">l&#39;Environnement (INRAE), Nancy, France.</span>
+
+<span class="sd">:copyright: Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   division</span>
+<span class="sd">   div</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Jan 2012 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * Added wrapper div, May 2012, Matthias Cuntz</span>
+<span class="sd">    * Ported to Python 3, Feb 2013, Matthias Cuntz</span>
+<span class="sd">    * Do not return masked array if no masked array given,</span>
+<span class="sd">      Oct 2014, Matthias Cuntz</span>
+<span class="sd">    * Added two-digit year, Nov 2018, Matthias Cuntz</span>
+<span class="sd">    * Removed bug that non-masked array was returned if masked array given,</span>
+<span class="sd">      Sep 2015, Matthias Cuntz</span>
+<span class="sd">    * Using numpy docstring format, May 2020, Matthias Cuntz</span>
+<span class="sd">    * Output type is input type, Oct 2021, Matthias Cuntz</span>
+<span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Use helper functions input2array and array2input,</span>
+<span class="sd">      Mar 2022, Matthias Cuntz</span>
+<span class="sd">    * Do not use geterr/seterr, Mar 2022, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">input2array</span><span class="p">,</span> <span class="n">array2input</span>
+<span class="c1"># from helper import input2array, array2input</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;division&#39;</span><span class="p">,</span> <span class="s1">&#39;div&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="division"><a class="viewcode-back" href="../../division.html#pyjams.division.division">[docs]</a><span class="k">def</span> <span class="nf">division</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">otherwise</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">prec</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Divide two arrays, return `otherwise` if division by 0.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : array_like</span>
+<span class="sd">        Enumerator</span>
+<span class="sd">    b : array_like</span>
+<span class="sd">        Denominator</span>
+<span class="sd">    otherwise : float</span>
+<span class="sd">        Value to return if `b=0` (default: `np.nan`)</span>
+<span class="sd">    prec : float</span>
+<span class="sd">        If `|b|&lt;|prec|` then `otherwise`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ratio : numpy array or masked array</span>
+<span class="sd">        *a/b* if *|b| &gt;  |prec|*, *otherwise* if *|b| &lt;= |prec|*</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Output is numpy array. It is a masked array if at least one of *a* or *b*</span>
+<span class="sd">    is a masked array.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; a = [1., 2., 3.]</span>
+<span class="sd">    &gt;&gt;&gt; b = 2.</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;{:.1f} {:.1f} {:.1f}&#39;.format(*division(a, b)))</span>
+<span class="sd">    0.5 1.0 1.5</span>
+
+<span class="sd">    &gt;&gt;&gt; a = [1., 1., 1.]</span>
+<span class="sd">    &gt;&gt;&gt; b = [2., 1., 0.]</span>
+<span class="sd">    &gt;&gt;&gt; print(division(a, b))</span>
+<span class="sd">    [0.5, 1.0, nan]</span>
+<span class="sd">    &gt;&gt;&gt; print(division(a, b, 0.))</span>
+<span class="sd">    [0.5, 1.0, 0.0]</span>
+<span class="sd">    &gt;&gt;&gt; print(division(a, b, otherwise=0.))</span>
+<span class="sd">    [0.5, 1.0, 0.0]</span>
+<span class="sd">    &gt;&gt;&gt; print(division(a, b, prec=1.))</span>
+<span class="sd">    [0.5, nan, nan]</span>
+
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; a = np.array([1., 1., 1.])</span>
+<span class="sd">    &gt;&gt;&gt; b = [2., 1., 0.]</span>
+<span class="sd">    &gt;&gt;&gt; print(division(a, b))</span>
+<span class="sd">    [0.5 1.  nan]</span>
+<span class="sd">    &gt;&gt;&gt; b = np.array([2., 1., 0.])</span>
+<span class="sd">    &gt;&gt;&gt; print(division(a, b))</span>
+<span class="sd">    [0.5 1.  nan]</span>
+
+<span class="sd">    &gt;&gt;&gt; mask = [0, 0, 1]</span>
+<span class="sd">    &gt;&gt;&gt; b = np.ma.array([2., 1., 0.], mask=mask)</span>
+<span class="sd">    &gt;&gt;&gt; print(division(a, b))</span>
+<span class="sd">    [0.5 1.0 --]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">aa</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">bb</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">bbb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">prec</span><span class="p">),</span> <span class="n">bb</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">prec</span><span class="p">),</span> <span class="n">aa</span><span class="o">/</span><span class="n">bbb</span><span class="p">,</span> <span class="n">otherwise</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="div"><a class="viewcode-back" href="../../division.html#pyjams.division.div">[docs]</a><span class="k">def</span> <span class="nf">div</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`division`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; a = [1., 2., 3.]</span>
+<span class="sd">    &gt;&gt;&gt; b = 2.</span>
+<span class="sd">    &gt;&gt;&gt; print(div(a, b))</span>
+<span class="sd">    [0.5, 1.0, 1.5]</span>
+
+<span class="sd">    &gt;&gt;&gt; a = [1., 1., 1.]</span>
+<span class="sd">    &gt;&gt;&gt; b = [2., 1., 0.]</span>
+<span class="sd">    &gt;&gt;&gt; print(div(a, b))</span>
+<span class="sd">    [0.5, 1.0, nan]</span>
+<span class="sd">    &gt;&gt;&gt; print(div(a, b, 0.))</span>
+<span class="sd">    [0.5, 1.0,  0.0]</span>
+<span class="sd">    &gt;&gt;&gt; print(div(a, b, otherwise=0.))</span>
+<span class="sd">    [0.5, 1.0, 0.0]</span>
+<span class="sd">    &gt;&gt;&gt; print(div(a, b, prec=1.))</span>
+<span class="sd">    [0.5, nan, nan]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">division</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../contents.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

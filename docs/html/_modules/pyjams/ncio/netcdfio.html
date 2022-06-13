@@ -1,0 +1,852 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyjams.ncio.netcdfio &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pyjams.ncio.netcdfio</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">netCDF4 functions to a copy netcdf file while doing some transformations on</span>
+<span class="sd">variables and dimensions.</span>
+
+<span class="sd">This module was written by Matthias Cuntz while at Institut National de</span>
+<span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
+<span class="sd">France.</span>
+
+<span class="sd">It borrows the idea of _get_variable_definition from the netcdf4 thin layer of</span>
+<span class="sd">David Schaefer.</span>
+
+<span class="sd">:copyright: Copyright 2020-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   copy_dimensions</span>
+<span class="sd">   copy_file</span>
+<span class="sd">   copy_global_attributes</span>
+<span class="sd">   copy_variables</span>
+<span class="sd">   create_new_variable</span>
+<span class="sd">   create_variables</span>
+<span class="sd">   get_fill_value_for_dtype</span>
+<span class="sd">   set_output_filename</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Apr 2020 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * Added get_fill_value_for_dtype, Mar 2021, Matthias Cuntz</span>
+<span class="sd">    * Added create_new_variable, Mar 2021, Matthias Cuntz</span>
+<span class="sd">    * flake8 compatible, Mar 2021, Matthias Cuntz</span>
+<span class="sd">    * Remove keyword in copy_global_attributes, Mar 2021, Matthias Cuntz</span>
+<span class="sd">    * Add timedim in create_variables, Dec 2021, Matthias Cuntz</span>
+<span class="sd">    * Rename functions, e.g. create_dimensions -&gt; copy_dimensions,</span>
+<span class="sd">      May 2022, Matthias Cuntz</span>
+<span class="sd">    * Add copy_variables, May 2022, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;copy_dimensions&#39;</span><span class="p">,</span> <span class="s1">&#39;copy_file&#39;</span><span class="p">,</span> <span class="s1">&#39;copy_global_attributes&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;copy_variables&#39;</span><span class="p">,</span> <span class="s1">&#39;create_new_variable&#39;</span><span class="p">,</span> <span class="s1">&#39;create_variables&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;get_fill_value_for_dtype&#39;</span><span class="p">,</span> <span class="s1">&#39;set_output_filename&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_tolist</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assure that *arg* is a list, e.g. if string or None are given.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arg :</span>
+<span class="sd">        Argument to make list</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        list(arg)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; _tolist(&#39;string&#39;)</span>
+<span class="sd">    [&#39;string&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; _tolist([1,2,3])</span>
+<span class="sd">    [1, 2, 3]</span>
+<span class="sd">    &gt;&gt;&gt; _tolist(None)</span>
+<span class="sd">    [None]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">arg</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">arg</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_get_variable_definition</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Collect information on input variable.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ncvar : netcdf4 variable</span>
+<span class="sd">        Variable of input file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Containing information on input variable withkey/value pairs.</span>
+<span class="sd">        The following keys are returned: &#39;name&#39;, &#39;dtype&#39;, &#39;dimensions&#39;,</span>
+<span class="sd">        &#39;fill_vallue&#39;, &#39;chunksizes&#39;</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       _get_variable_definition(fi.variables[&#39;GPP&#39;])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">filters</span><span class="p">()</span> <span class="k">if</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">filters</span><span class="p">()</span> <span class="k">else</span> <span class="p">{}</span>
+    <span class="c1"># chunksizes</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="s2">&quot;chunking&quot;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">chunking</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">chunking</span><span class="p">(),</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">chunking</span><span class="p">())</span>
+    <span class="c1"># missing value</span>
+    <span class="k">if</span> <span class="s2">&quot;missing_value&quot;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+        <span class="n">ifill</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">missing_value</span>
+    <span class="k">elif</span> <span class="s2">&quot;_FillValue&quot;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+        <span class="n">ifill</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">_FillValue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ifill</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># output variable</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span>       <span class="n">ncvar</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;dtype&quot;</span><span class="p">:</span>      <span class="n">ncvar</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="s2">&quot;dimensions&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">),</span>
+        <span class="s2">&quot;fill_value&quot;</span><span class="p">:</span> <span class="n">ifill</span><span class="p">,</span>
+        <span class="s2">&quot;chunksizes&quot;</span><span class="p">:</span> <span class="n">chunks</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<div class="viewcode-block" id="copy_file"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_file">[docs]</a><span class="k">def</span> <span class="nf">copy_file</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">ofile</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+              <span class="n">removevar</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamevar</span><span class="o">=</span><span class="p">{},</span> <span class="n">replacevar</span><span class="o">=</span><span class="p">{},</span> <span class="n">replaceatt</span><span class="o">=</span><span class="p">{},</span>
+              <span class="n">noclose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Copy variables from input file into output file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ifile : str</span>
+<span class="sd">        File name of netcdf input file</span>
+<span class="sd">    ofile : str</span>
+<span class="sd">        File name of netcdf output file</span>
+<span class="sd">    timedim : str, optional</span>
+<span class="sd">        Name of time dimension in input file (default: &#39;time&#39;).</span>
+<span class="sd">    removevar : list of str, optional</span>
+<span class="sd">        Do not copy variables given in *removevar* to output file.</span>
+<span class="sd">    renamevar : dict, optional</span>
+<span class="sd">        Copy variables from input file with different name in output file.</span>
+<span class="sd">        Variable names in input file are given as dictionary keys,</span>
+<span class="sd">        corresponding variable names of output file are give as dictionary</span>
+<span class="sd">        values.</span>
+<span class="sd">    replacevar : dict, optional</span>
+<span class="sd">        Replace existing variables with variables in dictionary.</span>
+<span class="sd">        Variable names in input file are given as dictionary keys,</span>
+<span class="sd">        dictionary values are also dictionaries where keys are the output</span>
+<span class="sd">        variable name and values are the output variable values.</span>
+<span class="sd">    replaceatt : dict, optional</span>
+<span class="sd">        Replace or set attributes of variables in dictionary keys</span>
+<span class="sd">        (case sensitive). Dictionary values are also dictionaries with</span>
+<span class="sd">        {&#39;attribute_name&#39;: attribute_value}. Dictionary keys are the names</span>
+<span class="sd">        of the output variables after renaming and replacing.</span>
+<span class="sd">    noclose : bool, optional</span>
+<span class="sd">        Return file handle of opened output file for further manipulation</span>
+<span class="sd">        if True (default: False)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    nothing or file_handle</span>
+<span class="sd">        The output file will have the altered or unaltered variables</span>
+<span class="sd">        copied from the input file.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       ovar = np.arange(100)</span>
+<span class="sd">       copy_variable(&#39;in.nc&#39;, &#39;out.nc&#39;,</span>
+<span class="sd">                     renamevar={&#39;lon&#39;: &#39;longitude&#39;},</span>
+<span class="sd">                     replacevar={&#39;var1&#39;: {&#39;arange&#39;: ovar}},</span>
+<span class="sd">                     replaceatt={&#39;arange&#39;:</span>
+<span class="sd">                                 {&#39;long_name&#39;: &#39;A range&#39;, &#39;unit&#39;: &#39;-&#39;}})</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">ptime</span>
+    <span class="n">fi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;file_format&#39;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">fi</span><span class="p">):</span>
+        <span class="n">fo</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">fi</span><span class="o">.</span><span class="n">file_format</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="n">fo</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;NETCDF4&#39;</span><span class="p">)</span>
+
+    <span class="c1"># meta data</span>
+    <span class="n">copy_global_attributes</span><span class="p">(</span>
+        <span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="n">ptime</span><span class="o">.</span><span class="n">asctime</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span>
+                     <span class="s1">&#39;copy_variables(&#39;</span> <span class="o">+</span> <span class="n">ifile</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="n">ofile</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">})</span>
+
+    <span class="c1"># copy dimensions</span>
+    <span class="n">copy_dimensions</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">)</span>
+
+    <span class="c1"># create variables</span>
+    <span class="c1"># rename replace variables as well</span>
+    <span class="n">xreplacevar</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">rr</span> <span class="ow">in</span> <span class="n">replacevar</span><span class="p">:</span>
+        <span class="n">nn</span> <span class="o">=</span> <span class="n">replacevar</span><span class="p">[</span><span class="n">rr</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">kk</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">popitem</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">xreplacevar</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">rr</span><span class="p">:</span> <span class="n">kk</span><span class="p">})</span>
+    <span class="n">arenamevar</span> <span class="o">=</span> <span class="n">renamevar</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">arenamevar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">xreplacevar</span><span class="p">)</span>
+    <span class="c1"># create static variables (independent of time)</span>
+    <span class="n">create_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="n">timedim</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">removevar</span><span class="o">=</span><span class="n">removevar</span><span class="p">,</span> <span class="n">renamevar</span><span class="o">=</span><span class="n">arenamevar</span><span class="p">)</span>
+    <span class="c1"># create dynamic variables (time dependent)</span>
+    <span class="n">create_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="n">timedim</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">removevar</span><span class="o">=</span><span class="n">removevar</span><span class="p">,</span> <span class="n">renamevar</span><span class="o">=</span><span class="n">arenamevar</span><span class="p">)</span>
+
+    <span class="c1"># set extra attributes</span>
+    <span class="k">for</span> <span class="n">rr</span> <span class="ow">in</span> <span class="n">replaceatt</span><span class="p">:</span>
+        <span class="n">ovar</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">rr</span><span class="p">]</span>
+        <span class="n">att</span> <span class="o">=</span> <span class="n">replaceatt</span><span class="p">[</span><span class="n">rr</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">aa</span> <span class="ow">in</span> <span class="n">att</span><span class="p">:</span>
+            <span class="n">ovar</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">att</span><span class="p">[</span><span class="n">aa</span><span class="p">])</span>
+
+    <span class="c1"># copy variables</span>
+    <span class="c1"># do not copy replace variables</span>
+    <span class="n">aremovevar</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removevar</span><span class="p">)</span>
+    <span class="n">aremovevar</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">xreplacevar</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">copy_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="n">timedim</span><span class="p">,</span>
+                   <span class="n">removevar</span><span class="o">=</span><span class="n">aremovevar</span><span class="p">,</span> <span class="n">renamevar</span><span class="o">=</span><span class="n">renamevar</span><span class="p">)</span>
+    <span class="n">copy_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="n">timedim</span><span class="p">,</span>
+                   <span class="n">removevar</span><span class="o">=</span><span class="n">aremovevar</span><span class="p">,</span> <span class="n">renamevar</span><span class="o">=</span><span class="n">renamevar</span><span class="p">)</span>
+
+    <span class="c1"># set replace variables</span>
+    <span class="k">for</span> <span class="n">rr</span> <span class="ow">in</span> <span class="n">replacevar</span><span class="p">:</span>
+        <span class="n">odict</span> <span class="o">=</span> <span class="n">replacevar</span><span class="p">[</span><span class="n">rr</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">oname</span><span class="p">,</span> <span class="n">oval</span> <span class="o">=</span> <span class="n">odict</span><span class="o">.</span><span class="n">popitem</span><span class="p">()</span>
+        <span class="n">ovar</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">oname</span><span class="p">]</span>
+        <span class="n">ovar</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">oval</span>
+
+    <span class="n">fi</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">noclose</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fo</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fo</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="copy_dimensions"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_dimensions">[docs]</a><span class="k">def</span> <span class="nf">copy_dimensions</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">removedim</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamedim</span><span class="o">=</span><span class="p">{},</span> <span class="n">changedim</span><span class="o">=</span><span class="p">{},</span>
+                    <span class="n">adddim</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create dimensions in output file from dimensions in input file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fi : file_handle</span>
+<span class="sd">        File handle of opened netcdf input file</span>
+<span class="sd">    fo : file_handle</span>
+<span class="sd">        File handle of opened netcdf output file</span>
+<span class="sd">    removedim : list of str, optional</span>
+<span class="sd">        Do not create dimensions given in *removedim* in output file.</span>
+<span class="sd">    renamedim : dict, optional</span>
+<span class="sd">        Rename dimensions in output file compared to input file.</span>
+<span class="sd">        Dimension names in input file are given as dictionary keys,</span>
+<span class="sd">        corresponding dimension names of output file are give as dictionary</span>
+<span class="sd">        values.</span>
+<span class="sd">    changedim : dict, optional</span>
+<span class="sd">        Change the size of the output dimension compared to the input file.</span>
+<span class="sd">        Dimension names are given as dictionary keys, corresponding dimension</span>
+<span class="sd">        sizes are given as dictionary values.</span>
+<span class="sd">    adddim : dict, optional</span>
+<span class="sd">        Add dimension to output file.</span>
+<span class="sd">        New dimension names are given as dictionary keys and new dimension</span>
+<span class="sd">        sizes are given as dictionary values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    nothing</span>
+<span class="sd">        The output file will have the altered and unaltered dimensions</span>
+<span class="sd">        of the input file.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       copy_dimensions(fi, fo, removedim=[&#39;patch&#39;],</span>
+<span class="sd">                       renamedim={&#39;x&#39;: &#39;lon&#39;, &#39;y&#39;: &#39;lat&#39;},</span>
+<span class="sd">                       changedim={&#39;mland&#39;: 1})</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">removedim</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removedim</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">dimensions</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="c1"># remove dimension if in removedim</span>
+        <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">removedim</span><span class="p">:</span>
+            <span class="c1"># change dimension size if in changedim</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">changedim</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">nd</span> <span class="o">=</span> <span class="n">changedim</span><span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">d</span><span class="o">.</span><span class="n">isunlimited</span><span class="p">():</span>
+                <span class="n">nd</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">nd</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="c1"># rename dimension if in renamedim</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">renamedim</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">oname</span> <span class="o">=</span> <span class="n">renamedim</span><span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">oname</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">name</span>
+            <span class="c1"># create dimension</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="n">oname</span><span class="p">,</span> <span class="n">nd</span><span class="p">)</span>
+    <span class="c1"># add new dimensions</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">adddim</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fo</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">adddim</span><span class="p">[</span><span class="n">d</span><span class="p">])</span>
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="copy_global_attributes"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_global_attributes">[docs]</a><span class="k">def</span> <span class="nf">copy_global_attributes</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="p">{},</span> <span class="n">remove</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create global output file attributes from input global file attributes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fi : file_handle</span>
+<span class="sd">        File handle of opened netcdf input file</span>
+<span class="sd">    fo : file_handle</span>
+<span class="sd">        File handle of opened netcdf output file</span>
+<span class="sd">    add : dict, optional</span>
+<span class="sd">        dict values will be given to attributes given in dict keys.</span>
+<span class="sd">        Attributes will be created if they do not exist yet.</span>
+<span class="sd">    remove : list, optional</span>
+<span class="sd">        Do not create global attributes given in *remove* in the output file.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    nothing</span>
+<span class="sd">        Output will have global file attributes</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       copy_global_attributes(</span>
+<span class="sd">           fi, fo, add={&#39;history&#39;: time.asctime()+&#39;: &#39;+&#39; &#39;.join(sys.argv)})</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove</span><span class="p">:</span>
+            <span class="n">iattr</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="n">getncattr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="c1"># add to existing global attribute</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">add</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">iattr</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="n">add</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">iattr</span><span class="p">)</span>
+    <span class="c1"># add if global attribute does not exist yet</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">add</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">():</span>
+            <span class="n">fo</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">add</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="copy_variables"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_variables">[docs]</a><span class="k">def</span> <span class="nf">copy_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+                   <span class="n">removevar</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamevar</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Copy variables from input file into output file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fi : file_handle</span>
+<span class="sd">        File handle of opened netcdf input file</span>
+<span class="sd">    fo : file_handle</span>
+<span class="sd">        File handle of opened netcdf output file</span>
+<span class="sd">    time : None or bool, optional</span>
+<span class="sd">        None:  copy all variables (default).</span>
+<span class="sd">        True:  copy only variables having dimension *timedim*.</span>
+<span class="sd">        False: copy only variables that do not have dimension *timedim*.</span>
+<span class="sd">    timedim : str, optional</span>
+<span class="sd">        Name of time dimension (default: &#39;time&#39;).</span>
+<span class="sd">    removevar : list of str, optional</span>
+<span class="sd">        Do not copy variables given in *removevar* to output file.</span>
+<span class="sd">    renamevar : dict, optional</span>
+<span class="sd">        Copy variables from input file with different name in output file.</span>
+<span class="sd">        Variable names in input file are given as dictionary keys,</span>
+<span class="sd">        corresponding variable names of output file are give as dictionary</span>
+<span class="sd">        values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    nothing</span>
+<span class="sd">        The output file will have the altered or unaltered variables</span>
+<span class="sd">        copied from the input file.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       copy_variable(fi, fo, fill=True, renamevar={&#39;lon&#39;: &#39;longitude&#39;})</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">removevar</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removevar</span><span class="p">)</span>
+    <span class="c1"># just copy all variables if no time dimension or</span>
+    <span class="c1"># time dimension not known</span>
+    <span class="c1"># Could be improved by looking for the unlimited dimension</span>
+    <span class="k">if</span> <span class="n">timedim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">ntime</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ntime</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">timedim</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="c1"># collect variables with and without time dimension</span>
+    <span class="n">itvar</span> <span class="o">=</span> <span class="p">[]</span>     <span class="c1"># w time dimension</span>
+    <span class="n">inottvar</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># w/o time dimension</span>
+    <span class="k">if</span> <span class="n">time</span> <span class="ow">or</span> <span class="p">(</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ivar</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="c1"># remove variable if in removevar</span>
+            <span class="k">if</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">removevar</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">timedim</span> <span class="ow">in</span> <span class="n">ivar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
+                    <span class="n">itvar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ivar</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">time</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ivar</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="c1"># remove variable if in removevar</span>
+            <span class="k">if</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">removevar</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">timedim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ivar</span><span class="o">.</span><span class="n">dimensions</span><span class="p">:</span>
+                    <span class="n">inottvar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ivar</span><span class="p">)</span>
+
+    <span class="c1"># copy static variables (not time-dependent)</span>
+    <span class="k">for</span> <span class="n">ivar</span> <span class="ow">in</span> <span class="n">inottvar</span><span class="p">:</span>
+        <span class="n">oname</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">renamevar</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">oname</span> <span class="o">=</span> <span class="n">renamevar</span><span class="p">[</span><span class="n">ivar</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">ovar</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">oname</span><span class="p">]</span>
+        <span class="n">ovar</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">ivar</span><span class="p">[:]</span>
+
+    <span class="c1"># copy dynamic variables (time-dependent)</span>
+    <span class="k">for</span> <span class="n">tt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ntime</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ivar</span> <span class="ow">in</span> <span class="n">itvar</span><span class="p">:</span>
+            <span class="n">oname</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">renamevar</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">oname</span> <span class="o">=</span> <span class="n">renamevar</span><span class="p">[</span><span class="n">ivar</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">ovar</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">oname</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">ivar</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">ovar</span><span class="p">[</span><span class="n">tt</span><span class="p">]</span> <span class="o">=</span> <span class="n">ivar</span><span class="p">[</span><span class="n">tt</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ovar</span><span class="p">[</span><span class="n">tt</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">ivar</span><span class="p">[</span><span class="n">tt</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="create_new_variable"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.create_new_variable">[docs]</a><span class="k">def</span> <span class="nf">create_new_variable</span><span class="p">(</span><span class="n">invardef</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">izip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">chunksizes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create variable in output file from dictionary with variable attributes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    invardef : dict</span>
+<span class="sd">        Dictionary with name and dtype plus further attributes</span>
+<span class="sd">        used in netCDF4.Dataset.createVariable; all other entries are set as</span>
+<span class="sd">        variable attributes:</span>
+<span class="sd">        &#39;dimensions&#39;, &#39;zlib&#39;, &#39;complevel&#39;, &#39;shuffle&#39;, &#39;fletcher32&#39;,</span>
+<span class="sd">        &#39;contiguous&#39;, &#39;chunksizes&#39;, &#39;endian&#39;, &#39;least_significant_digit&#39;,</span>
+<span class="sd">        &#39;fill_value&#39;, &#39;chunk_cache&#39;</span>
+<span class="sd">    fo : file_handle</span>
+<span class="sd">        File handle of opened netcdf output file</span>
+<span class="sd">    izip : bool, optional</span>
+<span class="sd">        True: the data will be compressed in the netCDF file using gzip</span>
+<span class="sd">        compression independent of &#39;zlib&#39; entry in input dictionary *invardef*</span>
+<span class="sd">        (default: False).</span>
+<span class="sd">    fill : float, bool or None, optional</span>
+<span class="sd">        Determine the behaviour if variable has no _FillValue or missing_value.</span>
+<span class="sd">        If None or False: no _FillValue will be set.</span>
+<span class="sd">        If True: _FillValue will be set to default value of the Python netCDF4</span>
+<span class="sd">        package for this type.</span>
+<span class="sd">        If number: _FillValue will be set to number.</span>
+<span class="sd">    chunksizes : bool, optional</span>
+<span class="sd">        True: include possible chunksizes in output file (default).</span>
+<span class="sd">        False: do not include chunksize information from input file in output</span>
+<span class="sd">        file, even if given in input dictionary *invardef*.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    variable handle</span>
+<span class="sd">        Handle to newly created variable in output file.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       nvar = {&#39;name&#39;: &#39;new_field&#39;,</span>
+<span class="sd">               &#39;dtype&#39;: np.dtype(np.float),</span>
+<span class="sd">               &#39;dimensions&#39;: (&#39;time&#39;, &#39;y&#39;, &#39;x&#39;),</span>
+<span class="sd">               &#39;units&#39;: &#39;kg/m2/s&#39;,</span>
+<span class="sd">               }</span>
+<span class="sd">       ovar = create_new_variable(nvar, fo, fill=True, izip=True)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">invardef</span><span class="p">,</span> <span class="s1">&#39;name not in input dictionary&#39;</span>
+    <span class="k">assert</span> <span class="s1">&#39;dtype&#39;</span> <span class="ow">in</span> <span class="n">invardef</span><span class="p">,</span> <span class="s1">&#39;dtype not in input dictionary&#39;</span>
+    <span class="n">varname</span>  <span class="o">=</span> <span class="n">invardef</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+    <span class="n">datatype</span> <span class="o">=</span> <span class="n">invardef</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dtype&quot;</span><span class="p">)</span>
+    <span class="n">nckwargs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dimensions&#39;</span><span class="p">,</span> <span class="s1">&#39;zlib&#39;</span><span class="p">,</span> <span class="s1">&#39;complevel&#39;</span><span class="p">,</span> <span class="s1">&#39;shuffle&#39;</span><span class="p">,</span> <span class="s1">&#39;fletcher32&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;contiguous&#39;</span><span class="p">,</span> <span class="s1">&#39;chunksizes&#39;</span><span class="p">,</span> <span class="s1">&#39;endian&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;least_significant_digit&#39;</span><span class="p">,</span> <span class="s1">&#39;fill_value&#39;</span><span class="p">,</span> <span class="s1">&#39;chunk_cache&#39;</span><span class="p">]</span>
+    <span class="n">ncdict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">nckwargs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">nn</span> <span class="ow">in</span> <span class="n">invardef</span><span class="p">:</span>
+            <span class="n">ncdict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">nn</span><span class="p">:</span> <span class="n">invardef</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">nn</span><span class="p">)})</span>
+    <span class="k">if</span> <span class="n">izip</span><span class="p">:</span>
+        <span class="n">ncdict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;zlib&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">chunksizes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;chunksizes&#39;</span> <span class="ow">in</span> <span class="n">ncdict</span><span class="p">:</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">ncdict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;chunksizes&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;fill_value&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ncdict</span><span class="p">:</span>
+        <span class="n">ncdict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;fill_value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
+    <span class="c1"># set missing value if None</span>
+    <span class="k">if</span> <span class="n">ncdict</span><span class="p">[</span><span class="s1">&#39;fill_value&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">fill</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+                <span class="n">ncdict</span><span class="p">[</span><span class="s1">&#39;fill_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_fill_value_for_dtype</span><span class="p">(</span><span class="n">datatype</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ncdict</span><span class="p">[</span><span class="s1">&#39;fill_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fill</span>
+    <span class="c1"># create variable</span>
+    <span class="n">ovar</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">varname</span><span class="p">,</span> <span class="n">datatype</span><span class="p">,</span> <span class="o">**</span><span class="n">ncdict</span><span class="p">)</span>
+    <span class="c1"># all other dict entries are attributes</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">invardef</span><span class="p">:</span>
+        <span class="n">ovar</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">invardef</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">ovar</span></div>
+
+
+<div class="viewcode-block" id="create_variables"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.create_variables">[docs]</a><span class="k">def</span> <span class="nf">create_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">izip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">chunksizes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">removevar</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamevar</span><span class="o">=</span><span class="p">{},</span> <span class="n">removedim</span><span class="o">=</span><span class="p">[],</span>
+                     <span class="n">renamedim</span><span class="o">=</span><span class="p">{},</span> <span class="n">replacedim</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create variables in output from variables in input file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fi : file_handle</span>
+<span class="sd">        File handle of opened netcdf input file</span>
+<span class="sd">    fo : file_handle</span>
+<span class="sd">        File handle of opened netcdf output file</span>
+<span class="sd">    time : None or bool, optional</span>
+<span class="sd">        None:  create all variables (default).</span>
+<span class="sd">        True:  create only variables having dimension *timedim*.</span>
+<span class="sd">        False: create only variables that do not have dimension *timedim*.</span>
+<span class="sd">    timedim : str, optional</span>
+<span class="sd">        Name of time dimension (default: &#39;time&#39;).</span>
+<span class="sd">    izip : bool, optional</span>
+<span class="sd">        True: the data will be compressed in the netCDF file using gzip</span>
+<span class="sd">        compression (default: False).</span>
+<span class="sd">    fill : float, bool or None, optional</span>
+<span class="sd">        Determine the behaviour if variable have no _FillValue or</span>
+<span class="sd">        missing_value.</span>
+<span class="sd">        If None or False: no _FillValue will be set.</span>
+<span class="sd">        If True: _FillValue will be set to default value of the Python</span>
+<span class="sd">        package netCDF4 for this type.</span>
+<span class="sd">        If number: _FillValue will be set to number.</span>
+<span class="sd">    chunksizes : bool, optional</span>
+<span class="sd">        True: include possible chunksizes in output file (default).</span>
+<span class="sd">        False: do not include chunksize information from input file in output</span>
+<span class="sd">        file.</span>
+<span class="sd">        Set to False, for example, if dimension size gets changed because the</span>
+<span class="sd">        chunksize on a dimension can not be greater than the dimension size.</span>
+<span class="sd">    removevar : list of str, optional</span>
+<span class="sd">        Do not create variables given in *removevar* in output file.</span>
+<span class="sd">    renamevar : dict, optional</span>
+<span class="sd">        Rename variables in output file compared to input file.</span>
+<span class="sd">        Variable names in input file are given as dictionary keys,</span>
+<span class="sd">        corresponding variable names of output file are give as dictionary</span>
+<span class="sd">        values.</span>
+<span class="sd">    removedim : list of str, optional</span>
+<span class="sd">        Remove dimensions from variable definitions in output file.</span>
+<span class="sd">    renamedim : dict, optional</span>
+<span class="sd">        Rename dimensions for variables in output file.</span>
+<span class="sd">        Dimension names in input file are given as dictionary keys,</span>
+<span class="sd">        corresponding dimension names of output file are give as dictionary</span>
+<span class="sd">        values.</span>
+<span class="sd">    replacedim : dict, optional</span>
+<span class="sd">        Replace dimensions for variables in output file.</span>
+<span class="sd">        Dimension names in input file are given as dictionary keys,</span>
+<span class="sd">        corresponding dimension names of output file are given as dictionary</span>
+<span class="sd">        values.</span>
+<span class="sd">        The output names can be tuples or lists to extend dimensions of a</span>
+<span class="sd">        variable.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    nothing</span>
+<span class="sd">        The output file will have the altered or unaltered variables</span>
+<span class="sd">        of the input file defined.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       create_variable(fi, fo, fill=True, izip=True, removedim=[&#39;patch&#39;],</span>
+<span class="sd">                       renamevar={&#39;lon&#39;: &#39;longitude&#39;},</span>
+<span class="sd">                       replacedim={&#39;land&#39;: (&#39;y&#39;, &#39;x&#39;)})</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">removevar</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removevar</span><span class="p">)</span>
+    <span class="n">removedim</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removedim</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ivar</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="c1"># remove variable if in removevar</span>
+        <span class="k">if</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">removevar</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">itime</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">time</span><span class="p">:</span>
+                    <span class="n">itime</span> <span class="o">=</span> <span class="n">timedim</span> <span class="ow">in</span> <span class="n">ivar</span><span class="o">.</span><span class="n">dimensions</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">itime</span> <span class="o">=</span> <span class="n">timedim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ivar</span><span class="o">.</span><span class="n">dimensions</span>
+            <span class="k">if</span> <span class="n">itime</span><span class="p">:</span>
+                <span class="n">invardef</span> <span class="o">=</span> <span class="n">_get_variable_definition</span><span class="p">(</span><span class="n">ivar</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">izip</span><span class="p">:</span>
+                    <span class="n">invardef</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;zlib&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+                <span class="c1"># rename variable if in renamevar</span>
+                <span class="k">if</span> <span class="n">ivar</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">renamevar</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">renamevar</span><span class="p">[</span><span class="n">ivar</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+                <span class="c1"># remove dimension if in removedim</span>
+                <span class="n">dims</span>   <span class="o">=</span> <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;dimensions&#39;</span><span class="p">]</span>
+                <span class="n">chunks</span> <span class="o">=</span> <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;chunksizes&#39;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">removedim</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+                        <span class="n">ip</span> <span class="o">=</span> <span class="n">dims</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
+                        <span class="n">dims</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">chunks</span><span class="p">:</span>
+                            <span class="n">_</span> <span class="o">=</span> <span class="n">chunks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+                <span class="c1"># rename dimension if in renamedim</span>
+                <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">renamedim</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+                        <span class="n">dims</span><span class="p">[</span><span class="n">dims</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">dd</span><span class="p">)]</span> <span class="o">=</span> <span class="n">renamedim</span><span class="p">[</span><span class="n">dd</span><span class="p">]</span>
+                <span class="c1"># replace dimensions if in replacedim</span>
+                <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">replacedim</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+                        <span class="n">rdim</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">replacedim</span><span class="p">[</span><span class="n">dd</span><span class="p">])</span>
+                        <span class="n">ip</span> <span class="o">=</span> <span class="n">dims</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
+                        <span class="n">dims</span> <span class="o">=</span> <span class="n">dims</span><span class="p">[:</span><span class="n">ip</span><span class="p">]</span> <span class="o">+</span> <span class="n">rdim</span> <span class="o">+</span> <span class="n">dims</span><span class="p">[</span><span class="n">ip</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+                        <span class="k">if</span> <span class="n">chunks</span><span class="p">:</span>
+                            <span class="n">rchunk</span> <span class="o">=</span> <span class="p">[]</span>
+                            <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">rdim</span><span class="p">:</span>
+                                <span class="c1"># use fo not fi because new dims perhaps</span>
+                                <span class="c1"># not yet in fi</span>
+                                <span class="n">rchunk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fo</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">cc</span><span class="p">]))</span>
+                            <span class="n">chunks</span> <span class="o">=</span> <span class="n">chunks</span><span class="p">[:</span><span class="n">ip</span><span class="p">]</span> <span class="o">+</span> <span class="n">rchunk</span> <span class="o">+</span> <span class="n">chunks</span><span class="p">[</span><span class="n">ip</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;dimensions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dims</span>
+                <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;chunksizes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunks</span>
+                <span class="c1"># set missing value if None</span>
+                <span class="k">if</span> <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;fill_value&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">fill</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+                            <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;fill_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_fill_value_for_dtype</span><span class="p">(</span>
+                                <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">])</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;fill_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fill</span>
+                <span class="c1"># exclude chunksizes</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">chunksizes</span><span class="p">:</span>
+                    <span class="n">_</span> <span class="o">=</span> <span class="n">invardef</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;chunksizes&#39;</span><span class="p">)</span>
+                <span class="n">oname</span> <span class="o">=</span> <span class="n">invardef</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+                <span class="n">otype</span> <span class="o">=</span> <span class="n">invardef</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dtype&quot;</span><span class="p">)</span>
+                <span class="n">ovar</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">oname</span><span class="p">,</span> <span class="n">otype</span><span class="p">,</span> <span class="o">**</span><span class="n">invardef</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ivar</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">():</span>
+                    <span class="n">iattr</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">getncattr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;missing_value&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;_FillValue&#39;</span><span class="p">):</span>
+                        <span class="n">ovar</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">iattr</span><span class="p">)</span>
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="get_fill_value_for_dtype"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.get_fill_value_for_dtype">[docs]</a><span class="k">def</span> <span class="nf">get_fill_value_for_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get default _FillValue of netCDF4 for the given data type.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dtype : np.dtype</span>
+<span class="sd">        numpy data type</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    default _FillValue of given numpy data type</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       fill_value = get_fill_value_for_dtype(var.dtype)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;i1&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;i2&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;i4&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;i8&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;u1&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;u2&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;u4&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;u8&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;f4&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;f8&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">warnings</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;data type unknown: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="set_output_filename"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.set_output_filename">[docs]</a><span class="k">def</span> <span class="nf">set_output_filename</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">ext</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create output file name from input file name by adding *ext* before</span>
+<span class="sd">    the file suffix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ifile : str</span>
+<span class="sd">        input file name</span>
+<span class="sd">    ext : str</span>
+<span class="sd">        string to add before file suffix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        output filename with ext before file suffix</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; set_output_filename(&#39;in.nc&#39;, &#39;-no_patch&#39;)</span>
+<span class="sd">    in-no_patch.nc</span>
+<span class="sd">    &gt;&gt;&gt; set_output_filename(&#39;in.nc&#39;, &#39;.nop&#39;)</span>
+<span class="sd">    in.nop.nc</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sifile</span> <span class="o">=</span> <span class="n">ifile</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="n">sifile</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sifile</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">ext</span>
+    <span class="n">ofile</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sifile</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ofile</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../contents.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

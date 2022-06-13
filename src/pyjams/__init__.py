@@ -72,6 +72,7 @@ History
       Apr 2022, Matthias Cuntz
     * v1.22, added ncio, May 2022, Matthias Cuntz
     * v1.23, added datetime module, Jun 2022, Matthias Cuntz
+    * v1.24, moved docu to Github Pages, Jun 2022, Matthias Cuntz
 
 """
 # version, author

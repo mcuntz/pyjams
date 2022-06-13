@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyjams.text2plot &#8212; pyjams 1.10.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pyjams.text2plot</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Write text on a plot</span>
+
+<span class="sd">This module was written by Matthias Cuntz while at Department of Computational</span>
+<span class="sd">Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,</span>
+<span class="sd">Germany, and continued while at Institut National de Recherche pour</span>
+<span class="sd">l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy, France.</span>
+
+<span class="sd">:copyright: Copyright 2014-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided:</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   text2plot</span>
+<span class="sd">   abc2plot</span>
+<span class="sd">   signature2plot</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Nov 2021 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">      combining abc2plot and signature2plot</span>
+<span class="sd">    * Written abc2plot, May 2012, Matthias Cuntz</span>
+<span class="sd">    * Added parenthesis option to abc2plot, Feb 2013, Arndt Piayda</span>
+<span class="sd">    * Ported to Python 3, Feb 2013, Matthias Cuntz</span>
+<span class="sd">    * Added opening and closing parentheses, brackets, braces,</span>
+<span class="sd">      Feb 2013, Matthias Cuntz</span>
+<span class="sd">    * Options usetex and mathrm, Feb 2013, Matthias Cuntz</span>
+<span class="sd">    * Options mathbf, large and making medium the default,</span>
+<span class="sd">      Feb 2013, Matthias Cuntz</span>
+<span class="sd">    * Added string option, Nov 2013, Matthias Cuntz</span>
+<span class="sd">    * Corrected bug in medium as default, Nov 2013, Matthias Cuntz</span>
+<span class="sd">    * Make usetex work with fontsize keyword of axis.text()</span>
+<span class="sd">      of matplotllib v1.1.0, Nov 2013, Matthias Cuntz</span>
+<span class="sd">    * Written signature2plot, Jan 2014, Matthias Cuntz</span>
+<span class="sd">    * Assert that small or large is set if medium is not None (abc2plot),</span>
+<span class="sd">      Feb 2014, Matthias Cuntz</span>
+<span class="sd">    * Replace horizontalalignment=&#39;left&#39; and verticalalignment=&#39;bottom&#39;</span>
+<span class="sd">      by kwargs mechanism (abc2plot), May 2014, Matthias Cuntz</span>
+<span class="sd">    * Added option italic (abc2plot), May 2014, Matthias Cuntz</span>
+<span class="sd">    * Added options xlarge, xxlarge, xsmall, xxsmall (abc2plot),</span>
+<span class="sd">      Oct 2015, Matthias Cuntz</span>
+<span class="sd">    * Make numpy docstring format (abc2plot), Nov 2020, Matthias Cuntz</span>
+<span class="sd">    * Ported into pyjams, Nov 2021, Matthias Cuntz</span>
+<span class="sd">    * dx, dy, and name mandatory parameters (signature2plot),</span>
+<span class="sd">      Nov 2020, Matthias Cuntz</span>
+<span class="sd">    * Change option name parenthesis -&gt; parentheses, Nov 2021, Matthias Cuntz</span>
+<span class="sd">    * Written text2plot, Nov 2021, Matthias Cuntz</span>
+<span class="sd">    * Use text2plot for signature2plot, Nov 2021, Matthias Cuntz</span>
+<span class="sd">    * Use text2plot for abc2plot, Nov 2021, Matthias Cuntz</span>
+<span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">ptime</span>
+<span class="c1"># from .str2tex import str2tex</span>
+<span class="c1"># from .romanliterals import int2roman</span>
+<span class="kn">from</span> <span class="nn">pyjams.str2tex</span> <span class="kn">import</span> <span class="n">str2tex</span>
+<span class="kn">from</span> <span class="nn">pyjams.romanliterals</span> <span class="kn">import</span> <span class="n">int2roman</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;text2plot&#39;</span><span class="p">,</span> <span class="s1">&#39;abc2plot&#39;</span><span class="p">,</span> <span class="s1">&#39;signature2plot&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="text2plot"><a class="viewcode-back" href="../../text2plot.html#pyjams.text2plot.text2plot">[docs]</a><span class="k">def</span> <span class="nf">text2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">itext</span><span class="p">,</span>
+              <span class="n">small</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">medium</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">large</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">xsmall</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xxsmall</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xlarge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xxlarge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">bold</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">usetex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mathrm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write text on plot</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    handle : :class:`matplotlib.axes` subclass</span>
+<span class="sd">        Matplotlib axes handle</span>
+<span class="sd">    dx : float</span>
+<span class="sd">        % of xlim from min(xlim)</span>
+<span class="sd">    dy : float</span>
+<span class="sd">        % of ylim from min(ylim)</span>
+<span class="sd">    itext : str</span>
+<span class="sd">        String to write on plot</span>
+<span class="sd">    small : bool, optional</span>
+<span class="sd">        fontsize=&#39;small&#39; if True (default: False)</span>
+<span class="sd">    medium : bool, optional</span>
+<span class="sd">        fontsize=&#39;medium&#39; if True (default: False).</span>
+<span class="sd">        Medium is taken if no other fontsize is chosen.</span>
+<span class="sd">    large : bool, optional</span>
+<span class="sd">        fontsize=&#39;large&#39; if True (default: False)</span>
+<span class="sd">    xlarge : bool, optional</span>
+<span class="sd">        fontsize=&#39;x-large&#39; if True (default: False)</span>
+<span class="sd">    xsmall : bool, optional</span>
+<span class="sd">        fontsize=&#39;x-small&#39; if True (default: False)</span>
+<span class="sd">    xxlarge : bool, optional</span>
+<span class="sd">        fontsize=&#39;xx-large&#39; if True (default: False)</span>
+<span class="sd">    xxsmall : bool, optional</span>
+<span class="sd">        fontsize=&#39;xx-small&#39; if True (default: False)</span>
+<span class="sd">    bold : bool, optional</span>
+<span class="sd">        fontweight=&#39;bold&#39; if True, else fontsize=&#39;normal&#39; (default)</span>
+<span class="sd">    italic : bool, optional</span>
+<span class="sd">        fontstyle=&#39;italic&#39; if True, else fontstyle=&#39;normal&#39; (default)</span>
+<span class="sd">    usetex : bool, optional</span>
+<span class="sd">        Embed into LaTeX math environment if True,</span>
+<span class="sd">        else no LaTeX math mode (default)</span>
+<span class="sd">    mathrm : bool, optional</span>
+<span class="sd">        If True, put text into appropriate LaTeX mathrm/mathit/mathbf</span>
+<span class="sd">        environment if *usetex==True* and *italic==True* or *bold==True*.</span>
+<span class="sd">        If False, use standard math font if *usetex==True* (default).</span>
+<span class="sd">    string : bool, optional</span>
+<span class="sd">        Treat *iplot* as literal string and not as integer if True (default:</span>
+<span class="sd">        False). *integer*, *roman* and *lower* are disabled then.</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        All additional parameters are passed passed to</span>
+<span class="sd">        :meth:`matplotlib.axes.Axes.text()`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    String on plot</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       text2plot(ax, 0.7, 0.6, r&#39;CO$_2$&#39;, large=True,</span>
+<span class="sd">                 usetex=usetex, mathrm=False)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+    <span class="c1"># Check input</span>
+    <span class="n">ifont</span> <span class="o">=</span> <span class="n">small</span> <span class="o">+</span> <span class="n">medium</span> <span class="o">+</span> <span class="n">large</span> <span class="o">+</span> <span class="n">xsmall</span> <span class="o">+</span> <span class="n">xxsmall</span> <span class="o">+</span> <span class="n">xlarge</span> <span class="o">+</span> <span class="n">xxlarge</span>
+    <span class="k">assert</span> <span class="n">ifont</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;only one of small, medium, large, xsmall, xxsmall&#39;</span>
+                        <span class="s1">&#39; xlarge, or xxlarge font size can be chosen.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ifont</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">medium</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">usetex</span> <span class="ow">and</span> <span class="n">mathrm</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">bold</span> <span class="o">+</span> <span class="n">italic</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;if usetex and mathrm: then bold and&#39;</span>
+                                      <span class="s1">&#39; italic are mutually exclusive.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Size</span>
+    <span class="k">if</span> <span class="n">small</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;small&#39;</span>
+    <span class="k">elif</span> <span class="n">medium</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;medium&#39;</span>
+    <span class="k">elif</span> <span class="n">large</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;large&#39;</span>
+    <span class="k">elif</span> <span class="n">xsmall</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;x-small&#39;</span>
+    <span class="k">elif</span> <span class="n">xxsmall</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;xx-small&#39;</span>
+    <span class="k">elif</span> <span class="n">xlarge</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;x-large&#39;</span>
+    <span class="k">elif</span> <span class="n">xxlarge</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;xx-large&#39;</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># just for security</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;medium&#39;</span>
+
+    <span class="c1"># Weight</span>
+    <span class="k">if</span> <span class="n">bold</span><span class="p">:</span>
+        <span class="n">fw</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fw</span> <span class="o">=</span> <span class="s1">&#39;normal&#39;</span>
+
+    <span class="c1"># Style</span>
+    <span class="k">if</span> <span class="n">italic</span><span class="p">:</span>
+        <span class="n">fst</span> <span class="o">=</span> <span class="s1">&#39;italic&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fst</span> <span class="o">=</span> <span class="s1">&#39;normal&#39;</span>
+
+    <span class="c1"># usetex</span>
+    <span class="n">istr</span> <span class="o">=</span> <span class="n">str2tex</span><span class="p">(</span><span class="n">itext</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="n">usetex</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">usetex</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mathrm</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bold</span><span class="p">:</span>
+                <span class="n">istr</span> <span class="o">=</span> <span class="n">istr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;mathrm&#39;</span><span class="p">,</span> <span class="s1">&#39;mathbf&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">italic</span><span class="p">:</span>
+                <span class="n">istr</span> <span class="o">=</span> <span class="n">istr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;mathrm&#39;</span><span class="p">,</span> <span class="s1">&#39;mathit&#39;</span><span class="p">)</span>
+
+    <span class="c1"># x/y position</span>
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">xmin</span> <span class="o">+</span> <span class="n">dx</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;transform&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;transform&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">handle</span><span class="o">.</span><span class="n">transAxes</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">dx</span>
+    <span class="n">idy</span> <span class="o">=</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">*</span> <span class="p">(</span><span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;transform&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;transform&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="n">handle</span><span class="o">.</span><span class="n">transAxes</span><span class="p">:</span>
+            <span class="n">idy</span> <span class="o">=</span> <span class="n">dy</span>
+
+    <span class="n">handle</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">idy</span><span class="p">,</span> <span class="n">istr</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="n">fw</span><span class="p">,</span> <span class="n">fontstyle</span><span class="o">=</span><span class="n">fst</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="abc2plot"><a class="viewcode-back" href="../../text2plot.html#pyjams.text2plot.abc2plot">[docs]</a><span class="k">def</span> <span class="nf">abc2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">iplot</span><span class="p">,</span>
+             <span class="n">integer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">roman</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+             <span class="n">parentheses</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">brackets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">braces</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">bold</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+             <span class="n">usetex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mathrm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write a, B, iii, IV, e), etc. on plots</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    handle : :class:`matplotlib.axes` subclass</span>
+<span class="sd">       Matplotlib axes handle</span>
+<span class="sd">    dx : float</span>
+<span class="sd">        % of xlim from min(xlim)</span>
+<span class="sd">    dy : float</span>
+<span class="sd">        % of ylim from min(ylim)</span>
+<span class="sd">    iplot : int or str</span>
+<span class="sd">        Number of plot starting with 1, or string if &#39;string==True&#39;</span>
+<span class="sd">    integer : bool, optional</span>
+<span class="sd">        Use integers instead of a, b, c if True (default: False)</span>
+<span class="sd">    roman : bool, optional</span>
+<span class="sd">        Use Roman literals instead of a, b, c if True (default: False)</span>
+<span class="sd">    lower : bool, optional</span>
+<span class="sd">        Use lowercase letters for a, b, c if True,</span>
+<span class="sd">        else use uppercase letters (default)</span>
+<span class="sd">    parentheses : str or None, optional</span>
+<span class="sd">        Parentheses before or after the letter/number. Possible values are</span>
+<span class="sd">        &#39;open&#39;, &#39;close&#39;, &#39;both&#39;, &#39;None&#39;, and *None*.</span>
+<span class="sd">        &#39;open&#39; puts opening parentheses in front of the letter/number.</span>
+<span class="sd">        &#39;close&#39; puts closing parentheses after the letter/number.</span>
+<span class="sd">        &#39;both&#39; puts opening and closing parentheses around the letter/number.</span>
+<span class="sd">        &#39;None&#39; and *None* do not put any parentheses before or after the</span>
+<span class="sd">        letter/number (default).</span>
+<span class="sd">    brackets : str or None, optional</span>
+<span class="sd">        Brackets before or after the letter/number. Possible values are</span>
+<span class="sd">        &#39;open&#39;, &#39;close&#39;, &#39;both&#39;, &#39;None&#39;, and *None*.</span>
+<span class="sd">        &#39;open&#39; puts opening brackets in front of the letter/number.</span>
+<span class="sd">        &#39;close&#39; puts closing brackets after the letter/number.</span>
+<span class="sd">        &#39;both&#39; puts opening and closing brackets around the letter/number.</span>
+<span class="sd">        &#39;None&#39; and *None* do not put any brackets before or after the</span>
+<span class="sd">        letter/number (default).</span>
+<span class="sd">    braces : str or None, optional</span>
+<span class="sd">        Braces before or after the letter/number. Possible values are</span>
+<span class="sd">        &#39;open&#39;, &#39;close&#39;, &#39;both&#39;, &#39;None&#39;, and *None*.</span>
+<span class="sd">        &#39;open&#39; puts opening braces in front of the letter/number.</span>
+<span class="sd">        &#39;close&#39; puts closing braces after the letter/number.</span>
+<span class="sd">        &#39;both&#39; puts opening and closing braces around the letter/number.</span>
+<span class="sd">        &#39;None&#39; and *None* do not put any braces before or after the</span>
+<span class="sd">        letter/number (default).</span>
+<span class="sd">    bold : bool, optional</span>
+<span class="sd">        fontweight=&#39;bold&#39; if True, else fontsize=&#39;normal&#39; (default)</span>
+<span class="sd">    italic : bool, optional</span>
+<span class="sd">        fontstyle=&#39;italic&#39; if True, else fontstyle=&#39;normal&#39; (default)</span>
+<span class="sd">    usetex : bool, optional</span>
+<span class="sd">        Embed into LaTeX math environment if True,</span>
+<span class="sd">        else no LaTeX math mode (default)</span>
+<span class="sd">    mathrm : bool, optional</span>
+<span class="sd">        If True, put text into appropriate LaTeX mathrm/mathit/mathbf</span>
+<span class="sd">        environment if *usetex==True* and *italic==True* or *bold==True*.</span>
+<span class="sd">        If False, use standard math font if *usetex==True* (default).</span>
+<span class="sd">    string : bool, optional</span>
+<span class="sd">        Treat *iplot* as literal string and not as integer if True (default:</span>
+<span class="sd">        False). *integer*, *roman* and *lower* are disabled then.</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        All additional parameters are passed passed to :func:`text2plot()`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Letter/number or string on plot</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    If output is a letter then iplot &gt; 26 gives unexpected results.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       abc2plot(ax, 0.7, 0.6, 2, large=True, parentheses=&#39;both&#39;,</span>
+<span class="sd">                usetex=usetex, mathrm=False)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+    <span class="c1"># Check input</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">roman</span> <span class="o">+</span> <span class="n">integer</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;either Roman literals or integers can&#39;</span>
+                                   <span class="s1">&#39; be chosen.&#39;</span><span class="p">)</span>
+    <span class="n">iparentheses</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">parentheses</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">parentheses</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+            <span class="n">iparentheses</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">ibrackets</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">brackets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">brackets</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+            <span class="n">ibrackets</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">ibraces</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">braces</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">braces</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+            <span class="n">ibraces</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">ibrack</span> <span class="o">=</span> <span class="n">iparentheses</span> <span class="o">+</span> <span class="n">ibrackets</span> <span class="o">+</span> <span class="n">ibraces</span>
+    <span class="k">assert</span> <span class="n">ibrack</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;only one of parentheses, brackets, or braces&#39;</span>
+                         <span class="s1">&#39; can be chosen.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Number or letter</span>
+    <span class="k">if</span> <span class="n">string</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">iplot</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">roman</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">int2roman</span><span class="p">(</span><span class="n">iplot</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">lower</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">integer</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">iplot</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lower</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">96</span><span class="o">+</span><span class="n">iplot</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">64</span><span class="o">+</span><span class="n">iplot</span><span class="p">)</span>
+
+    <span class="c1"># parentheses</span>
+    <span class="k">if</span> <span class="n">iparentheses</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">parentheses</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;open&#39;</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">t</span>
+        <span class="k">elif</span> <span class="n">parentheses</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;close&#39;</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+        <span class="k">elif</span> <span class="n">parentheses</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;both&#39;</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+        <span class="k">elif</span> <span class="n">parentheses</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;parentheses must be either &#39;open&#39;, &#39;close&#39;,&quot;</span>
+                             <span class="s2">&quot; &#39;both&#39;, or &#39;none&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ibrackets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">brackets</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;open&#39;</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="n">t</span>
+        <span class="k">elif</span> <span class="n">brackets</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;close&#39;</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
+        <span class="k">elif</span> <span class="n">brackets</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;both&#39;</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
+        <span class="k">elif</span> <span class="n">brackets</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;brackets must be either &#39;open&#39;, &#39;close&#39;,&quot;</span>
+                             <span class="s2">&quot; &#39;both&#39;, or &#39;none&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ibraces</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">braces</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;open&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">usetex</span> <span class="ow">or</span> <span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;pdf&#39;</span><span class="p">):</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\{&#39;</span> <span class="o">+</span> <span class="n">t</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="n">t</span>
+        <span class="k">elif</span> <span class="n">braces</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;close&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">usetex</span> <span class="ow">or</span> <span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;pdf&#39;</span><span class="p">):</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;\}&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="k">elif</span> <span class="n">braces</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;both&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">usetex</span> <span class="ow">or</span> <span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;pdf&#39;</span><span class="p">):</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\{&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;\}&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="k">elif</span> <span class="n">braces</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;braces must be either &#39;open&#39;, &#39;close&#39;,&quot;</span>
+                             <span class="s2">&quot; &#39;both&#39;, or &#39;none&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">usetex</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mathrm</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bold</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\mathbf{&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+            <span class="k">elif</span> <span class="n">italic</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\mathit{&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\mathrm{&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;$&#39;</span>
+
+    <span class="n">text2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span>
+              <span class="n">bold</span><span class="o">=</span><span class="n">bold</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="n">italic</span><span class="p">,</span>
+              <span class="n">usetex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mathrm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="signature2plot"><a class="viewcode-back" href="../../text2plot.html#pyjams.text2plot.signature2plot">[docs]</a><span class="k">def</span> <span class="nf">signature2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">itext</span><span class="p">,</span>
+                   <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write a copyright notice on a plot</span>
+
+<span class="sd">    The notice is: &#39;(C) YYYY *itext*&#39;, where YYYY is the current 4-digit year.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    handle : :class:`matplotlib.axes` subclass</span>
+<span class="sd">       Matplotlib axes handle</span>
+<span class="sd">    dx : float</span>
+<span class="sd">        % of xlim from min(xlim)</span>
+<span class="sd">    dy : float</span>
+<span class="sd">        % of ylim from min(ylim)</span>
+<span class="sd">    itext : str</span>
+<span class="sd">        Text after &#39;(C) YYYY&#39;, where YYYY is the current 4-digit year</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        All additional parameters are passed passed to :func:`text2plot()`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    &#39;(C) YYYY itext&#39; or &#39;(C) YYYY&#39; on plot, where YYYY is the 4-digit year</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Signature will be right-aligned horizontally if horizontalalignment or</span>
+<span class="sd">    ha are not given in kwargs.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       signature2plot(ax, 0., 0.05, &#39;M Cuntz, INRAE&#39;,</span>
+<span class="sd">                      small=True, italic=True,</span>
+<span class="sd">                      usetex=usetex, mathrm=True)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ptime</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span><span class="o">.</span><span class="n">tm_year</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">itext</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="n">otext</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\copyright$ &#39;</span> <span class="o">+</span> <span class="n">year</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">itext</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">otext</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\copyright$ &#39;</span> <span class="o">+</span> <span class="n">year</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;horizontalalignment&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;ha&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
+
+    <span class="n">text2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">otext</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+
+    <span class="c1"># outtype = &#39;&#39;</span>
+    <span class="c1"># # outtype = &#39;pdf&#39;</span>
+    <span class="c1"># pdffile = &#39;text2plot.pdf&#39;</span>
+    <span class="c1"># usetex  = True</span>
+    <span class="c1"># textsize = 12</span>
+
+    <span class="c1"># import matplotlib as mpl</span>
+    <span class="c1"># if (outtype == &#39;pdf&#39;):</span>
+    <span class="c1">#     mpl.use(&#39;PDF&#39;)  # set directly after import matplotlib</span>
+    <span class="c1">#     import matplotlib.pyplot as plt</span>
+    <span class="c1">#     from matplotlib.backends.backend_pdf import PdfPages</span>
+    <span class="c1">#     # Customize: http://matplotlib.sourceforge.net/users/customizing.html</span>
+    <span class="c1">#     mpl.rc(&#39;ps&#39;, papersize=&#39;a4&#39;, usedistiller=&#39;xpdf&#39;)  # ps2pdf</span>
+    <span class="c1">#     mpl.rc(&#39;figure&#39;, figsize=(8.27, 11.69))  # a4 portrait</span>
+    <span class="c1">#     if usetex:</span>
+    <span class="c1">#         mpl.rc(&#39;text&#39;, usetex=True)</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     import matplotlib.pyplot as plt</span>
+    <span class="c1">#     mpl.rc(&#39;figure&#39;, figsize=(4./5.*8.27, 4./5.*11.69))  # a4 portrait</span>
+    <span class="c1"># mpl.rc(&#39;path&#39;, simplify=False)  # do not remove</span>
+
+    <span class="c1"># if (outtype == &#39;pdf&#39;):</span>
+    <span class="c1">#     print(&#39;Plot PDF &#39;, pdffile)</span>
+    <span class="c1">#     pdf_pages = PdfPages(pdffile)</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     print(&#39;Plot X&#39;)</span>
+    <span class="c1"># figsize = mpl.rcParams[&#39;figure.figsize&#39;]</span>
+
+    <span class="c1"># # --------------------------------------------------------------</span>
+    <span class="c1"># # text2plot</span>
+    <span class="c1"># fig = plt.figure()</span>
+    <span class="c1"># sub = fig.add_axes([0.05, 0.05, 0.4, 0.4])</span>
+    <span class="c1"># m = plt.plot(range(100), &#39;k:&#39;)</span>
+    <span class="c1"># text2plot(sub, 0.0, 0.0, r&#39;CO$_2$&#39;)</span>
+    <span class="c1"># text2plot(sub, 0.1, 0.1, &#39;CO2&#39;, usetex=usetex)</span>
+    <span class="c1"># text2plot(sub, 0.2, 0.2, r&#39;$\frac{CO_2}{O_2}$&#39;, xxsmall=True,</span>
+    <span class="c1">#           usetex=usetex, mathrm=False)</span>
+    <span class="c1"># text2plot(sub, 0.3, 0.3, r&#39;Units (m$^2$ s$^{-1}$)&#39;, xsmall=True,</span>
+    <span class="c1">#           usetex=usetex, mathrm=False)</span>
+    <span class="c1"># text2plot(sub, 0.4, 0.4, r&#39;Two \n lines&#39;, medium=True,</span>
+    <span class="c1">#           usetex=False, mathrm=False)</span>
+    <span class="c1"># text2plot(sub, 0.5, 0.5, r&#39;Units \newline (m$^2$ s$^{-1}$)&#39;, large=True,</span>
+    <span class="c1">#           usetex=usetex, mathrm=False)</span>
+    <span class="c1"># text2plot(sub, 0.6, 0.6, r&#39;CO$_2$&#39;, xlarge=True,</span>
+    <span class="c1">#           usetex=usetex, mathrm=False)</span>
+    <span class="c1"># text2plot(sub, 0.7, 0.7, r&#39;CO$_2$&#39;, xxlarge=True,</span>
+    <span class="c1">#           usetex=usetex, mathrm=False)</span>
+    <span class="c1"># text2plot(sub, 0.8, 0.8, r&#39;CO$_2$&#39;, medium=True, bold=True,</span>
+    <span class="c1">#           usetex=usetex, mathrm=True)</span>
+
+    <span class="c1"># # --------------------------------------------------------------</span>
+    <span class="c1"># # abc2plot</span>
+    <span class="c1"># fig = plt.figure()</span>
+    <span class="c1"># sub = fig.add_axes([0.05, 0.05, 0.4, 0.4])</span>
+    <span class="c1"># m = plt.plot(range(100), &#39;k:&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0, 0, 2)</span>
+    <span class="c1"># abc2plot(sub, 0.1, 0.1, 2, parentheses=&#39;close&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.2, 0.2, 2, lower=True, parentheses=&#39;open&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.3, 0.3, 2, roman=True, parentheses=&#39;both&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.4, 0.4, 2, roman=True, lower=True, parentheses=&#39;none&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.5, 0.5, 2, integer=True, parentheses=&#39;both&#39;,</span>
+    <span class="c1">#          usetex=usetex)</span>
+    <span class="c1"># abc2plot(sub, 0.5, 0.6, 2, small=True, medium=False,</span>
+    <span class="c1">#          large=False, parentheses=&#39;both&#39;, usetex=usetex,</span>
+    <span class="c1">#          mathrm=False)</span>
+    <span class="c1"># abc2plot(sub, 0.6, 0.6, 2, small=False, medium=True,</span>
+    <span class="c1">#          large=False, parentheses=&#39;both&#39;, usetex=usetex,</span>
+    <span class="c1">#          mathrm=False)</span>
+    <span class="c1"># abc2plot(sub, 0.7, 0.6, 2, small=False, medium=False,</span>
+    <span class="c1">#          large=True, parentheses=&#39;both&#39;, usetex=usetex,</span>
+    <span class="c1">#          mathrm=False)</span>
+    <span class="c1"># abc2plot(sub, 0.7, 0.7, 2, medium=True, brackets=&#39;both&#39;,</span>
+    <span class="c1">#          usetex=usetex, mathrm=True)</span>
+    <span class="c1"># abc2plot(sub, 0.8, 0.8, 2, medium=True, bold=True,</span>
+    <span class="c1">#          braces=&#39;both&#39;, usetex=usetex, mathrm=True)</span>
+
+    <span class="c1"># sub = fig.add_axes([0.5, 0.5, 0.4, 0.4])</span>
+    <span class="c1"># m = plt.plot(range(100), &#39;k:&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.1, 0.1, 2, brackets=&#39;close&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.2, 0.2, 2, lower=True, brackets=&#39;open&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.3, 0.3, 2, roman=True, brackets=&#39;both&#39;,</span>
+    <span class="c1">#          usetex=usetex, mathrm=False)</span>
+    <span class="c1"># abc2plot(sub, 0.4, 0.4, 2, roman=True, lower=True,</span>
+    <span class="c1">#          brackets=&#39;none&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.5, 0.5, 2, integer=True, braces=&#39;close&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.6, 0.6, 2, small=True, braces=&#39;open&#39;,</span>
+    <span class="c1">#          usetex=usetex, mathrm=True)</span>
+    <span class="c1"># abc2plot(sub, 0.7, 0.7, 2, medium=True, braces=&#39;both&#39;,</span>
+    <span class="c1">#          horizontalalignment=&#39;left&#39;, verticalalignment=&#39;bottom&#39;)</span>
+    <span class="c1"># abc2plot(sub, 0.8, 0.8, 2, medium=True, bold=True, braces=&#39;none&#39;,</span>
+    <span class="c1">#          horizontalalignment=&#39;right&#39;, verticalalignment=&#39;top&#39;)</span>
+
+    <span class="c1"># # --------------------------------------------------------------</span>
+    <span class="c1"># # signature2plot</span>
+    <span class="c1"># import numpy as np</span>
+    <span class="c1"># fig = plt.figure()</span>
+    <span class="c1"># sub = fig.add_axes([0.05, 0.05, 0.4, 0.4])</span>
+    <span class="c1"># mulx = 1.</span>
+    <span class="c1"># muly = 1.</span>
+    <span class="c1"># m = plt.plot(mulx*np.arange(100)/99., muly*np.arange(100)/99., &#39;k:&#39;)</span>
+    <span class="c1"># signature2plot(sub, mulx*0.5, muly*0.5, &#39;Test1&#39;, usetex=usetex)</span>
+    <span class="c1"># signature2plot(sub, mulx*0.6, muly*0.6, &#39;MC1&#39;, small=True,</span>
+    <span class="c1">#                usetex=usetex)  # -</span>
+    <span class="c1"># signature2plot(sub, mulx*0.7, muly*0.7, &#39;Test2&#39;, large=True,</span>
+    <span class="c1">#                usetex=usetex, italic=True)</span>
+    <span class="c1"># signature2plot(sub, mulx*0.8, muly*0.8, &#39;MC2&#39;, bold=True, usetex=usetex,</span>
+    <span class="c1">#                ha=&#39;left&#39;, mathrm=True)</span>
+    <span class="c1"># signature2plot(sub, mulx*0.8, muly*0.8, &#39;MC2&#39;, bold=True)</span>
+    <span class="c1"># signature2plot(sub, mulx*0.9, muly*0.9, &#39;Test3&#39;, large=True,</span>
+    <span class="c1">#                usetex=usetex, italic=True, mathrm=True)</span>
+    <span class="c1"># signature2plot(sub, mulx*1.0, muly*1.0, &#39;MC3&#39;, usetex=usetex, bold=True,</span>
+    <span class="c1">#                horizontalalignment=&#39;left&#39;)</span>
+    <span class="c1"># signature2plot(sub, 0.9, 0.1, &#39;MM&#39;, transform=sub.transAxes,</span>
+    <span class="c1">#                usetex=usetex, bold=True, horizontalalignment=&#39;center&#39;)</span>
+
+    <span class="c1"># if (outtype == &#39;pdf&#39;):</span>
+    <span class="c1">#     pdf_pages.savefig(fig)</span>
+    <span class="c1">#     plt.close()</span>
+
+    <span class="c1"># if (outtype == &#39;pdf&#39;):</span>
+    <span class="c1">#     pdf_pages.close()</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     plt.show()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../contents.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
