@@ -26,10 +26,13 @@ History
     * Written Jun 2022, Matthias Cuntz
 
 ToDo
-    * make PR cftime - add to_tuple() to real_datetime
     * make PR cftime - missing precision in _idealized_calendars
     * Add old history from JAMS
     * Complete test_datetime.py
+    *     add microsecond to tests
+    *     add raise errors
+    *     check why datetime + timedelta but not timedelta + datetime
+    *     check ==
     * add date2index
     * add time2index
     * implement fromordinal
@@ -319,9 +322,9 @@ def _month_lengths(year, calendar, has_year_zero=None):
         return _dayspermonth_360
     else:
         if leap:
-            return _dayspermonth
-        else:
             return _dayspermonth_leap
+        else:
+            return _dayspermonth
 
 
 def _int_julian_day_from_date(year, month, day, calendar, has_year_zero=None):
@@ -1558,7 +1561,10 @@ class datetime(object):
 
         """
         if (self._dayofwk < 0) and self.calendar:
-            jd = self.toordinal()
+            ord0 = 0
+            if self.calendar == 'decimal':
+                ord0 = 1721425
+            jd = self.toordinal() + ord0
             dayofwk = (jd + 1) % 7
             # convert to ISO 8601 (0 = Monday, 6 = Sunday), like python
             # datetime
@@ -1809,9 +1815,17 @@ class datetime(object):
             delta = self
         else:
             return NotImplemented
+        dt = self
+        calendar = self.calendar
+        has_year_zero = self.has_year_zero
+        delta = other
         if calendar == 'decimal360':
-            year, month, day, hour, minute, second, microsecond, _1, _2 = (
-                cf.add_timedelta_360_day(dt, delta))
+            cfdt = cf.datetime(*dt.to_tuple(), calendar='360_day',
+                               has_year_zero=dt.has_year_zero)
+            cfdt = cfdt + delta
+            year, month, day, hour, minute, second, microsecond = (
+                cfdt.year, cfdt.month, cfdt.day, cfdt.hour, cfdt.minute,
+                cfdt.second, cfdt.microsecond)
         else:
             year, month, day, hour, minute, second, microsecond = (
                 _add_timedelta(dt, delta))
@@ -1825,15 +1839,21 @@ class datetime(object):
 
         """
         dt = self
-        if isinstance(other, datetime):
+        if isinstance(other, (datetime, cf.datetime)):
             dt_other = other
             # comparing two datetime instances
             if ( (dt.calendar == dt_other.calendar) and
                  (dt.has_year_zero == dt_other.has_year_zero) ):
                 return dt.to_tuple() == dt_other.to_tuple()
             else:
-                return (dt.toordinal(fractional=True) ==
-                        dt_other.toordinal(fractional=True))
+                ord1 = 0
+                if dt.calendar == 'decimal':
+                    ord1 = 1721425
+                ord2 = 0
+                if dt_other.calendar == 'decimal':
+                    ord2 = 1721425
+                return (dt.toordinal(fractional=True) + ord1 ==
+                        dt_other.toordinal(fractional=True) + ord2)
         else:
             return NotImplemented
 
@@ -1926,8 +1946,14 @@ class datetime(object):
                     raise TypeError("Cannot compute the time difference"
                                     " between dates with different year zero"
                                     " conventions")
-                ordinal_self = self.toordinal()  # julian day
-                ordinal_other = other.toordinal()
+                ord1 = 0
+                if self.calendar == 'decimal':
+                    ord1 = 1721425
+                ord2 = 0
+                if other.calendar == 'decimal':
+                    ord2 = 1721425
+                ordinal_self = self.toordinal() + ord1  # julian day
+                ordinal_other = other.toordinal() + ord2
                 days = ordinal_self - ordinal_other
                 seconds_self = dt.second + 60 * dt.minute + 3600 * dt.hour
                 seconds_other = (other.second + 60 * other.minute +
@@ -1950,8 +1976,12 @@ class datetime(object):
             elif isinstance(other, timedelta):
                 # datetime - timedelta
                 if dt.calendar == 'decimal360':
-                    (year, month, day, hour, minute, second, microsecond,
-                     _1, _2) = cf.add_timedelta_360_day(dt, -other)
+                    cfdt = cf.datetime(*dt.to_tuple(), calendar='360_day',
+                                       has_year_zero=dt.has_year_zero)
+                    cfdt = cfdt - other
+                    year, month, day, hour, minute, second, microsecond = (
+                        cfdt.year, cfdt.month, cfdt.day, cfdt.hour,
+                        cfdt.minute, cfdt.second, cfdt.microsecond)
                 else:
                     year, month, day, hour, minute, second, microsecond = (
                         _add_timedelta(dt, -other))
