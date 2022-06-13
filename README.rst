@@ -29,10 +29,6 @@ A general Python package with miscellaneous utility functions used in several ot
    :target: https://coveralls.io/github/mcuntz/pyjams?branch=main
    :alt: Coverage status
 
-.. image:: https://readthedocs.org/projects/pyjams/badge/?version=latest
-   :target: https://pyjams.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentation status
-
 
 About pyjams
 ------------
@@ -51,7 +47,7 @@ l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
 The complete documentation of ``pyjams`` is available at:
 
-   http://pyjams.readthedocs.org/en/latest/
+   https://mcuntz.github.io/pyjams/
 
 
 Installation
