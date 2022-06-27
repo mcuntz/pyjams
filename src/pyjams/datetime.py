@@ -29,10 +29,7 @@ ToDo
     * make PR cftime - missing precision in _idealized_calendars
     * Add old history from JAMS
     * Complete test_datetime.py
-    *     add microsecond to tests
-    *     add raise errors
     *     check why datetime + timedelta but not timedelta + datetime
-    *     check ==
     * add date2index
     * add time2index
     * implement fromordinal

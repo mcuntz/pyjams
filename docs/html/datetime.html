@@ -81,10 +81,7 @@ France.</p>
 <li><p>make PR cftime - missing precision in _idealized_calendars</p></li>
 <li><p>Add old history from JAMS</p></li>
 <li><p>Complete test_datetime.py</p></li>
-<li><p>add microsecond to tests</p></li>
-<li><p>add raise errors</p></li>
 <li><p>check why datetime + timedelta but not timedelta + datetime</p></li>
-<li><p>check ==</p></li>
 <li><p>add date2index</p></li>
 <li><p>add time2index</p></li>
 <li><p>implement fromordinal</p></li>
@@ -152,7 +149,7 @@ self.format (default %Y-%m-%d %H:%M:%S).</p>
 <td><p>Return a time.struct_time such as returned by time.localtime()</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.to_tuple" title="pyjams.datetime.datetime.to_tuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_tuple</span></code></a>()</p></td>
-<td><p>Tuple with year, month, day, hour, minute, second, microsecond</p></td>
+<td><p>Turn a datetime instance into a tuple of integers.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.datetime.datetime.toordinal" title="pyjams.datetime.datetime.toordinal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toordinal</span></code></a>([fractional])</p></td>
 <td><p>Julian day (integer) ordinal</p></td>
@@ -219,7 +216,6 @@ self.format (default %Y-%m-%d %H:%M:%S).</p>
 <dt class="sig sig-object py" id="pyjams.datetime.datetime.isoformat">
 <span class="sig-name descname"><span class="pre">isoformat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'T'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timespec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.isoformat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.isoformat" title="Permalink to this definition">¶</a></dt>
 <dd><p>ISO date representation</p>
-<p>Identical to cftime.datetime</p>
 </dd></dl>
 
 <dl class="py method">
@@ -253,7 +249,13 @@ day number within the current year starting with 1 for January 1st.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.datetime.datetime.to_tuple">
 <span class="sig-name descname"><span class="pre">to_tuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/datetime.html#datetime.to_tuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.datetime.datetime.to_tuple" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tuple with year, month, day, hour, minute, second, microsecond</p>
+<dd><p>Turn a datetime instance into a tuple of integers. Elements go
+in the order of decreasing significance, making it easy to compare
+datetime instances. Parts of the state that don’t affect ordering
+are omitted.
+to_tuple(dt) is identical to (dt.year, dt.month, dt.day,
+dt.hour, dt.minute, dt.second, dt.microsecond).
+Compare to timetuple().</p>
 <p>Identical to cftime.datetime</p>
 </dd></dl>
 

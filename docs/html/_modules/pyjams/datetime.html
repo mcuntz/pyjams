@@ -63,10 +63,7 @@
 <span class="sd">    * make PR cftime - missing precision in _idealized_calendars</span>
 <span class="sd">    * Add old history from JAMS</span>
 <span class="sd">    * Complete test_datetime.py</span>
-<span class="sd">    *     add microsecond to tests</span>
-<span class="sd">    *     add raise errors</span>
 <span class="sd">    *     check why datetime + timedelta but not timedelta + datetime</span>
-<span class="sd">    *     check ==</span>
 <span class="sd">    * add date2index</span>
 <span class="sd">    * add time2index</span>
 <span class="sd">    * implement fromordinal</span>
@@ -131,12 +128,47 @@
     <span class="k">return</span> <span class="n">sites</span>
 
 
+<span class="k">def</span> <span class="nf">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Turn a datetime instance into a tuple of integers. Elements go</span>
+<span class="sd">    in the order of decreasing significance, making it easy to compare</span>
+<span class="sd">    datetime instances. Parts of the state that don&#39;t affect ordering</span>
+<span class="sd">    are omitted. Compare to timetuple().</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+            <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+
+
+<span class="c1"># factory function without optional kwargs that can be used in</span>
+<span class="c1"># datetime.__reduce_</span>
+<span class="k">def</span> <span class="nf">_create_datetime</span><span class="p">(</span><span class="n">date_type</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">date_type</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># Adapted cftime routines</span>
+<span class="c1">#</span>
+
 <span class="c1"># Every 28 years the calendar repeats, except through century leap</span>
-<span class="c1"># years where it&#39;s 6 years.  But only if you&#39;re using the Gregorian</span>
-<span class="c1"># calendar.  ;)</span>
+<span class="c1"># years where it&#39;s 6 years. But only if you&#39;re using the Gregorian</span>
+<span class="c1"># calendar. ;-)</span>
+<span class="c1"># Allow negative years</span>
+<span class="c1"># Allow .%f for microseconds</span>
 <span class="k">def</span> <span class="nf">_strftime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">_illegal_s</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">fmt</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;This strftime implementation does not handle </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">fmt</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fmt</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;If </span><span class="si">%f</span><span class="s1"> is used for microseconds it must be the&#39;</span>
+                            <span class="s1">&#39; at the end as .</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ihavems</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">fmt1</span> <span class="o">=</span> <span class="n">fmt</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ihavems</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">fmt1</span> <span class="o">=</span> <span class="n">fmt</span>
+
     <span class="c1"># don&#39;t use strftime method at all.</span>
     <span class="c1"># if dt.year &gt; 1900:</span>
     <span class="c1">#    return dt.strftime(fmt)</span>
@@ -150,11 +182,13 @@
 
     <span class="c1"># Move to around the year 2000</span>
     <span class="n">year</span> <span class="o">=</span> <span class="n">year</span> <span class="o">+</span> <span class="p">((</span><span class="mi">2000</span> <span class="o">-</span> <span class="n">year</span><span class="p">)</span> <span class="o">//</span> <span class="mi">28</span><span class="p">)</span> <span class="o">*</span> <span class="mi">28</span>
+    <span class="c1"># timetuple does not include microseconds</span>
     <span class="n">timetuple</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()</span>
-    <span class="n">s1</span> <span class="o">=</span> <span class="n">ptime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="p">(</span><span class="n">year</span><span class="p">,)</span> <span class="o">+</span> <span class="n">timetuple</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="c1"># time.strftime does hence not treat microseconds. i.e. format code %f</span>
+    <span class="n">s1</span> <span class="o">=</span> <span class="n">ptime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt1</span><span class="p">,</span> <span class="p">(</span><span class="n">year</span><span class="p">,)</span> <span class="o">+</span> <span class="n">timetuple</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
     <span class="n">sites1</span> <span class="o">=</span> <span class="n">_findall</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">))</span>
 
-    <span class="n">s2</span> <span class="o">=</span> <span class="n">ptime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="p">(</span><span class="n">year</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,)</span> <span class="o">+</span> <span class="n">timetuple</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="n">ptime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt1</span><span class="p">,</span> <span class="p">(</span><span class="n">year</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,)</span> <span class="o">+</span> <span class="n">timetuple</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
     <span class="n">sites2</span> <span class="o">=</span> <span class="n">_findall</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span> <span class="o">+</span> <span class="mi">28</span><span class="p">))</span>
 
     <span class="n">sites</span> <span class="o">=</span> <span class="p">[]</span>
@@ -163,21 +197,16 @@
             <span class="n">sites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
 
     <span class="n">s</span> <span class="o">=</span> <span class="n">s1</span>
-    <span class="n">syear</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%04d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,)</span>
+    <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">syear</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%05d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">syear</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%04d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,)</span>
     <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">sites</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span><span class="n">site</span><span class="p">]</span> <span class="o">+</span> <span class="n">syear</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="n">site</span> <span class="o">+</span> <span class="mi">4</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">ihavems</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s1">&#39;.</span><span class="si">{:06d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">s</span>
 
-
-<span class="c1"># factory function without optional kwargs that can be used in</span>
-<span class="c1"># datetime.__reduce_</span>
-<span class="k">def</span> <span class="nf">_create_datetime</span><span class="p">(</span><span class="n">date_type</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">date_type</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-
-<span class="c1">#</span>
-<span class="c1"># Adapted cftime routines</span>
-<span class="c1">#</span>
 
 <span class="k">def</span> <span class="nf">_datesplit</span><span class="p">(</span><span class="n">timestr</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -312,7 +341,7 @@
         <span class="n">leap</span> <span class="o">=</span> <span class="p">(</span><span class="n">myear</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
     <span class="k">elif</span> <span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal&#39;</span><span class="p">:</span>
         <span class="n">leap</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(((</span><span class="n">myear</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">myear</span> <span class="o">%</span> <span class="mi">100</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="o">|</span>
-                 <span class="p">((</span><span class="n">year</span> <span class="o">%</span> <span class="mi">400</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+                 <span class="p">((</span><span class="n">myear</span> <span class="o">%</span> <span class="mi">400</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
     <span class="k">elif</span> <span class="n">calendar</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;decimal360&#39;</span><span class="p">,</span> <span class="s1">&#39;decimal365&#39;</span><span class="p">]:</span>
         <span class="n">leap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">myear</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal366&#39;</span><span class="p">:</span>
@@ -806,6 +835,7 @@
 
     <span class="c1"># year</span>
     <span class="n">fyear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trunc</span><span class="p">(</span><span class="n">mtimes</span><span class="p">)</span>
+    <span class="n">fyear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mtimes</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">fyear</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">fyear</span><span class="p">)</span>
     <span class="n">year</span> <span class="o">=</span> <span class="n">fyear</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
     <span class="n">frac_year</span> <span class="o">=</span> <span class="n">mtimes</span> <span class="o">-</span> <span class="n">fyear</span>
     <span class="n">days_year</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">longdouble</span><span class="p">(</span><span class="mi">365</span><span class="p">)</span>
@@ -835,10 +865,11 @@
     <span class="c1"># day of year in microseconds</span>
     <span class="n">fhoy</span> <span class="o">=</span> <span class="n">frac_year</span> <span class="o">*</span> <span class="p">(</span><span class="n">days_year</span> <span class="o">+</span> <span class="n">fleap</span><span class="p">)</span> <span class="o">*</span> <span class="mf">86400000000.</span>
     <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-    <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ihoy</span><span class="o">%</span><span class="mi">1000000</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">ihoy</span><span class="p">)</span>
-    <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ihoy</span><span class="o">%</span><span class="mi">1000000</span> <span class="o">==</span> <span class="mi">999999</span><span class="p">,</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">ihoy</span><span class="p">)</span>
+    <span class="c1"># Done in cftime for issue #187</span>
+    <span class="c1"># ihoy = np.where(ihoy%1000000 == 1,</span>
+    <span class="c1">#                 np.floor(fhoy).astype(np.int64), ihoy)</span>
+    <span class="c1"># ihoy = np.where(ihoy%1000000 == 999999,</span>
+    <span class="c1">#                 np.ceil(fhoy).astype(np.int64), ihoy)</span>
     <span class="c1"># microsecond</span>
     <span class="n">msecond</span> <span class="o">=</span> <span class="n">ihoy</span> <span class="o">%</span> <span class="mi">1000000</span>
     <span class="n">ihoy</span>    <span class="o">=</span> <span class="n">ihoy</span> <span class="o">//</span> <span class="mi">1000000</span>
@@ -905,10 +936,11 @@
         <span class="c1"># day of year in microseconds</span>
         <span class="n">fhoy</span> <span class="o">=</span> <span class="n">mtimes</span> <span class="o">*</span> <span class="mf">86400000000.</span>
         <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-        <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ihoy</span><span class="o">%</span><span class="mi">1000000</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">ihoy</span><span class="p">)</span>
-        <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ihoy</span><span class="o">%</span><span class="mi">1000000</span> <span class="o">==</span> <span class="mi">999999</span><span class="p">,</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">ihoy</span><span class="p">)</span>
+        <span class="c1"># Done in cftime for issue #187</span>
+        <span class="c1"># ihoy = np.where(ihoy%1000000 == 1,</span>
+        <span class="c1">#                 np.floor(fhoy).astype(np.int64), ihoy)</span>
+        <span class="c1"># ihoy = np.where(ihoy%1000000 == 999999,</span>
+        <span class="c1">#                 np.ceil(fhoy).astype(np.int64), ihoy)</span>
         <span class="c1"># microsecond</span>
         <span class="n">msecond</span> <span class="o">=</span> <span class="n">ihoy</span> <span class="o">%</span> <span class="mi">1000000</span>
         <span class="n">ihoy</span>    <span class="o">=</span> <span class="n">ihoy</span> <span class="o">//</span> <span class="mi">1000000</span>
@@ -944,10 +976,11 @@
                              <span class="p">[</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span> <span class="o">+</span> <span class="n">_dayspermonth_leap</span> <span class="p">])</span>
         <span class="n">fhoy</span> <span class="o">=</span> <span class="n">dim</span><span class="p">[(</span><span class="n">leap</span><span class="p">,</span> <span class="n">month</span><span class="p">)]</span> <span class="o">*</span> <span class="n">fmo</span> <span class="o">*</span> <span class="mf">86400000000.</span>
         <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
-        <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ihoy</span><span class="o">%</span><span class="mi">1000000</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">ihoy</span><span class="p">)</span>
-        <span class="n">ihoy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ihoy</span><span class="o">%</span><span class="mi">1000000</span> <span class="o">==</span> <span class="mi">999999</span><span class="p">,</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">fhoy</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">ihoy</span><span class="p">)</span>
+        <span class="c1"># Done in cftime for issue #187</span>
+        <span class="c1"># ihoy = np.where(ihoy%1000000 == 1,</span>
+        <span class="c1">#                 np.floor(fhoy).astype(np.int64), ihoy)</span>
+        <span class="c1"># ihoy = np.where(ihoy%1000000 == 999999,</span>
+        <span class="c1">#                 np.ceil(fhoy).astype(np.int64), ihoy)</span>
         <span class="c1"># microsecond</span>
         <span class="n">msecond</span> <span class="o">=</span> <span class="n">ihoy</span> <span class="o">%</span> <span class="mi">1000000</span>
         <span class="n">ihoy</span>    <span class="o">=</span> <span class="n">ihoy</span> <span class="o">//</span> <span class="mi">1000000</span>
@@ -1105,14 +1138,22 @@
         <span class="n">default</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">real_datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">mdates</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">calendar</span><span class="p">:</span>
-        <span class="n">calendar</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="c1"># datetime with calendar</span>
+    <span class="n">date0</span> <span class="o">=</span> <span class="n">mdates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">icalendar</span> <span class="o">=</span> <span class="n">date0</span><span class="o">.</span><span class="n">calendar</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="c1"># take calendar keyword otherwise</span>
+        <span class="n">icalendar</span> <span class="o">=</span> <span class="n">calendar</span>
+
+    <span class="k">if</span> <span class="n">icalendar</span><span class="p">:</span>
+        <span class="n">icalendar</span> <span class="o">=</span> <span class="n">icalendar</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">calendar</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">calendar</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">calendar</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_noncfcalendars</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown calendar: </span><span class="si">{</span><span class="n">calendar</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">icalendar</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">icalendar</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">icalendar</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_noncfcalendars</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown calendar: </span><span class="si">{</span><span class="n">icalendar</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">units</span><span class="p">:</span>
-        <span class="n">units</span> <span class="o">=</span> <span class="n">_units_defaults</span><span class="p">(</span><span class="n">calendar</span><span class="p">)</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="n">_units_defaults</span><span class="p">(</span><span class="n">icalendar</span><span class="p">)</span>
 
     <span class="c1"># transform strings to datetime objects</span>
     <span class="c1"># only possible for year &gt; 0</span>
@@ -1126,34 +1167,35 @@
             <span class="n">iform</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span>
         <span class="n">mmdates</span> <span class="o">=</span> <span class="p">[</span> <span class="n">cf</span><span class="o">.</span><span class="n">real_datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">iform</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">mdates</span> <span class="p">]</span>
-        <span class="n">mdates</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">mmdates</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">cf</span><span class="o">.</span><span class="n">real_datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">:</span>
+            <span class="n">mmdates</span> <span class="o">=</span> <span class="p">[</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">calendar</span><span class="o">=</span><span class="n">icalendar</span><span class="p">,</span>
+                                    <span class="n">has_year_zero</span><span class="o">=</span><span class="n">has_year_zero</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">mmdates</span> <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mmdates</span> <span class="o">=</span> <span class="p">[</span> <span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">calendar</span><span class="o">=</span><span class="n">icalendar</span><span class="p">,</span>
+                                 <span class="n">has_year_zero</span><span class="o">=</span><span class="n">has_year_zero</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">mmdates</span> <span class="p">]</span>
+        <span class="n">mdates</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">mmdates</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">mdates</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">cf</span><span class="o">.</span><span class="n">real_datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
-    <span class="c1"># input calendar</span>
-    <span class="n">date0</span> <span class="o">=</span> <span class="n">mdates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">icalendar</span> <span class="o">=</span> <span class="n">date0</span><span class="o">.</span><span class="n">calendar</span>
-    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-        <span class="c1"># must be Python datetime object</span>
-        <span class="n">icalendar</span> <span class="o">=</span> <span class="s1">&#39;proleptic_gregorian&#39;</span>
-
     <span class="c1"># check if we can parse to cftime</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">calendar</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">:</span>
         <span class="n">iscf</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">elif</span> <span class="p">(</span><span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_noncfcalendars</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">calendar</span> <span class="ow">in</span> <span class="n">_noncfcalendars</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_noncfcalendars</span><span class="p">:</span>
         <span class="n">iscf</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown calendar: </span><span class="si">{</span><span class="n">icalendar</span><span class="si">}</span><span class="s1"> or </span><span class="si">{</span><span class="n">calendar</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="c1"># should be impossible to reach</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown calendar: </span><span class="si">{</span><span class="n">icalendar</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="n">unit</span><span class="p">,</span> <span class="n">sincestr</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">_datesplit</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">sincestr</span> <span class="o">==</span> <span class="s1">&#39;as&#39;</span><span class="p">:</span>
         <span class="n">iscf</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">calendar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">icalendar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
     <span class="c1"># use cftime.date2num if possible</span>
     <span class="k">if</span> <span class="n">iscf</span><span class="p">:</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">mdates</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">calendar</span><span class="p">,</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">mdates</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">icalendar</span><span class="p">,</span>
                           <span class="n">has_year_zero</span><span class="o">=</span><span class="n">has_year_zero</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">sincestr</span> <span class="o">==</span> <span class="s1">&#39;as&#39;</span><span class="p">:</span>
@@ -1163,20 +1205,16 @@
         <span class="n">out</span> <span class="o">=</span> <span class="n">_dates2absolute</span><span class="p">(</span><span class="n">mdates</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>
 
     <span class="c1"># use cftime.date2num with Excel</span>
-    <span class="k">if</span> <span class="n">calendar</span> <span class="ow">in</span> <span class="n">_excelcalendars</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_excelcalendars</span><span class="p">:</span>
         <span class="n">cfcalendar</span> <span class="o">=</span> <span class="s1">&#39;julian&#39;</span>
-        <span class="c1"># cf.real_datetime has no to_tuple() method yet</span>
-        <span class="c1"># cfdates = [ cf.datetime(*dt.to_tuple(), calendar=cfcalendar)</span>
-        <span class="c1">#             for dt in mdates ]</span>
-        <span class="n">cfdates</span> <span class="o">=</span> <span class="p">[</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
-                                <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">microsecond</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">cfcalendar</span><span class="p">)</span>
+        <span class="n">cfdates</span> <span class="o">=</span> <span class="p">[</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">calendar</span><span class="o">=</span><span class="n">cfcalendar</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">mdates</span> <span class="p">]</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">cfdates</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">cfcalendar</span><span class="p">,</span>
                           <span class="n">has_year_zero</span><span class="o">=</span><span class="n">has_year_zero</span><span class="p">)</span>
 
     <span class="c1"># no cftime.num2date possible</span>
-    <span class="k">if</span> <span class="n">calendar</span> <span class="ow">in</span> <span class="n">_decimalcalendars</span><span class="p">:</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">_dates2decimal</span><span class="p">(</span><span class="n">mdates</span><span class="p">,</span> <span class="n">calendar</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_decimalcalendars</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">_dates2decimal</span><span class="p">(</span><span class="n">mdates</span><span class="p">,</span> <span class="n">icalendar</span><span class="p">)</span>
 
     <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dates</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span></div>
@@ -1315,7 +1353,6 @@
 
     <span class="c1"># use cftime.num2date if possible</span>
     <span class="k">if</span> <span class="n">iscf</span><span class="p">:</span>
-        <span class="c1"># print(times, units, calendar)</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span>
             <span class="n">times</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">calendar</span><span class="p">,</span>
             <span class="n">only_use_cftime_datetimes</span><span class="o">=</span><span class="n">only_use_cftime_datetimes</span><span class="p">,</span>
@@ -1386,10 +1423,7 @@
             <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">out</span>
 
-        <span class="c1"># cf.real_datetime has no to_tuple() method yet</span>
-        <span class="c1"># out = [ datetime(*dt.to_tuple(), calendar=calendar)</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="p">[</span> <span class="n">datetime</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
-                         <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">microsecond</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">calendar</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[</span> <span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">calendar</span><span class="o">=</span><span class="n">calendar</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">cfdates</span> <span class="p">]</span>
 
     <span class="c1"># no cftime.num2date possible</span>
@@ -1428,10 +1462,7 @@
                                   <span class="n">has_year_zero</span><span class="o">=</span><span class="n">has_year_zero</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">return_arrays</span><span class="p">:</span>
-        <span class="c1"># cf.real_datetime has no to_tuple() method yet</span>
-        <span class="c1"># out = np.array([ dt.to_tuple() for dt in out ])</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
-                         <span class="n">dt</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span> <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">out</span> <span class="p">])</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">out</span> <span class="p">])</span>
         <span class="n">year</span>        <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
         <span class="n">month</span>       <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
         <span class="n">day</span>         <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
@@ -1446,9 +1477,14 @@
             <span class="c1"># see https://bugs.python.org/issue32195</span>
             <span class="n">iform</span> <span class="o">=</span> <span class="nb">format</span>
             <span class="k">if</span> <span class="s1">&#39;%Y&#39;</span> <span class="ow">in</span> <span class="nb">format</span><span class="p">:</span>
-                <span class="n">format04</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">,</span> <span class="s1">&#39;%04Y&#39;</span><span class="p">)</span>
+                <span class="n">years0</span> <span class="o">=</span> <span class="p">[</span> <span class="n">dd</span><span class="o">.</span><span class="n">year</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">out</span> <span class="p">]</span>
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">years0</span><span class="p">):</span>
+                    <span class="n">y4</span> <span class="o">=</span> <span class="s1">&#39;%05Y&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">y4</span> <span class="o">=</span> <span class="s1">&#39;%04Y&#39;</span>
+                <span class="n">format04</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">,</span> <span class="n">y4</span><span class="p">)</span>
                 <span class="n">dttest</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format04</span><span class="p">)</span>
-                <span class="k">if</span> <span class="s1">&#39;4Y&#39;</span> <span class="ow">in</span> <span class="n">dttest</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;4Y&#39;</span> <span class="ow">in</span> <span class="n">dttest</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;5Y&#39;</span> <span class="ow">in</span> <span class="n">dttest</span><span class="p">):</span>
                     <span class="n">iform</span> <span class="o">=</span> <span class="nb">format</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">iform</span> <span class="o">=</span> <span class="n">format04</span>
@@ -1523,7 +1559,7 @@
         <span class="k">if</span> <span class="n">calendar</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="n">calendar</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="s1">&#39;decimal&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Use cftime.datetime for CF-conform&#39;</span>
                              <span class="sa">f</span><span class="s1">&#39; calendars: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">calendar</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1663,31 +1699,39 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ISO date representation</span>
 
-<span class="sd">        Identical to cftime.datetime</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">second</span> <span class="o">=</span> <span class="s2">&quot;:</span><span class="si">%02i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="p">((</span><span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span> <span class="ow">or</span>
-             <span class="p">(</span><span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;microseconds&#39;</span><span class="p">)</span> <span class="p">):</span>
-            <span class="n">second</span> <span class="o">+=</span> <span class="s2">&quot;.</span><span class="si">%06i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span>
-        <span class="k">if</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;milliseconds&#39;</span><span class="p">:</span>
-            <span class="n">millisecs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mi">1000</span>
-            <span class="n">second</span> <span class="o">+=</span> <span class="s2">&quot;.</span><span class="si">%03i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">millisecs</span>
-        <span class="k">if</span> <span class="n">timespec</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;microseconds&#39;</span><span class="p">,</span> <span class="s1">&#39;milliseconds&#39;</span><span class="p">]:</span>
-            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%04i</span><span class="s2">-</span><span class="si">%02i</span><span class="s2">-</span><span class="si">%02i%s%02i</span><span class="s2">:</span><span class="si">%02i%s</span><span class="s2">&quot;</span> <span class="o">%</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span>
-                     <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;seconds&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%04i</span><span class="s2">-</span><span class="si">%02i</span><span class="s2">-</span><span class="si">%02i%s%02i</span><span class="s2">:</span><span class="si">%02i</span><span class="s2">:</span><span class="si">%02i</span><span class="s2">&quot;</span> <span class="o">%</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span>
-                     <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;minutes&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%04i</span><span class="s2">-</span><span class="si">%02i</span><span class="s2">-</span><span class="si">%02i%s%02i</span><span class="s2">:</span><span class="si">%02i</span><span class="s2">&quot;</span> <span class="o">%</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span>
-                     <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">form0</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:05d}</span><span class="s1">-</span><span class="si">{:02d}</span><span class="s1">-</span><span class="si">{:02d}</span><span class="s1">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">form0</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:04d}</span><span class="s1">-</span><span class="si">{:02d}</span><span class="s1">-</span><span class="si">{:02d}</span><span class="s1">&#39;</span>
+        <span class="k">if</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;days&#39;</span><span class="p">:</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">form0</span>
+            <span class="k">return</span> <span class="n">form</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;hours&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%04i</span><span class="s2">-</span><span class="si">%02i</span><span class="s2">-</span><span class="si">%02i%s%02i</span><span class="s2">&quot;</span> <span class="o">%</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">))</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">form0</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:s}{:02d}</span><span class="s1">&#39;</span>
+            <span class="k">return</span> <span class="n">form</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;minutes&#39;</span><span class="p">:</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">form0</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:s}{:02d}</span><span class="s1">:</span><span class="si">{:02d}</span><span class="s1">&#39;</span>
+            <span class="k">return</span> <span class="n">form</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;seconds&#39;</span><span class="p">:</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">form0</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:s}{:02d}</span><span class="s1">:</span><span class="si">{:02d}</span><span class="s1">:</span><span class="si">{:02d}</span><span class="s1">&#39;</span>
+            <span class="k">return</span> <span class="n">form</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">timespec</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;microseconds&#39;</span><span class="p">,</span> <span class="s1">&#39;milliseconds&#39;</span><span class="p">]:</span>
+            <span class="n">second</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:02d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;milliseconds&#39;</span><span class="p">:</span>
+                <span class="n">millisecs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="n">second</span> <span class="o">+=</span> <span class="s1">&#39;.</span><span class="si">{:03d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">millisecs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">timespec</span> <span class="o">==</span> <span class="s1">&#39;microseconds&#39;</span><span class="p">:</span>
+                <span class="n">second</span> <span class="o">+=</span> <span class="s1">&#39;.</span><span class="si">{:06d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">second</span> <span class="o">+=</span> <span class="s1">&#39;.</span><span class="si">{:06d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">form0</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:s}{:02d}</span><span class="s1">:</span><span class="si">{:02d}</span><span class="s1">:</span><span class="si">{:s}</span><span class="s1">&#39;</span>
+            <span class="k">return</span> <span class="n">form</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;illegal timespec&#39;</span><span class="p">)</span></div>
 
@@ -1790,7 +1834,13 @@
 
 <div class="viewcode-block" id="datetime.to_tuple"><a class="viewcode-back" href="../../datetime.html#pyjams.datetime.datetime.to_tuple">[docs]</a>    <span class="k">def</span> <span class="nf">to_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Tuple with year, month, day, hour, minute, second, microsecond</span>
+<span class="sd">        Turn a datetime instance into a tuple of integers. Elements go</span>
+<span class="sd">        in the order of decreasing significance, making it easy to compare</span>
+<span class="sd">        datetime instances. Parts of the state that don&#39;t affect ordering</span>
+<span class="sd">        are omitted.</span>
+<span class="sd">        to_tuple(dt) is identical to (dt.year, dt.month, dt.day,</span>
+<span class="sd">        dt.hour, dt.minute, dt.second, dt.microsecond).</span>
+<span class="sd">        Compare to timetuple().</span>
 
 <span class="sd">        Identical to cftime.datetime</span>
 
@@ -1854,7 +1904,7 @@
         <span class="n">has_year_zero</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_year_zero</span>
         <span class="n">delta</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">if</span> <span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal360&#39;</span><span class="p">:</span>
-            <span class="n">cfdt</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">dt</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(),</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;360_day&#39;</span><span class="p">,</span>
+            <span class="n">cfdt</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;360_day&#39;</span><span class="p">,</span>
                                <span class="n">has_year_zero</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">)</span>
             <span class="n">cfdt</span> <span class="o">=</span> <span class="n">cfdt</span> <span class="o">+</span> <span class="n">delta</span>
             <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span> <span class="o">=</span> <span class="p">(</span>
@@ -1867,7 +1917,7 @@
                         <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span><span class="p">,</span>
                         <span class="n">calendar</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__cmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compare two datetime instances</span>
 
@@ -1878,13 +1928,13 @@
             <span class="c1"># comparing two datetime instances</span>
             <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="n">dt_other</span><span class="o">.</span><span class="n">calendar</span><span class="p">)</span> <span class="ow">and</span>
                  <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">has_year_zero</span> <span class="o">==</span> <span class="n">dt_other</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">)</span> <span class="p">):</span>
-                <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">()</span> <span class="o">==</span> <span class="n">dt_other</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">==</span> <span class="n">to_tuple</span><span class="p">(</span><span class="n">dt_other</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">ord1</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal&#39;</span><span class="p">:</span>
                     <span class="n">ord1</span> <span class="o">=</span> <span class="mi">1721425</span>
                 <span class="n">ord2</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="k">if</span> <span class="n">dt_other</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">dt_other</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
                     <span class="n">ord2</span> <span class="o">=</span> <span class="mi">1721425</span>
                 <span class="k">return</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">toordinal</span><span class="p">(</span><span class="n">fractional</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">+</span> <span class="n">ord1</span> <span class="o">==</span>
                         <span class="n">dt_other</span><span class="o">.</span><span class="n">toordinal</span><span class="p">(</span><span class="n">fractional</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">+</span> <span class="n">ord2</span><span class="p">)</span>
@@ -1943,13 +1993,6 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">__richcmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Compare two datetime instances</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2010,7 +2053,7 @@
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">):</span>
                 <span class="c1"># datetime - timedelta</span>
                 <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal360&#39;</span><span class="p">:</span>
-                    <span class="n">cfdt</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">dt</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(),</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;360_day&#39;</span><span class="p">,</span>
+                    <span class="n">cfdt</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;360_day&#39;</span><span class="p">,</span>
                                        <span class="n">has_year_zero</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">)</span>
                     <span class="n">cfdt</span> <span class="o">=</span> <span class="n">cfdt</span> <span class="o">-</span> <span class="n">other</span>
                     <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span> <span class="o">=</span> <span class="p">(</span>
