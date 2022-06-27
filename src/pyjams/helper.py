@@ -31,6 +31,7 @@ History
     * undef=None by default, Jun 2022, Matthias Cuntz
     * Refine using undef=None with numpy.array and list,
       Jun 2022, Matthias Cuntz
+    * Assure array is not 0d-array, Jun 2022, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -173,6 +174,7 @@ def array2input(outin, inp, inp2=None, undef=None):
                 # unknown iterables so no cover
                 pass
     else:
+        # scalar / object
         if isundef(inp, undef):
             outout = undef
         else:
@@ -180,7 +182,10 @@ def array2input(outin, inp, inp2=None, undef=None):
                 outout = type(inp)(outin)
             except:  # pragma: no cover
                 # unknown iterables so no cover
-                outout = outin
+                if np.size(outin) == 1:
+                    outout = outin[0]
+                else:
+                    outout = outin
 
     return outout
 
@@ -233,8 +238,8 @@ def input2array(inp, undef=None, default=1):
             out = np.array(inp)
             out = np.where(isundef(out, undef), default, out)
     else:
-        # scalar
-        out = np.array(default) if isundef(inp, undef) else np.array(inp)
+        # scalar / object
+        out = np.array([default]) if isundef(inp, undef) else np.array([inp])
 
     return out
 
