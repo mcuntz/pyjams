@@ -53,12 +53,15 @@ History
     * Wrapper functions between all standard formats, Dec 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
     * Use input2array, array2input, Jun 2022, Matthias Cuntz
+    * Negative years possible, Jun 2022, Matthias Cuntz
+    * Fractional seconds, Jun 2022, Matthias Cuntz
 
 """
 import time as ptime
-import datetime as dt
+from datetime import datetime
 import numpy as np
 from .helper import input2array, array2input
+# from .datetime import datetime
 
 
 __all__ = ['date2date',
@@ -85,19 +88,26 @@ def _ensure_year(yr, isyr2):
     then every year that is above the current year of the century will be taken
     as being in 1900, i.e. 90 will be taken as 1990, while all other years are
     taken in the 21st century, i.e. 20 will be 2020. 3-digit years will throw
-    an ValueError.
+    a ValueError.
 
     """
-    lyr = len(yr)
+    inyr = yr.strip()
+    if int(inyr) < 0:
+        minus = '-'
+        inyr = inyr[1:]
+    else:
+        minus = ''
+        inyr = inyr
+    lyr = len(inyr)
     if lyr == 4:
         return yr
     else:
-        iyr = int(yr)
+        iyr = int(inyr)
         if iyr < 100:
             if iyr > isyr2:
-                return '19' + _leading_zero(yr)
+                return minus + '19' + _leading_zero(inyr)
             else:
-                return '20' + _leading_zero(yr)
+                return minus + '20' + _leading_zero(inyr)
         else:
             raise ValueError(f'3-digit years not supported: {yr}')
 
@@ -226,11 +236,11 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
     for i, d in enumerate(idate):
         dd = d.strip()
         # analyse date
-        if '-' in dd:
+        if dd.count('-') > 1:
             datesep = '-'
-        elif '/' in dd:
+        elif dd.count('/') > 1:
             datesep = '/'
-        elif '.' in dd:
+        elif dd.count('.') > 1:
             datesep = '.'
         else:
             raise ValueError(f'No date separator could be determined: {d}')
@@ -248,7 +258,21 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
             ddate = dd
             dtime = ''
         # split date
-        d0, d1, d2 = ddate.split(datesep)
+        if ddate.count(datesep) > 2:
+            # negative years
+            d0, d1, d2, d3 = ddate.split(datesep)
+            if not d2:
+                d2 = datesep + d3
+            if not d1:
+                raise ValueError('Unknown date format (1): '+ddate)
+            if not d0:
+                d0 = datesep + d1
+                d1 = d2
+                d2 = d3
+            if not d3:
+                raise ValueError('Unknown date format (2): '+ddate)
+        else:
+            d0, d1, d2 = ddate.split(datesep)
         if datesep == '-':
             dyear  = _ensure_year(d0, isyr2)
             dmonth = _leading_zero(d1)
@@ -280,7 +304,11 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
             elif len(tt) == 3:
                 dhour   = _leading_zero(tt[0])
                 dminute = _leading_zero(tt[1])
-                dsecond = _leading_zero(tt[2])
+                if '.' in tt[2]:
+                    second, microsecond = tt[2].split('.')
+                    dsecond = _leading_zero(second) + '.' + microsecond
+                else:
+                    dsecond = _leading_zero(tt[2])
             else:
                 raise ValueError(f'Only hour, minute, second supported'
                                  f' in time: {dtime}')
@@ -315,16 +343,33 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
                 if full:
                     out += timesep + '00:00:00'
         else:
-            dattim = dt.datetime(int(dyear), int(dmonth), int(dday),
-                                 int(_leading_zero(dhour)),
-                                 int(_leading_zero(dminute)),
-                                 int(_leading_zero(dsecond)))
+            if not dhour:
+                dhour = '0'
+            if not dminute:
+                dminute = '0'
+            if not dsecond:
+                dsecond = '0'
+                dmicrosecond = '0'
+            else:
+                if '.' in dsecond:
+                    second, microsecond = dsecond.split('.')
+                    dsecond = second
+                    dmicrosecond = str(int(round(microsecond * 1000000.)))
+                else:
+                    dmicrosecond = '0'
+
+            dattim = datetime(int(dyear), int(dmonth), int(dday),
+                              int(dhour), int(dminute), int(dsecond),
+                              int(dmicrosecond))
             # Assure 4 digit years on all platforms
             # see https://bugs.python.org/issue32195
             if '%Y' in format:
-                format04 = format.replace('%Y', '%04Y')
+                if int(dyear) < 0:
+                    format04 = format.replace('%Y', '%05Y')
+                else:
+                    format04 = format.replace('%Y', '%04Y')
                 out = dattim.strftime(format04)
-                if '4Y' in out:
+                if ('4Y' in out) or ('5Y' in out):
                     out = dattim.strftime(format)
             else:
                 out = dattim.strftime(format)

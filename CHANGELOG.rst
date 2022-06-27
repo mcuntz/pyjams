@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v1.25 (??? 2022)
+    * Allow negative dates in `date2date`.
+    * Support of microseconds in `date2date`.
+
 v1.24 (Jun 2022)
     * Removed documentation from `Read the Docs` and moved to Github Pages:
       https://mcuntz.github.io/pyjams/
