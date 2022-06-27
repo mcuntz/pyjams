@@ -5,6 +5,7 @@ v1.25 (??? 2022)
     * Allow negative dates in `date2date`.
     * Support of microseconds in `date2date`.
     * Assure that `input2array` gives no 0d-array.
+    * More `datetime` tests and bug fixes for microseconds and has_year_zero.
 
 v1.24 (Jun 2022)
     * Removed documentation from `Read the Docs` and moved to Github Pages:

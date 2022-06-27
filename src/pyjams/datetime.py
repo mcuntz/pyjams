@@ -97,12 +97,47 @@ def _findall(text, substr):
     return sites
 
 
+def to_tuple(dt):
+    """
+    Turn a datetime instance into a tuple of integers. Elements go
+    in the order of decreasing significance, making it easy to compare
+    datetime instances. Parts of the state that don't affect ordering
+    are omitted. Compare to timetuple().
+
+    """
+    return (dt.year, dt.month, dt.day, dt.hour, dt.minute,
+            dt.second, dt.microsecond)
+
+
+# factory function without optional kwargs that can be used in
+# datetime.__reduce_
+def _create_datetime(date_type, args, kwargs):
+    return date_type(*args, **kwargs)
+
+
+#
+# Adapted cftime routines
+#
+
 # Every 28 years the calendar repeats, except through century leap
-# years where it's 6 years.  But only if you're using the Gregorian
-# calendar.  ;)
+# years where it's 6 years. But only if you're using the Gregorian
+# calendar. ;-)
+# Allow negative years
+# Allow .%f for microseconds
 def _strftime(dt, fmt):
     if _illegal_s.search(fmt):
         raise TypeError("This strftime implementation does not handle %s")
+    if '%f' in fmt:
+        if not fmt.endswith('.%f'):
+            raise TypeError('If %f is used for microseconds it must be the'
+                            ' at the end as .%f')
+        else:
+            ihavems = True
+            fmt1 = fmt[:-3]
+    else:
+        ihavems = False
+        fmt1 = fmt
+
     # don't use strftime method at all.
     # if dt.year > 1900:
     #    return dt.strftime(fmt)
@@ -116,11 +151,13 @@ def _strftime(dt, fmt):
 
     # Move to around the year 2000
     year = year + ((2000 - year) // 28) * 28
+    # timetuple does not include microseconds
     timetuple = dt.timetuple()
-    s1 = ptime.strftime(fmt, (year,) + timetuple[1:])
+    # time.strftime does hence not treat microseconds. i.e. format code %f
+    s1 = ptime.strftime(fmt1, (year,) + timetuple[1:])
     sites1 = _findall(s1, str(year))
 
-    s2 = ptime.strftime(fmt, (year + 28,) + timetuple[1:])
+    s2 = ptime.strftime(fmt1, (year + 28,) + timetuple[1:])
     sites2 = _findall(s2, str(year + 28))
 
     sites = []
@@ -129,21 +166,16 @@ def _strftime(dt, fmt):
             sites.append(site)
 
     s = s1
-    syear = "%04d" % (dt.year,)
+    if dt.year < 0:
+        syear = "%05d" % (dt.year,)
+    else:
+        syear = "%04d" % (dt.year,)
     for site in sites:
         s = s[:site] + syear + s[site + 4:]
+    if ihavems:
+        s = s + '.{:06d}'.format(dt.microsecond)
     return s
 
-
-# factory function without optional kwargs that can be used in
-# datetime.__reduce_
-def _create_datetime(date_type, args, kwargs):
-    return date_type(*args, **kwargs)
-
-
-#
-# Adapted cftime routines
-#
 
 def _datesplit(timestr):
     """
@@ -278,7 +310,7 @@ def _is_leap(year, calendar, has_year_zero=None):
         leap = (myear % 4) == 0
     elif calendar == 'decimal':
         leap = ( (((myear % 4) == 0) & ((myear % 100) != 0)) |
-                 ((year % 400) == 0) )
+                 ((myear % 400) == 0) )
     elif calendar in ['decimal360', 'decimal365']:
         leap = np.zeros_like(myear, dtype=bool)
     elif calendar == 'decimal366':
@@ -772,6 +804,7 @@ def _decimal2date(times, calendar):
 
     # year
     fyear = np.trunc(mtimes)
+    fyear = np.where(mtimes < 0., fyear - 1., fyear)
     year = fyear.astype(np.int64)
     frac_year = mtimes - fyear
     days_year = np.longdouble(365)
@@ -801,10 +834,11 @@ def _decimal2date(times, calendar):
     # day of year in microseconds
     fhoy = frac_year * (days_year + fleap) * 86400000000.
     ihoy = np.rint(fhoy).astype(np.int64)
-    ihoy = np.where(ihoy%1000000 == 1,
-                    np.floor(fhoy).astype(np.int64), ihoy)
-    ihoy = np.where(ihoy%1000000 == 999999,
-                    np.ceil(fhoy).astype(np.int64), ihoy)
+    # Done in cftime for issue #187
+    # ihoy = np.where(ihoy%1000000 == 1,
+    #                 np.floor(fhoy).astype(np.int64), ihoy)
+    # ihoy = np.where(ihoy%1000000 == 999999,
+    #                 np.ceil(fhoy).astype(np.int64), ihoy)
     # microsecond
     msecond = ihoy % 1000000
     ihoy    = ihoy // 1000000
@@ -871,10 +905,11 @@ def _absolute2date(times, units):
         # day of year in microseconds
         fhoy = mtimes * 86400000000.
         ihoy = np.rint(fhoy).astype(np.int64)
-        ihoy = np.where(ihoy%1000000 == 1,
-                        np.floor(fhoy).astype(np.int64), ihoy)
-        ihoy = np.where(ihoy%1000000 == 999999,
-                        np.ceil(fhoy).astype(np.int64), ihoy)
+        # Done in cftime for issue #187
+        # ihoy = np.where(ihoy%1000000 == 1,
+        #                 np.floor(fhoy).astype(np.int64), ihoy)
+        # ihoy = np.where(ihoy%1000000 == 999999,
+        #                 np.ceil(fhoy).astype(np.int64), ihoy)
         # microsecond
         msecond = ihoy % 1000000
         ihoy    = ihoy // 1000000
@@ -910,10 +945,11 @@ def _absolute2date(times, units):
                              [-9] + _dayspermonth_leap ])
         fhoy = dim[(leap, month)] * fmo * 86400000000.
         ihoy = np.rint(fhoy).astype(np.int64)
-        ihoy = np.where(ihoy%1000000 == 1,
-                        np.floor(fhoy).astype(np.int64), ihoy)
-        ihoy = np.where(ihoy%1000000 == 999999,
-                        np.ceil(fhoy).astype(np.int64), ihoy)
+        # Done in cftime for issue #187
+        # ihoy = np.where(ihoy%1000000 == 1,
+        #                 np.floor(fhoy).astype(np.int64), ihoy)
+        # ihoy = np.where(ihoy%1000000 == 999999,
+        #                 np.ceil(fhoy).astype(np.int64), ihoy)
         # microsecond
         msecond = ihoy % 1000000
         ihoy    = ihoy // 1000000
@@ -1071,14 +1107,22 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         default = cf.real_datetime(1990, 1, 1)
     mdates = input2array(dates, default=default)
 
-    if calendar:
-        calendar = calendar.lower()
+    # datetime with calendar
+    date0 = mdates[0]
+    try:
+        icalendar = date0.calendar
+    except AttributeError:
+        # take calendar keyword otherwise
+        icalendar = calendar
+
+    if icalendar:
+        icalendar = icalendar.lower()
     else:
-        calendar = 'standard'
-    if (calendar not in _cfcalendars) and (calendar not in _noncfcalendars):
-        raise ValueError(f'Unknown calendar: {calendar}')
+        icalendar = 'standard'
+    if (icalendar not in _cfcalendars) and (icalendar not in _noncfcalendars):
+        raise ValueError(f'Unknown calendar: {icalendar}')
     if not units:
-        units = _units_defaults(calendar)
+        units = _units_defaults(icalendar)
 
     # transform strings to datetime objects
     # only possible for year > 0
@@ -1092,34 +1136,35 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             iform = '%Y-%m-%d %H:%M:%S'
         mmdates = [ cf.real_datetime.strptime(dd, iform)
                     for dd in mdates ]
-        mdates = input2array(mmdates, default=cf.real_datetime(1990, 1, 1))
+        if icalendar in _cfcalendars:
+            mmdates = [ cf.datetime(*to_tuple(dt), calendar=icalendar,
+                                    has_year_zero=has_year_zero)
+                        for dt in mmdates ]
+        else:
+            mmdates = [ datetime(*to_tuple(dt), calendar=icalendar,
+                                 has_year_zero=has_year_zero)
+                        for dt in mmdates ]
+        mdates = input2array(mmdates, default=cf.datetime(1990, 1, 1))
     else:
         mdates = input2array(dates, default=cf.real_datetime(1990, 1, 1))
 
-    # input calendar
-    date0 = mdates[0]
-    try:
-        icalendar = date0.calendar
-    except AttributeError:
-        # must be Python datetime object
-        icalendar = 'proleptic_gregorian'
-
     # check if we can parse to cftime
-    if (icalendar in _cfcalendars) and (calendar in _cfcalendars):
+    if icalendar in _cfcalendars:
         iscf = True
-    elif (icalendar in _noncfcalendars) or (calendar in _noncfcalendars):
+    elif icalendar in _noncfcalendars:
         iscf = False
-    else:
-        raise ValueError(f'Unknown calendar: {icalendar} or {calendar}')
+    else:  # pragma: no cover
+        # should be impossible to reach
+        raise ValueError(f'Unknown calendar: {icalendar}')
 
     unit, sincestr, remainder = _datesplit(units)
     if sincestr == 'as':
         iscf = False
-        calendar = ''
+        icalendar = ''
 
     # use cftime.date2num if possible
     if iscf:
-        out = cf.date2num(mdates, units, calendar=calendar,
+        out = cf.date2num(mdates, units, calendar=icalendar,
                           has_year_zero=has_year_zero)
 
     if sincestr == 'as':
@@ -1129,20 +1174,16 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         out = _dates2absolute(mdates, units)
 
     # use cftime.date2num with Excel
-    if calendar in _excelcalendars:
+    if icalendar in _excelcalendars:
         cfcalendar = 'julian'
-        # cf.real_datetime has no to_tuple() method yet
-        # cfdates = [ cf.datetime(*dt.to_tuple(), calendar=cfcalendar)
-        #             for dt in mdates ]
-        cfdates = [ cf.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute,
-                                dt.second, dt.microsecond, calendar=cfcalendar)
+        cfdates = [ cf.datetime(*to_tuple(dt), calendar=cfcalendar)
                     for dt in mdates ]
         out = cf.date2num(cfdates, units, calendar=cfcalendar,
                           has_year_zero=has_year_zero)
 
     # no cftime.num2date possible
-    if calendar in _decimalcalendars:
-        out = _dates2decimal(mdates, calendar)
+    if icalendar in _decimalcalendars:
+        out = _dates2decimal(mdates, icalendar)
 
     out = array2input(out, dates)
     return out
@@ -1281,7 +1322,6 @@ def num2date(times, units='', calendar='standard',
 
     # use cftime.num2date if possible
     if iscf:
-        # print(times, units, calendar)
         out = cf.num2date(
             times, units, calendar=calendar,
             only_use_cftime_datetimes=only_use_cftime_datetimes,
@@ -1352,10 +1392,7 @@ def num2date(times, units='', calendar='standard',
             out = array2input(out, times)
             return out
 
-        # cf.real_datetime has no to_tuple() method yet
-        # out = [ datetime(*dt.to_tuple(), calendar=calendar)
-        out = [ datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute,
-                         dt.second, dt.microsecond, calendar=calendar)
+        out = [ datetime(*to_tuple(dt), calendar=calendar)
                 for dt in cfdates ]
 
     # no cftime.num2date possible
@@ -1394,10 +1431,7 @@ def num2date(times, units='', calendar='standard',
                                   has_year_zero=has_year_zero)
 
     if return_arrays:
-        # cf.real_datetime has no to_tuple() method yet
-        # out = np.array([ dt.to_tuple() for dt in out ])
-        out = np.array([ (dt.year, dt.month, dt.day, dt.hour, dt.minute,
-                         dt.second, dt.microsecond) for dt in out ])
+        out = np.array([ to_tuple(dt) for dt in out ])
         year        = array2input(out[:, 0], times)
         month       = array2input(out[:, 1], times)
         day         = array2input(out[:, 2], times)
@@ -1412,9 +1446,14 @@ def num2date(times, units='', calendar='standard',
             # see https://bugs.python.org/issue32195
             iform = format
             if '%Y' in format:
-                format04 = format.replace('%Y', '%04Y')
+                years0 = [ dd.year < 0 for dd in out ]
+                if any(years0):
+                    y4 = '%05Y'
+                else:
+                    y4 = '%04Y'
+                format04 = format.replace('%Y', y4)
                 dttest = out[0].strftime(format04)
-                if '4Y' in dttest:
+                if ('4Y' in dttest) or ('5Y' in dttest):
                     iform = format
                 else:
                     iform = format04
@@ -1489,7 +1528,7 @@ class datetime(object):
         if calendar:
             self.calendar = calendar.lower()
         else:
-            self.calendar = calendar
+            self.calendar = 'decimal'
         if self.calendar in _cfcalendars:
             raise ValueError(f'Use cftime.datetime for CF-conform'
                              f' calendars: {self.calendar}')
@@ -1629,31 +1668,39 @@ class datetime(object):
         """
         ISO date representation
 
-        Identical to cftime.datetime
-
         """
-        second = ":%02i" % self.second
-        if ( ((timespec == 'auto') and self.microsecond) or
-             (timespec == 'microseconds') ):
-            second += ".%06i" % self.microsecond
-        if timespec == 'milliseconds':
-            millisecs = self.microsecond / 1000
-            second += ".%03i" % millisecs
-        if timespec in ['auto', 'microseconds', 'milliseconds']:
-            return ("%04i-%02i-%02i%s%02i:%02i%s" %
-                    (self.year, self.month, self.day, sep,
-                     self.hour, self.minute, second))
-        elif timespec == 'seconds':
-            return ("%04i-%02i-%02i%s%02i:%02i:%02i" %
-                    (self.year, self.month, self.day, sep,
-                     self.hour, self.minute, self.second))
-        elif timespec == 'minutes':
-            return ("%04i-%02i-%02i%s%02i:%02i" %
-                    (self.year, self.month, self.day, sep,
-                     self.hour, self.minute))
+        if self.year < 0:
+            form0 = '{:05d}-{:02d}-{:02d}'
+        else:
+            form0 = '{:04d}-{:02d}-{:02d}'
+        if timespec == 'days':
+            form = form0
+            return form.format(self.year, self.month, self.day)
         elif timespec == 'hours':
-            return ("%04i-%02i-%02i%s%02i" %
-                    (self.year, self.month, self.day, sep, self.hour))
+            form = form0 + '{:s}{:02d}'
+            return form.format(self.year, self.month, self.day, sep,
+                               self.hour)
+        elif timespec == 'minutes':
+            form = form0 + '{:s}{:02d}:{:02d}'
+            return form.format(self.year, self.month, self.day, sep,
+                               self.hour, self.minute)
+        elif timespec == 'seconds':
+            form = form0 + '{:s}{:02d}:{:02d}:{:02d}'
+            return form.format(self.year, self.month, self.day, sep,
+                               self.hour, self.minute, self.second)
+        elif timespec in ['auto', 'microseconds', 'milliseconds']:
+            second = '{:02d}'.format(self.second)
+            if timespec == 'milliseconds':
+                millisecs = int(round(self.microsecond / 1000, 0))
+                second += '.{:03d}'.format(millisecs)
+            if timespec == 'microseconds':
+                second += '.{:06d}'.format(self.microsecond)
+            else:
+                if self.microsecond > 0:
+                    second += '.{:06d}'.format(self.microsecond)
+            form = form0 + '{:s}{:02d}:{:02d}:{:s}'
+            return form.format(self.year, self.month, self.day, sep,
+                               self.hour, self.minute, second)
         else:
             raise ValueError('illegal timespec')
 
@@ -1756,7 +1803,13 @@ class datetime(object):
 
     def to_tuple(self):
         """
-        Tuple with year, month, day, hour, minute, second, microsecond
+        Turn a datetime instance into a tuple of integers. Elements go
+        in the order of decreasing significance, making it easy to compare
+        datetime instances. Parts of the state that don't affect ordering
+        are omitted.
+        to_tuple(dt) is identical to (dt.year, dt.month, dt.day,
+        dt.hour, dt.minute, dt.second, dt.microsecond).
+        Compare to timetuple().
 
         Identical to cftime.datetime
 
@@ -1820,7 +1873,7 @@ class datetime(object):
         has_year_zero = self.has_year_zero
         delta = other
         if calendar == 'decimal360':
-            cfdt = cf.datetime(*dt.to_tuple(), calendar='360_day',
+            cfdt = cf.datetime(*to_tuple(dt), calendar='360_day',
                                has_year_zero=dt.has_year_zero)
             cfdt = cfdt + delta
             year, month, day, hour, minute, second, microsecond = (
@@ -1833,7 +1886,7 @@ class datetime(object):
                         hour, minute, second, microsecond,
                         calendar=dt.calendar, has_year_zero=dt.has_year_zero)
 
-    def __cmp__(self, other):
+    def __eq__(self, other):
         """
         Compare two datetime instances
 
@@ -1844,13 +1897,13 @@ class datetime(object):
             # comparing two datetime instances
             if ( (dt.calendar == dt_other.calendar) and
                  (dt.has_year_zero == dt_other.has_year_zero) ):
-                return dt.to_tuple() == dt_other.to_tuple()
+                return to_tuple(dt) == to_tuple(dt_other)
             else:
                 ord1 = 0
                 if dt.calendar == 'decimal':
                     ord1 = 1721425
                 ord2 = 0
-                if dt_other.calendar == 'decimal':
+                if dt_other.calendar == 'decimal':  # pragma: no cover
                     ord2 = 1721425
                 return (dt.toordinal(fractional=True) + ord1 ==
                         dt_other.toordinal(fractional=True) + ord2)
@@ -1909,13 +1962,6 @@ class datetime(object):
                     self.year, self.month, self.day,
                     self.hour, self.minute, self.second,
                     self.microsecond, self.calendar, self.has_year_zero))
-
-    def __richcmp__(self, other):
-        """
-        Compare two datetime instances
-
-        """
-        return self.__cmp__(other)
 
     def __str__(self):
         """
@@ -1976,7 +2022,7 @@ class datetime(object):
             elif isinstance(other, timedelta):
                 # datetime - timedelta
                 if dt.calendar == 'decimal360':
-                    cfdt = cf.datetime(*dt.to_tuple(), calendar='360_day',
+                    cfdt = cf.datetime(*to_tuple(dt), calendar='360_day',
                                        has_year_zero=dt.has_year_zero)
                     cfdt = cfdt - other
                     year, month, day, hour, minute, second, microsecond = (
