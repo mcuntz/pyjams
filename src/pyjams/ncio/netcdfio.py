@@ -37,6 +37,8 @@ History
     * Rename functions, e.g. create_dimensions -> copy_dimensions,
       May 2022, Matthias Cuntz
     * Add copy_variables, May 2022, Matthias Cuntz
+    * Delete unnecessary HDF5 filters in variable definition for compatibility
+      with netcdf4 > 1.6.0, Jun 2022, Matthias Cuntz
 
 """
 import numpy as np

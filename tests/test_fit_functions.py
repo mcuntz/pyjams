@@ -26,10 +26,8 @@ class TestFitFunctions(unittest.TestCase):
         p = [1., 1., 0.]
         x = np.arange(2)
         y = np.zeros(2)
-        self.assertEqual(cost_logistic(p, x, y),
-                         cost_abs(p, logistic_p, x, y))
-        self.assertEqual(cost2_logistic(p, x, y),
-                         cost_square(p, logistic_p, x, y))
+        assert cost_logistic(p, x, y) == cost_abs(p, logistic_p, x, y)
+        assert cost2_logistic(p, x, y) == cost_square(p, logistic_p, x, y)
 
     def test_arrhenius(self):
         import numpy as np
@@ -44,8 +42,8 @@ class TestFitFunctions(unittest.TestCase):
         out = np.exp(np.arange(2) / (T25 * R * (np.arange(2)+T25)))
         self.assertEqual(list(arrhenius(x, *p)), list(out))
         self.assertEqual(list(arrhenius_p(x, p)), list(out))
-        self.assertEqual(cost_arrhenius(p, x, y), np.sum(out))
-        self.assertEqual(cost2_arrhenius(p, x, y), np.sum(out**2))
+        assert cost_arrhenius(p, x, y) == np.sum(out)
+        assert cost2_arrhenius(p, x, y) == np.sum(out**2)
 
     def test_f1x(self):
         import numpy as np
@@ -57,8 +55,8 @@ class TestFitFunctions(unittest.TestCase):
         out = 2. / x
         self.assertEqual(list(f1x(x, *p)), list(out))
         self.assertEqual(list(f1x_p(x, p)), list(out))
-        self.assertEqual(cost_f1x(p, x, y), np.sum(out))
-        self.assertEqual(cost2_f1x(p, x, y), np.sum(out**2))
+        assert cost_f1x(p, x, y) == np.sum(out)
+        assert cost2_f1x(p, x, y) == np.sum(out**2)
 
     def test_fexp(self):
         import numpy as np
@@ -70,8 +68,8 @@ class TestFitFunctions(unittest.TestCase):
         out = np.exp(x)
         self.assertEqual(list(fexp(x, *p)), list(out))
         self.assertEqual(list(fexp_p(x, p)), list(out))
-        self.assertEqual(cost_fexp(p, x, y), np.sum(out))
-        self.assertEqual(cost2_fexp(p, x, y), np.sum(out**2))
+        assert cost_fexp(p, x, y) == np.sum(out)
+        assert cost2_fexp(p, x, y) == np.sum(out**2)
 
     def test_fgauss(self):
         import numpy as np
@@ -83,8 +81,8 @@ class TestFitFunctions(unittest.TestCase):
         out = 1. / np.sqrt(2.*np.pi) * np.exp(-np.abs(x-1.)/2.)
         self.assertEqual(list(gauss(x, *p)), list(out))
         self.assertEqual(list(gauss_p(x, p)), list(out))
-        self.assertEqual(cost_gauss(p, x, y), np.sum(out))
-        self.assertEqual(cost2_gauss(p, x, y), np.sum(out**2))
+        assert cost_gauss(p, x, y) == np.sum(out)
+        assert cost2_gauss(p, x, y) == np.sum(out**2)
 
     def test_lasslop(self):
         import numpy as np
@@ -100,8 +98,8 @@ class TestFitFunctions(unittest.TestCase):
         out = et - beta*Rg/(Rg+beta)
         self.assertEqual(list(lasslop(Rg, et, VPD, *p)), list(out))
         self.assertEqual(list(lasslop_p(Rg, et, VPD, p)), list(out))
-        self.assertEqual(cost_lasslop(p, Rg, et, VPD, y), np.sum(out))
-        self.assertEqual(cost2_lasslop(p, Rg, et, VPD, y), np.sum(out**2))
+        assert cost_lasslop(p, Rg, et, VPD, y) == np.sum(out)
+        assert cost2_lasslop(p, Rg, et, VPD, y) == np.sum(out**2)
 
     def test_line(self):
         import numpy as np
@@ -113,8 +111,8 @@ class TestFitFunctions(unittest.TestCase):
         out = np.arange(2)
         self.assertEqual(list(line(x, *p)), list(out))
         self.assertEqual(list(line_p(x, p)), list(out))
-        self.assertEqual(cost_line(p, x, y), np.sum(out))
-        self.assertEqual(cost2_line(p, x, y), np.sum(out**2))
+        assert cost_line(p, x, y) == np.sum(out)
+        assert cost2_line(p, x, y) == np.sum(out**2)
 
     def test_line0(self):
         import numpy as np
@@ -126,8 +124,8 @@ class TestFitFunctions(unittest.TestCase):
         out = np.arange(2)
         self.assertEqual(list(line0(x, *p)), list(out))
         self.assertEqual(list(line0_p(x, p)), list(out))
-        self.assertEqual(cost_line0(p, x, y), np.sum(out))
-        self.assertEqual(cost2_line0(p, x, y), np.sum(out**2))
+        assert cost_line0(p, x, y) == np.sum(out)
+        assert cost2_line0(p, x, y) == np.sum(out**2)
 
     def test_lloyd_fix(self):
         import numpy as np
@@ -140,8 +138,8 @@ class TestFitFunctions(unittest.TestCase):
         out = np.exp(1./56.02 - 1./(x-227.13))
         self.assertEqual(list(lloyd_fix(x, *p)), list(out))
         self.assertEqual(list(lloyd_fix_p(x, p)), list(out))
-        self.assertEqual(cost_lloyd_fix(p, x, y), np.sum(out))
-        self.assertEqual(cost2_lloyd_fix(p, x, y), np.sum(out**2))
+        assert cost_lloyd_fix(p, x, y) == np.sum(out)
+        assert cost2_lloyd_fix(p, x, y) == np.sum(out**2)
 
     def test_lloyd_only_rref(self):
         import numpy as np
@@ -155,8 +153,8 @@ class TestFitFunctions(unittest.TestCase):
         out = 2. * np.arange(2)
         self.assertEqual(list(lloyd_only_rref(x, *p)), list(out))
         self.assertEqual(list(lloyd_only_rref_p(x, p)), list(out))
-        self.assertEqual(cost_lloyd_only_rref(p, x, y), np.sum(out))
-        self.assertEqual(cost2_lloyd_only_rref(p, x, y), np.sum(out**2))
+        assert cost_lloyd_only_rref(p, x, y) == np.sum(out)
+        assert cost2_lloyd_only_rref(p, x, y) == np.sum(out**2)
 
     def test_logistic(self):
         import numpy as np
@@ -169,8 +167,8 @@ class TestFitFunctions(unittest.TestCase):
         out = 1. / (1. + np.exp(-x))
         self.assertEqual(list(logistic(x, *p)), list(out))
         self.assertEqual(list(logistic_p(x, p)), list(out))
-        self.assertEqual(cost_logistic(p, x, y), np.sum(out))
-        self.assertEqual(cost2_logistic(p, x, y), np.sum(out**2))
+        assert cost_logistic(p, x, y) == np.sum(out)
+        assert cost2_logistic(p, x, y) == np.sum(out**2)
 
     def test_logistic_offset(self):
         import numpy as np
@@ -184,8 +182,8 @@ class TestFitFunctions(unittest.TestCase):
         out = 1. / (1. + np.exp(-x)) + 1.
         self.assertEqual(list(logistic_offset(x, *p)), list(out))
         self.assertEqual(list(logistic_offset_p(x, p)), list(out))
-        self.assertEqual(cost_logistic_offset(p, x, y), np.sum(out))
-        self.assertEqual(cost2_logistic_offset(p, x, y), np.sum(out**2))
+        assert cost_logistic_offset(p, x, y) == np.sum(out)
+        assert cost2_logistic_offset(p, x, y) == np.sum(out**2)
 
     def test_logistic2_offset(self):
         import numpy as np
@@ -197,10 +195,14 @@ class TestFitFunctions(unittest.TestCase):
         x = np.arange(2)
         y = np.zeros(2)
         out = 1. / (1. + np.exp(-x)) - 1. / (1. + np.exp(-2.*x)) + 1.
-        self.assertEqual(list(logistic2_offset(x, *p)), list(out))
-        self.assertEqual(list(logistic2_offset_p(x, p)), list(out))
-        self.assertEqual(cost_logistic2_offset(p, x, y), np.sum(out))
-        self.assertEqual(cost2_logistic2_offset(p, x, y), np.sum(out**2))
+        self.assertEqual(list(np.around(logistic2_offset(x, *p), 14)),
+                         list(np.around(out, 14)))
+        self.assertEqual(list(np.around(logistic2_offset_p(x, p), 14)),
+                         list(np.around(out, 14)))
+        assert (np.around(cost_logistic2_offset(p, x, y), 14) ==
+                np.around(np.sum(out), 14))
+        assert (np.around(cost2_logistic2_offset(p, x, y), 14) ==
+                np.around(np.sum(out**2), 14))
 
     def test_poly(self):
         import numpy as np
@@ -212,8 +214,8 @@ class TestFitFunctions(unittest.TestCase):
         out = 0. + 1. * x + 2. * x**2 + 3. * x**3
         self.assertEqual(list(poly(x, *p)), list(out))
         self.assertEqual(list(poly_p(x, p)), list(out))
-        self.assertEqual(cost_poly(p, x, y), np.sum(out))
-        self.assertEqual(cost2_poly(p, x, y), np.sum(out**2))
+        assert cost_poly(p, x, y) == np.sum(out)
+        assert cost2_poly(p, x, y) == np.sum(out**2)
 
     def test_sabx(self):
         import numpy as np
@@ -225,8 +227,8 @@ class TestFitFunctions(unittest.TestCase):
         out = np.sqrt(2. / x)
         self.assertEqual(list(sabx(x, *p)), list(out))
         self.assertEqual(list(sabx_p(x, p)), list(out))
-        self.assertEqual(cost_sabx(p, x, y), np.sum(out))
-        self.assertEqual(cost2_sabx(p, x, y), np.sum(out**2))
+        assert cost_sabx(p, x, y) == np.sum(out)
+        assert cost2_sabx(p, x, y) == np.sum(out**2)
 
     def test_see(self):
         import numpy as np
@@ -238,8 +240,8 @@ class TestFitFunctions(unittest.TestCase):
         out = np.array([0., 0.25])
         self.assertEqual(list(see(x, *p)), list(out))
         self.assertEqual(list(see_p(x, p)), list(out))
-        self.assertEqual(cost_see(p, x, y), np.sum(out))
-        self.assertEqual(cost2_see(p, x, y), np.sum(out**2))
+        assert cost_see(p, x, y) == np.sum(out)
+        assert cost2_see(p, x, y) == np.sum(out**2)
 
 
 if __name__ == "__main__":
