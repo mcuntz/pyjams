@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fit functions &#8212; pyjams 1.10.dev2 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Fit functions &#8212; pyjams 1.25.dev4 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -34,8 +36,8 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-pyjams.functions.fit_functions">
-<span id="fit-functions"></span><h1>Fit functions<a class="headerlink" href="#module-pyjams.functions.fit_functions" title="Permalink to this headline">¶</a></h1>
+  <section id="module-pyjams.functions.fit_functions">
+<span id="fit-functions"></span><h1>Fit functions<a class="headerlink" href="#module-pyjams.functions.fit_functions" title="Permalink to this heading">¶</a></h1>
 <p>Common functions used in scipy’s curve_fit or minimize parameter estimations.</p>
 <p>For all fit functions, it defines the functions in two forms (ex. of 3
 params):</p>
@@ -89,7 +91,7 @@ used as second argument:</p>
 first column. The second form has a <cite>_p</cite> appended to the name. The cost
 functions have <cite>cost_</cite> or <cite>cost2_</cite> prepended to the name, for example <a class="reference internal" href="#pyjams.functions.fit_functions.gauss" title="pyjams.functions.fit_functions.gauss"><code class="xref py py-func docutils literal notranslate"><span class="pre">gauss()</span></code></a>,
 <a class="reference internal" href="#pyjams.functions.fit_functions.gauss_p" title="pyjams.functions.fit_functions.gauss_p"><code class="xref py py-func docutils literal notranslate"><span class="pre">gauss_p()</span></code></a>, <a class="reference internal" href="#pyjams.functions.fit_functions.cost_gauss" title="pyjams.functions.fit_functions.cost_gauss"><code class="xref py py-func docutils literal notranslate"><span class="pre">cost_gauss()</span></code></a>, <a class="reference internal" href="#pyjams.functions.fit_functions.cost2_gauss" title="pyjams.functions.fit_functions.cost2_gauss"><code class="xref py py-func docutils literal notranslate"><span class="pre">cost2_gauss()</span></code></a>:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 23%" />
 <col style="width: 77%" />
@@ -156,19 +158,15 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l’Agriculture, l’Alimentation et
 l’Environnement (INRAE), Nancy, France.</p>
 <dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
+<dt class="field-odd">copyright<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.</p>
 </dd>
-<dt class="field-even">license</dt>
+<dt class="field-even">license<span class="colon">:</span></dt>
 <dd class="field-even"><p>MIT License, see LICENSE for details.</p>
 </dd>
 </dl>
 <p>Functions:</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.functions.fit_functions.cost_abs" title="pyjams.functions.fit_functions.cost_abs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cost_abs</span></code></a>(p, func, x, y)</p></td>
 <td><p>General cost function for robust optimising <cite>func(x, p)</cite> vs <cite>y</cite> with sum of absolute deviations.</p></td>
@@ -358,16 +356,16 @@ May 2013, Matthias Cuntz</p></li>
 <span class="sig-name descname"><span class="pre">arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.arrhenius" title="Permalink to this definition">¶</a></dt>
 <dd><p>Arrhenius temperature dependence of rates</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – temperature [degC]</p></li>
 <li><p><strong>E</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – activation energy [J]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -378,16 +376,16 @@ May 2013, Matthias Cuntz</p></li>
 <span class="sig-name descname"><span class="pre">arrhenius_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#arrhenius_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.arrhenius_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Arrhenius temperature dependence of rates</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – temperature [degC]</p></li>
 <li><p><strong>p</strong> (<em>iterable</em>) – <cite>p[0]</cite> = activation energy [J]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -398,17 +396,17 @@ May 2013, Matthias Cuntz</p></li>
 <span class="sig-name descname"><span class="pre">cost2_arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost2_arrhenius" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of squared deviations of obs and arrhenius function</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = activation energy [J]</p></li>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -419,7 +417,7 @@ May 2013, Matthias Cuntz</p></li>
 <span class="sig-name descname"><span class="pre">cost2_f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost2_f1x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of squared deviations of obs and general 1/x function: <span class="math notranslate nohighlight">\(a + b/x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -433,10 +431,10 @@ May 2013, Matthias Cuntz</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -448,7 +446,7 @@ May 2013, Matthias Cuntz</p></li>
 <dd><p>Sum of squared deviations of obs and general exponential function:
 <span class="math notranslate nohighlight">\(a + b * exp(c*x)\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
@@ -463,10 +461,10 @@ May 2013, Matthias Cuntz</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -478,7 +476,7 @@ May 2013, Matthias Cuntz</p></li>
 <dd><p>Sum of squared deviations of obs and Gauss function:
 <span class="math notranslate nohighlight">\(1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -492,10 +490,10 @@ May 2013, Matthias Cuntz</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -506,7 +504,7 @@ May 2013, Matthias Cuntz</p></li>
 <span class="sig-name descname"><span class="pre">cost2_lasslop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NEE</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lasslop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost2_lasslop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of squared deviations of obs and Lasslop et al (2010)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
@@ -526,10 +524,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>NEE</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed net ecosystem exchange [umol(CO2) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -540,7 +538,7 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">cost2_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost2_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of squared deviations of obs and straight line: <span class="math notranslate nohighlight">\(a + b*x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -554,10 +552,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -569,17 +567,17 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of squared deviations of obs and straight line through origin:
 <span class="math notranslate nohighlight">\(a*x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = a</p></li>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -590,7 +588,7 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">cost2_lloyd_fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lloyd_fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost2_lloyd_fix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of squared deviations of obs and Lloyd &amp; Taylor (1994) Arrhenius type.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -604,10 +602,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -618,17 +616,17 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">cost2_lloyd_only_rref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lloyd_only_rref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost2_lloyd_only_rref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of squared deviations of obs and Lloyd &amp; Taylor with fixed E0</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 <li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
 <li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -640,7 +638,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of squared deviations of obs and logistic function
 <span class="math notranslate nohighlight">\(L/(1+exp(-k(x-x0)))\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
@@ -655,10 +653,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -670,7 +668,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of squared deviations of obs and double logistic function with offset:
 <span class="math notranslate nohighlight">\(L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=7</cite>)</dt><dd><ul>
@@ -689,10 +687,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -704,7 +702,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of squared deviations of obs and logistic function 1/x function:
 <span class="math notranslate nohighlight">\(L/(1+exp(-k(x-x0))) + a\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
@@ -720,10 +718,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -735,17 +733,17 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of squared deviations of obs and general polynomial:
 <span class="math notranslate nohighlight">\(c0 + c1*x + c2*x**2 + ... + cn*x**n\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -757,7 +755,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of squared deviations of obs and square root of general 1/x function:
 <span class="math notranslate nohighlight">\(sqrt(a + b/x)\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -771,10 +769,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -786,7 +784,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of squared deviations of obs and fit function of Sequential Elementary
 Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
@@ -801,10 +799,10 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -816,7 +814,7 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dd><p>General cost function for robust optimising <cite>func(x, p)</cite> vs <cite>y</cite> with sum
 of absolute deviations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters</p></li>
 <li><p><strong>func</strong> (<em>callable</em>) – <cite>fun(x,p) -&gt; float</cite></p></li>
@@ -824,10 +822,10 @@ of absolute deviations.</p>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -838,17 +836,17 @@ of absolute deviations.</p>
 <span class="sig-name descname"><span class="pre">cost_arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost_arrhenius" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of absolute deviations of obs and arrhenius function</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = activation energy [J]</p></li>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -859,7 +857,7 @@ of absolute deviations.</p>
 <span class="sig-name descname"><span class="pre">cost_f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost_f1x" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of absolute deviations of obs and general 1/x function: <span class="math notranslate nohighlight">\(a + b/x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -873,10 +871,10 @@ of absolute deviations.</p>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -888,7 +886,7 @@ of absolute deviations.</p>
 <dd><p>Sum of absolute deviations of obs and general exponential function:
 <span class="math notranslate nohighlight">\(a + b * exp(c*x)\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
@@ -903,10 +901,10 @@ of absolute deviations.</p>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -918,7 +916,7 @@ of absolute deviations.</p>
 <dd><p>Sum of absolute deviations of obs and Gauss function:
 <span class="math notranslate nohighlight">\(1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -932,10 +930,10 @@ of absolute deviations.</p>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -946,7 +944,7 @@ of absolute deviations.</p>
 <span class="sig-name descname"><span class="pre">cost_lasslop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NEE</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lasslop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost_lasslop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of absolute deviations of obs and Lasslop et al (2010)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
@@ -966,10 +964,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>NEE</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed net ecosystem exchange [umol(CO2) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -980,7 +978,7 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">cost_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of absolute deviations of obs and straight line: <span class="math notranslate nohighlight">\(a + b*x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -994,10 +992,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1009,17 +1007,17 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of absolute deviations of obs and straight line through origin:
 <span class="math notranslate nohighlight">\(a*x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = a</p></li>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1030,7 +1028,7 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">cost_lloyd_fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lloyd_fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost_lloyd_fix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of absolute deviations of obs and Lloyd &amp; Taylor (1994) Arrhenius type.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -1044,10 +1042,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1058,17 +1056,17 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">cost_lloyd_only_rref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lloyd_only_rref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.cost_lloyd_only_rref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sum of absolute deviations of obs and Lloyd &amp; Taylor with fixed E0</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 <li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
 <li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1080,7 +1078,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of absolute deviations of obs and logistic function
 <span class="math notranslate nohighlight">\(L/(1+exp(-k(x-x0)))\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
@@ -1095,10 +1093,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1110,7 +1108,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of absolute deviations of obs and double logistic function with offset:
 <span class="math notranslate nohighlight">\(L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=7</cite>)</dt><dd><ul>
@@ -1129,10 +1127,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1144,7 +1142,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of absolute deviations of obs and logistic function 1/x function:
 <span class="math notranslate nohighlight">\(L/(1+exp(-k(x-x0))) + a\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
@@ -1160,10 +1158,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1175,17 +1173,17 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of absolute deviations of obs and general polynomial:
 <span class="math notranslate nohighlight">\(c0 + c1*x + c2*x**2 + ... + cn*x**n\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1197,7 +1195,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of absolute deviations of obs and square root of general 1/x function:
 <span class="math notranslate nohighlight">\(sqrt(a + b/x)\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
@@ -1211,10 +1209,10 @@ with VPD increase [Pa-1]</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1226,7 +1224,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Sum of absolute deviations of obs and fit function of Sequential Elementary
 Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
@@ -1241,10 +1239,10 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of absolute deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1256,7 +1254,7 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dd><p>General cost function for optimising <cite>func(x, p)</cite> vs <cite>y</cite> with sum of
 square deviations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters</p></li>
 <li><p><strong>func</strong> (<em>callable</em>) – <cite>fun(x,p) -&gt; float</cite></p></li>
@@ -1264,10 +1262,10 @@ square deviations.</p>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of squared deviations</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1278,17 +1276,17 @@ square deviations.</p>
 <span class="sig-name descname"><span class="pre">f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.f1x" title="Permalink to this definition">¶</a></dt>
 <dd><p>General 1/x function: <span class="math notranslate nohighlight">\(a + b/x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – first parameter</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – second parameter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1299,7 +1297,7 @@ square deviations.</p>
 <span class="sig-name descname"><span class="pre">f1x_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#f1x_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.f1x_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>General 1/x function: <span class="math notranslate nohighlight">\(a + b/x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
@@ -1312,10 +1310,10 @@ square deviations.</p>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1326,7 +1324,7 @@ square deviations.</p>
 <span class="sig-name descname"><span class="pre">fexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#fexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.fexp" title="Permalink to this definition">¶</a></dt>
 <dd><p>General exponential function: <span class="math notranslate nohighlight">\(a + b * exp(c*x)\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – first parameter</p></li>
@@ -1334,10 +1332,10 @@ square deviations.</p>
 <li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – third parameter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1348,7 +1346,7 @@ square deviations.</p>
 <span class="sig-name descname"><span class="pre">fexp_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#fexp_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.fexp_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>General exponential function: <span class="math notranslate nohighlight">\(a + b * exp(c*x)\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
@@ -1362,10 +1360,10 @@ square deviations.</p>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1377,17 +1375,17 @@ square deviations.</p>
 <dd><p>Gauss function:
 <span class="math notranslate nohighlight">\(1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>mu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – mean</p></li>
 <li><p><strong>sig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – width</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1399,7 +1397,7 @@ square deviations.</p>
 <dd><p>Gauss function:
 <span class="math notranslate nohighlight">\(1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
@@ -1412,10 +1410,10 @@ square deviations.</p>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1430,7 +1428,7 @@ of NEE as by Falge et al. (2001), where the respiration is calculated
 with Lloyd &amp; Taylor (1994), and the maximum canopy uptake rate at
 light saturation decreases exponentially with VPD as in Koerner (1995).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Global radiation [W m-2]</p></li>
 <li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
@@ -1443,10 +1441,10 @@ VPD increase [Pa-1]</p></li>
 <li><p><strong>Rref</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Respiration at Tref (10 degC) [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>net ecosystem exchange [umol(CO2) m-2 s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1461,7 +1459,7 @@ of NEE as by Falge et al. (2001), where the respiration is calculated
 with Lloyd &amp; Taylor (1994), and the maximum canopy uptake rate at
 light saturation decreases exponentially with VPD as in Koerner (1995).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Global radiation [W m-2]</p></li>
 <li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
@@ -1480,10 +1478,10 @@ with VPD increase [Pa-1]</p></li>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>net ecosystem exchange [umol(CO2) m-2 s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1494,17 +1492,17 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Straight line: <span class="math notranslate nohighlight">\(a + b*x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – first parameter</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – second parameter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1515,16 +1513,16 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">line0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.line0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Straight line through origin: <span class="math notranslate nohighlight">\(a*x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – first parameter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1535,16 +1533,16 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">line0_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line0_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.line0_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Straight line through origin: <span class="math notranslate nohighlight">\(a*x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = a</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1555,7 +1553,7 @@ with VPD increase [Pa-1]</p></li>
 <span class="sig-name descname"><span class="pre">line_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.line_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Straight line: <span class="math notranslate nohighlight">\(a + b*x\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
@@ -1568,10 +1566,10 @@ with VPD increase [Pa-1]</p></li>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1583,17 +1581,17 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Soil respiration of Lloyd &amp; Taylor (1994)</p>
 <p>Lloyd &amp; Taylor (1994) Arrhenius type with T0=-46.02 degC and Tref=10 degC</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Temperature [K]</p></li>
 <li><p><strong>Rref</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 <li><p><strong>E0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Activation energy [K]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Respiration [umol(C) m-2 s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1605,7 +1603,7 @@ with VPD increase [Pa-1]</p></li>
 <dd><p>Soil respiration of Lloyd &amp; Taylor (1994)</p>
 <p>Lloyd &amp; Taylor (1994) Arrhenius type with T0=-46.02 degC and Tref=10 degC</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Temperature [K]</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
@@ -1618,10 +1616,10 @@ with VPD increase [Pa-1]</p></li>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Respiration [umol(C) m-2 s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1635,16 +1633,16 @@ with VPD increase [Pa-1]</p></li>
 the exponential term outside the routine and the fitting
 becomes linear. One could also use functions.line0.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
 <li><p><strong>Rref</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Respiration [umol(C) m-2 s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1658,16 +1656,16 @@ becomes linear. One could also use functions.line0.</p>
 the exponential term outside the routine and the fitting
 becomes linear. One could also use functions.line0.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Respiration [umol(C) m-2 s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1678,16 +1676,16 @@ becomes linear. One could also use functions.line0.</p>
 <span class="sig-name descname"><span class="pre">poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.poly" title="Permalink to this definition">¶</a></dt>
 <dd><p>General polynomial: <span class="math notranslate nohighlight">\(c0 + c1*x + c2*x**2 + ... + cn*x**n\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – parameters <cite>len(args)=n+1</cite></p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1698,16 +1696,16 @@ becomes linear. One could also use functions.line0.</p>
 <span class="sig-name descname"><span class="pre">poly_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#poly_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.poly_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>General polynomial: <span class="math notranslate nohighlight">\(c0 + c1*x + c2*x**2 + ... + cn*x**n\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1718,17 +1716,17 @@ becomes linear. One could also use functions.line0.</p>
 <span class="sig-name descname"><span class="pre">sabx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#sabx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.sabx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Square root of general 1/x function: <span class="math notranslate nohighlight">\(sqrt(a + b/x)\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – first parameter</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – second parameter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1739,7 +1737,7 @@ becomes linear. One could also use functions.line0.</p>
 <span class="sig-name descname"><span class="pre">sabx_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#sabx_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.sabx_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Square root of general 1/x function: <span class="math notranslate nohighlight">\(sqrt(a + b/x)\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
@@ -1752,10 +1750,10 @@ becomes linear. One could also use functions.line0.</p>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1766,7 +1764,7 @@ becomes linear. One could also use functions.line0.</p>
 <span class="sig-name descname"><span class="pre">see</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#see"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.see" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit function of Sequential Elementary Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – first parameter</p></li>
@@ -1774,10 +1772,10 @@ becomes linear. One could also use functions.line0.</p>
 <li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – third parameter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
@@ -1788,7 +1786,7 @@ becomes linear. One could also use functions.line0.</p>
 <span class="sig-name descname"><span class="pre">see_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#see_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fit_functions.see_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit function of Sequential Elementary Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
 <li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
@@ -1802,16 +1800,16 @@ becomes linear. One could also use functions.line0.</p>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>function value(s)</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
           </div>
@@ -1895,7 +1893,7 @@ becomes linear. One could also use functions.line0.</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1904,7 +1902,7 @@ becomes linear. One could also use functions.line0.</p>
       &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

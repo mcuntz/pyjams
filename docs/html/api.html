@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Reference &#8212; pyjams 1.10.dev2 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>API Reference &#8212; pyjams 1.25.dev4 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,8 +35,8 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-pyjams">
-<span id="api-reference"></span><span id="api"></span><h1>API Reference<a class="headerlink" href="#module-pyjams" title="Permalink to this headline">¶</a></h1>
+  <section id="module-pyjams">
+<span id="api-reference"></span><span id="api"></span><h1>API Reference<a class="headerlink" href="#module-pyjams" title="Permalink to this heading">¶</a></h1>
 <p>pyjams is a general Python package with miscellaneous utility functions used in
 several other packages. It is offering miscellaneous functions in different
 categories, such as reading different file formats, julian date routines, or
@@ -44,20 +46,16 @@ scipy.optimize.fmin or scipy.optimize.curvefit, and much more.</p>
 <p>The package has evolved from its predecessor the JAMS Python package
 <a class="reference external" href="https://github.com/mcuntz/jams_python">https://github.com/mcuntz/jams_python</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
+<dt class="field-odd">copyright<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Copyright 2021-2022 Matthias Cuntz, see AUTHORS.md for details.</p>
 </dd>
-<dt class="field-even">license</dt>
+<dt class="field-even">license<span class="colon">:</span></dt>
 <dd class="field-even"><p>MIT License, see LICENSE for details.</p>
 </dd>
 </dl>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="alpha_equ_h2o.html#module-pyjams.alpha_equ_h2o" title="pyjams.alpha_equ_h2o"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha_equ_h2o</span></code></a>(temp[, isotope, undef, eps, ...])</p></td>
 <td><p>Isotopic fractionation factors during liquid-water vapour equilibration.</p></td>
@@ -170,10 +168,12 @@ Apr 2022, Matthias Cuntz</p></li>
 <li><p>v1.22, added ncio, May 2022, Matthias Cuntz</p></li>
 <li><p>v1.23, added datetime module, Jun 2022, Matthias Cuntz</p></li>
 <li><p>v1.24, moved docu to Github Pages, Jun 2022, Matthias Cuntz</p></li>
+<li><p>v1.25, Microseconds and negative years in date2date and datetime,
+Jun 2022, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
-</div>
+</section>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a><ul>
@@ -239,7 +239,7 @@ Apr 2022, Matthias Cuntz</p></li>
 </li>
 </ul>
 </div>
-</div>
+</section>
 
 
           </div>
@@ -311,7 +311,7 @@ Apr 2022, Matthias Cuntz</p></li>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -320,7 +320,7 @@ Apr 2022, Matthias Cuntz</p></li>
       &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
