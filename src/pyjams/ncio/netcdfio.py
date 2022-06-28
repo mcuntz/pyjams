@@ -104,6 +104,14 @@ def _get_variable_definition(ncvar):
 
     """
     out = ncvar.filters() if ncvar.filters() else {}
+    # Delete HDF5 filters that are False, e.g. because the plugin is not
+    # available. zlib is always available.
+    # Necessary for netcdf4 > 1.6.0 because it gives all possible filters,
+    # installed or not, i.e. 'zlib', 'szip', 'zstd', 'bzip2', 'blosc',
+    # 'shuffle', 'complevel', 'fletcher32'
+    todel = [ oo for oo in out if (oo != 'zlib') and (not out[oo]) ]
+    for oo in todel:
+        del out[oo]
     # chunksizes
     chunks = None
     if "chunking" in dir(ncvar):
