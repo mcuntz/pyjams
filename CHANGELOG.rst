@@ -9,6 +9,8 @@ v1.25 (Jun 2022)
     * Delete unnecessary HDF5 filters in variable definition in `netcdfio`
       for compatibility with netcdf4 > 1.6.0.
     * Reduce precision to 14 digits for tests of `logistic2_offset`.
+    * Remove Python version 3.7 from CI but leave version 3.6 because of
+      problems with netcdf4 for 3.7 on Windows.
 
 v1.24 (Jun 2022)
     * Removed documentation from `Read the Docs` and moved to Github Pages:
