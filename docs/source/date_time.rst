@@ -4,4 +4,4 @@ Date and Time
 .. toctree::
 
    date2date.rst
-   datetime.rst
+   class_datetime.rst

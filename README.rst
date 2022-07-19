@@ -183,6 +183,8 @@ Functions and modules (alphabetical)
      - Median absolute deviation test
    * - mcPlot
      - Matthias Cuntz' standard plotting class
+   * - means
+     - Calculate daily, monthly, yearly, etc. means of data
    * - morris_sampling
      - Sampling of optimised trajectories for Morris measures / Elementary
        Effects
@@ -282,6 +284,8 @@ Functions and modules per category
          - Determination of bandwidth for kernel regression
        * - mad
          - Median absolute deviation test
+       * - means
+         - Calculate daily, monthly, yearly, etc. means of data
 
 .. _Date and Time:
 

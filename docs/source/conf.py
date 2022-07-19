@@ -263,7 +263,7 @@ intersphinx_mapping = {
     "Pandas":      ("https://pandas.pydata.org/docs/",               None),
     "cython":      ("https://cython.readthedocs.io/en/latest/",      None),
     "cftime":      ("https://unidata.github.io/cftime/",             None),
-    "netcdf4-python": ("https://unidata.github.io/netcdf4-python/",  None),
+    # "netcdf4-python": ("https://unidata.github.io/netcdf4-python/",  None),
     "openpyxl":    ("https://openpyxl.readthedocs.io/en/stable/",    None),
     "Sphinx":      ("https://www.sphinx-doc.org/en/master/",         None),
     "schwimmbad":  ("https://schwimmbad.readthedocs.io/en/latest/",  None),

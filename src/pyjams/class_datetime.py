@@ -119,7 +119,7 @@ def _create_datetime(date_type, args, kwargs):
 # Every 28 years the calendar repeats, except through century leap
 # years where it's 6 years. But only if you're using the Gregorian
 # calendar. ;-)
-# Allow negative years
+# Make also 4-digit negative years
 # Allow .%f for microseconds
 def _strftime(dt, fmt):
     if _illegal_s.search(fmt):
@@ -1161,6 +1161,10 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
 
     # use cftime.date2num if possible
     if iscf:
+        if not remainder.startswith('-'):
+            if int(remainder.split('-')[0]) == 0:
+                if has_year_zero is not None:
+                    has_year_zero = True
         out = cf.date2num(mdates, units, calendar=icalendar,
                           has_year_zero=has_year_zero)
 
@@ -1319,6 +1323,13 @@ def num2date(times, units='', calendar='standard',
 
     # use cftime.num2date if possible
     if iscf:
+        if remainder.startswith('-'):
+            only_use_python_datetimes = False
+        else:
+            if int(remainder.split('-')[0]) == 0:
+                only_use_python_datetimes = False
+                if has_year_zero is not None:
+                    has_year_zero = True
         out = cf.num2date(
             times, units, calendar=calendar,
             only_use_cftime_datetimes=only_use_cftime_datetimes,
@@ -1690,7 +1701,7 @@ class datetime(object):
             if timespec == 'milliseconds':
                 millisecs = int(round(self.microsecond / 1000, 0))
                 second += '.{:03d}'.format(millisecs)
-            if timespec == 'microseconds':
+            elif timespec == 'microseconds':
                 second += '.{:06d}'.format(self.microsecond)
             else:
                 if self.microsecond > 0:

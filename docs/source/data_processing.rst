@@ -5,3 +5,4 @@ Data Processing
 
    kernel_regression.rst
    mad.rst
+   means.rst

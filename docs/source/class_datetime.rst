@@ -1,7 +1,7 @@
 datetime module
 ---------------
 
-.. automodule:: pyjams.datetime
+.. automodule:: pyjams.class_datetime
    :members:
    :undoc-members:
    :inherited-members:

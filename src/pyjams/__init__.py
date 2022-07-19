@@ -24,8 +24,8 @@ Subpackages
    color
    const
    date2date
+   class_datetime
    division
-   datetime
    esat
    fgui
    fsread
@@ -115,7 +115,7 @@ from .date2date import us2date, us2en, us2fr
 # catch division by zero
 from .division import division, div
 # cftime extension
-from .datetime import date2dec, date2num, dec2date, num2date, datetime
+from .class_datetime import date2dec, date2num, dec2date, num2date, datetime
 # saturation vapour pressure over water and ice
 from .esat import esat
 # GUI dialogs to choose files and directories using Tkinter

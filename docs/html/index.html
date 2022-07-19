@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Quickstart &#8212; pyjams 1.25.dev4 documentation</title>
+    <title>Quickstart &#8212; pyjams 0.0.0.dev0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -72,7 +72,9 @@ l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy, France.</
 <li><p><a class="reference external" href="https://numpy.org/">numpy</a></p></li>
 <li><p><a class="reference external" href="https://scipy.org/">scipy</a></p></li>
 <li><p><a class="reference external" href="https://matplotlib.org/">matplotlib</a></p></li>
+<li><p><a class="reference external" href="https://github.com/Unidata/cftime">cftime</a></p></li>
 <li><p><a class="reference external" href="https://github.com/Unidata/netcdf4-python">netCDF4</a></p></li>
+<li><p><a class="reference external" href="https://foss.heptapod.net/openpyxl/openpyxl">openpyxl</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adrn/schwimmbad/">schwimmbad</a></p></li>
 </ul>
 </dd>
@@ -142,7 +144,7 @@ iterables</p></td>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2date" title="pyjams.date2date.date2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2date()</span></code></a></p></td>
 <td><p>Convert date representations between different regional variants</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="datetime.html#pyjams.datetime.date2dec" title="pyjams.datetime.date2dec"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2dec()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.date2dec" title="pyjams.class_datetime.date2dec"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2dec()</span></code></a></p></td>
 <td><p>Same as <cite>date2num</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2en" title="pyjams.date2date.date2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2en()</span></code></a></p></td>
@@ -151,13 +153,13 @@ iterables</p></td>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2fr" title="pyjams.date2date.date2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2fr()</span></code></a></p></td>
 <td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="datetime.html#pyjams.datetime.date2num" title="pyjams.datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.date2num" title="pyjams.class_datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p></td>
 <td><p>Return numeric time values given datetime objects or strings</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2us" title="pyjams.date2date.date2us"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2us()</span></code></a></p></td>
 <td><p>Convert dates to American date format MM/DD/YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="datetime.html#pyjams.datetime.datetime" title="pyjams.datetime.datetime"><code class="xref py py-func docutils literal notranslate"><span class="pre">datetime()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.datetime" title="pyjams.class_datetime.datetime"><code class="xref py py-func docutils literal notranslate"><span class="pre">datetime()</span></code></a></p></td>
 <td><p>Class as cftime.datetime for non-CF-conform calendars</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">dec2date()</span></code></p></td>
@@ -240,67 +242,70 @@ functions to be used with <a class="reference external" href="https://docs.scipy
 <tr class="row-odd"><td><p><a class="reference internal" href="mcplot.html#pyjams.mcplot.mcPlot" title="pyjams.mcplot.mcPlot"><code class="xref py py-class docutils literal notranslate"><span class="pre">mcPlot</span></code></a></p></td>
 <td><p>Matthias Cuntz’ standard plotting class</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="means.html#module-pyjams.means" title="pyjams.means"><code class="xref py py-func docutils literal notranslate"><span class="pre">means()</span></code></a></p></td>
+<td><p>Calculate daily, monthly, yearly, etc. means of data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
 <td><p>Sampling of optimised trajectories for Morris measures / Elementary
 Effects</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.ncinfo" title="pyjams.readnetcdf.ncinfo"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncinfo()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.ncinfo" title="pyjams.readnetcdf.ncinfo"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncinfo()</span></code></a></p></td>
 <td><p>Same as <cite>infonetcdf</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ncio.html#module-pyjams.ncio" title="pyjams.ncio"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ncio</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ncio.html#module-pyjams.ncio" title="pyjams.ncio"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ncio</span></code></a></p></td>
 <td><p>netCDF4 functions to copy a netcdf file while doing some
 transformations on variables and dimensions</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.ncread" title="pyjams.readnetcdf.ncread"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncread()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.ncread" title="pyjams.readnetcdf.ncread"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncread()</span></code></a></p></td>
 <td><p>Same as <cite>readnetcdf</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="datetime.html#pyjams.datetime.num2date" title="pyjams.datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.num2date" title="pyjams.class_datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
 <td><p>Return datetime objects given numeric time values</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="position.html#module-pyjams.position" title="pyjams.position"><code class="xref py py-func docutils literal notranslate"><span class="pre">position()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="position.html#module-pyjams.position" title="pyjams.position"><code class="xref py py-func docutils literal notranslate"><span class="pre">position()</span></code></a></p></td>
 <td><p>Position arrays of subplots to be used with add_axes</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.readnetcdf" title="pyjams.readnetcdf.readnetcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">readnetcdf()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.readnetcdf" title="pyjams.readnetcdf.readnetcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">readnetcdf()</span></code></a></p></td>
 <td><p>Read variables from netCDF file</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="romanliterals.html#pyjams.romanliterals.roman2int" title="pyjams.romanliterals.roman2int"><code class="xref py py-func docutils literal notranslate"><span class="pre">roman2int()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="romanliterals.html#pyjams.romanliterals.roman2int" title="pyjams.romanliterals.roman2int"><code class="xref py py-func docutils literal notranslate"><span class="pre">roman2int()</span></code></a></p></td>
 <td><p>Roman numeral to integer conversion</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="screening.html#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="screening.html#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a></p></td>
 <td><p>Parameter screening using Morris’ method of Elementary Effects</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.signature2plot" title="pyjams.text2plot.signature2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">signature2plot()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.signature2plot" title="pyjams.text2plot.signature2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">signature2plot()</span></code></a></p></td>
 <td><p>Write a copyright notice on a plot</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.sread" title="pyjams.fsread.sread"><code class="xref py py-func docutils literal notranslate"><span class="pre">sread()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.sread" title="pyjams.fsread.sread"><code class="xref py py-func docutils literal notranslate"><span class="pre">sread()</span></code></a></p></td>
 <td><p>Read strings from a file into 2D string array</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="str2tex.html#module-pyjams.str2tex" title="pyjams.str2tex"><code class="xref py py-func docutils literal notranslate"><span class="pre">str2tex()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="str2tex.html#module-pyjams.str2tex" title="pyjams.str2tex"><code class="xref py py-func docutils literal notranslate"><span class="pre">str2tex()</span></code></a></p></td>
 <td><p>Convert strings to LaTeX strings in math environment used by matplotlib’s
 usetex</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="tee.html#module-pyjams.tee" title="pyjams.tee"><code class="xref py py-func docutils literal notranslate"><span class="pre">tee()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="tee.html#module-pyjams.tee" title="pyjams.tee"><code class="xref py py-func docutils literal notranslate"><span class="pre">tee()</span></code></a></p></td>
 <td><p>Prints arguments on screen and in file, like Unix/Linux tee utility</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.text2plot" title="pyjams.text2plot.text2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">text2plot()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.text2plot" title="pyjams.text2plot.text2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">text2plot()</span></code></a></p></td>
 <td><p>Write text on a plot</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2date" title="pyjams.date2date.us2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2date()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2date" title="pyjams.date2date.us2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2date()</span></code></a></p></td>
 <td><p>Convert dates to standard date format DD.MM.YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2en" title="pyjams.date2date.us2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2en()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2en" title="pyjams.date2date.us2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2en()</span></code></a></p></td>
 <td><p>Convert dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2fr" title="pyjams.date2date.us2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2fr()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2fr" title="pyjams.date2date.us2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2fr()</span></code></a></p></td>
 <td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsread" title="pyjams.fsread.xlsread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsread()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsread" title="pyjams.fsread.xlsread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsread()</span></code></a></p></td>
 <td><p>Same as <cite>xread</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsxread" title="pyjams.fsread.xlsxread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsxread()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsxread" title="pyjams.fsread.xlsxread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsxread()</span></code></a></p></td>
 <td><p>Same as <cite>xread</cite></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xread" title="pyjams.fsread.xread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xread()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xread" title="pyjams.fsread.xread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xread()</span></code></a></p></td>
 <td><p>Read numbers and strings from Excel file into 2D float and string arrays</p></td>
 </tr>
 </tbody>
@@ -385,6 +390,9 @@ Python iterables</p></td>
 <tr class="row-even"><td><p><a class="reference internal" href="mad.html#module-pyjams.mad" title="pyjams.mad"><code class="xref py py-func docutils literal notranslate"><span class="pre">mad()</span></code></a></p></td>
 <td><p>Median absolute deviation test</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="means.html#module-pyjams.means" title="pyjams.means"><code class="xref py py-func docutils literal notranslate"><span class="pre">means()</span></code></a></p></td>
+<td><p>Calculate daily, monthly, yearly, etc. means of data</p></td>
+</tr>
 </tbody>
 </table>
 </dd>
@@ -404,7 +412,7 @@ Python iterables</p></td>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2date" title="pyjams.date2date.date2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2date()</span></code></a></p></td>
 <td><p>Convert date representations between different regional variants</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="datetime.html#pyjams.datetime.date2dec" title="pyjams.datetime.date2dec"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2dec()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.date2dec" title="pyjams.class_datetime.date2dec"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2dec()</span></code></a></p></td>
 <td><p>Same as <cite>date2num</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2en" title="pyjams.date2date.date2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2en()</span></code></a></p></td>
@@ -413,13 +421,13 @@ Python iterables</p></td>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2fr" title="pyjams.date2date.date2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2fr()</span></code></a></p></td>
 <td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="datetime.html#pyjams.datetime.date2num" title="pyjams.datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.date2num" title="pyjams.class_datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p></td>
 <td><p>Return numeric time values given datetime objects or strings</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2us" title="pyjams.date2date.date2us"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2us()</span></code></a></p></td>
 <td><p>Convert dates to American date format MM/DD/YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="datetime.html#pyjams.datetime.datetime" title="pyjams.datetime.datetime"><code class="xref py py-func docutils literal notranslate"><span class="pre">datetime()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.datetime" title="pyjams.class_datetime.datetime"><code class="xref py py-func docutils literal notranslate"><span class="pre">datetime()</span></code></a></p></td>
 <td><p>Class as cftime.datetime for non-CF-conform calendars</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">dec2date()</span></code></p></td>
@@ -452,7 +460,7 @@ Python iterables</p></td>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2fr" title="pyjams.date2date.us2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2fr()</span></code></a></p></td>
 <td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="datetime.html#pyjams.datetime.num2date" title="pyjams.datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.num2date" title="pyjams.class_datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
 <td><p>Return datetime objects given numeric time values</p></td>
 </tr>
 </tbody>
