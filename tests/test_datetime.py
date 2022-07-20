@@ -87,15 +87,15 @@ class TestDatetime(unittest.TestCase):
                        '0001-01-01 12:00:00']
         self.iformat = '%Y-%m-%d %H:%M:%S'
 
-        self.year   = [1271]
-        self.month  = [3]
-        self.day    = [18]
-        self.hour   = [19]
-        self.minute = [41]
-        self.second = [34]
-        self.microsecond = [999999]
-        self.idates = ['1271-03-18 19:41:34']
-        self.iformat = '%Y-%m-%d %H:%M:%S'
+        # self.year   = [1271]
+        # self.month  = [3]
+        # self.day    = [18]
+        # self.hour   = [19]
+        # self.minute = [41]
+        # self.second = [34]
+        # self.microsecond = [999999]
+        # self.idates = ['1271-03-18 19:41:34']
+        # self.iformat = '%Y-%m-%d %H:%M:%S'
 
         self.year0   = [0, -1, -10, -100, -1000, 1]
         self.month0  = [1, 4, 7, 9, 3, 8]
@@ -119,7 +119,7 @@ class TestDatetime(unittest.TestCase):
         # precision problem for some calendars of _cfcalendars, i.e.
         #     'noleap', 'all_leap', '365_day', '366_day', '360_day'
         calendars = self._noncfcalendars
-        calendars = self._cfcalendars
+        # calendars = self._cfcalendars
         units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f']
         formats = ['%Y-%m-%d %H:%M:%S', '%d.%m.%Y %H:%M:%S',
                    '%d/%m/%Y %H:%M:%S',
@@ -132,7 +132,7 @@ class TestDatetime(unittest.TestCase):
         itypes = [list, tuple, np.array]
         ttypes = [list, tuple, np.ndarray]
         f2dates = [num2date, dec2date]
-        f2nums  = [date2num, date2dec]
+        f2nums = [date2num, date2dec]
         for calendar in calendars:
             for unit in units:
                 for format in formats:
@@ -140,9 +140,9 @@ class TestDatetime(unittest.TestCase):
                         for only_python in only_pythons:
                             for has_year_zero in has_year_zeros:
                                 for itype in range(len(itypes)):
-                                    print(calendar, unit, format,
-                                          only_cftime, only_python,
-                                          has_year_zero, itypes[itype])
+                                    # print(calendar, unit, format,
+                                    #       only_cftime, only_python,
+                                    #       has_year_zero, itypes[itype])
                                     indates = itypes[itype](self.idates)
                                     jdates = date2date(indates, format=format)
                                     ihave0 = has_year_zero
@@ -186,7 +186,7 @@ class TestDatetime(unittest.TestCase):
         itypes = [list, tuple, np.array]
         ttypes = [list, tuple, np.ndarray]
         f2dates = [num2date, dec2date]
-        f2nums  = [date2num, date2dec]
+        f2nums = [date2num, date2dec]
         for calendar in calendars:
             for unit in units:
                 for format in formats:
@@ -262,7 +262,7 @@ class TestDatetime(unittest.TestCase):
         itypes = [list, tuple, np.array]
         ttypes = [list, tuple, np.ndarray]
         f2dates = [num2date, dec2date]
-        f2nums  = [date2num, date2dec]
+        f2nums = [date2num, date2dec]
         for unit in units:
             for itype in range(len(itypes)):
                 # print(unit, itypes[itype])
@@ -290,11 +290,11 @@ class TestDatetime(unittest.TestCase):
         itypes = [list, tuple, np.array]
         ttypes = [list, tuple, np.ndarray]
         f2dates = [num2date, dec2date]
-        f2nums  = [date2num, date2dec]
+        f2nums = [date2num, date2dec]
         iform = self.iformat + '.%f'
         for unit in units:
             for itype in range(len(itypes)):
-                print(unit, itypes[itype])
+                # print(unit, itypes[itype])
                 indates = itypes[itype](self.idates)
                 jdates = date2date(indates, format='en')
                 jdates = itypes[itype]([
@@ -345,775 +345,775 @@ class TestDatetime(unittest.TestCase):
         self.assertRaises(ValueError, num2date, enum,
                           format='%Y-%m-%d', return_arrays=True)
 
-    # def test_datetime(self):
-    #     from datetime import timedelta
-    #     import numpy as np
-    #     import cftime as cf
-    #     from pyjams import date2date
-    #     from pyjams import datetime
-    #     from pyjams import date2num, num2date
-    #     from pyjams.datetime import _month_lengths, _year_zero_defaults
+    def test_datetime(self):
+        from datetime import timedelta
+        import numpy as np
+        import cftime as cf
+        from pyjams import date2date
+        from pyjams import datetime
+        from pyjams import date2num, num2date
+        from pyjams.class_datetime import _month_lengths, _year_zero_defaults
 
-    #     # Test methods of datetime class, years > 0
+        # Test methods of datetime class, years > 0
 
-    #     calendars = self._noncfcalendars
-    #     has_year_zeros = [None, True, False]
-    #     cfequivalents = ['julian', 'julian', 'julian',
-    #                      'proleptic_gregorian', '360_day',
-    #                      '365_day', '366_day']
-    #     cfcalendars = dict(zip(self._noncfcalendars, cfequivalents))
-    #     for calendar in calendars:
-    #         for has_year_zero in has_year_zeros:
-    #             # print(calendar, has_year_zero)
-    #             ihave0 = has_year_zero
-    #             if calendar in self._excelcalendars:
-    #                 ihave0 = False
-    #             idt = [ datetime(self.year[i], self.month[i], self.day[i],
-    #                              self.hour[i], self.minute[i],
-    #                              self.second[i], calendar=calendar,
-    #                              has_year_zero=ihave0)
-    #                     for i in range(len(self.year)) ]
+        calendars = self._noncfcalendars
+        has_year_zeros = [None, True, False]
+        cfequivalents = ['julian', 'julian', 'julian',
+                         'proleptic_gregorian', '360_day',
+                         '365_day', '366_day']
+        cfcalendars = dict(zip(self._noncfcalendars, cfequivalents))
+        for calendar in calendars:
+            for has_year_zero in has_year_zeros:
+                # print(calendar, has_year_zero)
+                ihave0 = has_year_zero
+                if calendar in self._excelcalendars:
+                    ihave0 = False
+                idt = [ datetime(self.year[i], self.month[i], self.day[i],
+                                 self.hour[i], self.minute[i],
+                                 self.second[i], calendar=calendar,
+                                 has_year_zero=ihave0)
+                        for i in range(len(self.year)) ]
 
-    #             # change_calendar - NotImplemented
+                # change_calendar - NotImplemented
 
-    #             # use cftime as reference
-    #             cdt = [ cf.datetime(*dt.to_tuple(),
-    #                                 calendar=cfcalendars[calendar],
-    #                                 has_year_zero=ihave0)
-    #                     for dt in idt ]
+                # use cftime as reference
+                cdt = [ cf.datetime(*dt.to_tuple(),
+                                    calendar=cfcalendars[calendar],
+                                    has_year_zero=ihave0)
+                        for dt in idt ]
 
-    #             # dayofwk, dayofyr
-    #             ist  = [ dt.dayofyr() for dt in idt ]
-    #             soll = [ dt.dayofyr for dt in cdt ]
-    #             soll = [ dt._dayofyr for dt in cdt ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # dayofwk, dayofyr
+                ist  = [ dt.dayofyr() for dt in idt ]
+                soll = [ dt.dayofyr for dt in cdt ]
+                soll = [ dt._dayofyr for dt in cdt ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             ist  = [ dt.dayofwk() for dt in idt ]
-    #             soll = [ dt.dayofwk for dt in cdt ]
-    #             soll = [ dt._dayofwk for dt in cdt ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.dayofwk() for dt in idt ]
+                soll = [ dt.dayofwk for dt in cdt ]
+                soll = [ dt._dayofwk for dt in cdt ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # daysinmonth, _month_length
-    #             ist  = [ dt.daysinmonth() for dt in idt ]
-    #             mlen = [ _month_lengths(yy, calendar,
-    #                                     has_year_zero=ihave0)
-    #                      for yy in self.year ]
-    #             soll = [ mlen[mm][self.month[mm]-1]
-    #                      for mm in range(len(self.month)) ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # daysinmonth, _month_length
+                ist  = [ dt.daysinmonth() for dt in idt ]
+                mlen = [ _month_lengths(yy, calendar,
+                                        has_year_zero=ihave0)
+                         for yy in self.year ]
+                soll = [ mlen[mm][self.month[mm]-1]
+                         for mm in range(len(self.month)) ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # format
-    #             for dt in idt:
-    #                 assert dt.format() == self.iformat
+                # format
+                for dt in idt:
+                    assert dt.format() == self.iformat
 
-    #             # fromordinal - NotImplemented
+                # fromordinal - NotImplemented
 
-    #             # isoformat
-    #             ist  = [ dt.isoformat() for dt in idt ]
-    #             soll = [ dd.replace(' ', 'T') for dd in self.idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat('T') for dt in idt ]
-    #             soll = [ dd.replace(' ', 'T') for dd in self.idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ') for dt in idt ]
-    #             soll = self.idates
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'days') for dt in idt ]
-    #             soll = [ dd.split()[0] for dd in self.idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'hours') for dt in idt ]
-    #             soll = [ dd[:-6] for dd in self.idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'minutes') for dt in idt ]
-    #             soll = [ dd[:-3] for dd in self.idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'seconds') for dt in idt ]
-    #             soll = self.idates
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'milliseconds') for dt in idt ]
-    #             soll = [ dd+'.000' for dd in self.idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'microseconds') for dt in idt ]
-    #             soll = [ dd+'.000000' for dd in self.idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # isoformat
+                ist  = [ dt.isoformat() for dt in idt ]
+                soll = [ dd.replace(' ', 'T') for dd in self.idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat('T') for dt in idt ]
+                soll = [ dd.replace(' ', 'T') for dd in self.idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ') for dt in idt ]
+                soll = self.idates
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'days') for dt in idt ]
+                soll = [ dd.split()[0] for dd in self.idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'hours') for dt in idt ]
+                soll = [ dd[:-6] for dd in self.idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'minutes') for dt in idt ]
+                soll = [ dd[:-3] for dd in self.idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'seconds') for dt in idt ]
+                soll = self.idates
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'milliseconds') for dt in idt ]
+                soll = [ dd+'.000' for dd in self.idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'microseconds') for dt in idt ]
+                soll = [ dd+'.000000' for dd in self.idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # replace
-    #             # invert dates
-    #             odt = list()
-    #             for i in range(len(self.year)):
-    #                 kwarg = {
-    #                     'year': self.year[-(i+1)],
-    #                     'month': self.month[-(i+1)],
-    #                     'day': self.day[-(i+1)],
-    #                     'hour': self.hour[-(i+1)],
-    #                     'minute': self.minute[-(i+1)],
-    #                     'second': self.second[-(i+1)],
-    #                     'has_year_zero': False
-    #                 }
-    #                 odt.append(idt[i].replace(**kwarg))
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oyear   = iarrays[:, 0]
-    #             omonth  = iarrays[:, 1]
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             self.assertEqual(_flatten(oyear), _flatten(self.year[::-1]))
-    #             self.assertEqual(_flatten(omonth), _flatten(self.month[::-1]))
-    #             self.assertEqual(_flatten(oday), _flatten(self.day[::-1]))
-    #             self.assertEqual(_flatten(ohour), _flatten(self.hour[::-1]))
-    #             self.assertEqual(_flatten(ominute),
-    #                              _flatten(self.minute[::-1]))
-    #             self.assertEqual(_flatten(osecond),
-    #                              _flatten(self.second[::-1]))
-    #             ist = [ dt.has_year_zero for dt in odt ]
-    #             soll = [ False for dt in odt ]
-    #             self.assertEqual(ist, soll)
+                # replace
+                # invert dates
+                odt = list()
+                for i in range(len(self.year)):
+                    kwarg = {
+                        'year': self.year[-(i+1)],
+                        'month': self.month[-(i+1)],
+                        'day': self.day[-(i+1)],
+                        'hour': self.hour[-(i+1)],
+                        'minute': self.minute[-(i+1)],
+                        'second': self.second[-(i+1)],
+                        'has_year_zero': False
+                    }
+                    odt.append(idt[i].replace(**kwarg))
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oyear   = iarrays[:, 0]
+                omonth  = iarrays[:, 1]
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                self.assertEqual(_flatten(oyear), _flatten(self.year[::-1]))
+                self.assertEqual(_flatten(omonth), _flatten(self.month[::-1]))
+                self.assertEqual(_flatten(oday), _flatten(self.day[::-1]))
+                self.assertEqual(_flatten(ohour), _flatten(self.hour[::-1]))
+                self.assertEqual(_flatten(ominute),
+                                 _flatten(self.minute[::-1]))
+                self.assertEqual(_flatten(osecond),
+                                 _flatten(self.second[::-1]))
+                ist = [ dt.has_year_zero for dt in odt ]
+                soll = [ False for dt in odt ]
+                self.assertEqual(ist, soll)
 
-    #             # strftime
-    #             # using self.format
-    #             ist = [ dt.strftime() for dt in idt ]
-    #             soll = self.idates
-    #             self.assertEqual(ist, soll)
-    #             # other format
-    #             oform = '%d.%m.%Y %H:%M:%S'
-    #             ist = [ dt.strftime(oform) for dt in idt ]
-    #             soll = date2date(self.idates, format='')
-    #             self.assertEqual(ist, soll)
+                # strftime
+                # using self.format
+                ist = [ dt.strftime() for dt in idt ]
+                soll = self.idates
+                self.assertEqual(ist, soll)
+                # other format
+                oform = '%d.%m.%Y %H:%M:%S'
+                ist = [ dt.strftime(oform) for dt in idt ]
+                soll = date2date(self.idates, format='')
+                self.assertEqual(ist, soll)
 
-    #             # timetuple
-    #             ist  = np.array([ dt.timetuple() for dt in idt ])
-    #             soll = np.array([ dt.timetuple() for dt in cdt ])
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # timetuple
+                ist  = np.array([ dt.timetuple() for dt in idt ])
+                soll = np.array([ dt.timetuple() for dt in cdt ])
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # toordinal
-    #             # w/o fractional
-    #             ord0 = 0
-    #             if calendar == 'decimal':
-    #                 ord0 = 1721425
-    #             ist  = [ dt.toordinal() + ord0 for dt in idt ]
-    #             soll = [ dt.toordinal() for dt in cdt ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # toordinal
+                # w/o fractional
+                ord0 = 0
+                if calendar == 'decimal':
+                    ord0 = 1721425
+                ist  = [ dt.toordinal() + ord0 for dt in idt ]
+                soll = [ dt.toordinal() for dt in cdt ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # with fractional
-    #             ord0 = 0
-    #             if calendar == 'decimal':
-    #                 ord0 = 1721425
-    #             ist  = [ dt.toordinal(fractional=True) + ord0 for dt in idt ]
-    #             soll = [ dt.toordinal(fractional=True) for dt in cdt ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # with fractional
+                ord0 = 0
+                if calendar == 'decimal':
+                    ord0 = 1721425
+                ist  = [ dt.toordinal(fractional=True) + ord0 for dt in idt ]
+                soll = [ dt.toordinal(fractional=True) for dt in cdt ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # # to_tuple
-    #             # ist  = np.array([ dt.to_tuple() for dt in idt ])
-    #             # soll = np.array([ dt.to_tuple() for dt in cdt ])
-    #             # self.assertEqual(_flatten(ist), _flatten(soll))
+                # # to_tuple
+                # ist  = np.array([ dt.to_tuple() for dt in idt ])
+                # soll = np.array([ dt.to_tuple() for dt in cdt ])
+                # self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # to_tuple
-    #             iarrays = np.array([ dt.to_tuple() for dt in idt ])
-    #             oyear   = iarrays[:, 0]
-    #             omonth  = iarrays[:, 1]
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             self.assertEqual(_flatten(oyear), _flatten(self.year))
-    #             self.assertEqual(_flatten(omonth), _flatten(self.month))
-    #             self.assertEqual(_flatten(oday), _flatten(self.day))
-    #             self.assertEqual(_flatten(ohour), _flatten(self.hour))
-    #             self.assertEqual(_flatten(ominute), _flatten(self.minute))
-    #             self.assertEqual(_flatten(osecond), _flatten(self.second))
-    #             # using return_arrays
-    #             idec = date2num(idt, units='', calendar=calendar,
-    #                             has_year_zero=ihave0)
-    #             oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
-    #                 num2date(idec, units='', calendar=calendar,
-    #                          has_year_zero=ihave0,
-    #                          return_arrays=True))
-    #             self.assertEqual(_flatten(oyear), _flatten(self.year))
-    #             self.assertEqual(_flatten(omonth), _flatten(self.month))
-    #             self.assertEqual(_flatten(oday), _flatten(self.day))
-    #             self.assertEqual(_flatten(ohour), _flatten(self.hour))
-    #             self.assertEqual(_flatten(ominute), _flatten(self.minute))
-    #             self.assertEqual(_flatten(osecond), _flatten(self.second))
+                # to_tuple
+                iarrays = np.array([ dt.to_tuple() for dt in idt ])
+                oyear   = iarrays[:, 0]
+                omonth  = iarrays[:, 1]
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                self.assertEqual(_flatten(oyear), _flatten(self.year))
+                self.assertEqual(_flatten(omonth), _flatten(self.month))
+                self.assertEqual(_flatten(oday), _flatten(self.day))
+                self.assertEqual(_flatten(ohour), _flatten(self.hour))
+                self.assertEqual(_flatten(ominute), _flatten(self.minute))
+                self.assertEqual(_flatten(osecond), _flatten(self.second))
+                # using return_arrays
+                idec = date2num(idt, units='', calendar=calendar,
+                                has_year_zero=ihave0)
+                oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
+                    num2date(idec, units='', calendar=calendar,
+                             has_year_zero=ihave0,
+                             return_arrays=True))
+                self.assertEqual(_flatten(oyear), _flatten(self.year))
+                self.assertEqual(_flatten(omonth), _flatten(self.month))
+                self.assertEqual(_flatten(oday), _flatten(self.day))
+                self.assertEqual(_flatten(ohour), _flatten(self.hour))
+                self.assertEqual(_flatten(ominute), _flatten(self.minute))
+                self.assertEqual(_flatten(osecond), _flatten(self.second))
 
-    #             # _add_timedelta - with __add__
+                # _add_timedelta - with __add__
 
-    #             # _getstate
-    #             odt = []
-    #             for dt in idt:
-    #                 arg, kwarg = dt._getstate()
-    #                 odt.append(datetime(*arg, **kwarg))
-    #             ist  = np.array([ dt.to_tuple() for dt in idt ])
-    #             soll = np.array([ dt.to_tuple() for dt in odt ])
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # _getstate
+                odt = []
+                for dt in idt:
+                    arg, kwarg = dt._getstate()
+                    odt.append(datetime(*arg, **kwarg))
+                ist  = np.array([ dt.to_tuple() for dt in idt ])
+                soll = np.array([ dt.to_tuple() for dt in odt ])
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # _to_real_datetime
-    #             ist  = np.array([ dt.timetuple() for dt in idt ])
-    #             # delete weekday because different calendar
-    #             # and doy because of idealised calendars
-    #             ist = np.delete(ist, (6, 7), axis=1)
-    #             odt = [ dt._to_real_datetime() for dt in idt ]
-    #             soll = np.array([ dt.timetuple() for dt in odt ])
-    #             soll = np.delete(soll, (6, 7), axis=1)
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # _to_real_datetime
+                ist  = np.array([ dt.timetuple() for dt in idt ])
+                # delete weekday because different calendar
+                # and doy because of idealised calendars
+                ist = np.delete(ist, (6, 7), axis=1)
+                odt = [ dt._to_real_datetime() for dt in idt ]
+                soll = np.array([ dt.timetuple() for dt in odt ])
+                soll = np.delete(soll, (6, 7), axis=1)
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # __add__
-    #             # datetime + timedelta
-    #             odt = [ dt + timedelta(days=1, hours=-2, minutes=3, seconds=4)
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd + 1 for dd in self.day ]
-    #             self.assertEqual(_flatten(oday), _flatten(soll))
-    #             soll = [ dd - 2 for dd in self.hour ]
-    #             self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             soll = [ dd + 3 for dd in self.minute ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in self.second ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # # timedelta + datetime
-    #             # odt = [ timedelta(days=1, hours=-2, minutes=3, seconds=4) +
-    #             #         dt for dt in idt ]
-    #             # iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             # oday    = iarrays[:, 2]
-    #             # ohour   = iarrays[:, 3]
-    #             # ominute = iarrays[:, 4]
-    #             # osecond = iarrays[:, 5]
-    #             # soll = [ dd + 1 for dd in self.day ]
-    #             # self.assertEqual(_flatten(oday), _flatten(soll))
-    #             # soll = [ dd - 2 for dd in self.hour ]
-    #             # self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             # soll = [ dd + 3 for dd in self.minute ]
-    #             # self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             # soll = [ dd + 4 for dd in self.second ]
-    #             # self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # __add__
-    #             odt = [ dt.__add__(timedelta(days=1, hours=-2, minutes=3,
-    #                                          seconds=4))
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd + 1 for dd in self.day ]
-    #             self.assertEqual(_flatten(oday), _flatten(soll))
-    #             soll = [ dd - 2 for dd in self.hour ]
-    #             self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             soll = [ dd + 3 for dd in self.minute ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in self.second ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # _add_timedelta
-    #             odt = [ dt._add_timedelta(
-    #                 timedelta(days=1, hours=-2, minutes=3, seconds=4))
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd + 1 for dd in self.day ]
-    #             self.assertEqual(_flatten(oday), _flatten(soll))
-    #             soll = [ dd - 2 for dd in self.hour ]
-    #             self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             soll = [ dd + 3 for dd in self.minute ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in self.second ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # days < 0, month - 1, year - 1
-    #             odt = [ dt + timedelta(days=-30, hours=0, minutes=1, seconds=4)
-    #                     for dt in idt[1:-1] ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             omonth  = iarrays[:, 1]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd - 1 for dd in self.month[1:-1] ]
-    #             self.assertEqual(_flatten(omonth), _flatten(soll))
-    #             soll = [ dd + 1 for dd in self.minute[1:-1] ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in self.second[1:-1] ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # days > 0, month + 1
-    #             odt = [ dt + timedelta(days=31, hours=0, minutes=1, seconds=4)
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             omonth  = iarrays[:, 1]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd + 1 for dd in self.month ]
-    #             self.assertEqual(_flatten(omonth), _flatten(soll))
-    #             soll = [ dd + 1 for dd in self.minute ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in self.second ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # days > 0, year + 1
-    #             odt = [ dt + timedelta(days=121, hours=0, minutes=1, seconds=4)
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             omonth  = iarrays[:, 1]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd + 4 if dd < 9 else 1 for dd in self.month ]
-    #             self.assertEqual(_flatten(omonth), _flatten(soll))
-    #             soll = [ dd + 1 for dd in self.minute ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in self.second ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
+                # __add__
+                # datetime + timedelta
+                odt = [ dt + timedelta(days=1, hours=-2, minutes=3, seconds=4)
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd + 1 for dd in self.day ]
+                self.assertEqual(_flatten(oday), _flatten(soll))
+                soll = [ dd - 2 for dd in self.hour ]
+                self.assertEqual(_flatten(ohour), _flatten(soll))
+                soll = [ dd + 3 for dd in self.minute ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in self.second ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
+                # # timedelta + datetime
+                # odt = [ timedelta(days=1, hours=-2, minutes=3, seconds=4) +
+                #         dt for dt in idt ]
+                # iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                # oday    = iarrays[:, 2]
+                # ohour   = iarrays[:, 3]
+                # ominute = iarrays[:, 4]
+                # osecond = iarrays[:, 5]
+                # soll = [ dd + 1 for dd in self.day ]
+                # self.assertEqual(_flatten(oday), _flatten(soll))
+                # soll = [ dd - 2 for dd in self.hour ]
+                # self.assertEqual(_flatten(ohour), _flatten(soll))
+                # soll = [ dd + 3 for dd in self.minute ]
+                # self.assertEqual(_flatten(ominute), _flatten(soll))
+                # soll = [ dd + 4 for dd in self.second ]
+                # self.assertEqual(_flatten(osecond), _flatten(soll))
+                # __add__
+                odt = [ dt.__add__(timedelta(days=1, hours=-2, minutes=3,
+                                             seconds=4))
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd + 1 for dd in self.day ]
+                self.assertEqual(_flatten(oday), _flatten(soll))
+                soll = [ dd - 2 for dd in self.hour ]
+                self.assertEqual(_flatten(ohour), _flatten(soll))
+                soll = [ dd + 3 for dd in self.minute ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in self.second ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
+                # _add_timedelta
+                odt = [ dt._add_timedelta(
+                    timedelta(days=1, hours=-2, minutes=3, seconds=4))
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd + 1 for dd in self.day ]
+                self.assertEqual(_flatten(oday), _flatten(soll))
+                soll = [ dd - 2 for dd in self.hour ]
+                self.assertEqual(_flatten(ohour), _flatten(soll))
+                soll = [ dd + 3 for dd in self.minute ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in self.second ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
+                # days < 0, month - 1, year - 1
+                odt = [ dt + timedelta(days=-30, hours=0, minutes=1, seconds=4)
+                        for dt in idt[1:-1] ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                omonth  = iarrays[:, 1]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd - 1 for dd in self.month[1:-1] ]
+                self.assertEqual(_flatten(omonth), _flatten(soll))
+                soll = [ dd + 1 for dd in self.minute[1:-1] ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in self.second[1:-1] ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
+                # days > 0, month + 1
+                odt = [ dt + timedelta(days=31, hours=0, minutes=1, seconds=4)
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                omonth  = iarrays[:, 1]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd + 1 for dd in self.month ]
+                self.assertEqual(_flatten(omonth), _flatten(soll))
+                soll = [ dd + 1 for dd in self.minute ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in self.second ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
+                # days > 0, year + 1
+                odt = [ dt + timedelta(days=121, hours=0, minutes=1, seconds=4)
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                omonth  = iarrays[:, 1]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd + 4 if dd < 9 else 1 for dd in self.month ]
+                self.assertEqual(_flatten(omonth), _flatten(soll))
+                soll = [ dd + 1 for dd in self.minute ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in self.second ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
 
-    #             # __eq__
-    #             odt = [ dt + timedelta(0) for dt in idt ]
-    #             for i in range(len(idt)):
-    #                 assert idt[i] == odt[i]
+                # __eq__
+                odt = [ dt + timedelta(0) for dt in idt ]
+                for i in range(len(idt)):
+                    assert idt[i] == odt[i]
 
-    #             # __format__
-    #             # using self.format
-    #             ist = [ dt.__format__('') for dt in idt ]
-    #             soll = self.idates
-    #             self.assertEqual(ist, soll)
-    #             # other format
-    #             oform = '%d.%m.%Y %H:%M:%S'
-    #             ist = [ dt.__format__(oform) for dt in idt ]
-    #             soll = date2date(self.idates, format='')
-    #             self.assertEqual(ist, soll)
+                # __format__
+                # using self.format
+                ist = [ dt.__format__('') for dt in idt ]
+                soll = self.idates
+                self.assertEqual(ist, soll)
+                # other format
+                oform = '%d.%m.%Y %H:%M:%S'
+                ist = [ dt.__format__(oform) for dt in idt ]
+                soll = date2date(self.idates, format='')
+                self.assertEqual(ist, soll)
 
-    #             # __hash__, __reduce__ ???
+                # __hash__, __reduce__ ???
 
-    #             # __repr__
-    #             ihave = ihave0
-    #             if has_year_zero is None:
-    #                 ihave = _year_zero_defaults(calendar)
-    #             for i, dt in enumerate(idt):
-    #                 ist = dt.__repr__()
-    #                 soll = (f'pyjams.datetime({self.year[i]},'
-    #                         f' {self.month[i]}, {self.day[i]},'
-    #                         f' {self.hour[i]}, {self.minute[i]},'
-    #                         f' {self.second[i]}, 0,'
-    #                         f' calendar={calendar},'
-    #                         f' has_year_zero={ihave})')
-    #                 assert ist == soll
+                # __repr__
+                ihave = ihave0
+                if has_year_zero is None:
+                    ihave = _year_zero_defaults(calendar)
+                for i, dt in enumerate(idt):
+                    ist = dt.__repr__()
+                    soll = (f'pyjams.datetime({self.year[i]},'
+                            f' {self.month[i]}, {self.day[i]},'
+                            f' {self.hour[i]}, {self.minute[i]},'
+                            f' {self.second[i]}, 0,'
+                            f' calendar={calendar},'
+                            f' has_year_zero={ihave})')
+                    assert ist == soll
 
-    #             # __str__
-    #             ist  = [ dt.__str__() for dt in idt ]
-    #             soll = self.idates
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # __str__
+                ist  = [ dt.__str__() for dt in idt ]
+                soll = self.idates
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # __sub__
-    #             # datetime + timedelta
-    #             odt = [ dt - timedelta(days=-1, hours=2)
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             soll = [ dd + 1 for dd in self.day ]
-    #             self.assertEqual(_flatten(oday), _flatten(soll))
-    #             soll = [ dd - 2 for dd in self.hour ]
-    #             self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             # datetime + timedelta
-    #             dd  = timedelta(days=1, hours=-2, minutes=3, seconds=4)
-    #             ddt = [ dt + dd for dt in idt ]
-    #             odt = [ ddt[i] - idt[i] for i in range(len(idt)) ]
-    #             for dt in odt:
-    #                 assert dt == dd
-    #             odt = [ idt[i] - ddt[i] for i in range(len(idt)) ]
-    #             for dt in odt:
-    #                 assert dt == -dd
+                # __sub__
+                # datetime + timedelta
+                odt = [ dt - timedelta(days=-1, hours=2)
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                soll = [ dd + 1 for dd in self.day ]
+                self.assertEqual(_flatten(oday), _flatten(soll))
+                soll = [ dd - 2 for dd in self.hour ]
+                self.assertEqual(_flatten(ohour), _flatten(soll))
+                # datetime + timedelta
+                dd  = timedelta(days=1, hours=-2, minutes=3, seconds=4)
+                ddt = [ dt + dd for dt in idt ]
+                odt = [ ddt[i] - idt[i] for i in range(len(idt)) ]
+                for dt in odt:
+                    assert dt == dd
+                odt = [ idt[i] - ddt[i] for i in range(len(idt)) ]
+                for dt in odt:
+                    assert dt == -dd
 
-    #     # Test methods of datetime class, years <= 0
+        # Test methods of datetime class, years <= 0
 
-    #     calendars = self._decimalcalendars
-    #     has_year_zeros = [None, True, False]
-    #     cfequivalents = ['proleptic_gregorian', '360_day',
-    #                      '365_day', '366_day']
-    #     cfcalendars = dict(zip(self._decimalcalendars, cfequivalents))
-    #     for calendar in calendars:
-    #         for has_year_zero in has_year_zeros:
-    #             # print(calendar, has_year_zero)
-    #             ihave0 = has_year_zero
-    #             if cfcalendars[calendar] == 'proleptic_gregorian':
-    #                 ihave0 = False
-    #             if ihave0 or (ihave0 is None):
-    #                 iyear   = self.year0.copy()
-    #                 imonth  = self.month0.copy()
-    #                 iday    = self.day0.copy()
-    #                 ihour   = self.hour0.copy()
-    #                 iminute = self.minute0.copy()
-    #                 isecond = self.second0.copy()
-    #                 idates  = self.idates0.copy()
-    #             else:
-    #                 iyear   = self.year0[1:]
-    #                 imonth  = self.month0[1:]
-    #                 iday    = self.day0[1:]
-    #                 ihour   = self.hour0[1:]
-    #                 iminute = self.minute0[1:]
-    #                 isecond = self.second0[1:]
-    #                 idates  = self.idates0[1:]
-    #             idt = [ datetime(iyear[i], imonth[i], iday[i],
-    #                              ihour[i], iminute[i],
-    #                              isecond[i], calendar=calendar,
-    #                              has_year_zero=ihave0)
-    #                     for i in range(len(iyear)) ]
+        calendars = self._decimalcalendars
+        has_year_zeros = [None, True, False]
+        cfequivalents = ['proleptic_gregorian', '360_day',
+                         '365_day', '366_day']
+        cfcalendars = dict(zip(self._decimalcalendars, cfequivalents))
+        for calendar in calendars:
+            for has_year_zero in has_year_zeros:
+                # print(calendar, has_year_zero)
+                ihave0 = has_year_zero
+                if cfcalendars[calendar] == 'proleptic_gregorian':
+                    ihave0 = False
+                if ihave0 or (ihave0 is None):
+                    iyear   = self.year0.copy()
+                    imonth  = self.month0.copy()
+                    iday    = self.day0.copy()
+                    ihour   = self.hour0.copy()
+                    iminute = self.minute0.copy()
+                    isecond = self.second0.copy()
+                    idates  = self.idates0.copy()
+                else:
+                    iyear   = self.year0[1:]
+                    imonth  = self.month0[1:]
+                    iday    = self.day0[1:]
+                    ihour   = self.hour0[1:]
+                    iminute = self.minute0[1:]
+                    isecond = self.second0[1:]
+                    idates  = self.idates0[1:]
+                idt = [ datetime(iyear[i], imonth[i], iday[i],
+                                 ihour[i], iminute[i],
+                                 isecond[i], calendar=calendar,
+                                 has_year_zero=ihave0)
+                        for i in range(len(iyear)) ]
 
-    #             # change_calendar - NotImplemented
+                # change_calendar - NotImplemented
 
-    #             # use cftime as reference
-    #             cdt = [ cf.datetime(*dt.to_tuple(),
-    #                                 calendar=cfcalendars[calendar],
-    #                                 has_year_zero=ihave0)
-    #                     for dt in idt ]
+                # use cftime as reference
+                cdt = [ cf.datetime(*dt.to_tuple(),
+                                    calendar=cfcalendars[calendar],
+                                    has_year_zero=ihave0)
+                        for dt in idt ]
 
-    #             # dayofwk, dayofyr
-    #             ist  = [ dt.dayofyr() for dt in idt ]
-    #             soll = [ dt.dayofyr for dt in cdt ]
-    #             soll = [ dt._dayofyr for dt in cdt ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # dayofwk, dayofyr
+                ist  = [ dt.dayofyr() for dt in idt ]
+                soll = [ dt.dayofyr for dt in cdt ]
+                soll = [ dt._dayofyr for dt in cdt ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             ist  = [ dt.dayofwk() for dt in idt ]
-    #             soll = [ dt.dayofwk for dt in cdt ]
-    #             soll = [ dt._dayofwk for dt in cdt ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.dayofwk() for dt in idt ]
+                soll = [ dt.dayofwk for dt in cdt ]
+                soll = [ dt._dayofwk for dt in cdt ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # daysinmonth, _month_length
-    #             ist  = [ dt.daysinmonth() for dt in idt ]
-    #             mlen = [ _month_lengths(yy, calendar,
-    #                                     has_year_zero=ihave0)
-    #                      for yy in iyear ]
-    #             soll = [ mlen[mm][imonth[mm]-1]
-    #                      for mm in range(len(imonth)) ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # daysinmonth, _month_length
+                ist  = [ dt.daysinmonth() for dt in idt ]
+                mlen = [ _month_lengths(yy, calendar,
+                                        has_year_zero=ihave0)
+                         for yy in iyear ]
+                soll = [ mlen[mm][imonth[mm]-1]
+                         for mm in range(len(imonth)) ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # format
-    #             for dt in idt:
-    #                 assert dt.format() == self.iformat
+                # format
+                for dt in idt:
+                    assert dt.format() == self.iformat
 
-    #             # fromordinal - NotImplemented
+                # fromordinal - NotImplemented
 
-    #             # isoformat
-    #             ist  = [ dt.isoformat() for dt in idt ]
-    #             soll = [ dd.replace(' ', 'T') for dd in idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat('T') for dt in idt ]
-    #             soll = [ dd.replace(' ', 'T') for dd in idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ') for dt in idt ]
-    #             soll = idates
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'hours') for dt in idt ]
-    #             soll = [ dd[:-6] for dd in idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'minutes') for dt in idt ]
-    #             soll = [ dd[:-3] for dd in idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'seconds') for dt in idt ]
-    #             soll = idates
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'milliseconds') for dt in idt ]
-    #             soll = [ dd+'.000' for dd in idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
-    #             ist  = [ dt.isoformat(' ', 'microseconds') for dt in idt ]
-    #             soll = [ dd+'.000000' for dd in idates ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # isoformat
+                ist  = [ dt.isoformat() for dt in idt ]
+                soll = [ dd.replace(' ', 'T') for dd in idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat('T') for dt in idt ]
+                soll = [ dd.replace(' ', 'T') for dd in idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ') for dt in idt ]
+                soll = idates
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'hours') for dt in idt ]
+                soll = [ dd[:-6] for dd in idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'minutes') for dt in idt ]
+                soll = [ dd[:-3] for dd in idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'seconds') for dt in idt ]
+                soll = idates
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'milliseconds') for dt in idt ]
+                soll = [ dd+'.000' for dd in idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
+                ist  = [ dt.isoformat(' ', 'microseconds') for dt in idt ]
+                soll = [ dd+'.000000' for dd in idates ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # replace
-    #             # invert dates
-    #             odt = list()
-    #             for i in range(len(iyear)):
-    #                 if ihave0 or (ihave0 is None):
-    #                     ihave = False
-    #                 kwarg = {
-    #                     'year': np.clip(iyear[-(i+1)], -9999, -1),
-    #                     'month': imonth[-(i+1)],
-    #                     'day': iday[-(i+1)],
-    #                     'hour': ihour[-(i+1)],
-    #                     'minute': iminute[-(i+1)],
-    #                     'second': isecond[-(i+1)],
-    #                     'has_year_zero': False
-    #                 }
-    #                 odt.append(idt[i].replace(**kwarg))
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oyear   = iarrays[:, 0]
-    #             omonth  = iarrays[:, 1]
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             self.assertEqual(_flatten(oyear),
-    #                              _flatten(np.clip(iyear[::-1], -9999, -1)))
-    #             self.assertEqual(_flatten(omonth), _flatten(imonth[::-1]))
-    #             self.assertEqual(_flatten(oday), _flatten(iday[::-1]))
-    #             self.assertEqual(_flatten(ohour), _flatten(ihour[::-1]))
-    #             self.assertEqual(_flatten(ominute),
-    #                              _flatten(iminute[::-1]))
-    #             self.assertEqual(_flatten(osecond),
-    #                              _flatten(isecond[::-1]))
-    #             ist = [ dt.has_year_zero for dt in odt ]
-    #             soll = [ False for dt in odt ]
-    #             self.assertEqual(ist, soll)
+                # replace
+                # invert dates
+                odt = list()
+                for i in range(len(iyear)):
+                    if ihave0 or (ihave0 is None):
+                        ihave = False
+                    kwarg = {
+                        'year': np.clip(iyear[-(i+1)], -9999, -1),
+                        'month': imonth[-(i+1)],
+                        'day': iday[-(i+1)],
+                        'hour': ihour[-(i+1)],
+                        'minute': iminute[-(i+1)],
+                        'second': isecond[-(i+1)],
+                        'has_year_zero': False
+                    }
+                    odt.append(idt[i].replace(**kwarg))
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oyear   = iarrays[:, 0]
+                omonth  = iarrays[:, 1]
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                self.assertEqual(_flatten(oyear),
+                                 _flatten(np.clip(iyear[::-1], -9999, -1)))
+                self.assertEqual(_flatten(omonth), _flatten(imonth[::-1]))
+                self.assertEqual(_flatten(oday), _flatten(iday[::-1]))
+                self.assertEqual(_flatten(ohour), _flatten(ihour[::-1]))
+                self.assertEqual(_flatten(ominute),
+                                 _flatten(iminute[::-1]))
+                self.assertEqual(_flatten(osecond),
+                                 _flatten(isecond[::-1]))
+                ist = [ dt.has_year_zero for dt in odt ]
+                soll = [ False for dt in odt ]
+                self.assertEqual(ist, soll)
 
-    #             # strftime
-    #             # using self.format
-    #             ist = [ dt.strftime() for dt in idt ]
-    #             soll = idates
-    #             self.assertEqual(ist, soll)
-    #             # other format
-    #             oform = '%d.%m.%Y %H:%M:%S'
-    #             ist = [ dt.strftime(oform) for dt in idt ]
-    #             soll = date2date(idates, format='')
-    #             self.assertEqual(ist, soll)
+                # strftime
+                # using self.format
+                ist = [ dt.strftime() for dt in idt ]
+                soll = idates
+                self.assertEqual(ist, soll)
+                # other format
+                oform = '%d.%m.%Y %H:%M:%S'
+                ist = [ dt.strftime(oform) for dt in idt ]
+                soll = date2date(idates, format='')
+                self.assertEqual(ist, soll)
 
-    #             # timetuple
-    #             ist  = np.array([ dt.timetuple() for dt in idt ])
-    #             soll = np.array([ dt.timetuple() for dt in cdt ])
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # timetuple
+                ist  = np.array([ dt.timetuple() for dt in idt ])
+                soll = np.array([ dt.timetuple() for dt in cdt ])
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # toordinal
-    #             # w/o fractional
-    #             ord0 = 0
-    #             if calendar == 'decimal':
-    #                 ord0 = 1721425
-    #             ist  = [ dt.toordinal() + ord0 for dt in idt ]
-    #             soll = [ dt.toordinal() for dt in cdt ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # toordinal
+                # w/o fractional
+                ord0 = 0
+                if calendar == 'decimal':
+                    ord0 = 1721425
+                ist  = [ dt.toordinal() + ord0 for dt in idt ]
+                soll = [ dt.toordinal() for dt in cdt ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # with fractional
-    #             ord0 = 0
-    #             if calendar == 'decimal':
-    #                 ord0 = 1721425
-    #             ist  = [ dt.toordinal(fractional=True) + ord0 for dt in idt ]
-    #             soll = [ dt.toordinal(fractional=True) for dt in cdt ]
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # with fractional
+                ord0 = 0
+                if calendar == 'decimal':
+                    ord0 = 1721425
+                ist  = [ dt.toordinal(fractional=True) + ord0 for dt in idt ]
+                soll = [ dt.toordinal(fractional=True) for dt in cdt ]
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # # to_tuple
-    #             # ist  = np.array([ dt.to_tuple() for dt in idt ])
-    #             # soll = np.array([ dt.to_tuple() for dt in cdt ])
-    #             # self.assertEqual(_flatten(ist), _flatten(soll))
+                # # to_tuple
+                # ist  = np.array([ dt.to_tuple() for dt in idt ])
+                # soll = np.array([ dt.to_tuple() for dt in cdt ])
+                # self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # to_tuple
-    #             iarrays = np.array([ dt.to_tuple() for dt in idt ])
-    #             oyear   = iarrays[:, 0]
-    #             omonth  = iarrays[:, 1]
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             self.assertEqual(_flatten(oyear), _flatten(iyear))
-    #             self.assertEqual(_flatten(omonth), _flatten(imonth))
-    #             self.assertEqual(_flatten(oday), _flatten(iday))
-    #             self.assertEqual(_flatten(ohour), _flatten(ihour))
-    #             self.assertEqual(_flatten(ominute), _flatten(iminute))
-    #             self.assertEqual(_flatten(osecond), _flatten(isecond))
-    #             # using return_arrays
-    #             idec = date2num(idt, units='', calendar=calendar,
-    #                             has_year_zero=ihave0)
-    #             oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
-    #                 num2date(idec, units='', calendar=calendar,
-    #                          has_year_zero=ihave0,
-    #                          return_arrays=True))
-    #             self.assertEqual(_flatten(oyear), _flatten(iyear))
-    #             self.assertEqual(_flatten(omonth), _flatten(imonth))
-    #             self.assertEqual(_flatten(oday), _flatten(iday))
-    #             self.assertEqual(_flatten(ohour), _flatten(ihour))
-    #             self.assertEqual(_flatten(ominute), _flatten(iminute))
-    #             self.assertEqual(_flatten(osecond), _flatten(isecond))
-    #             # using return_arrays with absolute days
-    #             idec = date2num(idt, units='day as %Y%m%d.%f',
-    #                             calendar=calendar, has_year_zero=ihave0)
-    #             oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
-    #                 num2date(idec, units='day as %Y%m%d.%f', calendar=calendar,
-    #                          has_year_zero=ihave0,
-    #                          return_arrays=True))
-    #             self.assertEqual(_flatten(oyear), _flatten(iyear))
-    #             self.assertEqual(_flatten(omonth), _flatten(imonth))
-    #             self.assertEqual(_flatten(oday), _flatten(iday))
-    #             self.assertEqual(_flatten(ohour), _flatten(ihour))
-    #             self.assertEqual(_flatten(ominute), _flatten(iminute))
-    #             self.assertEqual(_flatten(osecond), _flatten(isecond))
+                # to_tuple
+                iarrays = np.array([ dt.to_tuple() for dt in idt ])
+                oyear   = iarrays[:, 0]
+                omonth  = iarrays[:, 1]
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                self.assertEqual(_flatten(oyear), _flatten(iyear))
+                self.assertEqual(_flatten(omonth), _flatten(imonth))
+                self.assertEqual(_flatten(oday), _flatten(iday))
+                self.assertEqual(_flatten(ohour), _flatten(ihour))
+                self.assertEqual(_flatten(ominute), _flatten(iminute))
+                self.assertEqual(_flatten(osecond), _flatten(isecond))
+                # using return_arrays
+                idec = date2num(idt, units='', calendar=calendar,
+                                has_year_zero=ihave0)
+                oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
+                    num2date(idec, units='', calendar=calendar,
+                             has_year_zero=ihave0,
+                             return_arrays=True))
+                self.assertEqual(_flatten(oyear), _flatten(iyear))
+                self.assertEqual(_flatten(omonth), _flatten(imonth))
+                self.assertEqual(_flatten(oday), _flatten(iday))
+                self.assertEqual(_flatten(ohour), _flatten(ihour))
+                self.assertEqual(_flatten(ominute), _flatten(iminute))
+                self.assertEqual(_flatten(osecond), _flatten(isecond))
+                # using return_arrays with absolute days
+                idec = date2num(idt, units='day as %Y%m%d.%f',
+                                calendar=calendar, has_year_zero=ihave0)
+                oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
+                    num2date(idec, units='day as %Y%m%d.%f', calendar=calendar,
+                             has_year_zero=ihave0,
+                             return_arrays=True))
+                self.assertEqual(_flatten(oyear), _flatten(iyear))
+                self.assertEqual(_flatten(omonth), _flatten(imonth))
+                self.assertEqual(_flatten(oday), _flatten(iday))
+                self.assertEqual(_flatten(ohour), _flatten(ihour))
+                self.assertEqual(_flatten(ominute), _flatten(iminute))
+                self.assertEqual(_flatten(osecond), _flatten(isecond))
 
-    #             # _add_timedelta - with __add__
+                # _add_timedelta - with __add__
 
-    #             # _getstate
-    #             odt = []
-    #             for dt in idt:
-    #                 arg, kwarg = dt._getstate()
-    #                 odt.append(datetime(*arg, **kwarg))
-    #             ist  = np.array([ dt.to_tuple() for dt in idt ])
-    #             soll = np.array([ dt.to_tuple() for dt in odt ])
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # _getstate
+                odt = []
+                for dt in idt:
+                    arg, kwarg = dt._getstate()
+                    odt.append(datetime(*arg, **kwarg))
+                ist  = np.array([ dt.to_tuple() for dt in idt ])
+                soll = np.array([ dt.to_tuple() for dt in odt ])
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # _to_real_datetime -> no year < 0
+                # _to_real_datetime -> no year < 0
 
-    #             # __add__
-    #             # datetime + timedelta
-    #             odt = [ dt + timedelta(days=1, hours=-2, minutes=3, seconds=4)
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd + 1 for dd in iday ]
-    #             self.assertEqual(_flatten(oday), _flatten(soll))
-    #             soll = [ dd - 2 for dd in ihour ]
-    #             self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             soll = [ dd + 3 for dd in iminute ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in isecond ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # # timedelta + datetime
-    #             # odt = [ timedelta(days=1, hours=-2, minutes=3, seconds=4) +
-    #             #         dt for dt in idt ]
-    #             # iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             # oday    = iarrays[:, 2]
-    #             # ohour   = iarrays[:, 3]
-    #             # ominute = iarrays[:, 4]
-    #             # osecond = iarrays[:, 5]
-    #             # soll = [ dd + 1 for dd in iday ]
-    #             # self.assertEqual(_flatten(oday), _flatten(soll))
-    #             # soll = [ dd - 2 for dd in ihour ]
-    #             # self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             # soll = [ dd + 3 for dd in iminute ]
-    #             # self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             # soll = [ dd + 4 for dd in isecond ]
-    #             # self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # __add__
-    #             odt = [ dt.__add__(timedelta(days=1, hours=-2, minutes=3,
-    #                                          seconds=4))
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd + 1 for dd in iday ]
-    #             self.assertEqual(_flatten(oday), _flatten(soll))
-    #             soll = [ dd - 2 for dd in ihour ]
-    #             self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             soll = [ dd + 3 for dd in iminute ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in isecond ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
-    #             # _add_timedelta
-    #             odt = [ dt._add_timedelta(timedelta(days=1, hours=-2,
-    #                                                 minutes=3, seconds=4))
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             ominute = iarrays[:, 4]
-    #             osecond = iarrays[:, 5]
-    #             soll = [ dd + 1 for dd in iday ]
-    #             self.assertEqual(_flatten(oday), _flatten(soll))
-    #             soll = [ dd - 2 for dd in ihour ]
-    #             self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             soll = [ dd + 3 for dd in iminute ]
-    #             self.assertEqual(_flatten(ominute), _flatten(soll))
-    #             soll = [ dd + 4 for dd in isecond ]
-    #             self.assertEqual(_flatten(osecond), _flatten(soll))
+                # __add__
+                # datetime + timedelta
+                odt = [ dt + timedelta(days=1, hours=-2, minutes=3, seconds=4)
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd + 1 for dd in iday ]
+                self.assertEqual(_flatten(oday), _flatten(soll))
+                soll = [ dd - 2 for dd in ihour ]
+                self.assertEqual(_flatten(ohour), _flatten(soll))
+                soll = [ dd + 3 for dd in iminute ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in isecond ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
+                # # timedelta + datetime
+                # odt = [ timedelta(days=1, hours=-2, minutes=3, seconds=4) +
+                #         dt for dt in idt ]
+                # iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                # oday    = iarrays[:, 2]
+                # ohour   = iarrays[:, 3]
+                # ominute = iarrays[:, 4]
+                # osecond = iarrays[:, 5]
+                # soll = [ dd + 1 for dd in iday ]
+                # self.assertEqual(_flatten(oday), _flatten(soll))
+                # soll = [ dd - 2 for dd in ihour ]
+                # self.assertEqual(_flatten(ohour), _flatten(soll))
+                # soll = [ dd + 3 for dd in iminute ]
+                # self.assertEqual(_flatten(ominute), _flatten(soll))
+                # soll = [ dd + 4 for dd in isecond ]
+                # self.assertEqual(_flatten(osecond), _flatten(soll))
+                # __add__
+                odt = [ dt.__add__(timedelta(days=1, hours=-2, minutes=3,
+                                             seconds=4))
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd + 1 for dd in iday ]
+                self.assertEqual(_flatten(oday), _flatten(soll))
+                soll = [ dd - 2 for dd in ihour ]
+                self.assertEqual(_flatten(ohour), _flatten(soll))
+                soll = [ dd + 3 for dd in iminute ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in isecond ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
+                # _add_timedelta
+                odt = [ dt._add_timedelta(timedelta(days=1, hours=-2,
+                                                    minutes=3, seconds=4))
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                ominute = iarrays[:, 4]
+                osecond = iarrays[:, 5]
+                soll = [ dd + 1 for dd in iday ]
+                self.assertEqual(_flatten(oday), _flatten(soll))
+                soll = [ dd - 2 for dd in ihour ]
+                self.assertEqual(_flatten(ohour), _flatten(soll))
+                soll = [ dd + 3 for dd in iminute ]
+                self.assertEqual(_flatten(ominute), _flatten(soll))
+                soll = [ dd + 4 for dd in isecond ]
+                self.assertEqual(_flatten(osecond), _flatten(soll))
 
-    #             # __eq__
-    #             odt = [ dt + timedelta(0) for dt in idt ]
-    #             for i in range(len(idt)):
-    #                 assert idt[i] == odt[i]
+                # __eq__
+                odt = [ dt + timedelta(0) for dt in idt ]
+                for i in range(len(idt)):
+                    assert idt[i] == odt[i]
 
-    #             # __format__
-    #             # using self.format
-    #             ist = [ dt.__format__('') for dt in idt ]
-    #             soll = idates
-    #             self.assertEqual(ist, soll)
-    #             # other format
-    #             oform = '%d.%m.%Y %H:%M:%S'
-    #             ist = [ dt.__format__(oform) for dt in idt ]
-    #             soll = date2date(idates, format='')
-    #             self.assertEqual(ist, soll)
+                # __format__
+                # using self.format
+                ist = [ dt.__format__('') for dt in idt ]
+                soll = idates
+                self.assertEqual(ist, soll)
+                # other format
+                oform = '%d.%m.%Y %H:%M:%S'
+                ist = [ dt.__format__(oform) for dt in idt ]
+                soll = date2date(idates, format='')
+                self.assertEqual(ist, soll)
 
-    #             # __hash__, __reduce__ ???
+                # __hash__, __reduce__ ???
 
-    #             # __repr__
-    #             ihave = ihave0
-    #             if ihave is None:
-    #                 ihave = _year_zero_defaults(calendar)
-    #             for i, dt in enumerate(idt):
-    #                 ist = dt.__repr__()
-    #                 soll = (f'pyjams.datetime({iyear[i]},'
-    #                         f' {imonth[i]}, {iday[i]},'
-    #                         f' {ihour[i]}, {iminute[i]},'
-    #                         f' {isecond[i]}, 0,'
-    #                         f' calendar={calendar},'
-    #                         f' has_year_zero={ihave})')
-    #                 assert ist == soll
+                # __repr__
+                ihave = ihave0
+                if ihave is None:
+                    ihave = _year_zero_defaults(calendar)
+                for i, dt in enumerate(idt):
+                    ist = dt.__repr__()
+                    soll = (f'pyjams.datetime({iyear[i]},'
+                            f' {imonth[i]}, {iday[i]},'
+                            f' {ihour[i]}, {iminute[i]},'
+                            f' {isecond[i]}, 0,'
+                            f' calendar={calendar},'
+                            f' has_year_zero={ihave})')
+                    assert ist == soll
 
-    #             # __str__
-    #             ist  = [ dt.__str__() for dt in idt ]
-    #             soll = idates
-    #             self.assertEqual(_flatten(ist), _flatten(soll))
+                # __str__
+                ist  = [ dt.__str__() for dt in idt ]
+                soll = idates
+                self.assertEqual(_flatten(ist), _flatten(soll))
 
-    #             # __sub__
-    #             # datetime + timedelta
-    #             odt = [ dt - timedelta(days=-1, hours=2)
-    #                     for dt in idt ]
-    #             iarrays = np.array([ dt.to_tuple() for dt in odt ])
-    #             oday    = iarrays[:, 2]
-    #             ohour   = iarrays[:, 3]
-    #             soll = [ dd + 1 for dd in iday ]
-    #             self.assertEqual(_flatten(oday), _flatten(soll))
-    #             soll = [ dd - 2 for dd in ihour ]
-    #             self.assertEqual(_flatten(ohour), _flatten(soll))
-    #             # datetime + timedelta
-    #             dd  = timedelta(days=1, hours=-2, minutes=3, seconds=4)
-    #             ddt = [ dt + dd for dt in idt ]
-    #             odt = [ ddt[i] - idt[i] for i in range(len(idt)) ]
-    #             for dt in odt:
-    #                 assert dt == dd
-    #             odt = [ idt[i] - ddt[i] for i in range(len(idt)) ]
-    #             for dt in odt:
-    #                 assert dt == -dd
+                # __sub__
+                # datetime + timedelta
+                odt = [ dt - timedelta(days=-1, hours=2)
+                        for dt in idt ]
+                iarrays = np.array([ dt.to_tuple() for dt in odt ])
+                oday    = iarrays[:, 2]
+                ohour   = iarrays[:, 3]
+                soll = [ dd + 1 for dd in iday ]
+                self.assertEqual(_flatten(oday), _flatten(soll))
+                soll = [ dd - 2 for dd in ihour ]
+                self.assertEqual(_flatten(ohour), _flatten(soll))
+                # datetime + timedelta
+                dd  = timedelta(days=1, hours=-2, minutes=3, seconds=4)
+                ddt = [ dt + dd for dt in idt ]
+                odt = [ ddt[i] - idt[i] for i in range(len(idt)) ]
+                for dt in odt:
+                    assert dt == dd
+                odt = [ idt[i] - ddt[i] for i in range(len(idt)) ]
+                for dt in odt:
+                    assert dt == -dd
 
-    #     # no calendar given
-    #     odt = [ datetime(self.year[i], self.month[i], self.day[i],
-    #                      self.hour[i], self.minute[i],
-    #                      self.second[i])
-    #             for i in range(len(self.year)) ]
-    #     for dt in odt:
-    #         assert dt.calendar == 'decimal'
+        # no calendar given
+        odt = [ datetime(self.year[i], self.month[i], self.day[i],
+                         self.hour[i], self.minute[i],
+                         self.second[i])
+                for i in range(len(self.year)) ]
+        for dt in odt:
+            assert dt.calendar == 'decimal'
 
-    #     # issue #187 of cftime: roundtrip near second boundary
-    #     dt1 = datetime(1810, 4, 24, 16, 15, 10)
-    #     units = 'days since -4713-01-01 12:00'
-    #     dt2 = num2date(date2num(dt1, units, calendar='decimal'),
-    #                    units, calendar='decimal')
-    #     assert dt1 == dt2
+        # issue #187 of cftime: roundtrip near second boundary
+        dt1 = datetime(1810, 4, 24, 16, 15, 10)
+        units = 'days since -4713-01-01 12:00'
+        dt2 = num2date(date2num(dt1, units, calendar='decimal'),
+                       units, calendar='decimal')
+        assert dt1 == dt2
 
-    #     # errors
+        # errors
 
-    #     # calendar of cftime
-    #     self.assertRaises(ValueError, datetime, 1900, 1, 1,
-    #                       calendar='standard')
-    #     # unknown calendar
-    #     self.assertRaises(ValueError, datetime, 1900, 1, 1, calendar='test')
-    #     # assert_valid_date
-    #     self.assertRaises(ValueError, datetime, 0, 1, 1, 1, 1, 1, 1,
-    #                       has_year_zero=False)
-    #     self.assertRaises(ValueError, datetime, 1900, 13, 1, 1, 1, 1, 1)
-    #     self.assertRaises(ValueError, datetime, 1900, 1, 32, 1, 1, 1, 1)
-    #     self.assertRaises(ValueError, datetime, 1900, 1, 1, 24, 1, 1, 1)
-    #     self.assertRaises(ValueError, datetime, 1900, 1, 1, 1, 61, 1, 1)
-    #     self.assertRaises(ValueError, datetime, 1900, 1, 1, 1, 1, 61, 1)
-    #     self.assertRaises(ValueError, datetime, 1900, 1, 1, 1, 1, 1, -1)
-    #     # illegal isoformat
-    #     dt = datetime(1990, 1, 1)
-    #     self.assertRaises(ValueError, dt.isoformat, timespec='test')
-    #     # replace dayofyr, dayofwk, calendar
-    #     dt = datetime(1990, 1, 1)
-    #     self.assertRaises(ValueError, dt.replace, dayofyr=2)
-    #     self.assertRaises(ValueError, dt.replace, dayofwk=2)
-    #     self.assertRaises(ValueError, dt.replace, calendar='excel')
-    #     # %s in format
-    #     self.assertRaises(TypeError, dt.strftime, "%Y-%m-%d.%s")
-    #     # %f not at end of format
-    #     self.assertRaises(TypeError, dt.strftime, "%Y-%m-%d.%f %H")
+        # calendar of cftime
+        self.assertRaises(ValueError, datetime, 1900, 1, 1,
+                          calendar='standard')
+        # unknown calendar
+        self.assertRaises(ValueError, datetime, 1900, 1, 1, calendar='test')
+        # assert_valid_date
+        self.assertRaises(ValueError, datetime, 0, 1, 1, 1, 1, 1, 1,
+                          has_year_zero=False)
+        self.assertRaises(ValueError, datetime, 1900, 13, 1, 1, 1, 1, 1)
+        self.assertRaises(ValueError, datetime, 1900, 1, 32, 1, 1, 1, 1)
+        self.assertRaises(ValueError, datetime, 1900, 1, 1, 24, 1, 1, 1)
+        self.assertRaises(ValueError, datetime, 1900, 1, 1, 1, 61, 1, 1)
+        self.assertRaises(ValueError, datetime, 1900, 1, 1, 1, 1, 61, 1)
+        self.assertRaises(ValueError, datetime, 1900, 1, 1, 1, 1, 1, -1)
+        # illegal isoformat
+        dt = datetime(1990, 1, 1)
+        self.assertRaises(ValueError, dt.isoformat, timespec='test')
+        # replace dayofyr, dayofwk, calendar
+        dt = datetime(1990, 1, 1)
+        self.assertRaises(ValueError, dt.replace, dayofyr=2)
+        self.assertRaises(ValueError, dt.replace, dayofwk=2)
+        self.assertRaises(ValueError, dt.replace, calendar='excel')
+        # %s in format
+        self.assertRaises(TypeError, dt.strftime, "%Y-%m-%d.%s")
+        # %f not at end of format
+        self.assertRaises(TypeError, dt.strftime, "%Y-%m-%d.%f %H")
 
 
 if __name__ == "__main__":

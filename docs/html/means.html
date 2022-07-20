@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>means &#8212; pyjams 0.0.0.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Date and Time" href="date_time.html" />
+    <link rel="prev" title="MAD" href="mad.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-pyjams.means">
+<span id="means"></span><h1>means<a class="headerlink" href="#module-pyjams.means" title="Permalink to this heading">¶</a></h1>
+<p>Calculate daily, monthly, yearly, etc. means of data</p>
+<p>This module was written by Matthias Cuntz while at Department of
+Computational Hydrosystems, Helmholtz Centre for Environmental
+Research - UFZ, Leipzig, Germany, and continued while at Institut
+National de Recherche pour l’Agriculture, l’Alimentation et
+l’Environnement (INRAE), Nancy, France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Copyright 2013-2022 Matthias Cuntz, see AUTHORS.rst for details.</p>
+</dd>
+<dt class="field-even">license<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
+<p>The following functions are provided</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.means.means" title="pyjams.means.means"><code class="xref py py-obj docutils literal notranslate"><span class="pre">means</span></code></a>(date, dat[, year, month, day, hour, ...])</p></td>
+<td><p>Calculate daily, monthly, yearly, etc.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Jul 2013 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>Added meanday, Jul 2013, Matthias Cuntz</p></li>
+<li><p>Added max and min, Apr 2014, Matthias Cuntz</p></li>
+<li><p>Added onlydat and meanmonth, Jun 2015, Matthias Cuntz</p></li>
+<li><p>Added seasonal, Oct 2018, Matthias Cuntz</p></li>
+<li><p>Bug in minute averaging: compared minutes to hours,
+Jun 2019, Matthias Cuntz</p></li>
+<li><p>Added half_hour, inspired by Robin Leucht for UFZ level1 data;
+did not take restrospective keyword but added Note for this case,
+Jun 2019, Matthias Cuntz</p></li>
+<li><p>More date formats, Jul 2022, Matthias Cuntz</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.means.means">
+<span class="sig-name descname"><span class="pre">means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">half_hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meanday</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meanmonth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onlydat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/means.html#means"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.means.means" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate daily, monthly, yearly, etc. means of data</p>
+<p>dat will be averaged over columns, i.e. the first dimension.
+If no keyword argument is given, the mean will be over the whole
+first column.</p>
+<p>date can be either string or datetime object of Python, numpy, cftime, or
+pyjams, which will be interpreted by pyjams.date2num; or date can be a
+numeric value, which will be interpreted by pyjams.num2date; any extra
+keyword argument will be passed to the appropriate datetime routine.
+Returned dates will be in same format as incoming dates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>1D array with dates</em>) – <p>Can either be strings or <em>datetime</em> objects of <em>Python</em>, <em>cftime</em> or
+<em>pyjams</em>, which will be interpreted by <em>pyjams.date2num</em>, or <em>date</em>
+can be a numeric value, which will be interpreted by <em>pyjams.num2date</em></p>
+<p>date should be centred on input time period, i.e. half-hourly data
+should have dates at 15 min and 45 min of each hour.</p>
+</p></li>
+<li><p><strong>dat</strong> (<em>ND</em><em> (</em><em>masked-</em><em>)</em><em>array</em>) – </p></li>
+<li><p><strong>year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return yearly means</p></li>
+<li><p><strong>month</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return monthly means</p></li>
+<li><p><strong>day</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return daily means</p></li>
+<li><p><strong>hour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return hourly means</p></li>
+<li><p><strong>half_hour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return half-hourly means</p></li>
+<li><p><strong>minute</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return minutely means</p></li>
+<li><p><strong>meanday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return mean daily cycle</p></li>
+<li><p><strong>meanmonth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return mean monthly cycle</p></li>
+<li><p><strong>seasonal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return seasonal cycle</p></li>
+<li><p><strong>sum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate sums instead of means</p></li>
+<li><p><strong>max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate maxima instead of means</p></li>
+<li><p><strong>min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate minima instead of means</p></li>
+<li><p><strong>onlydat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return only meandat, else return [outdate, meandat]</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Any other keyword argument will be passed to either <em>pyjams.date2num</em>
+or <em>pyjams.num2date</em> depending on type of <em>date</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>centred date on year, month, day, etc.; and
+averaged data in 1st dimension</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>outdate, meandat</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<dl class="simple">
+<dt>Returns centred [dates, averages]:</dt><dd><ul class="simple">
+<li><p>Yearly dates are centred at June 15, 12:00 h</p></li>
+<li><p>Monthly dates are centred at 15th, 12:00 h</p></li>
+<li><p>Daily dates are centred at 12:00 h</p></li>
+<li><p>Hourly dates are centred at 30 min</p></li>
+<li><p>Half hourly dates are centred at 15 and 45 min</p></li>
+<li><p>Minutely dates are centred at 30 sec</p></li>
+<li><p>Mean daily dates are centred on 30 min of January 01 of the first
+year</p></li>
+<li><p>Mean monthly dates are centred on the 15th of each month at 12:00 h
+of the first year</p></li>
+<li><p>Seasonal dates are centred at 12:00 h of each day of the first (leap)
+year</p></li>
+</ul>
+</dd>
+</dl>
+<p>If meanday/meanmonth/seasonal==True, then all hours/months/days will be
+written; as a masked-array if hours/months/days are missing.</p>
+<p>If seasonal==True, input data has to be spaced &lt;= days, otherwise
+consider meanmonth.</p>
+<p>If input date represent the beginning/end of the time step, the user should
+add/remove half a time step before using the routine. Otherwise the routine
+would have to guess the time step, which is error prone.
+For example, remove 15 minutes by subtracting
+<cite>datetime.timedelta(minutes=15)</cite> from datetime, <cite>15./(24.*60.)</cite> from Julian
+dates, or <cite>pyjams.date2num(‘2010-01-01 12:15’, units, calendar) -
+pyjams.date2num(‘2010-01-01 12:00’, units, calendar)</cite> from any <em>calendar</em>
+and <em>units</em> understood by <em>pyjams.datetime</em> or <em>cftime.datetime</em>.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jams.autostring</span> <span class="kn">import</span> <span class="n">astr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jams.date2dec</span> <span class="kn">import</span> <span class="n">date2dec</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;01.01.1990 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.02.1990 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.03.1990 12:00:00&#39;</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;01.01.1990 12:10:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.01.1990 13:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.01.1990 14:00:00&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jdates</span> <span class="o">=</span> <span class="n">date2dec</span><span class="p">(</span><span class="n">ascii</span><span class="o">=</span><span class="n">dates</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">jdates</span><span class="p">))</span><span class="o">+</span><span class="mf">1.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">odates</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">2.448e+06 3.500</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;3.500&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;4.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;4.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;2.500&#39; &#39;5.000&#39; &#39;6.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">half_hour</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;2.500&#39; &#39;5.000&#39; &#39;6.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">meanday</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">16</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;--   &#39; &#39;--   &#39; &#39;2.500&#39; &#39;5.000&#39; &#39;6.000&#39; &#39;--   &#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">meanmonth</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;4.000&#39; &#39;2.000&#39; &#39;3.000&#39; &#39;--   &#39; &#39;--   &#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;4.000&#39; &#39;--   &#39; &#39;--   &#39; &#39;--   &#39; &#39;--   &#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">onlydat</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;4.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+</pre></div>
+</div>
+<p># Masked arrays
+&gt;&gt;&gt; x         = np.ma.array(x, mask=np.zeros(x.size, dtype=bool))
+&gt;&gt;&gt; x.mask[0] = True
+&gt;&gt;&gt; odates, xout = means(jdates, x)
+&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
+2.448e+06 4.000</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;4.000&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;5.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[&#39;5.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+</pre></div>
+</div>
+<p># sum
+&gt;&gt;&gt; odates, xout = means(jdates, x, sum=True)
+&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
+2.448e+06 20.000
+&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, sum=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘20.000’]
+&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, sum=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘15.000’ ‘ 2.000’ ‘ 3.000’]
+&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, sum=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘15.000’ ‘ 2.000’ ‘ 3.000’]</p>
+<p># max
+&gt;&gt;&gt; odates, xout = means(jdates, x, max=True)
+&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
+2.448e+06 6.000
+&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, max=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘6.000’]
+&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, max=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘6.000’ ‘2.000’ ‘3.000’]
+&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, max=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘6.000’ ‘2.000’ ‘3.000’]</p>
+<p># min
+&gt;&gt;&gt; odates, xout = means(jdates, x, min=True)
+&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
+2.448e+06 2.000
+&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, min=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘2.000’]
+&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, min=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘4.000’ ‘2.000’ ‘3.000’]
+&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, min=True)
+&gt;&gt;&gt; print(astr(xout, 3, pp=True))
+[‘4.000’ ‘2.000’ ‘3.000’]</p>
+<p># 2D and masked arrays
+&gt;&gt;&gt; x  = np.repeat(x,2).reshape((x.size,2))
+&gt;&gt;&gt; odates, xout = means(jdates, x)
+&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
+2.448e+06 [‘4.000’ ‘4.000’]</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[[&#39;4.000&#39; &#39;4.000&#39;]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[[&#39;5.000&#39; &#39;5.000&#39;]</span>
+<span class="go"> [&#39;2.000&#39; &#39;2.000&#39;]</span>
+<span class="go"> [&#39;3.000&#39; &#39;3.000&#39;]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[[&#39;5.000&#39; &#39;5.000&#39;]</span>
+<span class="go"> [&#39;2.000&#39; &#39;2.000&#39;]</span>
+<span class="go"> [&#39;3.000&#39; &#39;3.000&#39;]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="data_processing.html">Data Processing</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="kernel_regression.html">kernel_regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mad.html">MAD</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">means</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams@GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams@Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams/">pyjams@PyPI</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="data_processing.html">Data Processing</a><ul>
+      <li>Previous: <a href="mad.html" title="previous chapter">MAD</a></li>
+      <li>Next: <a href="date_time.html" title="next chapter">Date and Time</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/means.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
