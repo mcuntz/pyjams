@@ -1321,6 +1321,8 @@ def num2date(times, units='', calendar='standard',
         iscf = False
         calendar = ''
 
+    mtimes = input2array(times, default=1)
+
     # use cftime.num2date if possible
     if iscf:
         if remainder.startswith('-'):
@@ -1331,7 +1333,7 @@ def num2date(times, units='', calendar='standard',
                 if has_year_zero is not None:
                     has_year_zero = True
         out = cf.num2date(
-            times, units, calendar=calendar,
+            mtimes, units, calendar=calendar,
             only_use_cftime_datetimes=only_use_cftime_datetimes,
             only_use_python_datetimes=only_use_python_datetimes,
             has_year_zero=has_year_zero)
@@ -1346,7 +1348,7 @@ def num2date(times, units='', calendar='standard',
         # where decomposition is done for the first (oldest) element only
         # and then timedeltas are added subsequently
         year, month, day, hour, minute, second, microsecond = (
-            _absolute2date(times, units))
+            _absolute2date(mtimes, units))
 
         # shortcut
         if return_arrays:
@@ -1379,7 +1381,7 @@ def num2date(times, units='', calendar='standard',
         cfcalendar = 'julian'
         cfunits = _units_defaults(calendar)
         cfdates = cf.num2date(
-            times, cfunits, calendar=cfcalendar,
+            mtimes, cfunits, calendar=cfcalendar,
             only_use_cftime_datetimes=only_use_cftime_datetimes,
             only_use_python_datetimes=False,
             has_year_zero=has_year_zero)
@@ -1410,7 +1412,7 @@ def num2date(times, units='', calendar='standard',
         # where decomposition is done for the first (oldest) element only
         # and then timedeltas are added subsequently
         year, month, day, hour, minute, second, microsecond = (
-            _decimal2date(times, calendar))
+            _decimal2date(mtimes, calendar))
 
         # shortcut
         if return_arrays:

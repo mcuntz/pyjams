@@ -281,6 +281,26 @@ class TestDatetime(unittest.TestCase):
                 self.assertEqual(_flatten(odates),
                                  _flatten(indates))
 
+        # Back and forth for calendar == '' and scalar date
+
+        calendar = ''
+        units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
+                 'days since 1900-01-01 00:00:00']
+        f2dates = [num2date, dec2date]
+        f2nums = [date2num, date2dec]
+        for unit in units:
+            # print(unit)
+            indates = self.idates[0]
+            jdates = date2date(indates)
+            f2num = f2nums[random.randint(0, 1)]
+            idec = f2num(jdates, units=unit, calendar=calendar)
+            f2date = f2dates[random.randint(0, 1)]
+            odates = f2date(
+                idec, units=unit, calendar=calendar,
+                format=self.iformat,
+                return_arrays=False)
+            self.assertEqual(odates, indates)
+
         # Back and forth with microseconds
 
         calendar = 'decimal'
