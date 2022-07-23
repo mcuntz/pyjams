@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+v1.26 (??? 2022)
+    * Documented as_cmap keyword of `get_cmap`.
+    * Added `means` to calculate daily, monthly, yearly, etc. means.
+    * Allow scalar input in `num2date`.
+    * Renamed `datetime.py` to `class_datetime.py`.
+
 v1.25 (Jun 2022)
     * Allow negative dates in `date2date`.
     * Support of microseconds in `date2date`.

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>means &#8212; pyjams 0.0.0.dev0 documentation</title>
+    <title>means &#8212; pyjams 1.26.dev2 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -37,7 +37,7 @@
             
   <section id="module-pyjams.means">
 <span id="means"></span><h1>means<a class="headerlink" href="#module-pyjams.means" title="Permalink to this heading">¶</a></h1>
-<p>Calculate daily, monthly, yearly, etc. means of data</p>
+<p>Calculate daily, monthly, yearly, etc. means</p>
 <p>This module was written by Matthias Cuntz while at Department of
 Computational Hydrosystems, Helmholtz Centre for Environmental
 Research - UFZ, Leipzig, Germany, and continued while at Institut
@@ -71,7 +71,8 @@ Jun 2019, Matthias Cuntz</p></li>
 <li><p>Added half_hour, inspired by Robin Leucht for UFZ level1 data;
 did not take restrospective keyword but added Note for this case,
 Jun 2019, Matthias Cuntz</p></li>
-<li><p>More date formats, Jul 2022, Matthias Cuntz</p></li>
+<li><p>Use pyjams datetime, Jul 2022, Matthias Cuntz</p></li>
+<li><p>More possible date formats, Jul 2022, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -155,143 +156,144 @@ pyjams.date2num(‘2010-01-01 12:00’, units, calendar)</cite> from any <em>cal
 and <em>units</em> understood by <em>pyjams.datetime</em> or <em>cftime.datetime</em>.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jams.autostring</span> <span class="kn">import</span> <span class="n">astr</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jams.date2dec</span> <span class="kn">import</span> <span class="n">date2dec</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;01.01.1990 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.02.1990 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.03.1990 12:00:00&#39;</span><span class="p">,</span>
-<span class="gp">... </span>          <span class="s1">&#39;01.01.1990 12:10:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.01.1990 13:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.01.1990 14:00:00&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jdates</span> <span class="o">=</span> <span class="n">date2dec</span><span class="p">(</span><span class="n">ascii</span><span class="o">=</span><span class="n">dates</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">jdates</span><span class="p">))</span><span class="o">+</span><span class="mf">1.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">odates</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">2.448e+06 3.500</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;01.01.1990 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.02.1990 12:00:00&#39;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s1">&#39;01.03.1990 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.01.1990 12:10:00&#39;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s1">&#39;01.01.1990 13:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;01.01.1990 14:00:00&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jdates</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">jdates</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oodates</span> <span class="o">=</span> <span class="n">num2date</span><span class="p">(</span><span class="n">odates</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oodates</span> <span class="o">=</span> <span class="n">oodates</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">oodates</span><span class="p">,</span> <span class="n">xout</span><span class="p">)</span>
+<span class="go">1990-01-31 00:00:00 3.5</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;3.500&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[3.5]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;4.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[4. 2. 3.]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;4.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[4. 2. 3.]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;2.500&#39; &#39;5.000&#39; &#39;6.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[2.5 5.  6.  2.  3. ]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">half_hour</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;2.500&#39; &#39;5.000&#39; &#39;6.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">half_hour</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[2.5 5.  6.  2.  3. ]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">meanday</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">16</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;--   &#39; &#39;--   &#39; &#39;2.500&#39; &#39;5.000&#39; &#39;6.000&#39; &#39;--   &#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">meanday</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">16</span><span class="p">])</span>
+<span class="go">[-- -- 2.5 5.0 6.0 --]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">meanmonth</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;4.000&#39; &#39;2.000&#39; &#39;3.000&#39; &#39;--   &#39; &#39;--   &#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">meanmonth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<span class="go">[4.0 2.0 3.0 --  --]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;4.000&#39; &#39;--   &#39; &#39;--   &#39; &#39;--   &#39; &#39;--   &#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<span class="go">[4.0 -- -- -- --]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">onlydat</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;4.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">onlydat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">))</span>
+<span class="go">[4. 2. 3.]</span>
 </pre></div>
 </div>
 <p># Masked arrays
-&gt;&gt;&gt; x         = np.ma.array(x, mask=np.zeros(x.size, dtype=bool))
+&gt;&gt;&gt; x = np.ma.array(x, mask=np.zeros(x.size, dtype=bool))
 &gt;&gt;&gt; x.mask[0] = True
-&gt;&gt;&gt; odates, xout = means(jdates, x)
-&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
-2.448e+06 4.000</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;4.000&#39;]</span>
+&gt;&gt;&gt; odates, xout = means(jdates, x, calendar=’decimal’)
+&gt;&gt;&gt; print(np.around(odates, 1), xout)
+1990.1 4.0</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[4.0]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;5.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[5.0 2.0 3.0]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[&#39;5.000&#39; &#39;2.000&#39; &#39;3.000&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[5.0 2.0 3.0]</span>
 </pre></div>
 </div>
 <p># sum
-&gt;&gt;&gt; odates, xout = means(jdates, x, sum=True)
-&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
-2.448e+06 20.000
-&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, sum=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘20.000’]
-&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, sum=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘15.000’ ‘ 2.000’ ‘ 3.000’]
-&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, sum=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘15.000’ ‘ 2.000’ ‘ 3.000’]</p>
+&gt;&gt;&gt; odates, xout = means(jdates, x, sum=True, calendar=’decimal’)
+&gt;&gt;&gt; print(np.around(odates, 1), xout)
+1990.1 20.0
+&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, sum=True, calendar=’decimal’)
+&gt;&gt;&gt; print(xout)
+[20.0]
+&gt;&gt;&gt; odates, xout = means(dates, x, month=True, sum=True)
+&gt;&gt;&gt; print(xout)
+[15.0 2.0 3.0]
+&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, sum=True, calendar=’decimal’)
+&gt;&gt;&gt; print(xout)
+[15.0 2.0 3.0]</p>
 <p># max
-&gt;&gt;&gt; odates, xout = means(jdates, x, max=True)
-&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
-2.448e+06 6.000
-&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, max=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘6.000’]
-&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, max=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘6.000’ ‘2.000’ ‘3.000’]
-&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, max=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘6.000’ ‘2.000’ ‘3.000’]</p>
+&gt;&gt;&gt; odates, xout = means(jdates, x, max=True, calendar=’decimal’)
+&gt;&gt;&gt; print(np.around(odates, 1), xout)
+1990.1 6.0
+&gt;&gt;&gt; odates, xout = means(dates, x, year=True, max=True)
+&gt;&gt;&gt; print(xout)
+[6.0]
+&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, max=True, calendar=’decimal’)
+&gt;&gt;&gt; print(xout)
+[6.0 2.0 3.0]
+&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, max=True, calendar=’decimal’)
+&gt;&gt;&gt; print(xout)
+[6.0 2.0 3.0]</p>
 <p># min
-&gt;&gt;&gt; odates, xout = means(jdates, x, min=True)
-&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
-2.448e+06 2.000
-&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, min=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘2.000’]
-&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, min=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘4.000’ ‘2.000’ ‘3.000’]
-&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, min=True)
-&gt;&gt;&gt; print(astr(xout, 3, pp=True))
-[‘4.000’ ‘2.000’ ‘3.000’]</p>
+&gt;&gt;&gt; odates, xout = means(jdates, x, min=True, calendar=’decimal’)
+&gt;&gt;&gt; print(np.around(odates, 1), xout)
+1990.1 2.0
+&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, min=True, calendar=’decimal’)
+&gt;&gt;&gt; print(xout)
+[2.0]
+&gt;&gt;&gt; odates, xout = means(dates, x, month=True, min=True)
+&gt;&gt;&gt; print(xout)
+[4.0 2.0 3.0]
+&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, min=True, calendar=’decimal’)
+&gt;&gt;&gt; print(xout)
+[4.0 2.0 3.0]</p>
 <p># 2D and masked arrays
 &gt;&gt;&gt; x  = np.repeat(x,2).reshape((x.size,2))
-&gt;&gt;&gt; odates, xout = means(jdates, x)
-&gt;&gt;&gt; print(astr(odates, 3, pp=True), astr(xout, 3, pp=True))
-2.448e+06 [‘4.000’ ‘4.000’]</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[[&#39;4.000&#39; &#39;4.000&#39;]]</span>
+&gt;&gt;&gt; odates, xout = means(jdates, x, calendar=’decimal’)
+&gt;&gt;&gt; print(np.around(odates, 1), xout)
+1990.1 [4.0 4.0]</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[[4.0 4.0]]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[[&#39;5.000&#39; &#39;5.000&#39;]</span>
-<span class="go"> [&#39;2.000&#39; &#39;2.000&#39;]</span>
-<span class="go"> [&#39;3.000&#39; &#39;3.000&#39;]]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[[5.0 5.0]</span>
+<span class="go"> [2.0 2.0]</span>
+<span class="go"> [3.0 3.0]]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">astr</span><span class="p">(</span><span class="n">xout</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pp</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[[&#39;5.000&#39; &#39;5.000&#39;]</span>
-<span class="go"> [&#39;2.000&#39; &#39;2.000&#39;]</span>
-<span class="go"> [&#39;3.000&#39; &#39;3.000&#39;]]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[[5.0 5.0]</span>
+<span class="go"> [2.0 2.0]</span>
+<span class="go"> [3.0 3.0]]</span>
 </pre></div>
 </div>
 </dd></dl>

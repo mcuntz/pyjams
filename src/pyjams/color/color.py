@@ -192,8 +192,8 @@ def print_colors(collection=''):
         print('       ', list(ll))
 
 
-def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
-             reverse=False, grey=False, order=None):
+def get_cmap(palette, ncol=0, offset=0, upper=1,
+             reverse=False, grey=False, order=None, as_cmap=False):
     """
     Get colors of defined palettes or continuous colormaps
 
@@ -221,6 +221,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1, as_cmap=False,
         Order colors by 'hue', 'saturation', or 'value'.
         This is done before *reverse* and *grey*
         (default: order from color sources).
+    as_cmap : bool, optional
+        If True, returns matplotlib.colors.Colormap
+        instead of list of RGB tuples
 
     Returns
     -------
