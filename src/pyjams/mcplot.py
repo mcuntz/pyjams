@@ -93,6 +93,8 @@ History
     * Add **kwargs to plot_save, May 2022, Matthias Cuntz
     * Add self.transparent to pdf output in plot_save, May 2022, Matthias Cuntz
     * Add --transparent as a standard option, May 2022, Matthias Cuntz
+    * Add left, bottom, top to standard layout options,
+      Jul 2022, Matthias Cuntz
 
 """
 import numpy as np
@@ -150,7 +152,7 @@ class mcPlot(object):
         such as plot type, filename, etc. If extra arguments are needed,
         one should copy this routine into the extending class and adapt
         it to its needs, keeping the existing optional arguments.
-    plot_end() or plot_stop() or or plot_close() or end() or stop()
+    plot_end() or plot_stop() or plot_close() or end() or stop()
         Finish, closing opened output files.
     plot_save(fig, **kwargs)
         Save, close or show `figure`.
@@ -412,12 +414,18 @@ class mcPlot(object):
              - number of rows of subplots per figure
            * - self.ncol
              - number of columns of subplots per figure
-           * - self.hspace
-             - x-space between subplots
-           * - self.vspace
-             - y-space between subplots
+           * - self.left
+             - left space on page
            * - self.right
              - right space on page
+           * - self.bottom
+             - lower bottom space on page
+           * - self.top
+             - upper top space on page
+           * - self.hspace
+             - (horizontal) x-space between subplots
+           * - self.vspace
+             - (vertical) y-space between subplots
            * - self.textsize
              - standard text size
            * - self.dxabc
@@ -508,9 +516,12 @@ class mcPlot(object):
         # layout and spaces
         self.nrow     = 3     # # of rows of subplots per figure
         self.ncol     = 2     # # of columns of subplots per figure
-        self.hspace   = 0.10  # x-space between subplots
-        self.vspace   = 0.05  # y-space between subplots
+        self.left     = 0.125  # left space on page
         self.right    = 0.9   # right space on page
+        self.bottom   = 0.1   # lower space on page
+        self.top      = 0.9   # upper space on page
+        self.hspace   = 0.1   # x-space between subplots
+        self.vspace   = 0.1   # y-space between subplots
         self.textsize = 12    # standard text size
         self.dxabc    = 0.90  # % of (max-min) shift to the right
                               # of left y-axis for a,b,c,... labels
