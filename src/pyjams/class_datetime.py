@@ -24,6 +24,8 @@ The following functions are provided:
 
 History
     * Written Jun 2022, Matthias Cuntz
+    * calendar keyword takes precedence on calendar attribute of
+      datetime objects in date2num, Jul 2022, Matthias Cuntz
 
 ToDo
     * make PR cftime - missing precision in _idealized_calendars
@@ -1033,7 +1035,7 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         the same as 'calendar=decimal'. *calendar='decimal' will be set in
         case units *time_units as format*.
     calendar : str, optional
-        One of the support calendars, i.e. the CF-conform calendars
+        One of the supported calendars, i.e. the CF-conform calendars
         *standard*, *gregorian*, *julian*, *proleptic_gregorian*,
         *360_day*, *365_day*, *366_day*, *noleap*, *all_leap*,
         as well as the non-CF-conform calendars
@@ -1041,6 +1043,7 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         *decimal*, *decimal360*, *decimal365*, *decimal366*.
         *standard* will be taken by default, which is a mixed
         Julian/Gregorian calendar.
+        The keyword takes precedence on calendar in datetime objects. 
     has_year_zero : bool, optional
         Astronomical year numbering is used and the year zero exists, if set to
         True. If set to False for real-world calendars, then historical year
@@ -1106,11 +1109,14 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
 
     # datetime with calendar
     date0 = mdates[0]
-    try:
-        icalendar = date0.calendar
-    except AttributeError:
-        # take calendar keyword otherwise
+    if calendar is not None:
         icalendar = calendar
+    else:
+        try:
+            icalendar = date0.calendar
+        except AttributeError:
+            # take standard otherwise
+            icalendar = 'standard'
 
     if icalendar:
         icalendar = icalendar.lower()

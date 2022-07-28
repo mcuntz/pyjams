@@ -2,6 +2,9 @@ Changelog
 ---------
 
 v1.26 (??? 2022)
+    * calendar keyword takes precedence on calendar attribute of
+      datetime objects in `date2num`.
+    * Add left, bottom, top to standard layout options in `mcPlot`.
     * Documented as_cmap keyword of `get_cmap`.
     * Added `means` to calculate daily, monthly, yearly, etc. means.
     * Allow scalar input in `num2date`.
