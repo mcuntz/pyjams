@@ -23,15 +23,61 @@ The following functions are provided:
    datetime
 
 History
-    * Written Jun 2022, Matthias Cuntz
+    * Written date2dec and dec2date Jun 2010, Arndt Piayda
+    * Input can be scalar or array_like, Feb 2012, Matthias Cuntz
+    * fulldate=True default in dec2date, Feb 2012, Matthias Cuntz
+    * Added calendars decimal and decimal360, Feb 2012, Matthias Cuntz
+    * Rename units to refdate and add units as in netcdftime in dec2date,
+      Jun 2012, Matthias Cuntz
+    * Add units='day as %Y%m%d.%f' in dec2date, Jun 2012, Matthias Cuntz
+    * Change units of proleptic_gregorian from 'days since 0001-01-01 00:00:00'
+      to 'days since 0001-01-00 00:00:00' in date2dec, Dec 2012, Matthias Cuntz
+    * Bug in Excel and leap years, Feb 2013
+    * Ported to Python 3, Feb 2013
+    * Bug in 'eng' output of dec2date, May 2013, Arndt Piayda
+    * Times with keywords ascii and eng default to 00:00:00 in date2dec,
+      Jul 2013, Matthias Cuntz
+    * Corrected that Excel year starts as 1 not at 0, Oct 2013, Matthias Cuntz
+    * But in units keyword and Julian calendar, day was subtracted even if
+      units were given, Oct 2013, Matthias Cuntz
+    * Removed remnant of time treatment before time check in eng keyword in
+      date2dec, Nov 2013, Matthias Cuntz
+    * Adapted date2dec to new netCDF4/netcdftime (>=v1.0) and Python datetime
+      (>v2.7.9), Jun 2015, Matthias Cuntz
+    * Add units=='month as %Y%m.%f' and units=='year as %Y.%f' in dec2date,
+      May 2016, Matthias Cuntz
+    * Now possible to pass array_like to date2num instead of single
+      netCDF4.datetime objects in date2dec, Oct 2016, Matthias Cuntz
+    * Provide netcdftime even with netCDF4 > v1.0.0, Oct 2016, Matthias Cuntz
+    * mo is always integer in date2dec, Oct 2016, Matthias Cuntz
+    * leap is always integer in dec2date, Oct 2016, Matthias Cuntz
+    * Corrected 00, 01, etc. in date2dec, which are not accepted as integer
+      constants by Python 3, Nov 2016, Matthias Cuntz
+    * numpydoc docstring format, May 2020, Matthias Cuntz
+    * Renamed eng keword to en, Jul 2020, Matthias Cuntz
+    * Use proleptic_gregorian calendar for Excel dates,
+      Jul 2020, Matthias Cuntz
+    * Change all np.int, np.float, etc. to Python equivalents,
+      May 2021, Matthias Cuntz
+    * flake8 compatible, May 2021, Matthias Cuntz
+    * Written class_datetime, Jun 2022, Matthias Cuntz
+      Complete rewrite from scratch following closely cftime but for
+      non-CF-conform calendars such as decimal, Excel, and the cdo
+      absolute time formats (e.g. units='day as %Y%m%d.%f').
+      Provides its own datetime class.
+      Use cftime notation now, i.e. date2num and num2date but provide
+      date2dec and dec2date wrappers for backward compatibility (almost).
+      Provide microsecond resolution with all supported calendars no matter
+      of the units, which means that date2num returns np.longdouble values.
+      date2num works together with date2date and can have formatted date
+      strings as input.
     * calendar keyword takes precedence on calendar attribute of
       datetime objects in date2num, Jul 2022, Matthias Cuntz
+    * return_arrays keyword in date2num, Jul 2022, Matthias Cuntz
+    * round_microseconds method for datetime, Jul 2022, Matthias Cuntz
 
 ToDo
-    * make PR cftime - missing precision in _idealized_calendars
-    * Add old history from JAMS
-    * Complete test_datetime.py
-    *     check why datetime + timedelta but not timedelta + datetime
+    * Check why datetime + timedelta but not timedelta + datetime
     * add date2index
     * add time2index
     * implement fromordinal
@@ -995,7 +1041,7 @@ def _absolute2date(times, units):
 #
 
 def date2num(dates, units='', calendar=None, has_year_zero=None,
-             format='', timesep=' ', fr=False):
+             format='', timesep=' ', fr=False, return_arrays=False):
     """
     Return numeric time values given datetime objects or strings
 
@@ -1073,6 +1119,9 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         separators not as the American format '%m/%d/%Y %H:%M:%S' but the
         French way as '%d/%m/%Y %H:%M:%S', if *dates* are strings and
         *format* is empty
+    return_arrays : bool, optional
+        If True, then return a tuple with individual arrays for
+        year, month, day, hour, minute, second, microsecond
 
     Returns
     -------
@@ -1139,6 +1188,7 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             iform = '%Y-%m-%d %H:%M:%S'
         mmdates = [ cf.real_datetime.strptime(dd, iform)
                     for dd in mdates ]
+
         if icalendar in _cfcalendars:
             mmdates = [ cf.datetime(*to_tuple(dt), calendar=icalendar,
                                     has_year_zero=has_year_zero)
@@ -1150,6 +1200,18 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         mdates = input2array(mmdates, default=cf.datetime(1990, 1, 1))
     else:
         mdates = input2array(dates, default=cf.real_datetime(1990, 1, 1))
+
+    # if year, month, ... wanted, no need to go further
+    if return_arrays:
+        out = np.array([ to_tuple(dt) for dt in mdates ])
+        year        = array2input(out[:, 0], dates)
+        month       = array2input(out[:, 1], dates)
+        day         = array2input(out[:, 2], dates)
+        hour        = array2input(out[:, 3], dates)
+        minute      = array2input(out[:, 4], dates)
+        second      = array2input(out[:, 5], dates)
+        microsecond = array2input(out[:, 6], dates)
+        return year, month, day, hour, minute, second, microsecond
 
     # check if we can parse to cftime
     if icalendar in _cfcalendars:
@@ -1755,6 +1817,20 @@ class datetime(object):
             args[name] = value
 
         return self.__class__(**args)
+
+    def round_microseconds(self):
+        """
+        Mathematically round microseconds to nearest second.
+
+        """
+        iadd = round(self.microsecond / 1000000.)
+        if iadd:
+            other = timedelta(seconds=1)
+            self.microsecond = 0
+            return self.__add__(other)
+        else:
+            self.microsecond = 0
+            return self
 
     def strftime(self, format=None):
         """

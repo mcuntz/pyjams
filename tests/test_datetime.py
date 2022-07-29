@@ -57,7 +57,7 @@ def _flatten(itr):
 
 class TestDatetime(unittest.TestCase):
     """
-    Tests for datetime.py
+    Tests for class_datetime.py
     """
     def setUp(self):
         self._excelcalendars = ['excel', 'excel1900', 'excel1904']
@@ -103,7 +103,7 @@ class TestDatetime(unittest.TestCase):
         self.hour0   = [12, 16, 10, 14, 19, 11]
         self.minute0 = [30, 15, 20, 35, 41, 8]
         self.second0 = [15, 10, 40, 50, 34, 37]
-        self.microsecond = [150, 1000, 49999, 500001, 999999, 1, 0]
+        self.microsecond0 = [150, 1000, 49999, 500001, 999999, 1, 0]
         self.idates0 = ['0000-01-05 12:30:15', '-0001-04-24 16:15:10',
                         '-0010-07-15 10:20:40', '-0100-09-20 14:35:50',
                         '-1000-03-18 19:41:34', '0001-08-27 11:08:37']
@@ -113,6 +113,9 @@ class TestDatetime(unittest.TestCase):
         import numpy as np
         from pyjams import date2date
         from pyjams import date2num, num2date, date2dec, dec2date
+        import cftime as cf
+        import datetime as dt
+        from pyjams import datetime
 
         # Back and forth for _noncfcalendars
 
@@ -334,6 +337,77 @@ class TestDatetime(unittest.TestCase):
                 self.assertEqual(_flatten(odates),
                                  _flatten(jdates))
 
+        # given calendar takes precedence on calendar of datetime objects
+
+        calendar = self._excelcalendars + self._decimalcalendars
+        cdates = [ cf.datetime(self.year[i], self.month[i], self.day[i],
+                               self.hour[i], self.minute[i], self.second[i],
+                               calendar='julian')
+                   for i in range(len(self.year)) ]
+        ddates = [ datetime(self.year[i], self.month[i], self.day[i],
+                            self.hour[i], self.minute[i], self.second[i],
+                            calendar='decimal')
+                   for i in range(len(self.year)) ]
+        rdates = [ dt.datetime(self.year[i], self.month[i], self.day[i],
+                            self.hour[i], self.minute[i], self.second[i])
+                   for i in range(len(self.year)) ]
+        for ical in calendar:
+            # print(ical)
+            indates = date2num(self.idates, format=self.iformat, calendar=ical)
+            odates = date2num(cdates, calendar=ical)
+            self.assertEqual(odates, indates)
+            odates = date2num(ddates, calendar=ical)
+            self.assertEqual(odates, indates)
+            odates = date2num(rdates, calendar=ical)
+            self.assertEqual(odates, indates)
+
+        # return_arrays
+
+        calendar = self._excelcalendars + self._decimalcalendars
+        cdates = [ cf.datetime(self.year[i], self.month[i], self.day[i],
+                               self.hour[i], self.minute[i], self.second[i],
+                               calendar='julian')
+                   for i in range(len(self.year)) ]
+        ddates = [ datetime(self.year[i], self.month[i], self.day[i],
+                            self.hour[i], self.minute[i], self.second[i],
+                            calendar='decimal')
+                   for i in range(len(self.year)) ]
+        rdates = [ dt.datetime(self.year[i], self.month[i], self.day[i],
+                            self.hour[i], self.minute[i], self.second[i])
+                   for i in range(len(self.year)) ]
+        for ical in calendar:
+            # print(ical)
+            inyr, inmo, indy, inhr, inmi, insc, inms = (
+                date2num(self.idates, format=self.iformat, calendar=ical,
+                         return_arrays=True))
+            oyr, omo, ody, ohr, omi, osc, oms = (
+                date2num(cdates, calendar=ical, return_arrays=True))
+            self.assertEqual(oyr, inyr)
+            self.assertEqual(omo, inmo)
+            self.assertEqual(ody, indy)
+            self.assertEqual(ohr, inhr)
+            self.assertEqual(omi, inmi)
+            self.assertEqual(osc, insc)
+            self.assertEqual(oms, inms)
+            oyr, omo, ody, ohr, omi, osc, oms = (
+                date2num(ddates, calendar=ical, return_arrays=True))
+            self.assertEqual(oyr, inyr)
+            self.assertEqual(omo, inmo)
+            self.assertEqual(ody, indy)
+            self.assertEqual(ohr, inhr)
+            self.assertEqual(omi, inmi)
+            self.assertEqual(osc, insc)
+            self.assertEqual(oms, inms)
+            oyr, omo, ody, ohr, omi, osc, oms = (
+                date2num(rdates, calendar=ical, return_arrays=True))
+            self.assertEqual(oyr, inyr)
+            self.assertEqual(omo, inmo)
+            self.assertEqual(ody, indy)
+            self.assertEqual(ohr, inhr)
+            self.assertEqual(omi, inmi)
+            self.assertEqual(osc, insc)
+            self.assertEqual(oms, inms)
+
         # errors
 
         edate = '2014-11-12 12:00:00'
@@ -393,6 +467,12 @@ class TestDatetime(unittest.TestCase):
                                  self.second[i], calendar=calendar,
                                  has_year_zero=ihave0)
                         for i in range(len(self.year)) ]
+                idtms = [ datetime(self.year[i], self.month[i], self.day[i],
+                                   self.hour[i], self.minute[i],
+                                   self.second[i], self.microsecond[i],
+                                   calendar=calendar,
+                                   has_year_zero=ihave0)
+                          for i in range(len(self.year)) ]
 
                 # change_calendar - NotImplemented
 
@@ -488,6 +568,13 @@ class TestDatetime(unittest.TestCase):
                                  _flatten(self.second[::-1]))
                 ist = [ dt.has_year_zero for dt in odt ]
                 soll = [ False for dt in odt ]
+                self.assertEqual(ist, soll)
+
+                # round_microseconds
+                soll = [ dt.second + 1 if dt.microsecond > 500000
+                         else dt.second for dt in idtms ]
+                ist = [ dt.round_microseconds() for dt in idtms ]
+                ist = [ dt.second for dt in ist ]
                 self.assertEqual(ist, soll)
 
                 # strftime
@@ -762,6 +849,7 @@ class TestDatetime(unittest.TestCase):
                     ihour   = self.hour0.copy()
                     iminute = self.minute0.copy()
                     isecond = self.second0.copy()
+                    imicrosecond = self.microsecond0.copy()
                     idates  = self.idates0.copy()
                 else:
                     iyear   = self.year0[1:]
@@ -770,12 +858,19 @@ class TestDatetime(unittest.TestCase):
                     ihour   = self.hour0[1:]
                     iminute = self.minute0[1:]
                     isecond = self.second0[1:]
+                    imicrosecond = self.microsecond0[1:]
                     idates  = self.idates0[1:]
                 idt = [ datetime(iyear[i], imonth[i], iday[i],
                                  ihour[i], iminute[i],
                                  isecond[i], calendar=calendar,
                                  has_year_zero=ihave0)
                         for i in range(len(iyear)) ]
+                idtms = [ datetime(iyear[i], imonth[i], iday[i],
+                                   ihour[i], iminute[i],
+                                   isecond[i], imicrosecond[i],
+                                   calendar=calendar,
+                                   has_year_zero=ihave0)
+                         for i in range(len(iyear)) ]
 
                 # change_calendar - NotImplemented
 
@@ -871,6 +966,13 @@ class TestDatetime(unittest.TestCase):
                                  _flatten(isecond[::-1]))
                 ist = [ dt.has_year_zero for dt in odt ]
                 soll = [ False for dt in odt ]
+                self.assertEqual(ist, soll)
+
+                # round_microseconds
+                soll = [ dt.second + 1 if dt.microsecond > 500000
+                         else dt.second for dt in idtms ]
+                ist = [ dt.round_microseconds() for dt in idtms ]
+                ist = [ dt.second for dt in ist ]
                 self.assertEqual(ist, soll)
 
                 # strftime

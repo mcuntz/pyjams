@@ -2,6 +2,9 @@ Changelog
 ---------
 
 v1.26 (??? 2022)
+    * round_microseconds method for `datetime` class if dates are from
+      non-microsecond precise origin.
+    * Added return_arrays keyword in `date2num`.
     * calendar keyword takes precedence on calendar attribute of
       datetime objects in `date2num`.
     * Add left, bottom, top to standard layout options in `mcPlot`.
