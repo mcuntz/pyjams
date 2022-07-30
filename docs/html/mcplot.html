@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>mcPlot &#8212; pyjams 1.26.dev2 documentation</title>
+    <title>mcPlot &#8212; pyjams 1.26.dev6 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -127,6 +127,8 @@ May 2021, Matthias Cuntz</p></li>
 <li><p>Add <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs to plot_save, May 2022, Matthias Cuntz</p></li>
 <li><p>Add self.transparent to pdf output in plot_save, May 2022, Matthias Cuntz</p></li>
 <li><p>Add –transparent as a standard option, May 2022, Matthias Cuntz</p></li>
+<li><p>Add left, bottom, top to standard layout options,
+Jul 2022, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -175,7 +177,7 @@ it to its needs, keeping the existing optional arguments.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_end">
-<span class="sig-name descname"><span class="pre">plot_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">or</span> <span class="pre">plot_stop()</span> <span class="pre">or</span> <span class="pre">or</span> <span class="pre">plot_close()</span> <span class="pre">or</span> <span class="pre">end()</span> <span class="pre">or</span> <span class="pre">stop(</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_end" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">plot_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">or</span> <span class="pre">plot_stop()</span> <span class="pre">or</span> <span class="pre">plot_close()</span> <span class="pre">or</span> <span class="pre">end()</span> <span class="pre">or</span> <span class="pre">stop(</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finish, closing opened output files.</p>
 </dd></dl>
 
@@ -450,118 +452,127 @@ options in the initialisation of an extending class.</p>
 <tr class="row-odd"><td><p>self.ncol</p></td>
 <td><p>number of columns of subplots per figure</p></td>
 </tr>
-<tr class="row-even"><td><p>self.hspace</p></td>
-<td><p>x-space between subplots</p></td>
+<tr class="row-even"><td><p>self.left</p></td>
+<td><p>left space on page</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.vspace</p></td>
-<td><p>y-space between subplots</p></td>
-</tr>
-<tr class="row-even"><td><p>self.right</p></td>
+<tr class="row-odd"><td><p>self.right</p></td>
 <td><p>right space on page</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.textsize</p></td>
+<tr class="row-even"><td><p>self.bottom</p></td>
+<td><p>lower bottom space on page</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.top</p></td>
+<td><p>upper top space on page</p></td>
+</tr>
+<tr class="row-even"><td><p>self.hspace</p></td>
+<td><p>(horizontal) x-space between subplots</p></td>
+</tr>
+<tr class="row-odd"><td><p>self.vspace</p></td>
+<td><p>(vertical) y-space between subplots</p></td>
+</tr>
+<tr class="row-even"><td><p>self.textsize</p></td>
 <td><p>standard text size</p></td>
 </tr>
-<tr class="row-even"><td><p>self.dxabc</p></td>
+<tr class="row-odd"><td><p>self.dxabc</p></td>
 <td><p>% of (max-min) shift to the right of left y-axis for a,b,c,…
 labels</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.dyabc</p></td>
+<tr class="row-even"><td><p>self.dyabc</p></td>
 <td><p>% of (max-min) shift up from lower x-axis for a,b,c,… labels</p></td>
 </tr>
-<tr class="row-even"><td><p>self.lwidth</p></td>
+<tr class="row-odd"><td><p>self.lwidth</p></td>
 <td><p>line width</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.elwidth</p></td>
+<tr class="row-even"><td><p>self.elwidth</p></td>
 <td><p>errorbar line width</p></td>
 </tr>
-<tr class="row-even"><td><p>self.alwidth</p></td>
+<tr class="row-odd"><td><p>self.alwidth</p></td>
 <td><p>axis line width</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.msize</p></td>
+<tr class="row-even"><td><p>self.msize</p></td>
 <td><p>marker size</p></td>
 </tr>
-<tr class="row-even"><td><p>self.mwidth</p></td>
+<tr class="row-odd"><td><p>self.mwidth</p></td>
 <td><p>marker edge width</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.fgcolor</p></td>
+<tr class="row-even"><td><p>self.fgcolor</p></td>
 <td><p>foreground colour</p></td>
 </tr>
-<tr class="row-even"><td><p>self.bgcolor</p></td>
+<tr class="row-odd"><td><p>self.bgcolor</p></td>
 <td><p>background colour</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.mcols</p></td>
+<tr class="row-even"><td><p>self.mcols</p></td>
 <td><p>list of marker colours</p></td>
 </tr>
-<tr class="row-even"><td><p>self.mcol1</p></td>
+<tr class="row-odd"><td><p>self.mcol1</p></td>
 <td><p>marker colour 1</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.mcol2</p></td>
+<tr class="row-even"><td><p>self.mcol2</p></td>
 <td><p>marker colour 2</p></td>
 </tr>
-<tr class="row-even"><td><p>self.mcol3</p></td>
+<tr class="row-odd"><td><p>self.mcol3</p></td>
 <td><p>marker colour 3</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.mcol4</p></td>
+<tr class="row-even"><td><p>self.mcol4</p></td>
 <td><p>marker colour 4</p></td>
 </tr>
-<tr class="row-even"><td><p>self.mcol5</p></td>
+<tr class="row-odd"><td><p>self.mcol5</p></td>
 <td><p>marker colour 5</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.lcol1</p></td>
+<tr class="row-even"><td><p>self.lcol1</p></td>
 <td><p>list of line colours</p></td>
 </tr>
-<tr class="row-even"><td><p>self.lcol2</p></td>
+<tr class="row-odd"><td><p>self.lcol2</p></td>
 <td><p>line colour 1</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.lcol3</p></td>
+<tr class="row-even"><td><p>self.lcol3</p></td>
 <td><p>line colour 2</p></td>
 </tr>
-<tr class="row-even"><td><p>self.lcol4</p></td>
+<tr class="row-odd"><td><p>self.lcol4</p></td>
 <td><p>line colour 3</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.lcol5</p></td>
+<tr class="row-even"><td><p>self.lcol5</p></td>
 <td><p>line colour 4</p></td>
 </tr>
-<tr class="row-even"><td><p>self.lcols</p></td>
+<tr class="row-odd"><td><p>self.lcols</p></td>
 <td><p>line colour 5</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.ldashes</p></td>
+<tr class="row-even"><td><p>self.ldashes</p></td>
 <td><p>list of line styles</p></td>
 </tr>
-<tr class="row-even"><td><p>self.llxbbox</p></td>
+<tr class="row-odd"><td><p>self.llxbbox</p></td>
 <td><p>x-anchor legend bounding box</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.llybbox</p></td>
+<tr class="row-even"><td><p>self.llybbox</p></td>
 <td><p>y-anchor legend bounding box</p></td>
 </tr>
-<tr class="row-even"><td><p>self.llrspace</p></td>
+<tr class="row-odd"><td><p>self.llrspace</p></td>
 <td><p>spacing between rows in legend</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.llcspace</p></td>
+<tr class="row-even"><td><p>self.llcspace</p></td>
 <td><p>spacing between columns in legend</p></td>
 </tr>
-<tr class="row-even"><td><p>self.llhtextpad</p></td>
+<tr class="row-odd"><td><p>self.llhtextpad</p></td>
 <td><p>pad between the legend handle and text</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.llhlength</p></td>
+<tr class="row-even"><td><p>self.llhlength</p></td>
 <td><p>length of the legend handles</p></td>
 </tr>
-<tr class="row-even"><td><p>self.frameon</p></td>
+<tr class="row-odd"><td><p>self.frameon</p></td>
 <td><p>if True: draw a frame around the legend.
 If None: use rc</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.dpi</p></td>
+<tr class="row-even"><td><p>self.dpi</p></td>
 <td><p>DPI of non-vector figure output</p></td>
 </tr>
-<tr class="row-even"><td><p>self.transparent</p></td>
+<tr class="row-odd"><td><p>self.transparent</p></td>
 <td><p>True for transparent background in figure</p></td>
 </tr>
-<tr class="row-odd"><td><p>self.bbox_inches</p></td>
+<tr class="row-even"><td><p>self.bbox_inches</p></td>
 <td><p>Bbox in inches. If ‘tight’, try to figure out the tight bbox of the
 figure</p></td>
 </tr>
-<tr class="row-even"><td><p>self.pad_inches</p></td>
+<tr class="row-odd"><td><p>self.pad_inches</p></td>
 <td><p>Amount of padding when bbox_inches is ‘tight’</p></td>
 </tr>
 </tbody>

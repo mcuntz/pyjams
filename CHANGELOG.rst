@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v1.26 (??? 2022)
+v1.26 (Jul 2022)
     * round_microseconds method for `datetime` class if dates are from
       non-microsecond precise origin.
     * Added return_arrays keyword in `date2num`.

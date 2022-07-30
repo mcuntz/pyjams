@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pyjams.class_datetime &#8212; pyjams 1.26.dev2 documentation</title>
+    <title>pyjams.class_datetime &#8212; pyjams 1.26.dev6 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -58,13 +58,61 @@
 <span class="sd">   datetime</span>
 
 <span class="sd">History</span>
-<span class="sd">    * Written Jun 2022, Matthias Cuntz</span>
+<span class="sd">    * Written date2dec and dec2date Jun 2010, Arndt Piayda</span>
+<span class="sd">    * Input can be scalar or array_like, Feb 2012, Matthias Cuntz</span>
+<span class="sd">    * fulldate=True default in dec2date, Feb 2012, Matthias Cuntz</span>
+<span class="sd">    * Added calendars decimal and decimal360, Feb 2012, Matthias Cuntz</span>
+<span class="sd">    * Rename units to refdate and add units as in netcdftime in dec2date,</span>
+<span class="sd">      Jun 2012, Matthias Cuntz</span>
+<span class="sd">    * Add units=&#39;day as %Y%m%d.%f&#39; in dec2date, Jun 2012, Matthias Cuntz</span>
+<span class="sd">    * Change units of proleptic_gregorian from &#39;days since 0001-01-01 00:00:00&#39;</span>
+<span class="sd">      to &#39;days since 0001-01-00 00:00:00&#39; in date2dec, Dec 2012, Matthias Cuntz</span>
+<span class="sd">    * Bug in Excel and leap years, Feb 2013</span>
+<span class="sd">    * Ported to Python 3, Feb 2013</span>
+<span class="sd">    * Bug in &#39;eng&#39; output of dec2date, May 2013, Arndt Piayda</span>
+<span class="sd">    * Times with keywords ascii and eng default to 00:00:00 in date2dec,</span>
+<span class="sd">      Jul 2013, Matthias Cuntz</span>
+<span class="sd">    * Corrected that Excel year starts as 1 not at 0, Oct 2013, Matthias Cuntz</span>
+<span class="sd">    * But in units keyword and Julian calendar, day was subtracted even if</span>
+<span class="sd">      units were given, Oct 2013, Matthias Cuntz</span>
+<span class="sd">    * Removed remnant of time treatment before time check in eng keyword in</span>
+<span class="sd">      date2dec, Nov 2013, Matthias Cuntz</span>
+<span class="sd">    * Adapted date2dec to new netCDF4/netcdftime (&gt;=v1.0) and Python datetime</span>
+<span class="sd">      (&gt;v2.7.9), Jun 2015, Matthias Cuntz</span>
+<span class="sd">    * Add units==&#39;month as %Y%m.%f&#39; and units==&#39;year as %Y.%f&#39; in dec2date,</span>
+<span class="sd">      May 2016, Matthias Cuntz</span>
+<span class="sd">    * Now possible to pass array_like to date2num instead of single</span>
+<span class="sd">      netCDF4.datetime objects in date2dec, Oct 2016, Matthias Cuntz</span>
+<span class="sd">    * Provide netcdftime even with netCDF4 &gt; v1.0.0, Oct 2016, Matthias Cuntz</span>
+<span class="sd">    * mo is always integer in date2dec, Oct 2016, Matthias Cuntz</span>
+<span class="sd">    * leap is always integer in dec2date, Oct 2016, Matthias Cuntz</span>
+<span class="sd">    * Corrected 00, 01, etc. in date2dec, which are not accepted as integer</span>
+<span class="sd">      constants by Python 3, Nov 2016, Matthias Cuntz</span>
+<span class="sd">    * numpydoc docstring format, May 2020, Matthias Cuntz</span>
+<span class="sd">    * Renamed eng keword to en, Jul 2020, Matthias Cuntz</span>
+<span class="sd">    * Use proleptic_gregorian calendar for Excel dates,</span>
+<span class="sd">      Jul 2020, Matthias Cuntz</span>
+<span class="sd">    * Change all np.int, np.float, etc. to Python equivalents,</span>
+<span class="sd">      May 2021, Matthias Cuntz</span>
+<span class="sd">    * flake8 compatible, May 2021, Matthias Cuntz</span>
+<span class="sd">    * Written class_datetime, Jun 2022, Matthias Cuntz</span>
+<span class="sd">      Complete rewrite from scratch following closely cftime but for</span>
+<span class="sd">      non-CF-conform calendars such as decimal, Excel, and the cdo</span>
+<span class="sd">      absolute time formats (e.g. units=&#39;day as %Y%m%d.%f&#39;).</span>
+<span class="sd">      Provides its own datetime class.</span>
+<span class="sd">      Use cftime notation now, i.e. date2num and num2date but provide</span>
+<span class="sd">      date2dec and dec2date wrappers for backward compatibility (almost).</span>
+<span class="sd">      Provide microsecond resolution with all supported calendars no matter</span>
+<span class="sd">      of the units, which means that date2num returns np.longdouble values.</span>
+<span class="sd">      date2num works together with date2date and can have formatted date</span>
+<span class="sd">      strings as input.</span>
+<span class="sd">    * calendar keyword takes precedence on calendar attribute of</span>
+<span class="sd">      datetime objects in date2num, Jul 2022, Matthias Cuntz</span>
+<span class="sd">    * return_arrays keyword in date2num, Jul 2022, Matthias Cuntz</span>
+<span class="sd">    * round_microseconds method for datetime, Jul 2022, Matthias Cuntz</span>
 
 <span class="sd">ToDo</span>
-<span class="sd">    * make PR cftime - missing precision in _idealized_calendars</span>
-<span class="sd">    * Add old history from JAMS</span>
-<span class="sd">    * Complete test_datetime.py</span>
-<span class="sd">    *     check why datetime + timedelta but not timedelta + datetime</span>
+<span class="sd">    * Check why datetime + timedelta but not timedelta + datetime</span>
 <span class="sd">    * add date2index</span>
 <span class="sd">    * add time2index</span>
 <span class="sd">    * implement fromordinal</span>
@@ -1028,7 +1076,7 @@
 <span class="c1">#</span>
 
 <div class="viewcode-block" id="date2num"><a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.date2num">[docs]</a><span class="k">def</span> <span class="nf">date2num</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-             <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">timesep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">fr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+             <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">timesep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">fr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_arrays</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return numeric time values given datetime objects or strings</span>
 
@@ -1068,7 +1116,7 @@
 <span class="sd">        the same as &#39;calendar=decimal&#39;. *calendar=&#39;decimal&#39; will be set in</span>
 <span class="sd">        case units *time_units as format*.</span>
 <span class="sd">    calendar : str, optional</span>
-<span class="sd">        One of the support calendars, i.e. the CF-conform calendars</span>
+<span class="sd">        One of the supported calendars, i.e. the CF-conform calendars</span>
 <span class="sd">        *standard*, *gregorian*, *julian*, *proleptic_gregorian*,</span>
 <span class="sd">        *360_day*, *365_day*, *366_day*, *noleap*, *all_leap*,</span>
 <span class="sd">        as well as the non-CF-conform calendars</span>
@@ -1076,6 +1124,7 @@
 <span class="sd">        *decimal*, *decimal360*, *decimal365*, *decimal366*.</span>
 <span class="sd">        *standard* will be taken by default, which is a mixed</span>
 <span class="sd">        Julian/Gregorian calendar.</span>
+<span class="sd">        The keyword takes precedence on calendar in datetime objects. </span>
 <span class="sd">    has_year_zero : bool, optional</span>
 <span class="sd">        Astronomical year numbering is used and the year zero exists, if set to</span>
 <span class="sd">        True. If set to False for real-world calendars, then historical year</span>
@@ -1105,6 +1154,9 @@
 <span class="sd">        separators not as the American format &#39;%m/%d/%Y %H:%M:%S&#39; but the</span>
 <span class="sd">        French way as &#39;%d/%m/%Y %H:%M:%S&#39;, if *dates* are strings and</span>
 <span class="sd">        *format* is empty</span>
+<span class="sd">    return_arrays : bool, optional</span>
+<span class="sd">        If True, then return a tuple with individual arrays for</span>
+<span class="sd">        year, month, day, hour, minute, second, microsecond</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1141,11 +1193,14 @@
 
     <span class="c1"># datetime with calendar</span>
     <span class="n">date0</span> <span class="o">=</span> <span class="n">mdates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">icalendar</span> <span class="o">=</span> <span class="n">date0</span><span class="o">.</span><span class="n">calendar</span>
-    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-        <span class="c1"># take calendar keyword otherwise</span>
+    <span class="k">if</span> <span class="n">calendar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">icalendar</span> <span class="o">=</span> <span class="n">calendar</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">icalendar</span> <span class="o">=</span> <span class="n">date0</span><span class="o">.</span><span class="n">calendar</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># take standard otherwise</span>
+            <span class="n">icalendar</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span>
 
     <span class="k">if</span> <span class="n">icalendar</span><span class="p">:</span>
         <span class="n">icalendar</span> <span class="o">=</span> <span class="n">icalendar</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -1168,6 +1223,7 @@
             <span class="n">iform</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span>
         <span class="n">mmdates</span> <span class="o">=</span> <span class="p">[</span> <span class="n">cf</span><span class="o">.</span><span class="n">real_datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="n">iform</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">mdates</span> <span class="p">]</span>
+
         <span class="k">if</span> <span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">:</span>
             <span class="n">mmdates</span> <span class="o">=</span> <span class="p">[</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">calendar</span><span class="o">=</span><span class="n">icalendar</span><span class="p">,</span>
                                     <span class="n">has_year_zero</span><span class="o">=</span><span class="n">has_year_zero</span><span class="p">)</span>
@@ -1179,6 +1235,18 @@
         <span class="n">mdates</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">mmdates</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">mdates</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">cf</span><span class="o">.</span><span class="n">real_datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># if year, month, ... wanted, no need to go further</span>
+    <span class="k">if</span> <span class="n">return_arrays</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">mdates</span> <span class="p">])</span>
+        <span class="n">year</span>        <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dates</span><span class="p">)</span>
+        <span class="n">month</span>       <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dates</span><span class="p">)</span>
+        <span class="n">day</span>         <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dates</span><span class="p">)</span>
+        <span class="n">hour</span>        <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dates</span><span class="p">)</span>
+        <span class="n">minute</span>      <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dates</span><span class="p">)</span>
+        <span class="n">second</span>      <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dates</span><span class="p">)</span>
+        <span class="n">microsecond</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">dates</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span>
 
     <span class="c1"># check if we can parse to cftime</span>
     <span class="k">if</span> <span class="n">icalendar</span> <span class="ow">in</span> <span class="n">_cfcalendars</span><span class="p">:</span>
@@ -1784,6 +1852,20 @@
             <span class="n">args</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="datetime.round_microseconds"><a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.round_microseconds">[docs]</a>    <span class="k">def</span> <span class="nf">round_microseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mathematically round microseconds to nearest second.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">iadd</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mf">1000000.</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">iadd</span><span class="p">:</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">odt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">odt</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">odt</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">odt</span></div>
 
 <div class="viewcode-block" id="datetime.strftime"><a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.strftime">[docs]</a>    <span class="k">def</span> <span class="nf">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

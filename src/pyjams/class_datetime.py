@@ -1826,11 +1826,11 @@ class datetime(object):
         iadd = round(self.microsecond / 1000000.)
         if iadd:
             other = timedelta(seconds=1)
-            self.microsecond = 0
-            return self.__add__(other)
+            odt = self.__add__(other)
         else:
-            self.microsecond = 0
-            return self
+            odt = self
+        odt.microsecond = 0
+        return odt
 
     def strftime(self, format=None):
         """

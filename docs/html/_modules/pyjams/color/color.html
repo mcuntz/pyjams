@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pyjams.color.color &#8212; pyjams 0.0.0.dev0 documentation</title>
+    <title>pyjams.color.color &#8212; pyjams 1.26.dev6 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
@@ -227,8 +227,8 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;       &#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">ll</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="get_cmap"><a class="viewcode-back" href="../../../color.color.html#pyjams.color.get_cmap">[docs]</a><span class="k">def</span> <span class="nf">get_cmap</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-             <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">grey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_cmap"><a class="viewcode-back" href="../../../color.color.html#pyjams.color.get_cmap">[docs]</a><span class="k">def</span> <span class="nf">get_cmap</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+             <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">grey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get colors of defined palettes or continuous colormaps</span>
 
@@ -256,6 +256,9 @@
 <span class="sd">        Order colors by &#39;hue&#39;, &#39;saturation&#39;, or &#39;value&#39;.</span>
 <span class="sd">        This is done before *reverse* and *grey*</span>
 <span class="sd">        (default: order from color sources).</span>
+<span class="sd">    as_cmap : bool, optional</span>
+<span class="sd">        If True, returns matplotlib.colors.Colormap</span>
+<span class="sd">        instead of list of RGB tuples</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>

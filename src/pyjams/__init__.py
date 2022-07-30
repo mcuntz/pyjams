@@ -33,6 +33,7 @@ Subpackages
    kernel_regression
    mad
    mcplot
+   means
    morris_method
    ncio
    position
@@ -75,6 +76,7 @@ History
     * v1.24, moved docu to Github Pages, Jun 2022, Matthias Cuntz
     * v1.25, Microseconds and negative years in date2date and datetime,
       Jun 2022, Matthias Cuntz
+    * v1.26, added means, Jul 2022, Matthias Cuntz
 
 """
 # version, author
@@ -130,6 +132,8 @@ from .kernel_regression import kernel_regression_h, kernel_regression
 from .mad import mad
 # Matthias Cuntz' standard plotting class.
 from .mcplot import mcPlot
+# daily, monthly, yearly, etc. means
+from .means import means
 # has to be ordered for import: morris -> screening
 # Sampling of optimised trajectories for and calculation of Morris Measures /
 # Elementary Effects
@@ -171,6 +175,7 @@ __all__ = ['__version__', '__author__',
            'kernel_regression_h', 'kernel_regression'
            'mad',
            'mcPlot',
+           'means',
            'morris_sampling', 'elementary_effects',
            'position',
            'infonetcdf', 'ncinfo', 'readnetcdf', 'ncread',

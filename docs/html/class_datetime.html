@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>datetime module &#8212; pyjams 1.26.dev2 documentation</title>
+    <title>datetime module &#8212; pyjams 1.26.dev6 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -72,14 +72,62 @@ France.</p>
 </table>
 <dl class="simple">
 <dt>History</dt><dd><ul class="simple">
-<li><p>Written Jun 2022, Matthias Cuntz</p></li>
+<li><p>Written date2dec and dec2date Jun 2010, Arndt Piayda</p></li>
+<li><p>Input can be scalar or array_like, Feb 2012, Matthias Cuntz</p></li>
+<li><p>fulldate=True default in dec2date, Feb 2012, Matthias Cuntz</p></li>
+<li><p>Added calendars decimal and decimal360, Feb 2012, Matthias Cuntz</p></li>
+<li><p>Rename units to refdate and add units as in netcdftime in dec2date,
+Jun 2012, Matthias Cuntz</p></li>
+<li><p>Add units=’day as %Y%m%d.%f’ in dec2date, Jun 2012, Matthias Cuntz</p></li>
+<li><p>Change units of proleptic_gregorian from ‘days since 0001-01-01 00:00:00’
+to ‘days since 0001-01-00 00:00:00’ in date2dec, Dec 2012, Matthias Cuntz</p></li>
+<li><p>Bug in Excel and leap years, Feb 2013</p></li>
+<li><p>Ported to Python 3, Feb 2013</p></li>
+<li><p>Bug in ‘eng’ output of dec2date, May 2013, Arndt Piayda</p></li>
+<li><p>Times with keywords ascii and eng default to 00:00:00 in date2dec,
+Jul 2013, Matthias Cuntz</p></li>
+<li><p>Corrected that Excel year starts as 1 not at 0, Oct 2013, Matthias Cuntz</p></li>
+<li><p>But in units keyword and Julian calendar, day was subtracted even if
+units were given, Oct 2013, Matthias Cuntz</p></li>
+<li><p>Removed remnant of time treatment before time check in eng keyword in
+date2dec, Nov 2013, Matthias Cuntz</p></li>
+<li><p>Adapted date2dec to new netCDF4/netcdftime (&gt;=v1.0) and Python datetime
+(&gt;v2.7.9), Jun 2015, Matthias Cuntz</p></li>
+<li><p>Add units==’month as %Y%m.%f’ and units==’year as %Y.%f’ in dec2date,
+May 2016, Matthias Cuntz</p></li>
+<li><p>Now possible to pass array_like to date2num instead of single
+netCDF4.datetime objects in date2dec, Oct 2016, Matthias Cuntz</p></li>
+<li><p>Provide netcdftime even with netCDF4 &gt; v1.0.0, Oct 2016, Matthias Cuntz</p></li>
+<li><p>mo is always integer in date2dec, Oct 2016, Matthias Cuntz</p></li>
+<li><p>leap is always integer in dec2date, Oct 2016, Matthias Cuntz</p></li>
+<li><p>Corrected 00, 01, etc. in date2dec, which are not accepted as integer
+constants by Python 3, Nov 2016, Matthias Cuntz</p></li>
+<li><p>numpydoc docstring format, May 2020, Matthias Cuntz</p></li>
+<li><p>Renamed eng keword to en, Jul 2020, Matthias Cuntz</p></li>
+<li><p>Use proleptic_gregorian calendar for Excel dates,
+Jul 2020, Matthias Cuntz</p></li>
+<li><p>Change all np.int, np.float, etc. to Python equivalents,
+May 2021, Matthias Cuntz</p></li>
+<li><p>flake8 compatible, May 2021, Matthias Cuntz</p></li>
+<li><p>Written class_datetime, Jun 2022, Matthias Cuntz
+Complete rewrite from scratch following closely cftime but for
+non-CF-conform calendars such as decimal, Excel, and the cdo
+absolute time formats (e.g. units=’day as %Y%m%d.%f’).
+Provides its own datetime class.
+Use cftime notation now, i.e. date2num and num2date but provide
+date2dec and dec2date wrappers for backward compatibility (almost).
+Provide microsecond resolution with all supported calendars no matter
+of the units, which means that date2num returns np.longdouble values.
+date2num works together with date2date and can have formatted date
+strings as input.</p></li>
+<li><p>calendar keyword takes precedence on calendar attribute of
+datetime objects in date2num, Jul 2022, Matthias Cuntz</p></li>
+<li><p>return_arrays keyword in date2num, Jul 2022, Matthias Cuntz</p></li>
+<li><p>round_microseconds method for datetime, Jul 2022, Matthias Cuntz</p></li>
 </ul>
 </dd>
 <dt>ToDo</dt><dd><ul class="simple">
-<li><p>make PR cftime - missing precision in _idealized_calendars</p></li>
-<li><p>Add old history from JAMS</p></li>
-<li><p>Complete test_datetime.py</p></li>
-<li><p>check why datetime + timedelta but not timedelta + datetime</p></li>
+<li><p>Check why datetime + timedelta but not timedelta + datetime</p></li>
 <li><p>add date2index</p></li>
 <li><p>add time2index</p></li>
 <li><p>implement fromordinal</p></li>
@@ -136,16 +184,19 @@ self.format (default %Y-%m-%d %H:%M:%S).</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.replace" title="pyjams.class_datetime.datetime.replace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace</span></code></a>(**kwargs)</p></td>
 <td><p>Return datetime with new specified fields</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.strftime" title="pyjams.class_datetime.datetime.strftime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strftime</span></code></a>([format])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.round_microseconds" title="pyjams.class_datetime.datetime.round_microseconds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">round_microseconds</span></code></a>()</p></td>
+<td><p>Mathematically round microseconds to nearest second.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.strftime" title="pyjams.class_datetime.datetime.strftime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strftime</span></code></a>([format])</p></td>
 <td><p>Return a string representing the date, controlled by an explicit format string</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.timetuple" title="pyjams.class_datetime.datetime.timetuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timetuple</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.timetuple" title="pyjams.class_datetime.datetime.timetuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timetuple</span></code></a>()</p></td>
 <td><p>Return a time.struct_time such as returned by time.localtime()</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.to_tuple" title="pyjams.class_datetime.datetime.to_tuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_tuple</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.to_tuple" title="pyjams.class_datetime.datetime.to_tuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_tuple</span></code></a>()</p></td>
 <td><p>Turn a datetime instance into a tuple of integers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.toordinal" title="pyjams.class_datetime.datetime.toordinal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toordinal</span></code></a>([fractional])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.toordinal" title="pyjams.class_datetime.datetime.toordinal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toordinal</span></code></a>([fractional])</p></td>
 <td><p>Julian day (integer) ordinal</p></td>
 </tr>
 </tbody>
@@ -216,6 +267,12 @@ self.format (default %Y-%m-%d %H:%M:%S).</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyjams.class_datetime.datetime.round_microseconds">
+<span class="sig-name descname"><span class="pre">round_microseconds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.round_microseconds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.round_microseconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mathematically round microseconds to nearest second.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.strftime">
 <span class="sig-name descname"><span class="pre">strftime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.strftime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.strftime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a string representing the date, controlled by an explicit format
@@ -271,7 +328,7 @@ False).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.class_datetime.date2num">
-<span class="sig-name descname"><span class="pre">date2num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timesep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#date2num"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.date2num" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">date2num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timesep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#date2num"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.date2num" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return numeric time values given datetime objects or strings</p>
 <p>The units of the numeric time values are described by the
 <em>units</em> and <em>calendar</em> keywords for CF-conform calendars, i.e.
@@ -304,14 +361,15 @@ and <em>common_years since</em> is allowed only for the <em>365_day</em> calenda
 the same as ‘calendar=decimal’. <em>calendar=’decimal’ will be set in
 case units *time_units as format</em>.</p>
 </p></li>
-<li><p><strong>calendar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – One of the support calendars, i.e. the CF-conform calendars
+<li><p><strong>calendar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – One of the supported calendars, i.e. the CF-conform calendars
 <em>standard</em>, <em>gregorian</em>, <em>julian</em>, <em>proleptic_gregorian</em>,
 <em>360_day</em>, <em>365_day</em>, <em>366_day</em>, <em>noleap</em>, <em>all_leap</em>,
 as well as the non-CF-conform calendars
 <em>excel</em>, <em>excel1900</em>, <em>excel1904</em>, and
 <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>.
 <em>standard</em> will be taken by default, which is a mixed
-Julian/Gregorian calendar.</p></li>
+Julian/Gregorian calendar.
+The keyword takes precedence on calendar in datetime objects.</p></li>
 <li><p><strong>has_year_zero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Astronomical year numbering is used and the year zero exists, if set to
 True. If set to False for real-world calendars, then historical year
 numbering is used and the year 1 is preceded by year -1 and no year
@@ -337,6 +395,8 @@ if <em>dates</em> are strings and <em>format</em> is empty (default: ‘ ‘)</p
 separators not as the American format ‘%m/%d/%Y %H:%M:%S’ but the
 French way as ‘%d/%m/%Y %H:%M:%S’, if <em>dates</em> are strings and
 <em>format</em> is empty</p></li>
+<li><p><strong>return_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, then return a tuple with individual arrays for
+year, month, day, hour, minute, second, microsecond</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

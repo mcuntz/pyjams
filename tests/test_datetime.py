@@ -571,10 +571,10 @@ class TestDatetime(unittest.TestCase):
                 self.assertEqual(ist, soll)
 
                 # round_microseconds
-                soll = [ dt.second + 1 if dt.microsecond > 500000
-                         else dt.second for dt in idtms ]
                 ist = [ dt.round_microseconds() for dt in idtms ]
                 ist = [ dt.second for dt in ist ]
+                soll = [ dt.second + 1 if dt.microsecond > 500000
+                         else dt.second for dt in idtms ]
                 self.assertEqual(ist, soll)
 
                 # strftime
@@ -969,10 +969,10 @@ class TestDatetime(unittest.TestCase):
                 self.assertEqual(ist, soll)
 
                 # round_microseconds
-                soll = [ dt.second + 1 if dt.microsecond > 500000
-                         else dt.second for dt in idtms ]
                 ist = [ dt.round_microseconds() for dt in idtms ]
                 ist = [ dt.second for dt in ist ]
+                soll = [ dt.second + 1 if dt.microsecond > 500000
+                         else dt.second for dt in idtms ]
                 self.assertEqual(ist, soll)
 
                 # strftime

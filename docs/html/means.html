@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>means &#8212; pyjams 1.26.dev2 documentation</title>
+    <title>means &#8212; pyjams 1.26.dev6 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -69,19 +69,23 @@ l’Environnement (INRAE), Nancy, France.</p>
 <li><p>Bug in minute averaging: compared minutes to hours,
 Jun 2019, Matthias Cuntz</p></li>
 <li><p>Added half_hour, inspired by Robin Leucht for UFZ level1 data;
-did not take restrospective keyword but added Note for this case,
+did not take retrospective keyword but added Note for this case,
 Jun 2019, Matthias Cuntz</p></li>
 <li><p>Use pyjams datetime, Jul 2022, Matthias Cuntz</p></li>
 <li><p>More possible date formats, Jul 2022, Matthias Cuntz</p></li>
+<li><p>Rename seasonal to seasonalday, Jul 2022, Matthias Cuntz</p></li>
+<li><p>Add seasonalmonth, Jul 2022, Matthias Cuntz</p></li>
+<li><p>Add seasonalmeanday, Jul 2022, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.means.means">
-<span class="sig-name descname"><span class="pre">means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">half_hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meanday</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meanmonth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onlydat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/means.html#means"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.means.means" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">half_hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meanday</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meanmonth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonalday</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonalmonth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonalmeanday</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onlydat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/means.html#means"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.means.means" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate daily, monthly, yearly, etc. means of data</p>
-<p>dat will be averaged over columns, i.e. the first dimension.
-If no keyword argument is given, the mean will be over the whole
+<p>dat will be averaged over columns, i.e. assuming that the first
+dimension is the time dimension.</p>
+<p>If no keyword argument is given, the mean will be over the whole
 first column.</p>
 <p>date can be either string or datetime object of Python, numpy, cftime, or
 pyjams, which will be interpreted by pyjams.date2num; or date can be a
@@ -91,22 +95,23 @@ Returned dates will be in same format as incoming dates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>date</strong> (<em>1D array with dates</em>) – <p>Can either be strings or <em>datetime</em> objects of <em>Python</em>, <em>cftime</em> or
-<em>pyjams</em>, which will be interpreted by <em>pyjams.date2num</em>, or <em>date</em>
-can be a numeric value, which will be interpreted by <em>pyjams.num2date</em></p>
-<p>date should be centred on input time period, i.e. half-hourly data
-should have dates at 15 min and 45 min of each hour.</p>
-</p></li>
+<li><p><strong>date</strong> (<em>1D array with dates</em>) – Can either be strings or <em>datetime</em> objects of <em>Python</em>, <em>cftime</em> or
+<em>pyjams</em>, which will be interpreted by <em>pyjams.date2num</em>, or it
+can be a numeric value, which will be interpreted by <em>pyjams.num2date</em>.
+date should be centred on the input time period, i.e. half-hourly data
+should have dates at 15 min and 45 min of each hour, for example.</p></li>
 <li><p><strong>dat</strong> (<em>ND</em><em> (</em><em>masked-</em><em>)</em><em>array</em>) – </p></li>
-<li><p><strong>year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return yearly means</p></li>
+<li><p><strong>year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return annual means</p></li>
 <li><p><strong>month</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return monthly means</p></li>
 <li><p><strong>day</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return daily means</p></li>
 <li><p><strong>hour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return hourly means</p></li>
 <li><p><strong>half_hour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return half-hourly means</p></li>
-<li><p><strong>minute</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return minutely means</p></li>
-<li><p><strong>meanday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return mean daily cycle</p></li>
+<li><p><strong>minute</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return minute means. Note that this can take very long.</p></li>
+<li><p><strong>meanday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return one mean daily cycle</p></li>
 <li><p><strong>meanmonth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return mean monthly cycle</p></li>
-<li><p><strong>seasonal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return seasonal cycle</p></li>
+<li><p><strong>seasonalday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return daily means seasonal cycle</p></li>
+<li><p><strong>seasonalmonth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Same as meanmonth. If True, return mean monthly cycle</p></li>
+<li><p><strong>seasonalmeanday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return one mean daily cycle per month</p></li>
 <li><p><strong>sum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate sums instead of means</p></li>
 <li><p><strong>max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate maxima instead of means</p></li>
 <li><p><strong>min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate minima instead of means</p></li>
@@ -125,27 +130,32 @@ averaged data in 1st dimension</p>
 </dl>
 <div class="admonition-notes admonition">
 <p class="admonition-title">Notes</p>
+<p><em>outdate</em> is same format as <em>date</em> input. Output <em>meandat</em> is scalar,
+numpy array, or masked array if needed.</p>
 <dl class="simple">
 <dt>Returns centred [dates, averages]:</dt><dd><ul class="simple">
-<li><p>Yearly dates are centred at June 15, 12:00 h</p></li>
-<li><p>Monthly dates are centred at 15th, 12:00 h</p></li>
-<li><p>Daily dates are centred at 12:00 h</p></li>
-<li><p>Hourly dates are centred at 30 min</p></li>
-<li><p>Half hourly dates are centred at 15 and 45 min</p></li>
-<li><p>Minutely dates are centred at 30 sec</p></li>
+<li><p>Yearly dates are centred on June 15, 12:00 h</p></li>
+<li><p>Monthly dates are centred on 15th, 12:00 h</p></li>
+<li><p>Daily dates are centred on 12:00 h</p></li>
+<li><p>Hourly dates are centred on 30 min</p></li>
+<li><p>Half hourly dates are centred on 15 and 45 min</p></li>
+<li><p>Minute dates are centred on 30 sec</p></li>
 <li><p>Mean daily dates are centred on 30 min of January 01 of the first
 year</p></li>
-<li><p>Mean monthly dates are centred on the 15th of each month at 12:00 h
-of the first year</p></li>
-<li><p>Seasonal dates are centred at 12:00 h of each day of the first (leap)
-year</p></li>
+<li><p>Mean monthly (seasonal monthly) dates are centred on the 15th of
+each month at 12:00 h of the first year</p></li>
+<li><p>Seasonal daily dates are centred on 12:00 h of each day of the
+first (leap) year</p></li>
+<li><p>Seasonal mean daily dates are centred on 30 min of each first day of
+each month of the first year</p></li>
 </ul>
 </dd>
 </dl>
-<p>If meanday/meanmonth/seasonal==True, then all hours/months/days will be
-written; as a masked-array if hours/months/days are missing.</p>
-<p>If seasonal==True, input data has to be spaced &lt;= days, otherwise
-consider meanmonth.</p>
+<p>If meanday/seasonal/meanday/seasonalday/meanmonth/seasonalmonth==True,
+then all hours/months/days will be written;
+as a masked-array if hours/days/months are missing.</p>
+<p>If seasonalday==True, input data has to be spaced &lt;= days, otherwise
+consider meanmonth/seasonalmonth.</p>
 <p>If input date represent the beginning/end of the time step, the user should
 add/remove half a time step before using the routine. Otherwise the routine
 would have to guess the time step, which is error prone.
@@ -203,9 +213,14 @@ and <em>units</em> understood by <em>pyjams.datetime</em> or <em>cftime.datetime
 <span class="go">[4.0 2.0 3.0 --  --]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">seasonalday</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
 <span class="go">[4.0 -- -- -- --]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">seasonalmonth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<span class="go">[4.0 2.0 3.0 --  --]</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">onlydat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">))</span>
@@ -237,7 +252,8 @@ and <em>units</em> understood by <em>pyjams.datetime</em> or <em>cftime.datetime
 &gt;&gt;&gt; odates, xout = means(jdates, x, sum=True, calendar=’decimal’)
 &gt;&gt;&gt; print(np.around(odates, 1), xout)
 1990.1 20.0
-&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, sum=True, calendar=’decimal’)
+&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, sum=True,
+…                      calendar=’decimal’)
 &gt;&gt;&gt; print(xout)
 [20.0]
 &gt;&gt;&gt; odates, xout = means(dates, x, month=True, sum=True)
@@ -253,7 +269,8 @@ and <em>units</em> understood by <em>pyjams.datetime</em> or <em>cftime.datetime
 &gt;&gt;&gt; odates, xout = means(dates, x, year=True, max=True)
 &gt;&gt;&gt; print(xout)
 [6.0]
-&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, max=True, calendar=’decimal’)
+&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, max=True,
+…                      calendar=’decimal’)
 &gt;&gt;&gt; print(xout)
 [6.0 2.0 3.0]
 &gt;&gt;&gt; odates, xout = means(jdates, x, day=True, max=True, calendar=’decimal’)
@@ -263,7 +280,8 @@ and <em>units</em> understood by <em>pyjams.datetime</em> or <em>cftime.datetime
 &gt;&gt;&gt; odates, xout = means(jdates, x, min=True, calendar=’decimal’)
 &gt;&gt;&gt; print(np.around(odates, 1), xout)
 1990.1 2.0
-&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, min=True, calendar=’decimal’)
+&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, min=True,
+…                      calendar=’decimal’)
 &gt;&gt;&gt; print(xout)
 [2.0]
 &gt;&gt;&gt; odates, xout = means(dates, x, month=True, min=True)
