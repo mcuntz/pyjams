@@ -32,7 +32,8 @@ from pyjams import __version__ as ver
 warnings.filterwarnings(
     "ignore",
     category=UserWarning,
-    message="Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.",
+    message=("Matplotlib is currently using agg, which is a non-GUI backend,"
+             " so cannot show the figure."),
 )
 
 
@@ -107,7 +108,8 @@ master_doc = "contents"
 # General information about the project.
 curr_year = datetime.datetime.now().year
 project = "pyjams"
-copyright = "2012-{}, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda".format(curr_year)
+copyright = ("2012-{}, Matthias Cuntz, Juliane Mai, Stephan Thober,"
+             " Arndt Piayda".format(curr_year))
 author = "Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda"
 
 # The version info for the project you're documenting, acts as replacement for

@@ -59,6 +59,12 @@ The easiest way to install is via `pip`:
 
    pip install pyjams
 
+or via `conda`:
+
+.. code-block:: bash
+
+   conda install -c conda-forge pyjams
+
 Requirements
     * numpy_
     * scipy_

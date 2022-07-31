@@ -10,7 +10,7 @@ scipy.optimize.fmin or scipy.optimize.curvefit, and much more.
 The package has evolved from its predecessor the JAMS Python package
 https://github.com/mcuntz/jams_python
 
-:copyright: Copyright 2021-2022 Matthias Cuntz, see AUTHORS.md for details.
+:copyright: Copyright 2021-2022 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 Subpackages

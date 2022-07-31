@@ -14,7 +14,6 @@ Contributors
     * `Stephan Thober`_, E-mail: stephan (dot) thober (at) ufz (dot) de
     * `Arndt Piayda`_, E-mail: arndt (dot) piayda (at) thuenen (dot) de
 
-
 .. _Arndt Piayda: https://github.com/peterchenchenchen
 .. _JAMS Python library: https://github.com/mcuntz/jams_python
 .. _Juliane Mai: https://github.com/julemai

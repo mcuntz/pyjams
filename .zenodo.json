@@ -11,7 +11,7 @@
     },
         {
         "scheme": "url",
-        "identifier": "https://pyjams.readthedocs.io/en/latest/",
+        "identifier": "https://mcuntz.github.io/pyjams/",
         "relation": "isDocumentedBy",
         "resource_type": "publication-softwaredocumentation"
     },
