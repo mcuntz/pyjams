@@ -72,6 +72,8 @@ History
     * Default fill_value is NaN, Jan 2022, Matthias Cuntz
     * Remove read_only mode for openpyxl because closing is disabled
       in this case, Jan 2022, Matthias Cuntz
+    * NA -> NaN, i.e. R to Python convention in fsread,
+      Aug 2022, Matthias Cuntz
 
 """
 import codecs
@@ -487,6 +489,7 @@ def _get_header(f, head, sep, iinc, iisnc,
                                  f' {head[k]}')
             if iinc:
                 null = _line2var(hres, var, iinc, strip)
+                var[-1] = [ 'NaN' if iv == 'NA' else iv for iv in var[-1] ]
             if iisnc:
                 null = _line2var(hres, svar, iisnc,
                                  False if strip is None else strip)
@@ -930,6 +933,7 @@ def fsread(infile,
     svar = list()
     if iinc:
         null = _line2var(res, var, iinc, strip)
+        var[-1] = [ 'NaN' if iv == 'NA' else iv for iv in var[-1] ]
     if iisnc:
         null = _line2var(res, svar, iisnc, False if strip is None else strip)
 
@@ -951,6 +955,7 @@ def fsread(infile,
             raise ValueError('Line has not enough columns to index: ' + s)
         if iinc:
             null = _line2var(res, var, iinc, strip)
+            var[-1] = [ 'NaN' if iv == 'NA' else iv for iv in var[-1] ]
         if iisnc:
             null = _line2var(res, svar, iisnc,
                              False if strip is None else strip)

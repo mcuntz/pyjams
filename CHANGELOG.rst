@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.27 (??? 2022)
+    * NA to NaN, i.e. R to Python convention in `fsread`.
+
 v1.26 (Jul 2022)
     * round_microseconds method for `datetime` class if dates are from
       non-microsecond precise origin.
