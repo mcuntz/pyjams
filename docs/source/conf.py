@@ -172,11 +172,12 @@ html_sidebars = {
     ]
 }
 html_theme_options = {
-    'description': 'A general Python package with miscellaneous utility functions.',
+    'description': 'A general Python package with a wide variety of miscellaneous utility functions.',
     'extra_nav_links': {
-        'pyjams@GitHub': "https://github.com/mcuntz/pyjams",
-        'pyjams@Zenodo': "https://doi.org/10.5281/zenodo.5574388",
-        'pyjams@PyPI': "https://pypi.org/project/pyjams/"
+        'pyjams @ GitHub': "https://github.com/mcuntz/pyjams",
+        'pyjams @ Zenodo': "https://doi.org/10.5281/zenodo.5574388",
+        'pyjams @ PyPI': "https://pypi.org/project/pyjams",
+        'pyjams @ conda-forge': "https://anaconda.org/conda-forge/pyjams"
     },
 }
 
@@ -246,7 +247,7 @@ texinfo_documents = [
         "Documentation of pyjams",
         author,
         "pyjams",
-        "A general Python package with miscellaneous utility functions used in several other packages.",
+        "A general Python package with a wide variety of miscellaneous utility functions.",
         "Miscellaneous",
     )
 ]

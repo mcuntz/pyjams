@@ -333,7 +333,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
                                   - 4.4412543e-13 * T_liq**4
                                   + 2.858487 * np.ma.log(T_liq)) / 100.)
         elif form == 'wmo':
-            Ts   = 273.16  # steam point temperature in K
+            Ts = 273.16
             esat_liq = (10.**(10.79574 * (1.-Ts/T_liq)
                               - 5.02800 * np.ma.log10(T_liq/Ts)
                               + 1.50475e-4 * (1.-10.**(-8.2969*(T_liq/Ts-1.)))
@@ -388,7 +388,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
                                - 1.3198825E-5 * T_ice**2
                                - 0.49382577 * np.log(T_ice)))
         elif form == 'wmo':
-            Ts = 273.16  # steam point temperature in K
+            Ts = 273.16
             esat_ice = (10.**(-9.09685 * (Ts/T_ice-1.)
                               - 3.56654 * np.log10(Ts/T_ice)
                               + 0.87682 * (1.-T_ice/Ts) + 0.78614))

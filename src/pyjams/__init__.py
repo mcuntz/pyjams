@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """
-pyjams is a general Python package with miscellaneous utility functions used in
-several other packages. It is offering miscellaneous functions in different
-categories, such as reading different file formats, julian date routines, or
-meteorological functions. It has several subpackages offering constants or
-special functions as well as objective functions to be used with
-scipy.optimize.fmin or scipy.optimize.curvefit, and much more.
+pyjams is a general Python package with a wide variety of miscellaneous utility
+functions. It is offering miscellaneous functions in different categories, such
+as reading different file formats, date conversion routines, or meteorological
+functions. It has several subpackages offering constants, special functions as
+well as objective functions to be used with scipy.optimize.fmin or
+scipy.optimize.curvefit, and much more.
 
 The package has evolved from its predecessor the JAMS Python package
 https://github.com/mcuntz/jams_python

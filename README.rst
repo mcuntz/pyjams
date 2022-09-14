@@ -3,7 +3,7 @@ pyjams
 ..
   pandoc -f rst -o README.html -t html README.rst
 
-A general Python package with miscellaneous utility functions used in several other packages.
+A general Python package with a wide variety of miscellaneous utility functions.
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.5574388.svg
    :target: https://doi.org/10.5281/zenodo.5574388
@@ -33,11 +33,11 @@ A general Python package with miscellaneous utility functions used in several ot
 About pyjams
 ------------
 
-``pyjams`` is a general Python package offering miscellaneous functions in
-different categories, such as reading different file formats, Julian date
-routines, or calculating Elementary Effects. It has several subpackages offering
-constants or special functions, or objective functions to be used with
-scipy.optimize.
+``pyjams`` is a general Python package offering a wide variety of miscellaneous
+functions in different categories, such as reading different file formats, date
+conversion routines, or calculating Elementary Effects. It has several
+subpackages offering constants, special functions, or objective functions to be
+used with scipy.optimize.
 
 The package modernises and makes available routines of the `JAMS Python
 library`_, which was created 2009 by Matthias Cuntz while at the Department of
