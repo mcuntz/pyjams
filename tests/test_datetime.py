@@ -447,6 +447,7 @@ class TestDatetime(unittest.TestCase):
         from pyjams import datetime
         from pyjams import date2num, num2date
         from pyjams.class_datetime import _month_lengths, _year_zero_defaults
+        from numpy.testing import assert_almost_equal
 
         # Test methods of datetime class, years > 0
 
@@ -608,7 +609,8 @@ class TestDatetime(unittest.TestCase):
                     ord0 = 1721425
                 ist  = [ dt.toordinal(fractional=True) + ord0 for dt in idt ]
                 soll = [ dt.toordinal(fractional=True) for dt in cdt ]
-                self.assertEqual(_flatten(ist), _flatten(soll))
+                # self.assertEqual(_flatten(ist), _flatten(soll))
+                assert_almost_equal(_flatten(ist), _flatten(soll))
 
                 # # to_tuple
                 # ist  = np.array([ dt.to_tuple() for dt in idt ])
@@ -1006,7 +1008,8 @@ class TestDatetime(unittest.TestCase):
                     ord0 = 1721425
                 ist  = [ dt.toordinal(fractional=True) + ord0 for dt in idt ]
                 soll = [ dt.toordinal(fractional=True) for dt in cdt ]
-                self.assertEqual(_flatten(ist), _flatten(soll))
+                # self.assertEqual(_flatten(ist), _flatten(soll))
+                assert_almost_equal(_flatten(ist), _flatten(soll))
 
                 # # to_tuple
                 # ist  = np.array([ dt.to_tuple() for dt in idt ])
