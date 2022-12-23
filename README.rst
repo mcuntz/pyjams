@@ -209,6 +209,8 @@ Functions and modules (alphabetical)
      - Read variables from netCDF file
    * - roman2int
      - Roman numeral to integer conversion
+   * - sce
+     - Shuffle-Complex-Evolution algorithm for function min(max)imisation
    * - screening
      - Parameter screening using Morris' method of Elementary Effects
    * - signature2plot
@@ -389,6 +391,8 @@ Functions and modules per category
        * - morris_sampling
          - Sampling of optimised trajectories for Morris measures / Elementary
            Effects
+       * - sce
+         - Shuffle-Complex-Evolution algorithm for function min(max)imisation
        * - screening
          - Parameter screening using Morris' method of Elementary Effects
 

@@ -96,26 +96,26 @@ with wrapper function ncinfo, Mar 2022, Matthias Cuntz</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ncfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – netCDF file name</p></li>
-<li><p><strong>var</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Variable name, only relevant if <em>dims</em> or <em>attributes</em> are True
+<li><p><strong>ncfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – netCDF file name</p></li>
+<li><p><strong>var</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Variable name, only relevant if <em>dims</em> or <em>attributes</em> are True
 <em>var</em> takes precedence over <em>code</em>.</p></li>
-<li><p><strong>code</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Variable code such as in files coming from GRIB,
+<li><p><strong>code</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Variable code such as in files coming from GRIB,
 only relevant if <em>dims</em> or <em>attributes</em> are True.
 <em>var</em> takes precedence over <em>code</em>.</p></li>
-<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get tuple of dimension names for the variable with name <em>var</em>
+<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get tuple of dimension names for the variable with name <em>var</em>
 or number <em>code</em>.</p></li>
-<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get shape of the variable with name <em>var</em> or number <em>code</em>.</p></li>
-<li><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get dictionary of all attributes of variable with name <em>var</em> or number
+<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get shape of the variable with name <em>var</em> or number <em>code</em>.</p></li>
+<li><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get dictionary of all attributes of variable with name <em>var</em> or number
 <em>code</em>, or all file attributes of <em>ncfile</em> if <em>var</em> and <em>code</em> are not
 given</p></li>
-<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variables in <em>ncfile</em></p></li>
-<li><p><strong>codes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variable attributes <em>code</em>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variables in <em>ncfile</em></p></li>
+<li><p><strong>codes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variable attributes <em>code</em>
 Missing codes will be filled with -1.</p></li>
-<li><p><strong>long_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variable attributes <em>long_name</em>
+<li><p><strong>long_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variable attributes <em>long_name</em>
 Missing long_names will be filled with ‘’.</p></li>
-<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variable attributes <em>units</em>.
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variable attributes <em>units</em>.
 Missing units will be filled with ‘’.</p></li>
-<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Sort output of <em>variables</em>, <em>codes</em>, <em>units</em>, and <em>long_names</em>
+<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Sort output of <em>variables</em>, <em>codes</em>, <em>units</em>, and <em>long_names</em>
 with variable name as the sort key</p></li>
 </ul>
 </dd>
@@ -195,16 +195,16 @@ with variable name as the sort key</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ncfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – netCDF file name</p></li>
-<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variables in <em>ncfile</em></p></li>
-<li><p><strong>codes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variable attributes <em>code</em>
+<li><p><strong>ncfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – netCDF file name</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variables in <em>ncfile</em></p></li>
+<li><p><strong>codes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Get list of variable attributes <em>code</em>
 Missing codes will be filled with -1.</p></li>
-<li><p><strong>squeeze</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Squeeze output array, i.e. remove dimensions of size 1.</p></li>
-<li><p><strong>pointer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Return pointers to the open file and to the variable if True,
+<li><p><strong>squeeze</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Squeeze output array, i.e. remove dimensions of size 1.</p></li>
+<li><p><strong>pointer</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Return pointers to the open file and to the variable if True,
 i.e. without actually reading the variable.
 The file will be open in read-only ‘r’ mode.
 <em>overwrite</em> precedes over <em>pointer</em>.</p></li>
-<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Return pointers to the open file and to the variable if True,
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Return pointers to the open file and to the variable if True,
 where the file is opened in append ‘a’ mode allowing to modify
 the variable. <code class="docutils literal notranslate"><span class="pre">readnetcdf</span></code> allows <em>overwrite</em> only if the file
 contains a single variable (without the dimension variables).

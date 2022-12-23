@@ -89,30 +89,30 @@ France.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>palette</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of color palette or continuous colormap</p></li>
-<li><p><strong>ncol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Number of desired colors.
+<li><p><strong>palette</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of color palette or continuous colormap</p></li>
+<li><p><strong>ncol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of desired colors.
 If 0, all colors defined by the specific palette will be returned.
 256 colors will be chosen for continuous colormaps.
 If &gt; 0, existing color palettes will be subsampled to <em>ncol</em> colors.
 <em>ncol</em> colors will be produced from continuous colormaps.</p></li>
-<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> (</em><em>0-1</em><em>)</em><em>, </em><em>optional</em>) – Bottom fraction to exclude for subsample or continuous colormaps</p></li>
-<li><p><strong>upper</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> (</em><em>0-1</em><em>)</em><em>, </em><em>optional</em>) – Upper most fraction to include for subsample or continuous colormaps</p></li>
-<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Reverse colormap if True (default: False). This can also be achieved by
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> (</em><em>0-1</em><em>)</em><em>, </em><em>optional</em>) – Bottom fraction to exclude for subsample or continuous colormaps</p></li>
+<li><p><strong>upper</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> (</em><em>0-1</em><em>)</em><em>, </em><em>optional</em>) – Upper most fraction to include for subsample or continuous colormaps</p></li>
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Reverse colormap if True (default: False). This can also be achieved by
 adding ‘_r’ to the palette name. Palettes that end with ‘_r’ will not
 be reversed.</p></li>
-<li><p><strong>grey</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Return grey equivalent colors if True (default: False).</p></li>
-<li><p><strong>order</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Order colors by ‘hue’, ‘saturation’, or ‘value’.
+<li><p><strong>grey</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Return grey equivalent colors if True (default: False).</p></li>
+<li><p><strong>order</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Order colors by ‘hue’, ‘saturation’, or ‘value’.
 This is done before <em>reverse</em> and <em>grey</em>
 (default: order from color sources).</p></li>
-<li><p><strong>as_cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, returns matplotlib.colors.Colormap
+<li><p><strong>as_cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, returns matplotlib.colors.Colormap
 instead of list of RGB tuples</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of RGB tuples or <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v3.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.colors.Colormap</span></code></a></p>
+<dd class="field-even"><p>List of RGB tuples or <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v3.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.colors.Colormap</span></code></a></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a> or <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v3.5.3)">matplotlib.colors.Colormap</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a> or <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v3.6.2)">matplotlib.colors.Colormap</a></p>
 </dd>
 </dl>
 <div class="admonition-notes admonition">
@@ -120,7 +120,7 @@ instead of list of RGB tuples</p></li>
 <p><cite>get_cmap</cite> always returns a list of RGB tuples or a Matplotlib
 ListedColormap. You can use the <em>ncol</em>, <em>offset</em>, and <em>upper</em> keywords to
 subsample colormaps. To get smoothly-varying colormaps, you can use the
-method <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap.from_list" title="(in Matplotlib v3.5.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">matplotlib.colors.LinearSegmentedColormap.from_list()</span></code></a></p>
+method <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap.from_list" title="(in Matplotlib v3.6.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">matplotlib.colors.LinearSegmentedColormap.from_list()</span></code></a></p>
 <blockquote>
 <div><p>cols = get_cmap(‘sron_ylorbr’)</p>
 <p>cmap = matplotlib.colors.LinearSegmentedColormap.from_list(cols)</p>
@@ -145,7 +145,7 @@ Optionally returns the value(s) of the named color(s),
 which can be any color name known to Matplotlib.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>iterable of str</em><em>, </em><em>optional</em>) – Colour name(s)</p>
+<dd class="field-odd"><p><strong>cname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>iterable of str</em><em>, </em><em>optional</em>) – Colour name(s)</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -162,7 +162,7 @@ which can be any color name known to Matplotlib.</p>
 <dd><p>Print the known named colors</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color collection(s).
+<dd class="field-odd"><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color collection(s).
 Known collections are ‘base’, ‘tableau’, ‘ufz’, ‘css’,
 and ‘xkcd’.</p>
 </dd>
@@ -185,7 +185,7 @@ and ‘xkcd’.</p>
 <dd><p>Print the known color palettes and continuous colormaps</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color palette collection(s).
+<dd class="field-odd"><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color palette collection(s).
 Known collections are ‘pyjams’, ‘sron’, ‘sron2012’, ‘mathematica’,
 ‘oregon’, ‘ncl’, ‘matplotlib’, and ‘brewer’.</p>
 </dd>
@@ -210,8 +210,8 @@ console.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Output file name. Output type will be determined from file suffix.</p></li>
-<li><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color palette collection(s).
+<li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Output file name. Output type will be determined from file suffix.</p></li>
+<li><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em>) – Name(s) of color palette collection(s).
 All palettes will be shown if collection is empty or ‘all’.
 Known collections are: ‘pyjams’, ‘sron’, ‘sron2012’, ‘mathematica’,
 ‘oregon’, ‘ncl’, ‘matplotlib’, and ‘brewer’.</p></li>

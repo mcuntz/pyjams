@@ -6,7 +6,6 @@ python -m unittest -v tests/test_screening.py
 python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_screening.py
 
 """
-from __future__ import division, absolute_import, print_function
 import unittest
 
 
@@ -30,11 +29,10 @@ class TestScreening(unittest.TestCase):
 
     # G function
     def test_ee_g(self):
-        from functools import partial
         import numpy as np
         from pyjams import ee
         from pyjams.functions import G
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func   = G
@@ -44,7 +42,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(function_wrapper, func, arg, kwarg)
+        obj   = _FunctionWrapper(func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -60,11 +58,10 @@ class TestScreening(unittest.TestCase):
 
     # G function
     def test_ee_g_verbose(self):
-        from functools import partial
         import numpy as np
         from pyjams import ee
         from pyjams.functions import G
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func   = G
@@ -74,7 +71,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(function_wrapper, func, arg, kwarg)
+        obj   = _FunctionWrapper(func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -90,11 +87,10 @@ class TestScreening(unittest.TestCase):
 
     # G function, mask
     def test_ee_g_mask(self):
-        from functools import partial
         import numpy as np
         from pyjams import ee
         from pyjams.functions import G
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func   = G
@@ -104,7 +100,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(function_wrapper, func, arg, kwarg)
+        obj   = _FunctionWrapper(func, arg, kwarg)
 
         # Screening
         lb   = np.zeros(npars)
@@ -123,11 +119,10 @@ class TestScreening(unittest.TestCase):
 
     # G function, mask, error
     def test_ee_g_mask_error(self):
-        from functools import partial
         import numpy as np
         from pyjams import ee
         from pyjams.functions import G
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func   = G
@@ -137,7 +132,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(function_wrapper, func, arg, kwarg)
+        obj   = _FunctionWrapper(func, arg, kwarg)
 
         # Screening
         lb   = np.zeros(npars)
@@ -152,11 +147,10 @@ class TestScreening(unittest.TestCase):
 
     # G function, nt=1
     def test_ee_g_nt1(self):
-        from functools import partial
         import numpy as np
         from pyjams import ee
         from pyjams.functions import G
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func   = G
@@ -166,7 +160,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(function_wrapper, func, arg, kwarg)
+        obj   = _FunctionWrapper(func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -182,12 +176,11 @@ class TestScreening(unittest.TestCase):
 
     # G function, pool
     def test_ee_g_pool(self):
-        from functools import partial
         import numpy as np
         import schwimmbad
         from pyjams import ee
         from pyjams.functions import G
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func   = G
@@ -197,7 +190,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(function_wrapper, func, arg, kwarg)
+        obj   = _FunctionWrapper(func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -216,11 +209,10 @@ class TestScreening(unittest.TestCase):
 
     # G function, multiprocesses
     def test_ee_g_1(self):
-        from functools import partial
         import numpy as np
         from pyjams import ee
         from pyjams.functions import G
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func   = G
@@ -230,7 +222,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(function_wrapper, func, arg, kwarg)
+        obj   = _FunctionWrapper(func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -244,11 +236,10 @@ class TestScreening(unittest.TestCase):
 
     # Gstar function with different interactions
     def test_screening_gstar(self):
-        from functools import partial
         import numpy as np
         from pyjams import screening
         from pyjams.functions import Gstar
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func   = Gstar
@@ -284,7 +275,7 @@ class TestScreening(unittest.TestCase):
             # Partialise function with fixed parameters
             arg   = params[ii]
             kwarg = {}
-            obj   = partial(function_wrapper, func, arg, kwarg)
+            obj   = _FunctionWrapper(func, arg, kwarg)
 
             out = screening(obj, lb, ub, self.nt, x0=None, mask=None,
                             ntotal=self.ntotal, nsteps=self.nsteps,
@@ -318,11 +309,10 @@ class TestScreening(unittest.TestCase):
 
     # Morris function
     def test_ee_fmorris(self):
-        from functools import partial
         import numpy as np
         from pyjams import ee
         from pyjams.functions import fmorris
-        from partialwrap import function_wrapper
+        from pyjams.sce import _FunctionWrapper
 
         # Function and parameters
         func = fmorris
@@ -340,7 +330,7 @@ class TestScreening(unittest.TestCase):
         # Partialise Morris function with fixed parameters beta0-4
         arg   = [beta0, beta1, beta2, beta3, beta4]
         kwarg = {}
-        obj   = partial(function_wrapper, func, arg, kwarg)
+        obj   = _FunctionWrapper(func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)

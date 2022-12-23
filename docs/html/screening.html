@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Meteorology" href="meteorology.html" />
-    <link rel="prev" title="Morris Method / Elementary Effects" href="morris_method.html" />
+    <link rel="prev" title="sce" href="sce.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -110,15 +110,15 @@ distributions is infinite at 0.</p></li>
 or upper fraction of percent point function ppf if distribution given.
 Be aware that the percent point function <em>ppf</em> of most continuous
 distributions is infinite at 1.</p></li>
-<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of trajectories used for screening.</p></li>
+<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of trajectories used for screening.</p></li>
 <li><p><strong>x0</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Parameter values used with <cite>mask==0</cite>.</p></li>
 <li><p><strong>mask</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Include (1,True) or exclude (0,False) parameters in screening (default:
 include all parameters).</p></li>
-<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Number of steps along one trajectory (default: 6)</p></li>
-<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories to select the nt most different
+<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of steps along one trajectory (default: 6)</p></li>
+<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories to select the nt most different
 trajectories.
 If None: <cite>max(nt**2,10*nt)</cite> (default: None)</p></li>
-<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
+<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
 the method ppf, Percent Point Function (Inverse of CDF) (default: None).
 If None, the uniform distribution will be sampled from lower bound <cite>lb</cite>
 to upper bound <cite>ub</cite>.
@@ -129,7 +129,7 @@ interval is then given by the parameters <cite>loc=lower</cite> and
 <cite>dist=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite>
 corresponds to
 <cite>lb=0</cite>, <cite>ub=1</cite>, <cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a,b-a]</cite></p></li>
-<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
+<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
 (0, 1)).
 All distributions of scipy.stats have location and scale parameters, at
 least. <cite>loc</cite> and <cite>scale</cite> are implemented as keyword arguments in
@@ -139,8 +139,8 @@ the gamma distribution.
 <cite>distparam</cite> is ignored if <cite>dist</cite> is None.
 The percent point function <em>ppf</em> is called like this:
 <cite>dist(*distparam).ppf(x)</cite></p></li>
-<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><em>array_like</em>) – Seed for numpy’s random number generator (default: None).</p></li>
-<li><p><strong>processes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The number of processes to use to evaluate objective function and
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><em>array_like</em>) – Seed for numpy’s random number generator (default: None).</p></li>
+<li><p><strong>processes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – The number of processes to use to evaluate objective function and
 constraints (default: 1).</p></li>
 <li><p><strong>pool</strong> (<cite>schwimmbad</cite> pool object, optional) – <p>Generic map function used from module <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/">schwimmbad</a>, which provides,
 serial, multiprocessor, and MPI mapping functions (default: None).
@@ -154,7 +154,7 @@ screening several times in one program, then you have to choose the
 pool, pass it to screening, and later close the pool in the calling
 program.</p>
 </p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Print progress report during execution if <cite>verbose&gt;0</cite> (default: 0).</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Print progress report during execution if <cite>verbose&gt;0</cite> (default: 0).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -244,6 +244,7 @@ nt trajectories (<cite>sigma</cite>) or zero if <cite>nt==1</cite></p></li>
 <li class="toctree-l3"><a class="reference internal" href="division.html">division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="functions.html">Function module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">screening</a></li>
 </ul>
 </li>
@@ -277,7 +278,7 @@ nt trajectories (<cite>sigma</cite>) or zero if <cite>nt==1</cite></p></li>
   <li><a href="contents.html">Documentation overview</a><ul>
   <li><a href="api.html">API Reference</a><ul>
   <li><a href="math.html">Math</a><ul>
-      <li>Previous: <a href="morris_method.html" title="previous chapter">Morris Method / Elementary Effects</a></li>
+      <li>Previous: <a href="sce.html" title="previous chapter">sce</a></li>
       <li>Next: <a href="meteorology.html" title="next chapter">Meteorology</a></li>
   </ul></li>
   </ul></li>

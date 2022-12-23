@@ -283,7 +283,8 @@
 <span class="sd">    &gt;&gt;&gt; print(means(jdates, x, month=True, onlydat=True, calendar=&#39;decimal&#39;))</span>
 <span class="sd">    [4. 2. 3.]</span>
 
-<span class="sd">    # Masked arrays</span>
+<span class="sd">    Masked arrays</span>
+
 <span class="sd">    &gt;&gt;&gt; x = np.ma.array(x, mask=np.zeros(x.size, dtype=bool))</span>
 <span class="sd">    &gt;&gt;&gt; x.mask[0] = True</span>
 <span class="sd">    &gt;&gt;&gt; odates, xout = means(jdates, x, calendar=&#39;decimal&#39;)</span>
@@ -302,7 +303,8 @@
 <span class="sd">    &gt;&gt;&gt; print(xout)</span>
 <span class="sd">    [5.0 2.0 3.0]</span>
 
-<span class="sd">    # sum</span>
+<span class="sd">    sum</span>
+
 <span class="sd">    &gt;&gt;&gt; odates, xout = means(jdates, x, sum=True, calendar=&#39;decimal&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; print(np.around(odates, 1), xout)</span>
 <span class="sd">    1990.1 20.0</span>
@@ -317,7 +319,8 @@
 <span class="sd">    &gt;&gt;&gt; print(xout)</span>
 <span class="sd">    [15.0 2.0 3.0]</span>
 
-<span class="sd">    # max</span>
+<span class="sd">    max</span>
+
 <span class="sd">    &gt;&gt;&gt; odates, xout = means(jdates, x, max=True, calendar=&#39;decimal&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; print(np.around(odates, 1), xout)</span>
 <span class="sd">    1990.1 6.0</span>
@@ -332,7 +335,8 @@
 <span class="sd">    &gt;&gt;&gt; print(xout)</span>
 <span class="sd">    [6.0 2.0 3.0]</span>
 
-<span class="sd">    # min</span>
+<span class="sd">    min</span>
+
 <span class="sd">    &gt;&gt;&gt; odates, xout = means(jdates, x, min=True, calendar=&#39;decimal&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; print(np.around(odates, 1), xout)</span>
 <span class="sd">    1990.1 2.0</span>
@@ -347,7 +351,8 @@
 <span class="sd">    &gt;&gt;&gt; print(xout)</span>
 <span class="sd">    [4.0 2.0 3.0]</span>
 
-<span class="sd">    # 2D and masked arrays</span>
+<span class="sd">    2D and masked arrays</span>
+
 <span class="sd">    &gt;&gt;&gt; x  = np.repeat(x,2).reshape((x.size,2))</span>
 <span class="sd">    &gt;&gt;&gt; odates, xout = means(jdates, x, calendar=&#39;decimal&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; print(np.around(odates, 1), xout)</span>

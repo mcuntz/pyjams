@@ -419,7 +419,7 @@ class TestMeans(unittest.TestCase):
 
         # meanmonth=True == seasonalmonth=True
 
-        # meanmonth=True
+        # seasonalday=True
 
         # seasonalmeanday=True
 

@@ -207,6 +207,8 @@ Functions and modules (alphabetical)
      - Read variables from netCDF file
    * - :func:`~pyjams.romanliterals.roman2int`
      - Roman numeral to integer conversion
+   * - :func:`~pyjams.sce`
+     - Shuffle-Complex-Evolution algorithm for function min(max)imisation
    * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects
    * - :func:`~pyjams.text2plot.signature2plot`
@@ -387,6 +389,8 @@ Functions and modules per category
        * - :func:`~pyjams.morris_method.morris_sampling`
          - Sampling of optimised trajectories for Morris measures / Elementary
            Effects
+       * - :func:`~pyjams.sce`
+         - Shuffle-Complex-Evolution algorithm for function min(max)imisation
        * - :func:`~pyjams.screening.screening`
          - Parameter screening using Morris' method of Elementary Effects
 

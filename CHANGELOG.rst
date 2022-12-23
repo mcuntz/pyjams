@@ -1,7 +1,11 @@
 Changelog
 ---------
 
-v1.27 (??? 2022)
+v1.27 (Dec 2022)
+    * Remove dependency to ``partialwrap`` for tests.
+    * Adding `sce` the Shuffled-Complex-Evolution algorithm for function
+      minimization.
+    * Adding 'a wide variety of' to ``pyjams`` key phrase.
     * NA to NaN, i.e. R to Python convention in `fsread`.
 
 v1.26 (Jul 2022)

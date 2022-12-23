@@ -17,7 +17,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="screening" href="screening.html" />
+    <link rel="next" title="sce" href="sce.html" />
     <link rel="prev" title="Sensitivity analysis test functions" href="functions.sa_test_functions.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -127,7 +127,7 @@ values and the group matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of parameters / factors list [OptMatrix, OptOutVec] with
+<li><p><strong>nparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of parameters / factors list [OptMatrix, OptOutVec] with
 OptMatrix((nparam+1)*nt,nparam) and OptOutVec(nparam*nt)</p></li>
 <li><p><strong>OptMatrix</strong> (<em>ndarray</em>) – ((nparam+1)*nt,nparam) Matrix of the Morris sampled trajectories from
 morris_sampling</p></li>
@@ -135,11 +135,11 @@ morris_sampling</p></li>
 morris_sampling</p></li>
 <li><p><strong>Output</strong> (<em>ndarray</em>) – ((nparam+1)*nt,) Matrix of the output values of each point of each
 trajectory</p></li>
-<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Number of levels, i.e. intervals in trajectories (default: 4)</p></li>
+<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of levels, i.e. intervals in trajectories (default: 4)</p></li>
 <li><p><strong>Group</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – (nparam,NumGroups) Matrix describing the groups. (default: [])
 Each column represents a group. The elements of each column are zero
 if the parameter / factor is not in the group, otherwise it is 1.</p></li>
-<li><p><strong>Diagnostic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Print out diagnostics if True (default: False)</p></li>
+<li><p><strong>Diagnostic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Print out diagnostics if True (default: False)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -197,7 +197,7 @@ means elementary effects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of parameters / factors</p></li>
+<li><p><strong>nparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of parameters / factors</p></li>
 <li><p><strong>lb</strong> (<em>array_like</em>) – (nparam,) Lower bound of the uniform distribution for each parameter /
 factor or lower fraction of percent point function ppf if distribution
 given.
@@ -208,11 +208,11 @@ factor or upper fraction of percent point function ppf if distribution
 given.
 Be aware that the percent point function <em>ppf</em> of most continuous
 distributions is infinite at 1.</p></li>
-<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Final number of optimal trajectories</p></li>
-<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Number of levels, i.e. intervals in trajectories (default: 6)</p></li>
-<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories. If None: <cite>ntotal=10*nt</cite> (default:
+<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Final number of optimal trajectories</p></li>
+<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of levels, i.e. intervals in trajectories (default: 6)</p></li>
+<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories. If None: <cite>ntotal=10*nt</cite> (default:
 None)</p></li>
-<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
+<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
 the method ppf, Percent Point Function (Inverse of CDF) (default: None)
 If None, the uniform distribution will be sampled from lower bound <cite>lb</cite>
 to upper bound <cite>ub</cite>.
@@ -223,7 +223,7 @@ sampling interval is then given by the parameters <cite>loc=lower</cite> and
 <cite>dist=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite>
 corresponds to
 <cite>lb=0</cite>, <cite>ub=1</cite>, <cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a,b-a]</cite></p></li>
-<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
+<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
 (0,1)).
 All distributions of scipy.stats have location and scale parameters, at
 least. <cite>loc</cite> and <cite>scale</cite> are implemented as keyword arguments in
@@ -236,7 +236,7 @@ The percent point function ppf is called like this:
 <li><p><strong>GroupMat</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – (nparam,ngroup) Matrix describing the groups. (default: np.array([]))
 Each column represents a group. The elements of each column are zero
 if the parameter / factor is not in the group, otherwise it is 1.</p></li>
-<li><p><strong>Diagnostic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Plot the histograms and compute the efficiency of the sampling if True
+<li><p><strong>Diagnostic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Plot the histograms and compute the efficiency of the sampling if True
 (default: False)</p></li>
 </ul>
 </dd>
@@ -245,7 +245,7 @@ if the parameter / factor is not in the group, otherwise it is 1.</p></li>
 <cite>OptOutVec(nparam*nt)</cite></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></p>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -339,6 +339,7 @@ on page 68ff</p>
 <li class="toctree-l3"><a class="reference internal" href="division.html">division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="functions.html">Function module</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
 </ul>
 </li>
@@ -373,7 +374,7 @@ on page 68ff</p>
   <li><a href="api.html">API Reference</a><ul>
   <li><a href="math.html">Math</a><ul>
       <li>Previous: <a href="functions.sa_test_functions.html" title="previous chapter">Sensitivity analysis test functions</a></li>
-      <li>Next: <a href="screening.html" title="next chapter">screening</a></li>
+      <li>Next: <a href="sce.html" title="next chapter">sce</a></li>
   </ul></li>
   </ul></li>
   </ul></li>

@@ -91,8 +91,8 @@ is calculated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><em>array_like</em>) – Temperature [K]</p></li>
-<li><p><strong>formula</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Formula name to use for calculations; case-insensitive.
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Temperature [K]</p></li>
+<li><p><strong>formula</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Formula name to use for calculations; case-insensitive.
 Available formulations are:
 GoffGratch (default) <a class="reference internal" href="#r3ec76afde6cd-1" id="id1">[1]</a>, WMO <a class="reference internal" href="#r3ec76afde6cd-2" id="id2">[2]</a>, IAPWS <a class="reference internal" href="#r3ec76afde6cd-3" id="id3">[3]</a>, MagnusTeten <a class="reference internal" href="#r3ec76afde6cd-4" id="id4">[4]</a>,
 MartiMauersberger <a class="reference internal" href="#r3ec76afde6cd-5" id="id5">[5]</a>, Buck_original <a class="reference internal" href="#r3ec76afde6cd-6" id="id6">[6]</a>, Buck <a class="reference internal" href="#r3ec76afde6cd-7" id="id7">[7]</a>, Wexler <a class="reference internal" href="#r3ec76afde6cd-8" id="id8">[8]</a>,
@@ -102,15 +102,15 @@ MurphyKoop <a class="reference internal" href="#r3ec76afde6cd-13" id="id13">[13]
 formulation over ice and Marti and Mauersberger do not provide
 a formula over liquid: GoffGratch is used in theses cases.</p>
 </p></li>
-<li><p><strong>undef</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Exclude <cite>T == undef</cite> from calculations (default: -9999.)</p></li>
-<li><p><strong>liquid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, use liquid formula for all temperatures.</p></li>
+<li><p><strong>undef</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Exclude <cite>T == undef</cite> from calculations (default: -9999.)</p></li>
+<li><p><strong>liquid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, use liquid formula for all temperatures.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Saturation water pressure at temperature T in Pascal [Pa].</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a> or array_like</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a> or array_like</p>
 </dd>
 </dl>
 <div class="admonition-notes admonition">

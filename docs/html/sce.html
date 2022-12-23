@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>sce &#8212; pyjams 1.27.dev1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="screening" href="screening.html" />
+    <link rel="prev" title="Morris Method / Elementary Effects" href="morris_method.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-pyjams.sce">
+<span id="sce"></span><h1>sce<a class="headerlink" href="#module-pyjams.sce" title="Permalink to this heading">¶</a></h1>
+<p>Shuffled-Complex-Evolution (SCE) algorithm for function minimization</p>
+<p>This code is based on a Fortran program of Qingyun Duan (2004), ported to
+Python by Stijn Van Hoey (2011). It was taken up, debugged, enhanced and is
+maintained by Matthias Cuntz while at Department of Computational Hydrosystems
+(CHS), Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany, and
+continued while at Institut National de Recherche pour l’Agriculture,
+l’Alimentation et l’Environnement (INRAE), Nancy, France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Copyright 2004-2022 Qingyun Duan <a class="reference internal" href="#r5d8d5691cfd5-1" id="id1">[1]</a>, Stijn Van Hoey, Matthias Cuntz, see AUTHORS.rst for details.</p>
+</dd>
+<dt class="field-even">license<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r5d8d5691cfd5-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Duan, Sorooshian and Gupta (1992) Effective and efficient global
+optimization for conceptual rainfall-runoff models, Water Resour Res 28,
+1015-1031, <a class="reference external" href="https://doi.org/10.1029/91WR02985">https://doi.org/10.1029/91WR02985</a></p>
+</div>
+</div>
+<p>The following functions are provided:</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.sce.sce" title="pyjams.sce.sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sce</span></code></a>(func, x0, lb[, ub, mask, args, kwargs, ...])</p></td>
+<td><p>Shuffled-Complex-Evolution algorithm for function minimization</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written in Fortran by Q Duan, Sep 2004</p></li>
+<li><p>Ported to Python by Stijn Van Hoey, 2011
+<a class="reference external" href="https://github.com/stijnvanhoey/Optimization_SCE">https://github.com/stijnvanhoey/Optimization_SCE</a></p></li>
+<li><p>Synchronised with enhanced Fortran version of CHS, Oct 2013, Matthias Cuntz</p></li>
+<li><p>Added functionality to call external executable, Nov 2016, Matthias Cuntz</p></li>
+<li><p>Treat NaN and Inf in function output, Nov 2016, Matthias Cuntz</p></li>
+<li><p>Possibility to exclude (mask) parameters from optimisation,
+Nov 2016, Matthias Cuntz</p></li>
+<li><p>Added restart possibility, Nov 2016, Matthias Cuntz</p></li>
+<li><p>Return also function value of best parameter set if maxit==True,
+Nov 2016, Matthias Cuntz</p></li>
+<li><p>Removed functionality to call external executable, Dec 2017, Matthias Cuntz</p></li>
+<li><p>Print out number of function evaluations with printit=1,
+Mar 2018, Matthias Cuntz</p></li>
+<li><p>Mask parameters with degenerated ranges, e.g. upper&lt;lower bound,
+Mar 2018, Matthias Cuntz</p></li>
+<li><p>Use only masked parameters in calculation of geometric range,
+Mar 2018, Matthias Cuntz</p></li>
+<li><p>Removed bug that calculated the size of the complexes using all parameters
+and not only the masked parameters, Mar 2018, Matthias Cuntz</p></li>
+<li><p>Fixed bug where masked parameters were always out of bounds,
+Mar 2018, Matthias Cuntz</p></li>
+<li><p>Allow scalar bounds, which will be taken for all parameters,
+Mar 2018, Matthias Cuntz</p></li>
+<li><p>Get number of parameters from lower boundary in SampleInputMatrix,
+Mar 2018, Matthias Cuntz</p></li>
+<li><p>Define number of parameters by inquiring x0 in case of restart,
+May 2018, Matthias Cuntz</p></li>
+<li><p>Removed multiplication with one hundred in criter_change,
+regarded a bug compared to Fortran code, May 2018, Matthias Cuntz</p></li>
+<li><p>Removed exec command to make restart work with Python 3,
+May 2020, Matthias Cuntz</p></li>
+<li><p>Use underscore before private routines, May 2020, Matthias Cuntz</p></li>
+<li><p>Code refactoring, Sep 2021, Matthias Cuntz</p></li>
+<li><p>Added keywords args and kwargs to pass to function,
+Apr 2022, Matthias Cuntz</p></li>
+<li><p>Pass RandomState to _SampleInputMatrix, Jul 2022, Matthias Cuntz</p></li>
+<li><p>Different sampling of input parameters, Jul 2022, Matthias Cuntz</p></li>
+<li><p>Use helper class to pass arguments to objective function,
+Dec 2022, Matthias Cuntz</p></li>
+<li><p>Copy strtobool from distutils.util because distutils is deprecated,
+Dec 2022, Matthias Cuntz</p></li>
+<li><p>Include number of complexes ngs in restartfile, Dec 2022, Matthias Cuntz</p></li>
+<li><p>No restart files written by default, Dec 2022, Matthias Cuntz</p></li>
+<li><p>Rewrite into class SCESolver, Dec 2022, Matthias Cuntz</p></li>
+<li><p>Output OptimizeResult class, Dec 2022, Matthias Cuntz</p></li>
+<li><p>Polish results with L-BFGS-B, Dec 2022, Matthias Cuntz</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.sce.sce">
+<span class="sig-name descname"><span class="pre">sce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'half-open'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kstop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcento</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nspl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iniflg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.45</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polish</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restartfile1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restartfile2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/sce.html#sce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.sce.sce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shuffled-Complex-Evolution algorithm for function minimization</p>
+<p>The SCE or SCE-UA method is a general purpose global optimization.
+The algorithm has been described in detail in Duan et al. <a class="reference internal" href="#re2976b741a4a-1" id="id2">[1]</a> and <a class="reference internal" href="#re2976b741a4a-2" id="id3">[2]</a>.
+Another paper of Duan et al. <a class="reference internal" href="#re2976b741a4a-3" id="id4">[3]</a> discusses how to use the method
+effectively.
+This implementation also includes the recommendations of Behrangi et al.
+<a class="reference internal" href="#re2976b741a4a-4" id="id5">[4]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – Function in the form <code class="docutils literal notranslate"><span class="pre">func(x,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> are
+the parameters in the form of an iterable.
+<code class="docutils literal notranslate"><span class="pre">args</span></code> and <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> are passed to the function via the usual
+unpacking operators.</p></li>
+<li><p><strong>x0</strong> (<em>array_like</em>) – Parameter values with <cite>mask==1</cite> used in initial complex if
+<cite>iniflg==1</cite>.</p></li>
+<li><p><strong>lb</strong> (array_like, sequence or <cite>Bounds</cite>) – Lower bounds of parameters if <code class="docutils literal notranslate"><span class="pre">ub</span></code> given.
+If <cite>ub</cite> is not given, then <cite>lb</cite> are the bounds of the parameters,
+either 1) as an instance of the <cite>Bounds</cite> class, or 2) as <code class="docutils literal notranslate"><span class="pre">(min,</span> <span class="pre">max)</span></code>
+pairs for each element in <code class="docutils literal notranslate"><span class="pre">x</span></code>, defining the finite lower and upper
+bounds for the parameters of <cite>func</cite>.</p></li>
+<li><p><strong>ub</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Upper bounds of parameters.</p></li>
+<li><p><strong>mask</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Include (1, True) or exclude (0, False) parameters in minimization
+(default: include all parameters). The number of parameters <code class="docutils literal notranslate"><span class="pre">nopt</span></code> is
+<code class="docutils literal notranslate"><span class="pre">sum(mask)</span></code>.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><em>optional</em>) – Extra arguments passed to the function <em>func</em>.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Extra keyword arguments passed to the function <cite>func</cite>.</p></li>
+<li><p><strong>sampling</strong> (<em>string</em><em> or </em><em>array_like of strings</em><em>, </em><em>optional</em>) – <p>Options for sampling random numbers. Options can be on of:</p>
+<blockquote>
+<div><ul>
+<li><p>’half-open’: same as ‘right-half-open’ [lb, ub)</p></li>
+<li><p>’left-half-open’: sample random floats in half-open
+interval (lb, ub]</p></li>
+<li><p>’right-half-open’: sample random floats in half-open
+interval [lb, ub)</p></li>
+<li><p>’open’: sample random floats in open interval (lb, ub)</p></li>
+<li><p>’log’: sample half-open interval [log(lb), log(ub)), which
+samples better intervals spanning orders or magnitude such as
+<cite>lb=1e-9</cite> and <cite>ub=1e-4</cite></p></li>
+</ul>
+</div></blockquote>
+<p>The default is ‘half-open’.</p>
+</p></li>
+<li><p><strong>maxn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum number of function evaluations allowed during minimization
+(without polishing) (default: 1000).</p></li>
+<li><p><strong>kstop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum number of evolution loops before convergence (default: 10).</p></li>
+<li><p><strong>pcento</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Percentage change allowed in kstop loops before convergence
+(default: 0.0001).</p></li>
+<li><p><strong>peps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Value of normalised geometric range needed for convergence
+(default: 0.001).</p></li>
+<li><p><strong>ngs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of complexes (default: 2).</p></li>
+<li><p><strong>npg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of points in each complex (default: <cite>2*nopt+1</cite>).</p></li>
+<li><p><strong>nps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of points in each sub-complex (default: <cite>nopt+1</cite>).</p></li>
+<li><p><strong>mings</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Minimum number of complexes required if the number of complexes is
+allowed to reduce as the optimization proceeds (default: <cite>ngs</cite>).</p></li>
+<li><p><strong>nspl</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of evolution steps allowed for each complex before complex
+shuffling (default: <cite>2*nopt+1</cite>).</p></li>
+<li><p><strong>seed</strong> ({None, int, <cite>numpy.random.Generator</cite>, <cite>numpy.random.RandomState</cite>}, optional) – If <cite>seed</cite> is None (or <cite>numpy.random</cite>), the <cite>numpy.random.RandomState</cite>
+singleton is used.
+If <cite>seed</cite> is an int, a new <cite>RandomState</cite> instance is used,
+seeded with <cite>seed</cite>.
+If <cite>seed</cite> is already a <cite>Generator</cite> or <cite>RandomState</cite> instance then
+that instance is used.
+Specify <cite>seed</cite> for repeatable results.</p></li>
+<li><p><strong>iniflg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True: include initial parameters <code class="docutils literal notranslate"><span class="pre">x0</span></code> in initial population
+(default: True).</p></li>
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Parameter for reflection of points in complex (default: 0.8).</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Parameter for contraction of points in complex (default: 0.45).</p></li>
+<li><p><strong>maxit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True: maximize instead of minimize <cite>func</cite> (default: False).</p></li>
+<li><p><strong>printit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – <p>Controlling print-out (default: 2):</p>
+<blockquote>
+<div><ul>
+<li><p>0: print information for the best point of the population</p></li>
+<li><p>1: print information for each function evaluation</p></li>
+<li><p>2: no printing.</p></li>
+</ul>
+</div></blockquote>
+<p>The default is 2.</p>
+</p></li>
+<li><p><strong>polish</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True (default), then <cite>scipy.optimize.minimize</cite> is used with the
+<cite>L-BFGS-B</cite> method to polish the result at the end, which
+can improve the minimization slightly. For large problems, polishing
+can take a long time due to the computation of the Jacobian.</p></li>
+<li><p><strong>restart</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, continue from saved state in <cite>restartfile1</cite> and
+<cite>restartfile2</cite> (default: False).</p></li>
+<li><p><strong>restartfile1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Filename for saving state of array variables of <cite>SCE</cite> (default: ‘’).
+If <cite>restart==True</cite> and <cite>restartfile1==’’</cite> then
+<cite>restartfile1=’sce.restart.npz’</cite> will be taken.</p></li>
+<li><p><strong>restartfile2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Filename for saving state of non-array variables of <cite>SCE</cite>
+(default: <cite>restartfile1 + ‘.txt’</cite>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>res</strong> – The optimization result represented as a <cite>OptimizeResult</cite> object.
+Important attributes are: <code class="docutils literal notranslate"><span class="pre">x</span></code> the solution array, <code class="docutils literal notranslate"><span class="pre">success</span></code> a
+Boolean flag indicating if the optimizer exited successfully (0) and
+<code class="docutils literal notranslate"><span class="pre">message</span></code> which describes the cause of the termination. See
+<cite>OptimizeResult</cite> for a description of other attributes. If <cite>polish</cite>
+was employed, and a lower minimum was obtained by the polishing, then
+OptimizeResult also contains the <code class="docutils literal notranslate"><span class="pre">jac</span></code> attribute.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>OptimizeResult</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="re2976b741a4a-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>Duan QY, Sorooshian S, and Gupta VK,
+Effective and efficient global optimization for conceptual
+rainfall-runoff models, Water Resources Research 28(4), 1015-1031,
+1992, <a class="reference external" href="https://doi.org/10.1029/91WR02985">https://doi.org/10.1029/91WR02985</a></p>
+</div>
+<div class="citation" id="re2976b741a4a-2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>Duan QY, Gupta VK, and Sorooshian S,
+Shuffled Complex Evolution approach for effective and efficient
+global minimization, Journal of Optimization Theory and its
+Applications 76(3), 501-521, 1993,
+<a class="reference external" href="https://doi.org/10.1007/BF00939380">https://doi.org/10.1007/BF00939380</a></p>
+</div>
+<div class="citation" id="re2976b741a4a-3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p>Duan QY, Gupta VK, and Sorooshian S,
+Optimal use of the SCE-UA global optimization method for calibrating
+watershed models, Journal of Hydrology 158, 265-284, 1994,
+<a class="reference external" href="https://doi.org/10.1016/0022-1694(94)90057-4">https://doi.org/10.1016/0022-1694(94)90057-4</a></p>
+</div>
+<div class="citation" id="re2976b741a4a-4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
+<p>Behrangi A, Khakbaz B, Vrugt JA, Duan Q, and Sorooshian S
+Comment on “Dynamically dimensioned search algorithm for
+computationally efficient watershed model calibration” by
+Bryan A. Tolson and Christine A. Shoemaker, Water Resources
+Research 44, W12603, 2008, <a class="reference external" href="http://doi.org/10.1029/2007WR006429">http://doi.org/10.1029/2007WR006429</a></p>
+</div>
+</div>
+<p class="rubric">Examples</p>
+<p>Search the minimum of the Rosenbrock function, implemented in <cite>rosen</cite>
+in <cite>scipy.optimize</cite>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">rosen</span>
+</pre></div>
+</div>
+<p>One has to provide the function <cite>rosen</cite>, an initial guess of the
+parameters, and the lower and upper limits of the parameters.
+The 2D version is:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">7.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">sce</span><span class="p">(</span><span class="n">rosen</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxn</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">printit</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">nfev</span><span class="p">)</span>
+<span class="go">298</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">fun</span><span class="p">))</span>
+<span class="go">0.001</span>
+</pre></div>
+</div>
+<p>A 10-dimensional version using <cite>(min. max)</cite> pars for the bounds and
+setting a number of parameters could be:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nopt</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">5.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">sce</span><span class="p">(</span><span class="n">rosen</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">),</span> <span class="n">maxn</span><span class="o">=</span><span class="mi">30000</span><span class="p">,</span> <span class="n">kstop</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pcento</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">seed</span><span class="o">=</span><span class="mi">12358</span><span class="p">,</span> <span class="n">ngs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">npg</span><span class="o">=</span><span class="mi">5</span><span class="o">*</span><span class="n">nopt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">nps</span><span class="o">=</span><span class="n">nopt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">nspl</span><span class="o">=</span><span class="mi">5</span><span class="o">*</span><span class="n">nopt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">mings</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">iniflg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">printit</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.45</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">nfev</span><span class="p">)</span>
+<span class="go">30228</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">fun</span><span class="p">))</span>
+<span class="go">3.38e-12</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with a wide variety of miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="math.html">Math</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="division.html">division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.html">Function module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams @ GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams @ Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams">pyjams @ PyPI</a></li>
+    
+    <li class="toctree-l1"><a href="https://anaconda.org/conda-forge/pyjams">pyjams @ conda-forge</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="math.html">Math</a><ul>
+      <li>Previous: <a href="morris_method.html" title="previous chapter">Morris Method / Elementary Effects</a></li>
+      <li>Next: <a href="screening.html" title="next chapter">screening</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/sce.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

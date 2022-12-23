@@ -42,7 +42,7 @@ The simplest way to use mcPlot is to extend the class:
 
            larr = sub.plot(self.dat)
            plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
-                    marker=None, color=self.lcol1)
+                    marker='', color=self.lcol1)
 
            self.plot_save(fig)
 
@@ -56,7 +56,7 @@ The simplest way to use mcPlot is to extend the class:
 
            larr = sub.plot(2*self.dat)
            plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
-                    marker=None, color=self.lcols[-1])
+                    marker='', color=self.lcols[-1])
 
            self.plot_save(fig)
 
@@ -210,7 +210,7 @@ class mcPlot(object):
 
                larr = sub.plot(self.dat)
                plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
-                        marker=None, color=self.lcol1)
+                        marker='', color=self.lcol1)
 
                self.plot_save(fig)
 
@@ -224,7 +224,7 @@ class mcPlot(object):
 
                larr = sub.plot(2*self.dat)
                plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth,
-                        marker=None, color=self.lcols[-1])
+                        marker='', color=self.lcols[-1])
 
                self.plot_save(fig)
 
@@ -621,12 +621,12 @@ class mcPlot(object):
 
         tarr = ['sin']
         larr = sub.plot(xx, yy1)
-        plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth, marker=None,
+        plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth, marker='',
                  color=self.lcols[0])
 
         tarr += ['cos']
         larr += sub.plot(xx, yy2)
-        plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth, marker=None,
+        plt.setp(larr[-1], linestyle='-', linewidth=self.lwidth, marker='',
                  color=self.lcols[-3])
 
         if xlab != '':

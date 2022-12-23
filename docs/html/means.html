@@ -101,22 +101,22 @@ can be a numeric value, which will be interpreted by <em>pyjams.num2date</em>.
 date should be centred on the input time period, i.e. half-hourly data
 should have dates at 15 min and 45 min of each hour, for example.</p></li>
 <li><p><strong>dat</strong> (<em>ND</em><em> (</em><em>masked-</em><em>)</em><em>array</em>) – </p></li>
-<li><p><strong>year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return annual means</p></li>
-<li><p><strong>month</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return monthly means</p></li>
-<li><p><strong>day</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return daily means</p></li>
-<li><p><strong>hour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return hourly means</p></li>
-<li><p><strong>half_hour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return half-hourly means</p></li>
-<li><p><strong>minute</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return minute means. Note that this can take very long.</p></li>
-<li><p><strong>meanday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return one mean daily cycle</p></li>
-<li><p><strong>meanmonth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return mean monthly cycle</p></li>
-<li><p><strong>seasonalday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return daily means seasonal cycle</p></li>
-<li><p><strong>seasonalmonth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Same as meanmonth. If True, return mean monthly cycle</p></li>
-<li><p><strong>seasonalmeanday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return one mean daily cycle per month</p></li>
-<li><p><strong>sum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate sums instead of means</p></li>
-<li><p><strong>max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate maxima instead of means</p></li>
-<li><p><strong>min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate minima instead of means</p></li>
-<li><p><strong>onlydat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return only meandat, else return [outdate, meandat]</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Any other keyword argument will be passed to either <em>pyjams.date2num</em>
+<li><p><strong>year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return annual means</p></li>
+<li><p><strong>month</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return monthly means</p></li>
+<li><p><strong>day</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return daily means</p></li>
+<li><p><strong>hour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return hourly means</p></li>
+<li><p><strong>half_hour</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return half-hourly means</p></li>
+<li><p><strong>minute</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return minute means. Note that this can take very long.</p></li>
+<li><p><strong>meanday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return one mean daily cycle</p></li>
+<li><p><strong>meanmonth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return mean monthly cycle</p></li>
+<li><p><strong>seasonalday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return daily means seasonal cycle</p></li>
+<li><p><strong>seasonalmonth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Same as meanmonth. If True, return mean monthly cycle</p></li>
+<li><p><strong>seasonalmeanday</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return one mean daily cycle per month</p></li>
+<li><p><strong>sum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate sums instead of means</p></li>
+<li><p><strong>max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate maxima instead of means</p></li>
+<li><p><strong>min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, calculate minima instead of means</p></li>
+<li><p><strong>onlydat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return only meandat, else return [outdate, meandat]</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Any other keyword argument will be passed to either <em>pyjams.date2num</em>
 or <em>pyjams.num2date</em> depending on type of <em>date</em></p></li>
 </ul>
 </dd>
@@ -227,12 +227,14 @@ and <em>units</em> understood by <em>pyjams.datetime</em> or <em>cftime.datetime
 <span class="go">[4. 2. 3.]</span>
 </pre></div>
 </div>
-<p># Masked arrays
-&gt;&gt;&gt; x = np.ma.array(x, mask=np.zeros(x.size, dtype=bool))
-&gt;&gt;&gt; x.mask[0] = True
-&gt;&gt;&gt; odates, xout = means(jdates, x, calendar=’decimal’)
-&gt;&gt;&gt; print(np.around(odates, 1), xout)
-1990.1 4.0</p>
+<p>Masked arrays</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odates</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xout</span><span class="p">)</span>
+<span class="go">1990.1 4.0</span>
+</pre></div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
 <span class="go">[4.0]</span>
@@ -248,53 +250,61 @@ and <em>units</em> understood by <em>pyjams.datetime</em> or <em>cftime.datetime
 <span class="go">[5.0 2.0 3.0]</span>
 </pre></div>
 </div>
-<p># sum
-&gt;&gt;&gt; odates, xout = means(jdates, x, sum=True, calendar=’decimal’)
-&gt;&gt;&gt; print(np.around(odates, 1), xout)
-1990.1 20.0
-&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, sum=True,
-…                      calendar=’decimal’)
-&gt;&gt;&gt; print(xout)
-[20.0]
-&gt;&gt;&gt; odates, xout = means(dates, x, month=True, sum=True)
-&gt;&gt;&gt; print(xout)
-[15.0 2.0 3.0]
-&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, sum=True, calendar=’decimal’)
-&gt;&gt;&gt; print(xout)
-[15.0 2.0 3.0]</p>
-<p># max
-&gt;&gt;&gt; odates, xout = means(jdates, x, max=True, calendar=’decimal’)
-&gt;&gt;&gt; print(np.around(odates, 1), xout)
-1990.1 6.0
-&gt;&gt;&gt; odates, xout = means(dates, x, year=True, max=True)
-&gt;&gt;&gt; print(xout)
-[6.0]
-&gt;&gt;&gt; odates, xout = means(jdates, x, month=True, max=True,
-…                      calendar=’decimal’)
-&gt;&gt;&gt; print(xout)
-[6.0 2.0 3.0]
-&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, max=True, calendar=’decimal’)
-&gt;&gt;&gt; print(xout)
-[6.0 2.0 3.0]</p>
-<p># min
-&gt;&gt;&gt; odates, xout = means(jdates, x, min=True, calendar=’decimal’)
-&gt;&gt;&gt; print(np.around(odates, 1), xout)
-1990.1 2.0
-&gt;&gt;&gt; odates, xout = means(jdates, x, year=True, min=True,
-…                      calendar=’decimal’)
-&gt;&gt;&gt; print(xout)
-[2.0]
-&gt;&gt;&gt; odates, xout = means(dates, x, month=True, min=True)
-&gt;&gt;&gt; print(xout)
-[4.0 2.0 3.0]
-&gt;&gt;&gt; odates, xout = means(jdates, x, day=True, min=True, calendar=’decimal’)
-&gt;&gt;&gt; print(xout)
-[4.0 2.0 3.0]</p>
-<p># 2D and masked arrays
-&gt;&gt;&gt; x  = np.repeat(x,2).reshape((x.size,2))
-&gt;&gt;&gt; odates, xout = means(jdates, x, calendar=’decimal’)
-&gt;&gt;&gt; print(np.around(odates, 1), xout)
-1990.1 [4.0 4.0]</p>
+<p>sum</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nb">sum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odates</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xout</span><span class="p">)</span>
+<span class="go">1990.1 20.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">sum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[20.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">sum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[15.0 2.0 3.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">sum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[15.0 2.0 3.0]</span>
+</pre></div>
+</div>
+<p>max</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odates</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xout</span><span class="p">)</span>
+<span class="go">1990.1 6.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[6.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[6.0 2.0 3.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[6.0 2.0 3.0]</span>
+</pre></div>
+</div>
+<p>min</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odates</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xout</span><span class="p">)</span>
+<span class="go">1990.1 2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[2.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[4.0 2.0 3.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
+<span class="go">[4.0 2.0 3.0]</span>
+</pre></div>
+</div>
+<p>2D and masked arrays</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odates</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xout</span><span class="p">)</span>
+<span class="go">1990.1 [4.0 4.0]</span>
+</pre></div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">odates</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">means</span><span class="p">(</span><span class="n">jdates</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
 <span class="go">[[4.0 4.0]]</span>

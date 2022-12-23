@@ -248,7 +248,8 @@ def means(date, dat,
     >>> print(means(jdates, x, month=True, onlydat=True, calendar='decimal'))
     [4. 2. 3.]
 
-    # Masked arrays
+    Masked arrays
+
     >>> x = np.ma.array(x, mask=np.zeros(x.size, dtype=bool))
     >>> x.mask[0] = True
     >>> odates, xout = means(jdates, x, calendar='decimal')
@@ -267,7 +268,8 @@ def means(date, dat,
     >>> print(xout)
     [5.0 2.0 3.0]
 
-    # sum
+    sum
+
     >>> odates, xout = means(jdates, x, sum=True, calendar='decimal')
     >>> print(np.around(odates, 1), xout)
     1990.1 20.0
@@ -282,7 +284,8 @@ def means(date, dat,
     >>> print(xout)
     [15.0 2.0 3.0]
 
-    # max
+    max
+
     >>> odates, xout = means(jdates, x, max=True, calendar='decimal')
     >>> print(np.around(odates, 1), xout)
     1990.1 6.0
@@ -297,7 +300,8 @@ def means(date, dat,
     >>> print(xout)
     [6.0 2.0 3.0]
 
-    # min
+    min
+
     >>> odates, xout = means(jdates, x, min=True, calendar='decimal')
     >>> print(np.around(odates, 1), xout)
     1990.1 2.0
@@ -312,7 +316,8 @@ def means(date, dat,
     >>> print(xout)
     [4.0 2.0 3.0]
 
-    # 2D and masked arrays
+    2D and masked arrays
+
     >>> x  = np.repeat(x,2).reshape((x.size,2))
     >>> odates, xout = means(jdates, x, calendar='decimal')
     >>> print(np.around(odates, 1), xout)

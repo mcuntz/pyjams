@@ -39,6 +39,7 @@ Subpackages
    position
    readnetcdf
    romanliterals
+   sce
    screening
    str2tex
    tee
@@ -77,6 +78,7 @@ History
     * v1.25, Microseconds and negative years in date2date and datetime,
       Jun 2022, Matthias Cuntz
     * v1.26, added means, Jul 2022, Matthias Cuntz
+    * v1.27, added sce, Dec 2022, Matthias Cuntz
 
 """
 # version, author
@@ -144,6 +146,8 @@ from .position import position
 from .readnetcdf import infonetcdf, ncinfo, readnetcdf, ncread
 # Convert integer to and from Roman numerals
 from .romanliterals import int2roman, roman2int
+# Shuffled-Complex-Evolution (SCE) algorithm for function minimization
+from .sce import sce
 # Sample trajectories, run model and return Morris Elementary Effects
 from .screening import screening, ee
 # Convert strings to LaTeX strings
@@ -180,6 +184,7 @@ __all__ = ['__version__', '__author__',
            'position',
            'infonetcdf', 'ncinfo', 'readnetcdf', 'ncread',
            'int2roman', 'roman2int',
+           'sce',
            'screening', 'ee',
            'str2tex',
            'tee',

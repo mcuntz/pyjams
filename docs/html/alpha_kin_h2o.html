@@ -76,15 +76,15 @@ sets factor &gt; 1 (greater1=True).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>isotope</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Select water isotopologue: 1: HDO; 2: H218O; else: no fractionation,
+<li><p><strong>isotope</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Select water isotopologue: 1: HDO; 2: H218O; else: no fractionation,
 i.e. return 1 (default)</p></li>
-<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Returns fractionation epsilon=alpha-1 instead of fractionation factor
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Returns fractionation epsilon=alpha-1 instead of fractionation factor
 alpha if True (default: return alpha)</p></li>
-<li><p><strong>greater1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – alpha &gt; 1 if True, which is not the atmospheric convention.
+<li><p><strong>greater1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – alpha &gt; 1 if True, which is not the atmospheric convention.
 alpha &lt; 1 if False, which is the atmospheric convention.</p></li>
-<li><p><strong>boundary</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Returns <cite>alpha**2/3</cite> for diffusion through boundary layer instead of
+<li><p><strong>boundary</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Returns <cite>alpha**2/3</cite> for diffusion through boundary layer instead of
 molecular diffusion if True (default: False).</p></li>
-<li><p><strong>cappa</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Uses factors of Cappa et al. (2003) instead of Merlivat (1978) if True
+<li><p><strong>cappa</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Uses factors of Cappa et al. (2003) instead of Merlivat (1978) if True
 (default: False).</p></li>
 </ul>
 </dd>
@@ -92,7 +92,7 @@ molecular diffusion if True (default: False).</p></li>
 <dd class="field-even"><p><strong>alpha / epsilon</strong> – Kinetic fractionation factor (alpha) or fractionation (epsilon)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a> or array-like</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a> or array-like</p>
 </dd>
 </dl>
 <div class="admonition-notes admonition">
