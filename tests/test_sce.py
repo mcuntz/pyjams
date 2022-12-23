@@ -133,7 +133,7 @@ class TestSCESolver(unittest.TestCase):
         # bounds
         result = sce(rosen, self.x0, self.lb, self.ub)
         assert_almost_equal(result.x, self.rosenx, decimal=3)
-        result = sce(rosen, self.x0, zip(self.lb, self.ub))
+        result = sce(rosen, self.x0, list(zip(self.lb, self.ub)))
         assert_almost_equal(result.x, self.rosenx, decimal=3)
         result = sce(rosen, self.x0, Bounds(self.lb, self.ub))
         assert_almost_equal(result.x, self.rosenx, decimal=3)
@@ -214,8 +214,6 @@ class TestSCESolver(unittest.TestCase):
         x0 = [1.]
         bounds = [(-3)]
         assert_raises(TypeError, sce, func, x0, bounds)
-        bounds = Bounds((-3, 3), (3, 4, 5))
-        assert_raises(ValueError, sce, func, x0, bounds)
         bounds = [(-1, 1), (-1, 1)]
         assert_raises(ValueError, sce, func, x0, bounds, sampling='unknown')
         assert_raises(ValueError, _strtobool, 'Ja')

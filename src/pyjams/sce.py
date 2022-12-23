@@ -1030,163 +1030,163 @@ class SCESolver:
 
 
 if __name__ == '__main__':
-    # import doctest
-    # doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
+    import doctest
+    doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
 
-    from pyjams.functions import ackley, griewank, goldstein_price
-    from pyjams.functions import rastrigin, rosenbrock, six_hump_camelback
-    from scipy.optimize import Bounds
-    maxn = 10000
-    seed = 12345
+    # from pyjams.functions import ackley, griewank, goldstein_price
+    # from pyjams.functions import rastrigin, rosenbrock, six_hump_camelback
+    # from scipy.optimize import Bounds
+    # maxn = 10000
+    # seed = 12345
 
-    """
-    This is the Ackley Function
-    Global Optimum (n>=2): 0.0 at origin
-    """
-    npara = 10
-    lb = -10 * np.ones(npara)
-    ub = 10 * np.ones(npara)
-    x0 = np.random.rand(npara) * 10.
-    res = sce(ackley, x0, lb, ub, maxn=maxn,
-              restartfile1='', seed=seed, polish=False)
-    print('Ackley unpolished ', res.x, res.fun)
-    # print('       ', res.message)
-    res = sce(ackley, x0, lb, ub, maxn=maxn,
-              restartfile1='', seed=seed)
-    print('Ackley ', res.x, res.fun)
-    # print('       ', res.message)
+    # """
+    # This is the Ackley Function
+    # Global Optimum (n>=2): 0.0 at origin
+    # """
+    # npara = 10
+    # lb = -10 * np.ones(npara)
+    # ub = 10 * np.ones(npara)
+    # x0 = np.random.rand(npara) * 10.
+    # res = sce(ackley, x0, lb, ub, maxn=maxn,
+    #           restartfile1='', seed=seed, polish=False)
+    # print('Ackley unpolished ', res.x, res.fun)
+    # # print('       ', res.message)
+    # res = sce(ackley, x0, lb, ub, maxn=maxn,
+    #           restartfile1='', seed=seed)
+    # print('Ackley ', res.x, res.fun)
+    # # print('       ', res.message)
 
-    """
-    This is the Griewank Function (2-D or 10-D)
-    Bound: X(i)=[-600,600], for i=1,2,...,10  !for visualization only 2!
-       Global Optimum: 0, at origin
-    """
-    npara = 10
-    lb = -600 * np.ones(npara)
-    ub = 600 * np.ones(npara)
-    x0 = np.random.rand(npara) * 600.
-    res = sce(griewank, x0, lb, ub, maxn=maxn,
-              restartfile1='', seed=seed)
-    print('Griewank ', res.x, res.fun)
-    # print('       ', res.message)
+    # """
+    # This is the Griewank Function (2-D or 10-D)
+    # Bound: X(i)=[-600,600], for i=1,2,...,10  !for visualization only 2!
+    #    Global Optimum: 0, at origin
+    # """
+    # npara = 10
+    # lb = -600 * np.ones(npara)
+    # ub = 600 * np.ones(npara)
+    # x0 = np.random.rand(npara) * 600.
+    # res = sce(griewank, x0, lb, ub, maxn=maxn,
+    #           restartfile1='', seed=seed)
+    # print('Griewank ', res.x, res.fun)
+    # # print('       ', res.message)
 
-    """
-    This is the Goldstein-Price Function
-    Bound X1=[-2,2], X2=[-2,2]
-    Global Optimum: 3.0,(0.0,-1.0)
-    """
-    npara = 2
-    lb = -2 * np.ones(npara)
-    ub = 2 * np.ones(npara)
-    x0 = np.random.rand(npara) * 2.
-    res = sce(goldstein_price, x0, zip(lb, ub), maxn=maxn,
-              restartfile1='', seed=seed)
-    print('Goldstein ', res.x, res.fun)
-    # print('       ', res.message)
+    # """
+    # This is the Goldstein-Price Function
+    # Bound X1=[-2,2], X2=[-2,2]
+    # Global Optimum: 3.0,(0.0,-1.0)
+    # """
+    # npara = 2
+    # lb = -2 * np.ones(npara)
+    # ub = 2 * np.ones(npara)
+    # x0 = np.random.rand(npara) * 2.
+    # res = sce(goldstein_price, x0, zip(lb, ub), maxn=maxn,
+    #           restartfile1='', seed=seed)
+    # print('Goldstein ', res.x, res.fun)
+    # # print('       ', res.message)
 
-    """
-    This is the Rastrigin Function
-    Bound: X1=[-1,1], X2=[-1,1]
-    Global Optimum: -2, (0,0)
-    """
-    npara = 2
-    lb = -1 * np.ones(npara)
-    ub = 1 * np.ones(npara)
-    x0 = np.random.rand(npara) * 1.
-    bounds = Bounds(lb, ub)
-    res = sce(rastrigin, x0, bounds, maxn=maxn,
-              restartfile1='', seed=seed)
-    print('Rastrigin ', res.x, res.fun)
-    # print('       ', res.message)
+    # """
+    # This is the Rastrigin Function
+    # Bound: X1=[-1,1], X2=[-1,1]
+    # Global Optimum: -2, (0,0)
+    # """
+    # npara = 2
+    # lb = -1 * np.ones(npara)
+    # ub = 1 * np.ones(npara)
+    # x0 = np.random.rand(npara) * 1.
+    # bounds = Bounds(lb, ub)
+    # res = sce(rastrigin, x0, bounds, maxn=maxn,
+    #           restartfile1='', seed=seed)
+    # print('Rastrigin ', res.x, res.fun)
+    # # print('       ', res.message)
 
-    """
-    This is the Rosenbrock Function
-    Bound: X1=[-5,5], X2=[-2,8]; Global Optimum: 0,(1,1)
-           lb=[-5 -5]; ub=[5 5]; x0=[1 1];
-    """
-    npara = 2
-    lb = -2 * np.ones(npara)
-    ub = 5 * np.ones(npara)
-    x0 = np.random.rand(npara) * 2.
-    res = sce(rosenbrock, x0, lb, ub, maxn=maxn,
-              seed=seed)
-    print('Rosenbrock ', res.x, res.fun)
-    # print('       ', res.message)
+    # """
+    # This is the Rosenbrock Function
+    # Bound: X1=[-5,5], X2=[-2,8]; Global Optimum: 0,(1,1)
+    #        lb=[-5 -5]; ub=[5 5]; x0=[1 1];
+    # """
+    # npara = 2
+    # lb = -2 * np.ones(npara)
+    # ub = 5 * np.ones(npara)
+    # x0 = np.random.rand(npara) * 2.
+    # res = sce(rosenbrock, x0, lb, ub, maxn=maxn,
+    #           seed=seed)
+    # print('Rosenbrock ', res.x, res.fun)
+    # # print('       ', res.message)
 
-    """
-    This is the Six-hump Camelback Function.
-    Bound: X1=[-5,5], X2=[-5,5]
-    True Optima: -1.031628453489877, (-0.08983,0.7126), (0.08983,-0.7126)
-    """
-    npara = 2
-    lb = -5 * np.ones(npara)
-    ub = 5 * np.ones(npara)
-    x0 = np.random.rand(npara) * 5.
-    res = sce(six_hump_camelback, x0, lb, ub, maxn=maxn,
-              seed=seed)
-    print('Six_hump_camelback ', res.x, res.fun)
-    # print('       ', res.message)
+    # """
+    # This is the Six-hump Camelback Function.
+    # Bound: X1=[-5,5], X2=[-5,5]
+    # True Optima: -1.031628453489877, (-0.08983,0.7126), (0.08983,-0.7126)
+    # """
+    # npara = 2
+    # lb = -5 * np.ones(npara)
+    # ub = 5 * np.ones(npara)
+    # x0 = np.random.rand(npara) * 5.
+    # res = sce(six_hump_camelback, x0, lb, ub, maxn=maxn,
+    #           seed=seed)
+    # print('Six_hump_camelback ', res.x, res.fun)
+    # # print('       ', res.message)
 
-    # Restart
-    maxn = 500
-    npara = 2
-    lb = -2 * np.ones(npara)
-    ub = 5 * np.ones(npara)
-    x0 = np.zeros(npara)
-    res = sce(rosenbrock, x0, lb, ub, maxn=maxn,
-              restartfile1='',
-              seed=seed, restart=False)
-    print('Rosenbrock Reference - ', res.x, res.fun)
-    # print('       ', res.message)
-    res = sce(rosenbrock, x0, lb, ub, maxn=maxn // 2,
-              seed=seed, restart=False,
-              restartfile1='sce.restart.npz')
-    print('Rosenbrock Restart 1 - ', res.x, res.fun)
-    res = sce(rosenbrock, x0, lb, ub, maxn=maxn,
-              seed=seed, restart=True,
-              restartfile1='sce.restart.npz')
-    print('Rosenbrock Restart 2 - ', res.x, res.fun)
-    # print('       ', res.message)
-    # Clean restart
-    import os
-    os.remove('sce.restart.npz')
-    os.remove('sce.restart.npz.txt')
+    # # Restart
+    # maxn = 500
+    # npara = 2
+    # lb = -2 * np.ones(npara)
+    # ub = 5 * np.ones(npara)
+    # x0 = np.zeros(npara)
+    # res = sce(rosenbrock, x0, lb, ub, maxn=maxn,
+    #           restartfile1='',
+    #           seed=seed, restart=False)
+    # print('Rosenbrock Reference - ', res.x, res.fun)
+    # # print('       ', res.message)
+    # res = sce(rosenbrock, x0, lb, ub, maxn=maxn // 2,
+    #           seed=seed, restart=False,
+    #           restartfile1='sce.restart.npz')
+    # print('Rosenbrock Restart 1 - ', res.x, res.fun)
+    # res = sce(rosenbrock, x0, lb, ub, maxn=maxn,
+    #           seed=seed, restart=True,
+    #           restartfile1='sce.restart.npz')
+    # print('Rosenbrock Restart 2 - ', res.x, res.fun)
+    # # print('       ', res.message)
+    # # Clean restart
+    # import os
+    # os.remove('sce.restart.npz')
+    # os.remove('sce.restart.npz.txt')
 
-    # different sampling
-    npara = 2
-    lb = -2 * np.ones(npara)
-    ub = 5 * np.ones(npara)
-    x0 = np.random.rand(npara) * 2.
-    # sampling is str
-    for sampling in ['half-open', 'left-half-open',
-                     'right-half-open', 'open', 'log']:
-        res = sce(rosenbrock, x0, lb, ub, sampling=sampling,
-                  maxn=maxn, seed=seed)
-        print('Rosenbrock0 ', sampling, res.x, res.fun)
-        # print('       ', res.message)
-    # sampling is list
-    sampling = ['half-open', 'log']
-    res = sce(rosenbrock, x0, lb, ub, sampling=sampling,
-              maxn=maxn, seed=seed)
-    print('Rosenbrock1 ', sampling, res.x, res.fun)
-    # print('       ', res.message)
-    # bounds include 0
-    lb = [0., -2.]
-    ub = [5., 8.]
-    x0 = np.random.rand(npara) * 2.
-    for sampling in ['half-open', 'left-half-open',
-                     'right-half-open', 'open', 'log']:
-        res = sce(rosenbrock, x0, lb, ub, sampling=sampling,
-                  maxn=maxn, seed=seed)
-        print('Rosenbrock2 ', sampling, res.x, res.fun)
-        # print('       ', res.message)
-    # bounds all > 0
-    lb = [0.1, 0.1]
-    ub = [5., 8.]
-    x0 = np.random.rand(npara) * 2.
-    for sampling in ['half-open', 'left-half-open',
-                     'right-half-open', 'Open', 'log']:
-        res = sce(rosenbrock, x0, lb, ub, sampling=sampling,
-                  maxn=maxn, restartfile1='', seed=seed)
-        print('Rosenbrock3 ', sampling, res.x, res.fun)
-        # print('       ', res.message)
+    # # different sampling
+    # npara = 2
+    # lb = -2 * np.ones(npara)
+    # ub = 5 * np.ones(npara)
+    # x0 = np.random.rand(npara) * 2.
+    # # sampling is str
+    # for sampling in ['half-open', 'left-half-open',
+    #                  'right-half-open', 'open', 'log']:
+    #     res = sce(rosenbrock, x0, lb, ub, sampling=sampling,
+    #               maxn=maxn, seed=seed)
+    #     print('Rosenbrock0 ', sampling, res.x, res.fun)
+    #     # print('       ', res.message)
+    # # sampling is list
+    # sampling = ['half-open', 'log']
+    # res = sce(rosenbrock, x0, lb, ub, sampling=sampling,
+    #           maxn=maxn, seed=seed)
+    # print('Rosenbrock1 ', sampling, res.x, res.fun)
+    # # print('       ', res.message)
+    # # bounds include 0
+    # lb = [0., -2.]
+    # ub = [5., 8.]
+    # x0 = np.random.rand(npara) * 2.
+    # for sampling in ['half-open', 'left-half-open',
+    #                  'right-half-open', 'open', 'log']:
+    #     res = sce(rosenbrock, x0, lb, ub, sampling=sampling,
+    #               maxn=maxn, seed=seed)
+    #     print('Rosenbrock2 ', sampling, res.x, res.fun)
+    #     # print('       ', res.message)
+    # # bounds all > 0
+    # lb = [0.1, 0.1]
+    # ub = [5., 8.]
+    # x0 = np.random.rand(npara) * 2.
+    # for sampling in ['half-open', 'left-half-open',
+    #                  'right-half-open', 'Open', 'log']:
+    #     res = sce(rosenbrock, x0, lb, ub, sampling=sampling,
+    #               maxn=maxn, restartfile1='', seed=seed)
+    #     print('Rosenbrock3 ', sampling, res.x, res.fun)
+    #     # print('       ', res.message)
