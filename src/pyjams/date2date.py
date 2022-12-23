@@ -362,14 +362,17 @@ def date2date(edate, fr=False, format='', timesep=' ', full=False):
                               int(dhour), int(dminute), int(dsecond),
                               int(dmicrosecond))
             # Assure 4 digit years on all platforms
-            # see https://bugs.python.org/issue32195
+            # see https://github.com/python/cpython/issues/76376
             if '%Y' in format:
                 if int(dyear) < 0:
                     format04 = format.replace('%Y', '%05Y')
                 else:
                     format04 = format.replace('%Y', '%04Y')
-                out = dattim.strftime(format04)
-                if ('4Y' in out) or ('5Y' in out):
+                try:
+                    out = dattim.strftime(format04)
+                    if ('4Y' in out) or ('5Y' in out):
+                        out = dattim.strftime(format)
+                except ValueError:
                     out = dattim.strftime(format)
             else:
                 out = dattim.strftime(format)

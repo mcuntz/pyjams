@@ -1457,15 +1457,18 @@ def num2date(times, units='', calendar='standard',
         # shortcut
         if format:
             # Assure 4 digit years on all platforms
-            # see https://bugs.python.org/issue32195
+            # see https://github.com/python/cpython/issues/76376
             iform = format
             if '%Y' in format:
                 format04 = format.replace('%Y', '%04Y')
-                dttest = cfdates[0].strftime(format04)
-                if '4Y' in dttest:
+                try:
+                    dttest = cfdates[0].strftime(format04)
+                    if '4Y' in dttest:
+                        iform = format
+                    else:
+                        iform = format04
+                except ValueError:
                     iform = format
-                else:
-                    iform = format04
             out = [ dt.strftime(iform) for dt in cfdates ]
             out = array2input(out, times)
             return out
@@ -1521,7 +1524,7 @@ def num2date(times, units='', calendar='standard',
     else:
         if format:
             # Assure 4 digit years on all platforms
-            # see https://bugs.python.org/issue32195
+            # see https://github.com/python/cpython/issues/76376
             iform = format
             if '%Y' in format:
                 years0 = [ dd.year < 0 for dd in out ]
@@ -1530,11 +1533,14 @@ def num2date(times, units='', calendar='standard',
                 else:
                     y4 = '%04Y'
                 format04 = format.replace('%Y', y4)
-                dttest = out[0].strftime(format04)
-                if ('4Y' in dttest) or ('5Y' in dttest):
+                try:
+                    dttest = out[0].strftime(format04)
+                    if ('4Y' in dttest) or ('5Y' in dttest):
+                        iform = format
+                    else:
+                        iform = format04
+                except ValueError:
                     iform = format
-                else:
-                    iform = format04
             out = [ dt.strftime(iform) for dt in out ]
 
         out = array2input(out, times)
