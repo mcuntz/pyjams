@@ -368,7 +368,7 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
         mplmaps = [ i for i in amplmaps if not i.endswith('_r') ]
         if palette in mplmaps:
             found_palette = True
-            cmap = mpl.cm.get_cmap(palette)
+            cmap = mpl.colormaps.get_cmap(palette)
             try:
                 # mpl.colors.ListedColormap
                 colors = cmap.colors
@@ -380,7 +380,7 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
             if palette.lower() in lmplmaps:
                 found_palette = True
                 ipalette = lmplmaps.index(palette.lower())
-                cmap = mpl.cm.get_cmap(mplmaps[ipalette])
+                cmap = mpl.colormaps.get_cmap(mplmaps[ipalette])
                 try:
                     # mpl.colors.ListedColormap
                     colors = cmap.colors

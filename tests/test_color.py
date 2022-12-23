@@ -278,23 +278,23 @@ class TestColor(unittest.TestCase):
 
         # matplotlib - ListedColormap
         cmap = get_cmap('viridis')
-        target = mpl.cm.get_cmap('viridis').colors
+        target = mpl.colormaps.get_cmap('viridis').colors
         self.assertEqual(cmap, target)
 
         # matplotlib - LinearSegmentedColormap
         cmap = get_cmap('Blues')
-        target = mpl.cm.get_cmap('Blues')
+        target = mpl.colormaps.get_cmap('Blues')
         target = [ target(i) for i in range(target.N) ]
         self.assertEqual(cmap, target)
 
         # matplotlib - ListedColormap - upper-/lowercase
         cmap = get_cmap('Viridis')
-        target = mpl.cm.get_cmap('viridis').colors
+        target = mpl.colormaps.get_cmap('viridis').colors
         self.assertEqual(cmap, target)
 
         # matplotlib - LinearSegmentedColormap - upper-/lowercase
         cmap = get_cmap('blues')
-        target = mpl.cm.get_cmap('Blues')
+        target = mpl.colormaps.get_cmap('Blues')
         target = [ target(i) for i in range(target.N) ]
         self.assertEqual(cmap, target)
 
