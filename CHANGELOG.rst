@@ -2,6 +2,15 @@ Changelog
 ---------
 
 v1.27 (Dec 2022)
+    * Assure 4-digit years and catch %04Y format errors on Windows in
+      `date2date` and in datetime class.
+    * Use assert_almost_equal for fractional days with microseconds in tests of
+      datetime class
+    * Changed matplotlib.cm.get_cmap to matplotlib.colormaps.get_cmap in
+      color module and tests.
+    * Skip test for float128 on Windows in `ncio`.
+    * Python 3.6 might not be fully supported anymore.
+    * Remove dependency to ``partialwrap`` for tests.
     * Remove dependency to ``partialwrap`` for tests.
     * Adding `sce` the Shuffled-Complex-Evolution algorithm for function
       minimization.
