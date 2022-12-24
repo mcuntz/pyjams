@@ -403,7 +403,7 @@
         <span class="n">mplmaps</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">amplmaps</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)</span> <span class="p">]</span>
         <span class="k">if</span> <span class="n">palette</span> <span class="ow">in</span> <span class="n">mplmaps</span><span class="p">:</span>
             <span class="n">found_palette</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">palette</span><span class="p">)</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">palette</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1"># mpl.colors.ListedColormap</span>
                 <span class="n">colors</span> <span class="o">=</span> <span class="n">cmap</span><span class="o">.</span><span class="n">colors</span>
@@ -415,7 +415,7 @@
             <span class="k">if</span> <span class="n">palette</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">lmplmaps</span><span class="p">:</span>
                 <span class="n">found_palette</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">ipalette</span> <span class="o">=</span> <span class="n">lmplmaps</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">palette</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-                <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">mplmaps</span><span class="p">[</span><span class="n">ipalette</span><span class="p">])</span>
+                <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">mplmaps</span><span class="p">[</span><span class="n">ipalette</span><span class="p">])</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="c1"># mpl.colors.ListedColormap</span>
                     <span class="n">colors</span> <span class="o">=</span> <span class="n">cmap</span><span class="o">.</span><span class="n">colors</span>

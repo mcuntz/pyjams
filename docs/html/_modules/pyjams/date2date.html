@@ -397,14 +397,17 @@
                               <span class="nb">int</span><span class="p">(</span><span class="n">dhour</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dminute</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">dsecond</span><span class="p">),</span>
                               <span class="nb">int</span><span class="p">(</span><span class="n">dmicrosecond</span><span class="p">))</span>
             <span class="c1"># Assure 4 digit years on all platforms</span>
-            <span class="c1"># see https://bugs.python.org/issue32195</span>
+            <span class="c1"># see https://github.com/python/cpython/issues/76376</span>
             <span class="k">if</span> <span class="s1">&#39;%Y&#39;</span> <span class="ow">in</span> <span class="nb">format</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">dyear</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">format04</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">,</span> <span class="s1">&#39;%05Y&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">format04</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">,</span> <span class="s1">&#39;%04Y&#39;</span><span class="p">)</span>
-                <span class="n">out</span> <span class="o">=</span> <span class="n">dattim</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format04</span><span class="p">)</span>
-                <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;4Y&#39;</span> <span class="ow">in</span> <span class="n">out</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;5Y&#39;</span> <span class="ow">in</span> <span class="n">out</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">out</span> <span class="o">=</span> <span class="n">dattim</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format04</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;4Y&#39;</span> <span class="ow">in</span> <span class="n">out</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;5Y&#39;</span> <span class="ow">in</span> <span class="n">out</span><span class="p">):</span>
+                        <span class="n">out</span> <span class="o">=</span> <span class="n">dattim</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                     <span class="n">out</span> <span class="o">=</span> <span class="n">dattim</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">out</span> <span class="o">=</span> <span class="n">dattim</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>

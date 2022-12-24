@@ -39,6 +39,16 @@
 <span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
 <dl class="simple">
 <dt>v1.27 (Dec 2022)</dt><dd><ul class="simple">
+<li><p>Assure 4-digit years and catch %04Y format errors on Windows in
+<cite>date2date</cite> and in datetime class.</p></li>
+<li><p>Use assert_almost_equal for fractional days with microseconds in tests of
+datetime class</p></li>
+<li><p>Changed matplotlib.cm.get_cmap to matplotlib.colormaps.get_cmap in
+color module and tests.</p></li>
+<li><p>Skip test for float128 on Windows in <cite>ncio</cite>.</p></li>
+<li><p>Python 3.6 might not be fully supported anymore.</p></li>
+<li><p>Remove dependency to <code class="docutils literal notranslate"><span class="pre">partialwrap</span></code> for tests.</p></li>
+<li><p>Remove dependency to <code class="docutils literal notranslate"><span class="pre">partialwrap</span></code> for tests.</p></li>
 <li><p>Adding <cite>sce</cite> the Shuffled-Complex-Evolution algorithm for function
 minimization.</p></li>
 <li><p>Adding ‘a wide variety of’ to <code class="docutils literal notranslate"><span class="pre">pyjams</span></code> key phrase.</p></li>
