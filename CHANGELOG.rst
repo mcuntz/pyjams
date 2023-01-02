@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v1.28 (??? 2023)
+    * Use mpl.colormaps[name] instead of mpl.colormaps.get_cmap(name)
+      to replace mpl.cm.get_cmap(name) to work with matplotlib < v3.6.
+
 v1.27 (Dec 2022)
     * Assure 4-digit years and catch %04Y format errors on Windows in
       `date2date` and in datetime class.

@@ -29,6 +29,11 @@ History
     * 'cname' can be list of names in 'get_color', Apr 2022, Matthias Cuntz
     * Register ufz colors only once, Apr 2022, Matthias Cuntz
     * Added print_colors, Apr 2022, Matthias Cuntz
+    * Use matplotlib.colormaps.get_cmap instead of deprecated
+      matplotlib.cm.get_cmap, Dec 2022, Matthias Cuntz
+    * Use matplotlib.colormaps[name] instead of
+      matplotlib.colormaps.get_cmap(name) to work with matplotlib < v3.6,
+      Jan 2023, Matthias Cuntz
 
 """
 
@@ -368,7 +373,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
         mplmaps = [ i for i in amplmaps if not i.endswith('_r') ]
         if palette in mplmaps:
             found_palette = True
-            cmap = mpl.colormaps.get_cmap(palette)
+            # cmap = mpl.cm.get_cmap(palette)
+            # cmap = mpl.colormaps.get_cmap(palette)
+            cmap = mpl.colormaps[palette]
             try:
                 # mpl.colors.ListedColormap
                 colors = cmap.colors
@@ -380,7 +387,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
             if palette.lower() in lmplmaps:
                 found_palette = True
                 ipalette = lmplmaps.index(palette.lower())
-                cmap = mpl.colormaps.get_cmap(mplmaps[ipalette])
+                # cmap = mpl.cm.get_cmap(mplmaps[ipalette])
+                # cmap = mpl.colormaps.get_cmap(mplmaps[ipalette])
+                cmap = mpl.colormaps[mplmaps[ipalette]]
                 try:
                     # mpl.colors.ListedColormap
                     colors = cmap.colors
