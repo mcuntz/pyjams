@@ -114,22 +114,22 @@ class TestColor(unittest.TestCase):
                          for i in sron_vibrant ]
 
         sron_iridescent = sron_colormaps['sron_iridescent']
-        sron_iridescent_miss = mpl.colors.colorConverter.to_rgba(
-            sron_iridescent[1])
+        # sron_iridescent_miss = mpl.colors.colorConverter.to_rgba(
+        #     sron_iridescent[1])
         sron_iridescent = [ mpl.colors.colorConverter.to_rgb(i)
                             for i in sron_iridescent[0] ]
 
         sron_rainbow_discrete = sron_functions['sron_rainbow_discrete']
 
         sron_rainbow_discrete_3 = sron_rainbow_discrete(3)
-        sron_rainbow_discrete_3_miss = mpl.colors.colorConverter.to_rgba(
-            sron_rainbow_discrete_3[1])
+        # sron_rainbow_discrete_3_miss = mpl.colors.colorConverter.to_rgba(
+        #     sron_rainbow_discrete_3[1])
         sron_rainbow_discrete_3 = [ mpl.colors.colorConverter.to_rgb(i)
                                     for i in sron_rainbow_discrete_3[0] ]
 
         sron_rainbow_discrete_23 = sron_rainbow_discrete()
-        sron_rainbow_discrete_23_miss = mpl.colors.colorConverter.to_rgba(
-            sron_rainbow_discrete_23[1])
+        # sron_rainbow_discrete_23_miss = mpl.colors.colorConverter.to_rgba(
+        #     sron_rainbow_discrete_23[1])
         sron_rainbow_discrete_23 = [ mpl.colors.colorConverter.to_rgb(i)
                                      for i in sron_rainbow_discrete_23[0] ]
 
@@ -240,15 +240,15 @@ class TestColor(unittest.TestCase):
         target = sron_iridescent
         self.assertEqual(cmap, target)
 
-        # sron_colormaps - as_cmap, miss
+        # sron_colormaps - as_cmap
         cmap = get_cmap('sron_iridescent', as_cmap=True)
         cols = cmap.colors
         target = sron_iridescent
         self.assertEqual(cols, target)
-        if mpl.__version__ > '3.4.0':
-            miss = tuple(cmap.get_bad())
-            target = sron_iridescent_miss
-            self.assertEqual(miss, target)
+        # if mpl.__version__ > '3.4.0':
+        #     miss = tuple(cmap.get_bad())
+        #     target = sron_iridescent_miss
+        #     self.assertEqual(miss, target)
 
         # sron_functions
         cmap = get_cmap('sron_rainbow_discrete', 3)
@@ -258,43 +258,43 @@ class TestColor(unittest.TestCase):
         target = sron_rainbow_discrete_23
         self.assertEqual(cmap, target)
 
-        # sron_functions - as_cmap, miss
+        # sron_functions - as_cmap
         cmap = get_cmap('sron_rainbow_discrete', ncol=3, as_cmap=True)
         cols = cmap.colors
         target = sron_rainbow_discrete_3
         self.assertEqual(cols, target)
-        if mpl.__version__ > '3.4.0':
-            miss = tuple(cmap.get_bad())
-            target = sron_rainbow_discrete_3_miss
-            self.assertEqual(miss, target)
+        # if mpl.__version__ > '3.4.0':
+        #     miss = tuple(cmap.get_bad())
+        #     target = sron_rainbow_discrete_3_miss
+        #     self.assertEqual(miss, target)
         cmap = get_cmap('sron_rainbow_discrete', as_cmap=True)
         cols = cmap.colors
         target = sron_rainbow_discrete_23
         self.assertEqual(cols, target)
-        if mpl.__version__ > '3.4.0':
-            miss = tuple(cmap.get_bad())
-            target = sron_rainbow_discrete_23_miss
-            self.assertEqual(miss, target)
+        # if mpl.__version__ > '3.4.0':
+        #     miss = tuple(cmap.get_bad())
+        #     target = sron_rainbow_discrete_23_miss
+        #     self.assertEqual(miss, target)
 
         # matplotlib - ListedColormap
         cmap = get_cmap('viridis')
-        target = mpl.colormaps.get_cmap('viridis').colors
+        target = mpl.colormaps['viridis'].colors
         self.assertEqual(cmap, target)
 
         # matplotlib - LinearSegmentedColormap
         cmap = get_cmap('Blues')
-        target = mpl.colormaps.get_cmap('Blues')
+        target = mpl.colormaps['Blues']
         target = [ target(i) for i in range(target.N) ]
         self.assertEqual(cmap, target)
 
         # matplotlib - ListedColormap - upper-/lowercase
         cmap = get_cmap('Viridis')
-        target = mpl.colormaps.get_cmap('viridis').colors
+        target = mpl.colormaps['viridis'].colors
         self.assertEqual(cmap, target)
 
         # matplotlib - LinearSegmentedColormap - upper-/lowercase
         cmap = get_cmap('blues')
-        target = mpl.colormaps.get_cmap('Blues')
+        target = mpl.colormaps['Blues']
         target = [ target(i) for i in range(target.N) ]
         self.assertEqual(cmap, target)
 

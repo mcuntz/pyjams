@@ -34,6 +34,7 @@ History
     * Use matplotlib.colormaps[name] instead of
       matplotlib.colormaps.get_cmap(name) to work with matplotlib < v3.6,
       Jan 2023, Matthias Cuntz
+    * Do not set_bad() for sron palettes, Jan 2023, Matthias Cuntz
 
 """
 
@@ -291,7 +292,7 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
 
     found_palette = False
     nosubsample = False
-    miss = None
+    # miss = None
 
     if not found_palette:
         for bb in pyjams_collections:
@@ -311,7 +312,7 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
                 elif bb == 'sron_colormaps':
                     colors = [ mpl.colors.colorConverter.to_rgb(i)
                                for i in dd[palette][0] ]
-                    miss = mpl.colors.colorConverter.to_rgb(dd[palette][1])
+                    # miss = mpl.colors.colorConverter.to_rgb(dd[palette][1])
                 elif bb == 'sron_functions':
                     nosubsample = True
                     if ncol == 0:
@@ -321,7 +322,7 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
                     cols = dd[palette](ncol1)
                     colors = [ mpl.colors.colorConverter.to_rgb(i)
                                for i in cols[0] ]
-                    miss = mpl.colors.colorConverter.to_rgb(cols[1])
+                    # miss = mpl.colors.colorConverter.to_rgb(cols[1])
 
     if not found_palette:
         for bb in sron2012_collections:
@@ -435,9 +436,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
 
     if as_cmap:
         colors = mpl.colors.ListedColormap(colors)
-        if mpl.__version__ > '3.4.0':
-            if miss is not None:
-                colors.set_bad(miss)
+        # if mpl.__version__ > '3.4.0':
+        #     if miss is not None:
+        #         colors.set_bad(miss)
 
     return colors
 

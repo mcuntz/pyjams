@@ -95,6 +95,7 @@ History
     * Add --transparent as a standard option, May 2022, Matthias Cuntz
     * Add left, bottom, top to standard layout options,
       Jul 2022, Matthias Cuntz
+    * Add --dpi as a standard option, Jan 2023, Matthias Cuntz
 
 """
 import numpy as np
@@ -314,13 +315,16 @@ class mcPlot(object):
              -t outtype, --type outtype
                                    Output type is pdf, png, html, d3, or plotly
                                    (default: open screen windows).
-             --transparent         Transparent figure background
-                                   (default: black or white).
              -u, --usetex          Use LaTeX to render text in pdf, png and
                                    html.
              -w, --white           White lines on transparent or black
                                    background; default: black lines on
                                    transparent or white background.
+             --dpi number          Dots Per inch (DPI) for non-vector output
+                                   types or rasterized maps in vector output
+                                   (default: 300).
+             --transparent         Transparent figure background
+                                   (default: black or white).
 
         Examples
         --------
@@ -348,7 +352,8 @@ class mcPlot(object):
         transparent = False
         usetex   = False
         dowhite  = False
-        parser   = argparse.ArgumentParser(
+        dpi      = 300
+        parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description=idesc)
         default = _filebase(os.path.basename(__file__))
@@ -365,9 +370,6 @@ class mcPlot(object):
                 ' (default: open screen windows).')
         parser.add_argument('-t', '--type', action='store', default=outtype,
                             dest='outtype', metavar='outtype', help=hstr)
-        hstr = ('Transparent figure background (default: black or white).')
-        parser.add_argument('--transparent', action='store_true',
-                            default=transparent, dest='transparent', help=hstr)
         hstr = 'Use LaTeX to render text in pdf, png and html.'
         parser.add_argument('-u', '--usetex', action='store_true',
                             default=usetex, dest='usetex', help=hstr)
@@ -377,6 +379,13 @@ class mcPlot(object):
                             default=dowhite, dest='dowhite', help=hstr)
         parser.add_argument('cargs', nargs='*', default=None,
                             metavar='args', help=iargstr)
+        hstr = ('Dots Per inch (DPI) for non-vector output types or rasterized'
+                ' maps in vector output (default: 300).')
+        parser.add_argument('--dpi', action='store', default=dpi, type=int,
+                            dest='dpi', metavar='number', help=hstr)
+        hstr = ('Transparent figure background (default: black or white).')
+        parser.add_argument('--transparent', action='store_true',
+                            default=transparent, dest='transparent', help=hstr)
 
         args = parser.parse_args()
 
@@ -384,9 +393,10 @@ class mcPlot(object):
         self.plotname    = args.plotname
         self.serif       = args.serif
         self.outtype     = args.outtype
-        self.transparent = args.transparent
         self.usetex      = args.usetex
         self.dowhite     = args.dowhite
+        self.dpi         = args.dpi
+        self.transparent = args.transparent
 
         del parser, args
 
@@ -586,7 +596,7 @@ class mcPlot(object):
         self.frameon    = False  # if True, draw a frame around the legend.
                                  # If None, use rc
         # png
-        self.dpi         = 300
+        # self.dpi         = 300
         self.bbox_inches = 'tight'
         self.pad_inches  = 0.035
 
