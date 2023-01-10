@@ -130,6 +130,7 @@
 <span class="sd">    * Add --transparent as a standard option, May 2022, Matthias Cuntz</span>
 <span class="sd">    * Add left, bottom, top to standard layout options,</span>
 <span class="sd">      Jul 2022, Matthias Cuntz</span>
+<span class="sd">    * Add --dpi as a standard option, Jan 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -349,13 +350,16 @@
 <span class="sd">             -t outtype, --type outtype</span>
 <span class="sd">                                   Output type is pdf, png, html, d3, or plotly</span>
 <span class="sd">                                   (default: open screen windows).</span>
-<span class="sd">             --transparent         Transparent figure background</span>
-<span class="sd">                                   (default: black or white).</span>
 <span class="sd">             -u, --usetex          Use LaTeX to render text in pdf, png and</span>
 <span class="sd">                                   html.</span>
 <span class="sd">             -w, --white           White lines on transparent or black</span>
 <span class="sd">                                   background; default: black lines on</span>
 <span class="sd">                                   transparent or white background.</span>
+<span class="sd">             --dpi number          Dots Per inch (DPI) for non-vector output</span>
+<span class="sd">                                   types or rasterized maps in vector output</span>
+<span class="sd">                                   (default: 300).</span>
+<span class="sd">             --transparent         Transparent figure background</span>
+<span class="sd">                                   (default: black or white).</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -383,7 +387,8 @@
         <span class="n">transparent</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">usetex</span>   <span class="o">=</span> <span class="kc">False</span>
         <span class="n">dowhite</span>  <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">parser</span>   <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">dpi</span>      <span class="o">=</span> <span class="mi">300</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
             <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="n">idesc</span><span class="p">)</span>
         <span class="n">default</span> <span class="o">=</span> <span class="n">_filebase</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
@@ -400,9 +405,6 @@
                 <span class="s1">&#39; (default: open screen windows).&#39;</span><span class="p">)</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--type&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">outtype</span><span class="p">,</span>
                             <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;outtype&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;outtype&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">hstr</span><span class="p">)</span>
-        <span class="n">hstr</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Transparent figure background (default: black or white).&#39;</span><span class="p">)</span>
-        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--transparent&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
-                            <span class="n">default</span><span class="o">=</span><span class="n">transparent</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">hstr</span><span class="p">)</span>
         <span class="n">hstr</span> <span class="o">=</span> <span class="s1">&#39;Use LaTeX to render text in pdf, png and html.&#39;</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--usetex&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
                             <span class="n">default</span><span class="o">=</span><span class="n">usetex</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;usetex&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">hstr</span><span class="p">)</span>
@@ -412,6 +414,13 @@
                             <span class="n">default</span><span class="o">=</span><span class="n">dowhite</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;dowhite&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">hstr</span><span class="p">)</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;cargs&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                             <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">iargstr</span><span class="p">)</span>
+        <span class="n">hstr</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Dots Per inch (DPI) for non-vector output types or rasterized&#39;</span>
+                <span class="s1">&#39; maps in vector output (default: 300).&#39;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--dpi&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+                            <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;dpi&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">hstr</span><span class="p">)</span>
+        <span class="n">hstr</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Transparent figure background (default: black or white).&#39;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--transparent&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                            <span class="n">default</span><span class="o">=</span><span class="n">transparent</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">hstr</span><span class="p">)</span>
 
         <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
@@ -419,9 +428,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">plotname</span>    <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">plotname</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">serif</span>       <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">serif</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outtype</span>     <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">outtype</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">transparent</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">transparent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">usetex</span>      <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">usetex</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dowhite</span>     <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">dowhite</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpi</span>         <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">dpi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transparent</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">transparent</span>
 
         <span class="k">del</span> <span class="n">parser</span><span class="p">,</span> <span class="n">args</span></div>
 
@@ -621,7 +631,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">frameon</span>    <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># if True, draw a frame around the legend.</span>
                                  <span class="c1"># If None, use rc</span>
         <span class="c1"># png</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dpi</span>         <span class="o">=</span> <span class="mi">300</span>
+        <span class="c1"># self.dpi         = 300</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bbox_inches</span> <span class="o">=</span> <span class="s1">&#39;tight&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pad_inches</span>  <span class="o">=</span> <span class="mf">0.035</span></div>
 
@@ -1112,7 +1122,7 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>

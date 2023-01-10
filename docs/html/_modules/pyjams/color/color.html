@@ -64,6 +64,12 @@
 <span class="sd">    * &#39;cname&#39; can be list of names in &#39;get_color&#39;, Apr 2022, Matthias Cuntz</span>
 <span class="sd">    * Register ufz colors only once, Apr 2022, Matthias Cuntz</span>
 <span class="sd">    * Added print_colors, Apr 2022, Matthias Cuntz</span>
+<span class="sd">    * Use matplotlib.colormaps.get_cmap instead of deprecated</span>
+<span class="sd">      matplotlib.cm.get_cmap, Dec 2022, Matthias Cuntz</span>
+<span class="sd">    * Use matplotlib.colormaps[name] instead of</span>
+<span class="sd">      matplotlib.colormaps.get_cmap(name) to work with matplotlib &lt; v3.6,</span>
+<span class="sd">      Jan 2023, Matthias Cuntz</span>
+<span class="sd">    * Do not set_bad() for sron palettes, Jan 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -321,7 +327,7 @@
 
     <span class="n">found_palette</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">nosubsample</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">miss</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># miss = None</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">found_palette</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">pyjams_collections</span><span class="p">:</span>
@@ -341,7 +347,7 @@
                 <span class="k">elif</span> <span class="n">bb</span> <span class="o">==</span> <span class="s1">&#39;sron_colormaps&#39;</span><span class="p">:</span>
                     <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorConverter</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">[</span><span class="n">palette</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
-                    <span class="n">miss</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorConverter</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="n">palette</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="c1"># miss = mpl.colors.colorConverter.to_rgb(dd[palette][1])</span>
                 <span class="k">elif</span> <span class="n">bb</span> <span class="o">==</span> <span class="s1">&#39;sron_functions&#39;</span><span class="p">:</span>
                     <span class="n">nosubsample</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">if</span> <span class="n">ncol</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -351,7 +357,7 @@
                     <span class="n">cols</span> <span class="o">=</span> <span class="n">dd</span><span class="p">[</span><span class="n">palette</span><span class="p">](</span><span class="n">ncol1</span><span class="p">)</span>
                     <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorConverter</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
-                    <span class="n">miss</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorConverter</span><span class="o">.</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="c1"># miss = mpl.colors.colorConverter.to_rgb(cols[1])</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">found_palette</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">sron2012_collections</span><span class="p">:</span>
@@ -403,7 +409,9 @@
         <span class="n">mplmaps</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">amplmaps</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">)</span> <span class="p">]</span>
         <span class="k">if</span> <span class="n">palette</span> <span class="ow">in</span> <span class="n">mplmaps</span><span class="p">:</span>
             <span class="n">found_palette</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">palette</span><span class="p">)</span>
+            <span class="c1"># cmap = mpl.cm.get_cmap(palette)</span>
+            <span class="c1"># cmap = mpl.colormaps.get_cmap(palette)</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">palette</span><span class="p">]</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1"># mpl.colors.ListedColormap</span>
                 <span class="n">colors</span> <span class="o">=</span> <span class="n">cmap</span><span class="o">.</span><span class="n">colors</span>
@@ -415,7 +423,9 @@
             <span class="k">if</span> <span class="n">palette</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">lmplmaps</span><span class="p">:</span>
                 <span class="n">found_palette</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">ipalette</span> <span class="o">=</span> <span class="n">lmplmaps</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">palette</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-                <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">mplmaps</span><span class="p">[</span><span class="n">ipalette</span><span class="p">])</span>
+                <span class="c1"># cmap = mpl.cm.get_cmap(mplmaps[ipalette])</span>
+                <span class="c1"># cmap = mpl.colormaps.get_cmap(mplmaps[ipalette])</span>
+                <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="n">mplmaps</span><span class="p">[</span><span class="n">ipalette</span><span class="p">]]</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="c1"># mpl.colors.ListedColormap</span>
                     <span class="n">colors</span> <span class="o">=</span> <span class="n">cmap</span><span class="o">.</span><span class="n">colors</span>
@@ -461,9 +471,9 @@
 
     <span class="k">if</span> <span class="n">as_cmap</span><span class="p">:</span>
         <span class="n">colors</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">mpl</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&gt;</span> <span class="s1">&#39;3.4.0&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">miss</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">colors</span><span class="o">.</span><span class="n">set_bad</span><span class="p">(</span><span class="n">miss</span><span class="p">)</span>
+        <span class="c1"># if mpl.__version__ &gt; &#39;3.4.0&#39;:</span>
+        <span class="c1">#     if miss is not None:</span>
+        <span class="c1">#         colors.set_bad(miss)</span>
 
     <span class="k">return</span> <span class="n">colors</span></div>
 
@@ -879,7 +889,7 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>

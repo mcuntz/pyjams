@@ -222,6 +222,10 @@ Functions and modules (alphabetical)
      - Prints arguments on screen and in file, like Unix/Linux tee utility
    * - :func:`~pyjams.text2plot.text2plot`
      - Write text on a plot
+   * - :func:`~pyjams.npyio.updatez`
+     - Update arrays in uncompressed numpy .npz format
+   * - :func:`~pyjams.npyio.updatez_compressed`
+     - Update arrays in compressed numpy .npz format
    * - :func:`~pyjams.date2date.us2date`
      - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
    * - :func:`~pyjams.date2date.us2en`
@@ -482,6 +486,10 @@ Functions and modules per category
          - Same as `readnetcdf`
        * - :func:`~pyjams.readnetcdf.readnetcdf`
          - Read variables from netCDF file
+       * - :func:`~pyjams.npyio.updatez`
+         - Update arrays in uncompressed numpy .npz format
+       * - :func:`~pyjams.npyio.updatez_compressed`
+         - Update arrays in compressed numpy .npz format
        * - :func:`~pyjams.fsread.xlsread`
          - Same as `xread`
        * - :func:`~pyjams.fsread.xlsxread`

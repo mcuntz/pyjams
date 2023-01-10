@@ -36,6 +36,7 @@ Subpackages
    means
    morris_method
    ncio
+   npyio
    position
    readnetcdf
    romanliterals
@@ -79,6 +80,7 @@ History
       Jun 2022, Matthias Cuntz
     * v1.26, added means, Jul 2022, Matthias Cuntz
     * v1.27, added sce, Dec 2022, Matthias Cuntz
+    * v1.28, added updatez, Jan 2023, Matthias Cuntz
 
 """
 # version, author
@@ -140,6 +142,8 @@ from .means import means
 # Sampling of optimised trajectories for and calculation of Morris Measures /
 # Elementary Effects
 from .morris_method import morris_sampling, elementary_effects
+# update arrays in a single file in numpy's npz format
+from .npyio import updatez, updatez_compressed
 # positions of subplots, used with add_axes
 from .position import position
 # get variables from or print information of a netcdf file
@@ -181,6 +185,7 @@ __all__ = ['__version__', '__author__',
            'mcPlot',
            'means',
            'morris_sampling', 'elementary_effects',
+           'updatez', 'updatez_compressed',
            'position',
            'infonetcdf', 'ncinfo', 'readnetcdf', 'ncread',
            'int2roman', 'roman2int',

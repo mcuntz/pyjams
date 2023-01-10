@@ -1,7 +1,9 @@
 Changelog
 ---------
 
-v1.28 (??? 2023)
+v1.28 (Jan 2023)
+    * Add `updatez` and `updatez_compressed` to update arrays in a single file
+      in numpy's npz format.
     * Do not set color for missing data; only existed for sron palettes.
     * Add --dpi as a standard option in `mcPlot`.
     * Use mpl.colormaps[name] instead of mpl.colormaps.get_cmap(name)

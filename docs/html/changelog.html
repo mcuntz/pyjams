@@ -38,6 +38,15 @@
   <section id="changelog">
 <span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
 <dl class="simple">
+<dt>v1.28 (Jan 2023)</dt><dd><ul class="simple">
+<li><p>Add <cite>updatez</cite> and <cite>updatez_compressed</cite> to update arrays in a single file
+in numpy’s npz format.</p></li>
+<li><p>Do not set color for missing data; only existed for sron palettes.</p></li>
+<li><p>Add –dpi as a standard option in <cite>mcPlot</cite>.</p></li>
+<li><p>Use mpl.colormaps[name] instead of mpl.colormaps.get_cmap(name)
+to replace mpl.cm.get_cmap(name) to work with matplotlib &lt; v3.6.</p></li>
+</ul>
+</dd>
 <dt>v1.27 (Dec 2022)</dt><dd><ul class="simple">
 <li><p>Assure 4-digit years and catch %04Y format errors on Windows in
 <cite>date2date</cite> and in datetime class.</p></li>
@@ -386,7 +395,7 @@ It also provides a wrapper function <cite>ee</cite> for <cite>screening</cite>.<
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2012-2022, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>

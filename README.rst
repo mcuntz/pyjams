@@ -224,6 +224,10 @@ Functions and modules (alphabetical)
      - Prints arguments on screen and in file, like Unix/Linux tee utility
    * - text2plot
      - Write text on a plot
+   * - updatez
+     - Update arrays in uncompressed numpy .npz format
+   * - updatez_compressed
+     - Update arrays in compressed numpy .npz format
    * - us2date
      - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
    * - us2en
@@ -484,6 +488,10 @@ Functions and modules per category
          - Same as `readnetcdf`
        * - readnetcdf
          - Read variables from netCDF file
+       * - updatez
+         - Update arrays in uncompressed numpy .npz format
+       * - updatez_compressed
+         - Update arrays in compressed numpy .npz format
        * - xlsread
          - Same as `xread`
        * - xlsxread
