@@ -19,10 +19,31 @@ from pyjams.sce import SCESolver, _strtobool
 from pyjams import sce
 
 
-# Some lines not tested in sample_input_matrix
-# 873: if npt < 1
-# 896: redo random number if exactly 0 in sampling='open'
-# 911-914: if lb and ub <=0 with sampling='log'
+def rosenbrock_args(x, a, b=100):
+    """
+    Rosenbrock, global optimum: f(a, a^2) = 0.0.
+
+    """
+    f = (a - x[0])**2 + b*(x[1] - x[0]**2)**2
+
+    return f
+
+
+def rosenbrock_kwargs(x, a=1, b=100):
+    """
+    Rosenbrock, global optimum: f(a, a^2) = 0.0.
+
+    """
+    f = (a - x[0])**2 + b*(x[1] - x[0]**2)**2
+
+    return f
+
+
+# Some lines are not covered:
+#   117-118: second args is empty dict
+#   893: if npt < 1
+#   916: redo random number if exactly 0 in sampling='open'
+#   931-934: if lb and ub <=0 with sampling='log'
 class TestSCESolver(unittest.TestCase):
 
     def setUp(self):
@@ -217,6 +238,28 @@ class TestSCESolver(unittest.TestCase):
         bounds = [(-1, 1), (-1, 1)]
         assert_raises(ValueError, sce, func, x0, bounds, sampling='unknown')
         assert_raises(ValueError, _strtobool, 'Ja')
+
+    def test_sce_args(self):
+        # args
+        a = 0.5
+        result = sce(rosenbrock_args, self.x0, self.lb, self.ub,
+                     args=(a,))
+        assert_equal(result.fun, rosenbrock_args(result.x, a))
+        assert_almost_equal(result.x, (a, a**2), decimal=3)
+        # args and kwargs
+        a = 0.5
+        b = 200
+        result = sce(rosenbrock_args, self.x0, self.lb, self.ub,
+                     args=(a,), kwargs={'b': b})
+        assert_equal(result.fun, rosenbrock_args(result.x, a, b=b))
+        assert_almost_equal(result.x, (a, a**2), decimal=3)
+        # kwargs
+        a = 0.5
+        b = 200
+        result = sce(rosenbrock_kwargs, self.x0, self.lb, self.ub,
+                     kwargs={'a': a, 'b': b})
+        assert_equal(result.fun, rosenbrock_kwargs(result.x, a=a, b=b))
+        assert_almost_equal(result.x, (a, a**2), decimal=3)
 
 
 if __name__ == "__main__":

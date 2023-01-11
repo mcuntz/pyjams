@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.29 (??? 2023)
+    * Updated tests for `sce`.
+
 v1.28 (Jan 2023)
     * Add `updatez` and `updatez_compressed` to update arrays in a single file
       in numpy's npz format.

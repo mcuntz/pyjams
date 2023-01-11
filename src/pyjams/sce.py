@@ -29,7 +29,8 @@ History
     * Written in Fortran by Q Duan, Sep 2004
     * Ported to Python by Stijn Van Hoey, 2011
       https://github.com/stijnvanhoey/Optimization_SCE
-    * Synchronised with enhanced Fortran version of CHS, Oct 2013, Matthias Cuntz
+    * Synchronised with enhanced Fortran version of CHS,
+      Oct 2013, Matthias Cuntz
     * Added functionality to call external executable, Nov 2016, Matthias Cuntz
     * Treat NaN and Inf in function output, Nov 2016, Matthias Cuntz
     * Possibility to exclude (mask) parameters from optimisation,
@@ -37,15 +38,16 @@ History
     * Added restart possibility, Nov 2016, Matthias Cuntz
     * Return also function value of best parameter set if maxit==True,
       Nov 2016, Matthias Cuntz
-    * Removed functionality to call external executable, Dec 2017, Matthias Cuntz
+    * Removed functionality to call external executable,
+      Dec 2017, Matthias Cuntz
     * Print out number of function evaluations with printit=1,
       Mar 2018, Matthias Cuntz
     * Mask parameters with degenerated ranges, e.g. upper<lower bound,
       Mar 2018, Matthias Cuntz
     * Use only masked parameters in calculation of geometric range,
       Mar 2018, Matthias Cuntz
-    * Removed bug that calculated the size of the complexes using all parameters
-      and not only the masked parameters, Mar 2018, Matthias Cuntz
+    * Removed bug that calculated the size of the complexes using all
+      parameters and not only the masked parameters, Mar 2018, Matthias Cuntz
     * Fixed bug where masked parameters were always out of bounds,
       Mar 2018, Matthias Cuntz
     * Allow scalar bounds, which will be taken for all parameters,
@@ -111,6 +113,7 @@ class _FunctionWrapper:
             if ( (len(self.args) == 2) and
                  isinstance(self.args[-1], dict) and
                  (len(self.args[-1]) == 0) ):
+                # if kwargs={} then **kwargs={} and hence counted as args
                 self.args = self.args[0]
                 self.nargs = len(args)
 
@@ -187,7 +190,9 @@ def sce(func, x0, lb, ub=None,
         (default: include all parameters). The number of parameters ``nopt`` is
         ``sum(mask)``.
     args : tuple, optional
-        Extra arguments passed to the function *func*.
+        Extra arguments passed to the function *func*. Note that ``args`` must
+        be iterable. `args=int`and `args=(int)` are not valid (with int being
+        any scalar variable) but should be `args=(int,)`.
     kwargs : dict, optional
         Extra keyword arguments passed to the function `func`.
     sampling : string or array_like of strings, optional
@@ -526,12 +531,12 @@ class SCESolver:
                 if len(self.lb) == 1:
                     self.lb = np.full(self.nn, self.lb[0])
             except TypeError:  # could be size 0 array if lb was a scalar
-                    self.lb = np.full(self.nn, self.lb)
+                self.lb = np.full(self.nn, self.lb)
             try:
                 if len(self.ub) == 1:
                     self.ub = np.full(self.nn, self.ub[0])
             except TypeError:
-                    self.ub = np.full(self.nn, self.ub)
+                self.ub = np.full(self.nn, self.ub)
             bound = self.ub - self.lb
             # degenerated bounds
             if np.any(bound <= 0.):
@@ -1018,10 +1023,10 @@ class SCESolver:
             # Polishing solution is only accepted if there is an improvement in
             # the cost function, the polishing was successful and the solution
             # lies within the bounds.
-            if ((result.fun < sce_result.fun) and
-                result.success and
-                np.all(result.x <= self.ub) and
-                np.all(self.lb <= result.x)):
+            if ( (result.fun < sce_result.fun) and
+                 result.success and
+                 np.all(result.x <= self.ub) and
+                 np.all(self.lb <= result.x) ):
                 sce_result.fun = result.fun
                 sce_result.x = result.x
                 sce_result.jac = result.jac
