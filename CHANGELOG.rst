@@ -2,6 +2,9 @@ Changelog
 ---------
 
 v1.29 (??? 2023)
+    * Keyword only_use_pyjams_datetimes in `num2date` to be able to use all
+      implemented methods of `datetime` class.
+    * Allow also CF-calendars in `datetime` class.
     * Updated tests for `sce`.
 
 v1.28 (Jan 2023)

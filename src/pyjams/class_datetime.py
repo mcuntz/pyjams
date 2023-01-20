@@ -75,6 +75,8 @@ History
       datetime objects in date2num, Jul 2022, Matthias Cuntz
     * return_arrays keyword in date2num, Jul 2022, Matthias Cuntz
     * round_microseconds method for datetime, Jul 2022, Matthias Cuntz
+    * only_use_pyjams_datetimes keyword in num2date, Jan 2022, Matthias Cuntz
+    * Also CF-calendars in datetime class, Jan 2023, Matthias Cuntz
 
 ToDo
     * Check why datetime + timedelta but not timedelta + datetime
@@ -345,21 +347,26 @@ def _is_leap(year, calendar, has_year_zero=None):
     if np.any(myear == 0) and (not has_year_zero):
         raise ValueError(f'year 0 does not exist in the calendar {calendar}')
 
-    # If there is no year 0 in the calendar, years -1, -5, -9, etc.
-    # are leap years. year 0 is a leap year if it exists.
-    if not has_year_zero:
-        myear = np.where(myear < 0, myear + 1, myear)
+    if calendar in _cfcalendars:
+        leap = [ cf.is_leap_year(yy, calendar, has_year_zero) for yy in myear ]
+    else:
+        # If there is no year 0 in the calendar, years -1, -5, -9, etc.
+        # are leap years. year 0 is a leap year if it exists.
+        if not has_year_zero:
+            myear = np.where(myear < 0, myear + 1, myear)
 
-    if calendar in _excelcalendars:
-        # Excel calendars are supposedly Julian calendars
-        leap = (myear % 4) == 0
-    elif calendar == 'decimal':
-        leap = ( (((myear % 4) == 0) & ((myear % 100) != 0)) |
-                 ((myear % 400) == 0) )
-    elif calendar in ['decimal360', 'decimal365']:
-        leap = np.zeros_like(myear, dtype=bool)
-    elif calendar == 'decimal366':
-        leap = np.ones_like(myear, dtype=bool)
+        if calendar in _excelcalendars:
+            # Excel calendars are supposedly Julian calendars
+            leap = (myear % 4) == 0
+        elif calendar == 'decimal':
+            leap = ( (((myear % 4) == 0) & ((myear % 100) != 0)) |
+                     ((myear % 400) == 0) )
+        elif calendar in ['decimal360', 'decimal365']:
+            leap = np.zeros_like(myear, dtype=bool)
+        elif calendar == 'decimal366':
+            leap = np.ones_like(myear, dtype=bool)
+        else:
+            raise ValueError(f'Calendar not known: {calendar}')
 
     oleap = array2input(leap, year)
 
@@ -404,11 +411,15 @@ def _month_lengths(year, calendar, has_year_zero=None):
             return _dayspermonth
 
 
-def _int_julian_day_from_date(year, month, day, calendar, has_year_zero=None):
+def _int_julian_day_from_date(year, month, day, calendar,
+                              skip_transition=False, has_year_zero=None):
     """
     Compute integer Julian Day from year, month, day, and calendar
 
-    Allowed calendars are all in *_noncfcalendars*.
+    Integer julian day is number of days since noon UTC -4713-1-1
+    in the julian or mixed julian/gregorian calendar, or noon UTC
+    -4714-11-24 in the proleptic_gregorian calendar (without year zero).
+    Reference date is noon UTC 0000-01-01 for other calendars.
 
     Excel calendars are supposedly Julian calendars with other reference dates.
     Julian calendar is hence used for the Excel calendars *excel*, *excel1900*,
@@ -424,25 +435,37 @@ def _int_julian_day_from_date(year, month, day, calendar, has_year_zero=None):
     preceded by year -1 and no year zero exists.
     The defaults (has_year_zero=None) uses astronomical year numbering
     for the decimal calendars.
+    CF version 1.9 conventions are:
+    False for 'julian', 'gregorian'/'standard',
+    True for 'proleptic_gregorian' (ISO 8601), and
+    True for the idealized calendars 'noleap'/'365_day', '360_day',
+    366_day'/'all_leap'
+
+    'skip_transition': When True, leave a 10-day
+    gap in Julian day numbers between Oct 4 and Oct 15 1582 (the transition
+    from Julian to Gregorian calendars). Default: False,
+    ignored unless calendar = 'standard' or 'gregorian'.
 
     """
     if calendar:
         calendar = calendar.lower()
     if has_year_zero is None:
         has_year_zero = _year_zero_defaults(calendar)
-    if calendar == 'decimal360':
+    if (calendar == 'decimal360') or (calendar == '360_day'):
         # return year * 360 + (month - 1) * 30 + day - 1
-        return year * 360 + _cumdayspermonth_360[month-1] + day - 1
-    elif calendar == 'decimal365':
-        return year * 365 + _cumdayspermonth[month-1] + day - 1
-    elif calendar == 'decimal366':
-        return year * 366 + _cumdayspermonth_leap[month-1] + day - 1
+        return year * 360 + _cumdayspermonth_360[month - 1] + day - 1
+    elif ( (calendar == 'decimal365') or (calendar == '365_day') or
+           (calendar == 'noleap')):
+        return year * 365 + _cumdayspermonth[month - 1] + day - 1
+    elif ( (calendar == 'decimal366') or (calendar == '366_day') or
+           (calendar == 'all_leap')):
+        return year * 366 + _cumdayspermonth_leap[month - 1] + day - 1
     else:
         leap = _is_leap(year, calendar, has_year_zero=has_year_zero)
         if leap:
-            jday = day + _cumdayspermonth_leap[month-1]
+            jday = day + _cumdayspermonth_leap[month - 1]
         else:
-            jday = day + _cumdayspermonth[month-1]
+            jday = day + _cumdayspermonth[month - 1]
         # If there is no year 0, years -1, -5, -9, etc,
         # are leap years. year zero is a leap year if it exists.
         if (year < 0) and (not has_year_zero):
@@ -451,18 +474,48 @@ def _int_julian_day_from_date(year, month, day, calendar, has_year_zero=None):
             # 1st term is the number of days in the last year
             # 2nd term is the number of days in each preceding non-leap year
             # last terms are the number of preceding leap years
-            jday_greg = (jday + 365*(year-1) +
-                         (year-1)//4 - (year-1)//100 + (year-1)//400)
+            jday_greg = (jday + 365 * (year - 1) +
+                         (year - 1) // 4 - (year - 1) // 100 +
+                         (year - 1) // 400)
             return jday_greg
-        elif calendar in _excelcalendars:
+        elif (calendar in _excelcalendars) or (calendar == 'julian'):
             year += 4800  # add offset so -4800 is year 0.
             # 1st term is the number of days in the last year
             # 2nd term is the number of days in each preceding non-leap year
             # last terms are the number of preceding leap years
-            jday_jul = jday + 365*(year-1) + (year-1)//4
+            jday_jul = jday + 365 * (year - 1) + (year - 1) // 4
             # remove offset for 87 years before -4713 (including leap days)
             jday_jul -= 31777
             return jday_jul
+        elif ( (calendar == 'standard') or (calendar == 'gregorian') or
+               (calendar == 'proleptic_gregorian') ):
+            year += 4800  # add offset so -4800 is year 0.
+            # 1st term is the number of days in the last year
+            # 2nd term is the number of days in each preceding non-leap year
+            # last terms are the number of preceding leap years since -4800
+            jday_jul = jday + 365 * (year - 1) + (year - 1) // 4
+            # remove offset for 87 years before -4713 (including leap days)
+            jday_jul -= 31777
+            jday_greg = (jday + 365 * (year - 1) +
+                         (year - 1) // 4 - (year - 1) // 100 +
+                         (year - 1) // 400)
+            # remove offset, and account for the fact that -4713/1/1 is jday=38
+            # in gregorian calendar.
+            jday_greg -= 31739
+            if calendar == 'proleptic_gregorian':
+                return jday_greg
+            else:
+                # check for invalid days in mixed calendar
+                # (there are 10 missing)
+                if jday_jul >= 2299161 and jday_jul < 2299171:
+                    raise ValueError('invalid date in mixed calendar')
+                if jday_jul < 2299161:  # 1582 October 15
+                    return jday_jul
+                else:
+                    if skip_transition:
+                        return jday_greg + 10
+                    else:
+                        return jday_greg
         else:
             raise ValueError(f'Unknown calendar: {calendar}')
 
@@ -517,7 +570,7 @@ def _add_timedelta(dt, delta):
                 if (year == 0) and (not has_year_zero):
                     year = -1
                 month_length = _month_lengths(year, calendar, has_year_zero)
-            day = month_length[month-1]
+            day = month_length[month - 1]
         else:
             day += delta_days
             delta_days = 0
@@ -528,8 +581,8 @@ def _add_timedelta(dt, delta):
         # if (year == 1582 and month == 10 and day < 5 and
         #     day + delta_days > 4):
         #     delta_days += n_invalid_dates    # skip over invalid dates
-        if (day + delta_days) > month_length[month-1]:
-            delta_days -= month_length[month-1] - (day - 1)
+        if (day + delta_days) > month_length[month - 1]:
+            delta_days -= month_length[month - 1] - (day - 1)
             # increment month
             month += 1
             if month > 12:
@@ -1089,7 +1142,7 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         *decimal*, *decimal360*, *decimal365*, *decimal366*.
         *standard* will be taken by default, which is a mixed
         Julian/Gregorian calendar.
-        The keyword takes precedence on calendar in datetime objects. 
+        The keyword takes precedence on calendar in datetime objects.
     has_year_zero : bool, optional
         Astronomical year numbering is used and the year zero exists, if set to
         True. If set to False for real-world calendars, then historical year
@@ -1266,6 +1319,7 @@ def date2dec(*args, **kwargs):
 
 
 def num2date(times, units='', calendar='standard',
+             only_use_pyjams_datetimes=True,
              only_use_cftime_datetimes=True,
              only_use_python_datetimes=False,
              has_year_zero=None,
@@ -1314,16 +1368,30 @@ def num2date(times, units='', calendar='standard',
         *decimal*, *decimal360*, *decimal365*, *decimal366*.
         *standard* will be taken by default, which is a mixed
         Julian/Gregorian calendar.
+    only_use_pyjams_datetimes : bool, optional
+        pyjams.datetime objects are returned by default.
+        Only if only_use_pyjams_datetimes is set to False (default: True) and
+        only_use_cftime_datetimes is set to True then cftime.datetime objects
+        will be returned where possible.
+        Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
+        to False and only_use_python_datetimes is set to True then Python
+        datetime.datetime objects will be returned where possible.
     only_use_cftime_datetimes : bool, optional
-        pyjams.datetime and cftime.datetime objects are returned by default.
-        Only if only_use_cftime_datetimes is set to False (default: True)
-        and only_use_python_datetimes is set to True then Python
+        pyjams.datetime objects are returned by default.
+        Only if only_use_pyjams_datetimes is set to False and
+        only_use_cftime_datetimes is set to True (default: False) then
+        cftime.datetime objects will be returned where possible.
+        Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
+        to False and only_use_python_datetimes is set to True then Python
         datetime.datetime objects will be returned where possible.
     only_use_python_datetimes : bool, optional
-        pyjams.datetime and cftime.datetime objects are returned by default.
-        Only if only_use_python_datetimes is set to True (default: False)
-        and only_use_cftime_datetimes is set to False then Python
-        datetime.datetime objects will be returned where possible.
+        pyjams.datetime objects are returned by default.
+        Only if only_use_pyjams_datetimes is set to False and
+        only_use_cftime_datetimes is set to True then cftime.datetime objects
+        will be returned where possible.
+        Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
+        to False and only_use_python_datetimes is set to True (default: False)
+        then Python datetime.datetime objects will be returned where possible.
     has_year_zero : bool, optional
         Astronomical year numbering is used and the year zero exists, if set to
         True. If set to False for real-world calendars, then historical year
@@ -1394,9 +1462,11 @@ def num2date(times, units='', calendar='standard',
     # use cftime.num2date if possible
     if iscf:
         if remainder.startswith('-'):
+            # negative years
             only_use_python_datetimes = False
         else:
             if int(remainder.split('-')[0]) == 0:
+                # reference year is year 0
                 only_use_python_datetimes = False
                 if has_year_zero is not None:
                     has_year_zero = True
@@ -1405,6 +1475,9 @@ def num2date(times, units='', calendar='standard',
             only_use_cftime_datetimes=only_use_cftime_datetimes,
             only_use_python_datetimes=only_use_python_datetimes,
             has_year_zero=has_year_zero)
+        if only_use_pyjams_datetimes:
+            out = [ datetime(*to_tuple(dt), calendar=calendar)
+                    for dt in out ]
 
     # cdo absolute time format
     if sincestr == 'as':
@@ -1430,12 +1503,20 @@ def num2date(times, units='', calendar='standard',
             return year, month, day, hour, minute, second, microsecond
 
         out = np.empty_like(year, dtype=object)
-        if ( (not only_use_cftime_datetimes) and
-             only_use_python_datetimes and (year.min() > 0) ):
+        if ( (not only_use_pyjams_datetimes) and
+             (not only_use_cftime_datetimes) and
+             only_use_python_datetimes and
+             (year.min() > 0) ):
             for i in range(year.size):
                 out[i] = cf.real_datetime(year[i], month[i], day[i],
                                           hour[i], minute[i], second[i],
                                           microsecond[i])
+        elif ( (not only_use_pyjams_datetimes) and
+               only_use_cftime_datetimes ):
+            for i in range(year.size):
+                out[i] = cf.datetime(year[i], month[i], day[i],
+                                     hour[i], minute[i], second[i],
+                                     microsecond[i])
         else:
             for i in range(year.size):
                 out[i] = datetime(year[i], month[i], day[i],
@@ -1497,12 +1578,19 @@ def num2date(times, units='', calendar='standard',
             return year, month, day, hour, minute, second, microsecond
 
         out = np.empty_like(year, dtype=object)
-        if ( (not only_use_cftime_datetimes) and
+        if ( (not only_use_pyjams_datetimes) and
+             (not only_use_cftime_datetimes) and
              only_use_python_datetimes and (year.min() > 0) ):
             for i in range(year.size):
                 out[i] = cf.real_datetime(year[i], month[i], day[i],
                                           hour[i], minute[i], second[i],
                                           microsecond[i])
+        elif ( (not only_use_pyjams_datetimes) and
+               only_use_cftime_datetimes ):
+            for i in range(year.size):
+                out[i] = cf.datetime(year[i], month[i], day[i],
+                                     hour[i], minute[i], second[i],
+                                     microsecond[i])
         else:
             for i in range(year.size):
                 out[i] = datetime(year[i], month[i], day[i],
@@ -1609,21 +1697,37 @@ class datetime(object):
         self._dayofwk = dayofwk
         self._dayofyr = dayofyr
         self.tzinfo = None
+        self.cf = None
         if calendar:
             self.calendar = calendar.lower()
         else:
             self.calendar = 'decimal'
-        if self.calendar in _cfcalendars:
-            raise ValueError(f'Use cftime.datetime for CF-conform'
-                             f' calendars: {self.calendar}')
+        # if self.calendar in _cfcalendars:
+        #     raise ValueError(f'Use cftime.datetime for CF-conform'
+        #                      f' calendars: {self.calendar}')
         if has_year_zero is None:
-            self.has_year_zero = _year_zero_defaults(calendar)
+            self.has_year_zero = _year_zero_defaults(self.calendar)
         else:
             self.has_year_zero = has_year_zero
-        if self.calendar and (self.calendar not in _noncfcalendars):
+        # if self.calendar and (self.calendar not in _noncfcalendars):
+        #     raise ValueError(f'Unknown calendar: {self.calendar}')
+        if ( self.calendar and (self.calendar not in _cfcalendars) and
+             (self.calendar not in _noncfcalendars) ):
             raise ValueError(f'Unknown calendar: {self.calendar}')
-        if self.calendar in _excelcalendars:
-            self.datetime_compatible = True
+        if self.calendar in _cfcalendars:
+            self.cf = cf.datetime(self.year, self.month, self.day,
+                                  self.hour, self.minute, self.second,
+                                  self.microsecond,
+                                  calendar=self.calendar,
+                                  has_year_zero=self.has_year_zero)
+            self.datetime_compatible = self.cf.datetime_compatible
+        elif self.calendar in _excelcalendars:
+            self.cf = cf.datetime(self.year, self.month, self.day,
+                                  self.hour, self.minute, self.second,
+                                  self.microsecond,
+                                  calendar='julian',
+                                  has_year_zero=self.has_year_zero)
+            self.datetime_compatible = self.cf.datetime_compatible
         else:
             self.datetime_compatible = False
         self.assert_valid_date()
@@ -1639,8 +1743,8 @@ class datetime(object):
                 raise ValueError("Invalid year provided in {0!r}".format(self))
         # Comment next block to allow negative days with Excel calendars,
         # which does not exist in Excel
-        # if ( ((self.calendar == 'excel') or (self.calendar == 'excel1900')) and
-        #      self.year < 1900):
+        # if ( ((self.calendar == 'excel') or (self.calendar == 'excel1900'))
+        #      and self.year < 1900):
         #     raise ValueError('Year must be >= 1900 for Excel dates')
         # if ( (self.calendar == 'excel1904') and self.year < 1904):
         #     raise ValueError('Year must be >= 1904 for Excel1904 dates')
@@ -1652,7 +1756,7 @@ class datetime(object):
         # day
         month_length = _month_lengths(self.year, self.calendar,
                                       self.has_year_zero)
-        if (self.day < 1) or (self.day > month_length[self.month-1]):
+        if (self.day < 1) or (self.day > month_length[self.month - 1]):
             raise ValueError(
                 "Invalid day number provided in {0!r}".format(self))
 
@@ -1708,13 +1812,13 @@ class datetime(object):
         if (self._dayofyr < 0) and self.calendar:
             if self.calendar == 'decimal360':
                 # dayofyr = (self.month - 1) * 30 + self.day
-                dayofyr = _cumdayspermonth_360[self.month-1] + self.day
+                dayofyr = _cumdayspermonth_360[self.month - 1] + self.day
             else:
                 if _is_leap(self.year, self.calendar,
                             has_year_zero=self.has_year_zero):
-                    dayofyr = _cumdayspermonth_leap[self.month-1] + self.day
+                    dayofyr = _cumdayspermonth_leap[self.month - 1] + self.day
                 else:
-                    dayofyr = _cumdayspermonth[self.month-1] + self.day
+                    dayofyr = _cumdayspermonth[self.month - 1] + self.day
             # cache results for dayofyr
             self._dayofyr = dayofyr
             return dayofyr
@@ -1728,13 +1832,13 @@ class datetime(object):
         """
         if self.calendar == 'decimal360':
             # return 30
-            return _dayspermonth_360[self.month-1]
+            return _dayspermonth_360[self.month - 1]
         else:
             if _is_leap(self.year, self.calendar,
                         has_year_zero=self.has_year_zero):
-                return _dayspermonth_leap[self.month-1]
+                return _dayspermonth_leap[self.month - 1]
             else:
-                return _dayspermonth[self.month-1]
+                return _dayspermonth[self.month - 1]
 
     def format(self):
         """
@@ -1957,19 +2061,19 @@ class datetime(object):
         if isinstance(self, datetime) and isinstance(other, timedelta):
             dt = self
             calendar = self.calendar
-            has_year_zero = self.has_year_zero
+            # has_year_zero = self.has_year_zero
             delta = other
         elif isinstance(self, timedelta) and isinstance(other, datetime):
             dt = other
             calendar = other.calendar
-            has_year_zero = other.has_year_zero
+            # has_year_zero = other.has_year_zero
             delta = self
         else:
             return NotImplemented
-        dt = self
-        calendar = self.calendar
-        has_year_zero = self.has_year_zero
-        delta = other
+        # dt = self
+        # calendar = self.calendar
+        # has_year_zero = self.has_year_zero
+        # delta = other
         if calendar == 'decimal360':
             cfdt = cf.datetime(*to_tuple(dt), calendar='360_day',
                                has_year_zero=dt.has_year_zero)
@@ -2136,8 +2240,8 @@ class datetime(object):
             else:
                 return NotImplemented
         else:
-            if (isinstance(self, datetime_python) or
-                isinstance(self, cf.real_datetime)):
+            if ( isinstance(self, datetime_python) or
+                 isinstance(self, cf.real_datetime) ):
                 # real_datetime - datetime
                 if not other.datetime_compatible:
                     msg = ("Cannot compute the time difference between dates"

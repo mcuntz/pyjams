@@ -129,6 +129,7 @@ class TestDatetime(unittest.TestCase):
                    '%Y-%m-%dT%H:%M:%S', '%d.%m.%YT%H:%M:%S',
                    '%d/%m/%YT%H:%M:%S',
                    '%Y%m%d%H%M%S']
+        only_pyjamss = [True, False]
         only_cftimes = [True, False]
         only_pythons = [True, False]
         has_year_zeros = [None, True, False]
@@ -139,37 +140,41 @@ class TestDatetime(unittest.TestCase):
         for calendar in calendars:
             for unit in units:
                 for format in formats:
-                    for only_cftime in only_cftimes:
-                        for only_python in only_pythons:
-                            for has_year_zero in has_year_zeros:
-                                for itype in range(len(itypes)):
-                                    # print(calendar, unit, format,
-                                    #       only_cftime, only_python,
-                                    #       has_year_zero, itypes[itype])
-                                    indates = itypes[itype](self.idates)
-                                    jdates = date2date(indates, format=format)
-                                    ihave0 = has_year_zero
-                                    if ( has_year_zero and
-                                         (calendar in self._excelcalendars) ):
-                                        ihave0 = False
-                                    f2num = f2nums[random.randint(0, 1)]
-                                    idec = f2num(
-                                        jdates, units=unit, calendar=calendar,
-                                        has_year_zero=ihave0,
-                                        format=format)
-                                    f2date = f2dates[random.randint(0, 1)]
-                                    odates = f2date(
-                                        idec, units=unit, calendar=calendar,
-                                        only_use_cftime_datetimes=only_cftime,
-                                        only_use_python_datetimes=only_python,
-                                        has_year_zero=ihave0,
-                                        format=self.iformat,
-                                        return_arrays=False)
-                                    assert isinstance(jdates, ttypes[itype])
-                                    assert isinstance(idec, ttypes[itype])
-                                    assert isinstance(odates, ttypes[itype])
-                                    self.assertEqual(_flatten(odates),
-                                                     _flatten(indates))
+                    for only_pyjams in only_pyjamss:
+                        for only_cftime in only_cftimes:
+                            for only_python in only_pythons:
+                                for has_year_zero in has_year_zeros:
+                                    for itype in range(len(itypes)):
+                                        # print(calendar, unit, format,
+                                        #       only_cftime, only_python,
+                                        #       has_year_zero, itypes[itype])
+                                        indates = itypes[itype](self.idates)
+                                        jdates = date2date(indates,
+                                                           format=format)
+                                        ihave0 = has_year_zero
+                                        if ( has_year_zero and
+                                             (calendar in self._excelcalendars) ):
+                                            ihave0 = False
+                                        f2num = f2nums[random.randint(0, 1)]
+                                        idec = f2num(
+                                            jdates, units=unit,
+                                            calendar=calendar,
+                                            has_year_zero=ihave0,
+                                            format=format)
+                                        f2date = f2dates[random.randint(0, 1)]
+                                        odates = f2date(
+                                            idec, units=unit, calendar=calendar,
+                                            only_use_pyjams_datetimes=only_pyjams,
+                                            only_use_cftime_datetimes=only_cftime,
+                                            only_use_python_datetimes=only_python,
+                                            has_year_zero=ihave0,
+                                            format=self.iformat,
+                                            return_arrays=False)
+                                        assert isinstance(jdates, ttypes[itype])
+                                        assert isinstance(idec, ttypes[itype])
+                                        assert isinstance(odates, ttypes[itype])
+                                        self.assertEqual(_flatten(odates),
+                                                         _flatten(indates))
 
         # Back and forth for _cfcalendars
 
@@ -183,6 +188,7 @@ class TestDatetime(unittest.TestCase):
                    '%Y-%m-%dT%H:%M:%S', '%d.%m.%YT%H:%M:%S',
                    '%d/%m/%YT%H:%M:%S',
                    '%Y%m%d%H%M%S']
+        only_pyjamss = [True, False]
         only_cftimes = [True, False]
         only_pythons = [False]  # [True, False]
         has_year_zeros = [None, True, False]
@@ -193,39 +199,43 @@ class TestDatetime(unittest.TestCase):
         for calendar in calendars:
             for unit in units:
                 for format in formats:
-                    for only_cftime in only_cftimes:
-                        for only_python in only_pythons:
-                            for has_year_zero in has_year_zeros:
-                                for itype in range(len(itypes)):
-                                    # print(calendar, unit, format,
-                                    #       only_cftime, only_python,
-                                    #       has_year_zero, itypes[itype])
-                                    if calendar in ['',
-                                                    'gregorian',
-                                                    'standard']:
-                                        indates = itypes[itype](
-                                            self.idates[:3])
-                                    else:
-                                        indates = itypes[itype](self.idates)
-                                    jdates = date2date(indates, format=format)
-                                    f2num = f2nums[random.randint(0, 1)]
-                                    idec = f2num(
-                                        jdates, units=unit, calendar=calendar,
-                                        has_year_zero=has_year_zero,
-                                        format=format)
-                                    f2date = f2dates[random.randint(0, 1)]
-                                    odates = f2date(
-                                        idec, units=unit, calendar=calendar,
-                                        only_use_cftime_datetimes=only_cftime,
-                                        only_use_python_datetimes=only_python,
-                                        has_year_zero=has_year_zero,
-                                        format=self.iformat,
-                                        return_arrays=False)
-                                    assert isinstance(jdates, ttypes[itype])
-                                    assert isinstance(idec, ttypes[itype])
-                                    assert isinstance(odates, ttypes[itype])
-                                    self.assertEqual(_flatten(odates),
-                                                     _flatten(indates))
+                    for only_pyjams in only_pyjamss:
+                        for only_cftime in only_cftimes:
+                            for only_python in only_pythons:
+                                for has_year_zero in has_year_zeros:
+                                    for itype in range(len(itypes)):
+                                        # print(calendar, unit, format,
+                                        #       only_cftime, only_python,
+                                        #       has_year_zero, itypes[itype])
+                                        if calendar in ['',
+                                                        'gregorian',
+                                                        'standard']:
+                                            indates = itypes[itype](
+                                                self.idates[:3])
+                                        else:
+                                            indates = itypes[itype](self.idates)
+                                        jdates = date2date(indates,
+                                                           format=format)
+                                        f2num = f2nums[random.randint(0, 1)]
+                                        idec = f2num(
+                                            jdates, units=unit,
+                                            calendar=calendar,
+                                            has_year_zero=has_year_zero,
+                                            format=format)
+                                        f2date = f2dates[random.randint(0, 1)]
+                                        odates = f2date(
+                                            idec, units=unit, calendar=calendar,
+                                            only_use_pyjams_datetimes=only_pyjams,
+                                            only_use_cftime_datetimes=only_cftime,
+                                            only_use_python_datetimes=only_python,
+                                            has_year_zero=has_year_zero,
+                                            format=self.iformat,
+                                            return_arrays=False)
+                                        assert isinstance(jdates, ttypes[itype])
+                                        assert isinstance(idec, ttypes[itype])
+                                        assert isinstance(odates, ttypes[itype])
+                                        self.assertEqual(_flatten(odates),
+                                                         _flatten(indates))
 
         # Back and forth for calendar == ''
 
@@ -1213,9 +1223,9 @@ class TestDatetime(unittest.TestCase):
 
         # errors
 
-        # calendar of cftime
-        self.assertRaises(ValueError, datetime, 1900, 1, 1,
-                          calendar='standard')
+        # # calendar of cftime
+        # self.assertRaises(ValueError, datetime, 1900, 1, 1,
+        #                   calendar='standard')
         # unknown calendar
         self.assertRaises(ValueError, datetime, 1900, 1, 1, calendar='test')
         # assert_valid_date
