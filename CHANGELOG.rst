@@ -2,9 +2,15 @@ Changelog
 ---------
 
 v1.29 (??? 2023)
+    * Added functions `eair2rhair`, `eair2vpd`, `rhair2vpd`, `eair2shair`, and
+      `eair2mrair`, for conversions between partial pressure, relative humidity,
+      and specific humidity of water vapour in air.
+    * Renamed module `esat` to `air_humidity`.
+    * Correct treating of undef if two arrays given in `array2input` helper
+      function.
     * Updated all constants related to gases in `const` module for redefinition
       of SI units of 2019.
-    * Renamed some constant in `const` for greater consistency.
+    * Renamed some constants in `const` for greater consistency.
     * Keyword only_use_pyjams_datetimes in `num2date` to be able to use all
       implemented methods of `datetime` class.
     * Allow also CF-calendars in `datetime` class.

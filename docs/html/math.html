@@ -4,17 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Math &#8212; pyjams 1.27.dev1 documentation</title>
+    <title>Math &#8212; pyjams 1.29.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="division" href="division.html" />
@@ -39,19 +37,234 @@
 <h1>Math<a class="headerlink" href="#math" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="division.html">division</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functions.html">Function module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="functions.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functions.fit_functions.html">Fit functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functions.general_functions.html">General functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functions.logistic_function.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functions.opti_test_functions.html">Optimisation test functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="division.html">division</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="division.html#pyjams.division.div"><code class="docutils literal notranslate"><span class="pre">div()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="division.html#pyjams.division.division"><code class="docutils literal notranslate"><span class="pre">division()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sce.html">sce</a></li>
-<li class="toctree-l1"><a class="reference internal" href="screening.html">screening</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Function module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.B"><code class="docutils literal notranslate"><span class="pre">B()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.G"><code class="docutils literal notranslate"><span class="pre">G()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.Gstar"><code class="docutils literal notranslate"><span class="pre">Gstar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.K"><code class="docutils literal notranslate"><span class="pre">K()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.ackley"><code class="docutils literal notranslate"><span class="pre">ackley()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.arrhenius"><code class="docutils literal notranslate"><span class="pre">arrhenius()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.arrhenius_p"><code class="docutils literal notranslate"><span class="pre">arrhenius_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.bratley"><code class="docutils literal notranslate"><span class="pre">bratley()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_arrhenius"><code class="docutils literal notranslate"><span class="pre">cost2_arrhenius()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_f1x"><code class="docutils literal notranslate"><span class="pre">cost2_f1x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_fexp"><code class="docutils literal notranslate"><span class="pre">cost2_fexp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_gauss"><code class="docutils literal notranslate"><span class="pre">cost2_gauss()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_lasslop"><code class="docutils literal notranslate"><span class="pre">cost2_lasslop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_line"><code class="docutils literal notranslate"><span class="pre">cost2_line()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_line0"><code class="docutils literal notranslate"><span class="pre">cost2_line0()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_lloyd_fix"><code class="docutils literal notranslate"><span class="pre">cost2_lloyd_fix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_lloyd_only_rref"><code class="docutils literal notranslate"><span class="pre">cost2_lloyd_only_rref()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_logistic"><code class="docutils literal notranslate"><span class="pre">cost2_logistic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_logistic2_offset"><code class="docutils literal notranslate"><span class="pre">cost2_logistic2_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_logistic_offset"><code class="docutils literal notranslate"><span class="pre">cost2_logistic_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_poly"><code class="docutils literal notranslate"><span class="pre">cost2_poly()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_sabx"><code class="docutils literal notranslate"><span class="pre">cost2_sabx()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost2_see"><code class="docutils literal notranslate"><span class="pre">cost2_see()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_abs"><code class="docutils literal notranslate"><span class="pre">cost_abs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_arrhenius"><code class="docutils literal notranslate"><span class="pre">cost_arrhenius()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_f1x"><code class="docutils literal notranslate"><span class="pre">cost_f1x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_fexp"><code class="docutils literal notranslate"><span class="pre">cost_fexp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_gauss"><code class="docutils literal notranslate"><span class="pre">cost_gauss()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_lasslop"><code class="docutils literal notranslate"><span class="pre">cost_lasslop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_line"><code class="docutils literal notranslate"><span class="pre">cost_line()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_line0"><code class="docutils literal notranslate"><span class="pre">cost_line0()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_lloyd_fix"><code class="docutils literal notranslate"><span class="pre">cost_lloyd_fix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_lloyd_only_rref"><code class="docutils literal notranslate"><span class="pre">cost_lloyd_only_rref()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_logistic"><code class="docutils literal notranslate"><span class="pre">cost_logistic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_logistic2_offset"><code class="docutils literal notranslate"><span class="pre">cost_logistic2_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_logistic_offset"><code class="docutils literal notranslate"><span class="pre">cost_logistic_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_poly"><code class="docutils literal notranslate"><span class="pre">cost_poly()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_sabx"><code class="docutils literal notranslate"><span class="pre">cost_sabx()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_see"><code class="docutils literal notranslate"><span class="pre">cost_see()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.cost_square"><code class="docutils literal notranslate"><span class="pre">cost_square()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.curvature"><code class="docutils literal notranslate"><span class="pre">curvature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.d2logistic"><code class="docutils literal notranslate"><span class="pre">d2logistic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.d2logistic2_offset"><code class="docutils literal notranslate"><span class="pre">d2logistic2_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.d2logistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">d2logistic2_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.d2logistic_offset"><code class="docutils literal notranslate"><span class="pre">d2logistic_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.d2logistic_offset_p"><code class="docutils literal notranslate"><span class="pre">d2logistic_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.d2logistic_p"><code class="docutils literal notranslate"><span class="pre">d2logistic_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.dlogistic"><code class="docutils literal notranslate"><span class="pre">dlogistic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.dlogistic2_offset"><code class="docutils literal notranslate"><span class="pre">dlogistic2_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.dlogistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">dlogistic2_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.dlogistic_offset"><code class="docutils literal notranslate"><span class="pre">dlogistic_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.dlogistic_offset_p"><code class="docutils literal notranslate"><span class="pre">dlogistic_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.dlogistic_p"><code class="docutils literal notranslate"><span class="pre">dlogistic_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.f1x"><code class="docutils literal notranslate"><span class="pre">f1x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.f1x_p"><code class="docutils literal notranslate"><span class="pre">f1x_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.fexp"><code class="docutils literal notranslate"><span class="pre">fexp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.fexp_p"><code class="docutils literal notranslate"><span class="pre">fexp_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.fmorris"><code class="docutils literal notranslate"><span class="pre">fmorris()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.g"><code class="docutils literal notranslate"><span class="pre">g()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.gauss"><code class="docutils literal notranslate"><span class="pre">gauss()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.gauss_p"><code class="docutils literal notranslate"><span class="pre">gauss_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.goldstein_price"><code class="docutils literal notranslate"><span class="pre">goldstein_price()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.griewank"><code class="docutils literal notranslate"><span class="pre">griewank()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.ishigami_homma"><code class="docutils literal notranslate"><span class="pre">ishigami_homma()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.ishigami_homma_easy"><code class="docutils literal notranslate"><span class="pre">ishigami_homma_easy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.lasslop"><code class="docutils literal notranslate"><span class="pre">lasslop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.lasslop_p"><code class="docutils literal notranslate"><span class="pre">lasslop_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.line"><code class="docutils literal notranslate"><span class="pre">line()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.line0"><code class="docutils literal notranslate"><span class="pre">line0()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.line0_p"><code class="docutils literal notranslate"><span class="pre">line0_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.line_p"><code class="docutils literal notranslate"><span class="pre">line_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.linear"><code class="docutils literal notranslate"><span class="pre">linear()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.lloyd_fix"><code class="docutils literal notranslate"><span class="pre">lloyd_fix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.lloyd_fix_p"><code class="docutils literal notranslate"><span class="pre">lloyd_fix_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.lloyd_only_rref"><code class="docutils literal notranslate"><span class="pre">lloyd_only_rref()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.lloyd_only_rref_p"><code class="docutils literal notranslate"><span class="pre">lloyd_only_rref_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.logistic"><code class="docutils literal notranslate"><span class="pre">logistic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.logistic2_offset"><code class="docutils literal notranslate"><span class="pre">logistic2_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.logistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">logistic2_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.logistic_offset"><code class="docutils literal notranslate"><span class="pre">logistic_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.logistic_offset_p"><code class="docutils literal notranslate"><span class="pre">logistic_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.logistic_p"><code class="docutils literal notranslate"><span class="pre">logistic_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.morris"><code class="docutils literal notranslate"><span class="pre">morris()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.oakley_ohagan"><code class="docutils literal notranslate"><span class="pre">oakley_ohagan()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.poly"><code class="docutils literal notranslate"><span class="pre">poly()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.poly_p"><code class="docutils literal notranslate"><span class="pre">poly_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.product"><code class="docutils literal notranslate"><span class="pre">product()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.rastrigin"><code class="docutils literal notranslate"><span class="pre">rastrigin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.ratio"><code class="docutils literal notranslate"><span class="pre">ratio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.rosenbrock"><code class="docutils literal notranslate"><span class="pre">rosenbrock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.sabx"><code class="docutils literal notranslate"><span class="pre">sabx()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.sabx_p"><code class="docutils literal notranslate"><span class="pre">sabx_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.see"><code class="docutils literal notranslate"><span class="pre">see()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.see_p"><code class="docutils literal notranslate"><span class="pre">see_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyjams.functions.six_hump_camelback"><code class="docutils literal notranslate"><span class="pre">six_hump_camelback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.fit_functions.html">Fit functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.arrhenius"><code class="docutils literal notranslate"><span class="pre">arrhenius()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.arrhenius_p"><code class="docutils literal notranslate"><span class="pre">arrhenius_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_arrhenius"><code class="docutils literal notranslate"><span class="pre">cost2_arrhenius()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_f1x"><code class="docutils literal notranslate"><span class="pre">cost2_f1x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_fexp"><code class="docutils literal notranslate"><span class="pre">cost2_fexp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_gauss"><code class="docutils literal notranslate"><span class="pre">cost2_gauss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_lasslop"><code class="docutils literal notranslate"><span class="pre">cost2_lasslop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_line"><code class="docutils literal notranslate"><span class="pre">cost2_line()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_line0"><code class="docutils literal notranslate"><span class="pre">cost2_line0()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_lloyd_fix"><code class="docutils literal notranslate"><span class="pre">cost2_lloyd_fix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_lloyd_only_rref"><code class="docutils literal notranslate"><span class="pre">cost2_lloyd_only_rref()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_logistic"><code class="docutils literal notranslate"><span class="pre">cost2_logistic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_logistic2_offset"><code class="docutils literal notranslate"><span class="pre">cost2_logistic2_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_logistic_offset"><code class="docutils literal notranslate"><span class="pre">cost2_logistic_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_poly"><code class="docutils literal notranslate"><span class="pre">cost2_poly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_sabx"><code class="docutils literal notranslate"><span class="pre">cost2_sabx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost2_see"><code class="docutils literal notranslate"><span class="pre">cost2_see()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_abs"><code class="docutils literal notranslate"><span class="pre">cost_abs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_arrhenius"><code class="docutils literal notranslate"><span class="pre">cost_arrhenius()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_f1x"><code class="docutils literal notranslate"><span class="pre">cost_f1x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_fexp"><code class="docutils literal notranslate"><span class="pre">cost_fexp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_gauss"><code class="docutils literal notranslate"><span class="pre">cost_gauss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_lasslop"><code class="docutils literal notranslate"><span class="pre">cost_lasslop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_line"><code class="docutils literal notranslate"><span class="pre">cost_line()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_line0"><code class="docutils literal notranslate"><span class="pre">cost_line0()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_lloyd_fix"><code class="docutils literal notranslate"><span class="pre">cost_lloyd_fix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_lloyd_only_rref"><code class="docutils literal notranslate"><span class="pre">cost_lloyd_only_rref()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_logistic"><code class="docutils literal notranslate"><span class="pre">cost_logistic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_logistic2_offset"><code class="docutils literal notranslate"><span class="pre">cost_logistic2_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_logistic_offset"><code class="docutils literal notranslate"><span class="pre">cost_logistic_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_poly"><code class="docutils literal notranslate"><span class="pre">cost_poly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_sabx"><code class="docutils literal notranslate"><span class="pre">cost_sabx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_see"><code class="docutils literal notranslate"><span class="pre">cost_see()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.cost_square"><code class="docutils literal notranslate"><span class="pre">cost_square()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.f1x"><code class="docutils literal notranslate"><span class="pre">f1x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.f1x_p"><code class="docutils literal notranslate"><span class="pre">f1x_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.fexp"><code class="docutils literal notranslate"><span class="pre">fexp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.fexp_p"><code class="docutils literal notranslate"><span class="pre">fexp_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.gauss"><code class="docutils literal notranslate"><span class="pre">gauss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.gauss_p"><code class="docutils literal notranslate"><span class="pre">gauss_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.lasslop"><code class="docutils literal notranslate"><span class="pre">lasslop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.lasslop_p"><code class="docutils literal notranslate"><span class="pre">lasslop_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.line"><code class="docutils literal notranslate"><span class="pre">line()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.line0"><code class="docutils literal notranslate"><span class="pre">line0()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.line0_p"><code class="docutils literal notranslate"><span class="pre">line0_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.line_p"><code class="docutils literal notranslate"><span class="pre">line_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.lloyd_fix"><code class="docutils literal notranslate"><span class="pre">lloyd_fix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.lloyd_fix_p"><code class="docutils literal notranslate"><span class="pre">lloyd_fix_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.lloyd_only_rref"><code class="docutils literal notranslate"><span class="pre">lloyd_only_rref()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.lloyd_only_rref_p"><code class="docutils literal notranslate"><span class="pre">lloyd_only_rref_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.poly"><code class="docutils literal notranslate"><span class="pre">poly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.poly_p"><code class="docutils literal notranslate"><span class="pre">poly_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.sabx"><code class="docutils literal notranslate"><span class="pre">sabx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.sabx_p"><code class="docutils literal notranslate"><span class="pre">sabx_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.see"><code class="docutils literal notranslate"><span class="pre">see()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.fit_functions.html#pyjams.functions.fit_functions.see_p"><code class="docutils literal notranslate"><span class="pre">see_p()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="functions.general_functions.html">General functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions.general_functions.html#pyjams.functions.general_functions.curvature"><code class="docutils literal notranslate"><span class="pre">curvature()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="functions.logistic_function.html">Logistic function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.d2logistic"><code class="docutils literal notranslate"><span class="pre">d2logistic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.d2logistic2_offset"><code class="docutils literal notranslate"><span class="pre">d2logistic2_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.d2logistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">d2logistic2_offset_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.d2logistic_offset"><code class="docutils literal notranslate"><span class="pre">d2logistic_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.d2logistic_offset_p"><code class="docutils literal notranslate"><span class="pre">d2logistic_offset_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.d2logistic_p"><code class="docutils literal notranslate"><span class="pre">d2logistic_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.dlogistic"><code class="docutils literal notranslate"><span class="pre">dlogistic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.dlogistic2_offset"><code class="docutils literal notranslate"><span class="pre">dlogistic2_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.dlogistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">dlogistic2_offset_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.dlogistic_offset"><code class="docutils literal notranslate"><span class="pre">dlogistic_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.dlogistic_offset_p"><code class="docutils literal notranslate"><span class="pre">dlogistic_offset_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.dlogistic_p"><code class="docutils literal notranslate"><span class="pre">dlogistic_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.logistic"><code class="docutils literal notranslate"><span class="pre">logistic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.logistic2_offset"><code class="docutils literal notranslate"><span class="pre">logistic2_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.logistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">logistic2_offset_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.logistic_offset"><code class="docutils literal notranslate"><span class="pre">logistic_offset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.logistic_offset_p"><code class="docutils literal notranslate"><span class="pre">logistic_offset_p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.logistic_function.html#pyjams.functions.logistic_function.logistic_p"><code class="docutils literal notranslate"><span class="pre">logistic_p()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="functions.opti_test_functions.html">Optimisation test functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions.opti_test_functions.html#pyjams.functions.opti_test_functions.ackley"><code class="docutils literal notranslate"><span class="pre">ackley()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.opti_test_functions.html#pyjams.functions.opti_test_functions.goldstein_price"><code class="docutils literal notranslate"><span class="pre">goldstein_price()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.opti_test_functions.html#pyjams.functions.opti_test_functions.griewank"><code class="docutils literal notranslate"><span class="pre">griewank()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.opti_test_functions.html#pyjams.functions.opti_test_functions.rastrigin"><code class="docutils literal notranslate"><span class="pre">rastrigin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.opti_test_functions.html#pyjams.functions.opti_test_functions.rosenbrock"><code class="docutils literal notranslate"><span class="pre">rosenbrock()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.opti_test_functions.html#pyjams.functions.opti_test_functions.six_hump_camelback"><code class="docutils literal notranslate"><span class="pre">six_hump_camelback()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.B"><code class="docutils literal notranslate"><span class="pre">B()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.G"><code class="docutils literal notranslate"><span class="pre">G()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.Gstar"><code class="docutils literal notranslate"><span class="pre">Gstar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.K"><code class="docutils literal notranslate"><span class="pre">K()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.bratley"><code class="docutils literal notranslate"><span class="pre">bratley()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.fmorris"><code class="docutils literal notranslate"><span class="pre">fmorris()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.g"><code class="docutils literal notranslate"><span class="pre">g()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.ishigami_homma"><code class="docutils literal notranslate"><span class="pre">ishigami_homma()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.ishigami_homma_easy"><code class="docutils literal notranslate"><span class="pre">ishigami_homma_easy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.linear"><code class="docutils literal notranslate"><span class="pre">linear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.morris"><code class="docutils literal notranslate"><span class="pre">morris()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.oakley_ohagan"><code class="docutils literal notranslate"><span class="pre">oakley_ohagan()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.product"><code class="docutils literal notranslate"><span class="pre">product()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions.sa_test_functions.html#pyjams.functions.sa_test_functions.ratio"><code class="docutils literal notranslate"><span class="pre">ratio()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html#pyjams.morris_method.elementary_effects"><code class="docutils literal notranslate"><span class="pre">elementary_effects()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling"><code class="docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sce.html">sce</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sce.html#pyjams.sce.sce"><code class="docutils literal notranslate"><span class="pre">sce()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="screening.html">screening</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="screening.html#pyjams.screening.ee"><code class="docutils literal notranslate"><span class="pre">ee()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="screening.html#pyjams.screening.screening"><code class="docutils literal notranslate"><span class="pre">screening()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -146,8 +359,8 @@
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="_sources/math.rst.txt"

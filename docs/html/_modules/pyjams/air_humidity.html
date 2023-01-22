@@ -5,15 +5,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pyjams.esat &#8212; pyjams 1.27.dev1 documentation</title>
+    <title>pyjams.air_humidity &#8212; pyjams 1.29.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
@@ -32,10 +30,10 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for pyjams.esat</h1><div class="highlight"><pre>
+  <h1>Source code for pyjams.air_humidity</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Saturation vapour pressure over water and ice</span>
+<span class="sd">Air humidity calculations</span>
 
 <span class="sd">This module was written by Matthias Cuntz while at Department of</span>
 <span class="sd">Computational Hydrosystems, Helmholtz Centre for Environmental</span>
@@ -43,7 +41,7 @@
 <span class="sd">National de Recherche pour l&#39;Agriculture, l&#39;Alimentation et</span>
 <span class="sd">l&#39;Environnement (INRAE), Nancy, France.</span>
 
-<span class="sd">:copyright: Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:copyright: Copyright 2012- Matthias Cuntz, see AUTHORS.rst for details.</span>
 <span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
@@ -51,6 +49,11 @@
 <span class="sd">The following functions are provided</span>
 
 <span class="sd">.. autosummary::</span>
+<span class="sd">   eair2mrair</span>
+<span class="sd">   eair2rhair</span>
+<span class="sd">   eair2shair</span>
+<span class="sd">   eair2vpd</span>
+<span class="sd">   rhair2vpd</span>
 <span class="sd">   esat</span>
 
 <span class="sd">History</span>
@@ -70,18 +73,23 @@
 <span class="sd">      types, Jan 2022, Matthias Cuntz</span>
 <span class="sd">    * Use helper functions input2array and array2input,</span>
 <span class="sd">      Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Renamed module from esat to to air_humidity, Jan 2023, Matthias Cuntz</span>
+<span class="sd">    * Added eair2rhair, eair2vpd, rhair2vpd, eair2shair, eair2mrair,</span>
+<span class="sd">      Jan 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">input2array</span><span class="p">,</span> <span class="n">array2input</span>
+<span class="kn">from</span> <span class="nn">pyjams.const</span> <span class="kn">import</span> <span class="n">T0</span><span class="p">,</span> <span class="n">P0</span><span class="p">,</span> <span class="n">molmass_air</span><span class="p">,</span> <span class="n">molmass_h2o</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;esat&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;esat&#39;</span><span class="p">,</span> <span class="s1">&#39;eair2rhair&#39;</span><span class="p">,</span> <span class="s1">&#39;eair2vpd&#39;</span><span class="p">,</span> <span class="s1">&#39;rhair2vpd&#39;</span><span class="p">,</span> <span class="s1">&#39;eair2shair&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;eair2mrair&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="esat"><a class="viewcode-back" href="../../esat.html#pyjams.esat.esat">[docs]</a><span class="k">def</span> <span class="nf">esat</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="s1">&#39;GoffGratch&#39;</span><span class="p">,</span> <span class="n">undef</span><span class="o">=-</span><span class="mf">9999.</span><span class="p">,</span> <span class="n">liquid</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="esat"><a class="viewcode-back" href="../../air_humidity.html#pyjams.air_humidity.esat">[docs]</a><span class="k">def</span> <span class="nf">esat</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="s1">&#39;GoffGratch&#39;</span><span class="p">,</span> <span class="n">undef</span><span class="o">=-</span><span class="mf">9999.</span><span class="p">,</span> <span class="n">liquid</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the saturation vapour pressure over water and/or ice</span>
 
 <span class="sd">    For temperatures above (and equal to) 0 degree C (273.15 K),</span>
@@ -234,7 +242,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Constants</span>
-    <span class="n">T0</span> <span class="o">=</span> <span class="mf">273.15</span>  <span class="c1"># Celcius &lt;-&gt; Kelvin [K]</span>
+    <span class="c1"># T0 = 273.15  # Celcius &lt;-&gt; Kelvin [K]</span>
     <span class="n">knownforms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Buck&#39;</span><span class="p">,</span> <span class="s1">&#39;Buck_original&#39;</span><span class="p">,</span> <span class="s1">&#39;Bolton&#39;</span><span class="p">,</span> <span class="s1">&#39;Fukuta&#39;</span><span class="p">,</span> <span class="s1">&#39;GoffGratch&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;HylandWexler&#39;</span><span class="p">,</span> <span class="s1">&#39;IAPWS&#39;</span><span class="p">,</span> <span class="s1">&#39;MagnusTeten&#39;</span><span class="p">,</span> <span class="s1">&#39;MartiMauersberger&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;MurphyKoop&#39;</span><span class="p">,</span> <span class="s1">&#39;Sonntag&#39;</span><span class="p">,</span> <span class="s1">&#39;Vaisala&#39;</span><span class="p">,</span> <span class="s1">&#39;Wexler&#39;</span><span class="p">,</span> <span class="s1">&#39;WMO&#39;</span><span class="p">]</span>
@@ -286,64 +294,67 @@
         <span class="n">TC_liq</span> <span class="o">=</span> <span class="n">T_liq</span> <span class="o">-</span> <span class="n">T0</span>
         <span class="k">if</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;buck&#39;</span><span class="p">:</span>
             <span class="n">esat_liq</span> <span class="o">=</span> <span class="mf">6.1121</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
-                <span class="p">(</span><span class="mf">18.678</span> <span class="o">-</span> <span class="p">(</span><span class="n">TC_liq</span><span class="p">)</span> <span class="o">/</span> <span class="mf">234.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">TC_liq</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">257.14</span><span class="o">+</span><span class="n">TC_liq</span><span class="p">))</span>
+                <span class="p">(</span><span class="mf">18.678</span> <span class="o">-</span> <span class="p">(</span><span class="n">TC_liq</span><span class="p">)</span> <span class="o">/</span> <span class="mf">234.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">TC_liq</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">257.14</span> <span class="o">+</span> <span class="n">TC_liq</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;buck_original&#39;</span><span class="p">:</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="mf">6.1121</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.502</span> <span class="o">*</span> <span class="n">TC_liq</span> <span class="o">/</span> <span class="p">(</span><span class="mf">240.97</span><span class="o">+</span><span class="n">TC_liq</span><span class="p">))</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="mf">6.1121</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.502</span> <span class="o">*</span> <span class="n">TC_liq</span> <span class="o">/</span> <span class="p">(</span><span class="mf">240.97</span> <span class="o">+</span> <span class="n">TC_liq</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;bolton&#39;</span><span class="p">:</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="mf">6.112</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.67</span> <span class="o">*</span> <span class="n">TC_liq</span> <span class="o">/</span> <span class="p">(</span><span class="n">TC_liq</span><span class="o">+</span><span class="mf">243.5</span><span class="p">))</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="mf">6.112</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.67</span> <span class="o">*</span> <span class="n">TC_liq</span> <span class="o">/</span> <span class="p">(</span><span class="n">TC_liq</span> <span class="o">+</span> <span class="mf">243.5</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;fukuta&#39;</span><span class="p">:</span>
             <span class="c1"># steam point temperature in K</span>
             <span class="n">Ts</span>  <span class="o">=</span> <span class="mf">373.16</span>
             <span class="c1"># saturation pressure at steam point temperature, normal atmosphere</span>
             <span class="n">ews</span> <span class="o">=</span> <span class="mf">1013.246</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">7.90298</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_liq</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="mf">5.02808</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_liq</span><span class="p">)</span>
-                              <span class="o">-</span> <span class="mf">1.3816e-7</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">11.344</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">T_liq</span><span class="o">/</span><span class="n">Ts</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="mf">8.1328e-3</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">3.49149</span><span class="o">*</span><span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_liq</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ews</span><span class="p">)))</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">7.90298</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_liq</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                      <span class="o">+</span> <span class="mf">5.02808</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_liq</span><span class="p">)</span>
+                      <span class="o">-</span> <span class="mf">1.3816e-7</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">11.344</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">T_liq</span> <span class="o">/</span> <span class="n">Ts</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                      <span class="o">+</span> <span class="mf">8.1328e-3</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">3.49149</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_liq</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                      <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ews</span><span class="p">))</span> <span class="p">)</span>
             <span class="n">mm</span> <span class="o">=</span> <span class="p">(</span><span class="n">TC_liq</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">TC_liq</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">39.</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">mm</span><span class="p">):</span>
                 <span class="n">x</span> <span class="o">=</span> <span class="n">TC_liq</span> <span class="o">+</span> <span class="mf">19.</span>
-                <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span>
-                                     <span class="n">esat_liq</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.9992</span>
-                                                 <span class="o">+</span> <span class="mf">7.113e-4</span><span class="o">*</span><span class="n">x</span>
-                                                 <span class="o">-</span> <span class="mf">1.847e-4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span>
-                                                 <span class="o">+</span> <span class="mf">1.189e-5</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span>
-                                                 <span class="o">+</span> <span class="mf">1.130e-7</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span>
-                                                 <span class="o">-</span> <span class="mf">1.743e-8</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">5</span><span class="p">),</span>
-                                     <span class="n">esat_liq</span><span class="p">))</span>
+                <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span>
+                             <span class="n">esat_liq</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.9992</span>
+                                         <span class="o">+</span> <span class="mf">7.113e-4</span> <span class="o">*</span> <span class="n">x</span>
+                                         <span class="o">-</span> <span class="mf">1.847e-4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+                                         <span class="o">+</span> <span class="mf">1.189e-5</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+                                         <span class="o">+</span> <span class="mf">1.130e-7</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span>
+                                         <span class="o">-</span> <span class="mf">1.743e-8</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">5</span><span class="p">),</span>
+                             <span class="n">esat_liq</span><span class="p">))</span>
         <span class="k">elif</span> <span class="p">((</span><span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;goffgratch&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;martimauersberger&#39;</span><span class="p">)):</span>
             <span class="c1"># steam point temperature in K</span>
             <span class="n">Ts</span>  <span class="o">=</span> <span class="mf">373.16</span>
             <span class="c1"># saturation pressure at steam point temperature, normal atmosphere</span>
             <span class="n">ews</span> <span class="o">=</span> <span class="mf">1013.246</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">7.90298</span><span class="o">*</span><span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_liq</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="mf">5.02808</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_liq</span><span class="p">)</span>
-                              <span class="o">-</span> <span class="mf">1.3816e-7</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">11.344</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">T_liq</span><span class="o">/</span><span class="n">Ts</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="mf">8.1328e-3</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">3.49149</span><span class="o">*</span><span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_liq</span><span class="o">-</span><span class="mf">1.</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ews</span><span class="p">)))</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">7.90298</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_liq</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                      <span class="o">+</span> <span class="mf">5.02808</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_liq</span><span class="p">)</span>
+                      <span class="o">-</span> <span class="mf">1.3816e-7</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">11.344</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">T_liq</span> <span class="o">/</span> <span class="n">Ts</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                      <span class="o">+</span> <span class="mf">8.1328e-3</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">3.49149</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_liq</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                      <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ews</span><span class="p">))</span> <span class="p">)</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;hylandwexler&#39;</span><span class="p">:</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">0.58002206e4</span><span class="o">/</span><span class="n">T_liq</span>
-                                  <span class="o">+</span> <span class="mf">0.13914993e1</span> <span class="o">-</span> <span class="mf">0.48640239e-1</span><span class="o">*</span><span class="n">T_liq</span>
-                                  <span class="o">+</span> <span class="mf">0.41764768e-4</span><span class="o">*</span><span class="n">T_liq</span><span class="o">**</span><span class="mi">2</span>
-                                  <span class="o">-</span> <span class="mf">0.14452093e-7</span><span class="o">*</span><span class="n">T_liq</span><span class="o">**</span><span class="mi">3</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">0.58002206e4</span> <span class="o">/</span> <span class="n">T_liq</span>
+                                  <span class="o">+</span> <span class="mf">0.13914993e1</span> <span class="o">-</span> <span class="mf">0.48640239e-1</span> <span class="o">*</span> <span class="n">T_liq</span>
+                                  <span class="o">+</span> <span class="mf">0.41764768e-4</span> <span class="o">*</span> <span class="n">T_liq</span><span class="o">**</span><span class="mi">2</span>
+                                  <span class="o">-</span> <span class="mf">0.14452093e-7</span> <span class="o">*</span> <span class="n">T_liq</span><span class="o">**</span><span class="mi">3</span>
                                   <span class="o">+</span> <span class="mf">0.65459673e1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_liq</span><span class="p">))</span> <span class="o">/</span> <span class="mf">100.</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;iapws&#39;</span><span class="p">:</span>
             <span class="n">Tc</span> <span class="o">=</span> <span class="mf">647.096</span>      <span class="c1"># K   : Temperature at the critical point</span>
             <span class="n">Pc</span> <span class="o">=</span> <span class="mf">22.064e4</span>     <span class="c1"># hPa : Vapour pressure at the critical point</span>
-            <span class="n">nu</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">T_liq</span><span class="o">/</span><span class="n">Tc</span><span class="p">)</span>
+            <span class="n">nu</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">T_liq</span> <span class="o">/</span> <span class="n">Tc</span>
             <span class="n">a1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">7.85951783</span>
             <span class="n">a2</span> <span class="o">=</span> <span class="mf">1.84408259</span>
             <span class="n">a3</span> <span class="o">=</span> <span class="o">-</span><span class="mf">11.7866497</span>
             <span class="n">a4</span> <span class="o">=</span> <span class="mf">22.6807411</span>
             <span class="n">a5</span> <span class="o">=</span> <span class="o">-</span><span class="mf">15.9618719</span>
             <span class="n">a6</span> <span class="o">=</span> <span class="mf">1.80122502</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="n">Pc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">Tc</span><span class="o">/</span><span class="n">T_liq</span>
-                                      <span class="o">*</span> <span class="p">(</span><span class="n">a1</span><span class="o">*</span><span class="n">nu</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">nu</span><span class="o">**</span><span class="mf">1.5</span>
-                                         <span class="o">+</span> <span class="n">a3</span><span class="o">*</span><span class="n">nu</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">a4</span><span class="o">*</span><span class="n">nu</span><span class="o">**</span><span class="mf">3.5</span>
-                                         <span class="o">+</span> <span class="n">a5</span><span class="o">*</span><span class="n">nu</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">a6</span><span class="o">*</span><span class="n">nu</span><span class="o">**</span><span class="mf">7.5</span><span class="p">))</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="n">Pc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">Tc</span> <span class="o">/</span> <span class="n">T_liq</span>
+                                      <span class="o">*</span> <span class="p">(</span><span class="n">a1</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">+</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">nu</span><span class="o">**</span><span class="mf">1.5</span>
+                                         <span class="o">+</span> <span class="n">a3</span> <span class="o">*</span> <span class="n">nu</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">a4</span> <span class="o">*</span> <span class="n">nu</span><span class="o">**</span><span class="mf">3.5</span>
+                                         <span class="o">+</span> <span class="n">a5</span> <span class="o">*</span> <span class="n">nu</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">a6</span> <span class="o">*</span> <span class="n">nu</span><span class="o">**</span><span class="mf">7.5</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;magnusteten&#39;</span><span class="p">:</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">7.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">TC_liq</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">TC_liq</span><span class="o">+</span><span class="mf">237.5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.7858</span><span class="p">)</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">7.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">TC_liq</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">TC_liq</span> <span class="o">+</span> <span class="mf">237.5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.7858</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;murphykoop&#39;</span><span class="p">:</span>
             <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">54.842763</span> <span class="o">-</span> <span class="mf">6763.22</span> <span class="o">/</span> <span class="n">T_liq</span>
                                <span class="o">-</span> <span class="mf">4.210</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_liq</span><span class="p">)</span>
@@ -353,14 +364,14 @@
                                   <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_liq</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.014025</span> <span class="o">*</span> <span class="n">T_liq</span><span class="p">))</span>
                         <span class="o">/</span> <span class="mf">100.</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;sonntag&#39;</span><span class="p">:</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">6096.9385</span> <span class="o">*</span> <span class="mf">1.</span><span class="o">/</span><span class="n">T_liq</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">6096.9385</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">T_liq</span>
                                   <span class="o">+</span> <span class="mf">16.635794</span>
                                   <span class="o">-</span> <span class="mf">2.711193e-2</span> <span class="o">*</span> <span class="n">T_liq</span>
                                   <span class="o">+</span> <span class="mf">1.673952e-5</span> <span class="o">*</span> <span class="n">T_liq</span><span class="o">**</span><span class="mi">2</span>
                                   <span class="o">+</span> <span class="mf">2.433502</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_liq</span><span class="p">)))</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;wexler&#39;</span><span class="p">:</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">2.9912729e3</span> <span class="o">*</span> <span class="mf">1.</span><span class="o">/</span><span class="n">T_liq</span><span class="o">**</span><span class="mi">2</span>
-                                  <span class="o">-</span> <span class="mf">6.0170128e3</span> <span class="o">*</span> <span class="mf">1.</span><span class="o">/</span><span class="n">T_liq</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">2.9912729e3</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">T_liq</span><span class="o">**</span><span class="mi">2</span>
+                                  <span class="o">-</span> <span class="mf">6.0170128e3</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">T_liq</span>
                                   <span class="o">+</span> <span class="mf">1.887643854e1</span>
                                   <span class="o">-</span> <span class="mf">2.8354721e-2</span> <span class="o">*</span> <span class="n">T_liq</span><span class="o">**</span><span class="mi">1</span>
                                   <span class="o">+</span> <span class="mf">1.7838301e-5</span> <span class="o">*</span> <span class="n">T_liq</span><span class="o">**</span><span class="mi">2</span>
@@ -369,11 +380,12 @@
                                   <span class="o">+</span> <span class="mf">2.858487</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_liq</span><span class="p">))</span> <span class="o">/</span> <span class="mf">100.</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;wmo&#39;</span><span class="p">:</span>
             <span class="n">Ts</span> <span class="o">=</span> <span class="mf">273.16</span>
-            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">10.79574</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_liq</span><span class="p">)</span>
-                              <span class="o">-</span> <span class="mf">5.02800</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">T_liq</span><span class="o">/</span><span class="n">Ts</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="mf">1.50475e-4</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">8.2969</span><span class="o">*</span><span class="p">(</span><span class="n">T_liq</span><span class="o">/</span><span class="n">Ts</span><span class="o">-</span><span class="mf">1.</span><span class="p">)))</span>
-                              <span class="o">+</span> <span class="mf">0.42873e-3</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">+</span><span class="mf">4.76955</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_liq</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="mf">0.78614</span><span class="p">))</span>
+            <span class="n">esat_liq</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">10.79574</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">Ts</span> <span class="o">/</span> <span class="n">T_liq</span><span class="p">)</span>
+                      <span class="o">-</span> <span class="mf">5.02800</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">T_liq</span> <span class="o">/</span> <span class="n">Ts</span><span class="p">)</span>
+                      <span class="o">+</span> <span class="mf">1.50475e-4</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">8.2969</span> <span class="o">*</span> <span class="p">(</span><span class="n">T_liq</span> <span class="o">/</span> <span class="n">Ts</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)))</span>
+                      <span class="o">+</span> <span class="mf">0.42873e-3</span> <span class="o">*</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">+</span><span class="mf">4.76955</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">Ts</span> <span class="o">/</span> <span class="n">T_liq</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                      <span class="o">+</span> <span class="mf">0.78614</span><span class="p">)</span> <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># should not come here, hence no cover</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Formula not known for liquid:&#39;</span>
@@ -389,17 +401,18 @@
         <span class="n">TC_ice</span> <span class="o">=</span> <span class="n">T_ice</span> <span class="o">-</span> <span class="n">T0</span>
         <span class="k">if</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;buck&#39;</span><span class="p">:</span>
             <span class="n">esat_ice</span> <span class="o">=</span> <span class="mf">6.1115</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="mf">23.036</span> <span class="o">-</span> <span class="n">TC_ice</span> <span class="o">/</span> <span class="mf">333.7</span><span class="p">)</span>
-                                       <span class="o">*</span> <span class="n">TC_ice</span> <span class="o">/</span> <span class="p">(</span><span class="mf">279.82</span><span class="o">+</span><span class="n">TC_ice</span><span class="p">))</span>
+                                       <span class="o">*</span> <span class="n">TC_ice</span> <span class="o">/</span> <span class="p">(</span><span class="mf">279.82</span> <span class="o">+</span> <span class="n">TC_ice</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;buck_original&#39;</span><span class="p">:</span>
-            <span class="n">esat_ice</span> <span class="o">=</span> <span class="mf">6.1115</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">22.452</span> <span class="o">*</span> <span class="n">TC_ice</span> <span class="o">/</span> <span class="p">(</span><span class="mf">272.55</span><span class="o">+</span><span class="n">TC_ice</span><span class="p">))</span>
+            <span class="n">esat_ice</span> <span class="o">=</span> <span class="mf">6.1115</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">22.452</span> <span class="o">*</span> <span class="n">TC_ice</span> <span class="o">/</span> <span class="p">(</span><span class="mf">272.55</span> <span class="o">+</span> <span class="n">TC_ice</span><span class="p">))</span>
         <span class="k">elif</span> <span class="p">((</span><span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;goffgratch&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;bolton&#39;</span><span class="p">)</span>
               <span class="o">|</span> <span class="p">(</span><span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;fukuta&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;iapws&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;wexler&#39;</span><span class="p">)):</span>
             <span class="n">ei0</span> <span class="o">=</span> <span class="mf">6.1071</span>  <span class="c1"># mbar</span>
             <span class="n">Ts</span>  <span class="o">=</span> <span class="mf">273.16</span>  <span class="c1"># freezing point in K</span>
-            <span class="n">esat_ice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mf">9.09718</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_ice</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                                              <span class="o">-</span> <span class="mf">3.56654</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_ice</span><span class="p">)</span>
-                                              <span class="o">+</span> <span class="mf">0.876793</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">T_ice</span><span class="o">/</span><span class="n">Ts</span><span class="p">)</span>
-                                              <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ei0</span><span class="p">)))</span>
+            <span class="n">esat_ice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10.</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">9.09718</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_ice</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                               <span class="o">-</span> <span class="mf">3.56654</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_ice</span><span class="p">)</span>
+                               <span class="o">+</span> <span class="mf">0.876793</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">T_ice</span> <span class="o">/</span> <span class="n">Ts</span><span class="p">)</span>
+                               <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ei0</span><span class="p">)))</span>
         <span class="k">elif</span> <span class="p">(</span><span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;hylandwexler&#39;</span><span class="p">):</span>
             <span class="n">esat_ice</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">0.56745359E4</span> <span class="o">/</span> <span class="n">T_ice</span>
                                <span class="o">+</span> <span class="mf">0.63925247E1</span>
@@ -409,24 +422,24 @@
                                <span class="o">-</span> <span class="mf">0.94840240E-12</span> <span class="o">*</span> <span class="n">T_ice</span><span class="o">**</span><span class="mi">4</span>
                                <span class="o">+</span> <span class="mf">0.41635019E1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_ice</span><span class="p">))</span> <span class="o">/</span> <span class="mf">100.</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;magnusteten&#39;</span><span class="p">:</span>
-            <span class="n">esat_ice</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">9.5</span> <span class="o">*</span> <span class="n">TC_ice</span><span class="o">/</span><span class="p">(</span><span class="mf">265.5</span><span class="o">+</span><span class="n">TC_ice</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.7858</span><span class="p">)</span>
+            <span class="n">esat_ice</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="mf">9.5</span> <span class="o">*</span> <span class="n">TC_ice</span> <span class="o">/</span> <span class="p">(</span><span class="mf">265.5</span> <span class="o">+</span> <span class="n">TC_ice</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.7858</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;martimauersberger&#39;</span><span class="p">:</span>
-            <span class="n">esat_ice</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">2663.5</span><span class="o">/</span><span class="n">T_ice</span> <span class="o">+</span> <span class="mf">12.537</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span>
+            <span class="n">esat_ice</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">2663.5</span> <span class="o">/</span> <span class="n">T_ice</span> <span class="o">+</span> <span class="mf">12.537</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;murphykoop&#39;</span><span class="p">:</span>
-            <span class="n">esat_ice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">9.550426</span> <span class="o">-</span> <span class="mf">5723.265</span><span class="o">/</span><span class="n">T_ice</span>
+            <span class="n">esat_ice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">9.550426</span> <span class="o">-</span> <span class="mf">5723.265</span> <span class="o">/</span> <span class="n">T_ice</span>
                               <span class="o">+</span> <span class="mf">3.53068</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_ice</span><span class="p">)</span>
                               <span class="o">-</span> <span class="mf">0.00728332</span> <span class="o">*</span> <span class="n">T_ice</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;sonntag&#39;</span><span class="p">:</span>
-            <span class="n">esat_ice</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">6024.5282</span> <span class="o">*</span> <span class="mf">1.</span><span class="o">/</span><span class="n">T_ice</span>
+            <span class="n">esat_ice</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="mf">6024.5282</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">T_ice</span>
                                <span class="o">+</span> <span class="mf">24.721994</span>
                                <span class="o">+</span> <span class="mf">1.0613868E-2</span> <span class="o">*</span> <span class="n">T_ice</span>
                                <span class="o">-</span> <span class="mf">1.3198825E-5</span> <span class="o">*</span> <span class="n">T_ice</span><span class="o">**</span><span class="mi">2</span>
                                <span class="o">-</span> <span class="mf">0.49382577</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">T_ice</span><span class="p">)))</span>
         <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;wmo&#39;</span><span class="p">:</span>
             <span class="n">Ts</span> <span class="o">=</span> <span class="mf">273.16</span>
-            <span class="n">esat_ice</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">9.09685</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_ice</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-                              <span class="o">-</span> <span class="mf">3.56654</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Ts</span><span class="o">/</span><span class="n">T_ice</span><span class="p">)</span>
-                              <span class="o">+</span> <span class="mf">0.87682</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">T_ice</span><span class="o">/</span><span class="n">Ts</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.78614</span><span class="p">))</span>
+            <span class="n">esat_ice</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">9.09685</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_ice</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span>
+                              <span class="o">-</span> <span class="mf">3.56654</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Ts</span> <span class="o">/</span> <span class="n">T_ice</span><span class="p">)</span>
+                              <span class="o">+</span> <span class="mf">0.87682</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">T_ice</span> <span class="o">/</span> <span class="n">Ts</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.78614</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># should not come here, hence no cover</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Formula not known for ice:&#39;</span>
@@ -439,6 +452,221 @@
 
     <span class="c1"># return same type as input type</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="eair2rhair"><a class="viewcode-back" href="../../air_humidity.html#pyjams.air_humidity.eair2rhair">[docs]</a><span class="k">def</span> <span class="nf">eair2rhair</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=-</span><span class="mf">9999.</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Relative humidity from partial pressure of water vapour and temperature</span>
+
+<span class="sd">    Relative humidity is the ratio of the partial pressure of water vapour</span>
+<span class="sd">    in air to the saturation vapour pressure of water at the same temperature.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       h = e_a / e_{sat}(T)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ea : float or array_like</span>
+<span class="sd">        Partial pressure of water vapour [Pa]</span>
+<span class="sd">    T : float or array_like</span>
+<span class="sd">        Temperature [K]</span>
+<span class="sd">    undef : float, optional</span>
+<span class="sd">        Exclude `undef` from calculations (default: -9999.)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or array_like</span>
+<span class="sd">        Relative humidity [0-1]</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; rh = eair2rhair(1000., 293.15)</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;{:.2f}&#39;.format(rh * 100.))</span>
+<span class="sd">    42.81</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ea_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">T_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">T0</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">ea_in</span> <span class="o">/</span> <span class="n">esat</span><span class="p">(</span><span class="n">T_in</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ea</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="eair2vpd"><a class="viewcode-back" href="../../air_humidity.html#pyjams.air_humidity.eair2vpd">[docs]</a><span class="k">def</span> <span class="nf">eair2vpd</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=-</span><span class="mf">9999.</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Air vapour pressure deficit from partial pressure and temperature</span>
+
+<span class="sd">    Air vapour pressure deficit is the difference between the saturation</span>
+<span class="sd">    vapour pressure of water at a given temperature and the partial pressure</span>
+<span class="sd">    of water vapour in air.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       VPD = e_{sat}(T) - e_a</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ea : float or array_like</span>
+<span class="sd">        Partial pressure of water vapour [Pa]</span>
+<span class="sd">    T : float or array_like</span>
+<span class="sd">        Temperature [K]</span>
+<span class="sd">    undef : float, optional</span>
+<span class="sd">        Exclude `undef` from calculations (default: -9999.)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or array_like</span>
+<span class="sd">        Air vapour pressure deficit [Pa]</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; vpd = eair2vpd(1000., 293.15)</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;{:.2f}&#39;.format(vpd))</span>
+<span class="sd">    1335.85</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ea_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">T_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">T0</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">esat</span><span class="p">(</span><span class="n">T_in</span><span class="p">)</span> <span class="o">-</span> <span class="n">ea_in</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ea</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="rhair2vpd"><a class="viewcode-back" href="../../air_humidity.html#pyjams.air_humidity.rhair2vpd">[docs]</a><span class="k">def</span> <span class="nf">rhair2vpd</span><span class="p">(</span><span class="n">rh</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=-</span><span class="mf">9999.</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Air vapour pressure deficit from relative humidity and temperature</span>
+
+<span class="sd">    Air vapour pressure deficit is the difference between the saturation</span>
+<span class="sd">    vapour pressure of water at a given temperature and the partial pressure</span>
+<span class="sd">    of water vapour in air.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       VPD = e_{sat}(T) - h * e_{sat}(T)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rh : float or array_like</span>
+<span class="sd">        Relative humidity [0-1]</span>
+<span class="sd">    T : float or array_like</span>
+<span class="sd">        Temperature [K]</span>
+<span class="sd">    undef : float, optional</span>
+<span class="sd">        Exclude `undef` from calculations (default: -9999.)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or array_like</span>
+<span class="sd">        Air vapour pressure deficit [Pa]</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; vpd = rhair2vpd(0.5, 293.15)</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;{:.2f}&#39;.format(vpd))</span>
+<span class="sd">    1167.92</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rh_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">rh</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">T_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">T0</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">rh_in</span><span class="p">)</span> <span class="o">*</span> <span class="n">esat</span><span class="p">(</span><span class="n">T_in</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">rh</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="eair2shair"><a class="viewcode-back" href="../../air_humidity.html#pyjams.air_humidity.eair2shair">[docs]</a><span class="k">def</span> <span class="nf">eair2shair</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">undef</span><span class="o">=-</span><span class="mf">9999.</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Specific humidity from partial pressure of water vapour and total pressure</span>
+
+<span class="sd">    Specific humidity is the ratio of the mass of water vapour to the total</span>
+<span class="sd">    wet mass of the air parcel.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ea : float or array_like</span>
+<span class="sd">        Partial pressure of water vapour [Pa]</span>
+<span class="sd">    p : float or array_like</span>
+<span class="sd">        Total air pressure [Pa]</span>
+<span class="sd">    undef : float, optional</span>
+<span class="sd">        Exclude `undef` from calculations (default: -9999.)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or array_like</span>
+<span class="sd">        Specific humidity [kg/kg]</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; sh = eair2shair(1000., 101325.)</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;{:.2f}&#39;.format(sh * 1000.))</span>
+<span class="sd">    6.16</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ea_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">p_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">P0</span><span class="p">)</span>
+
+    <span class="n">mw</span> <span class="o">=</span> <span class="n">ea_in</span> <span class="o">*</span> <span class="n">molmass_h2o</span>
+    <span class="n">md</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_in</span> <span class="o">-</span> <span class="n">ea_in</span><span class="p">)</span> <span class="o">*</span> <span class="n">molmass_air</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">mw</span> <span class="o">/</span> <span class="p">(</span><span class="n">md</span> <span class="o">+</span> <span class="n">mw</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ea</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="eair2mrair"><a class="viewcode-back" href="../../air_humidity.html#pyjams.air_humidity.eair2mrair">[docs]</a><span class="k">def</span> <span class="nf">eair2mrair</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">mol</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">undef</span><span class="o">=-</span><span class="mf">9999.</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixing ratio from partial pressure of water vapour and total pressure</span>
+
+<span class="sd">    Mixing ratio is the ratio of the mass of water vapour to the total</span>
+<span class="sd">    dry mass of the air parcel.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ea : float or array_like</span>
+<span class="sd">        Partial pressure of water vapour [Pa]</span>
+<span class="sd">    p : float or array_like</span>
+<span class="sd">        Total air pressure [Pa]</span>
+<span class="sd">    mol : bool, optional</span>
+<span class="sd">        It True, return mixing ratio in mol/mol instead of kg/kg</span>
+<span class="sd">    undef : float, optional</span>
+<span class="sd">        Exclude `undef` from calculations (default: -9999.)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or array_like</span>
+<span class="sd">        Mixing ratio [kg/kg] (or in [mol/mol] if `mol==True`)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; mr = eair2mrair(1000., 101325.)</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;{:.2f}&#39;.format(mr * 1000.))</span>
+<span class="sd">    6.20</span>
+
+<span class="sd">    &gt;&gt;&gt; mr = eair2mrair(1000., 101325., mol=True)</span>
+<span class="sd">    &gt;&gt;&gt; print(&#39;{:.2f}&#39;.format(mr * 1000.))</span>
+<span class="sd">    9.97</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ea_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">ea</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">p_in</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">P0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mol</span><span class="p">:</span>
+        <span class="n">mw</span> <span class="o">=</span> <span class="n">ea_in</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">p_in</span> <span class="o">-</span> <span class="n">ea_in</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mw</span> <span class="o">=</span> <span class="n">ea_in</span> <span class="o">*</span> <span class="n">molmass_h2o</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_in</span> <span class="o">-</span> <span class="n">ea_in</span><span class="p">)</span> <span class="o">*</span> <span class="n">molmass_air</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">mw</span> <span class="o">/</span> <span class="n">md</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">array2input</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ea</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">undef</span><span class="o">=</span><span class="n">undef</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">out</span></div>
 
@@ -514,8 +742,8 @@
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
     </div>
 

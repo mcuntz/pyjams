@@ -143,6 +143,14 @@ Functions and modules (alphabetical)
      - Divide two arrays, return 'otherwise' if division by 0
    * - :func:`~pyjams.division.div`
      - Same as `division`
+   * - :func:`~pyjams.eair2mrair`
+     - Mixing ratio from partial pressure of water vapour and total pressure
+   * - :func:`~pyjams.eair2rhair`
+     - Relative humidity from partial pressure of water vapour and temperature
+   * - :func:`~pyjams.eair2shair`
+     - Specific humidity from partial pressure of water vapour and total pressure
+   * - :func:`~pyjams.eair2vpd`
+     - Air vapour pressure deficit from partial pressure and temperature
    * - :func:`~pyjams.screening.ee`
      - Same as `screening`
    * - :func:`~pyjams.morris_method.elementary_effects`
@@ -205,6 +213,8 @@ Functions and modules (alphabetical)
      - Position arrays of subplots to be used with add_axes
    * - :func:`~pyjams.readnetcdf.readnetcdf`
      - Read variables from netCDF file
+   * - :func:`~pyjams.rhair2vpd`
+     - Air vapour pressure deficit from relative humidity and temperature
    * - :func:`~pyjams.romanliterals.roman2int`
      - Roman numeral to integer conversion
    * - :func:`~pyjams.sce`
@@ -407,8 +417,18 @@ Functions and modules per category
 
        * - Function/module
          - Short description
+       * - :func:`~pyjams.eair2mrair`
+         - Mixing ratio from partial pressure of water vapour and total pressure
+       * - :func:`~pyjams.eair2rhair`
+         - Relative humidity from partial pressure of water vapour and temperature
+       * - :func:`~pyjams.eair2shair`
+         - Specific humidity from partial pressure of water vapour and total pressure
+       * - :func:`~pyjams.eair2vpd`
+         - Air vapour pressure deficit from partial pressure and temperature
        * - :func:`~pyjams.esat`
          - Saturation vapour pressure over water and ice
+       * - :func:`~pyjams.rhair2vpd`
+         - Air vapour pressure deficit from relative humidity and temperature
 
 .. _Miscellaneous:
 

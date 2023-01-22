@@ -151,6 +151,53 @@ r"""
 Mathematical constant :math:`\sqrt{2}`
 """
 
+# Physical
+gravity = 9.80665
+r"""
+Standard average Earth's gravity (:math:`m^2 s^{-1}`)
+"""
+T0 = 273.15
+"""
+0 degree Celsius in Kelvin.
+Conversion constant from Celsius to Kelvin.
+"""
+P0 = 101325.
+"""
+Standard pressure (Pa)
+"""
+T25 = 298.15
+r"""
+Standard ambient temperature of 25 :math:`^\circ C` in Kelvin [K]
+"""
+sigma = 5.67e-08
+"""
+Stefan-Boltzmann constant (:math:`W m^{-2} K^{-4}`)
+"""
+R = 8.31446261815324
+r"""
+Ideal gas constant R = Na*kB (:math:`J K^{-1} mol^{-1}`)
+"""
+Rair = 287.05799595894405
+r"""
+Specific gas constant of dry air Rair = R/molmass_air (:math:`J K^{-1} kg^{-1}`)
+"""
+Rh2o = 461.52280831345604
+r"""
+Gas constant of water vapour Rh2o = R/molmass_h2o (:math:`J K^{-1} kg^{-1}`)
+"""
+Na = 6.02214076e23
+r"""
+Avogadro number (:math:`mol^{-1}`)
+"""
+kB = 1.380649e-23
+r"""
+Boltzmann constant (:math:`J K^{-1}`)
+"""
+REarth = 6371009.
+"""
+Radius of the Earth (m)
+"""
+
 # Material
 mmol_co2 = 44.009
 r"""
@@ -168,11 +215,11 @@ molmass_h2o = 18.01528e-3
 r"""
 Molar mass of water (:math:`kg mol^{-1}`)
 """
-mmol_air = 28.966
+mmol_air = 28.9644
 r"""
-Molar mass of dry air (:math:`g mol^{-1}`)
+Molar mass of dry air of standard atmosphere (:math:`g mol^{-1}`)
 """
-molmass_air = 28.966e-3
+molmass_air = 28.9644e-3
 r"""
 Molar mass of dry air (:math:`kg mol^{-1}`)
 """
@@ -196,53 +243,6 @@ Heat capacity of air (:math:`J kg^{-1} K^{-1}`)
 latentheat_vaporization = 2.45e6
 r"""
 Latent heat of vaporization of water (:math:`J kg^{-1}`)
-"""
-
-# Physical
-gravity = 9.80665
-r"""
-Standard average Earth's gravity (:math:`m^2 s^{-1}`)
-"""
-T0 = 273.15
-"""
-0 degree Celsius in Kelvin.
-Conversion constant from Celsius to Kelvin.
-"""
-P0 = 101325.
-"""
-Standard pressure (Pa)
-"""
-T25 = T0 + 25.
-r"""
-Standard ambient temperature of 25 :math:`^\circ C` in Kelvin [K]
-"""
-sigma = 5.67e-08
-"""
-Stefan-Boltzmann constant (:math:`W m^{-2} K^{-4}`)
-"""
-R = 8.31446261815324
-r"""
-Ideal gas constant R = Na*kB (:math:`J K^{-1} mol^{-1}`)
-"""
-Rair = R / molmass_air
-r"""
-Specific gas constant of dry air Rair = R/molmass_air (:math:`J K^{-1} kg^{-1}`)
-"""
-Rh2o = R / molmass_h2o
-r"""
-Gas constant of water vapour Rh2o = R/molmass_h2o (:math:`J K^{-1} kg^{-1}`)
-"""
-Na = 6.02214076e23
-r"""
-Avogadro number (:math:`mol^{-1}`)
-"""
-kB = 1.380649e-23
-r"""
-Boltzmann constant (:math:`J K^{-1}`)
-"""
-REarth = 6371009.
-"""
-Radius of the Earth (m)
 """
 
 # Isotope

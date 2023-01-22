@@ -310,7 +310,7 @@ def arrhenius(T, E):
     float
         function value(s)
     """
-    return np.exp((T-(T25-T0))*E/(T25*R*(T+T0)))
+    return np.exp( ( T - (T25 - T0)) * E / (T25 * R * (T + T0)) )
 
 
 def arrhenius_p(T, p):

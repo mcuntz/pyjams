@@ -145,6 +145,14 @@ Functions and modules (alphabetical)
      - Divide two arrays, return 'otherwise' if division by 0
    * - div
      - Same as `division`
+   * - eair2mrair
+     - Mixing ratio from partial pressure of water vapour and total pressure
+   * - eair2rhair
+     - Relative humidity from partial pressure of water vapour and temperature
+   * - eair2shair
+     - Specific humidity from partial pressure of water vapour and total pressure
+   * - eair2vpd
+     - Air vapour pressure deficit from partial pressure and temperature
    * - ee
      - Same as `screening`
    * - elementary_effects
@@ -207,6 +215,8 @@ Functions and modules (alphabetical)
      - Position arrays of subplots to be used with add_axes
    * - readnetcdf
      - Read variables from netCDF file
+   * - rhair2vpd
+     - Air vapour pressure deficit from relative humidity and temperature
    * - roman2int
      - Roman numeral to integer conversion
    * - sce
@@ -409,8 +419,18 @@ Functions and modules per category
 
        * - Function/module
          - Short description
+       * - eair2mrair
+         - Mixing ratio from partial pressure of water vapour and total pressure
+       * - eair2rhair
+         - Relative humidity from partial pressure of water vapour and temperature
+       * - eair2shair
+         - Specific humidity from partial pressure of water vapour and total pressure
+       * - eair2vpd
+         - Air vapour pressure deficit from partial pressure and temperature
        * - esat
          - Saturation vapour pressure over water and ice
+       * - rhair2vpd
+         - Air vapour pressure deficit from relative humidity and temperature
 
 .. _Miscellaneous:
 

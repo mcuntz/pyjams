@@ -4,17 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>datetime module &#8212; pyjams 1.27.dev1 documentation</title>
+    <title>datetime module &#8212; pyjams 1.29.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Grids and Polygons" href="grids_polygons.html" />
@@ -124,6 +122,8 @@ strings as input.</p></li>
 datetime objects in date2num, Jul 2022, Matthias Cuntz</p></li>
 <li><p>return_arrays keyword in date2num, Jul 2022, Matthias Cuntz</p></li>
 <li><p>round_microseconds method for datetime, Jul 2022, Matthias Cuntz</p></li>
+<li><p>only_use_pyjams_datetimes keyword in num2date, Jan 2022, Matthias Cuntz</p></li>
+<li><p>Also CF-calendars in datetime class, Jan 2023, Matthias Cuntz</p></li>
 </ul>
 </dd>
 <dt>ToDo</dt><dd><ul class="simple">
@@ -137,7 +137,7 @@ datetime objects in date2num, Jul 2022, Matthias Cuntz</p></li>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microsecond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofwk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofyr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microsecond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofwk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofyr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class mimics cftime.datetime but for non-CF-conform calendars</p>
 <p>The cftime.datetime class mimics itself datetime.datetime but
@@ -343,7 +343,7 @@ and given <em>units</em> will hence be ignored.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dates</strong> (<em>datetime instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, or </em><em>array_like of datetime</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – datetime objects or strings with string representations.
+<li><p><strong>dates</strong> (<em>datetime instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, or </em><em>array_like</em><em> of </em><a class="reference internal" href="#pyjams.class_datetime.datetime" title="pyjams.class_datetime.datetime"><em>datetime</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – datetime objects or strings with string representations.
 datetime objects can either be Python datetime.datetime,
 cf.datetime, or pyjams.datetime objects. If <em>dates</em> are strings,
 then <em>format</em> keyword is relevant.</p></li>
@@ -426,7 +426,7 @@ year, month, day, hour, minute, second, microsecond</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.class_datetime.num2date">
-<span class="sig-name descname"><span class="pre">num2date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_cftime_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_python_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#num2date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.num2date" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">num2date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_pyjams_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_cftime_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_python_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#num2date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.num2date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return datetime objects given numeric time values</p>
 <p>The units of the numeric time values are described by the
 <em>units</em> and <em>calendar</em> keywords for CF-conform calendars, i.e.
@@ -464,14 +464,27 @@ as well as the non-CF-conform calendars
 <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>.
 <em>standard</em> will be taken by default, which is a mixed
 Julian/Gregorian calendar.</p></li>
-<li><p><strong>only_use_cftime_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime and cftime.datetime objects are returned by default.
-Only if only_use_cftime_datetimes is set to False (default: True)
-and only_use_python_datetimes is set to True then Python
+<li><p><strong>only_use_pyjams_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
+Only if only_use_pyjams_datetimes is set to False (default: True) and
+only_use_cftime_datetimes is set to True then cftime.datetime objects
+will be returned where possible.
+Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
+to False and only_use_python_datetimes is set to True then Python
 datetime.datetime objects will be returned where possible.</p></li>
-<li><p><strong>only_use_python_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime and cftime.datetime objects are returned by default.
-Only if only_use_python_datetimes is set to True (default: False)
-and only_use_cftime_datetimes is set to False then Python
+<li><p><strong>only_use_cftime_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
+Only if only_use_pyjams_datetimes is set to False and
+only_use_cftime_datetimes is set to True (default: False) then
+cftime.datetime objects will be returned where possible.
+Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
+to False and only_use_python_datetimes is set to True then Python
 datetime.datetime objects will be returned where possible.</p></li>
+<li><p><strong>only_use_python_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
+Only if only_use_pyjams_datetimes is set to False and
+only_use_cftime_datetimes is set to True then cftime.datetime objects
+will be returned where possible.
+Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
+to False and only_use_python_datetimes is set to True (default: False)
+then Python datetime.datetime objects will be returned where possible.</p></li>
 <li><p><strong>has_year_zero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Astronomical year numbering is used and the year zero exists, if set to
 True. If set to False for real-world calendars, then historical year
 numbering is used and the year 1 is preceded by year -1 and no year
@@ -608,8 +621,8 @@ second, microsecond</p>
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="_sources/class_datetime.rst.txt"

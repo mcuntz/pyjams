@@ -32,6 +32,7 @@ History
     * Refine using undef=None with numpy.array and list,
       Jun 2022, Matthias Cuntz
     * Assure array is not 0d-array, Jun 2022, Matthias Cuntz
+    * Correct treating of undef if two arrays given, Jan 2023, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -123,9 +124,29 @@ def array2input(outin, inp, inp2=None, undef=None):
 
     """
     if inp2 is not None:
-        if ( (not isinstance(inp, Iterable)) or
-             isinstance(inp2, np.ma.MaskedArray) ):
-            return array2input(outin, inp2, undef=undef)
+        if not isinstance(inp, Iterable):
+            if isundef(inp, undef):
+                outout = undef
+            else:
+                outout = outin
+            return array2input(outout, inp2, undef=undef)
+        elif isinstance(inp2, np.ma.MaskedArray):
+            if isinstance(inp, np.ma.MaskedArray):
+                outout = np.ma.where(isundef(inp, undef),
+                                     undef, outin).filled(undef)
+            elif isinstance(inp, str):
+                outout = np.where(isundef(np.array([inp]), undef),
+                                  undef, outin)
+            else:
+                outout = np.where(isundef(np.array(inp), undef), undef, outin)
+            return array2input(outout, inp2, undef=undef)
+        else:
+            if isinstance(inp2, str):
+                outout = np.where(isundef(np.array([inp2]), undef),
+                                  undef, outin)
+            else:
+                outout = np.where(isundef(np.array(inp2), undef), undef, outin)
+            return array2input(outout, inp, undef=undef)
 
     if isinstance(inp, Iterable):
         if isinstance(inp, np.ma.MaskedArray):

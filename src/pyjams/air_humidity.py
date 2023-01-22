@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Saturation vapour pressure over water and ice
+Air humidity calculations
 
 This module was written by Matthias Cuntz while at Department of
 Computational Hydrosystems, Helmholtz Centre for Environmental
@@ -8,7 +8,7 @@ Research - UFZ, Leipzig, Germany, and continued while at Institut
 National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2012- Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -16,6 +16,11 @@ l'Environnement (INRAE), Nancy, France.
 The following functions are provided
 
 .. autosummary::
+   eair2mrair
+   eair2rhair
+   eair2shair
+   eair2vpd
+   rhair2vpd
    esat
 
 History
@@ -35,14 +40,19 @@ History
       types, Jan 2022, Matthias Cuntz
     * Use helper functions input2array and array2input,
       Jan 2022, Matthias Cuntz
+    * Renamed module from esat to to air_humidity, Jan 2023, Matthias Cuntz
+    * Added eair2rhair, eair2vpd, rhair2vpd, eair2shair, eair2mrair,
+      Jan 2023, Matthias Cuntz
 
 """
 from collections.abc import Iterable
 import numpy as np
 from .helper import input2array, array2input
+from pyjams.const import T0, P0, molmass_air, molmass_h2o
 
 
-__all__ = ['esat']
+__all__ = ['esat', 'eair2rhair', 'eair2vpd', 'rhair2vpd', 'eair2shair',
+           'eair2mrair']
 
 
 def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
@@ -199,7 +209,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
 
     """
     # Constants
-    T0 = 273.15  # Celcius <-> Kelvin [K]
+    # T0 = 273.15  # Celcius <-> Kelvin [K]
     knownforms = ['Buck', 'Buck_original', 'Bolton', 'Fukuta', 'GoffGratch',
                   'HylandWexler', 'IAPWS', 'MagnusTeten', 'MartiMauersberger',
                   'MurphyKoop', 'Sonntag', 'Vaisala', 'Wexler', 'WMO']
@@ -251,64 +261,67 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
         TC_liq = T_liq - T0
         if form == 'buck':
             esat_liq = 6.1121 * np.ma.exp(
-                (18.678 - (TC_liq) / 234.5) * (TC_liq) / (257.14+TC_liq))
+                (18.678 - (TC_liq) / 234.5) * (TC_liq) / (257.14 + TC_liq))
         elif form == 'buck_original':
-            esat_liq = 6.1121 * np.ma.exp(17.502 * TC_liq / (240.97+TC_liq))
+            esat_liq = 6.1121 * np.ma.exp(17.502 * TC_liq / (240.97 + TC_liq))
         elif form == 'bolton':
-            esat_liq = 6.112 * np.ma.exp(17.67 * TC_liq / (TC_liq+243.5))
+            esat_liq = 6.112 * np.ma.exp(17.67 * TC_liq / (TC_liq + 243.5))
         elif form == 'fukuta':
             # steam point temperature in K
             Ts  = 373.16
             # saturation pressure at steam point temperature, normal atmosphere
             ews = 1013.246
-            esat_liq = (10.**(-7.90298 * (Ts/T_liq-1.)
-                              + 5.02808 * np.ma.log10(Ts/T_liq)
-                              - 1.3816e-7 * (10.**(11.344*(1.-T_liq/Ts))-1.)
-                              + 8.1328e-3 * (10.**(-3.49149*(Ts/T_liq-1))-1.)
-                              + np.ma.log10(ews)))
+            esat_liq = (
+                10.**(-7.90298 * (Ts / T_liq - 1.)
+                      + 5.02808 * np.ma.log10(Ts / T_liq)
+                      - 1.3816e-7 * (10.**(11.344 * (1. - T_liq / Ts)) - 1.)
+                      + 8.1328e-3 * (10.**(-3.49149 * (Ts / T_liq - 1)) - 1.)
+                      + np.ma.log10(ews)) )
             mm = (TC_liq < 0.) & (TC_liq > -39.)
             if np.ma.any(mm):
                 x = TC_liq + 19.
-                esat_liq = (np.where(mm,
-                                     esat_liq * (0.9992
-                                                 + 7.113e-4*x
-                                                 - 1.847e-4*x**2
-                                                 + 1.189e-5*x**3
-                                                 + 1.130e-7*x**4
-                                                 - 1.743e-8*x**5),
-                                     esat_liq))
+                esat_liq = (
+                    np.where(mm,
+                             esat_liq * (0.9992
+                                         + 7.113e-4 * x
+                                         - 1.847e-4 * x**2
+                                         + 1.189e-5 * x**3
+                                         + 1.130e-7 * x**4
+                                         - 1.743e-8 * x**5),
+                             esat_liq))
         elif ((form == 'goffgratch') | (form == 'martimauersberger')):
             # steam point temperature in K
             Ts  = 373.16
             # saturation pressure at steam point temperature, normal atmosphere
             ews = 1013.246
-            esat_liq = (10.**(-7.90298*(Ts/T_liq-1.)
-                              + 5.02808 * np.ma.log10(Ts/T_liq)
-                              - 1.3816e-7 * (10.**(11.344*(1.-T_liq/Ts))-1.)
-                              + 8.1328e-3 * (10.**(-3.49149*(Ts/T_liq-1.))-1.)
-                              + np.ma.log10(ews)))
+            esat_liq = (
+                10.**(-7.90298 * (Ts / T_liq - 1.)
+                      + 5.02808 * np.ma.log10(Ts / T_liq)
+                      - 1.3816e-7 * (10.**(11.344 * (1. - T_liq / Ts)) - 1.)
+                      + 8.1328e-3 * (10.**(-3.49149 * (Ts / T_liq - 1.)) - 1.)
+                      + np.ma.log10(ews)) )
         elif form == 'hylandwexler':
-            esat_liq = (np.ma.exp(- 0.58002206e4/T_liq
-                                  + 0.13914993e1 - 0.48640239e-1*T_liq
-                                  + 0.41764768e-4*T_liq**2
-                                  - 0.14452093e-7*T_liq**3
+            esat_liq = (np.ma.exp(- 0.58002206e4 / T_liq
+                                  + 0.13914993e1 - 0.48640239e-1 * T_liq
+                                  + 0.41764768e-4 * T_liq**2
+                                  - 0.14452093e-7 * T_liq**3
                                   + 0.65459673e1 * np.ma.log(T_liq)) / 100.)
         elif form == 'iapws':
             Tc = 647.096      # K   : Temperature at the critical point
             Pc = 22.064e4     # hPa : Vapour pressure at the critical point
-            nu = (1. - T_liq/Tc)
+            nu = 1. - T_liq / Tc
             a1 = -7.85951783
             a2 = 1.84408259
             a3 = -11.7866497
             a4 = 22.6807411
             a5 = -15.9618719
             a6 = 1.80122502
-            esat_liq = Pc * np.ma.exp(Tc/T_liq
-                                      * (a1*nu + a2*nu**1.5
-                                         + a3*nu**3 + a4*nu**3.5
-                                         + a5*nu**4 + a6*nu**7.5))
+            esat_liq = Pc * np.ma.exp(Tc / T_liq
+                                      * (a1 * nu + a2 * nu**1.5
+                                         + a3 * nu**3 + a4 * nu**3.5
+                                         + a5 * nu**4 + a6 * nu**7.5))
         elif form == 'magnusteten':
-            esat_liq = 10.**(7.5 * (TC_liq) / (TC_liq+237.5) + 0.7858)
+            esat_liq = 10.**(7.5 * (TC_liq) / (TC_liq + 237.5) + 0.7858)
         elif form == 'murphykoop':
             esat_liq = (np.exp(54.842763 - 6763.22 / T_liq
                                - 4.210 * np.ma.log(T_liq)
@@ -318,14 +331,14 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
                                   * np.ma.log(T_liq) + 0.014025 * T_liq))
                         / 100.)
         elif form == 'sonntag':
-            esat_liq = (np.ma.exp(- 6096.9385 * 1./T_liq
+            esat_liq = (np.ma.exp(- 6096.9385 * 1. / T_liq
                                   + 16.635794
                                   - 2.711193e-2 * T_liq
                                   + 1.673952e-5 * T_liq**2
                                   + 2.433502 * np.ma.log(T_liq)))
         elif form == 'wexler':
-            esat_liq = (np.ma.exp(- 2.9912729e3 * 1./T_liq**2
-                                  - 6.0170128e3 * 1./T_liq
+            esat_liq = (np.ma.exp(- 2.9912729e3 * 1. / T_liq**2
+                                  - 6.0170128e3 * 1. / T_liq
                                   + 1.887643854e1
                                   - 2.8354721e-2 * T_liq**1
                                   + 1.7838301e-5 * T_liq**2
@@ -334,11 +347,12 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
                                   + 2.858487 * np.ma.log(T_liq)) / 100.)
         elif form == 'wmo':
             Ts = 273.16
-            esat_liq = (10.**(10.79574 * (1.-Ts/T_liq)
-                              - 5.02800 * np.ma.log10(T_liq/Ts)
-                              + 1.50475e-4 * (1.-10.**(-8.2969*(T_liq/Ts-1.)))
-                              + 0.42873e-3 * (10.**(+4.76955*(1.-Ts/T_liq))-1.)
-                              + 0.78614))
+            esat_liq = (
+                10.**(10.79574 * (1. - Ts / T_liq)
+                      - 5.02800 * np.ma.log10(T_liq / Ts)
+                      + 1.50475e-4 * (1. - 10.**(-8.2969 * (T_liq / Ts - 1.)))
+                      + 0.42873e-3 * (10.**(+4.76955 * (1. - Ts / T_liq)) - 1.)
+                      + 0.78614) )
         else:
             # should not come here, hence no cover
             raise ValueError('Formula not known for liquid:'
@@ -354,17 +368,18 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
         TC_ice = T_ice - T0
         if form == 'buck':
             esat_ice = 6.1115 * np.exp((23.036 - TC_ice / 333.7)
-                                       * TC_ice / (279.82+TC_ice))
+                                       * TC_ice / (279.82 + TC_ice))
         elif form == 'buck_original':
-            esat_ice = 6.1115 * np.exp(22.452 * TC_ice / (272.55+TC_ice))
+            esat_ice = 6.1115 * np.exp(22.452 * TC_ice / (272.55 + TC_ice))
         elif ((form == 'goffgratch') | (form == 'bolton')
               | (form == 'fukuta') | (form == 'iapws') | (form == 'wexler')):
             ei0 = 6.1071  # mbar
             Ts  = 273.16  # freezing point in K
-            esat_ice = np.ma.exp(np.log(10.)*(-9.09718 * (Ts/T_ice-1.)
-                                              - 3.56654 * np.ma.log10(Ts/T_ice)
-                                              + 0.876793 * (1.-T_ice/Ts)
-                                              + np.log10(ei0)))
+            esat_ice = np.ma.exp(
+                np.log(10.) * (-9.09718 * (Ts / T_ice - 1.)
+                               - 3.56654 * np.ma.log10(Ts / T_ice)
+                               + 0.876793 * (1. - T_ice / Ts)
+                               + np.log10(ei0)))
         elif (form == 'hylandwexler'):
             esat_ice = (np.exp(- 0.56745359E4 / T_ice
                                + 0.63925247E1
@@ -374,24 +389,24 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
                                - 0.94840240E-12 * T_ice**4
                                + 0.41635019E1 * np.log(T_ice)) / 100.)
         elif form == 'magnusteten':
-            esat_ice = 10.**(9.5 * TC_ice/(265.5+TC_ice) + 0.7858)
+            esat_ice = 10.**(9.5 * TC_ice / (265.5 + TC_ice) + 0.7858)
         elif form == 'martimauersberger':
-            esat_ice = 10.**(-2663.5/T_ice + 12.537) / 100.
+            esat_ice = 10.**(-2663.5 / T_ice + 12.537) / 100.
         elif form == 'murphykoop':
-            esat_ice = np.exp(9.550426 - 5723.265/T_ice
+            esat_ice = np.exp(9.550426 - 5723.265 / T_ice
                               + 3.53068 * np.log(T_ice)
                               - 0.00728332 * T_ice) / 100.
         elif form == 'sonntag':
-            esat_ice = (np.exp(- 6024.5282 * 1./T_ice
+            esat_ice = (np.exp(- 6024.5282 * 1. / T_ice
                                + 24.721994
                                + 1.0613868E-2 * T_ice
                                - 1.3198825E-5 * T_ice**2
                                - 0.49382577 * np.log(T_ice)))
         elif form == 'wmo':
             Ts = 273.16
-            esat_ice = (10.**(-9.09685 * (Ts/T_ice-1.)
-                              - 3.56654 * np.log10(Ts/T_ice)
-                              + 0.87682 * (1.-T_ice/Ts) + 0.78614))
+            esat_ice = (10.**(-9.09685 * (Ts / T_ice - 1.)
+                              - 3.56654 * np.log10(Ts / T_ice)
+                              + 0.87682 * (1. - T_ice / Ts) + 0.78614))
         else:
             # should not come here, hence no cover
             raise ValueError('Formula not known for ice:'
@@ -404,6 +419,221 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
 
     # return same type as input type
     out = array2input(out, T, undef=undef)
+
+    return out
+
+
+def eair2rhair(ea, T, undef=-9999.):
+    """
+    Relative humidity from partial pressure of water vapour and temperature
+
+    Relative humidity is the ratio of the partial pressure of water vapour
+    in air to the saturation vapour pressure of water at the same temperature.
+
+    .. math::
+       h = e_a / e_{sat}(T)
+
+    Parameters
+    ----------
+    ea : float or array_like
+        Partial pressure of water vapour [Pa]
+    T : float or array_like
+        Temperature [K]
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Relative humidity [0-1]
+
+    Examples
+    --------
+    >>> rh = eair2rhair(1000., 293.15)
+    >>> print('{:.2f}'.format(rh * 100.))
+    42.81
+
+    """
+    ea_in = input2array(ea, undef=undef, default=0)
+    T_in = input2array(T, undef=undef, default=T0)
+
+    out = ea_in / esat(T_in)
+
+    out = array2input(out, ea, T, undef=undef)
+
+    return out
+
+
+def eair2vpd(ea, T, undef=-9999.):
+    """
+    Air vapour pressure deficit from partial pressure and temperature
+
+    Air vapour pressure deficit is the difference between the saturation
+    vapour pressure of water at a given temperature and the partial pressure
+    of water vapour in air.
+
+    .. math::
+       VPD = e_{sat}(T) - e_a
+
+    Parameters
+    ----------
+    ea : float or array_like
+        Partial pressure of water vapour [Pa]
+    T : float or array_like
+        Temperature [K]
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Air vapour pressure deficit [Pa]
+
+    Examples
+    --------
+    >>> vpd = eair2vpd(1000., 293.15)
+    >>> print('{:.2f}'.format(vpd))
+    1335.85
+
+    """
+    ea_in = input2array(ea, undef=undef, default=0)
+    T_in = input2array(T, undef=undef, default=T0)
+
+    out = esat(T_in) - ea_in
+
+    out = array2input(out, ea, T, undef=undef)
+
+    return out
+
+
+def rhair2vpd(rh, T, undef=-9999.):
+    """
+    Air vapour pressure deficit from relative humidity and temperature
+
+    Air vapour pressure deficit is the difference between the saturation
+    vapour pressure of water at a given temperature and the partial pressure
+    of water vapour in air.
+
+    .. math::
+       VPD = e_{sat}(T) - h * e_{sat}(T)
+
+    Parameters
+    ----------
+    rh : float or array_like
+        Relative humidity [0-1]
+    T : float or array_like
+        Temperature [K]
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Air vapour pressure deficit [Pa]
+
+    Examples
+    --------
+    >>> vpd = rhair2vpd(0.5, 293.15)
+    >>> print('{:.2f}'.format(vpd))
+    1167.92
+
+    """
+    rh_in = input2array(rh, undef=undef, default=0)
+    T_in = input2array(T, undef=undef, default=T0)
+
+    out = (1. - rh_in) * esat(T_in)
+
+    out = array2input(out, rh, T, undef=undef)
+
+    return out
+
+
+def eair2shair(ea, p, undef=-9999.):
+    """
+    Specific humidity from partial pressure of water vapour and total pressure
+
+    Specific humidity is the ratio of the mass of water vapour to the total
+    wet mass of the air parcel.
+
+    Parameters
+    ----------
+    ea : float or array_like
+        Partial pressure of water vapour [Pa]
+    p : float or array_like
+        Total air pressure [Pa]
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Specific humidity [kg/kg]
+
+    Examples
+    --------
+    >>> sh = eair2shair(1000., 101325.)
+    >>> print('{:.2f}'.format(sh * 1000.))
+    6.16
+
+    """
+    ea_in = input2array(ea, undef=undef, default=0)
+    p_in = input2array(p, undef=undef, default=P0)
+
+    mw = ea_in * molmass_h2o
+    md = (p_in - ea_in) * molmass_air
+    out = mw / (md + mw)
+
+    out = array2input(out, ea, p, undef=undef)
+
+    return out
+
+
+def eair2mrair(ea, p, mol=False, undef=-9999.):
+    """
+    Mixing ratio from partial pressure of water vapour and total pressure
+
+    Mixing ratio is the ratio of the mass of water vapour to the total
+    dry mass of the air parcel.
+
+    Parameters
+    ----------
+    ea : float or array_like
+        Partial pressure of water vapour [Pa]
+    p : float or array_like
+        Total air pressure [Pa]
+    mol : bool, optional
+        It True, return mixing ratio in mol/mol instead of kg/kg
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Mixing ratio [kg/kg] (or in [mol/mol] if `mol==True`)
+
+    Examples
+    --------
+    >>> mr = eair2mrair(1000., 101325.)
+    >>> print('{:.2f}'.format(mr * 1000.))
+    6.20
+
+    >>> mr = eair2mrair(1000., 101325., mol=True)
+    >>> print('{:.2f}'.format(mr * 1000.))
+    9.97
+
+    """
+    ea_in = input2array(ea, undef=undef, default=0)
+    p_in = input2array(p, undef=undef, default=P0)
+
+    if mol:
+        mw = ea_in
+        md = p_in - ea_in
+    else:
+        mw = ea_in * molmass_h2o
+        md = (p_in - ea_in) * molmass_air
+    out = mw / md
+
+    out = array2input(out, ea, p, undef=undef)
 
     return out
 

@@ -4,17 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Function module &#8212; pyjams 1.27.dev1 documentation</title>
+    <title>Function module &#8212; pyjams 1.29.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -73,6 +71,7 @@ use with the <code class="docutils literal notranslate"><span class="pre">scipy.
 </tr>
 </tbody>
 </table>
+</section>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.B">
 <span class="sig-name descname"><span class="pre">B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.B" title="Permalink to this definition">¶</a></dt>
@@ -182,7 +181,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – temperature [degC]</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – temperature [degC]</p></li>
 <li><p><strong>E</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – activation energy [J]</p></li>
 </ul>
 </dd>
@@ -202,7 +201,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – temperature [degC]</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – temperature [degC]</p></li>
 <li><p><strong>p</strong> (<em>iterable</em>) – <cite>p[0]</cite> = activation energy [J]</p></li>
 </ul>
 </dd>
@@ -240,9 +239,9 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = activation energy [J]</p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <cite>p[0]</cite> = activation energy [J]</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -261,7 +260,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -269,8 +268,8 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -290,7 +289,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -299,8 +298,8 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -320,7 +319,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = mean mu</p></li>
 <li><p><cite>p[1]</cite> = width sig</p></li>
@@ -328,8 +327,8 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -348,7 +347,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = Light use efficiency, i.e. initial slope of light response
 curve [umol(C) J-1]</p></li>
@@ -360,10 +359,10 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Global radiation [W m-2]</p></li>
-<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
-<li><p><strong>VPD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Vapour Pressure Deficit [Pa]</p></li>
-<li><p><strong>NEE</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed net ecosystem exchange [umol(CO2) m-2 s-1]</p></li>
+<li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Global radiation [W m-2]</p></li>
+<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
+<li><p><strong>VPD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Vapour Pressure Deficit [Pa]</p></li>
+<li><p><strong>NEE</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Observed net ecosystem exchange [umol(CO2) m-2 s-1]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -382,7 +381,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -390,8 +389,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -411,9 +410,9 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = a</p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <cite>p[0]</cite> = a</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -432,7 +431,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 <li><p><cite>p[1]</cite> = Activation energy [K]</p></li>
@@ -440,8 +439,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Temperature [K]</p></li>
-<li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Temperature [K]</p></li>
+<li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -460,9 +459,9 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
-<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
-<li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
+<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
+<li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -482,7 +481,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = L  = Maximum of logistic function</p></li>
 <li><p><cite>p[1]</cite> = k  = Steepness of logistic function</p></li>
@@ -491,8 +490,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -512,7 +511,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=7</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = L1  = Maximum of first logistic function</p></li>
 <li><p><cite>p[1]</cite> = k1  = Steepness of first logistic function</p></li>
@@ -525,8 +524,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -546,7 +545,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = L  = Maximum of logistic function</p></li>
 <li><p><cite>p[1]</cite> = k  = Steepness of logistic function</p></li>
@@ -556,8 +555,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -577,9 +576,9 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -599,7 +598,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -607,8 +606,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -628,7 +627,7 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -637,8 +636,8 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -658,10 +657,10 @@ of absolute deviations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – parameters</p></li>
 <li><p><strong>func</strong> (<em>callable</em>) – <cite>fun(x,p) -&gt; float</cite></p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -680,9 +679,9 @@ of absolute deviations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = activation energy [J]</p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <cite>p[0]</cite> = activation energy [J]</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -701,7 +700,7 @@ of absolute deviations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -709,8 +708,8 @@ of absolute deviations.</p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -730,7 +729,7 @@ of absolute deviations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -739,8 +738,8 @@ of absolute deviations.</p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -760,7 +759,7 @@ of absolute deviations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = mean mu</p></li>
 <li><p><cite>p[1]</cite> = width sig</p></li>
@@ -768,8 +767,8 @@ of absolute deviations.</p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -788,7 +787,7 @@ of absolute deviations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = Light use efficiency, i.e. initial slope of light response
 curve [umol(C) J-1]</p></li>
@@ -800,10 +799,10 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Global radiation [W m-2]</p></li>
-<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
-<li><p><strong>VPD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Vapour Pressure Deficit [Pa]</p></li>
-<li><p><strong>NEE</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed net ecosystem exchange [umol(CO2) m-2 s-1]</p></li>
+<li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Global radiation [W m-2]</p></li>
+<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
+<li><p><strong>VPD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Vapour Pressure Deficit [Pa]</p></li>
+<li><p><strong>NEE</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Observed net ecosystem exchange [umol(CO2) m-2 s-1]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -822,7 +821,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -830,8 +829,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -851,9 +850,9 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = a</p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <cite>p[0]</cite> = a</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -872,7 +871,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 <li><p><cite>p[1]</cite> = Activation energy [K]</p></li>
@@ -880,8 +879,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Temperature [K]</p></li>
-<li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Temperature [K]</p></li>
+<li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -900,9 +899,9 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
-<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
-<li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
+<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
+<li><p><strong>resp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Observed respiration [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -922,7 +921,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = L  = Maximum of logistic function</p></li>
 <li><p><cite>p[1]</cite> = k  = Steepness of logistic function</p></li>
@@ -931,8 +930,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -952,7 +951,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=7</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = L1  = Maximum of first logistic function</p></li>
 <li><p><cite>p[1]</cite> = k1  = Steepness of first logistic function</p></li>
@@ -965,8 +964,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -986,7 +985,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = L  = Maximum of logistic function</p></li>
 <li><p><cite>p[1]</cite> = k  = Steepness of logistic function</p></li>
@@ -996,8 +995,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1017,9 +1016,9 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1039,7 +1038,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -1047,8 +1046,8 @@ with VPD increase [Pa-1]</p></li>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1068,7 +1067,7 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -1077,8 +1076,8 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 </dd>
 </dl>
 </p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1098,10 +1097,10 @@ square deviations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – parameters</p></li>
 <li><p><strong>func</strong> (<em>callable</em>) – <cite>fun(x,p) -&gt; float</cite></p></li>
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – dependent variable, observations</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – dependent variable, observations</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1367,7 +1366,7 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – first parameter</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – second parameter</p></li>
 </ul>
@@ -1388,8 +1387,8 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -1415,7 +1414,7 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – first parameter</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – second parameter</p></li>
 <li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – third parameter</p></li>
@@ -1437,8 +1436,8 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -1516,7 +1515,7 @@ with parameters <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
 <li><p><strong>mu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – mean</p></li>
 <li><p><strong>sig</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – width</p></li>
 </ul>
@@ -1538,8 +1537,8 @@ with parameters <em>a</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = mean mu</p></li>
 <li><p><cite>p[1]</cite> = width sig</p></li>
@@ -1652,9 +1651,9 @@ light saturation decreases exponentially with VPD as in Koerner (1995).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Global radiation [W m-2]</p></li>
-<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
-<li><p><strong>VPD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Vapour Pressure Deficit [Pa]</p></li>
+<li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Global radiation [W m-2]</p></li>
+<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
+<li><p><strong>VPD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Vapour Pressure Deficit [Pa]</p></li>
 <li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Light use efficiency, i.e. initial slope of light response curve
 [umol(C) J-1]</p></li>
 <li><p><strong>beta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Maximum CO2 uptake rate at VPD0=10 hPa [umol(C) m-2 s-1]</p></li>
@@ -1683,10 +1682,10 @@ light saturation decreases exponentially with VPD as in Koerner (1995).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Global radiation [W m-2]</p></li>
-<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
-<li><p><strong>VPD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Vapour Pressure Deficit [Pa]</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>Rg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Global radiation [W m-2]</p></li>
+<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Exponential in Lloyd &amp; Taylor: np.exp(E0*(1./(Tref-T0)-1./(T-T0))) []</p></li>
+<li><p><strong>VPD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Vapour Pressure Deficit [Pa]</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=4</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = Light use efficiency, i.e. initial slope of light response
 curve [umol(C) J-1]</p></li>
@@ -1716,7 +1715,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – first parameter</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – second parameter</p></li>
 </ul>
@@ -1737,7 +1736,7 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – first parameter</p></li>
 </ul>
 </dd>
@@ -1757,8 +1756,8 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = a</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <cite>p[0]</cite> = a</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1777,8 +1776,8 @@ with VPD increase [Pa-1]</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -1829,7 +1828,7 @@ parameters <em>a</em> and <em>b</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Temperature [K]</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Temperature [K]</p></li>
 <li><p><strong>Rref</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 <li><p><strong>E0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Activation energy [K]</p></li>
 </ul>
@@ -1851,8 +1850,8 @@ parameters <em>a</em> and <em>b</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – Temperature [K]</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – Temperature [K]</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 <li><p><cite>p[1]</cite> = Activation energy [K]</p></li>
@@ -1881,7 +1880,7 @@ becomes linear. One could also use functions.line0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
+<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
 <li><p><strong>Rref</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
@@ -1904,8 +1903,8 @@ becomes linear. One could also use functions.line0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
+<li><p><strong>et</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – exp-term in Lloyd &amp; Taylor</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <cite>p[0]</cite> = Respiration at Tref=10 degC [umol(C) m-2 s-1]</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2070,7 +2069,7 @@ parameters <em>beta0-beta4</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
 <li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – parameters <cite>len(args)=n+1</cite></p></li>
 </ul>
 </dd>
@@ -2090,8 +2089,8 @@ parameters <em>beta0-beta4</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – parameters (<cite>len(p)=n+1</cite>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2201,7 +2200,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – first parameter</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – second parameter</p></li>
 </ul>
@@ -2222,8 +2221,8 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=2</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -2249,7 +2248,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
 <li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – first parameter</p></li>
 <li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – second parameter</p></li>
 <li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – third parameter</p></li>
@@ -2271,8 +2270,8 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like of floats</em>) – independent variable</p></li>
-<li><p><strong>p</strong> (<em>iterable of floats</em>) – <dl class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em><em> of </em><em>floats</em>) – independent variable</p></li>
+<li><p><strong>p</strong> (<em>iterable</em><em> of </em><em>floats</em>) – <dl class="simple">
 <dt>parameters (<cite>len(p)=3</cite>)</dt><dd><ul>
 <li><p><cite>p[0]</cite> = a</p></li>
 <li><p><cite>p[1]</cite> = b</p></li>
@@ -2312,7 +2311,6 @@ at (-0.08983, 0.7126) and (0.08983, -0.7126).</p>
 </dl>
 </dd></dl>
 
-</section>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="functions.fit_functions.html">Fit functions</a></li>
@@ -2416,8 +2414,8 @@ at (-0.08983, 0.7126) and (0.08983, -0.7126).</p>
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="_sources/functions.rst.txt"

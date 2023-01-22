@@ -1,7 +1,7 @@
-esat
-----
+Air humidity
+------------
 
-.. automodule:: pyjams.esat
+.. automodule:: pyjams.air_humidity
    :members:
    :undoc-members:
    :inherited-members:

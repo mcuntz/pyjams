@@ -35,11 +35,11 @@ class TestFitFunctions(unittest.TestCase):
         from pyjams.functions import cost2_arrhenius
 
         T25 = 298.15
-        R   = 8.3144621
+        R   = 8.31446261815324
         p = [1.]
         x = np.arange(2) + 25.
         y = np.zeros(2)
-        out = np.exp(np.arange(2) / (T25 * R * (np.arange(2)+T25)))
+        out = np.exp(np.arange(2) / (T25 * R * (np.arange(2) + T25)))
         self.assertEqual(list(arrhenius(x, *p)), list(out))
         self.assertEqual(list(arrhenius_p(x, p)), list(out))
         assert cost_arrhenius(p, x, y) == np.sum(out)
@@ -78,7 +78,7 @@ class TestFitFunctions(unittest.TestCase):
         p = [1., 1.]
         x = np.arange(2)
         y = np.zeros(2)
-        out = 1. / np.sqrt(2.*np.pi) * np.exp(-np.abs(x-1.)/2.)
+        out = 1. / np.sqrt(2. * np.pi) * np.exp(-np.abs(x - 1.) / 2.)
         self.assertEqual(list(gauss(x, *p)), list(out))
         self.assertEqual(list(gauss_p(x, p)), list(out))
         assert cost_gauss(p, x, y) == np.sum(out)
@@ -95,7 +95,7 @@ class TestFitFunctions(unittest.TestCase):
         VPD = np.arange(2) * 10. + 1000.
         y = np.zeros(2)
         beta = np.array([1., np.exp(-10.)])
-        out = et - beta*Rg/(Rg+beta)
+        out = et - beta * Rg / (Rg + beta)
         self.assertEqual(list(lasslop(Rg, et, VPD, *p)), list(out))
         self.assertEqual(list(lasslop_p(Rg, et, VPD, p)), list(out))
         assert cost_lasslop(p, Rg, et, VPD, y) == np.sum(out)
@@ -135,7 +135,7 @@ class TestFitFunctions(unittest.TestCase):
         p = [1., 1.]
         x = np.arange(2) + 273.15
         y = np.zeros(2)
-        out = np.exp(1./56.02 - 1./(x-227.13))
+        out = np.exp(1. / 56.02 - 1. / (x - 227.13))
         self.assertEqual(list(lloyd_fix(x, *p)), list(out))
         self.assertEqual(list(lloyd_fix_p(x, p)), list(out))
         assert cost_lloyd_fix(p, x, y) == np.sum(out)
@@ -194,7 +194,7 @@ class TestFitFunctions(unittest.TestCase):
         p = [1., 1., 0., 1., 2., 0., 1.]
         x = np.arange(2)
         y = np.zeros(2)
-        out = 1. / (1. + np.exp(-x)) - 1. / (1. + np.exp(-2.*x)) + 1.
+        out = 1. / (1. + np.exp(-x)) - 1. / (1. + np.exp(-2. * x)) + 1.
         self.assertEqual(list(np.around(logistic2_offset(x, *p), 14)),
                          list(np.around(out, 14)))
         self.assertEqual(list(np.around(logistic2_offset_p(x, p), 14)),

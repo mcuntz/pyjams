@@ -16,6 +16,7 @@ https://github.com/mcuntz/jams_python
 Subpackages
 ===========
 .. autosummary::
+   air_humidity
    alpha_equ_h2o
    alpha_kin_h2o
    argsort
@@ -26,7 +27,6 @@ Subpackages
    date2date
    class_datetime
    division
-   esat
    fgui
    fsread
    functions
@@ -81,6 +81,8 @@ History
     * v1.26, added means, Jul 2022, Matthias Cuntz
     * v1.27, added sce, Dec 2022, Matthias Cuntz
     * v1.28, added updatez, Jan 2023, Matthias Cuntz
+    * v1.29, added functions for converting humidity in air,
+      Jan 2023, Matthias Cuntz
 
 """
 # version, author
@@ -102,6 +104,9 @@ from . import functions
 # variables and dimensions.
 from . import ncio
 
+# air humidity calculations
+from .air_humidity import esat, eair2rhair, eair2vpd, rhair2vpd, eair2shair
+from .air_humidity import eair2mrair
 # isotopic fractionation factors during liquid-water vapour equilibration
 from .alpha_equ_h2o import alpha_equ_h2o
 # kinetic fractionation of molecular diffusion of water vapour
@@ -122,8 +127,6 @@ from .date2date import us2date, us2en, us2fr
 from .division import division, div
 # cftime extension
 from .class_datetime import date2dec, date2num, dec2date, num2date, datetime
-# saturation vapour pressure over water and ice
-from .esat import esat
 # GUI dialogs to choose files and directories using Tkinter
 from .fgui import directory_from_gui, directories_from_gui
 from .fgui import file_from_gui, files_from_gui
@@ -164,6 +167,8 @@ from .text2plot import text2plot, abc2plot, signature2plot
 
 __all__ = ['__version__', '__author__',
            'color', 'const', 'functions',
+           'eair2mrair', 'eair2rhair', 'eair2shair', 'eair2vpd', 'esat',
+           'rhair2vpd',
            'alpha_equ_h2o', 'alpha_kin_h2o',
            'argmax', 'argmin', 'argsort',
            'gridcellarea',
@@ -175,7 +180,6 @@ __all__ = ['__version__', '__author__',
            'us2date', 'us2en', 'us2fr',
            'division', 'div',
            'date2dec', 'date2num', 'dec2date', 'num2date', 'datetime',
-           'esat',
            'directory_from_gui', 'directories_from_gui',
            'file_from_gui', 'files_from_gui',
            'fsread', 'fread', 'sread',

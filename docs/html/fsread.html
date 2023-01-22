@@ -4,17 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>fsread / xread &#8212; pyjams 1.27.dev1 documentation</title>
+    <title>fsread / xread &#8212; pyjams 1.29.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Data Processing" href="data_processing.html" />
@@ -142,10 +140,10 @@ separately with the (almost) same call as reading the floats.</p>
 <li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as floats [default: all (<em>nc=0</em>)]. <em>nc</em>
 can be an int or a vector of column indexes, starting with 0.
 <em>nc&lt;=0</em> reads all columns.</p></li>
-<li><p><strong>cname</strong> (<em>iterable of str</em><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
+<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
 <li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Not used in fread; will be silently ignored.</p></li>
-<li><p><strong>sname</strong> (<em>iterable of str</em><em>, </em><em>optional</em>) – Not used in fread; will be silently ignored.</p></li>
+<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Not used in fread; will be silently ignored.</p></li>
 <li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – All other keywords will be passed to <cite>fsread</cite>.</p></li>
 </ul>
 </dd>
@@ -294,7 +292,7 @@ with <em>header=False</em> and once with <em>header=True</em>.</p>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;2.1 nan Inf &quot;NaN&quot;&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">ff</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Treat Nan and Inf with automatic strip of ” and ‘</p>
+<p>Treat Nan and Inf with automatic strip of “ and ‘</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="n">filename1</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transpose</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="go">[[1.1 2.1]</span>
 <span class="go"> [1.2 nan]</span>
@@ -385,14 +383,14 @@ can be an int or a vector of column indexes, starting with 0. If
 <em>snc!=0</em>, then <em>nc</em> must be iterable, or -1 to read all other columns
 as floats. If both <em>nc</em> and <em>snc</em> are int, then first <em>snc</em> string
 columns will be read and then <em>nc</em> float columns will be read.</p></li>
-<li><p><strong>cname</strong> (<em>iterable of str</em><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
+<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
 <li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: none (<em>snc=0</em>)].
 <em>snc</em> can be an int or a vector of column indexes, starting with 0. If
 <em>nc!=0</em>, then <em>snc</em> must be iterable, or -1 to read all other columns
 as strings. If both <em>nc</em> and <em>snc</em> are int, then first <em>snc</em> string
 columns will be read and then <em>nc</em> float columns will be read.</p></li>
-<li><p><strong>sname</strong> (<em>iterable of str</em><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
+<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
 <li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines to skip at the beginning of file (default: 0)</p></li>
 <li><p><strong>cskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of columns to skip at the beginning of each line (default: 0)</p></li>
@@ -630,14 +628,14 @@ separately with the (almost) same call as reading the strings.</p>
 can be an int or a vector of column indexes, starting with 0.
 <em>nc&lt;=0</em> reads all columns.
 <em>snc</em> takes precedence if <em>nc</em> and <em>snc</em> are set.</p></li>
-<li><p><strong>cname</strong> (<em>iterable of str</em><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
+<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
 line; must be an iterable with strings.
 <em>sname</em> takes precedence if <em>cname</em> and <em>sname</em> are set.</p></li>
 <li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: all (<em>snc=0</em>)].
 <em>snc</em> can be an int or a vector of column indexes, starting with 0.
 <em>snc&lt;=0</em> reads all columns.
 <em>snc</em> takes precedence if <em>nc</em> and <em>snc</em> are set.</p></li>
-<li><p><strong>sname</strong> (<em>iterable of str</em><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
+<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
 line; must be an iterable with strings.
 <em>sname</em> takes precedence if <em>cname</em> and <em>sname</em> are set.</p></li>
 <li><p><strong>fill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
@@ -875,14 +873,14 @@ can be an int or a vector of column indexes, starting with 0. If
 <em>snc!=0</em>, then <em>nc</em> must be iterable, or -1 to read all other columns
 as floats. If both <em>nc</em> and <em>snc</em> are int, then first <em>snc</em> string
 columns will be read and then <em>nc</em> float columns will be read.</p></li>
-<li><p><strong>cname</strong> (<em>iterable of str</em><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
+<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
 <li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: none (<em>snc=0</em>)].
 <em>snc</em> can be an int or a vector of column indexes, starting with 0. If
 <em>nc!=0</em>, then <em>snc</em> must be iterable, or -1 to read all other columns
 as strings. If both <em>nc</em> and <em>snc</em> are int, then first <em>snc</em> string
 columns will be read and then <em>nc</em> float columns will be read.</p></li>
-<li><p><strong>sname</strong> (<em>iterable of str</em><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
+<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
 <li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines to skip at the beginning of file (default: 0)</p></li>
 <li><p><strong>cskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of columns to skip at the beginning of each line (default: 0)</p></li>
@@ -1188,8 +1186,8 @@ during read if relevant module is not installed.</p>
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="_sources/fsread.rst.txt"

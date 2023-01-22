@@ -4,17 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>mcPlot &#8212; pyjams 1.27.dev1 documentation</title>
+    <title>mcPlot &#8212; pyjams 1.29.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="position" href="position.html" />
@@ -342,30 +340,30 @@ called with -h.</p></li>
 <div class="admonition-notes admonition">
 <p class="admonition-title">Notes</p>
 <p>Standard command line arguments are:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>positional arguments:
-  args                  Text will be replaced by <span class="sb">`</span>argstr<span class="sb">`</span>.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>positional<span class="w"> </span>arguments:
+<span class="w">  </span>args<span class="w">                  </span>Text<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>replaced<span class="w"> </span>by<span class="w"> </span><span class="sb">`</span>argstr<span class="sb">`</span>.
 
-optional arguments:
-  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
-  -p plotname, --plotname plotname
-                        Name of plot output file <span class="k">for</span> types pdf,
-                        html, d3, or plotly, and name basis <span class="k">for</span> <span class="nb">type</span>
-                        png <span class="o">(</span>default: calling_filename without
-                        extension<span class="o">)</span>.
-  -s, --serif           Use serif font<span class="p">;</span> default sans serif.
-  -t outtype, --type outtype
-                        Output <span class="nb">type</span> is pdf, png, html, d3, or plotly
-                        <span class="o">(</span>default: open screen windows<span class="o">)</span>.
-  -u, --usetex          Use LaTeX to render text <span class="k">in</span> pdf, png and
-                        html.
-  -w, --white           White lines on transparent or black
-                        background<span class="p">;</span> default: black lines on
-                        transparent or white background.
-  --dpi number          Dots Per inch <span class="o">(</span>DPI<span class="o">)</span> <span class="k">for</span> non-vector output
-                        types or rasterized maps <span class="k">in</span> vector output
-                        <span class="o">(</span>default: <span class="m">300</span><span class="o">)</span>.
-  --transparent         Transparent figure background
-                        <span class="o">(</span>default: black or white<span class="o">)</span>.
+optional<span class="w"> </span>arguments:
+<span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>-p<span class="w"> </span>plotname,<span class="w"> </span>--plotname<span class="w"> </span>plotname
+<span class="w">                        </span>Name<span class="w"> </span>of<span class="w"> </span>plot<span class="w"> </span>output<span class="w"> </span>file<span class="w"> </span><span class="k">for</span><span class="w"> </span>types<span class="w"> </span>pdf,
+<span class="w">                        </span>html,<span class="w"> </span>d3,<span class="w"> </span>or<span class="w"> </span>plotly,<span class="w"> </span>and<span class="w"> </span>name<span class="w"> </span>basis<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nb">type</span>
+<span class="w">                        </span>png<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span>calling_filename<span class="w"> </span>without
+<span class="w">                        </span>extension<span class="o">)</span>.
+<span class="w">  </span>-s,<span class="w"> </span>--serif<span class="w">           </span>Use<span class="w"> </span>serif<span class="w"> </span>font<span class="p">;</span><span class="w"> </span>default<span class="w"> </span>sans<span class="w"> </span>serif.
+<span class="w">  </span>-t<span class="w"> </span>outtype,<span class="w"> </span>--type<span class="w"> </span>outtype
+<span class="w">                        </span>Output<span class="w"> </span><span class="nb">type</span><span class="w"> </span>is<span class="w"> </span>pdf,<span class="w"> </span>png,<span class="w"> </span>html,<span class="w"> </span>d3,<span class="w"> </span>or<span class="w"> </span>plotly
+<span class="w">                        </span><span class="o">(</span>default:<span class="w"> </span>open<span class="w"> </span>screen<span class="w"> </span>windows<span class="o">)</span>.
+<span class="w">  </span>-u,<span class="w"> </span>--usetex<span class="w">          </span>Use<span class="w"> </span>LaTeX<span class="w"> </span>to<span class="w"> </span>render<span class="w"> </span>text<span class="w"> </span><span class="k">in</span><span class="w"> </span>pdf,<span class="w"> </span>png<span class="w"> </span>and
+<span class="w">                        </span>html.
+<span class="w">  </span>-w,<span class="w"> </span>--white<span class="w">           </span>White<span class="w"> </span>lines<span class="w"> </span>on<span class="w"> </span>transparent<span class="w"> </span>or<span class="w"> </span>black
+<span class="w">                        </span>background<span class="p">;</span><span class="w"> </span>default:<span class="w"> </span>black<span class="w"> </span>lines<span class="w"> </span>on
+<span class="w">                        </span>transparent<span class="w"> </span>or<span class="w"> </span>white<span class="w"> </span>background.
+<span class="w">  </span>--dpi<span class="w"> </span>number<span class="w">          </span>Dots<span class="w"> </span>Per<span class="w"> </span>inch<span class="w"> </span><span class="o">(</span>DPI<span class="o">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>non-vector<span class="w"> </span>output
+<span class="w">                        </span>types<span class="w"> </span>or<span class="w"> </span>rasterized<span class="w"> </span>maps<span class="w"> </span><span class="k">in</span><span class="w"> </span>vector<span class="w"> </span>output
+<span class="w">                        </span><span class="o">(</span>default:<span class="w"> </span><span class="m">300</span><span class="o">)</span>.
+<span class="w">  </span>--transparent<span class="w">         </span>Transparent<span class="w"> </span>figure<span class="w"> </span>background
+<span class="w">                        </span><span class="o">(</span>default:<span class="w"> </span>black<span class="w"> </span>or<span class="w"> </span>white<span class="o">)</span>.
 </pre></div>
 </div>
 </div>
@@ -401,7 +399,7 @@ optional arguments:
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.6.2)"><em>matplotlib.figure.Figure</em></a>) – Matplotlib figure object.    argstr : string, optional</p></li>
+<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.6.3)"><em>matplotlib.figure.Figure</em></a>) – Matplotlib figure object.    argstr : string, optional</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Additional keywords will be passed to <em>savefig</em> for ‘pdf’,
 ‘png’, and ‘html’; to <em>fig_to_html</em> for ‘d3’, and to
 <em>offline.plot</em> for ‘plotly’. This overwrites <em>self.transparent</em>,
@@ -441,8 +439,8 @@ options in the initialisation of an extending class.</p>
 <p>Current layout options are:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
+<col style="width: 23.1%" />
+<col style="width: 76.9%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Option</p></th>
@@ -604,8 +602,8 @@ class.</p>
 <p>Current parameters set are:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
+<col style="width: 23.1%" />
+<col style="width: 76.9%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -772,8 +770,8 @@ installed.</p>
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="_sources/mcplot.rst.txt"

@@ -4,17 +4,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>esat &#8212; pyjams 1.27.dev1 documentation</title>
+    <title>Air humidity &#8212; pyjams 1.29.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Miscellaneous" href="miscellaneous.html" />
@@ -35,9 +34,9 @@
 
           <div class="body" role="main">
             
-  <section id="module-pyjams.esat">
-<span id="esat"></span><h1>esat<a class="headerlink" href="#module-pyjams.esat" title="Permalink to this heading">¶</a></h1>
-<p>Saturation vapour pressure over water and ice</p>
+  <section id="module-pyjams.air_humidity">
+<span id="air-humidity"></span><h1>Air humidity<a class="headerlink" href="#module-pyjams.air_humidity" title="Permalink to this heading">¶</a></h1>
+<p>Air humidity calculations</p>
 <p>This module was written by Matthias Cuntz while at Department of
 Computational Hydrosystems, Helmholtz Centre for Environmental
 Research - UFZ, Leipzig, Germany, and continued while at Institut
@@ -45,7 +44,7 @@ National de Recherche pour l’Agriculture, l’Alimentation et
 l’Environnement (INRAE), Nancy, France.</p>
 <dl class="field-list simple">
 <dt class="field-odd">copyright<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.</p>
+<dd class="field-odd"><p>Copyright 2012- Matthias Cuntz, see AUTHORS.rst for details.</p>
 </dd>
 <dt class="field-even">license<span class="colon">:</span></dt>
 <dd class="field-even"><p>MIT License, see LICENSE for details.</p>
@@ -54,7 +53,22 @@ l’Environnement (INRAE), Nancy, France.</p>
 <p>The following functions are provided</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.esat.esat" title="pyjams.esat.esat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">esat</span></code></a>(T[, formula, undef, liquid])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.air_humidity.eair2mrair" title="pyjams.air_humidity.eair2mrair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eair2mrair</span></code></a>(ea, p[, mol, undef])</p></td>
+<td><p>Mixing ratio from partial pressure of water vapour and total pressure</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.air_humidity.eair2rhair" title="pyjams.air_humidity.eair2rhair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eair2rhair</span></code></a>(ea, T[, undef])</p></td>
+<td><p>Relative humidity from partial pressure of water vapour and temperature</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.air_humidity.eair2shair" title="pyjams.air_humidity.eair2shair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eair2shair</span></code></a>(ea, p[, undef])</p></td>
+<td><p>Specific humidity from partial pressure of water vapour and total pressure</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.air_humidity.eair2vpd" title="pyjams.air_humidity.eair2vpd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eair2vpd</span></code></a>(ea, T[, undef])</p></td>
+<td><p>Air vapour pressure deficit from partial pressure and temperature</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.air_humidity.rhair2vpd" title="pyjams.air_humidity.rhair2vpd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rhair2vpd</span></code></a>(rh, T[, undef])</p></td>
+<td><p>Air vapour pressure deficit from relative humidity and temperature</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.air_humidity.esat" title="pyjams.air_humidity.esat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">esat</span></code></a>(T[, formula, undef, liquid])</p></td>
 <td><p>Calculates the saturation vapour pressure over water and/or ice</p></td>
 </tr>
 </tbody>
@@ -77,12 +91,142 @@ such as pandas time series, Jan 2022, Matthias Cuntz</p></li>
 types, Jan 2022, Matthias Cuntz</p></li>
 <li><p>Use helper functions input2array and array2input,
 Jan 2022, Matthias Cuntz</p></li>
+<li><p>Renamed module from esat to to air_humidity, Jan 2023, Matthias Cuntz</p></li>
+<li><p>Added eair2rhair, eair2vpd, rhair2vpd, eair2shair, eair2mrair,
+Jan 2023, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py function">
-<dt class="sig sig-object py" id="pyjams.esat.esat">
-<span class="sig-name descname"><span class="pre">esat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'GoffGratch'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">9999.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">liquid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/esat.html#esat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.esat.esat" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyjams.air_humidity.eair2mrair">
+<span class="sig-name descname"><span class="pre">eair2mrair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ea</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/air_humidity.html#eair2mrair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.air_humidity.eair2mrair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mixing ratio from partial pressure of water vapour and total pressure</p>
+<p>Mixing ratio is the ratio of the mass of water vapour to the total
+dry mass of the air parcel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ea</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Partial pressure of water vapour [Pa]</p></li>
+<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Total air pressure [Pa]</p></li>
+<li><p><strong>mol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – It True, return mixing ratio in mol/mol instead of kg/kg</p></li>
+<li><p><strong>undef</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Exclude <cite>undef</cite> from calculations (default: -9999.)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mixing ratio [kg/kg] (or in [mol/mol] if <cite>mol==True</cite>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a> or array_like</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mr</span> <span class="o">=</span> <span class="n">eair2mrair</span><span class="p">(</span><span class="mf">1000.</span><span class="p">,</span> <span class="mf">101325.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mr</span> <span class="o">*</span> <span class="mf">1000.</span><span class="p">))</span>
+<span class="go">6.20</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mr</span> <span class="o">=</span> <span class="n">eair2mrair</span><span class="p">(</span><span class="mf">1000.</span><span class="p">,</span> <span class="mf">101325.</span><span class="p">,</span> <span class="n">mol</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mr</span> <span class="o">*</span> <span class="mf">1000.</span><span class="p">))</span>
+<span class="go">9.97</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.air_humidity.eair2rhair">
+<span class="sig-name descname"><span class="pre">eair2rhair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ea</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/air_humidity.html#eair2rhair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.air_humidity.eair2rhair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relative humidity from partial pressure of water vapour and temperature</p>
+<p>Relative humidity is the ratio of the partial pressure of water vapour
+in air to the saturation vapour pressure of water at the same temperature.</p>
+<div class="math notranslate nohighlight">
+\[h = e_a / e_{sat}(T)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ea</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Partial pressure of water vapour [Pa]</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Temperature [K]</p></li>
+<li><p><strong>undef</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Exclude <cite>undef</cite> from calculations (default: -9999.)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Relative humidity [0-1]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a> or array_like</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rh</span> <span class="o">=</span> <span class="n">eair2rhair</span><span class="p">(</span><span class="mf">1000.</span><span class="p">,</span> <span class="mf">293.15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rh</span> <span class="o">*</span> <span class="mf">100.</span><span class="p">))</span>
+<span class="go">42.81</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.air_humidity.eair2shair">
+<span class="sig-name descname"><span class="pre">eair2shair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ea</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/air_humidity.html#eair2shair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.air_humidity.eair2shair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific humidity from partial pressure of water vapour and total pressure</p>
+<p>Specific humidity is the ratio of the mass of water vapour to the total
+wet mass of the air parcel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ea</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Partial pressure of water vapour [Pa]</p></li>
+<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Total air pressure [Pa]</p></li>
+<li><p><strong>undef</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Exclude <cite>undef</cite> from calculations (default: -9999.)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Specific humidity [kg/kg]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a> or array_like</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span> <span class="o">=</span> <span class="n">eair2shair</span><span class="p">(</span><span class="mf">1000.</span><span class="p">,</span> <span class="mf">101325.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sh</span> <span class="o">*</span> <span class="mf">1000.</span><span class="p">))</span>
+<span class="go">6.16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.air_humidity.eair2vpd">
+<span class="sig-name descname"><span class="pre">eair2vpd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ea</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/air_humidity.html#eair2vpd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.air_humidity.eair2vpd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Air vapour pressure deficit from partial pressure and temperature</p>
+<p>Air vapour pressure deficit is the difference between the saturation
+vapour pressure of water at a given temperature and the partial pressure
+of water vapour in air.</p>
+<div class="math notranslate nohighlight">
+\[VPD = e_{sat}(T) - e_a\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ea</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Partial pressure of water vapour [Pa]</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Temperature [K]</p></li>
+<li><p><strong>undef</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Exclude <cite>undef</cite> from calculations (default: -9999.)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Air vapour pressure deficit [Pa]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a> or array_like</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vpd</span> <span class="o">=</span> <span class="n">eair2vpd</span><span class="p">(</span><span class="mf">1000.</span><span class="p">,</span> <span class="mf">293.15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vpd</span><span class="p">))</span>
+<span class="go">1335.85</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.air_humidity.esat">
+<span class="sig-name descname"><span class="pre">esat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'GoffGratch'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">liquid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/air_humidity.html#esat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.air_humidity.esat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the saturation vapour pressure over water and/or ice</p>
 <p>For temperatures above (and equal to) 0 degree C (273.15 K),
 the vapour pressure over liquid water is calculated;
@@ -94,10 +238,10 @@ is calculated.</p>
 <li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Temperature [K]</p></li>
 <li><p><strong>formula</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Formula name to use for calculations; case-insensitive.
 Available formulations are:
-GoffGratch (default) <a class="reference internal" href="#r3ec76afde6cd-1" id="id1">[1]</a>, WMO <a class="reference internal" href="#r3ec76afde6cd-2" id="id2">[2]</a>, IAPWS <a class="reference internal" href="#r3ec76afde6cd-3" id="id3">[3]</a>, MagnusTeten <a class="reference internal" href="#r3ec76afde6cd-4" id="id4">[4]</a>,
-MartiMauersberger <a class="reference internal" href="#r3ec76afde6cd-5" id="id5">[5]</a>, Buck_original <a class="reference internal" href="#r3ec76afde6cd-6" id="id6">[6]</a>, Buck <a class="reference internal" href="#r3ec76afde6cd-7" id="id7">[7]</a>, Wexler <a class="reference internal" href="#r3ec76afde6cd-8" id="id8">[8]</a>,
-Sonntag <a class="reference internal" href="#r3ec76afde6cd-9" id="id9">[9]</a>, Bolton <a class="reference internal" href="#r3ec76afde6cd-10" id="id10">[10]</a>, Fukuta <a class="reference internal" href="#r3ec76afde6cd-11" id="id11">[11]</a>, HylandWexler <a class="reference internal" href="#r3ec76afde6cd-12" id="id12">[12]</a>,
-MurphyKoop <a class="reference internal" href="#r3ec76afde6cd-13" id="id13">[13]</a></p>
+GoffGratch (default) <a class="reference internal" href="#r1bda930aff91-1" id="id1">[1]</a>, WMO <a class="reference internal" href="#r1bda930aff91-2" id="id2">[2]</a>, IAPWS <a class="reference internal" href="#r1bda930aff91-3" id="id3">[3]</a>, MagnusTeten <a class="reference internal" href="#r1bda930aff91-4" id="id4">[4]</a>,
+MartiMauersberger <a class="reference internal" href="#r1bda930aff91-5" id="id5">[5]</a>, Buck_original <a class="reference internal" href="#r1bda930aff91-6" id="id6">[6]</a>, Buck <a class="reference internal" href="#r1bda930aff91-7" id="id7">[7]</a>, Wexler <a class="reference internal" href="#r1bda930aff91-8" id="id8">[8]</a>,
+Sonntag <a class="reference internal" href="#r1bda930aff91-9" id="id9">[9]</a>, Bolton <a class="reference internal" href="#r1bda930aff91-10" id="id10">[10]</a>, Fukuta <a class="reference internal" href="#r1bda930aff91-11" id="id11">[11]</a>, HylandWexler <a class="reference internal" href="#r1bda930aff91-12" id="id12">[12]</a>,
+MurphyKoop <a class="reference internal" href="#r1bda930aff91-13" id="id13">[13]</a></p>
 <p>Note that several formulations do not provide a vapour pressure
 formulation over ice and Marti and Mauersberger do not provide
 a formula over liquid: GoffGratch is used in theses cases.</p>
@@ -120,20 +264,20 @@ a formula over liquid: GoffGratch is used in theses cases.</p>
 </div>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
-<div class="citation" id="r3ec76afde6cd-1" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-1" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>Goff Gratch formulation
 Smithsonian Meteorological Tables, 5th edition, p. 350, 1984
 Original source: Goff and Gratch (1946), p. 107</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-2" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-2" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>Intended WMO formulation, originally published by Goff (1957)
 incorrectly referenced by WMO technical regulations,
 WMO-NO 49, Vol I, General Meteorological Standards and
 Recommended Practices, App. A, 1988, Corrigendum Aug 2000</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-3" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-3" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
 <p>Wagner W. and A. Pruss (2002)
 The IAPWS formulation 1995 for the thermodynamic properties
@@ -144,45 +288,45 @@ Association for the Properties of Water and Steam
 The valid range of this formulation is 273.16 &lt;= T &lt;= 647.096 K
 and is based on the ITS90 temperature scale.</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-4" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-4" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
 <p>Murray, F. W., On the computation of saturation vapour pressure,
 J. Appl. Meteorol., 6, 203-204, 1967</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-5" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-5" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
 <p>Marti, J. and K Mauersberger, A survey and new measurements of
 ice vapour pressure at temperatures between 170 and 250 K,
 GRL 20, 363-366, 1993</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-6" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-6" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
 <p>Bucks vapour pressure formulation based on Tetens formula
 Buck, A. L., New equations for computing vapour pressure and
 enhancement factor, J. Appl. Meteorol., 20, 1527-1532, 1981</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-7" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-7" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
 <p>Bucks vapour pressure formulation based on Tetens formula
 Buck Research, Model CR-1A Hygrometer Operating Manual, Sep 2001</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-8" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-8" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">8</a><span class="fn-bracket">]</span></span>
 <p>Wexler, A., Vapour pressure formulation for ice
 Journal of Research of the National Bureau of Standards-A.
 81A, 5-20, 1977</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-9" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-9" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">9</a><span class="fn-bracket">]</span></span>
 <p>Sonntag, D., Advancements in the field of hygrometry,
 Meteorol. Z., N. F., 3, 51-66, 1994</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-10" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-10" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">10</a><span class="fn-bracket">]</span></span>
 <p>Bolton, D., The computation of equivalent potential temperature
 Monthly Weather Report, 108, 1046-1053, 1980. equation (10)</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-11" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-11" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">11</a><span class="fn-bracket">]</span></span>
 <p>Fukuta, N. and C. M. Gramada, Vapour pressure measurement of
 supercooled water, J. Atmos. Sci., 60, 1871-1875, 2003
@@ -192,13 +336,13 @@ Thus calculate the table value first, then use the correction
 to get to the measured value.
 This is done only for -39 &lt; TC &lt; 0.</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-12" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-12" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">12</a><span class="fn-bracket">]</span></span>
 <p>Hyland, R. W. and A. Wexler, Formulations for the Thermodynamic
 Properties of the saturated Phases of H2O from 173.15K to
 473.15K, ASHRAE Trans, 89(2A), 500-519, 1983</p>
 </div>
-<div class="citation" id="r3ec76afde6cd-13" role="doc-biblioentry">
+<div class="citation" id="r1bda930aff91-13" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">13</a><span class="fn-bracket">]</span></span>
 <p>Murphy and Koop, Review of the vapour pressure of ice and
 supercooled water for atmospheric applications
@@ -263,6 +407,38 @@ Q. J. R. Meteorol. Soc (2005), 131, pp. 1539-1565</p>
 </div>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.air_humidity.rhair2vpd">
+<span class="sig-name descname"><span class="pre">rhair2vpd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">undef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/air_humidity.html#rhair2vpd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.air_humidity.rhair2vpd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Air vapour pressure deficit from relative humidity and temperature</p>
+<p>Air vapour pressure deficit is the difference between the saturation
+vapour pressure of water at a given temperature and the partial pressure
+of water vapour in air.</p>
+<div class="math notranslate nohighlight">
+\[VPD = e_{sat}(T) - h * e_{sat}(T)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Relative humidity [0-1]</p></li>
+<li><p><strong>T</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><em>array_like</em>) – Temperature [K]</p></li>
+<li><p><strong>undef</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Exclude <cite>undef</cite> from calculations (default: -9999.)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Air vapour pressure deficit [Pa]</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a> or array_like</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vpd</span> <span class="o">=</span> <span class="n">rhair2vpd</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">293.15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vpd</span><span class="p">))</span>
+<span class="go">1167.92</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 
 
@@ -296,7 +472,7 @@ Q. J. R. Meteorol. Soc (2005), 131, pp. 1539-1565</p>
 <li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="meteorology.html">Meteorology</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">esat</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Air humidity</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
@@ -353,11 +529,11 @@ Q. J. R. Meteorol. Soc (2005), 131, pp. 1539-1565</p>
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
-      <a href="_sources/esat.rst.txt"
+      <a href="_sources/air_humidity.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

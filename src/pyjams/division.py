@@ -106,7 +106,7 @@ def division(a, b, otherwise=np.nan, prec=0.):
     bb = input2array(b, undef=np.nan, default=1)
 
     bbb = np.where(np.abs(bb) > np.abs(prec), bb, 1)
-    out = np.where(np.abs(bb) > np.abs(prec), aa/bbb, otherwise)
+    out = np.where(np.abs(bb) > np.abs(prec), aa / bbb, otherwise)
 
     out = array2input(out, a, b, undef=np.nan)
 

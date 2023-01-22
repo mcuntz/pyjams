@@ -4,17 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Constants &#8212; pyjams 1.27.dev1 documentation</title>
+    <title>Constants &#8212; pyjams 1.29.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -97,34 +95,40 @@ l’Environnement (INRAE), Nancy, France.</p>
 <td><p>Mathematical constant <span class="math notranslate nohighlight">\(2\pi\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.Sqrt2" title="pyjams.const.const.Sqrt2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sqrt2</span></code></a></p></td>
-<td><p>Mathematical constant <span class="math notranslate nohighlight">\(\sqrt{\pi}\)</span></p></td>
+<td><p>Mathematical constant <span class="math notranslate nohighlight">\(\sqrt{2}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.Gravity" title="pyjams.const.const.Gravity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Gravity</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.sqrt2" title="pyjams.const.const.sqrt2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sqrt2</span></code></a></p></td>
+<td><p>Mathematical constant <span class="math notranslate nohighlight">\(\sqrt{2}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.gravity" title="pyjams.const.const.gravity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gravity</span></code></a></p></td>
 <td><p>Standard average Earth's gravity (<span class="math notranslate nohighlight">\(m^2 s^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.T0" title="pyjams.const.const.T0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T0</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.T0" title="pyjams.const.const.T0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T0</span></code></a></p></td>
 <td><p>0 degree Celsius in Kelvin.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.P0" title="pyjams.const.const.P0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">P0</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.P0" title="pyjams.const.const.P0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">P0</span></code></a></p></td>
 <td><p>Standard pressure (Pa)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.T25" title="pyjams.const.const.T25"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T25</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.T25" title="pyjams.const.const.T25"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T25</span></code></a></p></td>
 <td><p>Standard ambient temperature of 25 <span class="math notranslate nohighlight">\(^\circ C\)</span> in Kelvin [K]</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.sigma" title="pyjams.const.const.sigma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigma</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.sigma" title="pyjams.const.const.sigma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigma</span></code></a></p></td>
 <td><p>Stefan-Boltzmann constant (<span class="math notranslate nohighlight">\(W m^{-2} K^{-4}\)</span>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.R" title="pyjams.const.const.R"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R</span></code></a></p></td>
-<td><p>Ideal gas constant (<span class="math notranslate nohighlight">\(J K^{-1} mol^{-1}\)</span>)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.R" title="pyjams.const.const.R"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R</span></code></a></p></td>
+<td><p>Ideal gas constant R = Na*kB (<span class="math notranslate nohighlight">\(J K^{-1} mol^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.R_air" title="pyjams.const.const.R_air"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R_air</span></code></a></p></td>
-<td><p>Gas constant of dry air (<span class="math notranslate nohighlight">\(J K^{-1} kg^{-1}\)</span>)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.Rair" title="pyjams.const.const.Rair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rair</span></code></a></p></td>
+<td><p>Specific gas constant of dry air Rair = R/molmass_air (<span class="math notranslate nohighlight">\(J K^{-1} kg^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.R_H2O" title="pyjams.const.const.R_H2O"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R_H2O</span></code></a></p></td>
-<td><p>Gas constant of water vapour (<span class="math notranslate nohighlight">\(J K^{-1} kg^{-1}\)</span>)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.Rh2o" title="pyjams.const.const.Rh2o"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rh2o</span></code></a></p></td>
+<td><p>Gas constant of water vapour Rh2o = R/molmass_h2o (<span class="math notranslate nohighlight">\(J K^{-1} kg^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.Na" title="pyjams.const.const.Na"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Na</span></code></a></p></td>
-<td><p>Avogrado number (<span class="math notranslate nohighlight">\(mol^{-1}\)</span>)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.Na" title="pyjams.const.const.Na"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Na</span></code></a></p></td>
+<td><p>Avogadro number (<span class="math notranslate nohighlight">\(mol^{-1}\)</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">kB</span></code></p></td>
+<td><p>Boltzmann constant (<span class="math notranslate nohighlight">\(J K^{-1}\)</span>)</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.REarth" title="pyjams.const.const.REarth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">REarth</span></code></a></p></td>
 <td><p>Radius of the Earth (m)</p></td>
@@ -132,43 +136,52 @@ l’Environnement (INRAE), Nancy, France.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.mmol_co2" title="pyjams.const.const.mmol_co2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmol_co2</span></code></a></p></td>
 <td><p>Molar mass of <span class="math notranslate nohighlight">\(CO_2\)</span> (<span class="math notranslate nohighlight">\(g mol^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.mmol_h2o" title="pyjams.const.const.mmol_h2o"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmol_h2o</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.molmass_co2" title="pyjams.const.const.molmass_co2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">molmass_co2</span></code></a></p></td>
+<td><p>Molar mass of <span class="math notranslate nohighlight">\(CO_2\)</span> (<span class="math notranslate nohighlight">\(kg mol^{-1}\)</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.mmol_h2o" title="pyjams.const.const.mmol_h2o"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmol_h2o</span></code></a></p></td>
 <td><p>Molar mass of water (<span class="math notranslate nohighlight">\(g mol^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.mmol_air" title="pyjams.const.const.mmol_air"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmol_air</span></code></a></p></td>
-<td><p>Molar mass of dry air (<span class="math notranslate nohighlight">\(g mol^{-1}\)</span>)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.molmass_h2o" title="pyjams.const.const.molmass_h2o"><code class="xref py py-obj docutils literal notranslate"><span class="pre">molmass_h2o</span></code></a></p></td>
+<td><p>Molar mass of water (<span class="math notranslate nohighlight">\(kg mol^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.density_quartz" title="pyjams.const.const.density_quartz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">density_quartz</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.mmol_air" title="pyjams.const.const.mmol_air"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmol_air</span></code></a></p></td>
+<td><p>Molar mass of dry air of standard atmosphere (<span class="math notranslate nohighlight">\(g mol^{-1}\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.molmass_air" title="pyjams.const.const.molmass_air"><code class="xref py py-obj docutils literal notranslate"><span class="pre">molmass_air</span></code></a></p></td>
+<td><p>Molar mass of dry air (<span class="math notranslate nohighlight">\(kg mol^{-1}\)</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.density_quartz" title="pyjams.const.const.density_quartz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">density_quartz</span></code></a></p></td>
 <td><p>Density of quartz (<span class="math notranslate nohighlight">\(g cm^{-3}\)</span>)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.cheat_quartz" title="pyjams.const.const.cheat_quartz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cheat_quartz</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.cheat_quartz" title="pyjams.const.const.cheat_quartz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cheat_quartz</span></code></a></p></td>
 <td><p>Heat capacity of quartz (<span class="math notranslate nohighlight">\(J kg^-1 K^-1\)</span>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.cheat_water" title="pyjams.const.const.cheat_water"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cheat_water</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.cheat_water" title="pyjams.const.const.cheat_water"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cheat_water</span></code></a></p></td>
 <td><p>Heat capacity of water (<span class="math notranslate nohighlight">\(J kg^{-1} K^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.cheat_air" title="pyjams.const.const.cheat_air"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cheat_air</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.cheat_air" title="pyjams.const.const.cheat_air"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cheat_air</span></code></a></p></td>
 <td><p>Heat capacity of air (<span class="math notranslate nohighlight">\(J kg^{-1} K^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.latentheat_vaporization" title="pyjams.const.const.latentheat_vaporization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latentheat_vaporization</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.latentheat_vaporization" title="pyjams.const.const.latentheat_vaporization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latentheat_vaporization</span></code></a></p></td>
 <td><p>Latent heat of vaporization of water (<span class="math notranslate nohighlight">\(J kg^{-1}\)</span>)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.R13VPDB" title="pyjams.const.const.R13VPDB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R13VPDB</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.R13VPDB" title="pyjams.const.const.R13VPDB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R13VPDB</span></code></a></p></td>
 <td><p><span class="math notranslate nohighlight">\(^{13}C\)</span> isotope ratio of VPDB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.R18VSMOW" title="pyjams.const.const.R18VSMOW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R18VSMOW</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.R18VSMOW" title="pyjams.const.const.R18VSMOW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R18VSMOW</span></code></a></p></td>
 <td><p><span class="math notranslate nohighlight">\(^{18}O\)</span> isotope ratio of VSMOW</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.R2VSMOW" title="pyjams.const.const.R2VSMOW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R2VSMOW</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.R2VSMOW" title="pyjams.const.const.R2VSMOW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R2VSMOW</span></code></a></p></td>
 <td><p>Deuterium= <span class="math notranslate nohighlight">\(^{2}H\)</span> isotope ratio of VSMOW</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.tiny" title="pyjams.const.const.tiny"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tiny</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.tiny" title="pyjams.const.const.tiny"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tiny</span></code></a></p></td>
 <td><p>The smallest positive floating point number with full precision.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.huge" title="pyjams.const.const.huge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">huge</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.huge" title="pyjams.const.const.huge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">huge</span></code></a></p></td>
 <td><p>The largest representable floating point number.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.const.const.eps" title="pyjams.const.const.eps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.const.const.eps" title="pyjams.const.const.eps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eps</span></code></a></p></td>
 <td><p>Numerical precision of floats.</p></td>
 </tr>
 </tbody>
@@ -190,19 +203,16 @@ Nov 2016, Matthias Cuntz</p></li>
 <li><p>Added gas constants for dry air and water, May 2017, RL</p></li>
 <li><p>Using numpy docstring format, May 2020, Matthias Cuntz</p></li>
 <li><p>Added lowercase version of pi constants, May 2020, Matthias Cuntz</p></li>
+<li><p>Updated all constants related to gases for redefinition of
+SI units of 2019, Jan 2023, Matthias Cuntz</p></li>
+<li><p>Renamed some constant for greater consistency, Jan 2023, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py data">
-<dt class="sig sig-object py" id="pyjams.const.const.Gravity">
-<span class="sig-name descname"><span class="pre">Gravity</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9.81</span></em><a class="headerlink" href="#pyjams.const.const.Gravity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Standard average Earth’s gravity (<span class="math notranslate nohighlight">\(m^2 s^{-1}\)</span>)</p>
-</dd></dl>
-
-<dl class="py data">
 <dt class="sig sig-object py" id="pyjams.const.const.Na">
-<span class="sig-name descname"><span class="pre">Na</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6.02214129e+23</span></em><a class="headerlink" href="#pyjams.const.const.Na" title="Permalink to this definition">¶</a></dt>
-<dd><p>Avogrado number (<span class="math notranslate nohighlight">\(mol^{-1}\)</span>)</p>
+<span class="sig-name descname"><span class="pre">Na</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6.02214076e+23</span></em><a class="headerlink" href="#pyjams.const.const.Na" title="Permalink to this definition">¶</a></dt>
+<dd><p>Avogadro number (<span class="math notranslate nohighlight">\(mol^{-1}\)</span>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -231,8 +241,8 @@ Nov 2016, Matthias Cuntz</p></li>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="pyjams.const.const.R">
-<span class="sig-name descname"><span class="pre">R</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8.3144621</span></em><a class="headerlink" href="#pyjams.const.const.R" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ideal gas constant (<span class="math notranslate nohighlight">\(J K^{-1} mol^{-1}\)</span>)</p>
+<span class="sig-name descname"><span class="pre">R</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8.31446261815324</span></em><a class="headerlink" href="#pyjams.const.const.R" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ideal gas constant R = Na*kB (<span class="math notranslate nohighlight">\(J K^{-1} mol^{-1}\)</span>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -260,21 +270,21 @@ Nov 2016, Matthias Cuntz</p></li>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="pyjams.const.const.R_H2O">
-<span class="sig-name descname"><span class="pre">R_H2O</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">461.4</span></em><a class="headerlink" href="#pyjams.const.const.R_H2O" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gas constant of water vapour (<span class="math notranslate nohighlight">\(J K^{-1} kg^{-1}\)</span>)</p>
+<dt class="sig sig-object py" id="pyjams.const.const.Rair">
+<span class="sig-name descname"><span class="pre">Rair</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">287.05799595894405</span></em><a class="headerlink" href="#pyjams.const.const.Rair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific gas constant of dry air Rair = R/molmass_air (<span class="math notranslate nohighlight">\(J K^{-1} kg^{-1}\)</span>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="pyjams.const.const.R_air">
-<span class="sig-name descname"><span class="pre">R_air</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">287.06</span></em><a class="headerlink" href="#pyjams.const.const.R_air" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gas constant of dry air (<span class="math notranslate nohighlight">\(J K^{-1} kg^{-1}\)</span>)</p>
+<dt class="sig sig-object py" id="pyjams.const.const.Rh2o">
+<span class="sig-name descname"><span class="pre">Rh2o</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">461.52280831345604</span></em><a class="headerlink" href="#pyjams.const.const.Rh2o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gas constant of water vapour Rh2o = R/molmass_h2o (<span class="math notranslate nohighlight">\(J K^{-1} kg^{-1}\)</span>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="pyjams.const.const.Sqrt2">
 <span class="sig-name descname"><span class="pre">Sqrt2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.4142135623730951</span></em><a class="headerlink" href="#pyjams.const.const.Sqrt2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mathematical constant <span class="math notranslate nohighlight">\(\sqrt{\pi}\)</span></p>
+<dd><p>Mathematical constant <span class="math notranslate nohighlight">\(\sqrt{2}\)</span></p>
 </dd></dl>
 
 <dl class="py data">
@@ -336,6 +346,12 @@ than 1.0. For example, for 64-bit binary floats in the IEEE-754 standard,
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="pyjams.const.const.gravity">
+<span class="sig-name descname"><span class="pre">gravity</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9.80665</span></em><a class="headerlink" href="#pyjams.const.const.gravity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard average Earth’s gravity (<span class="math notranslate nohighlight">\(m^2 s^{-1}\)</span>)</p>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="pyjams.const.const.huge">
 <span class="sig-name descname"><span class="pre">huge</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.7976931348623157e+308</span></em><a class="headerlink" href="#pyjams.const.const.huge" title="Permalink to this definition">¶</a></dt>
 <dd><p>The largest representable floating point number.</p>
@@ -350,12 +366,12 @@ than 1.0. For example, for 64-bit binary floats in the IEEE-754 standard,
 <dl class="py data">
 <dt class="sig sig-object py" id="pyjams.const.const.mmol_air">
 <span class="sig-name descname"><span class="pre">mmol_air</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">28.9644</span></em><a class="headerlink" href="#pyjams.const.const.mmol_air" title="Permalink to this definition">¶</a></dt>
-<dd><p>Molar mass of dry air (<span class="math notranslate nohighlight">\(g mol^{-1}\)</span>)</p>
+<dd><p>Molar mass of dry air of standard atmosphere (<span class="math notranslate nohighlight">\(g mol^{-1}\)</span>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="pyjams.const.const.mmol_co2">
-<span class="sig-name descname"><span class="pre">mmol_co2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">44.01</span></em><a class="headerlink" href="#pyjams.const.const.mmol_co2" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">mmol_co2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">44.009</span></em><a class="headerlink" href="#pyjams.const.const.mmol_co2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Molar mass of <span class="math notranslate nohighlight">\(CO_2\)</span> (<span class="math notranslate nohighlight">\(g mol^{-1}\)</span>)</p>
 </dd></dl>
 
@@ -363,6 +379,24 @@ than 1.0. For example, for 64-bit binary floats in the IEEE-754 standard,
 <dt class="sig sig-object py" id="pyjams.const.const.mmol_h2o">
 <span class="sig-name descname"><span class="pre">mmol_h2o</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">18.01528</span></em><a class="headerlink" href="#pyjams.const.const.mmol_h2o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Molar mass of water (<span class="math notranslate nohighlight">\(g mol^{-1}\)</span>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pyjams.const.const.molmass_air">
+<span class="sig-name descname"><span class="pre">molmass_air</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0289644</span></em><a class="headerlink" href="#pyjams.const.const.molmass_air" title="Permalink to this definition">¶</a></dt>
+<dd><p>Molar mass of dry air (<span class="math notranslate nohighlight">\(kg mol^{-1}\)</span>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pyjams.const.const.molmass_co2">
+<span class="sig-name descname"><span class="pre">molmass_co2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.044009</span></em><a class="headerlink" href="#pyjams.const.const.molmass_co2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Molar mass of <span class="math notranslate nohighlight">\(CO_2\)</span> (<span class="math notranslate nohighlight">\(kg mol^{-1}\)</span>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pyjams.const.const.molmass_h2o">
+<span class="sig-name descname"><span class="pre">molmass_h2o</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01801528</span></em><a class="headerlink" href="#pyjams.const.const.molmass_h2o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Molar mass of water (<span class="math notranslate nohighlight">\(kg mol^{-1}\)</span>)</p>
 </dd></dl>
 
 <dl class="py data">
@@ -387,6 +421,12 @@ than 1.0. For example, for 64-bit binary floats in the IEEE-754 standard,
 <dt class="sig sig-object py" id="pyjams.const.const.sigma">
 <span class="sig-name descname"><span class="pre">sigma</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5.67e-08</span></em><a class="headerlink" href="#pyjams.const.const.sigma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stefan-Boltzmann constant (<span class="math notranslate nohighlight">\(W m^{-2} K^{-4}\)</span>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pyjams.const.const.sqrt2">
+<span class="sig-name descname"><span class="pre">sqrt2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.4142135623730951</span></em><a class="headerlink" href="#pyjams.const.const.sqrt2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mathematical constant <span class="math notranslate nohighlight">\(\sqrt{2}\)</span></p>
 </dd></dl>
 
 <dl class="py data">
@@ -490,8 +530,8 @@ than 1.0. For example, for 64-bit binary floats in the IEEE-754 standard,
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="_sources/const.const.rst.txt"
