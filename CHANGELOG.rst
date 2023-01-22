@@ -2,6 +2,9 @@ Changelog
 ---------
 
 v1.29 (??? 2023)
+    * Updated all constants related to gases in `const` module for redefinition
+      of SI units of 2019.
+    * Renamed some constant in `const` for greater consistency.
     * Keyword only_use_pyjams_datetimes in `num2date` to be able to use all
       implemented methods of `datetime` class.
     * Allow also CF-calendars in `datetime` class.

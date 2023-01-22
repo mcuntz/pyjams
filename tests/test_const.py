@@ -2,7 +2,7 @@
 """
 This is the unittest for the const module.
 
-python -m unittest -v test_const.py
+python -m unittest -v tests/test_const.py
 python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_const.py
 
 """
@@ -19,9 +19,11 @@ class TestConst(unittest.TestCase):
     def test_const(self):
         import numpy as np
         from pyjams.const import Pi, pi, Pi2, pi2, Pi3, pi3
-        from pyjams.const import TwoPi, Twopi, Sqrt2, Gravity, T0, P0, T25
-        from pyjams.const import sigma, R, R_air, R_H2O, Na, REarth
+        from pyjams.const import TwoPi, Twopi, Sqrt2, sqrt2
+        from pyjams.const import gravity, T0, P0, T25
+        from pyjams.const import sigma, R, Rair, Rh2o, Na, kB, REarth
         from pyjams.const import mmol_co2, mmol_h2o, mmol_air
+        from pyjams.const import molmass_co2, molmass_h2o, molmass_air
         from pyjams.const import density_quartz, cheat_quartz, cheat_water
         from pyjams.const import cheat_air, latentheat_vaporization
         from pyjams.const import R13VPDB, R18VSMOW, R2VSMOW
@@ -36,19 +38,24 @@ class TestConst(unittest.TestCase):
         self.assertEqual(np.around(TwoPi, 4), 6.2832)
         self.assertEqual(np.around(Twopi, 4), 6.2832)
         self.assertEqual(np.around(Sqrt2, 4), 1.4142)
-        self.assertEqual(Gravity, 9.81)
+        self.assertEqual(np.around(sqrt2, 4), 1.4142)
+        self.assertEqual(gravity, 9.80665)
         self.assertEqual(T0, 273.15)
         self.assertEqual(P0, 101325.)
         self.assertEqual(T25, 298.15)
         self.assertEqual(sigma, 5.67e-08)
         self.assertEqual(np.around(R, 4), 8.3145)
-        self.assertEqual(R_air, 287.06)
-        self.assertEqual(R_H2O, 461.4)
-        self.assertEqual(Na, 6.02214129e23)
+        self.assertEqual(np.around(Rair, 4), 287.0421)
+        self.assertEqual(np.around(Rh2o, 4), 461.5228)
+        self.assertEqual(Na, 6.02214076e23)
+        self.assertEqual(kB, 1.380649e-23)
         self.assertEqual(REarth, 6371009.)
-        self.assertEqual(mmol_co2, 44.01)
+        self.assertEqual(mmol_co2, 44.009)
         self.assertEqual(mmol_h2o, 18.01528)
-        self.assertEqual(mmol_air, 28.9644)
+        self.assertEqual(mmol_air, 28.966)
+        self.assertEqual(molmass_co2, 44.009e-3)
+        self.assertEqual(molmass_h2o, 18.01528e-3)
+        self.assertEqual(molmass_air, 28.966e-3)
         self.assertEqual(density_quartz, 2.65)
         self.assertEqual(cheat_quartz, 800.)
         self.assertEqual(cheat_water, 4180.)

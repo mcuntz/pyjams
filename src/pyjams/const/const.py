@@ -43,19 +43,24 @@ Constants:
    pi3
    Twopi
    Sqrt2
-   Gravity
+   sqrt2
+   gravity
    T0
    P0
    T25
    sigma
    R
-   R_air
-   R_H2O
+   Rair
+   Rh2o
    Na
+   kB
    REarth
    mmol_co2
+   molmass_co2
    mmol_h2o
+   molmass_h2o
    mmol_air
+   molmass_air
    density_quartz
    cheat_quartz
    cheat_water
@@ -84,15 +89,20 @@ History
     * Added gas constants for dry air and water, May 2017, RL
     * Using numpy docstring format, May 2020, Matthias Cuntz
     * Added lowercase version of pi constants, May 2020, Matthias Cuntz
+    * Updated all constants related to gases for redefinition of
+      SI units of 2019, Jan 2023, Matthias Cuntz
+    * Renamed some constant for greater consistency, Jan 2023, Matthias Cuntz
+
 """
 from __future__ import division, absolute_import, print_function
 import numpy as np
 
 
 __all__ = [
-    'Pi', 'Pi2', 'Pi3', 'TwoPi', 'pi', 'pi2', 'pi3', 'Twopi', 'Sqrt2',
-    'Gravity', 'T0', 'P0', 'T25', 'sigma', 'R', 'R_air', 'R_H2O',
-    'Na', 'REarth', 'mmol_co2', 'mmol_h2o', 'mmol_air',
+    'Pi', 'Pi2', 'Pi3', 'TwoPi', 'pi', 'pi2', 'pi3', 'Twopi', 'Sqrt2', 'sqrt2',
+    'gravity', 'T0', 'P0', 'T25', 'sigma', 'R', 'Rair', 'Rh2o',
+    'Na', 'REarth', 'mmol_co2', 'molmass_co2', 'mmol_h2o', 'molmass_h2o',
+    'mmol_air', 'molmass_air',
     'density_quartz', 'cheat_quartz', 'cheat_water', 'cheat_air',
     'latentheat_vaporization',
     'R13VPDB', 'R18VSMOW', 'R2VSMOW',
@@ -134,11 +144,62 @@ Mathematical constant :math:`2\pi`
 """
 Sqrt2 = 1.41421356237309504880168872420969807856967
 r"""
-Mathematical constant :math:`\sqrt{\pi}`
+Mathematical constant :math:`\sqrt{2}`
+"""
+sqrt2 = 1.41421356237309504880168872420969807856967
+r"""
+Mathematical constant :math:`\sqrt{2}`
+"""
+
+# Material
+mmol_co2 = 44.009
+r"""
+Molar mass of :math:`CO_2` (:math:`g mol^{-1}`)
+"""
+molmass_co2 = 44.009e-3
+r"""
+Molar mass of :math:`CO_2` (:math:`kg mol^{-1}`)
+"""
+mmol_h2o = 18.01528
+r"""
+Molar mass of water (:math:`g mol^{-1}`)
+"""
+molmass_h2o = 18.01528e-3
+r"""
+Molar mass of water (:math:`kg mol^{-1}`)
+"""
+mmol_air = 28.966
+r"""
+Molar mass of dry air (:math:`g mol^{-1}`)
+"""
+molmass_air = 28.966e-3
+r"""
+Molar mass of dry air (:math:`kg mol^{-1}`)
+"""
+# from Cambell G (1985) Soil Physics with BASIC, Elsevier Science
+density_quartz = 2.65
+r"""
+Density of quartz (:math:`g cm^{-3}`)
+"""
+cheat_quartz = 800.
+r"""
+Heat capacity of quartz (:math:`J kg^-1 K^-1`)
+"""
+cheat_water = 4180.
+r"""
+Heat capacity of water (:math:`J kg^{-1} K^{-1}`)
+"""
+cheat_air = 1010.
+r"""
+Heat capacity of air (:math:`J kg^{-1} K^{-1}`)
+"""
+latentheat_vaporization = 2.45e6
+r"""
+Latent heat of vaporization of water (:math:`J kg^{-1}`)
 """
 
 # Physical
-Gravity = 9.81
+gravity = 9.80665
 r"""
 Standard average Earth's gravity (:math:`m^2 s^{-1}`)
 """
@@ -151,7 +212,7 @@ P0 = 101325.
 """
 Standard pressure (Pa)
 """
-T25 = 298.15
+T25 = T0 + 25.
 r"""
 Standard ambient temperature of 25 :math:`^\circ C` in Kelvin [K]
 """
@@ -159,79 +220,48 @@ sigma = 5.67e-08
 """
 Stefan-Boltzmann constant (:math:`W m^{-2} K^{-4}`)
 """
-R = 8.3144621
+R = 8.31446261815324
+r"""
+Ideal gas constant R = Na*kB (:math:`J K^{-1} mol^{-1}`)
 """
-Ideal gas constant (:math:`J K^{-1} mol^{-1}`)
+Rair = R / molmass_air
+r"""
+Specific gas constant of dry air Rair = R/molmass_air (:math:`J K^{-1} kg^{-1}`)
 """
-R_air = 287.06
+Rh2o = R / molmass_h2o
+r"""
+Gas constant of water vapour Rh2o = R/molmass_h2o (:math:`J K^{-1} kg^{-1}`)
 """
-Gas constant of dry air (:math:`J K^{-1} kg^{-1}`)
+Na = 6.02214076e23
+r"""
+Avogadro number (:math:`mol^{-1}`)
 """
-R_H2O = 461.4
-"""
-Gas constant of water vapour (:math:`J K^{-1} kg^{-1}`)
-"""
-Na = 6.02214129e23
-"""
-Avogrado number (:math:`mol^{-1}`)
+kB = 1.380649e-23
+r"""
+Boltzmann constant (:math:`J K^{-1}`)
 """
 REarth = 6371009.
 """
 Radius of the Earth (m)
 """
 
-# Material
-mmol_co2 = 44.01
-"""
-Molar mass of :math:`CO_2` (:math:`g mol^{-1}`)
-"""
-mmol_h2o = 18.01528
-"""
-Molar mass of water (:math:`g mol^{-1}`)
-"""
-mmol_air = 28.9644
-"""
-Molar mass of dry air (:math:`g mol^{-1}`)
-"""
-# from Cambell G (1985) Soil Physics with BASIC, Elsevier Science
-density_quartz = 2.65
-"""
-Density of quartz (:math:`g cm^{-3}`)
-"""
-cheat_quartz = 800.
-"""
-Heat capacity of quartz (:math:`J kg^-1 K^-1`)
-"""
-cheat_water = 4180.
-"""
-Heat capacity of water (:math:`J kg^{-1} K^{-1}`)
-"""
-cheat_air = 1010.
-"""
-Heat capacity of air (:math:`J kg^{-1} K^{-1}`)
-"""
-latentheat_vaporization = 2.45e6
-"""
-Latent heat of vaporization of water (:math:`J kg^{-1}`)
-"""
-
 # Isotope
 R13VPDB = 0.0112372
-"""
+r"""
 :math:`^{13}C` isotope ratio of VPDB
 """
 R18VSMOW = 2005.2e-6
-"""
+r"""
 :math:`^{18}O` isotope ratio of VSMOW
 """
 R2VSMOW = 155.76e-6
-"""
+r"""
 Deuterium= :math:`^{2}H` isotope ratio of VSMOW
 """
 
 # Computational
 eps = np.finfo(float).eps
-"""
+r"""
 Numerical precision of floats.
 The difference between 1.0 and the next smallest representable float larger
 than 1.0. For example, for 64-bit binary floats in the IEEE-754 standard,
