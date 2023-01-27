@@ -1,9 +1,10 @@
 Changelog
 ---------
 
-v1.29 (??? 2023)
-    * Added functions `eair2rhair`, `eair2vpd`, `rhair2vpd`, `eair2shair`, and
-      `eair2mrair`, for conversions between partial pressure, relative humidity,
+v1.29 (Jan 2023)
+    * Added functions `eair2rhair`, `rhair2eair`, `eair2vpd`, `vpd2eair`,
+      `rhair2vpd`, `vpd2rhair`, `eair2shair`, `shair2eair`, `eair2mrair`,
+      `mrair2eair`, for conversions between partial pressure, relative humidity,
       and specific humidity of water vapour in air.
     * Renamed module `esat` to `air_humidity`.
     * Correct treating of undef if two arrays given in `array2input` helper

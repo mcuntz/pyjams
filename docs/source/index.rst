@@ -154,7 +154,7 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.screening.ee`
      - Same as `screening`
    * - :func:`~pyjams.morris_method.elementary_effects`
-     - Morris measures mu, stddev and mu* 
+     - Morris measures mu, stddev and mu*
    * - :func:`~pyjams.date2date.en2date`
      - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
    * - :func:`~pyjams.date2date.en2fr`
@@ -200,6 +200,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.morris_method.morris_sampling`
      - Sampling of optimised trajectories for Morris measures / Elementary
        Effects
+   * - :func:`~pyjams.mrair2eair`
+     - Partial pressure of water vapour from mixing ratio and total pressure
    * - :func:`~pyjams.readnetcdf.ncinfo`
      - Same as `infonetcdf`
    * - :mod:`~pyjams.ncio`
@@ -213,6 +215,8 @@ Functions and modules (alphabetical)
      - Position arrays of subplots to be used with add_axes
    * - :func:`~pyjams.readnetcdf.readnetcdf`
      - Read variables from netCDF file
+   * - :func:`~pyjams.rhair2eair`
+     - Partial pressure of water vapour from relative humidity and temperature
    * - :func:`~pyjams.rhair2vpd`
      - Air vapour pressure deficit from relative humidity and temperature
    * - :func:`~pyjams.romanliterals.roman2int`
@@ -221,6 +225,8 @@ Functions and modules (alphabetical)
      - Shuffle-Complex-Evolution algorithm for function min(max)imisation
    * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects
+   * - :func:`~pyjams.shair2eair`
+     - Partial pressure of water vapour from specific humidity and total pressure
    * - :func:`~pyjams.text2plot.signature2plot`
      - Write a copyright notice on a plot
    * - :func:`~pyjams.fsread.sread`
@@ -242,6 +248,10 @@ Functions and modules (alphabetical)
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - :func:`~pyjams.date2date.us2fr`
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - :func:`~pyjams.vpd2eair`
+     - Partial pressure of water vapour from air vapour pressure deficit and temperature
+   * - :func:`~pyjams.vpd2rhair`
+     - Relative humidity from air vapour pressure deficit and temperature
    * - :func:`~pyjams.fsread.xlsread`
      - Same as `xread`
    * - :func:`~pyjams.fsread.xlsxread`
@@ -427,8 +437,18 @@ Functions and modules per category
          - Air vapour pressure deficit from partial pressure and temperature
        * - :func:`~pyjams.esat`
          - Saturation vapour pressure over water and ice
+       * - :func:`~pyjams.mrair2eair`
+         - Partial pressure of water vapour from mixing ratio and total pressure
+       * - :func:`~pyjams.rhair2eair`
+         - Partial pressure of water vapour from relative humidity and temperature
        * - :func:`~pyjams.rhair2vpd`
          - Air vapour pressure deficit from relative humidity and temperature
+       * - :func:`~pyjams.shair2eair`
+         - Partial pressure of water vapour from specific humidity and total pressure
+       * - :func:`~pyjams.vpd2eair`
+         - Partial pressure of water vapour from air vapour pressure deficit and temperature
+       * - :func:`~pyjams.vpd2rhair`
+         - Relative humidity from air vapour pressure deficit and temperature
 
 .. _Miscellaneous:
 

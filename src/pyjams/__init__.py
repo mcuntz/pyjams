@@ -105,8 +105,9 @@ from . import functions
 from . import ncio
 
 # air humidity calculations
-from .air_humidity import esat, eair2rhair, eair2vpd, rhair2vpd, eair2shair
-from .air_humidity import eair2mrair
+from .air_humidity import esat, eair2rhair, rhair2eair
+from .air_humidity import eair2vpd, vpd2eair, rhair2vpd, vpd2rhair
+from .air_humidity import eair2shair, shair2eair, eair2mrair, mrair2eair
 # isotopic fractionation factors during liquid-water vapour equilibration
 from .alpha_equ_h2o import alpha_equ_h2o
 # kinetic fractionation of molecular diffusion of water vapour
@@ -167,8 +168,12 @@ from .text2plot import text2plot, abc2plot, signature2plot
 
 __all__ = ['__version__', '__author__',
            'color', 'const', 'functions',
-           'eair2mrair', 'eair2rhair', 'eair2shair', 'eair2vpd', 'esat',
-           'rhair2vpd',
+           'esat',
+           'eair2rhair', 'rhair2eair',
+           'eair2vpd', 'vpd2eair',
+           'rhair2vpd', 'vpd2rhair',
+           'eair2shair', 'shair2eair',
+           'eair2mrair', 'mrair2eair',
            'alpha_equ_h2o', 'alpha_kin_h2o',
            'argmax', 'argmin', 'argsort',
            'gridcellarea',

@@ -193,7 +193,6 @@ class TestEsat(unittest.TestCase):
         import numpy as np
         from numpy.ma import masked
         from pyjams import eair2rhair
-        import warnings
 
         eair = 1000.
         Ta = 293.15
@@ -318,6 +317,136 @@ class TestEsat(unittest.TestCase):
         assert isinstance(eair2rhair(e1, T1), np.ma.MaskedArray)
         self.assertEqual(
             list(np.around(eair2rhair(e1, T1) * 100., 2)),
+            [res2, masked, masked])
+
+    def test_rhair2eair(self):
+        import numpy as np
+        from numpy.ma import masked
+        from pyjams import rhair2eair
+
+        rhair = 0.5
+        Ta = 293.15
+        res2 = 1167.92
+
+        # scalar
+        e1 = rhair
+        T1 = Ta
+        assert isinstance(rhair2eair(e1, T1), float)
+        assert np.around(rhair2eair(e1, T1), 2) == res2
+
+        # list
+        e1 = [rhair, rhair]
+        T1 = Ta
+        assert isinstance(rhair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = rhair
+        T1 = [Ta, Ta]
+        assert isinstance(rhair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = [rhair, rhair]
+        T1 = [Ta, Ta]
+        assert isinstance(rhair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # tuple
+        e1 = tuple(e1)
+        T1 = tuple(T1)
+        assert isinstance(rhair2eair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # ndarray
+        e1 = np.array(e1)
+        T1 = np.array(T1)
+        assert isinstance(rhair2eair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # masked_array
+        e1 = np.ma.array(e1)
+        T1 = np.ma.array(T1)
+        assert isinstance(rhair2eair(e1, T1), np.ndarray)
+        assert isinstance(rhair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # mixed types
+        e1 = [rhair, rhair]
+        T1 = tuple([Ta, Ta])
+        assert isinstance(rhair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = tuple([rhair, rhair])
+        T1 = [Ta, Ta]
+        assert isinstance(rhair2eair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = np.array(e1)
+        T1 = [Ta, Ta]
+        assert isinstance(rhair2eair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = [rhair, rhair]
+        T1 = np.array(T1)
+        assert isinstance(rhair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # undef, scalar
+        e1 = -9998.
+        T1 = Ta
+        assert isinstance(rhair2eair(e1, T1, undef=-9998.), float)
+        assert np.around(rhair2eair(e1, T1, undef=-9998.), 2) == -9998.
+        e1 = -9999.
+        T1 = Ta
+        assert isinstance(rhair2eair(e1, T1), float)
+        assert np.around(rhair2eair(e1, T1), 2) == -9999.
+        e1 = rhair
+        T1 = -9999.
+        assert isinstance(rhair2eair(e1, T1), float)
+        assert np.around(rhair2eair(e1, T1), 2) == -9999.
+
+        # undef, list
+        e1 = [rhair, -9999.]
+        T1 = [Ta, Ta]
+        assert isinstance(rhair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, -9999.])
+        e1 = [rhair, rhair]
+        T1 = [Ta, -9999.]
+        assert isinstance(rhair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, -9999.])
+
+        # undef, masked array
+        e1 = np.ma.array([rhair, -9998., -9999.])
+        T1 = [Ta, Ta, Ta]
+        e1 = np.ma.array(e1, mask=(e1 == -9998.))
+        assert isinstance(rhair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
+            [res2, masked, masked])
+        e1 = [rhair, rhair, rhair]
+        T1 = np.ma.array([Ta, -9998., -9999.])
+        T1 = np.ma.array(T1, mask=(T1 == -9998.))
+        assert isinstance(rhair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(rhair2eair(e1, T1), 2)),
             [res2, masked, masked])
 
     def test_eair2vpd(self):
@@ -450,6 +579,136 @@ class TestEsat(unittest.TestCase):
             list(np.around(eair2vpd(e1, T1), 2)),
             [res2, masked, masked])
 
+    def test_vpd2eair(self):
+        import numpy as np
+        from numpy.ma import masked
+        from pyjams import vpd2eair
+
+        vpd = 1000.
+        Ta = 293.15
+        res2 = 1335.85
+
+        # scalar
+        e1 = vpd
+        T1 = Ta
+        assert isinstance(vpd2eair(e1, T1), float)
+        assert np.around(vpd2eair(e1, T1), 2) == res2
+
+        # list
+        e1 = [vpd, vpd]
+        T1 = Ta
+        assert isinstance(vpd2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = vpd
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = [vpd, vpd]
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # tuple
+        e1 = tuple(e1)
+        T1 = tuple(T1)
+        assert isinstance(vpd2eair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # ndarray
+        e1 = np.array(e1)
+        T1 = np.array(T1)
+        assert isinstance(vpd2eair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # masked_array
+        e1 = np.ma.array(e1)
+        T1 = np.ma.array(T1)
+        assert isinstance(vpd2eair(e1, T1), np.ndarray)
+        assert isinstance(vpd2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # mixed types
+        e1 = [vpd, vpd]
+        T1 = tuple([Ta, Ta])
+        assert isinstance(vpd2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = tuple([vpd, vpd])
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2eair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = np.array(e1)
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2eair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = [vpd, vpd]
+        T1 = np.array(T1)
+        assert isinstance(vpd2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # undef, scalar
+        e1 = -9998.
+        T1 = Ta
+        assert isinstance(vpd2eair(e1, T1, undef=-9998.), float)
+        assert np.around(vpd2eair(e1, T1, undef=-9998.), 2) == -9998.
+        e1 = -9999.
+        T1 = Ta
+        assert isinstance(vpd2eair(e1, T1), float)
+        assert np.around(vpd2eair(e1, T1), 2) == -9999.
+        e1 = vpd
+        T1 = -9999.
+        assert isinstance(vpd2eair(e1, T1), float)
+        assert np.around(vpd2eair(e1, T1), 2) == -9999.
+
+        # undef, list
+        e1 = [vpd, -9999.]
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, -9999.])
+        e1 = [vpd, vpd]
+        T1 = [Ta, -9999.]
+        assert isinstance(vpd2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, -9999.])
+
+        # undef, masked array
+        e1 = np.ma.array([vpd, -9998., -9999.])
+        T1 = [Ta, Ta, Ta]
+        e1 = np.ma.array(e1, mask=(e1 == -9998.))
+        assert isinstance(vpd2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, masked, masked])
+        e1 = [vpd, vpd, vpd]
+        T1 = np.ma.array([Ta, -9998., -9999.])
+        T1 = np.ma.array(T1, mask=(T1 == -9998.))
+        assert isinstance(vpd2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(vpd2eair(e1, T1), 2)),
+            [res2, masked, masked])
+
     def test_rhair2vpd(self):
         import numpy as np
         from numpy.ma import masked
@@ -580,11 +839,140 @@ class TestEsat(unittest.TestCase):
             list(np.around(rhair2vpd(rhair1, T1), 2)),
             [res2, masked, masked])
 
+    def test_vpd2rhair(self):
+        import numpy as np
+        from numpy.ma import masked
+        from pyjams import vpd2rhair
+
+        vpd = 1000.
+        Ta = 293.15
+        res2 = 57.19
+
+        # scalar
+        e1 = vpd
+        T1 = Ta
+        assert isinstance(vpd2rhair(e1, T1), float)
+        assert np.around(vpd2rhair(e1, T1) * 100., 2) == res2
+
+        # list
+        e1 = [vpd, vpd]
+        T1 = Ta
+        assert isinstance(vpd2rhair(e1, T1), list)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, res2])
+        e1 = vpd
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2rhair(e1, T1), list)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, res2])
+        e1 = [vpd, vpd]
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2rhair(e1, T1), list)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, res2])
+
+        # tuple
+        e1 = tuple(e1)
+        T1 = tuple(T1)
+        assert isinstance(vpd2rhair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, res2])
+
+        # ndarray
+        e1 = np.array(e1)
+        T1 = np.array(T1)
+        assert isinstance(vpd2rhair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(vpd2rhair(e1, T1) * 100., 2)),
+            [res2, res2])
+
+        # masked_array
+        e1 = np.ma.array(e1)
+        T1 = np.ma.array(T1)
+        assert isinstance(vpd2rhair(e1, T1), np.ndarray)
+        assert isinstance(vpd2rhair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(vpd2rhair(e1, T1) * 100., 2)),
+            [res2, res2])
+
+        # mixed types
+        e1 = [vpd, vpd]
+        T1 = tuple([Ta, Ta])
+        assert isinstance(vpd2rhair(e1, T1), list)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, res2])
+        e1 = tuple([vpd, vpd])
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2rhair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, res2])
+        e1 = np.array(e1)
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2rhair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(vpd2rhair(e1, T1) * 100., 2)),
+            [res2, res2])
+        e1 = [vpd, vpd]
+        T1 = np.array(T1)
+        assert isinstance(vpd2rhair(e1, T1), list)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, res2])
+
+        # undef, scalar
+        e1 = -9998.
+        T1 = Ta
+        assert isinstance(vpd2rhair(e1, T1, undef=-9998.), float)
+        assert np.around(vpd2rhair(e1, T1, undef=-9998.), 2) == -9998.
+        e1 = -9999.
+        T1 = Ta
+        assert isinstance(vpd2rhair(e1, T1), float)
+        assert np.around(vpd2rhair(e1, T1), 2) == -9999.
+        e1 = vpd
+        T1 = -9999.
+        assert isinstance(vpd2rhair(e1, T1), float)
+        assert np.around(vpd2rhair(e1, T1), 2) == -9999.
+
+        # undef, list
+        e1 = [vpd, -9999.]
+        T1 = [Ta, Ta]
+        assert isinstance(vpd2rhair(e1, T1), list)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, -9999. * 100.])
+        e1 = [vpd, vpd]
+        T1 = [Ta, -9999.]
+        assert isinstance(vpd2rhair(e1, T1), list)
+        self.assertEqual(
+            list(np.around([ ee * 100. for ee in vpd2rhair(e1, T1)], 2)),
+            [res2, -9999. * 100.])
+
+        # undef, masked array
+        e1 = np.ma.array([vpd, -9998., -9999.])
+        T1 = [Ta, Ta, Ta]
+        e1 = np.ma.array(e1, mask=(e1 == -9998.))
+        assert isinstance(vpd2rhair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(vpd2rhair(e1, T1) * 100., 2)),
+            [res2, masked, masked])
+        e1 = [vpd, vpd, vpd]
+        T1 = np.ma.array([Ta, -9998., -9999.])
+        T1 = np.ma.array(T1, mask=(T1 == -9998.))
+        assert isinstance(vpd2rhair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(vpd2rhair(e1, T1) * 100., 2)),
+            [res2, masked, masked])
+
     def test_eair2shair(self):
         import numpy as np
         from numpy.ma import masked
         from pyjams import eair2shair
-        import warnings
 
         eair = 1000.
         Pa = 101325.
@@ -709,6 +1097,136 @@ class TestEsat(unittest.TestCase):
         assert isinstance(eair2shair(e1, P1), np.ma.MaskedArray)
         self.assertEqual(
             list(np.around(eair2shair(e1, P1) * 1000., 2)),
+            [res2, masked, masked])
+
+    def test_shair2eair(self):
+        import numpy as np
+        from numpy.ma import masked
+        from pyjams import shair2eair
+
+        shair = 0.006
+        Pa = 101325.
+        res2 = 973.89
+
+        # scalar
+        e1 = shair
+        T1 = Pa
+        assert isinstance(shair2eair(e1, T1), float)
+        assert np.around(shair2eair(e1, T1), 2) == res2
+
+        # list
+        e1 = [shair, shair]
+        T1 = Pa
+        assert isinstance(shair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = shair
+        T1 = [Pa, Pa]
+        assert isinstance(shair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = [shair, shair]
+        T1 = [Pa, Pa]
+        assert isinstance(shair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # tuple
+        e1 = tuple(e1)
+        T1 = tuple(T1)
+        assert isinstance(shair2eair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # ndarray
+        e1 = np.array(e1)
+        T1 = np.array(T1)
+        assert isinstance(shair2eair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # masked_array
+        e1 = np.ma.array(e1)
+        T1 = np.ma.array(T1)
+        assert isinstance(shair2eair(e1, T1), np.ndarray)
+        assert isinstance(shair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # mixed types
+        e1 = [shair, shair]
+        T1 = tuple([Pa, Pa])
+        assert isinstance(shair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = tuple([shair, shair])
+        T1 = [Pa, Pa]
+        assert isinstance(shair2eair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = np.array(e1)
+        T1 = [Pa, Pa]
+        assert isinstance(shair2eair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = [shair, shair]
+        T1 = np.array(T1)
+        assert isinstance(shair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # undef, scalar
+        e1 = -9998.
+        T1 = Pa
+        assert isinstance(shair2eair(e1, T1, undef=-9998.), float)
+        assert np.around(shair2eair(e1, T1, undef=-9998.), 2) == -9998.
+        e1 = -9999.
+        T1 = Pa
+        assert isinstance(shair2eair(e1, T1), float)
+        assert np.around(shair2eair(e1, T1), 2) == -9999.
+        e1 = shair
+        T1 = -9999.
+        assert isinstance(shair2eair(e1, T1), float)
+        assert np.around(shair2eair(e1, T1), 2) == -9999.
+
+        # undef, list
+        e1 = [shair, -9999.]
+        T1 = [Pa, Pa]
+        assert isinstance(shair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, -9999.])
+        e1 = [shair, shair]
+        T1 = [Pa, -9999.]
+        assert isinstance(shair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, -9999.])
+
+        # undef, masked array
+        e1 = np.ma.array([shair, -9998., -9999.])
+        T1 = [Pa, Pa, Pa]
+        e1 = np.ma.array(e1, mask=(e1 == -9998.))
+        assert isinstance(shair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
+            [res2, masked, masked])
+        e1 = [shair, shair, shair]
+        T1 = np.ma.array([Pa, -9998., -9999.])
+        T1 = np.ma.array(T1, mask=(T1 == -9998.))
+        assert isinstance(shair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(shair2eair(e1, T1), 2)),
             [res2, masked, masked])
 
     def test_eair2mrair(self):
@@ -975,6 +1493,263 @@ class TestEsat(unittest.TestCase):
         assert isinstance(eair2mrair(e1, P1, mol=True), np.ma.MaskedArray)
         self.assertEqual(
             list(np.around(eair2mrair(e1, P1, mol=True) * 1000., 2)),
+            [res2, masked, masked])
+
+    def test_mrair2eair(self):
+        import numpy as np
+        from numpy.ma import masked
+        from pyjams import mrair2eair
+
+        mrair = 0.006
+        Pa = 101325.
+        res2 = 968.10
+
+        # scalar
+        e1 = mrair
+        T1 = Pa
+        assert isinstance(mrair2eair(e1, T1), float)
+        assert np.around(mrair2eair(e1, T1), 2) == res2
+
+        # list
+        e1 = [mrair, mrair]
+        T1 = Pa
+        assert isinstance(mrair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = mrair
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = [mrair, mrair]
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # tuple
+        e1 = tuple(e1)
+        T1 = tuple(T1)
+        assert isinstance(mrair2eair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # ndarray
+        e1 = np.array(e1)
+        T1 = np.array(T1)
+        assert isinstance(mrair2eair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # masked_array
+        e1 = np.ma.array(e1)
+        T1 = np.ma.array(T1)
+        assert isinstance(mrair2eair(e1, T1), np.ndarray)
+        assert isinstance(mrair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # mixed types
+        e1 = [mrair, mrair]
+        T1 = tuple([Pa, Pa])
+        assert isinstance(mrair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = tuple([mrair, mrair])
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1), tuple)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = np.array(e1)
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1), np.ndarray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+        e1 = [mrair, mrair]
+        T1 = np.array(T1)
+        assert isinstance(mrair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, res2])
+
+        # undef, scalar
+        e1 = -9998.
+        T1 = Pa
+        assert isinstance(mrair2eair(e1, T1, undef=-9998.), float)
+        assert np.around(mrair2eair(e1, T1, undef=-9998.), 2) == -9998.
+        e1 = -9999.
+        T1 = Pa
+        assert isinstance(mrair2eair(e1, T1), float)
+        assert np.around(mrair2eair(e1, T1), 2) == -9999.
+        e1 = mrair
+        T1 = -9999.
+        assert isinstance(mrair2eair(e1, T1), float)
+        assert np.around(mrair2eair(e1, T1), 2) == -9999.
+
+        # undef, list
+        e1 = [mrair, -9999.]
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, -9999.])
+        e1 = [mrair, mrair]
+        T1 = [Pa, -9999.]
+        assert isinstance(mrair2eair(e1, T1), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, -9999.])
+
+        # undef, masked array
+        e1 = np.ma.array([mrair, -9998., -9999.])
+        T1 = [Pa, Pa, Pa]
+        e1 = np.ma.array(e1, mask=(e1 == -9998.))
+        assert isinstance(mrair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, masked, masked])
+        e1 = [mrair, mrair, mrair]
+        T1 = np.ma.array([Pa, -9998., -9999.])
+        T1 = np.ma.array(T1, mask=(T1 == -9998.))
+        assert isinstance(mrair2eair(e1, T1), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1), 2)),
+            [res2, masked, masked])
+
+        # mol = True
+
+        mrair = 0.006
+        Pa = 101325.
+        res2 = 604.32
+
+        # scalar
+        e1 = mrair
+        T1 = Pa
+        assert isinstance(mrair2eair(e1, T1, mol=True), float)
+        assert np.around(mrair2eair(e1, T1, mol=True), 2) == res2
+
+        # list
+        e1 = [mrair, mrair]
+        T1 = Pa
+        assert isinstance(mrair2eair(e1, T1, mol=True), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+        e1 = mrair
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1, mol=True), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+        e1 = [mrair, mrair]
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1, mol=True), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+
+        # tuple
+        e1 = tuple(e1)
+        T1 = tuple(T1)
+        assert isinstance(mrair2eair(e1, T1, mol=True), tuple)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+
+        # ndarray
+        e1 = np.array(e1)
+        T1 = np.array(T1)
+        assert isinstance(mrair2eair(e1, T1, mol=True), np.ndarray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+
+        # masked_array
+        e1 = np.ma.array(e1)
+        T1 = np.ma.array(T1)
+        assert isinstance(mrair2eair(e1, T1, mol=True), np.ndarray)
+        assert isinstance(mrair2eair(e1, T1, mol=True), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+
+        # mixed types
+        e1 = [mrair, mrair]
+        T1 = tuple([Pa, Pa])
+        assert isinstance(mrair2eair(e1, T1, mol=True), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+        e1 = tuple([mrair, mrair])
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1, mol=True), tuple)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+        e1 = np.array(e1)
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1, mol=True), np.ndarray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+        e1 = [mrair, mrair]
+        T1 = np.array(T1)
+        assert isinstance(mrair2eair(e1, T1, mol=True), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, res2])
+
+        # undef, scalar
+        e1 = -9998.
+        T1 = Pa
+        assert isinstance(mrair2eair(e1, T1, undef=-9998.), float)
+        assert np.around(mrair2eair(e1, T1, undef=-9998.), 2) == -9998.
+        e1 = -9999.
+        T1 = Pa
+        assert isinstance(mrair2eair(e1, T1, mol=True), float)
+        assert np.around(mrair2eair(e1, T1, mol=True), 2) == -9999.
+        e1 = mrair
+        T1 = -9999.
+        assert isinstance(mrair2eair(e1, T1, mol=True), float)
+        assert np.around(mrair2eair(e1, T1, mol=True), 2) == -9999.
+
+        # undef, list
+        e1 = [mrair, -9999.]
+        T1 = [Pa, Pa]
+        assert isinstance(mrair2eair(e1, T1, mol=True), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, -9999.])
+        e1 = [mrair, mrair]
+        T1 = [Pa, -9999.]
+        assert isinstance(mrair2eair(e1, T1, mol=True), list)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, -9999.])
+
+        # undef, masked array
+        e1 = np.ma.array([mrair, -9998., -9999.])
+        T1 = [Pa, Pa, Pa]
+        e1 = np.ma.array(e1, mask=(e1 == -9998.))
+        assert isinstance(mrair2eair(e1, T1, mol=True), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
+            [res2, masked, masked])
+        e1 = [mrair, mrair, mrair]
+        T1 = np.ma.array([Pa, -9998., -9999.])
+        T1 = np.ma.array(T1, mask=(T1 == -9998.))
+        assert isinstance(mrair2eair(e1, T1, mol=True), np.ma.MaskedArray)
+        self.assertEqual(
+            list(np.around(mrair2eair(e1, T1, mol=True), 2)),
             [res2, masked, masked])
 
 

@@ -20,8 +20,13 @@ The following functions are provided
    eair2rhair
    eair2shair
    eair2vpd
-   rhair2vpd
    esat
+   mrair2eair
+   rhair2eair
+   rhair2vpd
+   shair2eair
+   vpd2eair
+   vpd2rhair
 
 History
     * Written Jan 2012 by Matthias Cuntz (mc (at) macu (dot) de)
@@ -51,8 +56,12 @@ from .helper import input2array, array2input
 from pyjams.const import T0, P0, molmass_air, molmass_h2o
 
 
-__all__ = ['esat', 'eair2rhair', 'eair2vpd', 'rhair2vpd', 'eair2shair',
-           'eair2mrair']
+__all__ = ['esat',
+           'eair2rhair', 'rhair2eair',
+           'eair2vpd', 'vpd2eair',
+           'rhair2vpd', 'vpd2rhair',
+           'eair2shair', 'shair2eair',
+           'eair2mrair', 'mrair2eair']
 
 
 def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
@@ -464,6 +473,47 @@ def eair2rhair(ea, T, undef=-9999.):
     return out
 
 
+def rhair2eair(rh, T, undef=-9999.):
+    """
+    Partial pressure of water vapour from relative humidity and temperature
+
+    Relative humidity is the ratio of the partial pressure of water vapour
+    in air to the saturation vapour pressure of water at the same temperature.
+
+    .. math::
+       e_a = h * e_{sat}(T)
+
+    Parameters
+    ----------
+    rh : float or array_like
+        Relative humidity of air [0-1]
+    T : float or array_like
+        Temperature [K]
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Partial pressure of water vapour [Pa]
+
+    Examples
+    --------
+    >>> ea = rhair2eair(0.5, 293.15)
+    >>> print('{:.2f}'.format(ea))
+    1167.92
+
+    """
+    rh_in = input2array(rh, undef=undef, default=0)
+    T_in = input2array(T, undef=undef, default=T0)
+
+    out = rh_in * esat(T_in)
+
+    out = array2input(out, rh, T, undef=undef)
+
+    return out
+
+
 def eair2vpd(ea, T, undef=-9999.):
     """
     Air vapour pressure deficit from partial pressure and temperature
@@ -502,6 +552,48 @@ def eair2vpd(ea, T, undef=-9999.):
     out = esat(T_in) - ea_in
 
     out = array2input(out, ea, T, undef=undef)
+
+    return out
+
+
+def vpd2eair(vpd, T, undef=-9999.):
+    """
+    Partial pressure of vapour from air vapour pressure deficit and temperature
+
+    Air vapour pressure deficit is the difference between the saturation
+    vapour pressure of water at a given temperature and the partial pressure
+    of water vapour in air.
+
+    .. math::
+       e_a = e_{sat}(T) - VPD
+
+    Parameters
+    ----------
+    vpd : float or array_like
+        Air vapour pressure deficit [Pa]
+    T : float or array_like
+        Temperature [K]
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Partial pressure of water vapour [Pa]
+
+    Examples
+    --------
+    >>> ea = vpd2eair(1000., 293.15)
+    >>> print('{:.2f}'.format(ea))
+    1335.85
+
+    """
+    vpd_in = input2array(vpd, undef=undef, default=0)
+    T_in = input2array(T, undef=undef, default=T0)
+
+    out = esat(T_in) - vpd_in
+
+    out = array2input(out, vpd, T, undef=undef)
 
     return out
 
@@ -548,6 +640,48 @@ def rhair2vpd(rh, T, undef=-9999.):
     return out
 
 
+def vpd2rhair(vpd, T, undef=-9999.):
+    """
+    Relative humidity from air vapour pressure deficit and temperature
+
+    Air vapour pressure deficit is the difference between the saturation
+    vapour pressure of water at a given temperature and the partial pressure
+    of water vapour in air.
+
+    .. math::
+       h = 1 - VPD / e_{sat}(T)
+
+    Parameters
+    ----------
+    vpd : float or array_like
+        Air vapour pressure deficit [Pa]
+    T : float or array_like
+        Temperature [K]
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Relative humidity [0-1]
+
+    Examples
+    --------
+    >>> rh = vpd2rhair(1000., 293.15)
+    >>> print('{:.2f}'.format(rh))
+    0.57
+
+    """
+    vpd_in = input2array(vpd, undef=undef, default=0)
+    T_in = input2array(T, undef=undef, default=T0)
+
+    out = 1. - vpd_in / esat(T_in)
+
+    out = array2input(out, vpd, T, undef=undef)
+
+    return out
+
+
 def eair2shair(ea, p, undef=-9999.):
     """
     Specific humidity from partial pressure of water vapour and total pressure
@@ -584,6 +718,44 @@ def eair2shair(ea, p, undef=-9999.):
     out = mw / (md + mw)
 
     out = array2input(out, ea, p, undef=undef)
+
+    return out
+
+
+def shair2eair(sh, p, undef=-9999.):
+    """
+    Partial pressure of water vapour from specific humidity and total pressure
+
+    Specific humidity is the ratio of the mass of water vapour to the total
+    wet mass of the air parcel.
+
+    Parameters
+    ----------
+    sh : float or array_like
+        Specific humidity [kg/kg]
+    p : float or array_like
+        Total air pressure [Pa]
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Partial pressure of water vapour [Pa]
+
+    Examples
+    --------
+    >>> ea = shair2eair(0.006, 101325.)
+    >>> print('{:.2f}'.format(ea))
+    973.89
+
+    """
+    sh_in = input2array(sh, undef=undef, default=0)
+    p_in = input2array(p, undef=undef, default=P0)
+
+    out = sh_in * p_in / (sh_in + (1. - sh_in) * molmass_h2o / molmass_air)
+
+    out = array2input(out, sh, p, undef=undef)
 
     return out
 
@@ -634,6 +806,53 @@ def eair2mrair(ea, p, mol=False, undef=-9999.):
     out = mw / md
 
     out = array2input(out, ea, p, undef=undef)
+
+    return out
+
+
+def mrair2eair(mr, p, mol=False, undef=-9999.):
+    """
+    Partial pressure of water vapour from mixing ratio and total pressure
+
+    Mixing ratio is the ratio of the mass of water vapour to the total
+    dry mass of the air parcel.
+
+    Parameters
+    ----------
+    mr : float or array_like
+        Mixing ratio [kg/kg] (or in [mol/mol] if `mol==True`)
+    p : float or array_like
+        Total air pressure [Pa]
+    mol : bool, optional
+        It True, input mixing ratio is in mol/mol instead of kg/kg
+    undef : float, optional
+        Exclude `undef` from calculations (default: -9999.)
+
+    Returns
+    -------
+    float or array_like
+        Partial pressure of water vapour [Pa]
+
+    Examples
+    --------
+    >>> ea = mrair2eair(0.006, 101325.)
+    >>> print('{:.2f}'.format(ea))
+    968.10
+
+    >>> ea = mrair2eair(0.006, 101325., mol=True)
+    >>> print('{:.2f}'.format(ea))
+    604.32
+
+    """
+    mr_in = input2array(mr, undef=undef, default=0)
+    p_in = input2array(p, undef=undef, default=P0)
+
+    if mol:
+        out = mr_in * p_in / (1. + mr_in)
+    else:
+        out = mr_in * p_in / (molmass_h2o / molmass_air + mr_in)
+
+    out = array2input(out, mr, p, undef=undef)
 
     return out
 

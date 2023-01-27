@@ -202,6 +202,8 @@ Functions and modules (alphabetical)
    * - morris_sampling
      - Sampling of optimised trajectories for Morris measures / Elementary
        Effects
+   * - mrair2eair
+     - Partial pressure of water vapour from mixing ratio and total pressure
    * - ncinfo
      - Same as `infonetcdf`
    * - ncio
@@ -215,6 +217,8 @@ Functions and modules (alphabetical)
      - Position arrays of subplots to be used with add_axes
    * - readnetcdf
      - Read variables from netCDF file
+   * - rhair2eair
+     - Partial pressure of water vapour from relative humidity and temperature
    * - rhair2vpd
      - Air vapour pressure deficit from relative humidity and temperature
    * - roman2int
@@ -223,6 +227,8 @@ Functions and modules (alphabetical)
      - Shuffle-Complex-Evolution algorithm for function min(max)imisation
    * - screening
      - Parameter screening using Morris' method of Elementary Effects
+   * - shair2eair
+     - Partial pressure of water vapour from specific humidity and total pressure
    * - signature2plot
      - Write a copyright notice on a plot
    * - sread
@@ -244,6 +250,10 @@ Functions and modules (alphabetical)
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - us2fr
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+   * - vpd2eair
+     - Partial pressure of water vapour from air vapour pressure deficit and temperature
+   * - vpd2rhair
+     - Relative humidity from air vapour pressure deficit and temperature
    * - xlsread
      - Same as `xread`
    * - xlsxread
@@ -429,8 +439,18 @@ Functions and modules per category
          - Air vapour pressure deficit from partial pressure and temperature
        * - esat
          - Saturation vapour pressure over water and ice
+       * - mrair2eair
+         - Partial pressure of water vapour from mixing ratio and total pressure
+       * - rhair2eair
+         - Partial pressure of water vapour from relative humidity and temperature
        * - rhair2vpd
          - Air vapour pressure deficit from relative humidity and temperature
+       * - shair2eair
+         - Partial pressure of water vapour from specific humidity and total pressure
+       * - vpd2eair
+         - Partial pressure of water vapour from air vapour pressure deficit and temperature
+       * - vpd2rhair
+         - Relative humidity from air vapour pressure deficit and temperature
 
 .. _Miscellaneous:
 
