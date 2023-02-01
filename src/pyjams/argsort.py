@@ -36,8 +36,7 @@ __all__ = ['argmax', 'argmin', 'argsort']
 
 def argmax(a, *args, **kwargs):
     """
-    Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
-    iterables.
+    Wrapper for numpy.argmax, numpy.ma.argmax, and max for Python iterables
 
     Passes all keywords directly to the individual routines, i.e.
 
@@ -140,8 +139,7 @@ def argmax(a, *args, **kwargs):
 
 def argmin(a, *args, **kwargs):
     """
-    Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
-    iterables
+    Wrapper for numpy.argmin, numpy.ma.argmin, and min for Python iterables
 
     Passes all keywords directly to the individual routines, i.e.
 
@@ -244,7 +242,7 @@ def argmin(a, *args, **kwargs):
 
 def argsort(a, *args, **kwargs):
     """
-    Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
+    Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for Python
     iterables
 
     Passes all keywords directly to the individual routines, i.e.

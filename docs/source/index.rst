@@ -105,13 +105,13 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.alpha_kin_h2o`
      - Kinetic fractionation of molecular diffusion of water vapour
    * - :func:`~pyjams.argsort.argmax`
-     - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+     - Wrapper for numpy.argmax, numpy.ma.argmax, and max for Python
        iterables
    * - :func:`~pyjams.argsort.argmin`
-     - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+     - Wrapper for numpy.argmin, numpy.ma.argmin, and min for Python
        iterables
    * - :func:`~pyjams.argsort.argsort`
-     - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
+     - Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for Python
        iterables
    * - :func:`~pyjams.closest`
      - Index in array which entry is closest to a given number
@@ -122,7 +122,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.date2date.date2date`
      - Convert date representations between different regional variants
    * - :func:`~pyjams.class_datetime.date2dec`
-     - Same as `date2num`
+     - Return numeric time values given datetime objects or strings,
+       same as `date2num`
    * - :func:`~pyjams.date2date.date2en`
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - :func:`~pyjams.date2date.date2fr`
@@ -134,7 +135,7 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.class_datetime.datetime`
      - Class as cftime.datetime for non-CF-conform calendars
    * - :func:`~pyjams.class_datetime.dec2date`
-     - Same as `num2date`
+     - Return datetime objects given numeric time values, same as `num2date`
    * - :func:`~pyjams.fgui.directories_from_gui`
      - Open dialog to select one directory
    * - :func:`~pyjams.fgui.directory_from_gui`
@@ -142,7 +143,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.division.division`
      - Divide two arrays, return 'otherwise' if division by 0
    * - :func:`~pyjams.division.div`
-     - Same as `division`
+     - Divide two arrays, return 'otherwise' if division by 0,
+       same as `division`
    * - :func:`~pyjams.eair2mrair`
      - Mixing ratio from partial pressure of water vapour and total pressure
    * - :func:`~pyjams.eair2rhair`
@@ -152,7 +154,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.eair2vpd`
      - Air vapour pressure deficit from partial pressure and temperature
    * - :func:`~pyjams.screening.ee`
-     - Same as `screening`
+     - Parameter screening using Morris' method of Elementary Effects,
+       same as `screening`
    * - :func:`~pyjams.morris_method.elementary_effects`
      - Morris measures mu, stddev and mu*
    * - :func:`~pyjams.date2date.en2date`
@@ -184,7 +187,7 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.gridcellarea`
      - Area of grid cells on Earth
    * - :func:`~pyjams.readnetcdf.infonetcdf`
-     - Extract information from netCDF file
+     - Extract information from netCDF file, same as :func:`ncinfo`
    * - :func:`~pyjams.romanliterals.int2roman`
      - Integer to Roman numeral conversion
    * - :func:`~pyjams.kernel_regression`
@@ -203,18 +206,18 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.mrair2eair`
      - Partial pressure of water vapour from mixing ratio and total pressure
    * - :func:`~pyjams.readnetcdf.ncinfo`
-     - Same as `infonetcdf`
+     - Extract information from netCDF file
    * - :mod:`~pyjams.ncio`
      - netCDF4 functions to copy a netcdf file while doing some
        transformations on variables and dimensions
    * - :func:`~pyjams.readnetcdf.ncread`
-     - Same as `readnetcdf`
+     - Read variables from netCDF file
    * - :func:`~pyjams.class_datetime.num2date`
      - Return datetime objects given numeric time values
    * - :func:`~pyjams.position`
      - Position arrays of subplots to be used with add_axes
    * - :func:`~pyjams.readnetcdf.readnetcdf`
-     - Read variables from netCDF file
+     - Read variables from netCDF file, same as `ncread`
    * - :func:`~pyjams.rhair2eair`
      - Partial pressure of water vapour from relative humidity and temperature
    * - :func:`~pyjams.rhair2vpd`
@@ -253,9 +256,11 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.vpd2rhair`
      - Relative humidity from air vapour pressure deficit and temperature
    * - :func:`~pyjams.fsread.xlsread`
-     - Same as `xread`
+     - Read numbers and strings from Excel file into 2D float and string arrays,
+       same as `xread`
    * - :func:`~pyjams.fsread.xlsxread`
-     - Same as `xread`
+     - Read numbers and strings from Excel file into 2D float and string arrays,
+       same as `xread`
    * - :func:`~pyjams.fsread.xread`
      - Read numbers and strings from Excel file into 2D float and string arrays
 
@@ -272,13 +277,13 @@ Functions and modules per category
        * - Function/module
          - Short description
        * - :func:`~pyjams.argsort.argmax`
-         - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+         - Wrapper for numpy.argmax, numpy.ma.argmax, and  max for Python
            iterables
        * - :func:`~pyjams.argsort.argmin`
-         - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+         - Wrapper for numpy.argmin, numpy.ma.argmin, and min for Python
            iterables
        * - :func:`~pyjams.argsort.argsort`
-         - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for
+         - Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for
            Python iterables
        * - :func:`~pyjams.closest`
          - Index in array which entry is closest to a given number
@@ -329,7 +334,8 @@ Functions and modules per category
        * - :func:`~pyjams.date2date.date2date`
          - Convert date representations between different regional variants
        * - :func:`~pyjams.class_datetime.date2dec`
-         - Same as `date2num`
+         - Return numeric time values given datetime objects or strings,
+           same as `date2num`
        * - :func:`~pyjams.date2date.date2en`
          - Convert dates to English date format YYYY-MM-DD hh:mm:ss
        * - :func:`~pyjams.date2date.date2fr`
@@ -341,7 +347,8 @@ Functions and modules per category
        * - :func:`~pyjams.class_datetime.datetime`
          - Class as cftime.datetime for non-CF-conform calendars
        * - :func:`~pyjams.class_datetime.dec2date`
-         - Same as `num2date`
+         - Return datetime objects given numeric time values,
+           same as `num2date`
        * - :func:`~pyjams.date2date.en2date`
          - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
        * - :func:`~pyjams.date2date.en2fr`
@@ -401,11 +408,13 @@ Functions and modules per category
        * - :func:`~pyjams.division.division`
          - Divide two arrays, return 'otherwise' if division by 0
        * - :func:`~pyjams.division.div`
-         - Same as `division`
+         - Divide two arrays, return 'otherwise' if division by 0,
+           same as `division`
        * - :func:`~pyjams.screening.ee`
-         - Same as `screening`
+         - Parameter screening using Morris' method of Elementary Effects,
+           same as `screening`
        * - :func:`~pyjams.morris_method.elementary_effects`
-         - Morris measures mu, stddev and mu* 
+         - Morris measures mu, stddev and mu*
        * - :mod:`~pyjams.functions`
          - Special functions for testing optimisations, sensitivity analysis,
            several forms of the logistic function and its derivatives, and other
@@ -516,24 +525,26 @@ Functions and modules per category
        * - Function/module
          - Short description
        * - :func:`~pyjams.readnetcdf.infonetcdf`
-         - Extract information from netCDF file
+         - Extract information from netCDF file, same as `ncinfo`
        * - :func:`~pyjams.readnetcdf.ncinfo`
-         - Same as `infonetcdf`
+         - Extract information from netCDF file
        * - :mod:`~pyjams.ncio`
          - netCDF4 functions to copy a netcdf file while doing some
            transformations on variables and dimensions
        * - :func:`~pyjams.readnetcdf.ncread`
-         - Same as `readnetcdf`
-       * - :func:`~pyjams.readnetcdf.readnetcdf`
          - Read variables from netCDF file
+       * - :func:`~pyjams.readnetcdf.readnetcdf`
+         - Read variables from netCDF file, same as `ncread`
        * - :func:`~pyjams.npyio.updatez`
          - Update arrays in uncompressed numpy .npz format
        * - :func:`~pyjams.npyio.updatez_compressed`
          - Update arrays in compressed numpy .npz format
        * - :func:`~pyjams.fsread.xlsread`
-         - Same as `xread`
+         - Read numbers and strings from Excel file into 2D float and string arrays,
+           same as `xread`
        * - :func:`~pyjams.fsread.xlsxread`
-         - Same as `xread`
+         - Read numbers and strings from Excel file into 2D float and string arrays,
+           same as `xread`
        * - :func:`~pyjams.fsread.xread`
          - Read numbers and strings from Excel file into 2D float and string arrays
 

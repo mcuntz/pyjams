@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.30 (??? 2023)
+    * Exchanged functions and wrapper functrions in readnetcdf.
+
 v1.29 (Jan 2023)
     * Added functions `eair2rhair`, `rhair2eair`, `eair2vpd`, `vpd2eair`,
       `rhair2vpd`, `vpd2rhair`, `eair2shair`, `shair2eair`, `eair2mrair`,

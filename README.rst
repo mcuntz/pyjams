@@ -107,13 +107,11 @@ Functions and modules (alphabetical)
    * - alpha_kin_h2o
      - Kinetic fractionation of molecular diffusion of water vapour
    * - argmax
-     - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
-       iterables
+     - Wrapper for numpy.argmax, numpy.ma.argmax, and max for Python iterables
    * - argmin
-     - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
-       iterables
+     - Wrapper for numpy.argmin, numpy.ma.argmin, and min for Python iterables
    * - argsort
-     - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
+     - Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for Python
        iterables
    * - closest
      - Index in array which entry is closest to a given number
@@ -124,7 +122,8 @@ Functions and modules (alphabetical)
    * - date2date
      - Convert date representations between different regional variants
    * - date2dec
-     - Same as `date2num`
+     - Return numeric time values given datetime objects or strings,
+       same as `date2num`
    * - date2en
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - date2fr
@@ -136,7 +135,7 @@ Functions and modules (alphabetical)
    * - datetime
      - Class as cftime.datetime for non-CF-conform calendars
    * - dec2date
-     - Same as `num2date`
+     - Return datetime objects given numeric time values, same as `num2date`
    * - directories_from_gui
      - Open dialog to select one directory
    * - directory_from_gui
@@ -144,7 +143,8 @@ Functions and modules (alphabetical)
    * - division
      - Divide two arrays, return 'otherwise' if division by 0
    * - div
-     - Same as `division`
+     - Divide two arrays, return 'otherwise' if division by 0,
+       same as `division`
    * - eair2mrair
      - Mixing ratio from partial pressure of water vapour and total pressure
    * - eair2rhair
@@ -154,7 +154,8 @@ Functions and modules (alphabetical)
    * - eair2vpd
      - Air vapour pressure deficit from partial pressure and temperature
    * - ee
-     - Same as `screening`
+     - Parameter screening using Morris' method of Elementary Effects,
+       same as `screening`
    * - elementary_effects
      - Morris measures mu, stddev and mu*
    * - en2date
@@ -186,7 +187,7 @@ Functions and modules (alphabetical)
    * - gridcellarea
      - Area of grid cells on Earth
    * - infonetcdf
-     - Extract information from netCDF file
+     - Extract information from netCDF file, same as `ncinfo`
    * - int2roman
      - Integer to Roman numeral conversion
    * - kernel_regression
@@ -205,18 +206,18 @@ Functions and modules (alphabetical)
    * - mrair2eair
      - Partial pressure of water vapour from mixing ratio and total pressure
    * - ncinfo
-     - Same as `infonetcdf`
+     - Extract information from netCDF file
    * - ncio
      - netCDF4 functions to copy a netcdf file while doing some
        transformations on variables and dimensions
    * - ncread
-     - Same as `readnetcdf`
+     - Read variables from netCDF file
    * - num2date
      - Return datetime objects given numeric time values
    * - position
      - Position arrays of subplots to be used with add_axes
    * - readnetcdf
-     - Read variables from netCDF file
+     - Read variables from netCDF file, same as `ncread`
    * - rhair2eair
      - Partial pressure of water vapour from relative humidity and temperature
    * - rhair2vpd
@@ -255,9 +256,11 @@ Functions and modules (alphabetical)
    * - vpd2rhair
      - Relative humidity from air vapour pressure deficit and temperature
    * - xlsread
-     - Same as `xread`
+     - Read numbers and strings from Excel file into 2D float and string arrays,
+       same as `xread`
    * - xlsxread
-     - Same as `xread`
+     - Read numbers and strings from Excel file into 2D float and string arrays,
+       same as `xread`
    * - xread
      - Read numbers and strings from Excel file into 2D float and string arrays
 
@@ -274,13 +277,13 @@ Functions and modules per category
        * - Function/module
          - Short description
        * - argmax
-         - Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+         - Wrapper for numpy.argmax, numpy.ma.argmax, and max for Python
            iterables.
        * - argmin
-         - Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+         - Wrapper for numpy.argmin, numpy.ma.argmin, and min for Python
            iterables.
        * - argsort
-         - Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for
+         - Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for
            Python iterables.
        * - closest
          - Index in array which entry is closest to a given number.
@@ -331,7 +334,8 @@ Functions and modules per category
        * - date2date
          - Convert date representations between different regional variants
        * - date2dec
-         - Same as `date2num`
+         - Return numeric time values given datetime objects or strings,
+           same as `date2num`
        * - date2en
          - Convert dates to English date format YYYY-MM-DD hh:mm:ss
        * - date2fr
@@ -343,7 +347,8 @@ Functions and modules per category
        * - datetime
          - Class as cftime.datetime for non-CF-conform calendars
        * - dec2date
-         - Same as `num2date`
+         - Return datetime objects given numeric time values,
+           same as `num2date`
        * - en2date
          - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
        * - en2fr
@@ -403,9 +408,11 @@ Functions and modules per category
        * - division
          - Divide two arrays, return 'otherwise' if division by 0
        * - div
-         - Same as `division`
+         - Divide two arrays, return 'otherwise' if division by 0,
+           same as `division`
        * - ee
-         - Same as `screening`
+         - Parameter screening using Morris' method of Elementary Effects,
+           same as `screening`
        * - elementary_effects
          - Morris measures mu, stddev and mu* 
        * - functions
@@ -518,24 +525,26 @@ Functions and modules per category
        * - Function/module
          - Short description
        * - infonetcdf
-         - Extract information from netCDF file
+         - Extract information from netCDF file, same as `ncinfo`
        * - ncinfo
-         - Same as `infonetcdf`
+         - Extract information from netCDF file
        * - ncio
          - netCDF4 functions to copy a netcdf file while doing some
            transformations on variables and dimensions
        * - ncread
-         - Same as `readnetcdf`
-       * - readnetcdf
          - Read variables from netCDF file
+       * - readnetcdf
+         - Read variables from netCDF file, same as `ncread`
        * - updatez
          - Update arrays in uncompressed numpy .npz format
        * - updatez_compressed
          - Update arrays in compressed numpy .npz format
        * - xlsread
-         - Same as `xread`
+         - Read numbers and strings from Excel file into 2D float and string arrays,
+           same as `xread`
        * - xlsxread
-         - Same as `xread`
+         - Read numbers and strings from Excel file into 2D float and string arrays,
+           same as `xread`
        * - xread
          - Read numbers and strings from Excel file into 2D float and string arrays
 
