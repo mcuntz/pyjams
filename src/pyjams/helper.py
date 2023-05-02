@@ -14,6 +14,8 @@ France.
 The following functions are provided:
 
 .. autosummary::
+   isundef
+   filebase
    array2input
    input2array
 
@@ -33,13 +35,14 @@ History
       Jun 2022, Matthias Cuntz
     * Assure array is not 0d-array, Jun 2022, Matthias Cuntz
     * Correct treating of undef if two arrays given, Jan 2023, Matthias Cuntz
+    * Add filebase, Mar 2023, Matthias Cuntz
 
 """
 from collections.abc import Iterable
 import numpy as np
 
 
-__all__ = ['isundef', 'array2input', 'input2array']
+__all__ = ['isundef', 'filebase', 'array2input', 'input2array']
 
 
 def isundef(arr, undef):
@@ -77,6 +80,39 @@ def isundef(arr, undef):
         return np.isinf(arr)
     else:
         return arr == undef
+
+
+def filebase(f):
+    """
+    Returns filename without suffix
+
+    Removes suffix from filename such as *.py* from *plot.py*.
+    It removes directory information before searching for suffix using
+    `os.path.basename`.
+
+    Parameters
+    ----------
+    f : str
+        Filename
+
+    Returns
+    -------
+    filename without suffix such as .py
+
+    Examples
+    --------
+    >>> f = 'plot_maps.py'
+    >>> print(filebase(f))
+    plot_maps
+
+    """
+    import os
+
+    f1 = os.path.basename(f)
+    if '.' in f1:
+        return f[0:f.rfind(".")]
+    else:
+        return f
 
 
 def array2input(outin, inp, inp2=None, undef=None):

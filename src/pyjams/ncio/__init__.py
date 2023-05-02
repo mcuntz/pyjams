@@ -120,8 +120,10 @@ Subpackages
 from .netcdfio import copy_dimensions, copy_file
 from .netcdfio import copy_global_attributes, copy_variables
 from .netcdfio import create_new_variable, create_variables
-from .netcdfio import get_fill_value_for_dtype, set_output_filename
+from .netcdfio import get_fill_value_for_dtype, get_variable_definition
+from .netcdfio import set_output_filename
 
 __all__ = ['copy_dimensions', 'copy_file', 'copy_global_attributes',
            'copy_variables', 'create_new_variable', 'create_variables',
-           'get_fill_value_for_dtype', 'set_output_filename']
+           'get_fill_value_for_dtype', 'get_variable_definition',
+           'set_output_filename']
