@@ -74,6 +74,7 @@ History
       in this case, Jan 2022, Matthias Cuntz
     * NA -> NaN, i.e. R to Python convention in fsread,
       Aug 2022, Matthias Cuntz
+    * Correct docstring of strip keyword, Mar 2023, Matthias Cuntz
 
 """
 import codecs
@@ -116,9 +117,9 @@ def _read_head(f, skip=0, hskip=0):
             ihskip += 1
     # Read header
     if skip > 0:
-        head = ['']*(skip-hskip)
+        head = [''] * (skip - hskip)
         iskip = 0
-        while iskip < (skip-hskip):
+        while iskip < (skip - hskip):
             head[iskip] = str(f.readline().rstrip('\r\n'))
             iskip += 1
     return head
@@ -191,7 +192,7 @@ def _xread_head(rows, skip=0, hskip=0):
     if skip > 0:
         for iskip in range(hskip):
             _ = _xread_next_row(rows)
-        for iskip in range(skip-hskip):
+        for iskip in range(skip - hskip):
             head.append(_xread_next_row(rows))
     return head
 
@@ -283,7 +284,7 @@ def _determine_indices(f, head, nres,
     # cname or sname
     if (cname is not None) or (sname is not None):
         # from first header line
-        if (skip-hskip) <= 0:
+        if (skip - hskip) <= 0:
             _close_file(f, ixls=ixls)
             raise ValueError('No header line left for choosing'
                              ' columns by name.')
@@ -313,8 +314,8 @@ def _determine_indices(f, head, nres,
         for k in range(len(hres)):
             if hres[k] in sname:
                 snc.append(k)
-    if (isinstance(nc, (list, tuple, np.ndarray)) and
-        isinstance(snc, (list, tuple, np.ndarray))):
+    if ( isinstance(nc, (list, tuple, np.ndarray)) and
+         isinstance(snc, (list, tuple, np.ndarray)) ):
         # both indices
         if np.in1d(nc, snc, assume_unique=True).any():
             _close_file(f, ixls=ixls)
@@ -361,8 +362,8 @@ def _determine_indices(f, head, nres,
                     iisnc = list(range(cskip, nres))
             else:
                 # red snc first then nc
-                iisnc = list(range(cskip, cskip+snc))
-                iinc  = list(range(cskip+snc, cskip+snc+nc))
+                iisnc = list(range(cskip, cskip + snc))
+                iinc  = list(range(cskip + snc, cskip + snc + nc))
     return iinc, iisnc
 
 
@@ -395,7 +396,7 @@ def _line2var(res, var, iinc, strip=None):
         tmp = [ res[i].strip(strip) for i in iinc if i < nres ]
     rest = len([ i for i in iinc if i >= nres ])
     if rest > 0:
-        tmp.extend(['']*rest)
+        tmp.extend([''] * rest)
     var.append(tmp)
     return var
 
@@ -668,9 +669,10 @@ def fsread(infile,
         Value to fill in string array in empty cells or if not enough columns
         in line and *fill==True* (default: '').
     strip : str, optional
-        Strip strings with *str.strip(strip)*. If *strip* is *None*, quotes "
-        and ' are stripped from input fields (default), otherwise the character
-        in *strip* is stripped from the input fields.
+        Strip float columns with *str.strip(strip)*. If *strip* is *None*,
+        quotes " and ' are stripped from input fields (default), otherwise the
+        character in *strip* is stripped from the input fields.
+        *strip* has to be set explicitly to also strip string columns.
         If *strip* is set to *False* then nothing is stripped and reading is
         about 30% faster.
     hstrip : bool, optional
@@ -1568,9 +1570,10 @@ def xread(infile, sheet=None,
         Value to fill in string array in empty cells or if not enough columns
         in line and *fill==True* (default: '').
     strip : str, optional
-        Strip strings with *str.strip(strip)*. If *strip* is *None*, quotes "
-        and ' are stripped from input fields (default), otherwise the character
-        in *strip* is stripped from the input fields.
+        Strip float columns with *str.strip(strip)*. If *strip* is *None*,
+        quotes " and ' are stripped from input fields (default), otherwise the
+        character in *strip* is stripped from the input fields.
+        *strip* has to be set explicitly to also strip string columns.
         If *strip* is set to *False* then nothing is stripped and reading is
         about 30% faster for text files.
     hstrip : bool, optional
@@ -1795,9 +1798,9 @@ def xread(infile, sheet=None,
             ixls = False
         except ModuleNotFoundError:  # pragma: no cover
             # too much hassle to test in special environment only for cover
-            raise IOError('Cannot open file (1) '+infile)
+            raise IOError('Cannot open file (1) ' + infile)
     except IOError:
-        raise IOError('Cannot open file (2) '+infile)
+        raise IOError('Cannot open file (2) ' + infile)
 
     # Get Sheet
     if sheet is None:
@@ -1813,7 +1816,8 @@ def xread(infile, sheet=None,
                 sheetnames = wb.sheetnames
             if sheet not in sheetnames:
                 _close_file(wb, ixls=ixls)
-                raise ValueError('Sheet '+sheet+' not in Excel file '+infile)
+                raise ValueError('Sheet ' + sheet + ' not in Excel file ' +
+                                 infile)
             if ixls:
                 sh = wb.sheet_by_name(sheet)
             else:
