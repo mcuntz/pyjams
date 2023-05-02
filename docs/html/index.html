@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Quickstart &#8212; pyjams 1.29.dev4 documentation</title>
+    <title>Quickstart &#8212; pyjams 1.30.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -123,15 +123,15 @@ l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy, France.</
 <td><p>Kinetic fractionation of molecular diffusion of water vapour</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="argsort.html#pyjams.argsort.argmax" title="pyjams.argsort.argmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">argmax()</span></code></a></p></td>
-<td><p>Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+<td><p>Wrapper for numpy.argmax, numpy.ma.argmax, and max for Python
 iterables</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="argsort.html#pyjams.argsort.argmin" title="pyjams.argsort.argmin"><code class="xref py py-func docutils literal notranslate"><span class="pre">argmin()</span></code></a></p></td>
-<td><p>Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+<td><p>Wrapper for numpy.argmin, numpy.ma.argmin, and min for Python
 iterables</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="argsort.html#pyjams.argsort.argsort" title="pyjams.argsort.argsort"><code class="xref py py-func docutils literal notranslate"><span class="pre">argsort()</span></code></a></p></td>
-<td><p>Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python
+<td><p>Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for Python
 iterables</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="closest.html#module-pyjams.closest" title="pyjams.closest"><code class="xref py py-func docutils literal notranslate"><span class="pre">closest()</span></code></a></p></td>
@@ -147,7 +147,8 @@ iterables</p></td>
 <td><p>Convert date representations between different regional variants</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.date2dec" title="pyjams.class_datetime.date2dec"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2dec()</span></code></a></p></td>
-<td><p>Same as <cite>date2num</cite></p></td>
+<td><p>Return numeric time values given datetime objects or strings,
+same as <cite>date2num</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2en" title="pyjams.date2date.date2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2en()</span></code></a></p></td>
 <td><p>Convert dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
@@ -165,7 +166,7 @@ iterables</p></td>
 <td><p>Class as cftime.datetime for non-CF-conform calendars</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">dec2date()</span></code></p></td>
-<td><p>Same as <cite>num2date</cite></p></td>
+<td><p>Return datetime objects given numeric time values, same as <cite>num2date</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="fgui.html#pyjams.fgui.directories_from_gui" title="pyjams.fgui.directories_from_gui"><code class="xref py py-func docutils literal notranslate"><span class="pre">directories_from_gui()</span></code></a></p></td>
 <td><p>Open dialog to select one directory</p></td>
@@ -177,7 +178,8 @@ iterables</p></td>
 <td><p>Divide two arrays, return ‘otherwise’ if division by 0</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="division.html#pyjams.division.div" title="pyjams.division.div"><code class="xref py py-func docutils literal notranslate"><span class="pre">div()</span></code></a></p></td>
-<td><p>Same as <cite>division</cite></p></td>
+<td><p>Divide two arrays, return ‘otherwise’ if division by 0,
+same as <cite>division</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">eair2mrair()</span></code></p></td>
 <td><p>Mixing ratio from partial pressure of water vapour and total pressure</p></td>
@@ -192,7 +194,8 @@ iterables</p></td>
 <td><p>Air vapour pressure deficit from partial pressure and temperature</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="screening.html#pyjams.screening.ee" title="pyjams.screening.ee"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a></p></td>
-<td><p>Same as <cite>screening</cite></p></td>
+<td><p>Parameter screening using Morris’ method of Elementary Effects,
+same as <cite>screening</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.elementary_effects" title="pyjams.morris_method.elementary_effects"><code class="xref py py-func docutils literal notranslate"><span class="pre">elementary_effects()</span></code></a></p></td>
 <td><p>Morris measures mu, stddev and mu*</p></td>
@@ -233,13 +236,13 @@ iterables</p></td>
 <tr class="row-even"><td><p><a class="reference internal" href="functions.html#module-pyjams.functions" title="pyjams.functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">functions</span></code></a></p></td>
 <td><p>Special functions for testing optimisations, sensitivity analysis,
 several forms of the logistic function and its derivatives, and other
-functions to be used with <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.10.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
+functions to be used with <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="gridcellarea.html#module-pyjams.gridcellarea" title="pyjams.gridcellarea"><code class="xref py py-func docutils literal notranslate"><span class="pre">gridcellarea()</span></code></a></p></td>
 <td><p>Area of grid cells on Earth</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.infonetcdf" title="pyjams.readnetcdf.infonetcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">infonetcdf()</span></code></a></p></td>
-<td><p>Extract information from netCDF file</p></td>
+<td><p>Extract information from netCDF file, same as <code class="xref py py-func docutils literal notranslate"><span class="pre">ncinfo()</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="romanliterals.html#pyjams.romanliterals.int2roman" title="pyjams.romanliterals.int2roman"><code class="xref py py-func docutils literal notranslate"><span class="pre">int2roman()</span></code></a></p></td>
 <td><p>Integer to Roman numeral conversion</p></td>
@@ -267,14 +270,14 @@ Effects</p></td>
 <td><p>Partial pressure of water vapour from mixing ratio and total pressure</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.ncinfo" title="pyjams.readnetcdf.ncinfo"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncinfo()</span></code></a></p></td>
-<td><p>Same as <cite>infonetcdf</cite></p></td>
+<td><p>Extract information from netCDF file</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="ncio.html#module-pyjams.ncio" title="pyjams.ncio"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ncio</span></code></a></p></td>
 <td><p>netCDF4 functions to copy a netcdf file while doing some
 transformations on variables and dimensions</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.ncread" title="pyjams.readnetcdf.ncread"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncread()</span></code></a></p></td>
-<td><p>Same as <cite>readnetcdf</cite></p></td>
+<td><p>Read variables from netCDF file</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.num2date" title="pyjams.class_datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
 <td><p>Return datetime objects given numeric time values</p></td>
@@ -283,7 +286,7 @@ transformations on variables and dimensions</p></td>
 <td><p>Position arrays of subplots to be used with add_axes</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.readnetcdf" title="pyjams.readnetcdf.readnetcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">readnetcdf()</span></code></a></p></td>
-<td><p>Read variables from netCDF file</p></td>
+<td><p>Read variables from netCDF file, same as <cite>ncread</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">rhair2eair()</span></code></p></td>
 <td><p>Partial pressure of water vapour from relative humidity and temperature</p></td>
@@ -341,10 +344,12 @@ usetex</p></td>
 <td><p>Relative humidity from air vapour pressure deficit and temperature</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsread" title="pyjams.fsread.xlsread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsread()</span></code></a></p></td>
-<td><p>Same as <cite>xread</cite></p></td>
+<td><p>Read numbers and strings from Excel file into 2D float and string arrays,
+same as <cite>xread</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsxread" title="pyjams.fsread.xlsxread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsxread()</span></code></a></p></td>
-<td><p>Same as <cite>xread</cite></p></td>
+<td><p>Read numbers and strings from Excel file into 2D float and string arrays,
+same as <cite>xread</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xread" title="pyjams.fsread.xread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xread()</span></code></a></p></td>
 <td><p>Read numbers and strings from Excel file into 2D float and string arrays</p></td>
@@ -367,15 +372,15 @@ usetex</p></td>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="argsort.html#pyjams.argsort.argmax" title="pyjams.argsort.argmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">argmax()</span></code></a></p></td>
-<td><p>Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python
+<td><p>Wrapper for numpy.argmax, numpy.ma.argmax, and  max for Python
 iterables</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="argsort.html#pyjams.argsort.argmin" title="pyjams.argsort.argmin"><code class="xref py py-func docutils literal notranslate"><span class="pre">argmin()</span></code></a></p></td>
-<td><p>Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python
+<td><p>Wrapper for numpy.argmin, numpy.ma.argmin, and min for Python
 iterables</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="argsort.html#pyjams.argsort.argsort" title="pyjams.argsort.argsort"><code class="xref py py-func docutils literal notranslate"><span class="pre">argsort()</span></code></a></p></td>
-<td><p>Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for
+<td><p>Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for
 Python iterables</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="closest.html#module-pyjams.closest" title="pyjams.closest"><code class="xref py py-func docutils literal notranslate"><span class="pre">closest()</span></code></a></p></td>
@@ -454,7 +459,8 @@ Python iterables</p></td>
 <td><p>Convert date representations between different regional variants</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.date2dec" title="pyjams.class_datetime.date2dec"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2dec()</span></code></a></p></td>
-<td><p>Same as <cite>date2num</cite></p></td>
+<td><p>Return numeric time values given datetime objects or strings,
+same as <cite>date2num</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2en" title="pyjams.date2date.date2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2en()</span></code></a></p></td>
 <td><p>Convert dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
@@ -472,7 +478,8 @@ Python iterables</p></td>
 <td><p>Class as cftime.datetime for non-CF-conform calendars</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">dec2date()</span></code></p></td>
-<td><p>Same as <cite>num2date</cite></p></td>
+<td><p>Return datetime objects given numeric time values,
+same as <cite>num2date</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.en2date" title="pyjams.date2date.en2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">en2date()</span></code></a></p></td>
 <td><p>Convert dates to standard date format DD.MM.YYYY hh:mm:ss</p></td>
@@ -565,10 +572,12 @@ Python iterables</p></td>
 <td><p>Divide two arrays, return ‘otherwise’ if division by 0</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="division.html#pyjams.division.div" title="pyjams.division.div"><code class="xref py py-func docutils literal notranslate"><span class="pre">div()</span></code></a></p></td>
-<td><p>Same as <cite>division</cite></p></td>
+<td><p>Divide two arrays, return ‘otherwise’ if division by 0,
+same as <cite>division</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="screening.html#pyjams.screening.ee" title="pyjams.screening.ee"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a></p></td>
-<td><p>Same as <cite>screening</cite></p></td>
+<td><p>Parameter screening using Morris’ method of Elementary Effects,
+same as <cite>screening</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.elementary_effects" title="pyjams.morris_method.elementary_effects"><code class="xref py py-func docutils literal notranslate"><span class="pre">elementary_effects()</span></code></a></p></td>
 <td><p>Morris measures mu, stddev and mu*</p></td>
@@ -576,7 +585,7 @@ Python iterables</p></td>
 <tr class="row-even"><td><p><a class="reference internal" href="functions.html#module-pyjams.functions" title="pyjams.functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">functions</span></code></a></p></td>
 <td><p>Special functions for testing optimisations, sensitivity analysis,
 several forms of the logistic function and its derivatives, and other
-functions to be used with <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.10.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
+functions to be used with <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
 <td><p>Sampling of optimised trajectories for Morris measures / Elementary
@@ -739,20 +748,20 @@ matplotlib’s usetex</p></td>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.infonetcdf" title="pyjams.readnetcdf.infonetcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">infonetcdf()</span></code></a></p></td>
-<td><p>Extract information from netCDF file</p></td>
+<td><p>Extract information from netCDF file, same as <cite>ncinfo</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.ncinfo" title="pyjams.readnetcdf.ncinfo"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncinfo()</span></code></a></p></td>
-<td><p>Same as <cite>infonetcdf</cite></p></td>
+<td><p>Extract information from netCDF file</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="ncio.html#module-pyjams.ncio" title="pyjams.ncio"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ncio</span></code></a></p></td>
 <td><p>netCDF4 functions to copy a netcdf file while doing some
 transformations on variables and dimensions</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.ncread" title="pyjams.readnetcdf.ncread"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncread()</span></code></a></p></td>
-<td><p>Same as <cite>readnetcdf</cite></p></td>
+<td><p>Read variables from netCDF file</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="readnetcdf.html#pyjams.readnetcdf.readnetcdf" title="pyjams.readnetcdf.readnetcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">readnetcdf()</span></code></a></p></td>
-<td><p>Read variables from netCDF file</p></td>
+<td><p>Read variables from netCDF file, same as <cite>ncread</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="npyio.html#pyjams.npyio.updatez" title="pyjams.npyio.updatez"><code class="xref py py-func docutils literal notranslate"><span class="pre">updatez()</span></code></a></p></td>
 <td><p>Update arrays in uncompressed numpy .npz format</p></td>
@@ -761,10 +770,12 @@ transformations on variables and dimensions</p></td>
 <td><p>Update arrays in compressed numpy .npz format</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsread" title="pyjams.fsread.xlsread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsread()</span></code></a></p></td>
-<td><p>Same as <cite>xread</cite></p></td>
+<td><p>Read numbers and strings from Excel file into 2D float and string arrays,
+same as <cite>xread</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsxread" title="pyjams.fsread.xlsxread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsxread()</span></code></a></p></td>
-<td><p>Same as <cite>xread</cite></p></td>
+<td><p>Read numbers and strings from Excel file into 2D float and string arrays,
+same as <cite>xread</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xread" title="pyjams.fsread.xread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xread()</span></code></a></p></td>
 <td><p>Read numbers and strings from Excel file into 2D float and string arrays</p></td>

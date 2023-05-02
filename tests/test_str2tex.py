@@ -64,9 +64,9 @@ class TestStr2Tex(unittest.TestCase):
         outsp = tuple([ out[1] for i in out ])
         self.assertEqual(str2tex(strin, space2linebreak=True, usetex=True),
                          outsp)
-        outn = tuple([ i.replace(r'\n', ''+'\n'+'') for i in strin ])
+        outn = tuple([ i.replace(r'\n', '' + '\n' + '') for i in strin ])
         self.assertEqual(str2tex(strin, usetex=False), outn)
-        strinsp = tuple([ i.replace(' ', ''+'\n'+'') for i in outn ])
+        strinsp = tuple([ i.replace(' ', '' + '\n' + '') for i in outn ])
         self.assertEqual(str2tex(strin, usetex=False, space2linebreak=True),
                          strinsp)
 
@@ -88,9 +88,9 @@ class TestStr2Tex(unittest.TestCase):
                           r'$\textrm{-}$'])
         self.assertEqual(str2tex(strin, space2linebreak=True, usetex=True),
                          outsp)
-        outn = tuple([ i.replace(r'\n', ''+'\n'+'') for i in strin ])
+        outn = tuple([ i.replace(r'\n', '' + '\n' + '') for i in strin ])
         self.assertEqual(str2tex(strin, usetex=False), outn)
-        strinsp = tuple([ i.replace(' ', ''+'\n'+'') for i in outn ])
+        strinsp = tuple([ i.replace(' ', '' + '\n' + '') for i in outn ])
         self.assertEqual(str2tex(strin, usetex=False, space2linebreak=True),
                          strinsp)
 
@@ -111,9 +111,9 @@ class TestStr2Tex(unittest.TestCase):
                  r'$\mathrm{\#string}$\newline$\mathrm{m}$$^{-2}$$\mathrm{)}$'
                  r'$\alpha$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\n', ''+'\n'+'').replace('%', r'\%')
+        strinu = strin.replace(r'\n', '' + '\n' + '').replace('%', r'\%')
         self.assertEqual(str2tex(strin, usetex=False), strinu)
-        strinsp = strinu.replace(' ', ''+'\n'+'')
+        strinsp = strinu.replace(' ', '' + '\n' + '')
         self.assertEqual(str2tex(strin, usetex=False, space2linebreak=True),
                          strinsp)
 
@@ -134,9 +134,9 @@ class TestStr2Tex(unittest.TestCase):
                  r'$\mathrm{\#string}$\newline$\mathrm{m}$$^{-2}$$\mathrm{)}$'
                  r'$\alpha$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\newline', ''+'\n'+'').replace('%', r'\%')
+        strinu = strin.replace(r'\newline', '' + '\n' + '').replace('%', r'\%')
         self.assertEqual(str2tex(strin, usetex=False), strinu)
-        strinsp = strinu.replace(' ', ''+'\n'+'')
+        strinsp = strinu.replace(' ', '' + '\n' + '')
         self.assertEqual(str2tex(strin, usetex=False, space2linebreak=True),
                          strinsp)
 
@@ -155,9 +155,9 @@ class TestStr2Tex(unittest.TestCase):
                  r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline$\mathrm{\#string}$'
                  r'\newline$\mathrm{m)}$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\n', ''+'\n'+'').replace('%', r'\%')
+        strinu = strin.replace(r'\n', '' + '\n' + '').replace('%', r'\%')
         assert str2tex(strin, usetex=False) == strinu
-        strinsp = strinu.replace(' ', ''+'\n'+'')
+        strinsp = strinu.replace(' ', '' + '\n' + '')
         assert str2tex(strin, usetex=False, space2linebreak=True) == strinsp
 
         # complex string no LaTeX using \n
@@ -175,9 +175,9 @@ class TestStr2Tex(unittest.TestCase):
                  r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline'
                  r'$\mathrm{\#string}$\newline$\mathrm{m)}$$\textrm{-}$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\n', ''+'\n'+'').replace('%', r'\%')
+        strinu = strin.replace(r'\n', '' + '\n' + '').replace('%', r'\%')
         assert str2tex(strin, usetex=False) == strinu
-        strinsp = strinu.replace(' ', ''+'\n'+'')
+        strinsp = strinu.replace(' ', '' + '\n' + '')
         assert str2tex(strin, usetex=False, space2linebreak=True) == strinsp
 
         # complex string no LaTeX using \newline
@@ -195,9 +195,9 @@ class TestStr2Tex(unittest.TestCase):
                  r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline'
                  r'$\mathrm{\#string}$\newline$\mathrm{m)}$$\textrm{-}$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\newline', ''+'\n'+'').replace('%', r'\%')
+        strinu = strin.replace(r'\newline', '' + '\n' + '').replace('%', r'\%')
         assert str2tex(strin, usetex=False) == strinu
-        strinsp = strinu.replace(' ', ''+'\n'+'')
+        strinsp = strinu.replace(' ', '' + '\n' + '')
         assert str2tex(strin, usetex=False, space2linebreak=True) == strinsp
 
 

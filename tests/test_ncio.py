@@ -142,7 +142,6 @@ class TestNcio(unittest.TestCase):
             os.remove(ofile)
 
     def test_get_fill_value_for_dtype(self):
-        import pytest
         import numpy as np
         import netCDF4 as nc
         import pyjams.ncio as ncio
@@ -270,7 +269,8 @@ class TestNcio(unittest.TestCase):
         nland = fi.dimensions[vland].size
         ncio.copy_global_attributes(fi, fo,
                                     add={'history': 'changedim'})
-        ncio.copy_dimensions(fi, fo, removedim=None, changedim={vland: 2*nland})
+        ncio.copy_dimensions(fi, fo, removedim=None,
+                             changedim={vland: 2 * nland})
         ncio.create_variables(fi, fo, time=False, timedim=vtime, fill=None,
                               chunksizes=False)
         ncio.create_variables(fi, fo, time=True, timedim=vtime, fill=None,
@@ -305,7 +305,7 @@ class TestNcio(unittest.TestCase):
             fout = ncinfo(ofile, vv, shape=True)
             fsoll = ncinfo(ifile, vv, shape=True)
             self.assertEqual(fout[:-1], fsoll[:-1])
-            assert fout[-1] == 2*fsoll[-1]
+            assert fout[-1] == 2 * fsoll[-1]
 
         fout = ncread(ofile, var='SoilTemp')
         fsoll = ncread(ifile, var='SoilTemp')
@@ -423,7 +423,7 @@ class TestNcio(unittest.TestCase):
             fo = nc.Dataset(ofile, 'w', format=fi.file_format)
         else:
             fo = nc.Dataset(ofile, 'w', format='NETCDF4')
-        ntime = fi.dimensions[vtime].size
+        # ntime = fi.dimensions[vtime].size
         ncio.copy_global_attributes(fi, fo,
                                     add={'history': 'Create new var'})
         ncio.copy_dimensions(fi, fo)

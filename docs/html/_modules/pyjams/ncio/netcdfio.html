@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pyjams.ncio.netcdfio &#8212; pyjams 1.29.dev4 documentation</title>
+    <title>pyjams.ncio.netcdfio &#8212; pyjams 1.30.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
@@ -40,7 +40,7 @@
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">It borrows the idea of _get_variable_definition from the netcdf4 thin layer of</span>
+<span class="sd">It borrows the idea of get_variable_definition from the netcdf4 thin layer of</span>
 <span class="sd">David Schaefer.</span>
 
 <span class="sd">:copyright: Copyright 2020-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
@@ -58,6 +58,7 @@
 <span class="sd">   create_new_variable</span>
 <span class="sd">   create_variables</span>
 <span class="sd">   get_fill_value_for_dtype</span>
+<span class="sd">   get_variable_definition</span>
 <span class="sd">   set_output_filename</span>
 
 <span class="sd">History</span>
@@ -72,6 +73,7 @@
 <span class="sd">    * Add copy_variables, May 2022, Matthias Cuntz</span>
 <span class="sd">    * Delete unnecessary HDF5 filters in variable definition for compatibility</span>
 <span class="sd">      with netcdf4 &gt; 1.6.0, Jun 2022, Matthias Cuntz</span>
+<span class="sd">    * Make get_variable_definition public, Apr 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -80,7 +82,8 @@
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;copy_dimensions&#39;</span><span class="p">,</span> <span class="s1">&#39;copy_file&#39;</span><span class="p">,</span> <span class="s1">&#39;copy_global_attributes&#39;</span><span class="p">,</span>
            <span class="s1">&#39;copy_variables&#39;</span><span class="p">,</span> <span class="s1">&#39;create_new_variable&#39;</span><span class="p">,</span> <span class="s1">&#39;create_variables&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;get_fill_value_for_dtype&#39;</span><span class="p">,</span> <span class="s1">&#39;set_output_filename&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;get_fill_value_for_dtype&#39;</span><span class="p">,</span> <span class="s1">&#39;get_variable_definition&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;set_output_filename&#39;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_tolist</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
@@ -115,7 +118,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">arg</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_get_variable_definition</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+<div class="viewcode-block" id="get_variable_definition"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.get_variable_definition">[docs]</a><span class="k">def</span> <span class="nf">get_variable_definition</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Collect information on input variable.</span>
 
@@ -135,7 +138,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    .. code-block:: python</span>
 
-<span class="sd">       _get_variable_definition(fi.variables[&#39;GPP&#39;])</span>
+<span class="sd">       get_variable_definition(fi.variables[&#39;GPP&#39;])</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">filters</span><span class="p">()</span> <span class="k">if</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">filters</span><span class="p">()</span> <span class="k">else</span> <span class="p">{}</span>
@@ -168,7 +171,7 @@
         <span class="s2">&quot;fill_value&quot;</span><span class="p">:</span> <span class="n">ifill</span><span class="p">,</span>
         <span class="s2">&quot;chunksizes&quot;</span><span class="p">:</span> <span class="n">chunks</span><span class="p">,</span>
     <span class="p">})</span>
-    <span class="k">return</span> <span class="n">out</span>
+    <span class="k">return</span> <span class="n">out</span></div>
 
 
 <div class="viewcode-block" id="copy_file"><a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_file">[docs]</a><span class="k">def</span> <span class="nf">copy_file</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">ofile</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
@@ -648,7 +651,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">itime</span> <span class="o">=</span> <span class="n">timedim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ivar</span><span class="o">.</span><span class="n">dimensions</span>
             <span class="k">if</span> <span class="n">itime</span><span class="p">:</span>
-                <span class="n">invardef</span> <span class="o">=</span> <span class="n">_get_variable_definition</span><span class="p">(</span><span class="n">ivar</span><span class="p">)</span>
+                <span class="n">invardef</span> <span class="o">=</span> <span class="n">get_variable_definition</span><span class="p">(</span><span class="n">ivar</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">izip</span><span class="p">:</span>
                     <span class="n">invardef</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;zlib&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
                 <span class="c1"># rename variable if in renamevar</span>
