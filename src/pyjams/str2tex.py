@@ -30,6 +30,9 @@ History
       Nov 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
     * Use input2array, array2input, Jun 2022, Matthias Cuntz
+    * Do not escape % if not usetex, Apr 2023, Matthias Cuntz
+    * Add unicode symbol degree \u00B0, which get replaced by ^\\circ
+      if usetex==True, Apr 2023, Matthias Cuntz
 
 """
 from .helper import input2array, array2input
@@ -117,8 +120,10 @@ def str2tex(strin, space2linebreak=False,
     rep_up       = lambda s: s.replace('^', r'\^')
     rep_hash     = lambda s: s.replace('#', r'\#')
     rep_percent  = lambda s: s.replace('%', r'\%')
+    rep_nopercent = lambda s: s.replace(r'\%', '%')
     rep_space    = lambda s: s.replace(' ', r'\ ')
     rep_minus    = lambda s: s.replace('-', '}$' + ttex + '-}$' + mtex)
+    rep_degree   = lambda s: s.replace(u'\u00B0', r'^\circ{}')
     rep_a02empty = lambda s: s.replace(a0, '')
     if usetex or (plt.get_backend() == 'pdf'):
         rep_space2n = lambda s: s.replace(' ', '}$' + a0 + r'\newline'
@@ -158,6 +163,9 @@ def str2tex(strin, space2linebreak=False,
                     # escape %
                     if ('%' in ss[ii]) and not (r'\%' in ss[ii]):
                         ss[ii] = rep_percent(ss[ii])
+                    # replace unicode degree symbol (after escpae of ^)
+                    if u'\u00B0' in ss[ii]:
+                        ss[ii] = rep_degree(ss[ii])
                     if space2linebreak:
                         if ' ' in ss[ii]:
                             ss[ii] = rep_space2n(ss[ii])
@@ -193,6 +201,9 @@ def str2tex(strin, space2linebreak=False,
                 # escape %
                 if ('%' in istrin[j]) and not (r'\%' in istrin[j]):
                     istrin[j] = rep_percent(istrin[j])
+                # replace unicode degree symbol (after escpae of ^)
+                if u'\u00B0' in istrin[j]:
+                    istrin[j] = rep_degree(istrin[j])
                 if space2linebreak:
                     if ' ' in istrin[j]:
                         istrin[j] = rep_space2n(istrin[j])
@@ -209,9 +220,11 @@ def str2tex(strin, space2linebreak=False,
             if a0 in istrin[j]:
                 istrin[j] = rep_a02empty(istrin[j])
     else:
-        # escape %
-        istrin = [ rep_percent(i) if ('%' in i) and not (r'\%' in i) else i
-                   for i in istrin ]
+        # # escape %
+        # istrin = [ rep_percent(i) if ('%' in i) and not (r'\%' in i) else i
+        #            for i in istrin ]
+        # do not escape %
+        istrin = [ rep_nopercent(i) if (r'\%' in i) else i for i in istrin ]
         # '\n' is Matplotlib but nor LaTeX
         for j, s in enumerate(istrin):
             if (r'\n' in istrin[j]) and not (r'\newline' in istrin[j]):
