@@ -95,10 +95,11 @@ class TestStr2Tex(unittest.TestCase):
                          strinsp)
 
         # complex string incl. LaTeX but use \n
-        strin = r'$\alpha$Com_plex-str^ing\n(% of #string m$^{-2}$)$\alpha$'
+        strin = (r'$\alpha$Com_plex-str^ing\n(% of #string m$^{-2}$)$\alpha$' +
+                 u'\u00B0')
         out = (r'$\alpha$$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
                r'\newline$\mathrm{(\%\ of\ \#string\ m}$$^{-2}$$\mathrm{)}$'
-               r'$\alpha$')
+               r'$\alpha$$\mathrm{^\circ{}}$')
         assert str2tex(strin, usetex=True) == out
         assert str2tex(strin, bold=True, usetex=True) == (
             out.replace('rm', 'bf'))
@@ -109,19 +110,20 @@ class TestStr2Tex(unittest.TestCase):
         outsp = (r'$\alpha$$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
                  r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline'
                  r'$\mathrm{\#string}$\newline$\mathrm{m}$$^{-2}$$\mathrm{)}$'
-                 r'$\alpha$')
+                 r'$\alpha$$\mathrm{^\circ{}}$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\n', '' + '\n' + '').replace('%', r'\%')
+        strinu = strin.replace(r'\n', '' + '\n' + '')  # .replace('%', r'\%')
         self.assertEqual(str2tex(strin, usetex=False), strinu)
         strinsp = strinu.replace(' ', '' + '\n' + '')
         self.assertEqual(str2tex(strin, usetex=False, space2linebreak=True),
                          strinsp)
 
         # complex string incl. LaTeX
-        strin = r'$\alpha$Com_plex-str^ing\newline(% of #string m$^{-2}$)$\alpha$'
+        strin = (r'$\alpha$Com_plex-str^ing\newline(% of'
+                 r' #string m$^{-2}$)$\alpha$' + u'\u00B0')
         out = (r'$\alpha$$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
                r'\newline$\mathrm{(\%\ of\ \#string\ m}$$^{-2}$$\mathrm{)}$'
-               r'$\alpha$')
+               r'$\alpha$$\mathrm{^\circ{}}$')
         assert str2tex(strin, usetex=True) == out
         assert str2tex(strin, bold=True, usetex=True) == (
             out.replace('rm', 'bf'))
@@ -132,18 +134,18 @@ class TestStr2Tex(unittest.TestCase):
         outsp = (r'$\alpha$$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
                  r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline'
                  r'$\mathrm{\#string}$\newline$\mathrm{m}$$^{-2}$$\mathrm{)}$'
-                 r'$\alpha$')
+                 r'$\alpha$$\mathrm{^\circ{}}$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\newline', '' + '\n' + '').replace('%', r'\%')
+        strinu = strin.replace(r'\newline', '' + '\n' + '')
         self.assertEqual(str2tex(strin, usetex=False), strinu)
         strinsp = strinu.replace(' ', '' + '\n' + '')
         self.assertEqual(str2tex(strin, usetex=False, space2linebreak=True),
                          strinsp)
 
         # complex string no LaTeX no raw string
-        strin = 'Com_plex-str^ing (% of #string m)'
+        strin = 'Com_plex-str^ing (% of #string m)' + u'\u00B0'
         out = (r'$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing'
-               r'\ (\%\ of\ \#string\ m)}$')
+               r'\ (\%\ of\ \#string\ m)^\circ{}}$')
         assert str2tex(strin, usetex=True) == out
         assert str2tex(strin, bold=True, usetex=True) == (
             out.replace('rm', 'bf'))
@@ -152,18 +154,19 @@ class TestStr2Tex(unittest.TestCase):
         self.assertRaises(ValueError, str2tex, strin, bold=True, italic=True,
                           usetex=True)
         outsp = (r'$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
-                 r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline$\mathrm{\#string}$'
-                 r'\newline$\mathrm{m)}$')
+                 r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline'
+                 r'$\mathrm{\#string}$\newline$\mathrm{m)^\circ{}}$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\n', '' + '\n' + '').replace('%', r'\%')
+        strinu = strin.replace(r'\n', '' + '\n' + '')  # .replace('%', r'\%')
         assert str2tex(strin, usetex=False) == strinu
         strinsp = strinu.replace(' ', '' + '\n' + '')
         assert str2tex(strin, usetex=False, space2linebreak=True) == strinsp
 
         # complex string no LaTeX using \n
-        strin = r'Com_plex-str^ing\n(% of #string m)-'
+        strin = r'Com_plex-str^ing\n(% of #string m)-' + u'\u00B0'
         out = (r'$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
-               r'\newline$\mathrm{(\%\ of\ \#string\ m)}$$\textrm{-}$')
+               r'\newline$\mathrm{(\%\ of\ \#string\ m)}$$\textrm{-}$'
+               r'$\mathrm{^\circ{}}$')
         assert str2tex(strin, usetex=True) == out
         assert str2tex(strin, bold=True, usetex=True) == (
             out.replace('rm', 'bf'))
@@ -173,17 +176,19 @@ class TestStr2Tex(unittest.TestCase):
                           usetex=True)
         outsp = (r'$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
                  r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline'
-                 r'$\mathrm{\#string}$\newline$\mathrm{m)}$$\textrm{-}$')
+                 r'$\mathrm{\#string}$\newline$\mathrm{m)}$$\textrm{-}$'
+                 r'$\mathrm{^\circ{}}$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\n', '' + '\n' + '').replace('%', r'\%')
+        strinu = strin.replace(r'\n', '' + '\n' + '')  # .replace('%', r'\%')
         assert str2tex(strin, usetex=False) == strinu
         strinsp = strinu.replace(' ', '' + '\n' + '')
         assert str2tex(strin, usetex=False, space2linebreak=True) == strinsp
 
         # complex string no LaTeX using \newline
-        strin = r'Com_plex-str^ing\newline(% of #string m)-'
+        strin = r'Com_plex-str^ing\newline(% of #string m)-' + u'\u00B0'
         out = (r'$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
-               r'\newline$\mathrm{(\%\ of\ \#string\ m)}$$\textrm{-}$')
+               r'\newline$\mathrm{(\%\ of\ \#string\ m)}$$\textrm{-}$'
+               r'$\mathrm{^\circ{}}$')
         assert str2tex(strin, usetex=True) == out
         assert str2tex(strin, bold=True, usetex=True) == (
             out.replace('rm', 'bf'))
@@ -193,9 +198,30 @@ class TestStr2Tex(unittest.TestCase):
                           usetex=True)
         outsp = (r'$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
                  r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline'
-                 r'$\mathrm{\#string}$\newline$\mathrm{m)}$$\textrm{-}$')
+                 r'$\mathrm{\#string}$\newline$\mathrm{m)}$$\textrm{-}$'
+                 r'$\mathrm{^\circ{}}$')
         assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
-        strinu = strin.replace(r'\newline', '' + '\n' + '').replace('%', r'\%')
+        strinu = strin.replace(r'\newline', '' + '\n' + '')
+        assert str2tex(strin, usetex=False) == strinu
+        strinsp = strinu.replace(' ', '' + '\n' + '')
+        assert str2tex(strin, usetex=False, space2linebreak=True) == strinsp
+
+        # complex string no LaTeX no raw string
+        strin = 'Com_plex-str^ing (% of #string m)' + u'\u00B0'
+        out = (r'$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing'
+               r'\ (\%\ of\ \#string\ m)^\circ{}}$')
+        assert str2tex(strin, usetex=True) == out
+        assert str2tex(strin, bold=True, usetex=True) == (
+            out.replace('rm', 'bf'))
+        assert str2tex(strin, italic=True, usetex=True) == (
+            out.replace('rm', 'it'))
+        self.assertRaises(ValueError, str2tex, strin, bold=True, italic=True,
+                          usetex=True)
+        outsp = (r'$\mathrm{Com\_plex}$$\textrm{-}$$\mathrm{str\^ing}$'
+                 r'\newline$\mathrm{(\%}$\newline$\mathrm{of}$\newline'
+                 r'$\mathrm{\#string}$\newline$\mathrm{m)^\circ{}}$')
+        assert str2tex(strin, space2linebreak=True, usetex=True) == outsp
+        strinu = strin.replace(r'\n', '' + '\n' + '')  # .replace('%', r'\%')
         assert str2tex(strin, usetex=False) == strinu
         strinsp = strinu.replace(' ', '' + '\n' + '')
         assert str2tex(strin, usetex=False, space2linebreak=True) == strinsp

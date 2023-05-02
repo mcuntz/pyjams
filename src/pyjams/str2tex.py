@@ -163,7 +163,7 @@ def str2tex(strin, space2linebreak=False,
                     # escape %
                     if ('%' in ss[ii]) and not (r'\%' in ss[ii]):
                         ss[ii] = rep_percent(ss[ii])
-                    # replace unicode degree symbol (after escpae of ^)
+                    # replace unicode degree symbol (after escape of ^)
                     if u'\u00B0' in ss[ii]:
                         ss[ii] = rep_degree(ss[ii])
                     if space2linebreak:
@@ -201,7 +201,7 @@ def str2tex(strin, space2linebreak=False,
                 # escape %
                 if ('%' in istrin[j]) and not (r'\%' in istrin[j]):
                     istrin[j] = rep_percent(istrin[j])
-                # replace unicode degree symbol (after escpae of ^)
+                # replace unicode degree symbol (after escape of ^)
                 if u'\u00B0' in istrin[j]:
                     istrin[j] = rep_degree(istrin[j])
                 if space2linebreak:
