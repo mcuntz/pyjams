@@ -83,6 +83,7 @@ History
     * v1.28, added updatez, Jan 2023, Matthias Cuntz
     * v1.29, added functions for converting humidity in air,
       Jan 2023, Matthias Cuntz
+    * v1.30, hvplot in mcplot, May 2023, Matthias Cuntz
 
 """
 # version, author

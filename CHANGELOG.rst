@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v1.30 (??? 2023)
+v1.30 (May 2023)
     * Replace plotly with hvplot in `mcPlot`.
     * Add unicode symbol degree \u00B0, which gets replaced by ^\circ
       if usetex==True in str2tex.
