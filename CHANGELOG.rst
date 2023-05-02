@@ -2,7 +2,14 @@ Changelog
 ---------
 
 v1.30 (??? 2023)
-    * Exchanged functions and wrapper functrions in readnetcdf.
+    * Replace plotly with hvplot in `mcPlot`.
+    * Add unicode symbol degree \u00B0, which gets replaced by ^\circ
+      if usetex==True in str2tex.
+    * Do not escape % if not usetex in str2tex.
+    * Make `get_variable_definition` public in ncio.
+    * Correct docstring of strip keyword in fsread and xread.
+    * Added `filebase` to helpers.
+    * Exchanged functions and wrapper functions in readnetcdf.
 
 v1.29 (Jan 2023)
     * Added functions `eair2rhair`, `rhair2eair`, `eair2vpd`, `vpd2eair`,

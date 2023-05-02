@@ -6,8 +6,7 @@ It has the same functionality as the old mc_template.py by Matthias Cuntz but
 uses the object-oriented approach of st_template.py of Stephan Thober.
 
 It allows plotting on screen, into PDF and PNG files, as well as in HTML
-files as a wrapper for PNG images or in D3 format (and plotly currently only
-with older Matplotlib versions).
+files as a wrapper for PNG images or using hvplot.
 
 It is optimised for publication ready plots, either on white or black
 background.
@@ -96,31 +95,15 @@ History
     * Add left, bottom, top to standard layout options,
       Jul 2022, Matthias Cuntz
     * Add --dpi as a standard option, Jan 2023, Matthias Cuntz
+    * Use helper.filebase, Mar 2023, Matthias Cuntz
+    * Replace plotly with hvplot, May 2023, Matthias Cuntz
 
 """
 import numpy as np
+from .helper import filebase
 
 
 __all__ = ['mcPlot']
-
-
-# -------------------------------------------------------------------------
-# Helper functions
-#
-
-
-def _filebase(f):
-    f1 = f
-    if f.startswith('..'):
-        f1 = f[2:]
-    elif f.startswith('.'):
-        f1 = f[1:]
-    else:
-        f1 = f
-    if '.' in f1:
-        return f[0:f.rfind(".")]
-    else:
-        return f
 
 
 # -------------------------------------------------------------------------
@@ -308,12 +291,12 @@ class mcPlot(object):
              -h, --help            show this help message and exit
              -p plotname, --plotname plotname
                                    Name of plot output file for types pdf,
-                                   html, d3, or plotly, and name basis for type
+                                   html, d3, or hvplot, and name basis for type
                                    png (default: calling_filename without
                                    extension).
              -s, --serif           Use serif font; default sans serif.
              -t outtype, --type outtype
-                                   Output type is pdf, png, html, d3, or plotly
+                                   Output type is pdf, png, html, d3, or hvplot
                                    (default: open screen windows).
              -u, --usetex          Use LaTeX to render text in pdf, png and
                                    html.
@@ -356,9 +339,9 @@ class mcPlot(object):
         parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description=idesc)
-        default = _filebase(os.path.basename(__file__))
+        default = filebase(os.path.basename(__file__))
         hstr = (f'Name of plot output file for types pdf, html, d3, or'
-                f' plotly, and name basis for type png (default:'
+                f' hvplot, and name basis for type png (default:'
                 f' {default}).')
         parser.add_argument('-p', '--plotname', action='store',
                             default=plotname, dest='plotname',
@@ -366,7 +349,7 @@ class mcPlot(object):
         hstr = 'Use serif font; default sans serif.'
         parser.add_argument('-s', '--serif', action='store_true',
                             default=serif, dest='serif', help=hstr)
-        hstr = ('Output type is pdf, png, html, d3, or plotly'
+        hstr = ('Output type is pdf, png, html, d3, or hvplot'
                 ' (default: open screen windows).')
         parser.add_argument('-t', '--type', action='store', default=outtype,
                             dest='outtype', metavar='outtype', help=hstr)
@@ -503,8 +486,8 @@ class mcPlot(object):
            * - self.transparent
              - True for transparent background in figure
            * - self.bbox_inches
-             - Bbox in inches. If 'tight', try to figure out the tight bbox of the
-               figure
+             - Bbox in inches. If 'tight', try to figure out the tight bbox of
+               the figure
            * - self.pad_inches
              - Amount of padding when bbox_inches is 'tight'
 
@@ -673,12 +656,14 @@ class mcPlot(object):
         """
         Set type of chosen output.
 
-        Fall back to standard html mode if mlpd3 or plotly modules are not
+        Fall back to standard html mode if mlpd3 or hvplot modules are not
         installed.
 
         """
+        self.outtypes = ['', 'pdf', 'png', 'html', 'd3', 'hvplot']
+        self.outtype_ends = ['', '.pdf', '_', '.html', '.html', '.html']
+
         self.outtype  = self.outtype.lower()
-        self.outtypes = ['', 'pdf', 'png', 'html', 'd3', 'plotly']
         if self.outtype not in self.outtypes:
             estr  = '\nOutput ' + self.outtype + ' type must be in:'
             raise IOError(estr, self.outtypes)
@@ -690,16 +675,12 @@ class mcPlot(object):
                 print("    No mpld3 found. Use output type html instead.")
                 self.outtype = 'html'
 
-        if (self.outtype == 'plotly'):
+        if (self.outtype == 'hvplot'):
             try:
-                import plotly.tools
-                import plotly.offline
+                import hvplot
             except ModuleNotFoundError:
-                print("    No plotly found. Use output type html instead.")
-                outtype = 'html'
-            if (self.outtype == 'plotly') and (self.plotname != ''):
-                assert self.plotname.endswith('html'), (
-                    'Plotly plotnames must end with .html')
+                raise IOError('Module hvplot not found')
+            self.usetex = False
 
     # -------------------------------------------------------------------------
     # Matplotlib defaults
@@ -777,7 +758,8 @@ class mcPlot(object):
                     #   r'\usepackage{helvet}',  # use Helvetica
                     mpl.rcParams['text.latex.preamble'] = '\n'.join([
                         # use MyriadPro font
-                        r'\usepackage[math,lf,mathtabular,footnotefigures]{MyriadPro}',
+                        r'\usepackage[math,lf,mathtabular,footnotefigures]'
+                        r'{MyriadPro}',
                         # normal text font is sans serif
                         r'\renewcommand{\familydefault}{\sfdefault}',
                         r'\figureversion{lining,tabular}',
@@ -797,7 +779,7 @@ class mcPlot(object):
                     mpl.rcParams['font.family']     = 'sans-serif'
                     mpl.rcParams['font.sans-serif'] = 'Arial'  # Arial, Verdana
         elif ((self.outtype == 'png') or (self.outtype == 'html') or
-              (self.outtype == 'd3') or (self.outtype == 'plotly')):
+              (self.outtype == 'd3') or (self.outtype == 'hvplot')):
             mpl.use('Agg')  # set directly after import matplotlib
             mpl.rc('figure', figsize=(8.27, 11.69))  # a4 portrait
             if self.usetex:
@@ -806,7 +788,8 @@ class mcPlot(object):
                     #   r'\usepackage{helvet}',  # use Helvetica
                     mpl.rcParams['text.latex.preamble'] = '\n'.join([
                         # use MyriadPro font
-                        r'\usepackage[math,lf,mathtabular,footnotefigures]{MyriadPro}',
+                        r'\usepackage[math,lf,mathtabular,footnotefigures]'
+                        r'{MyriadPro}',
                         # normal text font is sans serif
                         r'\renewcommand{\familydefault}{\sfdefault}',
                         r'\figureversion{lining,tabular}',
@@ -827,7 +810,8 @@ class mcPlot(object):
                     mpl.rcParams['font.sans-serif'] = 'Arial'  # Arial, Verdana
             mpl.rc('savefig', dpi=self.dpi, format='png')
         else:
-            mpl.rc('figure', figsize=(4./5.*8.27, 4./5.*11.69))  # a4 portrait
+            # a4 portrait
+            mpl.rc('figure', figsize=(4. / 5. * 8.27, 4. / 5. * 11.69))
         # print(mpl.rcParams)
         mpl.rc('axes', linewidth=self.alwidth, edgecolor=self.fgcolor,
                facecolor=self.bgcolor, labelcolor=self.fgcolor,
@@ -864,13 +848,13 @@ class mcPlot(object):
         if appropriate.
 
         """
-        self.outtype_ends = ['', '.pdf', '_', '.html', '.html']
         if self.plotname == '':
-            self.plotfile  = (_filebase(os.path.basename(__file__)) +
+            self.plotfile  = (filebase(os.path.basename(__file__)) +
                               self.outtype_ends[
                                   self.outtypes.index(self.outtype)])
         else:
             self.plotfile = self.plotname
+
         if self.outtype == '':
             print('    Plot X')
         else:
@@ -878,22 +862,60 @@ class mcPlot(object):
 
         if (self.outtype == 'pdf'):
             self.pdf_pages = self.PdfPages(self.plotfile)
-        # figsize = mpl.rcParams['figure.figsize']
-
-        if self.outtype in ['html', 'd3']:
+            # figsize = mpl.rcParams['figure.figsize']
+        elif self.outtype in ['html', 'd3']:
             print('    Write html file ', self.plotfile)
             self.fhtml = open(self.plotfile, 'w')
-            fstr  = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01'
-            fstr += ' Transitional//EN">'
-            print(fstr, file=self.fhtml)
-            print("<html>", file=self.fhtml)
-            print("<head>", file=self.fhtml)
-            print("<title>"+self.plotfile+"</title>", file=self.fhtml)
-            print("</head>", file=self.fhtml)
-            print("<body>", file=self.fhtml)
-
-        if (self.outtype == 'plotly'):
-            self.htmlfiles = []
+            print(f'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01'
+                  f' Transitional//EN">\n'
+                  f' "http://www.w3.org/TR/html4/loose.dtd">\n'
+                  f'<html>\n'
+                  f'    <head>\n'
+                  f'        <title>{self.plotfile}</title>\n'
+                  f'    </head>\n'
+                  f'    <body>\n',
+                  file=self.fhtml)
+        elif (self.outtype == 'hvplot'):
+            print('    Write html file ', self.plotfile)
+            with open(self.plotfile, 'w') as ff:
+                print(f'<!DOCTYPE html public "-//W3C//DTD HTML'
+                      f' 4.01 Frameset//EN"\n'
+                      f' "http://www.w3.org/TR/html4/frameset.dtd">\n'
+                      f'<html>\n'
+                      f'    <head>\n'
+                      f'        <title>{self.plotfile}</title>\n'
+                      f'    </head>\n'
+                      f'    <frameset cols="15%, 85%">\n'
+                      f'        <frame name="fixed" src="html/menu.html">\n'
+                      f'        <frame name="dynamic" src="html/empty.html">\n'
+                      f'    </frameset>\n'
+                      f'</html>', file=ff)
+            ibase = os.path.dirname(self.plotfile)
+            if not ibase:
+                ibase = './'
+            else:
+                ibase += '/'
+            if not os.path.exists(ibase + 'html'):
+                os.mkdir(ibase + 'html')
+            with open(ibase + 'html/empty.html', 'w') as ff:
+                print('<!DOCTYPE html public "-//W3C//DTD HTML 4.01'
+                      ' Frameset//EN"\n'
+                      ' "http://www.w3.org/TR/html4/frameset.dtd">\n'
+                      '<html>\n'
+                      '    <body>\n'
+                      '    </body>\n'
+                      '</html>', file=ff)
+            self.fhtml = open(ibase + 'html/menu.html', 'w')
+            print(f'<!DOCTYPE html public "-//W3C//DTD HTML'
+                  f' 4.01 Transitional//EN"\n'
+                  f' "http://www.w3.org/TR/html4/loose.dtd">\n'
+                  f'<html>\n'
+                  f'    <head>\n'
+                  f'        <title>{self.plotfile}</title>\n'
+                  f'        <base href="html" target="dynamic">\n'
+                  f'    </head>\n'
+                  f'    <body>\n',
+                  file=self.fhtml)
 
         self.ifig = 0
 
@@ -915,9 +937,8 @@ class mcPlot(object):
         kwargs : dict, optional
             Additional keywords will be passed to *savefig* for 'pdf',
             'png', and 'html'; to *fig_to_html* for 'd3', and to
-            *offline.plot* for 'plotly'. This overwrites *self.transparent*,
-            *self.bbox_inches*, *self.pad_inches* for 'pdf', 'png', and 'html',
-            and *auto_open=False* for 'plotly'.
+            *save* for 'hvplot'. This overwrites *self.transparent*,
+            *self.bbox_inches*, *self.pad_inches* for 'pdf', 'png', and 'html'.
 
         """
         import matplotlib.pyplot as plt
@@ -928,7 +949,7 @@ class mcPlot(object):
             self.pdf_pages.savefig(fig, **kwargs)
             plt.close(fig)
         elif (self.outtype == 'png'):
-            pngfile = self.plotfile+"{0:04d}".format(self.ifig)+".png"
+            pngfile = self.plotfile + "{0:04d}".format(self.ifig) + ".png"
             if 'transparent' not in kwargs:
                 kwargs.update({'transparent': self.transparent})
             if 'bbox_inches' not in kwargs:
@@ -938,7 +959,7 @@ class mcPlot(object):
             fig.savefig(pngfile, **kwargs)
             plt.close(fig)
         elif (self.outtype == 'html'):
-            pngfile  = _filebase(self.plotfile) + "_"
+            pngfile  = filebase(self.plotfile) + "_"
             pngfile += "{0:04d}".format(self.ifig) + ".png"
             if 'transparent' not in kwargs:
                 kwargs.update({'transparent': self.transparent})
@@ -947,7 +968,7 @@ class mcPlot(object):
             if 'pad_inches' not in kwargs:
                 kwargs.update({'pad_inches': self.pad_inches})
             fig.savefig(pngfile, **kwargs)
-            print('<p><img src='+pngfile+'></p>', file=self.fhtml)
+            print('<p><img src=' + pngfile + '></p>', file=self.fhtml)
             plt.close(fig)
         elif (self.outtype == 'd3'):
             import mpld3
@@ -956,16 +977,56 @@ class mcPlot(object):
             d3str = mpld3.fig_to_html(fig, **kwargs)
             print(d3str, file=self.fhtml)
             plt.close(fig)
-        elif (self.outtype == 'plotly'):
-            import plotly.tools
-            import plotly.offline
-            htmlfile = self.plotfile+"{0:04d}".format(self.ifig)+".html"
-            plotly_fig = plotly.tools.mpl_to_plotly(fig)
-            if 'auto_open' not in kwargs:
-                kwargs.update({'auto_open': False})
-            ff = plotly.offline.plot(plotly_fig, filename=htmlfile, **kwargs)
-            self.htmlfiles.append(htmlfile)
-            plt.close(fig)
+        elif (self.outtype == 'hvplot'):
+            import os
+            import inspect
+            import hvplot
+            import holoviews
+            from bokeh.resources import INLINE
+
+            # html directory in same directory as output file
+            ibase = os.path.dirname(self.plotfile)
+            if not ibase:
+                ibase = './'
+            else:
+                ibase += '/'
+
+            # make holoviews panel or layout
+            if 'ncol' in kwargs:
+                icol = kwargs['ncol']
+            else:
+                icol = self.ncol
+
+            # all holoviews charts + layout
+            hlist = [ hh[1]
+                      for hh in inspect.getmembers(holoviews.element.chart)
+                      if inspect.isclass(hh[1]) ]
+            hlist.append(holoviews.core.layout.Layout)
+            # make holoviews layout if several panels
+            if isinstance(fig, (list, tuple)):
+                layout = fig[0]
+                for pp in fig[1:]:
+                    layout = layout + pp
+            elif isinstance(layout, hlist):
+                layout = fig
+            else:
+                raise ValueError('figure for hvplot must be list/tuple of'
+                                 ' panels, or a holoviews chart or layout.'
+                                 ' Given: ' + type(fig))
+            if isinstance(layout, holoviews.core.layout.Layout):
+                layout = layout.cols(icol)
+
+            # write htmls, menu and plots
+            ff = os.path.basename(filebase(self.plotfile))
+            # name in side panel
+            ffig = f'fig_{self.ifig:04d}'
+            # filename in html/
+            html = f'{ff}_{ffig}.html'
+            # filename in .
+            hhtml = ibase + 'html/' + html
+            print(f'        <p><a href="{html}" target="dynamic">'
+                  f'{ffig}</a>', file=self.fhtml)
+            hvplot.save(layout, hhtml, resources=INLINE)
 
     # -------------------------------------------------------------------------
     # plot end
@@ -981,23 +1042,11 @@ class mcPlot(object):
             self.pdf_pages.close()
         elif (self.outtype == 'png'):
             pass
-        elif (self.outtype == 'html') or (self.outtype == 'd3'):
-            print("</body>\n</html>", file=self.fhtml)
+        elif ( (self.outtype == 'html') or (self.outtype == 'd3') or
+               (self.outtype == 'hvplot') ):
+            print('    </body>', file=self.fhtml)
+            print('</html>', file=self.fhtml)
             self.fhtml.close()
-        elif (self.outtype == 'plotly'):
-            import os
-            if self.ifig > 1:
-                import fileinput
-                htmlfile = self.plotfile
-                with open(htmlfile, 'w') as fout:
-                    fin = fileinput.input(self.htmlfiles)
-                    for line in fin:
-                        fout.write(line)
-                    fin.close()
-                for ff in self.htmlfiles:
-                    os.remove(ff)
-            else:
-                os.rename(self.htmlfiles[0], self.plotfile)
         else:
             import matplotlib.pyplot as plt
             plt.show()
