@@ -7,7 +7,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-It borrows the idea of _get_variable_definition from the netcdf4 thin layer of
+It borrows the idea of get_variable_definition from the netcdf4 thin layer of
 David Schaefer.
 
 :copyright: Copyright 2020-2022 Matthias Cuntz, see AUTHORS.rst for details.
@@ -25,6 +25,7 @@ The following functions are provided
    create_new_variable
    create_variables
    get_fill_value_for_dtype
+   get_variable_definition
    set_output_filename
 
 History
@@ -39,6 +40,7 @@ History
     * Add copy_variables, May 2022, Matthias Cuntz
     * Delete unnecessary HDF5 filters in variable definition for compatibility
       with netcdf4 > 1.6.0, Jun 2022, Matthias Cuntz
+    * Make get_variable_definition public, Apr 2023, Matthias Cuntz
 
 """
 import numpy as np
@@ -47,7 +49,8 @@ import netCDF4 as nc
 
 __all__ = ['copy_dimensions', 'copy_file', 'copy_global_attributes',
            'copy_variables', 'create_new_variable', 'create_variables',
-           'get_fill_value_for_dtype', 'set_output_filename']
+           'get_fill_value_for_dtype', 'get_variable_definition',
+           'set_output_filename']
 
 
 def _tolist(arg):
@@ -82,7 +85,7 @@ def _tolist(arg):
         return [arg]
 
 
-def _get_variable_definition(ncvar):
+def get_variable_definition(ncvar):
     """
     Collect information on input variable.
 
@@ -102,7 +105,7 @@ def _get_variable_definition(ncvar):
     --------
     .. code-block:: python
 
-       _get_variable_definition(fi.variables['GPP'])
+       get_variable_definition(fi.variables['GPP'])
 
     """
     out = ncvar.filters() if ncvar.filters() else {}
@@ -615,7 +618,7 @@ def create_variables(fi, fo, time=None, timedim='time', izip=False, fill=None,
                 else:
                     itime = timedim not in ivar.dimensions
             if itime:
-                invardef = _get_variable_definition(ivar)
+                invardef = get_variable_definition(ivar)
                 if izip:
                     invardef.update({'zlib': True})
                 # rename variable if in renamevar
