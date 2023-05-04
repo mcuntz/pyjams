@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v1.31 (??? 2023)
+    * Warn only if lb > ub, simply set mask if lb == ub in `sce`.
     * Add functions `pack`, `unpack` mimicking Fortran intrinsics.
 
 v1.30 (May 2023)

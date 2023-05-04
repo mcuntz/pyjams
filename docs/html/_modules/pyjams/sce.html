@@ -42,7 +42,7 @@
 <span class="sd">continued while at Institut National de Recherche pour l&#39;Agriculture,</span>
 <span class="sd">l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy, France.</span>
 
-<span class="sd">:copyright: Copyright 2004-2022 Qingyun Duan [1]_, Stijn Van Hoey, Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:copyright: Copyright 2004-2023 Qingyun Duan [1]_, Stijn Van Hoey, Matthias Cuntz, see AUTHORS.rst for details.</span>
 <span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">References</span>
@@ -108,6 +108,8 @@
 <span class="sd">    * Rewrite into class SCESolver, Dec 2022, Matthias Cuntz</span>
 <span class="sd">    * Output OptimizeResult class, Dec 2022, Matthias Cuntz</span>
 <span class="sd">    * Polish results with L-BFGS-B, Dec 2022, Matthias Cuntz</span>
+<span class="sd">    * Warn only if lb &gt; ub, simply set mask if lb == ub,</span>
+<span class="sd">      May 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -572,10 +574,13 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ub</span><span class="p">)</span>
             <span class="n">bound</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ub</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lb</span>
             <span class="c1"># degenerated bounds</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">bound</span> <span class="o">&lt;=</span> <span class="mf">0.</span><span class="p">):</span>
-                <span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bound</span> <span class="o">&lt;=</span> <span class="mf">0.</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">bound</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">):</span>
+                <span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bound</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">bound</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">):</span>
+                <span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bound</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;sce: found lower bound lb &gt;= upper bound lb for&#39;</span>
+                    <span class="sa">f</span><span class="s1">&#39;sce: found lower bound lb &gt; upper bound ub for&#39;</span>
                     <span class="sa">f</span><span class="s1">&#39; parameter(s) </span><span class="si">{</span><span class="n">ii</span><span class="si">}</span><span class="s1"> with lb=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lb</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="si">}</span><span class="s1"> and&#39;</span>
                     <span class="sa">f</span><span class="s1">&#39; ub=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ub</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="si">}</span><span class="s1"> =&gt; masking the parameter(s).&#39;</span><span class="p">,</span>
                     <span class="ne">UserWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>

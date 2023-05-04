@@ -227,7 +227,7 @@ Functions and modules (alphabetical)
    * - roman2int
      - Roman numeral to integer conversion
    * - sce
-     - Shuffle-Complex-Evolution algorithm for function min(max)imisation
+     - Shuffled-Complex-Evolution algorithm for function min(max)imisation
    * - screening
      - Parameter screening using Morris' method of Elementary Effects
    * - shair2eair
@@ -431,7 +431,7 @@ Functions and modules per category
          - Sampling of optimised trajectories for Morris measures / Elementary
            Effects
        * - sce
-         - Shuffle-Complex-Evolution algorithm for function min(max)imisation
+         - Shuffled-Complex-Evolution algorithm for function min(max)imisation
        * - screening
          - Parameter screening using Morris' method of Elementary Effects
 

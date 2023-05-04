@@ -9,7 +9,7 @@ maintained by Matthias Cuntz while at Department of Computational Hydrosystems
 continued while at Institut National de Recherche pour l'Agriculture,
 l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2004-2022 Qingyun Duan [1]_, Stijn Van Hoey, Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2004-2023 Qingyun Duan [1]_, Stijn Van Hoey, Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 References
@@ -75,6 +75,8 @@ History
     * Rewrite into class SCESolver, Dec 2022, Matthias Cuntz
     * Output OptimizeResult class, Dec 2022, Matthias Cuntz
     * Polish results with L-BFGS-B, Dec 2022, Matthias Cuntz
+    * Warn only if lb > ub, simply set mask if lb == ub,
+      May 2023, Matthias Cuntz
 
 """
 import warnings
@@ -539,10 +541,13 @@ class SCESolver:
                 self.ub = np.full(self.nn, self.ub)
             bound = self.ub - self.lb
             # degenerated bounds
-            if np.any(bound <= 0.):
-                ii = np.where(bound <= 0.)[0]
+            if np.any(bound == 0.):
+                ii = np.where(bound == 0.)[0]
+                self.mask[ii] = False
+            if np.any(bound < 0.):
+                ii = np.where(bound < 0.)[0]
                 warnings.warn(
-                    f'sce: found lower bound lb >= upper bound lb for'
+                    f'sce: found lower bound lb > upper bound ub for'
                     f' parameter(s) {ii} with lb={self.lb[ii]} and'
                     f' ub={self.ub[ii]} => masking the parameter(s).',
                     UserWarning, stacklevel=2)

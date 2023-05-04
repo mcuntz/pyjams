@@ -226,8 +226,8 @@ Functions and modules (alphabetical)
      - Air vapour pressure deficit from relative humidity and temperature
    * - :func:`~pyjams.romanliterals.roman2int`
      - Roman numeral to integer conversion
-   * - :func:`~pyjams.sce`
-     - Shuffle-Complex-Evolution algorithm for function min(max)imisation
+   * - :func:`~pyjams.sce.sce`
+     - Shuffled-Complex-Evolution algorithm for function min(max)imisation
    * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects
    * - :func:`~pyjams.shair2eair`
@@ -430,8 +430,8 @@ Functions and modules per category
        * - :func:`~pyjams.morris_method.morris_sampling`
          - Sampling of optimised trajectories for Morris measures / Elementary
            Effects
-       * - :func:`~pyjams.sce`
-         - Shuffle-Complex-Evolution algorithm for function min(max)imisation
+       * - :func:`~pyjams.sce.sce`
+         - Shuffled-Complex-Evolution algorithm for function min(max)imisation
        * - :func:`~pyjams.screening.screening`
          - Parameter screening using Morris' method of Elementary Effects
 
