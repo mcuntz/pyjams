@@ -6,7 +6,6 @@ python -m unittest -v tests/test_division.py
 python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_division.py
 
 """
-from __future__ import division, absolute_import, print_function
 import unittest
 
 

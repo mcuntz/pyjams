@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v1.31 (??? 2023)
+    * Add functions `pack`, `unpack` mimicking Fortran intrinsics.
+
 v1.30 (May 2023)
     * Replace plotly with hvplot in `mcPlot`.
     * Add unicode symbol degree \u00B0, which gets replaced by ^\circ

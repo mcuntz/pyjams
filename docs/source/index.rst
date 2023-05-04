@@ -214,6 +214,8 @@ Functions and modules (alphabetical)
      - Read variables from netCDF file
    * - :func:`~pyjams.class_datetime.num2date`
      - Return datetime objects given numeric time values
+   * - :func:`~pyjams.pack.pack`
+     - Pack array with mask like Fortran intrinsic pack
    * - :func:`~pyjams.position`
      - Position arrays of subplots to be used with add_axes
    * - :func:`~pyjams.readnetcdf.readnetcdf`
@@ -241,6 +243,8 @@ Functions and modules (alphabetical)
      - Prints arguments on screen and in file, like Unix/Linux tee utility
    * - :func:`~pyjams.text2plot.text2plot`
      - Write text on a plot
+   * - :func:`~pyjams.pack.unpack`
+     - Unpack array using mask like Fortran intrinsic unpack
    * - :func:`~pyjams.npyio.updatez`
      - Update arrays in uncompressed numpy .npz format
    * - :func:`~pyjams.npyio.updatez_compressed`
@@ -287,6 +291,10 @@ Functions and modules per category
            Python iterables
        * - :func:`~pyjams.closest`
          - Index in array which entry is closest to a given number
+       * - :func:`~pyjams.pack.pack`
+         - Pack array with mask like Fortran intrinsic pack
+       * - :func:`~pyjams.pack.unpack`
+         - Unpack array using mask like Fortran intrinsic unpack
 
 .. _Ascii Files:
 

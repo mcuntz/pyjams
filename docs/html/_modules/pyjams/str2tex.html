@@ -196,7 +196,7 @@
                     <span class="c1"># escape %</span>
                     <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;%&#39;</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\%&#39;</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">[</span><span class="n">ii</span><span class="p">]):</span>
                         <span class="n">ss</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">rep_percent</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
-                    <span class="c1"># replace unicode degree symbol (after escpae of ^)</span>
+                    <span class="c1"># replace unicode degree symbol (after escape of ^)</span>
                     <span class="k">if</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="se">\u00B0</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">[</span><span class="n">ii</span><span class="p">]:</span>
                         <span class="n">ss</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">rep_degree</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
                     <span class="k">if</span> <span class="n">space2linebreak</span><span class="p">:</span>
@@ -234,7 +234,7 @@
                 <span class="c1"># escape %</span>
                 <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;%&#39;</span> <span class="ow">in</span> <span class="n">istrin</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\%&#39;</span> <span class="ow">in</span> <span class="n">istrin</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
                     <span class="n">istrin</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">rep_percent</span><span class="p">(</span><span class="n">istrin</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-                <span class="c1"># replace unicode degree symbol (after escpae of ^)</span>
+                <span class="c1"># replace unicode degree symbol (after escape of ^)</span>
                 <span class="k">if</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="se">\u00B0</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">istrin</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
                     <span class="n">istrin</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">rep_degree</span><span class="p">(</span><span class="n">istrin</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">space2linebreak</span><span class="p">:</span>

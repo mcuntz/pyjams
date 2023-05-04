@@ -5,3 +5,4 @@ Array Manipulation
 
    argsort.rst
    closest.rst
+   pack.rst

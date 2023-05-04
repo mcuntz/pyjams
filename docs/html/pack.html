@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>pack/unpack &#8212; pyjams 1.30.dev1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ASCII Files" href="ascii_files.html" />
+    <link rel="prev" title="closest" href="closest.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-pyjams.pack">
+<span id="pack-unpack"></span><h1>pack/unpack<a class="headerlink" href="#module-pyjams.pack" title="Permalink to this heading">¶</a></h1>
+<p>Mimics Fortran intrinsic pack and unpack functions</p>
+<p>This module was written by Matthias Cuntz while at Department of
+Computational Hydrosystems, Helmholtz Centre for Environmental
+Research - UFZ, Leipzig, Germany, and continued while at Institut
+National de Recherche pour l’Agriculture, l’Alimentation et
+l’Environnement (INRAE), Nancy, France.</p>
+<dl class="field-list simple">
+<dt class="field-odd">copyright<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Copyright 2009-2023 Matthias Cuntz, see AUTHORS.rst for details.</p>
+</dd>
+<dt class="field-even">license<span class="colon">:</span></dt>
+<dd class="field-even"><p>MIT License, see LICENSE for details.</p>
+</dd>
+</dl>
+<p>The following functions are provided</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.pack.pack" title="pyjams.pack.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>(array, mask)</p></td>
+<td><p>Mimics Fortran intrinsic pack (without optional vector)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.pack.unpack" title="pyjams.pack.unpack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unpack</span></code></a>(array, mask[, fill_value])</p></td>
+<td><p>Mimics Fortran intrinsic unpack (without optional field)</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Jul 2009 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>Ported to Python 3, Feb 2013, Matthias Cuntz</p></li>
+<li><p>Assert matching mask and array dimensions, Apr 2014, Matthias Cuntz</p></li>
+<li><p>Code refactoring, Sep 2021, Matthias Cuntz</p></li>
+<li><p>Port to pyjams, May 2023, Matthias Cuntz</p></li>
+<li><p>Rename value keyword to fill_value as in numpy masked arrays,
+May 2023, Matthias Cuntz</p></li>
+<li><p>Assert output type equals input type, May 2023, Matthias Cuntz</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.pack.pack">
+<span class="sig-name descname"><span class="pre">pack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/pack.html#pack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.pack.pack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mimics Fortran intrinsic pack (without optional vector)</p>
+<p>Packs the last dimensions of an arbitrary shaped array
+into a one dimensional array under a mask.</p>
+<p>The mask can have any number of dimensions up to the array dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>array</em>) – ND-array to be packed</p></li>
+<li><p><strong>mask</strong> (<em>array</em>) – Boolean ND-array with number of dimensions &lt;= <cite>array</cite> dimensions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>array</cite> with reduced dimensions by number of mask dimensions minus one.
+Last dimension has only elements that correspond to elements of
+<cite>mask == True</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Result is undefined if all mask values are False.</p>
+</div>
+<p class="rubric">Examples</p>
+<p>Create some data for example an island in the middle of an ocean</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">island</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>Pack array to keep only the elements of the island</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">island</span> <span class="o">==</span> <span class="mf">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pisland</span> <span class="o">=</span> <span class="n">pack</span><span class="p">(</span><span class="n">island</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pisland</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">pisland</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">9 (9,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">island</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">pisland</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="go">9.0 9.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pisland</span><span class="p">)</span>
+<span class="go">[1. 1. 1. 1. 1. 1. 1. 1. 1.]</span>
+</pre></div>
+</div>
+<p>Create data on the ocean and on the island for 2 time steps</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tshape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">*</span><span class="n">island</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">tshape</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tshape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pack array to keep only the elements of the island</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ptemp</span> <span class="o">=</span> <span class="n">pack</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ptemp</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">ptemp</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">18 (2, 9)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ptemp</span><span class="p">)</span>
+<span class="go">[[13 14 15 23 24 25 33 34 35]</span>
+<span class="go"> [63 64 65 73 74 75 83 84 85]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyjams.pack.unpack">
+<span class="sig-name descname"><span class="pre">unpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/pack.html#unpack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.pack.unpack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mimics Fortran intrinsic unpack (without optional field)</p>
+<p>Unpacks the last dimension into several dimensions under a mask.
+The unpacked elements will be set to a user-defined fill_value.
+The mask can have any number of dimensions up to the array dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>array</em>) – ND-array to be unpacked</p></li>
+<li><p><strong>mask</strong> (<em>array</em>) – Boolean ND-array</p></li>
+<li><p><strong>fill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Value of the new elements (default: 0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>array</cite> having more dimensions by number of mask dimensions minus one.
+The new elements have the user-defined <cite>fill_value</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Result is undefined if all mask values are False.</p>
+</div>
+<p class="rubric">Examples</p>
+<p>Create some data for example an island in the middle of an ocean</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">island</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">island</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">island</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">50 (5, 10)</span>
+</pre></div>
+</div>
+<p>Pack array to keep only the elements of the island</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">island</span> <span class="o">==</span> <span class="mf">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pisland</span> <span class="o">=</span> <span class="n">pack</span><span class="p">(</span><span class="n">island</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pisland</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">pisland</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">9 (9,)</span>
+</pre></div>
+</div>
+<p>Unpack the ocean and island data again</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uisland</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">pisland</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">uisland</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">uisland</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">50 (5, 10)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">uisland</span> <span class="o">==</span> <span class="n">island</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Unpack the ocean and island data, filling ocean with -9</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uisland</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">pisland</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="o">-</span><span class="mi">9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">uisland</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">uisland</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">50 (5, 10)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">uisland</span><span class="p">)</span>
+<span class="go">[[-9. -9. -9. -9. -9. -9. -9. -9. -9. -9.]</span>
+<span class="go"> [-9. -9. -9.  1.  1.  1. -9. -9. -9. -9.]</span>
+<span class="go"> [-9. -9. -9.  1.  1.  1. -9. -9. -9. -9.]</span>
+<span class="go"> [-9. -9. -9.  1.  1.  1. -9. -9. -9. -9.]</span>
+<span class="go"> [-9. -9. -9. -9. -9. -9. -9. -9. -9. -9.]]</span>
+</pre></div>
+</div>
+<p>Create data on the ocean and on the island for 2 time steps</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tshape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">*</span><span class="n">island</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">tshape</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tshape</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">temp</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">100 (2, 5, 10)</span>
+</pre></div>
+</div>
+<p>Pack array to keep only the elements of the island</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ptemp</span> <span class="o">=</span> <span class="n">pack</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ptemp</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">ptemp</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">18 (2, 9)</span>
+</pre></div>
+</div>
+<p>Unpack the ocean and island data.
+Note the ocean will have the fill_value -1 not its original data.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">utemp</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">ptemp</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=-</span><span class="mf">1.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">utemp</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">utemp</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">100 (2, 5, 10)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">utemp</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">utemp</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">==</span> <span class="n">temp</span><span class="p">[</span><span class="n">ii</span><span class="p">]))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with a wide variety of miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="argsort.html">argmax/argmin/argsort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="closest.html">closest</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pack/unpack</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams @ GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams @ Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams">pyjams @ PyPI</a></li>
+    
+    <li class="toctree-l1"><a href="https://anaconda.org/conda-forge/pyjams">pyjams @ conda-forge</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="array_manipulation.html">Array Manipulation</a><ul>
+      <li>Previous: <a href="closest.html" title="previous chapter">closest</a></li>
+      <li>Next: <a href="ascii_files.html" title="next chapter">ASCII Files</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/pack.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

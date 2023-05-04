@@ -118,28 +118,31 @@ scipy.optimize.curvefit, and much more.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="npyio.html#module-pyjams.npyio" title="pyjams.npyio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">npyio</span></code></a></p></td>
 <td><p>Update arrays in a single file in numpy's npz format</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="position.html#module-pyjams.position" title="pyjams.position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code></a>([row, col, num, left, right, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pack.html#module-pyjams.pack" title="pyjams.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>(array, mask)</p></td>
+<td><p>Mimics Fortran intrinsic pack (without optional vector)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="position.html#module-pyjams.position" title="pyjams.position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code></a>([row, col, num, left, right, ...])</p></td>
 <td><p>Gives positions of subplots, to be used with add_axes instead of subplot</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="readnetcdf.html#module-pyjams.readnetcdf" title="pyjams.readnetcdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readnetcdf</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="readnetcdf.html#module-pyjams.readnetcdf" title="pyjams.readnetcdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readnetcdf</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Wrapper for <code class="xref py py-func docutils literal notranslate"><span class="pre">ncread()</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="romanliterals.html#module-pyjams.romanliterals" title="pyjams.romanliterals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">romanliterals</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="romanliterals.html#module-pyjams.romanliterals" title="pyjams.romanliterals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">romanliterals</span></code></a></p></td>
 <td><p>Convert integer to and from Roman numerals</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="sce.html#module-pyjams.sce" title="pyjams.sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sce</span></code></a>(func, x0, lb[, ub, mask, args, kwargs, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="sce.html#module-pyjams.sce" title="pyjams.sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sce</span></code></a>(func, x0, lb[, ub, mask, args, kwargs, ...])</p></td>
 <td><p>Shuffled-Complex-Evolution algorithm for function minimization</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="screening.html#module-pyjams.screening" title="pyjams.screening"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screening</span></code></a>(func, lb, ub, nt[, x0, mask, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="screening.html#module-pyjams.screening" title="pyjams.screening"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screening</span></code></a>(func, lb, ub, nt[, x0, mask, ...])</p></td>
 <td><p>Parameter screening using Morris' method of Elementary Effects.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="str2tex.html#module-pyjams.str2tex" title="pyjams.str2tex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str2tex</span></code></a>(strin[, space2linebreak, bold, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="str2tex.html#module-pyjams.str2tex" title="pyjams.str2tex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str2tex</span></code></a>(strin[, space2linebreak, bold, ...])</p></td>
 <td><p>Convert strings to LaTeX strings in math environment used by matplotlib's usetex</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="tee.html#module-pyjams.tee" title="pyjams.tee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tee</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="tee.html#module-pyjams.tee" title="pyjams.tee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tee</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Prints arguments on screen and in file, like Unix/Linux tee utility.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="text2plot.html#module-pyjams.text2plot" title="pyjams.text2plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text2plot</span></code></a>(handle, dx, dy, itext[, small, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="text2plot.html#module-pyjams.text2plot" title="pyjams.text2plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text2plot</span></code></a>(handle, dx, dy, itext[, small, ...])</p></td>
 <td><p>Write text on plot</p></td>
 </tr>
 </tbody>
@@ -182,6 +185,7 @@ Jun 2022, Matthias Cuntz</p></li>
 <li><p>v1.28, added updatez, Jan 2023, Matthias Cuntz</p></li>
 <li><p>v1.29, added functions for converting humidity in air,
 Jan 2023, Matthias Cuntz</p></li>
+<li><p>v1.30, hvplot in mcplot, May 2023, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -191,6 +195,7 @@ Jan 2023, Matthias Cuntz</p></li>
 <li class="toctree-l1"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="argsort.html">argmax/argmin/argsort</a></li>
 <li class="toctree-l2"><a class="reference internal" href="closest.html">closest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pack.html">pack/unpack</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ascii_files.html">ASCII Files</a><ul>

@@ -37,6 +37,7 @@ Subpackages
    morris_method
    ncio
    npyio
+   pack
    position
    readnetcdf
    romanliterals
@@ -47,43 +48,43 @@ Subpackages
    text2plot
 
 History
-    * Written Oct 2021 by Matthias Cuntz (mc (at) macu (dot) de)
-    * v1.0, initial Github, PyPI, Zenodo commit, Oct 2021, Matthias Cuntz
-    * v1.1, automatic versioning, zenodo defaults, Oct 2021, Matthias Cuntz
-    * v1.2, added closest, Oct 2021, Matthias Cuntz
-    * v1.3, added argsort, Oct 2021, Matthias Cuntz
-    * v1.4, added division, Oct 2021, Matthias Cuntz
-    * v1.5, added alpha_equ_h2o, Oct 2021, Matthias Cuntz
-    * v1.6, added alpha_kin_h2o, Nov 2021, Matthias Cuntz
-    * v1.7, added mcPlot, Nov 2021, Matthias Cuntz
-    * v1.8, added str2tex and color, Nov 2021, Matthias Cuntz
-    * v1.9, added position, Nov 2021, Matthias Cuntz
-    * v1.10, added sron colors, Nov 2021, Matthias Cuntz
-    * v1.11, added text2plot, abc2plot, signature2plot,
-      Nov 2021, Matthias Cuntz
-    * v1.12, added date2dec and all its wrappers, Dec 2021, Matthias Cuntz
-    * v1.13, added fsread, fread, sread, Dec 2021, Matthias Cuntz
-    * v1.14, added GUI dialogs to choose files and directories using Tkinter,
-      Jan 2022, Matthias Cuntz
-    * v1.15, added esat, Jan 2022, Matthias Cuntz
-    * v1.16, added mad, Jan 2022, Matthias Cuntz
-    * v1.17, added xread, xlsread, and xlsxread, Jan 2022, Matthias Cuntz
-    * v1.18, helper module to preserve input types, Mar 2022, Matthias Cuntz
-    * v1.19, added readnetcdf, Mar 2022, Matthias Cuntz
-    * v1.20, added gridcellarea and kernel_regression, Apr 2022, Matthias Cuntz
-    * v1.21, enhancements in color and kernel_regression,
-      Apr 2022, Matthias Cuntz
-    * v1.22, added ncio, May 2022, Matthias Cuntz
-    * v1.23, added datetime module, Jun 2022, Matthias Cuntz
-    * v1.24, moved docu to Github Pages, Jun 2022, Matthias Cuntz
-    * v1.25, Microseconds and negative years in date2date and datetime,
-      Jun 2022, Matthias Cuntz
-    * v1.26, added means, Jul 2022, Matthias Cuntz
-    * v1.27, added sce, Dec 2022, Matthias Cuntz
-    * v1.28, added updatez, Jan 2023, Matthias Cuntz
-    * v1.29, added functions for converting humidity in air,
-      Jan 2023, Matthias Cuntz
-    * v1.30, hvplot in mcplot, May 2023, Matthias Cuntz
+   * Written Oct 2021 by Matthias Cuntz (mc (at) macu (dot) de)
+   * v1.0, initial Github, PyPI, Zenodo commit, Oct 2021, Matthias Cuntz
+   * v1.1, automatic versioning, zenodo defaults, Oct 2021, Matthias Cuntz
+   * v1.2, added closest, Oct 2021, Matthias Cuntz
+   * v1.3, added argsort, Oct 2021, Matthias Cuntz
+   * v1.4, added division, Oct 2021, Matthias Cuntz
+   * v1.5, added alpha_equ_h2o, Oct 2021, Matthias Cuntz
+   * v1.6, added alpha_kin_h2o, Nov 2021, Matthias Cuntz
+   * v1.7, added mcPlot, Nov 2021, Matthias Cuntz
+   * v1.8, added str2tex and color, Nov 2021, Matthias Cuntz
+   * v1.9, added position, Nov 2021, Matthias Cuntz
+   * v1.10, added sron colors, Nov 2021, Matthias Cuntz
+   * v1.11, added text2plot, abc2plot, signature2plot,
+     Nov 2021, Matthias Cuntz
+   * v1.12, added date2dec and all its wrappers, Dec 2021, Matthias Cuntz
+   * v1.13, added fsread, fread, sread, Dec 2021, Matthias Cuntz
+   * v1.14, added GUI dialogs to choose files and directories using Tkinter,
+     Jan 2022, Matthias Cuntz
+   * v1.15, added esat, Jan 2022, Matthias Cuntz
+   * v1.16, added mad, Jan 2022, Matthias Cuntz
+   * v1.17, added xread, xlsread, and xlsxread, Jan 2022, Matthias Cuntz
+   * v1.18, helper module to preserve input types, Mar 2022, Matthias Cuntz
+   * v1.19, added readnetcdf, Mar 2022, Matthias Cuntz
+   * v1.20, added gridcellarea and kernel_regression, Apr 2022, Matthias Cuntz
+   * v1.21, enhancements in color and kernel_regression,
+     Apr 2022, Matthias Cuntz
+   * v1.22, added ncio, May 2022, Matthias Cuntz
+   * v1.23, added datetime module, Jun 2022, Matthias Cuntz
+   * v1.24, moved docu to Github Pages, Jun 2022, Matthias Cuntz
+   * v1.25, Microseconds and negative years in date2date and datetime,
+     Jun 2022, Matthias Cuntz
+   * v1.26, added means, Jul 2022, Matthias Cuntz
+   * v1.27, added sce, Dec 2022, Matthias Cuntz
+   * v1.28, added updatez, Jan 2023, Matthias Cuntz
+   * v1.29, added functions for converting humidity in air,
+     Jan 2023, Matthias Cuntz
+   * v1.30, hvplot in mcplot, May 2023, Matthias Cuntz
 
 """
 # version, author
@@ -149,6 +150,8 @@ from .means import means
 from .morris_method import morris_sampling, elementary_effects
 # update arrays in a single file in numpy's npz format
 from .npyio import updatez, updatez_compressed
+# like Fortran pack/unpack
+from .pack import pack, unpack
 # positions of subplots, used with add_axes
 from .position import position
 # get variables from or print information of a netcdf file
@@ -196,6 +199,7 @@ __all__ = ['__version__', '__author__',
            'means',
            'morris_sampling', 'elementary_effects',
            'updatez', 'updatez_compressed',
+           'pack', 'unpack',
            'position',
            'infonetcdf', 'ncinfo', 'readnetcdf', 'ncread',
            'int2roman', 'roman2int',

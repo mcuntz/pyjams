@@ -214,6 +214,8 @@ Functions and modules (alphabetical)
      - Read variables from netCDF file
    * - num2date
      - Return datetime objects given numeric time values
+   * - pack
+     - Pack array with mask like Fortran intrinsic pack
    * - position
      - Position arrays of subplots to be used with add_axes
    * - readnetcdf
@@ -241,6 +243,8 @@ Functions and modules (alphabetical)
      - Prints arguments on screen and in file, like Unix/Linux tee utility
    * - text2plot
      - Write text on a plot
+   * - unpack
+     - Unpack array using mask like Fortran intrinsic unpack
    * - updatez
      - Update arrays in uncompressed numpy .npz format
    * - updatez_compressed
@@ -287,6 +291,10 @@ Functions and modules per category
            Python iterables.
        * - closest
          - Index in array which entry is closest to a given number.
+       * - pack
+         - Pack array with mask like Fortran intrinsic pack
+       * - unpack
+         - Unpack array using mask like Fortran intrinsic unpack
 
 .. _Ascii Files:
 
