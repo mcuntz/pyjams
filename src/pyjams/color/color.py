@@ -35,6 +35,7 @@ History
       matplotlib.colormaps.get_cmap(name) to work with matplotlib < v3.6,
       Jan 2023, Matthias Cuntz
     * Do not set_bad() for sron palettes, Jan 2023, Matthias Cuntz
+    * Allow ncol=1 in get_cmap, Jun 2023, Matthias Cuntz
 
 """
 
@@ -340,7 +341,11 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
                     else:
                         ncol1 = ncol
                     for i in range(ncol1):
-                        x = offset + float(i)/float(ncol1-1) * (upper-offset)
+                        if ncol1 == 1:
+                            x = offset
+                        else:
+                            x = (offset + float(i) / float(ncol1 - 1) *
+                                 (upper - offset))
                         colors.append(tuple(dd[palette](x)))
 
     if not found_palette:
@@ -406,7 +411,7 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
                 colors = [ _rgb2rgb(i) for i in dd[palette] ]
 
     if not found_palette:
-        raise ValueError(palette+' color palette not found.')
+        raise ValueError(palette + ' color palette not found.')
 
     if order is not None:
         hsv = ['hue', 'saturation', 'value']
@@ -427,10 +432,14 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
     # subsample
     if (ncol > 0) and not nosubsample:
         ncolors = len(colors)
-        ocolors = ['']*ncol
+        ocolors = [''] * ncol
         for i in range(ncol):
-            x = offset + float(i)/float(ncol-1) * (upper-offset)  # [0-1]
-            iicol = round(x * (ncolors-1))  # [0-ncolor-1]
+            if ncol == 1:
+                x = offset
+            else:
+                # [0-1]
+                x = offset + float(i) / float(ncol - 1) * (upper - offset)
+            iicol = round(x * (ncolors - 1))  # [0-ncolor-1]
             ocolors[i] = colors[iicol]
         colors = ocolors
 
@@ -467,7 +476,7 @@ def print_palettes(collection=''):
        print_palettes()
 
     """
-    import matplotlib as mpl
+    # import matplotlib as mpl
     import matplotlib.pyplot as plt
     import pyjams.color
 
@@ -595,7 +604,7 @@ def _newsubplot(nrow, ncol, iplot, iname, ncolors=0):  # pragma: no cover
         iiname = iname + '(' + str(ncolors) + ')'
     else:
         iiname = iname
-    ax.text(xmin+dx*(xmax-xmin), ymin+dy*(ymax-ymin), iiname,
+    ax.text(xmin + dx * (xmax - xmin), ymin + dy * (ymax - ymin), iiname,
             ha='right', va='center')
     # return ax
 
@@ -648,7 +657,7 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     import pyjams.color
     # outtype
     if '.' in outfile:
-        outtype = outfile[outfile.rfind('.')+1:]
+        outtype = outfile[outfile.rfind('.') + 1:]
         if outtype == 'pdf':
             mpl.use('PDF')  # set directly after import matplotlib
             from matplotlib.backends.backend_pdf import PdfPages
@@ -659,7 +668,6 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     else:
         outtype = 'X'
         textsize = 8
-    import matplotlib.pyplot as plt
 
     # which collections to include
     collections = ['pyjams', 'sron', 'sron2012', 'mathematica', 'oregon',
@@ -677,8 +685,8 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
         if not (outtype == 'pdf'):
             mpl.rc('savefig', dpi=300, format=outtype)
     else:
-        mpl.rc('figure', figsize=(8.27*0.75, 11.69*0.75))
-    figsize = mpl.rcParams['figure.figsize']
+        mpl.rc('figure', figsize=(8.27 * 0.75, 11.69 * 0.75))
+    # figsize = mpl.rcParams['figure.figsize']
     mpl.rc('font', size=textsize)
     nrow = 35
 
