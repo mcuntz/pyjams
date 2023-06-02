@@ -77,6 +77,7 @@ History
     * Polish results with L-BFGS-B, Dec 2022, Matthias Cuntz
     * Warn only if lb > ub, simply set mask if lb == ub,
       May 2023, Matthias Cuntz
+    * Exit if initial population failed twice, May 2023, Matthias Cuntz
 
 """
 import warnings
@@ -572,6 +573,26 @@ class SCESolver:
                 self.icall += 1
                 if self.printit == 1:
                     print('  i, f, X: ', self.icall, self.xf[i], self.x[i, :])
+
+            # redo an initial population if all runs failed
+            if not np.any(np.isfinite(self.xf)):
+                if self.printit < 2:
+                    print('Redo initial population because all failed')
+                self.x = self.sample_input_matrix(self.npt)
+                for i in range(self.npt):
+                    self.x[i, :] = np.where(self.mask, self.x[i, :], x0)
+                for i in range(self.npt):
+                    fuc = self.func(self.x[i, :])
+                    self.xf[i] = -fuc if self.maxit else fuc
+                    self.icall += 1
+                    if self.printit == 1:
+                        print('  i, f, X: ', self.icall, self.xf[i],
+                              self.x[i, :])
+            if not np.any(np.isfinite(self.xf)):
+                raise ValueError(
+                    'Did not succeed to produce initial population:'
+                    ' all function evaluations failed. Give an initial'
+                    ' value x0 that works and set iniflg=True (default).')
 
             # remember large for treating of NaNs
             self.large = self.xf[np.isfinite(self.xf)].max()

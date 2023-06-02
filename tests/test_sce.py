@@ -39,11 +39,38 @@ def rosenbrock_kwargs(x, a=1, b=100):
     return f
 
 
+def deb03(x):
+    r"""
+    Deb 3 objective function from scipy.benchmarks
+
+    This is a multimodal minimization problem defined as follows:
+
+    .. math::
+
+        f_{\text{Deb02}}(x) = - \frac{1}{N} \sum_{i=1}^n \sin^6 \left[ 5 \pi
+        \left ( x_i^{3/4} - 0.05 \right) \right ]
+
+
+    Here, :math:`n` represents the number of dimensions and :math:`x_i \in
+    [0, 1]` for :math:`i = 1, ..., n`.
+
+    *Global optimum*: :math:`f(x) = 0.0`. The number of global minima is
+    :math:`5^n` that are evenly spaced in the function landscape, where
+    :math:`n` represents the dimension of the problem.
+
+    .. [1] Jamil, M. & Yang, X.-S. A Literature Survey of Benchmark Functions
+    For Global Optimization Problems Int. Journal of Mathematical Modelling
+    and Numerical Optimisation, 2013, 4, 150-194.
+
+    """
+    return -(1.0 / len(x)) * np.sum(np.sin(5 * np.pi * (x**0.75 - 0.05))**6)
+
+
 # Some lines are not covered:
-#   117-118: second args is empty dict
-#   893: if npt < 1
-#   916: redo random number if exactly 0 in sampling='open'
-#   931-934: if lb and ub <=0 with sampling='log'
+#   120-121: second args is empty dict
+#   919: if npt < 1
+#   942: redo random number if exactly 0 in sampling='open'
+#   957-960: if lb and ub <=0 with sampling='log'
 class TestSCESolver(unittest.TestCase):
 
     def setUp(self):
@@ -244,7 +271,13 @@ class TestSCESolver(unittest.TestCase):
         assert_raises(TypeError, sce, func, x0, bounds)
         bounds = [(-1, 1), (-1, 1)]
         assert_raises(ValueError, sce, func, x0, bounds, sampling='unknown')
+        # test correct bool string
         assert_raises(ValueError, _strtobool, 'Ja')
+        # test no initial population found
+        func = deb03
+        x0 = [-0.5, -0.5]
+        bounds = [(-1, 0), (-1, 0.)]  # should be (0, 1) to work
+        assert_raises(ValueError, sce, func, x0, bounds, printit=1)
 
     def test_sce_args(self):
         # args

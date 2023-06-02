@@ -360,8 +360,6 @@ class mcPlot(object):
                 ' default: black lines on transparent or white background.')
         parser.add_argument('-w', '--white', action='store_true',
                             default=dowhite, dest='dowhite', help=hstr)
-        parser.add_argument('cargs', nargs='*', default=None,
-                            metavar='args', help=iargstr)
         hstr = ('Dots Per inch (DPI) for non-vector output types or rasterized'
                 ' maps in vector output (default: 300).')
         parser.add_argument('--dpi', action='store', default=dpi, type=int,
@@ -369,6 +367,8 @@ class mcPlot(object):
         hstr = ('Transparent figure background (default: black or white).')
         parser.add_argument('--transparent', action='store_true',
                             default=transparent, dest='transparent', help=hstr)
+        parser.add_argument('cargs', nargs='*', default=None,
+                            metavar='args', help=iargstr)
 
         args = parser.parse_args()
 

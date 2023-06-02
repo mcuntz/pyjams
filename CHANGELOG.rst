@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v1.31 (??? 2023)
+    * Exit if initial population failed twice in `sce`.
     * Allow ncol=1 in `color.get_cmap`.
     * prepend and append keywords in `mad`.
     * Warn only if lb > ub, simply set mask if lb == ub in `sce`.
