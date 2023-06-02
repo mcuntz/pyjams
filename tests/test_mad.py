@@ -8,6 +8,7 @@ python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_mad.py
 """
 import unittest
 from numpy.ma import masked
+from pytest import raises as assert_raises
 
 
 def _same(ist, soll):
@@ -53,6 +54,18 @@ class TestMad(unittest.TestCase):
                 False, False, False, False, False, False, False, True]
         assert _same(ist, soll)
 
+        ist = mad(y, z=4, prepend=y[0])
+        soll = [False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, True]
+        assert _same(ist, soll)
+
+        ist = mad(y, z=4, append=y[-1])
+        soll = [False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, True]
+        assert _same(ist, soll)
+
         ist = mad(y, z=3)
         soll = [True, False, False, False, False, False, False, False, False,
                 False, False, False, False, False, False, False, False, False,
@@ -66,6 +79,18 @@ class TestMad(unittest.TestCase):
                 False, False, True, False, True, False, True]
         assert _same(ist, soll)
 
+        ist = mad(y, z=4, deriv=1, prepend=y[0])
+        soll = [False, True, False, False, True, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, False, True, False, True, False, True]
+        assert _same(ist, soll)
+
+        ist = mad(y, z=4, deriv=1, append=y[-1])
+        soll = [True, False, False, True, False, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, True, False, True, False, True, False]
+        assert _same(ist, soll)
+
         # 2nd derivatives
         ist = mad(y, z=4, deriv=2)
         soll = [False, False, False, False, False, False, False, False, False,
@@ -73,11 +98,37 @@ class TestMad(unittest.TestCase):
                 False, False, False, False, False, True]
         assert _same(ist, soll)
 
+        # 2nd derivatives, prepend and append
+        ist = mad(y, z=4, deriv=2, prepend=y[0])
+        soll = [False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, True]
+        assert _same(ist, soll)
+
+        ist = mad(y, z=4, deriv=2, append=y[-1])
+        soll = [False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, True, True]
+        assert _same(ist, soll)
+
+        ist = mad(y, z=4, deriv=2, prepend=y[0], append=y[-1])
+        soll = [False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, True, True]
+        assert _same(ist, soll)
+
         # direct use
         ist = np.ma.array(y, mask=mad(y, z=4))
         soll = [-0.25, 0.68, 0.94, 1.15, 2.26, 2.35, 2.37, 2.4, 2.47, 2.54,
                 2.62, 2.64, 2.9, 2.92, 2.92, 2.93, 3.21, 3.26, 3.3, 3.59, 3.68,
                 4.3, 4.64, 5.34, 5.42, masked]
+        self.assertEqual(list(np.ma.around(ist, 2)), soll)
+
+        ist = np.ma.array(y, mask=mad(y, z=4, deriv=2,
+                                      prepend=y[0], append=y[-1]))
+        soll = [-0.25, 0.68, 0.94, 1.15, 2.26, 2.35, 2.37, 2.4, 2.47,
+                2.54, 2.62, 2.64, 2.9, 2.92, 2.92, 2.93, 3.21, 3.26, 3.3, 3.59,
+                3.68, 4.3, 4.64, 5.34, masked, masked]
         self.assertEqual(list(np.ma.around(ist, 2)), soll)
 
         # several dimensions
@@ -104,6 +155,99 @@ class TestMad(unittest.TestCase):
                 [True, False, False, False, False, False, False, False, False,
                  False, False, False, False, False, False, False, False,
                  False, False, False, False, False, False, False, True, True]]
+        ist = list(np.array(ist).flatten())
+        soll = list(np.array(soll).flatten())
+        assert _same(ist, soll)
+
+        # several dimensions, deriv
+        ist = np.transpose(mad(yy, z=4, deriv=2))
+        soll = [[False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, True]]
+        ist = list(np.array(ist).flatten())
+        soll = list(np.array(soll).flatten())
+        assert _same(ist, soll)
+
+        # several dimensions, deriv, prepend and append
+        ist = np.transpose(mad(yy, z=4, deriv=2, prepend=y[0], append=y[-1]))
+        soll = [[False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True]]
+        ist = list(np.array(ist).flatten())
+        soll = list(np.array(soll).flatten())
+        assert _same(ist, soll)
+
+        ist = np.transpose(mad(yy, z=4, deriv=2,
+                               prepend=yy[0, :], append=yy[-1, :]))
+        soll = [[False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True]]
+        ist = list(np.array(ist).flatten())
+        soll = list(np.array(soll).flatten())
+        assert _same(ist, soll)
+
+        ist = np.transpose(mad(yy, z=4, deriv=2,
+                               prepend=yy[0:1, :], append=yy[-1:, :]))
+        soll = [[False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True]]
+        ist = list(np.array(ist).flatten())
+        soll = list(np.array(soll).flatten())
+        assert _same(ist, soll)
+
+        ist = np.transpose(mad(yyy, z=4, deriv=2,
+                               prepend=y[0], append=y[-1]))
+        soll = [[False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True]]
+        ist = list(np.array(ist).flatten())
+        soll = list(np.array(soll).flatten())
+        assert _same(ist, soll)
+
+        ist = np.transpose(mad(yyy, z=4, deriv=2,
+                               prepend=yyy[0, ...], append=yyy[-1, ...]))
+        soll = [[False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True]]
+        ist = list(np.array(ist).flatten())
+        soll = list(np.array(soll).flatten())
+        assert _same(ist, soll)
+
+        ist = np.transpose(mad(yyy, z=4, deriv=2,
+                               prepend=yyy[0:1, ...], append=yyy[-1:, ...]))
+        soll = [[False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, True, True]]
         ist = list(np.array(ist).flatten())
         soll = list(np.array(soll).flatten())
         assert _same(ist, soll)
@@ -171,10 +315,16 @@ class TestMad(unittest.TestCase):
 
         # errors
         # deriv > 2
-        self.assertRaises(ValueError, mad, y, deriv=3)
+        assert_raises(AssertionError, mad, y, deriv=3)
         # ndim > 2
-        y3 = np.transpose(np.array([y, y]).reshape(len(y)//2, 2, 2))
-        self.assertRaises(ValueError, mad, y3)
+        y3 = np.transpose(np.array([y, y]).reshape(len(y) // 2, 2, 2))
+        assert_raises(ValueError, mad, y3)
+        # prepend and append with deriv=1
+        assert_raises(ValueError, mad, y, z=4, deriv=1,
+                      prepend=y[0], append=y[-1])
+        # append shape error
+        assert_raises(ValueError, mad, y, z=4, deriv=2,
+                      prepend=yy[0, :], append=yy[:, -1:])
 
 
 if __name__ == "__main__":

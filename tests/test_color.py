@@ -230,6 +230,11 @@ class TestColor(unittest.TestCase):
                    for i in range(3) ]
         self.assertEqual(cmap, target)
 
+        # sron2012_functions - offset, upper, ncol=1
+        cmap = get_cmap('sron2012_rainbow', ncol=1, offset=0.2, upper=0.9)
+        target = [ sron2012_functions['sron2012_rainbow'](0.2) ]
+        self.assertEqual(cmap, target)
+
         # sron_colors
         cmap = get_cmap('sron_vibrant')
         target = sron_vibrant

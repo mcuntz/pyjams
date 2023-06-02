@@ -37,6 +37,7 @@ History
     * Only one test of bottleneck availability, Jan 2022, Matthias Cuntz
     * Return all False instead of all True if all masked before MAD started,
       Jan 2022, Matthias Cuntz
+    * prepend, append as in numpy.diff, May 2023, Matthias Cuntz
 
 """
 import numpy as np
@@ -45,7 +46,7 @@ import numpy as np
 __all__ = ['mad']
 
 
-def mad(datin, z=7, deriv=0, nozero=False):
+def mad(datin, z=7, deriv=0, nozero=False, prepend=None, append=None):
     """
     Median absolute deviation test
 
@@ -66,25 +67,40 @@ def mad(datin, z=7, deriv=0, nozero=False):
         derivatives (2)
     nozero : bool, optional
         Exclude zeros (0.) from input *datin* if True.
+    prepend, append : array_like, optional
+        Values to prepend or append to `datin` prior to performing the
+        difference with `numpy.diff` if `deriv > 0`.
+        `prepend` uses `numpy.insert` and `append` uses `numpy.append`.
+        Scalar values are hence expanded to arrays with length 1 in the first
+        axis and the shape of the input array along all other axes. Otherwise
+        the dimension and shape must match `datin` except along the first axis.
+
+        .. versionadded:: 1.31
 
     Returns
     -------
     array of bool
         False everywhere except where input deviates more than
-        *z* standard deviations from median
+        *z* standard deviations from median.
+        The shape of the output is the same as `datin` except for the first
+        dimension, which is smaller by `deriv` if `prepend` and `append`
+        are not set.
 
     Notes
     -----
-    If input is an nd-array then mad is checked along the first axis for
+    If input is an ndarray then mad is checked along the first axis for
     outliers.
 
-    1st derivative is calculated simply as ``d = datin[1:n]-datin[0:n-1]``
-    because mean of left and right difference would give 0 for spikes.
+    The 1st derivative is calculated simply as
+    ``d = numpy.diff(datin, n=1, axis=0)`` because mean of left and right
+    difference would give 0 for spikes.
 
-    If ``all(d.mask==True)`` then return ``d.mask``, which is all True.
+    The 2nd derivative is calculated as ``d = numpy.diff(datin, n=2, axis=0)``.
+
+    If ``numpy.all(d.mask)`` then ``d.mask`` is returned, which is all True.
 
     NaN does not return True because this would remove points adjacent to NaN
-    if ``deriv>0``.
+    if ``deriv > 0``.
 
     Examples
     --------
@@ -114,7 +130,14 @@ def mad(datin, z=7, deriv=0, nozero=False):
     [False False False False False False False False False False False False
      False False False False False False False False False False False  True]
 
-    Use for masking arrays
+    MAD on 2nd derivatives with prepend and append set
+
+    >>> print(mad(y, z=4, deriv=2, prepend=y[0], append=y[-1]))
+    [False False False False False False False False False False False False
+     False False False False False False False False False False False False
+      True  True]
+
+    Use for masking arrays, for example
 
     >>> my = np.ma.array(y, mask=mad(y, z=4))
     >>> print(my)
@@ -140,6 +163,37 @@ def mad(datin, z=7, deriv=0, nozero=False):
       False False False False False False False False False False False False
        True  True]
      [ True False False False False False False False False False False False
+      False False False False False False False False False False False False
+       True  True]]
+    >>> print(np.transpose(mad(yy, z=4, deriv=2)))
+    [[False False False False False False False False False False False False
+      False False False False False False False False False False False  True]
+     [False False False False False False False False False False False False
+      False False False False False False False False False False False  True]]
+
+    Set prepend and append either as scalar or array
+
+    >>> print(np.transpose(mad(yy, z=4, deriv=2, prepend=y[0], append=y[-1])))
+    [[False False False False False False False False False False False False
+      False False False False False False False False False False False False
+       True  True]
+     [False False False False False False False False False False False False
+      False False False False False False False False False False False False
+       True  True]]
+    >>> print(np.transpose(mad(yy, z=4, deriv=2,
+    ...                        prepend=yy[0, :], append=yy[-1, :])))
+    [[False False False False False False False False False False False False
+      False False False False False False False False False False False False
+       True  True]
+     [False False False False False False False False False False False False
+      False False False False False False False False False False False False
+       True  True]]
+    >>> print(np.transpose(mad(yy, z=4, deriv=2,
+    ...                        prepend=yy[0:1, :], append=yy[-1:, :])))
+    [[False False False False False False False False False False False False
+      False False False False False False False False False False False False
+       True  True]
+     [False False False False False False False False False False False False
       False False False False False False False False False False False False
        True  True]]
 
@@ -183,30 +237,68 @@ def mad(datin, z=7, deriv=0, nozero=False):
       True  True]
 
     """
+    idatin = datin.copy()
+
+    assert (deriv >= 0) and (deriv <= 2), (f'deriv > 2 unimplemented: {deriv}')
+    if deriv == 1:
+        if (prepend is not None) and (append is not None):
+            raise ValueError('Only one of prepend and append may be given if'
+                             ' deriv==1.')
+
+    # prepend and append
+    if deriv > 0:
+        if prepend is not None:
+            idatin = np.insert(idatin, 0, prepend, axis=0)
+
+        if append is not None:
+            if np.iterable(append):
+                iappend = np.array(append)
+                # all but first dimension must match
+                shpdat = np.array(idatin.shape)
+                shpappend = np.array(iappend.shape)
+                if iappend.ndim == idatin.ndim:
+                    assert np.all(shpdat[1:] == shpappend[1:]), (
+                        f'Shape of append {iappend.shape} must match shape'
+                        f' of datin {datin.shape} except first dimension.')
+                elif iappend.ndim == (idatin.ndim - 1):
+                    assert np.all(shpdat[1:] == shpappend), (
+                        f'Shape of append {iappend.shape} must match shape'
+                        f' of datin {datin.shape} without first dimension.')
+                    iappend = iappend[np.newaxis, ...]
+                else:
+                    raise ValueError(
+                        f'Shape of append {iappend.shape} must match shape'
+                        f' of datin {datin.shape} except or without first'
+                        f' dimension.')
+            else:
+                shpdat = list(idatin.shape)
+                shpdat[0] = 1
+                iappend = np.full(shpdat, append)
+            idatin = np.append(idatin, iappend, axis=0)
+
     if nozero:
-        idatin = datin.copy()
         ii = np.where(idatin == 0.)[0]
         if ii.size > 0:
             idatin[ii] = np.nan
-    else:
-        idatin = datin
+
+    # make derivative
     sn = list(np.shape(idatin))
     n  = sn[0]
     if deriv == 0:
         m      = n
         d      = idatin
     elif deriv == 1:
-        m      = n-1
+        m      = n - 1
         sm     = sn
         sm[0]  = m
         d      = np.diff(idatin, axis=0)
     elif deriv == 2:
-        m      = n-2
+        m      = n - 2
         sm     = sn
         sm[0]  = m
         d      = np.diff(idatin, n=2, axis=0)
-    else:
-        raise ValueError('Unimplemented option.')
+    else:  # pragma: no cover
+        raise ValueError('Should not be here')
 
     # Shortcut if all masked
     ismasked = isinstance(d, np.ma.MaskedArray)
@@ -236,11 +328,11 @@ def mad(datin, z=7, deriv=0, nozero=False):
         dd = d.compressed()
         md = med(dd)
         # Median absolute deviation
-        MAD = med(np.abs(dd-md))
+        MAD = med(np.abs(dd - md))
         # Range around median
-        thresh = MAD * (z/0.6745)
+        thresh = MAD * (z / 0.6745)
         # True where outside z-range
-        res = (d < (md-thresh)) | (d > (md+thresh))
+        res = (d < (md - thresh)) | (d > (md + thresh))
     elif d.ndim == 2:
         res = np.empty(d.shape, dtype=bool)
         for i in range(d.shape[1]):
@@ -248,11 +340,11 @@ def mad(datin, z=7, deriv=0, nozero=False):
             dd = di.compressed()
             md = med(dd)
             # Median absolute deviation
-            MAD = med(np.abs(dd-md))
+            MAD = med(np.abs(dd - md))
             # Range around median
-            thresh = MAD * (z/0.6745)
+            thresh = MAD * (z / 0.6745)
             # True where outside z-range
-            res[:, i] = (d[:, i] < (md-thresh)) | (d[:, i] > (md+thresh))
+            res[:, i] = (d[:, i] < (md - thresh)) | (d[:, i] > (md + thresh))
     else:
         np.seterr(**oldsettings)
         raise ValueError('datin.ndim must be <= 2')
@@ -271,76 +363,3 @@ def mad(datin, z=7, deriv=0, nozero=False):
 if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
-
-    # import numpy as np
-    # y = np.array([-0.25,0.68,0.94,1.15,2.26,2.35,2.37,2.40,2.47,2.54,2.62,
-    #                2.64,2.90,2.92,2.92,2.93,3.21,3.26,3.30,3.59,3.68,4.30,
-    #                4.64,5.34,5.42,8.01],dtype=float)
-    # print(mad(y))
-    # #[False False False False False False False False False False False False
-    # # False False False False False False False False False False False False
-    # # False False]
-
-    # print(mad(y,z=4))
-    # #[False False False False False False False False False False False False
-    # # False False False False False False False False False False False False
-    # # False  True]
-
-    # print(mad(y,z=3))
-    # #[ True False False False False False False False False False False False
-    # # False False False False False False False False False False False False
-    # #  True  True]
-
-    # print(mad(y,z=4,deriv=2))
-    # #[False False False False False False False False False False False False
-    # # False False False False False False False False False False False  True]
-
-    # my = np.ma.array(y, mask=mad(y,z=4))
-    # print(my)
-    # #[-0.25 0.68 0.94 1.15 2.26 2.35 2.37 2.4 2.47 2.54 2.62 2.64 2.9 2.92 2.92
-    # # 2.93 3.21 3.26 3.3 3.59 3.68 4.3 4.64 5.34 5.42 --]
-
-    # yy = np.transpose(np.array([y,y]))
-    # print(np.transpose(mad(yy,z=4)))
-    # #[[False False False False False False False False False False False False
-    # #  False False False False False False False False False False False False
-    # #  False  True]
-    # # [False False False False False False False False False False False False
-    # #  False False False False False False False False False False False False
-    # #  False  True]]
-
-    # yyy = np.transpose(np.array([y,y,y]))
-    # print(np.transpose(mad(yyy,z=3)))
-    # #[[ True False False False False False False False False False False False
-    # #  False False False False False False False False False False False False
-    # #   True  True]
-    # # [ True False False False False False False False False False False False
-    # #  False False False False False False False False False False False False
-    # #   True  True]
-    # # [ True False False False False False False False False False False False
-    # #  False False False False False False False False False False False False
-    # #   True  True]]
-
-    # my = np.ma.array(y, mask=np.zeros(y.shape))
-    # my.mask[-1] = True
-    # print(mad(my,z=4))
-    # #[False False False False False False False False False False False False
-    # # False False False False False False False False False False False False
-    # # False --]
-
-    # print(mad(my,z=3))
-    # #[True False False False False False False False False False False False
-    # # False False False False False False False False False False False True
-    # # True --]
-
-    # ny = y
-    # ny[-1] = np.nan
-    # print(mad(ny,z=4))
-    # #[False False False False False False False False False False False False
-    # # False False False False False False False False False False False False
-    # # False False]
-
-    # print(mad(ny,z=3))
-    # #[True False False False False False False False False False False False
-    # # False False False False False False False False False False False True
-    # # True False]
