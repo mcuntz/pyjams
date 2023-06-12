@@ -97,6 +97,9 @@ History
     * Add --dpi as a standard option, Jan 2023, Matthias Cuntz
     * Use helper.filebase, Mar 2023, Matthias Cuntz
     * Replace plotly with hvplot, May 2023, Matthias Cuntz
+    * Set filename without suffix as default plot name,
+      Jun 2023, Matthias Cuntz
+    * Removed space from print of plot filename, Jun 2023, Matthias Cuntz
 
 """
 import numpy as np
@@ -329,7 +332,7 @@ class mcPlot(object):
         else:
             iargstr = argstr
 
-        plotname = ''
+        plotname = filebase(os.path.basename(__file__))
         serif    = False
         outtype  = ''
         transparent = False
@@ -339,10 +342,9 @@ class mcPlot(object):
         parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description=idesc)
-        default = filebase(os.path.basename(__file__))
         hstr = (f'Name of plot output file for types pdf, html, d3, or'
                 f' hvplot, and name basis for type png (default:'
-                f' {default}).')
+                f' {plotname}).')
         parser.add_argument('-p', '--plotname', action='store',
                             default=plotname, dest='plotname',
                             metavar='plotname', help=hstr)
@@ -858,7 +860,7 @@ class mcPlot(object):
         if self.outtype == '':
             print('    Plot X')
         else:
-            print('    Plot ', self.plotfile)
+            print('    Plot', self.plotfile)
 
         if (self.outtype == 'pdf'):
             self.pdf_pages = self.PdfPages(self.plotfile)

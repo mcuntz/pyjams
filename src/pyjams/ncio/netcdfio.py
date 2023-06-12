@@ -357,7 +357,7 @@ def copy_global_attributes(fi, fo, add={}, remove=[]):
             iattr = fi.getncattr(k)
             # add to existing global attribute
             if k in add.keys():
-                iattr += '\n'+add[k]
+                iattr += '\n' + add[k]
             fo.setncattr(k, iattr)
     # add if global attribute does not exist yet
     for k in add.keys():
@@ -642,7 +642,7 @@ def create_variables(fi, fo, time=None, timedim='time', izip=False, fill=None,
                     if dd in dims:
                         rdim = _tolist(replacedim[dd])
                         ip = dims.index(dd)
-                        dims = dims[:ip] + rdim + dims[ip+1:]
+                        dims = dims[:ip] + rdim + dims[ip + 1:]
                         if chunks:
                             rchunk = []
                             for cc in rdim:
