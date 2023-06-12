@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v1.31 (??? 2023)
+v1.31 (Jun 2023)
     * Set filename without suffix as default plot name in `mcPlot`.
     * Exit if initial population failed twice in `sce`.
     * Allow ncol=1 in `color.get_cmap`.
