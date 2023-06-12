@@ -43,7 +43,6 @@ Filtered_Incompr_Field Generates random filtered velocity fields.
 ftp                    Module with functions for interacting with an open FTP connection.
 fwrite                 Writes an array to ascii file
 gap2lai                Calculation of leaf area index from gap probability observations.
-geoarray               Pythonic gdal wrapper
 get_angle              Returns the angle in radiant from each point in xy1 to each point in xy2.
 get_era_interim        Download ERA-Interim data suitable to produce MuSICA input data.
 get_era5               Download ERA5 data suitable to produce MuSICA input data.
@@ -77,12 +76,10 @@ lowess                 Locally linear regression in n dimensions.
 mat2nc                 Converts Matlab file *.mat into NetCDF *.nc.
 netcdf4                Convenience layer around netCDF4
 outlier                Rossner''s extreme standardized deviate outlier test.
-pack                   Similar to Fortran pack function with mask.
 pareto_metrics         Performance metrics to compare Pareto fronts.
 pca                    Principal component analysis (PCA) upon the first dimension of an 2D-array.
 pet_oudin              Daily potential evapotranspiration following the Oudin formula.
 pi                     Parameter importance index PI or alternatively B index calculation.
-plot                   Module with code snippets for plotting.
 pritay                 Daily reference evapotranspiration after Priestley & Taylor.
 pso                    Particle swarm optimization
 qa                     Module of quality (error) measures.
@@ -112,77 +109,12 @@ srrasa_trans           Generates stratified random 2D transects within a given r
 tcherkez               Calculates the Tcherkez model of 13C-discrimiantion in the Calvin cycle.
 timestepcheck          Fills missing time steps in ascii data files
 tsym                   Raw unicodes for common symbols.
-unpack                 Similar to Fortran unpack function with mask.
 volume_poly            Volume of function above a polygon
 writenetcdf            Write netCDF4 file.
 xkcd                   Make plot look handdrawn.
 yrange                 Calculates plot range from input array.
 zacharias              Soil water content with van Genuchten and Zacharias et al. (2007).
 zacharias_check        Checks validity of parameter set for Zacharias et al. (2007).
-
-
-Deprecated
-----------
-abc2plot               Write a, b, c, ... on plots.
-alpha_equ_h2o          Equilibrium fractionation between liquid water and vapour.
-alpha_kin_h2o          Kinetic fractionation of molecular diffusion of water vapour.
-argmax                 Wrapper for numpy.argmax, numpy.ma.argmax, and using max for Python iterables.
-argmin                 Wrapper for numpy.argmin, numpy.ma.argmin, and using min for Python iterables.
-argsort                Wrapper for numpy.argsort, numpy.ma.argsort, and using sorted for Python iterables.
-ascii2ascii            Convert date notations between to ascii date format DD.MM.YYYY hh:mm:ss.
-ascii2en               Convert date notations to English date format YYYY-MM-DD hh:mm:ss.
-ascii2fr               Convert date notations to French date format DD/MM/YYYY hh:mm:ss.
-ascii2us               Convert date notations to American date format MM/DD/YYYY hh:mm:ss.
-cellarea               Calc areas of grid cells in m^2.
-closest                Index in array which entry is closest to a given number.
-color                  Module with color functions for plotting.
-const                  Provides physical, mathematical, computational, and isotope constants.
-date2dec               Converts arrays with calendar date to decimal date.
-dec2date               Converts arrays with decimal date to calendar date.
-directories_from_gui   Open directory selection dialogs, returns consecutiveley selected directories.
-directory_from_gui     Open directory selection dialog, returns selected directory.
-div                    Wrapper for division.
-division               Divide two arrays, return 'otherwise' if division by 0.
-elementary_effects     Morris measures mu, stddev and mu*
-en2ascii               Convert date notations from English YYYY-MM-DD to ascii date format DD.MM.YYYY hh:mm:ss.
-esat                   Calculates the saturation vapour pressure of water/ice.
-file_from_gui          Open file selection dialog for one single file, returns selected files
-files_from_gui         Open file selection dialog, returns selected files
-fr2ascii               Convert date notations from French DD/MM/YYYT to ascii date format DD.MM.YYYY hh:mm:ss.
-fread                  Reads in float array from ascii file.
-fsread                 Simultaneous read of float and string array from ascii file.
-functions              Module with common functions that are used in curve_fit or fmin parameter estimations.
-get_brewer             Registers and returns Brewer colormap.
-int2roman              Integer to roman numeral conversion.
-kernel_regression      Multi-dimensional non-parametric regression.
-kernel_regression_h    Optimal bandwidth for kernel regression.
-logtools               Module with control file functions of Logtools, the Logger Tools Software of Olaf Kolle.
-mad                    Median absolute deviation test.
-mcPlot                 Matthias Cuntz' standard plotting class.
-means                  Calculate daily, monthly, yearly, etc. means of data depending on date stamp.
-morris_sampling        Sampling of optimised trajectories for Morris measures / elementary effects
-nc2nc                  Copy netcdf file deleting, renaming, replacing variables and attribues.
-ncread                 Wrapper for readnetcdf.
-netcdfread             Wrapper for readnetcdf.
-plot_brewer            Plots available Brewer color maps in pdf file.
-position               Position arrays of subplots to be used with add_axes.
-print_brewer           Prints available Brewer colormap names.
-readnc                 Wrapper for readnetcdf.
-readnetcdf             Reads variables or information from netcdf file.
-register_brewer        Registers and registers Brewer colormap.
-roman2int              Roman numeral to integer conversion.
-savez                  Save several numpy arrays into a single file in uncompressed ``.npz`` format.
-savez_compressed       Save several arrays into a single file in compressed ``.npz`` format.
-sce                    Shuffle-Complex-Evolution algorithm for function min(max)imisation
-screening              Samples trajectories, runs model and returns measures of Morris Elemenary Effects
-signature2plot         Write a copyright notice on a plot.
-sread                  Reads in string array from ascii file.
-str2tex                Convert strings to LaTeX strings in math environement used by matplotlib's usetex
-tee                    Prints arguments on screen and in file.
-us2ascii               Convert date notations from American MM/DD/YYYY to ascii format DD.MM.YYYY hh:mm:ss.
-xlsread                Wrapper for xread.
-xlsxread               Wrapper for xread.
-xread                  Simultaneous read of float and string array from Excel file.
 
 
 Provided functions and modules per category
@@ -203,13 +135,11 @@ Provided functions and modules per category
 
 Array manipulation
 ------------------
-pack                   Similar to Fortran pack function with mask.
 samevalue              Checks if abs. differences of array values within a certain window are smaller than threshold.
 maskgroup              Masks elements in a 1d array gathered in small groups.
 rolling                Reshape an array in a "rolling window" style.
 smax                   Calculating smooth maximum of two numbers
 smin                   Calculating smooth minimum of two numbers
-unpack                 Similar to Fortran unpack function with mask.
 
 
 Ascii files
@@ -336,7 +266,6 @@ clockplot              The clockplot of mHM.
 dfgui                  A minimalistic GUI for analyzing Pandas DataFrames based on wxPython.
 lat_fmt                Set lat label string (called by Basemap.drawparallels) if LaTeX package clash.
 lon_fmt                Set lon label string (called by Basemap.drawmeridians) if LaTeX package clash.
-plot                   Module with code snippets for plotting.
 tsym                   Raw unicodes for common symbols.
 xkcd                   Make plot look handdrawn.
 yrange                 Calculates plot range from input array.
@@ -345,7 +274,6 @@ yrange                 Calculates plot range from input array.
 Special files
 -------------
 dumpnetcdf             Convenience function for writenetcdf
-geoarray               Pythonic gdal wrapper
 hdfread                Wrapper for readhdf.
 hdf4read               Wrapper for readhdf4.
 hdf5read               Wrapper for readhdf5.
@@ -540,21 +468,13 @@ Modified, Matthias Cuntz, Jul 2009
 """
 
 # sub-packages without dependencies to rest of jams
-from . import const
 from . import encrypt
-from . import functions
-from . import plot
 from . import qa
 
 # Routines
-from .abc2plot             import abc2plot
-from .alpha_equ_h2o        import alpha_equ_h2o
-from .alpha_kin_h2o        import alpha_kin_h2o
 from .apply_undef          import apply_undef
 from .area_poly            import area_poly
-from .argsort              import argmax, argmin, argsort
 from .around               import around
-from .ascii2ascii          import ascii2ascii, ascii2en, ascii2fr, ascii2us, ascii2eng, en2ascii, fr2ascii, us2ascii, eng2ascii
 from .autostring           import autostring, astr
 from .baseflow             import hollickLyneFilter
 from .brewer               import register_brewer, get_brewer, plot_brewer, print_brewer
@@ -562,10 +482,8 @@ try:
     from .calcvpd          import calcvpd
 except ImportError:
     pass # obsolete
-from .cellarea             import cellarea
 from .climate_index_knoben import climate_index_knoben
 from .clockplot            import clockplot
-from .closest              import closest
 from .convex_hull          import convex_hull
 from .correlate            import correlate
 from .cuntz_gleixner       import cuntz_gleixner
@@ -579,27 +497,18 @@ from .delta_isogsm2        import delta_isogsm2
 from .dewpoint             import dewpoint
 #                          import dfgui
 from .dielectric_water     import dielectric_water
-from .division             import division, div
 from .ellipse_area         import ellipse_area
 from .errormeasures        import bias, mae, mse, rmse, nse, kge, pear2
-from .esat                 import esat
 from .fftngo               import fftngo
-from .fgui                 import directories_from_gui, directory_from_gui, file_from_gui, files_from_gui
 # from .field_gen          import Field, Incompr_Field, Filtered_Incompr_Field
 from .fill_nonfinite       import fill_nonfinite
 from .find_in_path         import find_in_path
-from .fread                import fread
-from .fsread               import fsread
 from .fwrite               import fwrite
 try:
     from .gap_filling      import gap_filling
 except                     ImportError:
     pass # obsolete
 from .gap2lai              import gap2lai, leafprojection
-try:
-    from .geoarray         import geoarray
-except                     ImportError:
-    pass
 from .get_angle            import get_angle
 try:
     from .get_era_interim  import get_era_interim
@@ -620,7 +529,6 @@ from .interpol             import interpol
 from .intersection         import intersection
 from .jab                  import jab
 from .jconfigparser        import jConfigParser
-from .kernel_regression    import kernel_regression, kernel_regression_h
 from .kriging              import kriging
 from .lagcorr              import lagcorr
 from .latlon_fmt           import lat_fmt, lon_fmt
@@ -628,23 +536,13 @@ from .lhs                  import lhs
 from .lif                  import lif
 from .line_dev_mask        import line_dev_mask
 from .lowess               import lowess
-from .mad                  import mad
 from .maskgroup            import maskgroup
 from .mat2nc               import mat2nc
-from .mcplot               import mcPlot
-from .means                import means
-from .morris               import morris_sampling, elementary_effects
-from .nc2nc                import nc2nc
-try:
-    from .npyio            import savez, savez_compressed
-except ImportError:
-    pass # old numpy version
 from .netcdf4              import netcdf4
 try:
     from .outlier          import outlier, rossner
 except:
     pass # No extra statistics in scipy and hence in JAMS. Disabled functions: outlier, rossner.
-from .pack                 import pack
 from .pareto_metrics       import sn, cz, hi, ef, aed, is_dominated, point_to_front
 try:
     from .pawn_index       import pawn_index
@@ -653,55 +551,36 @@ except:
 from .pca                  import pca, check_pca
 from .pet_oudin            import pet_oudin
 from .pi                   import pi
-from .position             import position
 from .pritay               import pritay
 from .pso                  import pso
 try:
     from .readhdf          import readhdf,  hdfread
 except ImportError:
     pass # not installed
-try:
-    from .readhdf4         import readhdf4, hdf4read
-except ImportError:
-    pass # not installed
 from .readhdf5             import readhdf5, hdf5read
-from .readnetcdf           import readnetcdf, netcdfread, ncread, readnc
 from .river_network        import river_network, upscale_fdir
 from .rolling              import rolling
-from .romanliterals        import int2roman, roman2int
 from .saltelli             import saltelli
 from .samevalue            import samevalue
 from .sap_app              import t2sap
 from .savitzky_golay       import savitzky_golay, sg, savitzky_golay2d, sg2d
-from .sce                  import sce
-from .screening            import screening
 from .semivariogram        import semivariogram
 from .sendmail             import sendmail
 from .sigma_filter         import sigma_filter
-from .signature2plot       import signature2plot
 from .smooth_minmax        import smin, smax
 from .sobol_index          import sobol_index
-from .sread                import sread
 from .srrasa               import srrasa, srrasa_trans
-from .str2tex              import str2tex
 from .tail                 import tail
 from .tcherkez             import tcherkez
-from .tee                  import tee
 from .timestepcheck        import timestepcheck
 from .tsym                 import tsym
-from .unpack               import unpack
 from .volume_poly          import volume_poly
 from .writenetcdf          import writenetcdf, dumpnetcdf
 from .xkcd                 import xkcd
-try:
-    from .xread            import xread, xlsread, xlsxread
-except ImportError:
-    pass # not installed
 from .yrange               import yrange
 from .zacharias            import zacharias, zacharias_check
 
 # sub-packages with dependencies to rest jams have to be loaded separately as in scipy
-from . import color
 # ToDo: from here on redo __init__.py
 from . import distributions
 from . import eddybox
@@ -709,7 +588,6 @@ from . import files
 from . import ftp
 from . import leafmodel
 from . import level1
-from . import logtools
 
 
 # Information

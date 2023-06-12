@@ -30,6 +30,7 @@ Subpackages
    fgui
    fsread
    functions
+   jams
    kernel_regression
    mad
    mcplot
@@ -86,6 +87,7 @@ History
      Jan 2023, Matthias Cuntz
    * v1.30, hvplot in mcplot, May 2023, Matthias Cuntz
    * v1.31, added pack and unpack, Jun 2023, Matthias Cuntz
+   * v1.32, added jams, Jun 2023, Matthias Cuntz
 
 """
 # version, author
@@ -106,6 +108,8 @@ from . import functions
 # netCDF4 functions to copy netcdf file while doing some transformations on
 # variables and dimensions.
 from . import ncio
+# old JAMS routines
+from . import jams
 
 # air humidity calculations
 from .air_humidity import esat, eair2rhair, rhair2eair

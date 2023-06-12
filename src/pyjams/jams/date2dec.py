@@ -318,8 +318,8 @@ def date2dec(calendar = 'standard', units=None,
              Matthias Cuntz, May 2021 - rm np.int and np.float
                                       - (almost) flake8 compatible
     """
-    warn('The function date2dec is deprecated from JAMS and superseded by'
-         ' date2num/date2dec of pyjams.', category=DeprecationWarning)
+    warn('The function date2dec is deprecated and superseded by'
+         ' date2num/date2dec.', category=DeprecationWarning)
     #
     # Checks
     calendars = ['standard', 'gregorian', 'julian', 'proleptic_gregorian',
