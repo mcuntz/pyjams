@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
 JAMS Python Utilities
 
@@ -35,11 +34,9 @@ ellipse_area           Area of ellipse (or circle)
 encrypt                Module to encrypt and decrypt text using a key system as well as a cipher.
 errormeasures          Definition of different error measures.
 fftngo                 Fast fourier transformation for dummies (like me)
-Field                  Generates random hydraulic conductivity fields.
 files                  Module with file list function.
 fill_nonfinite         Fill missing values by interpolation.
 find_in_path           Look for file in system path.
-Filtered_Incompr_Field Generates random filtered velocity fields.
 ftp                    Module with functions for interacting with an open FTP connection.
 fwrite                 Writes an array to ascii file
 gap2lai                Calculation of leaf area index from gap probability observations.
@@ -50,12 +47,10 @@ get_isogsm2            Get IsoGSM2 output.
 get_nearest            Returns a value z for each point in xy near to the xyz field.
 grid_mid2edge          Longitude and latitude grid edges from grid midpoints.
 hdfread                Wrapper for readhdf.
-hdf4read               Wrapper for readhdf4.
 hdf5read               Wrapper for readhdf5.
 head                   Return list with first n lines of file.
 heaviside              Heaviside (or unit step) operator.
 homo_sampling          Generation of homogeneous, randomly distributed points in a given rectangular area.
-Incompr_Field          Generates random velocity fields.
 in_poly                Determines whether a 2D point falls in a polygon.
 inpoly                 Wrapper for in_poly.
 interpol               One-dimensional linear interpolation on first dimension.
@@ -84,7 +79,6 @@ pritay                 Daily reference evapotranspiration after Priestley & Tayl
 pso                    Particle swarm optimization
 qa                     Module of quality (error) measures.
 readhdf                Reads variables or information from hdf4 and hdf5 files.
-readhdf4               Reads variables or information from hdf4 files.
 readhdf5               Reads variables or information from hdf5 file.
 river_network          a class for creating a river network from a DEM including flow direction, flow accumulation and channel order
 rolling                Reshape an array in a "rolling window" style.
@@ -254,9 +248,6 @@ zacharias_check        Checks validity of parameter set for Zacharias et al. (20
 
 Models
 ------
-Field                  Generates random hydraulic conductivity fields.
-Filtered_Incompr_Field Generates random filtered velocity fields.
-Incompr_Field          Generates random velocity fields.
 leafmodel              Model to compute photosynthesis and stomatal conductance of canopies
 
 
@@ -275,44 +266,13 @@ Special files
 -------------
 dumpnetcdf             Convenience function for writenetcdf
 hdfread                Wrapper for readhdf.
-hdf4read               Wrapper for readhdf4.
 hdf5read               Wrapper for readhdf5.
 jConfigParser          Extended Python ConfigParser.
 mat2nc                 Converts Matlab file *.mat into NetCDF *.nc.
 netcdf4                Convenience layer around netCDF4
 readhdf                Reads variables or information from hdf4 and hdf5 files.
-readhdf4               Reads variables or information from hdf4 files.
 readhdf5               Reads variables or information from hdf5 file.
 writenetcdf            Write netCDF4 file.
-
-
-License
--------
-This file is part of the JAMS Python package, distributed under the MIT
-License. The JAMS Python package originates from the former UFZ Python library,
-Department of Computational Hydrosystems, Helmholtz Centre for Environmental
-Research - UFZ, Leipzig, Germany.
-
-Copyright (c) 2009-2021 Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt
-Piayda
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 
 History
@@ -464,9 +424,11 @@ Modified, Matthias Cuntz, Jul 2009
           Juliane Mai, Feb 2020    - climate_index_knoben
           Matthias Cuntz, Dec 2020 - mcPlot
           Matthias Cuntz, Oct 2021 - started deprecation
+          Matthias Cuntz, Jun 2023
+              - moved jams to pyjams
+              - cleaning deprecated and unsupported routines
 
 """
-
 # sub-packages without dependencies to rest of jams
 from . import encrypt
 from . import qa
@@ -481,7 +443,7 @@ from .brewer               import register_brewer, get_brewer, plot_brewer, prin
 try:
     from .calcvpd          import calcvpd
 except ImportError:
-    pass # obsolete
+    pass  # obsolete
 from .climate_index_knoben import climate_index_knoben
 from .clockplot            import clockplot
 from .convex_hull          import convex_hull
@@ -490,24 +452,26 @@ from .cuntz_gleixner       import cuntz_gleixner
 try:
     from .dag              import create_network, source_nodes, sink_nodes, plot_network
 except ImportError:
-    pass # networkx not installed
+    pass  # networkx not installed
 from .date2dec             import date2dec
 from .dec2date             import dec2date
 from .delta_isogsm2        import delta_isogsm2
 from .dewpoint             import dewpoint
-#                          import dfgui
+try:
+    import dfgui
+except:
+    pass  # PyQT not installed
 from .dielectric_water     import dielectric_water
 from .ellipse_area         import ellipse_area
 from .errormeasures        import bias, mae, mse, rmse, nse, kge, pear2
 from .fftngo               import fftngo
-# from .field_gen          import Field, Incompr_Field, Filtered_Incompr_Field
 from .fill_nonfinite       import fill_nonfinite
 from .find_in_path         import find_in_path
 from .fwrite               import fwrite
 try:
     from .gap_filling      import gap_filling
 except                     ImportError:
-    pass # obsolete
+    pass  # obsolete
 from .gap2lai              import gap2lai, leafprojection
 from .get_angle            import get_angle
 try:
@@ -542,21 +506,21 @@ from .netcdf4              import netcdf4
 try:
     from .outlier          import outlier, rossner
 except:
-    pass # No extra statistics in scipy and hence in JAMS. Disabled functions: outlier, rossner.
+    pass  # No extra statistics in scipy and hence in JAMS
 from .pareto_metrics       import sn, cz, hi, ef, aed, is_dominated, point_to_front
 try:
     from .pawn_index       import pawn_index
 except:
-    pass # No statsmodels installed.
+    pass  # No statsmodels installed.
 from .pca                  import pca, check_pca
 from .pet_oudin            import pet_oudin
 from .pi                   import pi
 from .pritay               import pritay
 from .pso                  import pso
 try:
-    from .readhdf          import readhdf,  hdfread
+    from .readhdf          import readhdf, hdfread
 except ImportError:
-    pass # not installed
+    pass  # HDF5 not installed
 from .readhdf5             import readhdf5, hdf5read
 from .river_network        import river_network, upscale_fdir
 from .rolling              import rolling
@@ -592,14 +556,15 @@ from . import level1
 
 # Information
 __author__   = "Matthias Cuntz"
-__version__  = '4.5.0'
-__date__     = 'Date: 13.12.2020'
+__version__  = 'v23.0'
+__date__     = 'Date: 13.06.2023'
 
 # Main
 if __name__ == '__main__':
     print('\nJAMS Python Package.')
-    print("Version {:s} from {:s}.".format(__version__,__date__))
+    print("Version {:s} from {:s}.".format(__version__, __date__))
     print('\nThis is the README file. See als the license file LICENSE.\n\n')
-    f = open('README','r')
-    for line in f: print(line,end='')
+    f = open('README', 'r')
+    for line in f:
+        print(line, end='')
     f.close()
