@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.division import division
-import jams.const as const
+from pyjams.division import division
+import pyjams.const as const
 
 
 __all__ = ['interpol']

@@ -463,7 +463,7 @@ def get_isogsm2(latlon, baseurl=isogsm2base, path='.', override=False):
 # Command line arguments
 #
 
-if __name__ == '__main__':
+def main(iargs):
 
     import argparse
 
@@ -499,7 +499,7 @@ if __name__ == '__main__':
               ' begin with lat and lon (case-insensitive). File only used'
               ' if no -l lat,lon given.'))
 
-    args     = parser.parse_args()
+    args     = parser.parse_args(iargs)
     latlon   = args.latlon
     override = args.override
     path     = args.path

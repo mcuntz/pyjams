@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
+
 
 def spike(datin, thresh=7, toler=0, length=15):
     """

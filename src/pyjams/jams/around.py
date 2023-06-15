@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.const import eps
+from pyjams.const import eps
 
 
 __all__ = ['around']

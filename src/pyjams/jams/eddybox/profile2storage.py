@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.date2dec import date2dec
-from jams.const import mmol_co2, mmol_h2o, mmol_air, cheat_air, latentheat_vaporization, T0
+from pyjams.jams.date2dec import date2dec
+from pyjams.const import mmol_co2, mmol_h2o, mmol_air, cheat_air, latentheat_vaporization, T0
 from scipy.interpolate import splrep, splint
-from jams.esat import esat
+from pyjams.air_humidity import esat
+
 
 def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
                     H2O=None, T=None, rH=None, delimiter=[',',',',','],
@@ -20,18 +20,18 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
     correct e.g. the CO2, H2O and latent heat fluxes with profile data of CO2
     and H2O concentrations and afterwards the H flux with temperature data from
     another file.
-    
-    
+
+
     Definition
     ----------
     profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
                     H2O=None, T=None, rH=None, delimiter=[',',',',','],
                     skiprows=[1,1,1], format=['ascii','ascii','ascii'],
                     undef=-9999, plot=False):
-    
-    
+
+
     Input
-    ----- 
+    -----
     fluxfile    str, path and file name of fluxflag output file containing
                 fluxes and flags. These fluxes will be updated by the storage
                 fluxes and saved as a new file
@@ -57,7 +57,7 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
                 column number starts with 0 which is first data column. The
                 calculation of air vapour energy storage change within the
                 profile works only when T is given as well.
-                
+
 
     Optional Input
     --------------
@@ -70,15 +70,15 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
     undef       int/float, missing value of fluxfile, fluxfile and profilefile
                 (default: -9999, np.nan is not possible)
     plot        bool, if True performs plotting (default: False)
-    
-    
+
+
     Output
     ------
     flux+stor.csv file containing fluxes and flags where storage fluxes are
                   added in an additional column and storage fluxes are appended
                   to the end of the file
-        
-    
+
+
     Restrictions
     ------------
     Works only with half hourly time steps, all files in sync
@@ -120,12 +120,12 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
     # time interval
     int = 30.
     dt  = int*60.
-    
+
     if plot:
         import matplotlib as mpl
         import matplotlib.pyplot as plt
         import matplotlib.backends.backend_pdf as pdf
-    
+
     ###########################################################################
     # reading input files
     # fluxes to correct for storage changes
@@ -134,34 +134,34 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
     d2 = np.loadtxt(fluxfile2, dtype='|S100', delimiter=delimiter[1])
     # file containing profile data (can be meteo file if no profile available)
     d3 = np.loadtxt(profilefile, dtype='|S100', delimiter=delimiter[2])
-    
+
     assert (d1.shape[1]==11) | (d1.shape[1]==19), 'profile2storage: fluxfile must be from fluxflag or profiletostorage and have 11 or 19 cols'
     assert d2.shape[1]==68, 'profile2storage: fluxfile2 must be from EddyFlux and have 68 cols'
     assert d1.shape[0]==d2.shape[0], 'profile2storage: fluxfile and fluxfile2 must be in sync'
     assert d1.shape[0]==d3.shape[0], 'profile2storage: fluxfile and profilefile must be in sync'
     assert (((H2O==None) & (rH==None)) ^ ((H2O!=None) ^ (rH!=None))), 'profile2storage: give either H2O or rH, both would be double correction'
-    
+
     if format[0]=='ascii':
         datev   = date2dec(ascii=d1[skiprows[0]:,0])
     elif format[0]=='eng':
         datev   = date2dec(eng=d1[skiprows[0]:,0])
     else:
-        raise ValueError('profile2storage: unknown format')    
+        raise ValueError('profile2storage: unknown format')
     if format[2]=='ascii':
         datem   = date2dec(ascii=d2[skiprows[2]:,0])
     elif format[2]=='eng':
         datem   = date2dec(eng=d2[skiprows[2]:,0])
     else:
         raise ValueError('profile2storage: unknown format')
-    
+
     flux1 = np.where(d1[skiprows[0]:,1:]=='', str(undef), d1[skiprows[0]:,1:]).astype(np.float)
     flux2 = np.where(d2[skiprows[1]:,1:]=='', str(undef), d2[skiprows[1]:,1:]).astype(np.float)
     prof  = np.where(d3[skiprows[2]:,1:]=='', str(undef), d3[skiprows[2]:,1:]).astype(np.float)
-    
+
     flux1 = np.ma.array(flux1, mask=flux1==undef, hard_mask=True)
     flux2 = np.ma.array(flux2, mask=flux2==undef)
     prof  = np.ma.array(prof,  mask=prof==undef)
-    
+
     ###########################################################################
     # assign variables
     if d1.shape[1]==11:
@@ -176,7 +176,7 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
         C, Cflag   = flux1[:,9], flux1[:,11]
     p          = flux2[:,58] # [hPa]
     rho        = flux2[:,62] # [kg/m3]
-    
+
     ###########################################################################
     # prepare output array
     d4 = np.copy(d1)
@@ -185,10 +185,10 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
         temp[:] = ' '*(11-len(str(undef)))+str(undef)
         temp[0,:] = ['       H+sT','     LE+sLE','       E+sE','       C+sC']
         d4 = np.insert(d4, [2,4,6,8], temp, axis=1)
-        
+
         temp[0,:] = ['         sT','        sLE','         sE','         sC']
         d4 = np.append(d4, temp, axis=1)
-    
+
     ###########################################################################
     # calls
     if CO2:
@@ -209,7 +209,7 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
 
         if plot:
             storplot(CO2, datev, heights, C, sfCO2, newC, 'storageCO2.pdf', pdf, plt, mpl, outdir)
-    
+
     if H2O:
         H2O = prof[:,H2O]
         assert H2O.shape[1]==len(heights), 'profile2storage: number of H2O cols must equal heights'
@@ -255,7 +255,7 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
 
         if plot:
             storplot(T, datev, heights, H, sfT, newH, 'storageT.pdf', pdf, plt, mpl, outdir)
-            
+
     if rH:
         rH  = prof[:,rH]
         assert rH.shape[1]==len(heights), 'profile2storage: number of rH cols must equal heights'
@@ -282,10 +282,10 @@ def profile2storage(fluxfile, fluxfile2, profilefile, outdir, heights, CO2=None,
         d4[skiprows[0]:,17] = sfrH_str
         d4[skiprows[0]:,5]  = newLe_str
         d4[skiprows[0]:,16] = sfrH_Wm2_str
-        
+
         if plot:
             storplot(rH, datev, heights, E, sfH2O, newE, 'storagerH.pdf', pdf, plt, mpl, outdir)
-    
+
     ###########################################################################
     # write output
     np.savetxt('%s/flux+stor.csv'%outdir, d4, '%s', delimiter=',')
@@ -295,7 +295,7 @@ def stor2flux(concentrations, rho, heights, dt, constituent='CO2'):
     '''
     xb = 0.0                # bottom height of interpolation
     xe = np.amax(heights)   # top height of interpolation
-    
+
     if constituent=='CO2':
         # mole volume [m3/mol] = mmol_co2[g/mol]/(rho[kg/m3]*1000.)
         m = mmol_co2/(rho*1000.)
@@ -310,7 +310,7 @@ def stor2flux(concentrations, rho, heights, dt, constituent='CO2'):
         m = 1./(rho * latentheat_vaporization)
     else:
         raise ValueError('stor2flux: unknown constituent')
-    
+
     ###########################################################################
     # calculate storage for every time step
     storage, sf = np.ma.masked_all_like(rho), np.ma.masked_all_like(rho)
@@ -323,7 +323,7 @@ def stor2flux(concentrations, rho, heights, dt, constituent='CO2'):
             else:
                 tck        = splrep(heights,item,xb=xb,xe=xe,k=1)
                 storage[i] = splint(xb,xe,tck)
-    
+
     ###########################################################################
     # calculate storage flux
     # storage flux per time step
@@ -339,7 +339,7 @@ def stor2flux(concentrations, rho, heights, dt, constituent='CO2'):
     # for T:   [J/(m2*s)]=[W/m*2]
     # for rH:  [J/(m2*s)]=[W/m*2]
     sf     = sf/dt
-    
+
     return sf
 
 def storplot(conc, date, heights, oriflux, storflux, newflux, name, pdf, plt, mpl, outdir):
@@ -348,24 +348,24 @@ def storplot(conc, date, heights, oriflux, storflux, newflux, name, pdf, plt, mp
     majticks = mpl.dates.MonthLocator(bymonthday=1)
     format_str='%d %m %Y %H:%M'
     date01 = date2dec(yr=1, mo=1, dy=2, hr=0, mi=0, sc=0)
-    
+
     conc = np.ma.copy(conc.transpose())
     date = np.ma.copy(date-date01)
-    
+
     pp1 = pdf.PdfPages(outdir+'/'+name)
     fig1 = plt.figure(name)
     sub1 = fig1.add_subplot(211)
     for i, item in enumerate(conc):
         sub1.plot(date, item, label='%2.1f m'%(heights[i]))
     plt.legend(loc='best')
-    
+
     sub2 = fig1.add_subplot(212)
     sub2.axhline(y=0, xmin=0, xmax=1, color='k')
     sub2.plot(date, oriflux, 'b-', label='original')
     sub2.plot(date, storflux, 'r-', label='storage')
     sub2.plot(date, newflux, 'g-', label='new')
     plt.legend(loc='best')
-    
+
     sub1.set_xlim(date[0],date[-1])
     sub1.xaxis.set_major_locator(majticks)
     sub1.xaxis.set_major_formatter(mpl.dates.DateFormatter(format_str))
@@ -373,7 +373,7 @@ def storplot(conc, date, heights, oriflux, storflux, newflux, name, pdf, plt, mp
     sub2.xaxis.set_major_locator(majticks)
     sub2.xaxis.set_major_formatter(mpl.dates.DateFormatter(format_str))
     fig1.autofmt_xdate()
-       
+
     plt.show()
     fig1.savefig(pp1, format='pdf')
     pp1.close()

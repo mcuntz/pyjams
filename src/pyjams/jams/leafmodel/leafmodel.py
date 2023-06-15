@@ -1,17 +1,15 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 from scipy.optimize import fmin
-from jams.const import R, T0
-from jams.esat import esat
-from jams.errormeasures import mae
-from jams.sce import sce
-
+from pyjams.const import R, T0
+from pyjams.air_humidity import esat
+from pyjams.jams.errormeasures import mae
+from pyjams.sce import sce
 '''
     leafmodel: contains routines to model photosynthesis and stomatal conductance
     of canopies or leaves.
-    
-    
+
+
     major functions contained:
     --------------------------
     opt_leafmodel:  optimization against observed transpiration and
@@ -91,16 +89,16 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
     '''
     Optimization routine for leafmodel or twoleafmodel to infer model parameters
     fitting gross primary productivity and transpiration to observed values.
-    
-    
+
+
     Definition
     ----------
     def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
                   PARdiff=None, fsun=None, dooptim=False, loc_search=True,
                   n=5, eta=0.9):
-    
-    
-    Input 
+
+
+    Input
     -----
     params        dict, parameters for leafmodel. Parameters given here decide
                   which conductance model and temperature dependence model is
@@ -119,12 +117,12 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
                   is used. If you give 'delSV' and 'delSJ' (or with the fix
                   ending), the Medlyn model is used. If you only give 'delSJ' or
                   'delSJfix', the von Caemmerer model is used. For model
-                  descriptions see leafmodel. 
+                  descriptions see leafmodel.
     Eobs          np.array(N), observed transpiration [mol/m2s]
     GPPobs        np.array(N), observed gross primary productivity [mol/m2s]
     ci_ini, Tl, PAR, ea, ca, ga, gb, P: same as for leafmodel
-    
-    
+
+
     Optional Input
     --------------
     PARdiff, fsun if both set to None (default) leafmodel is used, else
@@ -143,15 +141,15 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
                   False objective function value is printed to the console at
                   each cost function evaluation
     n, eta        same as for leafmodel
-    
-    
+
+
     Output
     ------
     opt_params    list, optimized parameters (does not contain the fixed values)
     ci_conv, gc_c, gc_h, gs_c, gs_h, no_conv, Jc, Je, Rd, GPPmod, Emod:
                   same as leafmodel
-    
-    
+
+
     Examples
     --------
     >>> # Define input
@@ -167,7 +165,7 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
     >>> fsun   = np.array([0.682, 0.703, 0.718, 0.729, 0.737])
     >>> Eobs   = np.array([3.552e-3, 3.854e-3, 3.828e-3, 4.455e-3, 5.322e-3])
     >>> GPPobs = np.array([1.293e-5, 1.351e-5, 1.339e-5, 1.318e-5, 1.139e-5])
-    
+
     >>> # use default methods Leuning + June with fixed b, Topt and omega
     >>> params = {'m':15., 'bfix':0.0041, 'd0':5.e3,\
     'Vcmax25':60.e-6, 'Toptfix':25., 'omegafix':18.}
@@ -187,8 +185,8 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
     4.343
     >>> print(np.round(Vcmax25*1.e6, 3)) #[mumol/m2s]
     65.763
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -225,7 +223,7 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
     # fixed or non fixed
     gs_method = 'BB'
     fix       = {}
-    
+
     if ('m' in params):
         guess = [params['m']]
     else:
@@ -234,19 +232,19 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
         guess += [params['b']]
     else:
         fix.update({'bfix':params['bfix']})
-    
+
     if ('d0' in params):
         guess += [params['d0']]
         gs_method = 'Leuning'
     elif('d0fix' in params):
         fix.update({'d0fix':params['d0fix']})
         gs_method = 'Leuning'
-    
+
     if ('Vcmax25' in params):
         guess += [params['Vcmax25']]
     else:
         fix.update({'Vcmax25fix':params['Vcmax25fix']})
-                            
+
     temp_method = 'June'
     if ('Topt' in params):
         guess += [params['Topt']]
@@ -267,12 +265,12 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
             temp_method = 'Medlyn'
         else:
             temp_method = 'Caemmerer'
-    
+
         if ('delSJ' in params):
             guess += [params['delSJ']]
         elif ('delSJfix' in params):
             fix.update({'delSJfix':params['delSJfix']})
-    
+
     # optimization
     if dooptim:
         # use local nelmin optimization
@@ -290,13 +288,13 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
                 return obj
             guess=np.array(guess)
             opt_params = sce(wrap_opt, guess, np.zeros_like(guess) , guess*2.,
-                             maxn=10000, kstop=15)    
+                             maxn=10000, kstop=15)
     else:
         opt_params = guess
-        
+
     # distribute parameters
     par1, par2 = dist_params(opt_params, fix, gs_method, temp_method)
-    
+
     # calculate output
     if (PARdiff is None) and (fsun is None):
         ci, gcmol_c, gcmol_h, gsmol_c, gsmol_h, no_conv, Jc, Je, Rd, GPPmod, Emod =\
@@ -308,7 +306,7 @@ def opt_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
                          gs_method=gs_method, temp_method=temp_method, n=n, eta=eta)
     else:
         raise ValueError('opt_leafmodel: if two leaf model is desired, PARdiff and fsun must be given')
-    
+
     return opt_params, ci, gcmol_c, gcmol_h, gsmol_c, gsmol_h, no_conv, Jc, Je, Rd, GPPmod, Emod
 
 ###############################################################################
@@ -318,12 +316,12 @@ def cost_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
     '''
     opt_leafmodel: cost function for optimization
     (input see leafmodel and twoleafmodel)
-    
+
     returns: obj objective function value
     '''
     # distribute parameters
     par1, par2 = dist_params(params, fix, gs_method, temp_method)
-    
+
     if (PARdiff is None) and (fsun is None):
         # run the model with current parameters
         ci, gc_c, gc_h, gs_c, gs_h, no_conv, Jc, Je, Rd, GPPmod, Emod =\
@@ -337,13 +335,13 @@ def cost_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
                          temp_method=temp_method, n=n, eta=eta)
     else:
         raise ValueError('cost_leafmodel: if two leaf model is desired, PARdiff and fsun must be given')
-        
+
     # mask values where ci did not converged
     Emod.mask[no_conv], GPPmod.mask[no_conv] = True, True
     # calculate range of observations
     Eobs_r   = np.ma.ptp(Eobs)
     GPPobs_r = np.ma.ptp(GPPobs)
-    # if for some time steps ci did not converge, tell fmin that's bad! 
+    # if for some time steps ci did not converge, tell fmin that's bad!
     if no_conv.size>0:
         return 1000.
     # else calculate objective function
@@ -355,7 +353,7 @@ def cost_leafmodel(params, Eobs, GPPobs, ci_ini, Tl, PAR, ea, ca, ga, gb, P,
                )**(1./6.)
         if not silent:
             print(obj)
-        
+
         return obj
 
 ###############################################################################
@@ -366,10 +364,10 @@ def dist_params(params, fix, gs_method, temp_method):
     '''
     params = np.insert(params, 0, fix['mfix']) if 'mfix' in fix else params
     params = np.insert(params, 1, fix['bfix']) if 'bfix' in fix else params
-    
+
     if gs_method=='Leuning':
         params = np.insert(params, 2, fix['d0fix']) if 'd0fix' in fix else params
-        params = np.insert(params, 3, fix['Vcmaxfix']) if 'Vcmaxfix' in fix else params        
+        params = np.insert(params, 3, fix['Vcmaxfix']) if 'Vcmaxfix' in fix else params
         if temp_method=='June':
             params = np.insert(params, 4, fix['Toptfix']) if 'Toptfix' in fix else params
             params = np.insert(params, 5, fix['omegafix']) if 'omegafix' in fix else params
@@ -388,14 +386,14 @@ def dist_params(params, fix, gs_method, temp_method):
             params = np.insert(params, 4, fix['delSJfix']) if 'delSJfix' in fix else params
         elif temp_method=='Caemmerer':
             params = np.insert(params, 3, fix['delSJfix']) if 'delSJfix' in fix else params
-    
+
     if gs_method=='Leuning':
         par1 = params[:3]
         par2 = params[3:]
     if gs_method=='BB':
         par1 = params[:2]
         par2 = params[2:]
-    
+
     return par1, par2
 
 ###############################################################################
@@ -411,14 +409,14 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
     gross primary production are among the results. The temperature dependency
     of the photosynthesis model can be modeled according to June et al. (2004),
     Medlyn et al. (2002) and von Caemmerer (2000).
-     
-    
+
+
     Definition
     ----------
     def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
               gs_method='Leuning', temp_method='June', n=5, eta=0.9):
-    
-    
+
+
     Input
     -----
     ci_ini      np.array(N), initial leaf internal co2 concentration [mol/mol]
@@ -440,7 +438,7 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
                 if gs_method='BB': list(2)
                     [0] m    slope of the BB model [mol(H2O)/mol(air)]
                     [1] b    offset of the BB model [mol(H2O)/m2leaf s]
-    par2        if temp_method is June (default): list(3) 
+    par2        if temp_method is June (default): list(3)
                     [0] Vcmax25 maximum carboxylation rate at 25 degC [mol/m2s]
                     [1] Topt    optimum temperature of Jmax [degC]
                     [2] omega   the difference in temperature from Topt at
@@ -455,7 +453,7 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
                     [0] Vcmax25 maximum carboxylation rate at 25 degC [mol/m2s]
                     [1] delSJ   entropy factor for Jmax25 [J/mol/K]
 
-    
+
     Optional Input
     --------------
     gs_method   str, stomatal conductance method: 'Leuning' (default), 'BB'
@@ -464,8 +462,8 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
     n           int, number of iteration for leaf internal CO2 convergence
     eta         float, smoothing factor for transition between Jmax and Vcmax
                 dominated assimilation rate [-]
-                
-    
+
+
     Output
     ------
     ci_conv     np.array(N), leaf internal CO2 concentration [mol/mol]
@@ -482,7 +480,7 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
     GPPmod      np.array(N), gross primary productivity [mol/m2s]
     Emod        np.array(N), transpiration [mol/m2s]
 
-                         
+
     Examples
     --------
     >>> # Define input
@@ -494,7 +492,7 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
     >>> ga     = np.array([3.925, 5.998, 3.186, 7.924, 5.501])
     >>> gb     = np.array([1.403, 1.678, 1.732, 1.691, 1.782])
     >>> P      = np.array([99893.7, 99907.7, 99926.5, 99928.0, 99924.7])
-    
+
     >>> # use default methods Leuning + June
     >>> par1   = [15., 0.0041, 5.e3]
     >>> par2   = [60.e-6, 25., 18.]
@@ -505,7 +503,7 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
     [12.333 12.685 12.696 12.462 12.157]
     >>> print(np.ma.round(Emod*1.e3, 3))
     [3.339 4.338 4.287 4.02 3.845]
-    
+
     >>> # use methods Ball&Berry + Medlyn
     >>> par1   = [15., 0.0041]
     >>> par2   = [60.e-6, 700., 700.]
@@ -517,8 +515,8 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
     [14.286 14.496 14.499 14.526 14.287]
     >>> print(np.ma.round(Emod*1.e3, 3))
     [2.718 3.326 3.22 3.167 2.994]
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -551,19 +549,19 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
     -------
     Written,  AP+MC, Jul 2014
     '''
-    
+
     # array for convergence of leaf internal carbon concentration ci
     ci_conv = np.ma.empty((n,ci_ini.size))
     # initial conditions for ci convergence
     ci_conv[0,:] = ci_ini # [mol(CO2)/mol(air)]
     Emod         = 0.     # [mol(H2O)/m2leaf s]
     gs_h         = 1.     # [mol(H2O)/m2leaf s]
-    
+
     # atmospheric (wa) and leaf internal (wi) water concentration
     wa = ea/P    # [mol(H2O)/mol(air)]
     ei = esat(Tl+T0)
     wi = ei/P # [mol(H2O)/mol(air)]
-    
+
     # loop for ci convergence
     for i in range(n-1):
         # assimilation A, carboxylation limited assimilation Jc,
@@ -571,45 +569,45 @@ def leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
         # rate Rd, all in [mol/m2leaf s]
         A, Jc, Je, Rd = farquhar(Tl, ci_conv[i,:], PAR, par2,
                                  temp_method=temp_method, eta=eta)
-        
+
         # aerodynamic + leaf boundary layer conductances
-        gab_c         = 1./(1.37/gb + 1./ga) # [mol(CO2)/m2leaf s] 
+        gab_c         = 1./(1.37/gb + 1./ga) # [mol(CO2)/m2leaf s]
         gab_h         = 1./(1./gb + 1./ga) # [mol(H2O)/m2leaf s]
-        
-        # carbon concentration at the leaf surface 
+
+        # carbon concentration at the leaf surface
         cs            = ca - A/gab_c #[mol(CO2)/mol(air)]
         # water concentration at the leaf surface
         ws            = wa - Emod/gab_h # [mol(H2O)/mol(air)]
-        # vapour pressure at the leaf surface 
+        # vapour pressure at the leaf surface
         es            = ws*P         # [Pa]
-        # relative humidity at the leaf surface 
+        # relative humidity at the leaf surface
         rHs           = es/ei     # [-]
-        
-        # stomatal conductance for carbon [mol(CO2)/m2leaf s] 
-        if gs_method=='Leuning': 
+
+        # stomatal conductance for carbon [mol(CO2)/m2leaf s]
+        if gs_method=='Leuning':
             gs_c = leuning(A, ei-es, cs, Tl, par1)
             #gs_c = leuning(A, wi-ws, cs, Tl, par1)
         if gs_method=='BB':
             gs_c = ball_berry(A, rHs, cs, par1)
         # stomatal conductance for water [mol(H2O)/m2leaf s]
         gs_h = gs_c * 1.6
-        
-        # canopy conductances 
-        gc_c           = 1./(1./gs_c + 1./gab_c) # [mol(CO2)/m2leaf s] 
+
+        # canopy conductances
+        gc_c           = 1./(1./gs_c + 1./gab_c) # [mol(CO2)/m2leaf s]
         gc_h           = 1./(1./gs_h + 1./gab_h) # [mol(H2O)/m2leaf s]
         # new ci value
         ci_conv[i+1,:] = ca - A/(gc_c) # [mol(CO2)/mol(air)]
         # new modelled transpiration
         Emod           = gc_h * (wi-wa) # [mol(H2O)/m2leaf s]
-    
+
     # number of non-coverging ci values
     no_conv = np.ma.where(np.ma.abs(ci_conv[-1,:]-ci_conv[-2,:])>10.e-6)[0]
-    
+
     # modeled transpiration
     Emod   = gc_h * ((ei-ea)/P) # [mol(H2O)/m2leaf s]
     # modeled gross primary production
     GPPmod = gc_c * (ca - ci_conv[-1,:]) + Rd       # [mol(CO2)/m2leaf s]
-    
+
     return ci_conv[-1,:], gc_c, gc_h, gs_c, gs_h, no_conv, Jc, Je, Rd, GPPmod, Emod
 
 ###############################################################################
@@ -620,30 +618,30 @@ def twoleafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, PARdiff, fsun, par1, par2,
     two leaf scheme. It calculates leafmodel for a sunlit and shaded leaf
     fraction of the canopy. Inputs are the same as for leafmodel plus PARdiff
     and fsun.
-    
+
     Definition
     ----------
     def twoleafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, PARdiff, fsun, par1, par2,
                  gs_method='Leuning', temp_method='June', n=5, eta=0.9):
-    
-    
-    Input 
+
+
+    Input
     -----
     same as for leafmodel except:
     PARdiff     np.array(N), diffuse photon flux density [mol/m2s]
     fsun        np.array(N), fraction of sunlit leaf area [-]
-    
-    
+
+
     Optional Input
     --------------
     same as for leafmodel
-    
-    
+
+
     Output
     ------
     same as for leafmodel
-    
-    
+
+
     Examples
     --------
     >>> # Define input
@@ -657,7 +655,7 @@ def twoleafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, PARdiff, fsun, par1, par2,
     >>> P      = np.array([99893.7, 99907.7, 99926.5, 99928.0, 99924.7])
     >>> PARdiff= np.array([3.746e-4, 4.059e-4, 4.428e-4, 4.663e-4, 4.849e-4])
     >>> fsun   = np.array([0.682, 0.703, 0.718, 0.729, 0.737])
-    
+
     >>> # use default methods Leuning + June
     >>> par1   = [15., 0.0041, 5.e3]
     >>> par2   = [60.e-6, 25., 18.]
@@ -668,7 +666,7 @@ def twoleafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, PARdiff, fsun, par1, par2,
     [11.861 12.255 12.344 12.176 11.924]
     >>> print(np.ma.round(Emod*1.e3, 3))
     [3.253 4.232 4.205 3.952 3.792]
-    
+
     >>> # use methods Ball&Berry + Medlyn
     >>> par1   = [15., 0.0041]
     >>> par2   = [60.e-6, 700., 700.]
@@ -680,8 +678,8 @@ def twoleafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, PARdiff, fsun, par1, par2,
     [13.482 13.785 13.904 14.002 13.839]
     >>> print(np.ma.round(Emod*1.e3, 3))
     [2.612 3.206 3.127 3.083 2.926]
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -719,13 +717,13 @@ def twoleafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, PARdiff, fsun, par1, par2,
     GPP_l, E_l = leafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, par1, par2,
                            gs_method=gs_method, temp_method=temp_method,
                            n=n, eta=eta)
-        
+
     # shaded leaves
     ci_s, gc_c_s, gc_h_s, gs_c_s, gs_h_s, no_conv_s, Jc_s, Je_s, Rd_s,\
     GPP_s, E_s = leafmodel(ci_ini, Tl, PARdiff, ea, ca, ga, gb, P, par1, par2,
                            gs_method=gs_method, temp_method=temp_method,
                            n=n, eta=eta)
-    
+
     # combine
     ci      = fsun*ci_l   + (1.-fsun)*ci_s
     gc_c    = fsun*gc_c_l + (1.-fsun)*gc_c_s
@@ -738,7 +736,7 @@ def twoleafmodel(ci_ini, Tl, PAR, ea, ca, ga, gb, P, PARdiff, fsun, par1, par2,
     Rd      = fsun*Rd_l   + (1.-fsun)*Rd_s
     GPPmod  = fsun*GPP_l  + (1.-fsun)*GPP_s
     Emod    = fsun*E_l    + (1.-fsun)*E_s
-    
+
     return ci, gc_c, gc_h, gs_c, gs_h, no_conv, Jc, Je, Rd, GPPmod, Emod
 
 ###############################################################################
@@ -748,7 +746,7 @@ def farquhar(Tl, ci, PAR, par, temp_method='June', eta=0.9):
     Tl : leaf temperature [degC]
     ci : leaf intercellular co2 concentration [mol/mol]
     PAR: photosynthetic active photon flux density [mol/m2leaf s]
-    par: if temp_method is June: 
+    par: if temp_method is June:
          [0] VCmax25: maximum carboxylation rate at 25 degC [mol/m2leaf s]
          [1] Topt:    optimum temperature of Jmax [degC]
          [2] omega:   the difference in temperature from Topt at which Jmax
@@ -764,7 +762,7 @@ def farquhar(Tl, ci, PAR, par, temp_method='June', eta=0.9):
     temp_method: temperature dependecy methods: 'June', 'Medlyn', 'Caemmerer'
     eta: smoothiing factor for transition between Jmax and Vcmax dominated
          assimilation rate [-]
-         
+
     returns:
     A : assimilation rate [mol/m2leaf s]
     Jc: carboxylation limited assimilation flux [mol/m2leaf s]
@@ -787,7 +785,7 @@ def farquhar(Tl, ci, PAR, par, temp_method='June', eta=0.9):
         delSJ   = par[1]
     else:
         raise ValueError('farquhar: unknown temperature method')
-        
+
     # CO2 compensation point
     gamma_star = compensationpoint(Tl) # [mol/mol]
     # maximum electron transport rate at 25 degC
@@ -797,17 +795,17 @@ def farquhar(Tl, ci, PAR, par, temp_method='June', eta=0.9):
 
     # calculate temperature dependencies
     Kc    = ArrheniusTemp(Kc25, E_Kc, Tl)
-    Ko    = ArrheniusTemp(Ko25, E_Ko, Tl)    
+    Ko    = ArrheniusTemp(Ko25, E_Ko, Tl)
     Rd    = ArrheniusTemp(Rd25, E_Rd, Tl)
     if temp_method=='June':
         Vcmax = ArrheniusTemp(Vcmax25, E_Vcmax, Tl)
         Jm    = JuneTemp(Jm25, Topt, Tl, omega)
     elif temp_method=='Medlyn':
         Vcmax = MedlynTemp(Vcmax25, E_Vcmax, delSV, Tl, HdV)
-        Jm    = MedlynTemp(Jm25, E_Jmax, delSJ, Tl, HdJ) 
+        Jm    = MedlynTemp(Jm25, E_Jmax, delSJ, Tl, HdJ)
     elif temp_method=='Caemmerer':
         Vcmax = ArrheniusTemp(Vcmax25, E_Vcmax, Tl)
-        Jm    = MedlynTemp(Jm25, E_Jmax, delSJ, Tl, HdJ) 
+        Jm    = MedlynTemp(Jm25, E_Jmax, delSJ, Tl, HdJ)
 
     # carboxylation limited assimilation flux [mol/m2leaf s]
     Jc = Vcmax * (ci - gamma_star) / (ci + Kc*(1. + O/Ko))
@@ -816,7 +814,7 @@ def farquhar(Tl, ci, PAR, par, temp_method='June', eta=0.9):
          ((ci - gamma_star) / (4.*(ci + 2. * gamma_star)))
     # assimilation [mol/m2leaf s]
     A = smoothmin(Jc, Je, eta) - Rd
-    
+
     return A , Jc, Je, Rd# [mol/m2leaf s]
 
 ###############################################################################
@@ -824,9 +822,9 @@ def compensationpoint(T):
     '''
     leafmodel: CO2 compensation point
     T: temperature [degC]
-    
+
     returns:
-    gamma_star: CO2 compensation point [mol/mol] 
+    gamma_star: CO2 compensation point [mol/mol]
     '''
     gamma_star = 1.7e-6 * T
     return gamma_star
@@ -840,9 +838,9 @@ def ball_berry(A, rH, cs, par):
     cs: carbon mixing ratio at the leaf surface [mol/mol]
     par: [0] m: slope [mol(H2O)/mol(air)]
          [1] b: offset [mol(H2O)/m2leaf s]
-    
+
     returns:
-    gs: stomatal conductance [mol/m2leaf s] 
+    gs: stomatal conductance [mol/m2leaf s]
     '''
     m = par[0]
     b = par[1]
@@ -859,9 +857,9 @@ def leuning(A, vpds, cs, Tl, par):
     par: [0] m:  slope [mol(H2O)/mol(air)]
          [1] b:  offset [mol(H2O)/m2leaf s]
          [2] d0: sensitivity parameter to vpds [mol(H2O)/mol(air) or Pa]
-    
+
     returns:
-    gs: stomatal conductance [mol/m2leaf s] 
+    gs: stomatal conductance [mol/m2leaf s]
     '''
     m  = par[0]
     b  = par[1]
@@ -889,7 +887,7 @@ def ArrheniusTemp(r25, E, T):
     r25: activity rate at 25 degC [unit depends on input]
     E: activation energy [J]
     T: temperature [degC]
-    
+
     returns: r activity rate at T [unit depends on input]
     '''
     return r25 * np.ma.exp(((T-25.)*E)/(298.*R*(T+273.)))
@@ -905,7 +903,7 @@ def JuneTemp(r25, Topt, T, omega=18.):
     omega: the difference in temperature from Topt at which activity rate falls
            to e-1 (0.37) of its value at Topt. (In the paper its on average
            18+-0.6 degC for Jmax)
-           
+
     returns:
     r: activity rate at temperature T [unit depends on input]
     '''
@@ -921,14 +919,14 @@ def MedlynTemp(r25, E, delS, T, Hd):
     delS: entropy factor [J/mol/K]
     T: temperature [degC]
     Hd : decrease rate above optimum [J/mol]
-    
+
     returns:
     r: activity rate at temperature T [unit depends on input]
     '''
     return r25 * np.ma.exp(((T-25.)*E)/(298.*R*(T+273.))) * \
                       (1. + np.ma.exp((298.*delS-Hd)/(298.*R))) / \
                       (1. + np.ma.exp(((T+273.)*delS-Hd)/((T+273.)*R)))
-                      
+
 ###############################################################################
 def Topt(Hd, E, delS):
     '''
@@ -937,7 +935,7 @@ def Topt(Hd, E, delS):
     Hd : decrease rate above optimum [J/mol]
     E: activation energy [J]
     delS: entropy factor [J/mol/K]
-    
+
     returns:
     Topt: optimal temperature [degC]
     '''
@@ -950,12 +948,12 @@ def sunfrac(G_of_theta, theta, lai):
     G_of_theta: leaf projection function at zenith angle theta [-]
     theta: zenith angle, 90. at horizon, 0. at noon [deg]
     lai: leaf area index [-]
-    
+
     returns: sun lit fraction of lai [-]
-    
+
     '''
     K = G_of_theta/np.ma.cos(np.deg2rad(theta))
-    f_sun = (1.-np.ma.exp(-K*lai))/(K*lai) 
+    f_sun = (1.-np.ma.exp(-K*lai))/(K*lai)
     return f_sun
 
 ###############################################################################
@@ -965,7 +963,7 @@ def gb(u, d):
     Leaf boundary layer conductance after Bonan et al. 2002
     u: wind speed [m/s]
     d: leaf size [m]
-    
+
     returns: leaf boundary layer conductance [m/s]
     '''
     return 1./(200.*np.ma.sqrt(d/np.ma.abs(u)))
@@ -977,7 +975,7 @@ def ga(u, ustar):
     Aerodynamic conductance
     u: wind speed [m/s]
     ustar: friction velocity [m/s]
-    
+
     returns: aerodynamic conductance [m/s]
     '''
     return ustar**2/u
@@ -991,7 +989,7 @@ def g2mol(g, Ta, P):
     g: conductivity [m/s]
     Ta: air temperature [degC]
     P: air pressure [Pa]
-    
+
     returns: conductivity [mol/m2s]
     '''
     return g / (R * (Ta+T0)/P)
@@ -1006,7 +1004,7 @@ def leaftemp(Ta, H, ga, rho, cp):
     ga: aerodynamic conductance [m/s]
     rho: air density [kg/m3]
     cp: heat capacity of dry air [J/kg/K]
-    
+
     returns: leaf temperature [degC]
     '''
     return Ta+(H/(ga*rho*cp))

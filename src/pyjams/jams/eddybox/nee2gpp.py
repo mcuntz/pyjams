@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-import scipy.optimize as opt # curve_fit, fmin, fmin_tnc
-import jams.functions as functions # from jams
-from jams.mad import mad # from jams
+import scipy.optimize as opt  # curve_fit, fmin, fmin_tnc
+import pyjams.functions as functions  # from jams
+from pyjams.mad import mad # from jams
 import warnings
 # import pdb
+
 
 # ----------------------------------------------------------------------
 def nee2gpp(dates, nee, t, isday, rg=False, vpd=False, undef=np.nan,

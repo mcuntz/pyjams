@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
+
 
 def smax(x, y, eta=1. - 1.e-5):
     """

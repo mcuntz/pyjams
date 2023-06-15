@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.const import T25
+from pyjams.const import T25
+
 
 __all__ = ['dielectric_water']
+
 
 def dielectric_water(T):
     """
@@ -19,7 +20,7 @@ def dielectric_water(T):
         -----
         list/ND-array of temperatures [K]
 
-        
+
         Output
         ------
         list/ND-array of dielectric constants of liquid water [F m^-1]

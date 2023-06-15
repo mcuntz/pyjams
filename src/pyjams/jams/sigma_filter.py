@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import scipy.optimize as opt
-import jams.functions as functions
+import pyjams.functions as functions
+
 
 def sigma_filter(x, y, z=3, func=functions.line_p, p=[0.,1.], plot=False, popt=False):
-    
+
     """
         Checks a 1D-array for points deviating more than z standard deviations
         from a given function.
@@ -22,8 +22,8 @@ def sigma_filter(x, y, z=3, func=functions.line_p, p=[0.,1.], plot=False, popt=F
         -----
         x            1D-array, or ND-array, which is filtered in the last dimension, i.e. x.shape[-1] == y.size
         y            1D-(masked) array
-        
-        
+
+
         Optional Input
         --------------
         z            multiplier to standard deviation used so that all deviations
@@ -73,7 +73,7 @@ def sigma_filter(x, y, z=3, func=functions.line_p, p=[0.,1.], plot=False, popt=F
         >>> # detect outliers - sine
         >>> print(sigma_filter(x, y, z=5, p=[2.1,1.4], func=fun, plot=False)[0:12])
         [False False  True False False False False False False False  True False]
-        
+
         >>> def fun2(x, p):
         ...     return(p[0]+p[1]*np.sin(p[2]*x))
         >>> y = np.ma.array(fun2(x, [2.,1.5,3.])+np.random.normal(0,0.1,40)) # sin wave
@@ -87,7 +87,7 @@ def sigma_filter(x, y, z=3, func=functions.line_p, p=[0.,1.], plot=False, popt=F
         >>> print(astr(p, 1))
         ['2.0' '1.5' '3.0']
 
-        
+
         License
         -------
         This file is part of the JAMS Python package, distributed under the MIT
@@ -124,13 +124,13 @@ def sigma_filter(x, y, z=3, func=functions.line_p, p=[0.,1.], plot=False, popt=F
     """
     if plot:
         import matplotlib.pyplot as plt
-        
+
     # create masked work array
     y_new  = np.ma.array(y.copy())
     if np.ma.count_masked(y_new) == 0: y_new.mask = np.zeros(y_new.shape)
     # Initialise fitted  parameters
     p_opt = np.copy(p)
-    
+
     # loop until no outliers are detected anymore
     go_on = True
     while go_on:
@@ -213,7 +213,7 @@ if __name__ == '__main__':
     # #  False False False False False False False False False  True False
     # #  False False False False False False False False False False False
     # #  False False False False False False False]
-    
+
     # def fun2(x, p):
     #     return(p[0]+p[1]*np.sin(p[2]*x))
     # y = np.ma.array(fun2(x, [2.,1.5,3.])+np.random.normal(0,0.1,40)) # sin wave

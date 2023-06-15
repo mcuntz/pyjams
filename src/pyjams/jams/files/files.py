@@ -1,23 +1,24 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import os
 import datetime
 import glob
-from jams.argsort import argsort
+from pyjams.argsort import argsort
 import numpy as np
+
 
 __all__ = ['fullnames', 'fullnames_dates', 'fullnames_dates_sizes', 'fullnames_sizes',
            'fullnames_times', 'fullnames_times_sizes',
            'last_fullname', 'last_fullname_date', 'last_fullname_date_size',
            'last_fullname_size', 'last_fullname_time', 'last_fullname_time_size',
            'last_name', 'last_name_date', 'last_name_date_size', 'last_name_size',
-           'last_name_time', 'last_name_time_size', 
+           'last_name_time', 'last_name_time_size',
            'names', 'names_dates', 'names_dates_sizes', 'names_sizes', 'names_times',
            'names_times_sizes',
            'newest_fullname', 'newest_fullname_date', 'newest_fullname_date_size',
            'newest_fullname_size', 'newest_fullname_time', 'newest_fullname_time_size',
            'newest_name', 'newest_name_date', 'newest_name_date_size',
            'newest_name_size', 'newest_name_time', 'newest_name_date_size']
+
 
 # --------------------------------------------------------------------
 
@@ -36,7 +37,7 @@ def fullnames(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         List of filenames incl. absolute paths.
@@ -130,7 +131,7 @@ def fullnames_dates(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         List of filenames incl. absolute paths, List of modification times
@@ -228,7 +229,7 @@ def fullnames_dates_sizes(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         List of filenames incl. absolute paths, List of modification times, List of file sizes
@@ -330,7 +331,7 @@ def fullnames_sizes(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         List of filenames incl. absolute paths, List of file sizes
@@ -540,7 +541,7 @@ def last_fullname(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename incl. absolute paths of last modified file
@@ -622,7 +623,7 @@ def last_fullname_date(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename incl. absolute paths of last modified file, Modification time
@@ -704,7 +705,7 @@ def last_fullname_date_size(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename incl. absolute paths of last modified file, Modification time, File size
@@ -786,7 +787,7 @@ def last_fullname_size(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename incl. absolute paths of last modified file, File size
@@ -980,7 +981,7 @@ def last_name(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename of last modified file
@@ -1062,7 +1063,7 @@ def last_name_date(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename of last modified file, Modification time
@@ -1144,7 +1145,7 @@ def last_name_date_size(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename of last modified file, Modification time, File size
@@ -1226,7 +1227,7 @@ def last_name_size(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename of last modified file, File size
@@ -1420,7 +1421,7 @@ def names(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         List of filenames
@@ -1513,7 +1514,7 @@ def names_dates(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         List of filenames, List of modification times
@@ -1610,7 +1611,7 @@ def names_dates_sizes(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         List of filenames, List of modification times, List of file sizes
@@ -1711,7 +1712,7 @@ def names_sizes(fname=None, dirs=None):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         List of filenames, List of file sizes
@@ -2089,7 +2090,7 @@ def newest_fullname_size(*args, **kwargs):
         fname        filename, filename globbing is possible such as '*.dat' (all files)
         dirs         list of or single directory names (default: '.')
 
-        
+
         Output
         ------
         Filename incl. absolute paths of newest modified file, File size

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import netCDF4 as nc
+
 
 def gapfill(date, data, rg, tair, vpd,
             data_flag=None, rg_flag=None, tair_flag=None, vpd_flag=None,

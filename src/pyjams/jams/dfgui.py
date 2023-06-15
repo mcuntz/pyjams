@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import absolute_import, division, print_function
 '''
 Pandas DataFrame GUI
 
@@ -113,26 +112,19 @@ Modified, Matthias Cuntz, Jan 2019 - exclude NaN in histograms
                                      plot
           Matthias Cuntz, Sep 2021 - catch if no infile given
           Matthias Cuntz, Jul 2022 - add header argument
+          Matthias Cuntz, Jun 2023 - def main for entry_points in setup.cfg
+
 '''
 # --------------------------------------------------------------------
 # import
 #
-
 # pip install wxpython
 import numpy as np
 import pandas as pd
 # unused import required to allow 'eval' of date filters
 import datetime as dt
 from bisect import bisect
-
-try:
-    import wx
-except ImportError:
-    import sys
-    sys.path += ["/usr/lib/python2.7/dist-packages/wx-2.8-gtk2-unicode",
-                 "/usr/lib/python2.7/dist-packages"]
-    import wx
-
+import wx
 import matplotlib
 matplotlib.use('WXAgg')
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
@@ -361,7 +353,7 @@ class ListCtrlDataFrame(wx.ListCtrl):
             self.Select(i, on=False)
 
         # determine indices of selection after sorting
-        selected_bool = self.df.iloc[:, -1] == True
+        selected_bool = self.df.iloc[:, -1]  # == True
         selected = self.df.reset_index().index[selected_bool]
 
         # select corresponding rows
@@ -1151,7 +1143,7 @@ def show(df):
 # Script
 #
 
-if __name__ == "__main__":
+def main(iargs=None):
 
     import argparse
 
@@ -1190,7 +1182,7 @@ command line, otherwise assumed %Y-%m-%d %H:%M:%S.''')
     parser.add_argument('files', nargs='*', default=None, metavar='file(s)',
                         help=hstr)
 
-    args    = parser.parse_args()
+    args    = parser.parse_args(iargs)
     csort   = args.csort
     form    = args.form
     header  = eval(args.header)

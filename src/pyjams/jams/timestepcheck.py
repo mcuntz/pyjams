@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import os as os
-from jams.date2dec import date2dec
-from jams.dec2date import dec2date
+from pyjams.jams.date2dec import date2dec
+from pyjams.jams.dec2date import dec2date
 import re
+
 
 def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
                   format='ascii', empty='-9999', delimiter=',', skiprows=0):
@@ -14,26 +14,26 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
     are missing, they will will be filled with the correct time stamp and
     empty values. A beginning and end for the output files can be set to which
     data should be kept or filled. Pat defines the file name pattern to consider
-    in the check. Multiple files, which match the pat are concatenated. 
-    
-    
+    in the check. Multiple files, which match the pat are concatenated.
+
+
     Definition
     ----------
     timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
                   format='ascii', empty='-9999', delimiter=',', skiprows=0):
 
-    
+
     Input
-    ----- 
+    -----
     indir       str, path of the folder where the input files are
     pat         str, name or regular expression of the input files
-    outfile     str, path and name of the output file 
+    outfile     str, path and name of the output file
     begin       str, start time of the output file, must be in the same format
-                as time stamps in the input files 
+                as time stamps in the input files
     end         str, end time of the output file, must be in the same format
-                as time stamps in the input files  
-        
-    
+                as time stamps in the input files
+
+
     Optional Input
     --------------
     numhead     int, number of header lines in the input files (default: 1)
@@ -44,20 +44,20 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
     delimiter   str, delimiter of the input files (default: ',')
     skiprows    int, rows to skip in input files, e.g. logger fuzzle before
                 actual data header starts (default: 0)
-                
-    
+
+
     Output
     ------
     outfile     file with missing time steps filled with empty values cut from
-                begin to end 
-    
-    
+                begin to end
+
+
     Restrictions
     ------------
     TODO: tested thoroughly only for timeint=30
     TODO: more bad value checks can be included, see sternchen and tuedelchen
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -89,7 +89,7 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
     History
     -------
     Written,  AP, Aug 2014
-    '''            
+    '''
     ###########################################################################
     # time interval list
     interval = range(0,60,timeint)
@@ -103,12 +103,12 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
     elif format == 'eng':
         jdbegin  = date2dec(eng = np.array([begin]))
         jdend    = date2dec(eng = np.array([end]))
-    
+
     ###########################################################################
     # reading input directory
     pat = re.compile(pat)
     new = True
-    
+
     filelist = os.listdir(indir)
     for file in filelist:
         if re.search(pat, file):
@@ -139,18 +139,18 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
     data[data=='***********'] = empty #!!! uberprufen auf lange und re
     data[data=='********'] = empty #!!! uberprufen auf lange und re
     data[data=='*********'] = empty
-    
+
     ###########################################################################
     # tuedelchen check :-D
     # replace with regular expression check
     if data[numhead,0][0] == '"':
         data[numhead:,0] = np.array([x[1:-1] for x in data[numhead:,0]])
-    
+
     ###########################################################################
     # "NAN" check :-D
     # replace with regular expression check
     data[data=='"NAN"'] = empty #!!! uberprufen auf lange und re
-    
+
     ###########################################################################
     # leerzeilen check
     blankline = np.where(data[0:2,0]=='')[0]
@@ -181,7 +181,7 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
     if data.shape[0]-numhead-2 in wrong:
         wrong = np.append(wrong, [data.shape[0]-numhead-1], 0)
     delete = []
-    
+
     for i in wrong:
         print('\nHERE IS SOMETHING WRONG:\n')
         print('BOF' if numhead+i-2<0 else data[numhead+i-2,:4])
@@ -191,9 +191,9 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
         print('-----------------------------------------------')
         print('EOF' if numhead+i+1>=np.shape(data)[0] else data[numhead+i+1,:4])
         print('EOF' if numhead+i+2>=np.shape(data)[0] else data[numhead+i+2,:4])
-        
+
         do = raw_input("\n(d)elete entry, (s)et to empty, (t)ype in date, (i)gnore: ")
-        
+
         if   do == 'd':
             delete += [numhead+i]
         elif do == 's':
@@ -205,22 +205,22 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
 #            data[numhead+i,0] = data[numhead+i,0][:-2] + newmin
         elif do == 'i':
             pass
-    
+
     data = np.delete(data, delete, 0)
-        
+
     ###########################################################################
     # calculate julian date again
     if format == 'ascii':
         jd = date2dec(ascii = data[numhead:,0])
     elif format == 'eng':
         jd = date2dec(eng = data[numhead:,0])
-    
+
     ###########################################################################
     # check time step
     diff = jd[1:] - jd[:-1]
     ingap = np.where(np.greater(diff, jdint+jdmin))[0]
     nugap = np.rint((diff[ingap]/jdint)-1)
-    
+
     ###########################################################################
     # insert missing time steps
     for i in range(np.size(ingap))[::-1]:
@@ -232,12 +232,12 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
             span  = np.arange(1,nugap[i]+1)*jdint + jd[ingap[i]]
             what  = dec2date(span.astype('|S16').astype(float), eng=True)
         what    = np.array([x[:-3] for x in what])
-        
+
         miss    = np.empty((int(nugap[i]),columns), dtype='|S11')
         miss[:] = empty
         what    = np.append(np.reshape(what, (-1,1)), miss, 1)
         data    = np.insert(data, where, what, 0)
-    
+
     ###########################################################################
     # fill/cut up/off beginning and end
     start = np.where(data[:,0]==begin)[0]
@@ -265,7 +265,7 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
         miss[:] = empty
         what    = np.append(np.reshape(what, (-1,1)), miss, 1)
         data    = np.insert(data, where, what, 0)
-        
+
     stop = np.where(data[:,0]==end)[0]
     maxind = np.shape(data)[0]-1
     if stop == maxind:
@@ -291,7 +291,7 @@ def timestepcheck(indir, pat, outfile, begin, end, numhead=1, timeint=30,
         miss[:] = empty
         what    = np.append(np.reshape(what, (-1,1)), miss, 1)
         data    = np.append(data, what, 0)
-        
+
     ###########################################################################
     # save data to txt file
     np.savetxt('%s'%outfile, data, fmt='%s', delimiter=delimiter)

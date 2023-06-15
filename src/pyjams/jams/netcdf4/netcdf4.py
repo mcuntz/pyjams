@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
-
 """
 Author
 ------
@@ -12,7 +10,6 @@ A sanitizing layer for the netCDF4 library. Adds a number of convenince methods
 and aims for a cleaner user interface. All classes available are children of their
 associated netCDF4 counterparts.
 """
-
 import uuid
 from netCDF4 import Dataset, Group, Dimension, Variable, date2num, num2date
 from collections import OrderedDict

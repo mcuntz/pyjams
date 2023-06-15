@@ -1,42 +1,42 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import os as os
 import re
 import shutil
 from time import localtime
 from scipy.stats import mode
-                                    
+
+
 def sltclean(indir, pat = '[a-zA-Z0-9]*.slt|[a-zA-Z0-9]*.SLT'):
-    """       
+    """
         Moves *.slt files to a "deleted" folder to exclude them from further
         processing if they have a file size smaller than half of the regular
         file size. Regular file size is determined by mode(all file sizes in the
         folder). *.slt files are raw eddy covariance files (binary) recorded
         with EddyMeas (Kolle & Rebmann, 2007)
-        
-        
+
+
         Definition
         ----------
         sltclean(indir, pat = '[a-zA-Z0-9]*.slt|[a-zA-Z0-9]*.SLT'):
-        
-        
+
+
         Input
-        ----- 
-        indir       str, path of the folder containing the *.slt files 
-        
-        
+        -----
+        indir       str, path of the folder containing the *.slt files
+
+
         Optional Input
         --------------
         pat         str, regular expression, describing the name pattern of
                     the *.slt files in the indir folder
-                    
-        
+
+
         Output
         ------
         sltclean_X_X.log log file of the cleaning process
-        
-        
+
+
         License
         -------
         This file is part of the JAMS Python package, distributed under the MIT
@@ -63,21 +63,21 @@ def sltclean(indir, pat = '[a-zA-Z0-9]*.slt|[a-zA-Z0-9]*.SLT'):
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
-    
-    
+
+
         History
         -------
         Written,  AP, Jul 2014
-        
+
     """
-    
+
     ###########################################################################
     # reading input directory
     dirlist = os.listdir(indir)
     sizelist, filelist = np.array([]), np.array([])
     if 'deleted' not in dirlist:
         os.mkdir('%s/deleted'%indir)
-    
+
     ###########################################################################
     # remove all files and folders from list which are not *.slt files and get size
     pat = re.compile(pat)
@@ -86,7 +86,7 @@ def sltclean(indir, pat = '[a-zA-Z0-9]*.slt|[a-zA-Z0-9]*.SLT'):
             sizelist = np.append(sizelist, os.path.getsize('%s/%s' %(indir, item))/1000.)
             filelist = np.append(filelist, item)
     filesize = mode(sizelist)[0][0]
-    
+
     ###########################################################################
     # move files to deleted which are too small and write log file
     delfiles = filelist[sizelist<filesize/2.]

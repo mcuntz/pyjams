@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 """
     Defines signatures of discharge time series.
@@ -91,7 +90,7 @@ def autocorrelation(dat, lags):
         Written, Juliane Mai, Jun 2015 in Fortran
         Modified, Matthias Cuntz, May 2016 - Python port
     """
-    from jams.correlate import correlate
+    from pyjams.jams.correlate import correlate
     autocorrelation = correlate(dat, dat)
     return autocorrelation[lags]
 
@@ -350,7 +349,7 @@ def maximummonthlyflow(date, dat):
     Written Juliane Mai, Jun 2015 in Fortran
     Modified Matthias Cuntz, May 2016 - Python port
     """
-    from jams.means import means
+    from pyjams.means import means
     mdate, mdat = means(date, dat, month=True)
     return mdat.max()
 

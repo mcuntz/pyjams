@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 from scipy import interpolate, signal
+
 
 def xkcd_line(x, y, xlim=None, ylim=None, mag=1.0, f1=30, f2=0.05, f3=15):
     """
@@ -376,8 +376,6 @@ def xkcd(ax,
         ax.add_line(line)
 
     # Change all the fonts to humor-sans.
-    # from jams.find_in_path import find_in_path
-    # fhumor = find_in_path('Humor-Sans.ttf') # in jams_python
     import os
     fhumor = os.path.join(os.path.dirname(__file__), 'Humor-Sans.ttf') # in jams_python/jams
     for text in ax.texts:
@@ -414,163 +412,3 @@ def xkcd(ax,
 if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
-
-    # import numpy as np
-    # import jams
-    # from position import position
-    # pdffile='test_xkcd.pdf'
-    # usetex  = False
-    # textsize    = 13          # standard text size
-    # lwidth      = 1.5         # linewidth
-    # alwidth     = 1.0         # axis line width
-
-    # if (pdffile == ''):
-    #     outtype = 'x'
-    # else:
-    #     outtype = 'pdf'
-
-    # import matplotlib as mpl
-    # if (outtype == 'pdf'):
-    #   mpl.use('PDF') # set directly after import matplotlib
-    #   import matplotlib.pyplot as plt
-    #   from matplotlib.backends.backend_pdf import PdfPages
-    #   # Customize: http://matplotlib.sourceforge.net/users/customizing.html
-    #   mpl.rc('ps', papersize='a4', usedistiller='xpdf') # ps2pdf
-    #   mpl.rc('figure', figsize=(8.27,11.69)) # a4 portrait
-    #   if usetex:
-    #     mpl.rc('text', usetex=True)
-    #   else:
-    #     #mpl.rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-    #     mpl.rc('font',**{'family':'serif','serif':['times']})
-    #   mpl.rc('text.latex', unicode=True)
-    #   mpl.rc('font', size=textsize)
-    # else:
-    #   import matplotlib.pyplot as plt
-    #   mpl.rc('figure', figsize=(4./5.*8.27,4./5.*11.69)) # a4 portrait
-    #   mpl.rc('font', size=textsize)
-    # mpl.rc('lines', linewidth=lwidth, color='black')
-    # mpl.rc('axes', linewidth=alwidth, labelcolor='black')
-    # mpl.rc('path', simplify=False) # do not remove
-
-    # if (outtype == 'pdf'):
-    #     print('Plot PDF ', pdffile)
-    #     pdf_pages = PdfPages(pdffile)
-    # else:
-    #     print('Plot X')
-    # figsize = mpl.rcParams['figure.figsize']
-    # # figsize = [6.616, 9.352]
-
-    # ifig = 0
-    # nrow = 2
-    # ncol = 1
-
-    # # ----------------------------------------------------------------------------------
-    # # Example 1
-    # np.random.seed(1)
-
-    # iplot = 1
-    # fig = plt.figure(ifig)
-    # pos = position(nrow,ncol,iplot,golden=False,figsize=figsize,left=0.1)
-    # ax = fig.add_axes(pos)
-
-    # x = np.linspace(0, 10, 100)
-    # ax.plot(x, np.sin(x) * np.exp(-0.1 * (x - 5) ** 2), 'b', lw=1, label='sine')
-    # ax.plot(x, -np.cos(x) * np.exp(-0.1 * (x - 5) ** 2), 'r', lw=1, label='cosine')
-    # ax.set_title('check it out!')
-    # ax.set_xlabel('x label')
-    # ax.set_ylabel('y label')
-    # ax.legend(loc='upper left', bbox_to_anchor=(0.7,0.4), ncol=1, handlelength=0)
-
-    # xkcd(ax, xaxis_loc=0.0, yaxis_loc=1.0,
-    #      xaxis_arrow='+-', yaxis_arrow='+-', xlabel_inside=1., title_size=textsize+2)
-
-    # if (outtype == 'pdf'):
-    #     pdf_pages.savefig(fig)
-    #     plt.close()
-
-
-    # # ----------------------------------------------------------------------------------
-    # # Example 1 with third line
-    # np.random.seed(1)
-
-    # iplot = 1
-    # fig = plt.figure(ifig)
-    # pos = position(nrow,ncol,iplot,golden=False,figsize=figsize,left=0.1)
-    # ax = fig.add_axes(pos)
-
-    # x = np.linspace(0, 10, 100)
-    # ax.plot(x, np.sin(x) * np.exp(-0.1 * (x - 5) ** 2), 'b', lw=1, label='sine')
-    # ax.plot(x, -np.cos(x) * np.exp(-0.1 * (x - 5) ** 2), 'r', lw=1, label='cosine')
-    # ax.plot(x, -np.cos(x+1.0) * np.exp(-0.1 * (x - 5) ** 2), 'm', lw=1, label='shift')
-    # ax.set_title('check it out!')
-    # ax.set_xlabel('x label')
-    # ax.set_ylabel('y label')
-    # ax.legend(loc='upper left', bbox_to_anchor=(0.7,0.4), ncol=1, handlelength=0)
-
-    # xkcd(ax, xaxis_loc=0.0, yaxis_loc=1.0,
-    #      xaxis_arrow='+-', yaxis_arrow='+-', xlabel_inside=1., title_size=textsize+2)
-
-    # if (outtype == 'pdf'):
-    #     pdf_pages.savefig(fig)
-    #     plt.close()
-
-    # # ----------------------------------------------------------------------------------
-    # # Example 2
-
-    # # Some helper functions
-    # def norm(x, x0, sigma):
-    #     return np.exp(-0.5 * (x - x0) ** 2 / sigma ** 2)
-
-    # def sigmoid(x, x0, alpha):
-    #     return 1. / (1. + np.exp(- (x - x0) / alpha))
-
-    # # define the curves
-    # x = np.linspace(0, 1, 100)
-    # y1 = np.sqrt(norm(x, 0.7, 0.05)) + 0.2 * (1.5 - sigmoid(x, 0.8, 0.05))
-
-    # y2 = 0.2 * norm(x, 0.5, 0.2) + np.sqrt(norm(x, 0.6, 0.05)) + 0.1 * (1 - sigmoid(x, 0.75, 0.05))
-
-    # y3 = 0.05 + 1.4 * norm(x, 0.85, 0.08)
-    # y3[x > 0.85] = 0.05 + 1.4 * norm(x[x > 0.85], 0.85, 0.3)
-
-    # ifig  += 1
-    # iplot = 1
-    # fig = plt.figure(ifig)
-    # ax = fig.add_axes(position(nrow,ncol,iplot,golden=False,figsize=figsize,left=0.1))
-
-    # # draw the curves
-    # ax.plot(x, y1, c='gray')
-    # ax.plot(x, y2, c='blue')
-    # ax.plot(x, y3, c='red')
-
-    # ax.text(0.3, -0.1, "Yard")
-    # ax.text(0.5, -0.1, "Steps")
-    # ax.text(0.7, -0.1, "Door")
-    # ax.text(0.9, -0.1, "Inside")
-
-    # ax.text(0.05, 1.1, "fear that\nthere's\nsomething\nbehind me")
-    # ax.plot([0.15, 0.2], [1.0, 0.2], '-k', lw=0.5)
-
-    # ax.text(0.25, 0.8, "forward\nspeed")
-    # ax.plot([0.32, 0.35], [0.75, 0.35], '-k', lw=0.5)
-
-    # ax.text(0.9, 0.4, "embarrassment")
-    # ax.plot([0.8, 1.0], [1.05, 0.55], '-k', lw=0.5)
-
-    # ax.set_title("Walking back to my\nfront door at night:")
-
-    # ax.set_xlim(0, 1)
-    # ax.set_ylim(0, 1.5)
-
-    # # modify all the axes elements in-place
-    # xkcd(ax)
-
-    # if (outtype == 'pdf'):
-    #     pdf_pages.savefig(fig)
-    #     plt.close()
-
-
-    # if (outtype == 'pdf'):
-    #     pdf_pages.close()
-    # else:
-    #     plt.show()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
+
 
 def dewpoint(pres, Celsius=False):
     """
@@ -92,8 +92,8 @@ def dewpoint(pres, Celsius=False):
     if Celsius:
         return out
     else:
-        import jams.const as const
-        return out+const.T0
+        import pyjams.const as const
+        return out + const.T0
 
 
 if __name__ == '__main__':

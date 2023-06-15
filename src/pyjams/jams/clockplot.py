@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 
+
 __all__ = ['clockplot']
+
 
 def clockplot(sub, si, sti=None, stierr=None,
               iplot       = None,           # plot number for abc2plot
@@ -374,7 +375,7 @@ def clockplot(sub, si, sti=None, stierr=None,
         c = np.ones(nmod)*0.7
         c = [ str(i) for i in c ]
     else:
-        from jams.color.brewer import get_brewer
+        from pyjams.jams.brewer import get_brewer
         if (cmod == 'mhm'):
             c = [get_brewer('rdylbu11',rgb=True)[0],  # interception
                  get_brewer('rdylbu11',rgb=True)[1],  # snow
@@ -569,7 +570,7 @@ def clockplot(sub, si, sti=None, stierr=None,
 
     # subplot numbering
     if doabc and (iplot is not None):
-        from jams.abc2plot import abc2plot
+        from pyjams.abc2plot import abc2plot
         abc2plot(sub, dxabc, dyabc, iplot, transform=sub.transAxes,
                  lower=True, parenthesis='close',
                  bold=True, xlarge=True,
@@ -578,7 +579,7 @@ def clockplot(sub, si, sti=None, stierr=None,
 
     # Signature
     if dosig:
-        from jams.signature2plot import signature2plot
+        from pyjams.signature2plot import signature2plot
         signature2plot(sub, dxsig, dysig, sig, transform=sub.transAxes,
                        italic=True, small=True, mathrm=True, usetex=usetex)
 

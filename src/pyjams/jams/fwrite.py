@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
+
 
 def fwrite(fname, arr, header=None, precision='10.0', delimiter=' '):
     """
@@ -8,12 +8,12 @@ def fwrite(fname, arr, header=None, precision='10.0', delimiter=' '):
 
         A header can be given as optional as well as a precision.
 
-        
+
         Definition
         ----------
         def fwrite(fname, data, header=None, precision='10.0'):
 
-        
+
         Input
         -----
         fname        target file name
@@ -27,7 +27,7 @@ def fwrite(fname, arr, header=None, precision='10.0', delimiter=' '):
         precision    floating point precision of array to write
         delimiter    delimiter to separate values, default ' '
 
-        
+
         Examples
         --------
         >>> from jams import fread
@@ -93,7 +93,7 @@ def fwrite(fname, arr, header=None, precision='10.0', delimiter=' '):
         # format is mRM compatible
         write_str = delimiter.join(['{:' + precision + 'f}'] * arr.shape[1]).format(*arr[ll, :]) + '\n'
         fo.write(write_str)
-    fo.close()    
+    fo.close()
 
 
 if __name__ == '__main__':

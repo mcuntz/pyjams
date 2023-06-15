@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pyjams.color.color &#8212; pyjams 1.30.dev1 documentation</title>
+    <title>pyjams.color.color &#8212; pyjams 1.32.dev237 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
@@ -68,6 +68,7 @@
 <span class="sd">      matplotlib.colormaps.get_cmap(name) to work with matplotlib &lt; v3.6,</span>
 <span class="sd">      Jan 2023, Matthias Cuntz</span>
 <span class="sd">    * Do not set_bad() for sron palettes, Jan 2023, Matthias Cuntz</span>
+<span class="sd">    * Allow ncol=1 in get_cmap, Jun 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -373,7 +374,11 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">ncol1</span> <span class="o">=</span> <span class="n">ncol</span>
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncol1</span><span class="p">):</span>
-                        <span class="n">x</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">ncol1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">upper</span><span class="o">-</span><span class="n">offset</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">ncol1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">x</span> <span class="o">=</span> <span class="n">offset</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">ncol1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+                                 <span class="p">(</span><span class="n">upper</span> <span class="o">-</span> <span class="n">offset</span><span class="p">))</span>
                         <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="n">palette</span><span class="p">](</span><span class="n">x</span><span class="p">)))</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">found_palette</span><span class="p">:</span>
@@ -439,7 +444,7 @@
                 <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span> <span class="n">_rgb2rgb</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">[</span><span class="n">palette</span><span class="p">]</span> <span class="p">]</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">found_palette</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">palette</span><span class="o">+</span><span class="s1">&#39; color palette not found.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">palette</span> <span class="o">+</span> <span class="s1">&#39; color palette not found.&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">hsv</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hue&#39;</span><span class="p">,</span> <span class="s1">&#39;saturation&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]</span>
@@ -460,10 +465,14 @@
     <span class="c1"># subsample</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">ncol</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">nosubsample</span><span class="p">:</span>
         <span class="n">ncolors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
-        <span class="n">ocolors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">ncol</span>
+        <span class="n">ocolors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">ncol</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncol</span><span class="p">):</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">ncol</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">upper</span><span class="o">-</span><span class="n">offset</span><span class="p">)</span>  <span class="c1"># [0-1]</span>
-            <span class="n">iicol</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">ncolors</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># [0-ncolor-1]</span>
+            <span class="k">if</span> <span class="n">ncol</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">offset</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># [0-1]</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">ncol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">upper</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span>
+            <span class="n">iicol</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">ncolors</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># [0-ncolor-1]</span>
             <span class="n">ocolors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">iicol</span><span class="p">]</span>
         <span class="n">colors</span> <span class="o">=</span> <span class="n">ocolors</span>
 
@@ -500,7 +509,7 @@
 <span class="sd">       print_palettes()</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+    <span class="c1"># import matplotlib as mpl</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="kn">import</span> <span class="nn">pyjams.color</span>
 
@@ -628,7 +637,7 @@
         <span class="n">iiname</span> <span class="o">=</span> <span class="n">iname</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ncolors</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">iiname</span> <span class="o">=</span> <span class="n">iname</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xmin</span><span class="o">+</span><span class="n">dx</span><span class="o">*</span><span class="p">(</span><span class="n">xmax</span><span class="o">-</span><span class="n">xmin</span><span class="p">),</span> <span class="n">ymin</span><span class="o">+</span><span class="n">dy</span><span class="o">*</span><span class="p">(</span><span class="n">ymax</span><span class="o">-</span><span class="n">ymin</span><span class="p">),</span> <span class="n">iiname</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xmin</span> <span class="o">+</span> <span class="n">dx</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">),</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">*</span> <span class="p">(</span><span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">),</span> <span class="n">iiname</span><span class="p">,</span>
             <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
     <span class="c1"># return ax</span>
 
@@ -681,7 +690,7 @@
     <span class="kn">import</span> <span class="nn">pyjams.color</span>
     <span class="c1"># outtype</span>
     <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">outfile</span><span class="p">:</span>
-        <span class="n">outtype</span> <span class="o">=</span> <span class="n">outfile</span><span class="p">[</span><span class="n">outfile</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">outtype</span> <span class="o">=</span> <span class="n">outfile</span><span class="p">[</span><span class="n">outfile</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
         <span class="k">if</span> <span class="n">outtype</span> <span class="o">==</span> <span class="s1">&#39;pdf&#39;</span><span class="p">:</span>
             <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;PDF&#39;</span><span class="p">)</span>  <span class="c1"># set directly after import matplotlib</span>
             <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pdf</span> <span class="kn">import</span> <span class="n">PdfPages</span>
@@ -692,7 +701,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">outtype</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
         <span class="n">textsize</span> <span class="o">=</span> <span class="mi">8</span>
-    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
     <span class="c1"># which collections to include</span>
     <span class="n">collections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pyjams&#39;</span><span class="p">,</span> <span class="s1">&#39;sron&#39;</span><span class="p">,</span> <span class="s1">&#39;sron2012&#39;</span><span class="p">,</span> <span class="s1">&#39;mathematica&#39;</span><span class="p">,</span> <span class="s1">&#39;oregon&#39;</span><span class="p">,</span>
@@ -710,8 +718,8 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">outtype</span> <span class="o">==</span> <span class="s1">&#39;pdf&#39;</span><span class="p">):</span>
             <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">outtype</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.27</span><span class="o">*</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">11.69</span><span class="o">*</span><span class="mf">0.75</span><span class="p">))</span>
-    <span class="n">figsize</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span>
+        <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.27</span> <span class="o">*</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">11.69</span> <span class="o">*</span> <span class="mf">0.75</span><span class="p">))</span>
+    <span class="c1"># figsize = mpl.rcParams[&#39;figure.figsize&#39;]</span>
     <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">textsize</span><span class="p">)</span>
     <span class="n">nrow</span> <span class="o">=</span> <span class="mi">35</span>
 
@@ -890,8 +898,8 @@
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 

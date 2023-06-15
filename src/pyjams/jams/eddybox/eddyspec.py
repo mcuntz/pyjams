@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.fread import fread
-from jams.sread import sread
-from jams.date2dec import date2dec
+from pyjams.fsread import fread
+from pyjams.fsread import sread
+from pyjams.jams.date2dec import date2dec
 import time as t
 import shutil as sh
 import re
 import os as os
+
 
 ################################################################################
 def eddyspec(indir, cfile, hfile, rawfile, sltdir, tspfile='34_specmean.csv',

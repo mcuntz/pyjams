@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from scipy.spatial    import Delaunay     # for triangulation
-from scipy.integrate  import dblquad      # area integral
-from jams.convex_hull import convex_hull  # convex hull of data points
-from jams.in_poly     import in_poly      # test if point is in polygon
-from jams.area_poly   import area_poly    # the area of a polygon
+from scipy.spatial import Delaunay     # for triangulation
+from scipy.integrate import dblquad      # area integral
+from pyjams.jams.convex_hull import convex_hull  # convex hull of data points
+from pyjams.jams.in_poly import in_poly      # test if point is in polygon
+from pyjams.jams.area_poly import area_poly    # the area of a polygon
 
 
 __all__ = ['volume_poly']

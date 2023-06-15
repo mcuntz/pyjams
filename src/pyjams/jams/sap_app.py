@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.date2dec import date2dec
+from pyjams.jams.date2dec import date2dec
 
 
 __all__ = ['t2sap']

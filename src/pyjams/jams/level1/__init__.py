@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
     Helper functions to deal with CHS level1 data and flags.
 

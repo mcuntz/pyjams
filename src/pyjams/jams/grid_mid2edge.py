@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 
+
 __all__ = ['grid_mid2edge']
+
 
 def grid_mid2edge(lon, lat):
     """

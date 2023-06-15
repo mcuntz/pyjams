@@ -546,7 +546,7 @@ def get_era5(vars=['10m_u_component_of_wind', '10m_v_component_of_wind',
 # Script
 #
 
-if __name__ == "__main__":
+def main(iargs):
 
     import argparse
 
@@ -600,7 +600,7 @@ if __name__ == "__main__":
     parser.add_argument('-y', '--years', action='store', default=years,
                         dest='years', metavar='years', help=hstr)
 
-    args             = parser.parse_args()
+    args             = parser.parse_args(iargs)
     area             = args.area
     oformat          = args.oformat
     override         = args.override

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
     License
     -------
@@ -26,6 +25,7 @@ from __future__ import division, absolute_import, print_function
     SOFTWARE.
 """
 import numpy as np
+
 
 __all__ = ['sample_ep',     # sample from exponential power distribution of Box and Tiao (1992)
            'sample_sep',    # sample from skew exponential power distribution
@@ -259,7 +259,7 @@ def sample_sep01(nn, xi=1., beta=0.):
         -------
         Written,  JM, May 2016
     """
-    from jams.distributions import sep_fs_mean, sep_fs_std
+    from pyjams.jams.distributions import sep_fs_mean, sep_fs_std
 
     SEP_fs = sample_sep01_fs(nn, xi=xi, beta=beta)
 
@@ -491,7 +491,7 @@ def sample_st01(nn, nu, xi=1.):
         -------
         Written,  JM, May 2016
     """
-    from jams.distributions import st_fs_mean, st_fs_std
+    from pyjams.jams.distributions import st_fs_mean, st_fs_std
 
     st_fs = sample_st_fs(nn, nu, xi=xi)
 

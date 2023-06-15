@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
-from jams import eddybox as eb
-from jams.timestepcheck import timestepcheck
-
+from pyjams.jams import eddybox as eb
+from pyjams.jams.timestepcheck import timestepcheck
 '''
     Example file for processing Eddy Covariance data with eddybox and EddySoft.
 

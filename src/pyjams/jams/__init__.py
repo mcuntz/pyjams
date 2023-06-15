@@ -5,11 +5,99 @@ JAMS Python Utilities
 Package offers miscellaneous functions and sub-modules in different categories.
 
 Get help on each function by typing
->>> import jams
->>> help(jams.function)
+>>> import pyjams
+>>> help(pyjams.jams.function)
 
-Provided functions and modules (alphabetic w/o obsolete functions)
-------------------------------------------------------------------
+Subpackages
+===========
+.. autosummary::
+   encrypt
+   qa
+   apply_undef
+   area_poly
+   around
+   autostring
+   baseflow
+   climate_index_knoben
+   clockplot
+   convex_hull
+   correlate
+   cuntz_gleixner
+   date2dec
+   dec2date
+   delta_isogsm2
+   dewpoint
+   dielectric_water
+   ellipse_area
+   errormeasures
+   fftngo
+   fill_nonfinite
+   find_in_path
+   fwrite
+   gap2lai
+   get_angle
+   get_era5
+   get_isogsm2
+   get_nearest
+   grid_mid2edge
+   head
+   heaviside
+   homo_sampling
+   in_poly
+   interpol
+   intersection
+   jab
+   jconfigparser
+   kriging
+   lagcorr
+   latlon_fmt
+   lhs
+   lif
+   line_dev_mask
+   lowess
+   maskgroup
+   mat2nc
+   netcdf4
+   outlier
+   pareto_metrics
+   pawn_index
+   pca
+   pet_oudin
+   pi
+   pritay
+   pso
+   readhdf
+   readhdf5
+   river_network
+   rolling
+   saltelli
+   samevalue
+   sap_app
+   savitzky_golay
+   semivariogram
+   sendmail
+   sigma_filter
+   smooth_minmax
+   sobol_index
+   srrasa
+   tail
+   tcherkez
+   timestepcheck
+   tsym
+   volume_poly
+   writenetcdf
+   xkcd
+   yrange
+   zacharias
+   distributions
+   eddybox
+   files
+   ftp
+   leafmodel
+   level1
+
+Provided functions and modules (alphabetic)
+-------------------------------------------
 apply_undef            Use a function on masked arguments.
 area_poly              Area of a polygon.
 around                 Round to the passed power of ten.
@@ -21,7 +109,6 @@ clockplot              The clockplot of mHM.
 convex_hull            Calculate subset of points that make a convex hull around a set of 2D points.
 correlate              Computes the cross-correlation function of two series x and y.
 cuntz_gleixner         Cuntz-Gleixner model of 13C discrimination.
-dag                    Generation and plotting of (connected) directed acyclic graphs with one source node.
 dielectric_water       Dielectric constant of liquid water.
 delta_isogsm2          Calculate delta values from downloaded IsoGSM2 data.
 dewpoint               Calculates the dew point from ambient humidity.
@@ -41,7 +128,6 @@ ftp                    Module with functions for interacting with an open FTP co
 fwrite                 Writes an array to ascii file
 gap2lai                Calculation of leaf area index from gap probability observations.
 get_angle              Returns the angle in radiant from each point in xy1 to each point in xy2.
-get_era_interim        Download ERA-Interim data suitable to produce MuSICA input data.
 get_era5               Download ERA5 data suitable to produce MuSICA input data.
 get_isogsm2            Get IsoGSM2 output.
 get_nearest            Returns a value z for each point in xy near to the xyz field.
@@ -202,7 +288,6 @@ Math
 ----
 around                 Round to the passed power of ten.
 correlate              Computes the cross-correlation function of two series x and y.
-dag                    Generation and plotting of (connected) directed acyclic graphs with one source node.
 distributions          Module for pdfs of additional distributions.
 ellipse_area           Area of ellipse (or circle)
 errormeasures          Definition of different error measures.
@@ -226,7 +311,6 @@ Meteorology
 climate_index_knoben   Determines continuous climate indexes based on Knoben et al. (2018).
 dewpoint               Calculates the dew point from ambient humidity.
 dielectric_water       Dielectric constant of liquid water.
-get_era_interim        Download ERA-Interim data suitable to produce MuSICA input data.
 get_era5               Download ERA5 data suitable to produce MuSICA input data.
 pet_oudin              Daily potential evapotranspiration following the Oudin formula.
 pritay                 Daily reference evapotranspiration after Priestley & Taylor
@@ -439,20 +523,11 @@ from .area_poly            import area_poly
 from .around               import around
 from .autostring           import autostring, astr
 from .baseflow             import hollickLyneFilter
-from .brewer               import register_brewer, get_brewer, plot_brewer, print_brewer
-try:
-    from .calcvpd          import calcvpd
-except ImportError:
-    pass  # obsolete
 from .climate_index_knoben import climate_index_knoben
 from .clockplot            import clockplot
 from .convex_hull          import convex_hull
 from .correlate            import correlate
 from .cuntz_gleixner       import cuntz_gleixner
-try:
-    from .dag              import create_network, source_nodes, sink_nodes, plot_network
-except ImportError:
-    pass  # networkx not installed
 from .date2dec             import date2dec
 from .dec2date             import dec2date
 from .delta_isogsm2        import delta_isogsm2
@@ -468,16 +543,8 @@ from .fftngo               import fftngo
 from .fill_nonfinite       import fill_nonfinite
 from .find_in_path         import find_in_path
 from .fwrite               import fwrite
-try:
-    from .gap_filling      import gap_filling
-except                     ImportError:
-    pass  # obsolete
 from .gap2lai              import gap2lai, leafprojection
 from .get_angle            import get_angle
-try:
-    from .get_era_interim  import get_era_interim
-except                     ImportError:
-    pass
 from .get_era5             import get_era5
 try:
     from .get_isogsm2      import get_isogsm2

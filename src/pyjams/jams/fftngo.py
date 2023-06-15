@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
-import numpy             as np
-import warnings          as wa
-from   jams.const import eps
+import numpy as np
+import warnings as wa
+from pyjams.const import eps
+
 
 def fftngo(t, y, nbins=False, plot=False):
     """

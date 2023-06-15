@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pyjams.mad &#8212; pyjams 1.30.dev1 documentation</title>
+    <title>pyjams.mad &#8212; pyjams 1.32.dev237 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -70,6 +70,7 @@
 <span class="sd">    * Only one test of bottleneck availability, Jan 2022, Matthias Cuntz</span>
 <span class="sd">    * Return all False instead of all True if all masked before MAD started,</span>
 <span class="sd">      Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * prepend, append as in numpy.diff, May 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -78,7 +79,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mad&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="mad"><a class="viewcode-back" href="../../mad.html#pyjams.mad.mad">[docs]</a><span class="k">def</span> <span class="nf">mad</span><span class="p">(</span><span class="n">datin</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="mad"><a class="viewcode-back" href="../../mad.html#pyjams.mad.mad">[docs]</a><span class="k">def</span> <span class="nf">mad</span><span class="p">(</span><span class="n">datin</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Median absolute deviation test</span>
 
@@ -99,25 +100,40 @@
 <span class="sd">        derivatives (2)</span>
 <span class="sd">    nozero : bool, optional</span>
 <span class="sd">        Exclude zeros (0.) from input *datin* if True.</span>
+<span class="sd">    prepend, append : array_like, optional</span>
+<span class="sd">        Values to prepend or append to `datin` prior to performing the</span>
+<span class="sd">        difference with `numpy.diff` if `deriv &gt; 0`.</span>
+<span class="sd">        `prepend` uses `numpy.insert` and `append` uses `numpy.append`.</span>
+<span class="sd">        Scalar values are hence expanded to arrays with length 1 in the first</span>
+<span class="sd">        axis and the shape of the input array along all other axes. Otherwise</span>
+<span class="sd">        the dimension and shape must match `datin` except along the first axis.</span>
+
+<span class="sd">        .. versionadded:: 1.31</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    array of bool</span>
 <span class="sd">        False everywhere except where input deviates more than</span>
-<span class="sd">        *z* standard deviations from median</span>
+<span class="sd">        *z* standard deviations from median.</span>
+<span class="sd">        The shape of the output is the same as `datin` except for the first</span>
+<span class="sd">        dimension, which is smaller by `deriv` if `prepend` and `append`</span>
+<span class="sd">        are not set.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    If input is an nd-array then mad is checked along the first axis for</span>
+<span class="sd">    If input is an ndarray then mad is checked along the first axis for</span>
 <span class="sd">    outliers.</span>
 
-<span class="sd">    1st derivative is calculated simply as ``d = datin[1:n]-datin[0:n-1]``</span>
-<span class="sd">    because mean of left and right difference would give 0 for spikes.</span>
+<span class="sd">    The 1st derivative is calculated simply as</span>
+<span class="sd">    ``d = numpy.diff(datin, n=1, axis=0)`` because mean of left and right</span>
+<span class="sd">    difference would give 0 for spikes.</span>
 
-<span class="sd">    If ``all(d.mask==True)`` then return ``d.mask``, which is all True.</span>
+<span class="sd">    The 2nd derivative is calculated as ``d = numpy.diff(datin, n=2, axis=0)``.</span>
+
+<span class="sd">    If ``numpy.all(d.mask)`` then ``d.mask`` is returned, which is all True.</span>
 
 <span class="sd">    NaN does not return True because this would remove points adjacent to NaN</span>
-<span class="sd">    if ``deriv&gt;0``.</span>
+<span class="sd">    if ``deriv &gt; 0``.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -147,7 +163,14 @@
 <span class="sd">    [False False False False False False False False False False False False</span>
 <span class="sd">     False False False False False False False False False False False  True]</span>
 
-<span class="sd">    Use for masking arrays</span>
+<span class="sd">    MAD on 2nd derivatives with prepend and append set</span>
+
+<span class="sd">    &gt;&gt;&gt; print(mad(y, z=4, deriv=2, prepend=y[0], append=y[-1]))</span>
+<span class="sd">    [False False False False False False False False False False False False</span>
+<span class="sd">     False False False False False False False False False False False False</span>
+<span class="sd">      True  True]</span>
+
+<span class="sd">    Use for masking arrays, for example</span>
 
 <span class="sd">    &gt;&gt;&gt; my = np.ma.array(y, mask=mad(y, z=4))</span>
 <span class="sd">    &gt;&gt;&gt; print(my)</span>
@@ -173,6 +196,37 @@
 <span class="sd">      False False False False False False False False False False False False</span>
 <span class="sd">       True  True]</span>
 <span class="sd">     [ True False False False False False False False False False False False</span>
+<span class="sd">      False False False False False False False False False False False False</span>
+<span class="sd">       True  True]]</span>
+<span class="sd">    &gt;&gt;&gt; print(np.transpose(mad(yy, z=4, deriv=2)))</span>
+<span class="sd">    [[False False False False False False False False False False False False</span>
+<span class="sd">      False False False False False False False False False False False  True]</span>
+<span class="sd">     [False False False False False False False False False False False False</span>
+<span class="sd">      False False False False False False False False False False False  True]]</span>
+
+<span class="sd">    Set prepend and append either as scalar or array</span>
+
+<span class="sd">    &gt;&gt;&gt; print(np.transpose(mad(yy, z=4, deriv=2, prepend=y[0], append=y[-1])))</span>
+<span class="sd">    [[False False False False False False False False False False False False</span>
+<span class="sd">      False False False False False False False False False False False False</span>
+<span class="sd">       True  True]</span>
+<span class="sd">     [False False False False False False False False False False False False</span>
+<span class="sd">      False False False False False False False False False False False False</span>
+<span class="sd">       True  True]]</span>
+<span class="sd">    &gt;&gt;&gt; print(np.transpose(mad(yy, z=4, deriv=2,</span>
+<span class="sd">    ...                        prepend=yy[0, :], append=yy[-1, :])))</span>
+<span class="sd">    [[False False False False False False False False False False False False</span>
+<span class="sd">      False False False False False False False False False False False False</span>
+<span class="sd">       True  True]</span>
+<span class="sd">     [False False False False False False False False False False False False</span>
+<span class="sd">      False False False False False False False False False False False False</span>
+<span class="sd">       True  True]]</span>
+<span class="sd">    &gt;&gt;&gt; print(np.transpose(mad(yy, z=4, deriv=2,</span>
+<span class="sd">    ...                        prepend=yy[0:1, :], append=yy[-1:, :])))</span>
+<span class="sd">    [[False False False False False False False False False False False False</span>
+<span class="sd">      False False False False False False False False False False False False</span>
+<span class="sd">       True  True]</span>
+<span class="sd">     [False False False False False False False False False False False False</span>
 <span class="sd">      False False False False False False False False False False False False</span>
 <span class="sd">       True  True]]</span>
 
@@ -216,30 +270,68 @@
 <span class="sd">      True  True]</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">idatin</span> <span class="o">=</span> <span class="n">datin</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">deriv</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">deriv</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;deriv &gt; 2 unimplemented: </span><span class="si">{</span><span class="n">deriv</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">deriv</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">prepend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">append</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only one of prepend and append may be given if&#39;</span>
+                             <span class="s1">&#39; deriv==1.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># prepend and append</span>
+    <span class="k">if</span> <span class="n">deriv</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">prepend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">idatin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">idatin</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">prepend</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">append</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">iterable</span><span class="p">(</span><span class="n">append</span><span class="p">):</span>
+                <span class="n">iappend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">append</span><span class="p">)</span>
+                <span class="c1"># all but first dimension must match</span>
+                <span class="n">shpdat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">idatin</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="n">shpappend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">iappend</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">iappend</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="n">idatin</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+                    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">shpdat</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">shpappend</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="p">(</span>
+                        <span class="sa">f</span><span class="s1">&#39;Shape of append </span><span class="si">{</span><span class="n">iappend</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> must match shape&#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39; of datin </span><span class="si">{</span><span class="n">datin</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> except first dimension.&#39;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">iappend</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="p">(</span><span class="n">idatin</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">shpdat</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">shpappend</span><span class="p">),</span> <span class="p">(</span>
+                        <span class="sa">f</span><span class="s1">&#39;Shape of append </span><span class="si">{</span><span class="n">iappend</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> must match shape&#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39; of datin </span><span class="si">{</span><span class="n">datin</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> without first dimension.&#39;</span><span class="p">)</span>
+                    <span class="n">iappend</span> <span class="o">=</span> <span class="n">iappend</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s1">&#39;Shape of append </span><span class="si">{</span><span class="n">iappend</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> must match shape&#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39; of datin </span><span class="si">{</span><span class="n">datin</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> except or without first&#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39; dimension.&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">shpdat</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">idatin</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="n">shpdat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">iappend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">shpdat</span><span class="p">,</span> <span class="n">append</span><span class="p">)</span>
+            <span class="n">idatin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idatin</span><span class="p">,</span> <span class="n">iappend</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">nozero</span><span class="p">:</span>
-        <span class="n">idatin</span> <span class="o">=</span> <span class="n">datin</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">idatin</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">ii</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">idatin</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">idatin</span> <span class="o">=</span> <span class="n">datin</span>
+
+    <span class="c1"># make derivative</span>
     <span class="n">sn</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">idatin</span><span class="p">))</span>
     <span class="n">n</span>  <span class="o">=</span> <span class="n">sn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">deriv</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">m</span>      <span class="o">=</span> <span class="n">n</span>
         <span class="n">d</span>      <span class="o">=</span> <span class="n">idatin</span>
     <span class="k">elif</span> <span class="n">deriv</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">m</span>      <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">m</span>      <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">sm</span>     <span class="o">=</span> <span class="n">sn</span>
         <span class="n">sm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="o">=</span> <span class="n">m</span>
         <span class="n">d</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">idatin</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">deriv</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">m</span>      <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">2</span>
+        <span class="n">m</span>      <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">2</span>
         <span class="n">sm</span>     <span class="o">=</span> <span class="n">sn</span>
         <span class="n">sm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="o">=</span> <span class="n">m</span>
         <span class="n">d</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">idatin</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unimplemented option.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Should not be here&#39;</span><span class="p">)</span>
 
     <span class="c1"># Shortcut if all masked</span>
     <span class="n">ismasked</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">MaskedArray</span><span class="p">)</span>
@@ -269,11 +361,11 @@
         <span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">compressed</span><span class="p">()</span>
         <span class="n">md</span> <span class="o">=</span> <span class="n">med</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
         <span class="c1"># Median absolute deviation</span>
-        <span class="n">MAD</span> <span class="o">=</span> <span class="n">med</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dd</span><span class="o">-</span><span class="n">md</span><span class="p">))</span>
+        <span class="n">MAD</span> <span class="o">=</span> <span class="n">med</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dd</span> <span class="o">-</span> <span class="n">md</span><span class="p">))</span>
         <span class="c1"># Range around median</span>
-        <span class="n">thresh</span> <span class="o">=</span> <span class="n">MAD</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span><span class="o">/</span><span class="mf">0.6745</span><span class="p">)</span>
+        <span class="n">thresh</span> <span class="o">=</span> <span class="n">MAD</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="mf">0.6745</span><span class="p">)</span>
         <span class="c1"># True where outside z-range</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">md</span><span class="o">-</span><span class="n">thresh</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">md</span><span class="o">+</span><span class="n">thresh</span><span class="p">))</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">md</span> <span class="o">-</span> <span class="n">thresh</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">md</span> <span class="o">+</span> <span class="n">thresh</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">d</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
@@ -281,11 +373,11 @@
             <span class="n">dd</span> <span class="o">=</span> <span class="n">di</span><span class="o">.</span><span class="n">compressed</span><span class="p">()</span>
             <span class="n">md</span> <span class="o">=</span> <span class="n">med</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
             <span class="c1"># Median absolute deviation</span>
-            <span class="n">MAD</span> <span class="o">=</span> <span class="n">med</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dd</span><span class="o">-</span><span class="n">md</span><span class="p">))</span>
+            <span class="n">MAD</span> <span class="o">=</span> <span class="n">med</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dd</span> <span class="o">-</span> <span class="n">md</span><span class="p">))</span>
             <span class="c1"># Range around median</span>
-            <span class="n">thresh</span> <span class="o">=</span> <span class="n">MAD</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span><span class="o">/</span><span class="mf">0.6745</span><span class="p">)</span>
+            <span class="n">thresh</span> <span class="o">=</span> <span class="n">MAD</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="mf">0.6745</span><span class="p">)</span>
             <span class="c1"># True where outside z-range</span>
-            <span class="n">res</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">md</span><span class="o">-</span><span class="n">thresh</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">d</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">md</span><span class="o">+</span><span class="n">thresh</span><span class="p">))</span>
+            <span class="n">res</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">md</span> <span class="o">-</span> <span class="n">thresh</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">d</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">md</span> <span class="o">+</span> <span class="n">thresh</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="o">**</span><span class="n">oldsettings</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;datin.ndim must be &lt;= 2&#39;</span><span class="p">)</span>
@@ -304,79 +396,6 @@
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">doctest</span>
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
-
-    <span class="c1"># import numpy as np</span>
-    <span class="c1"># y = np.array([-0.25,0.68,0.94,1.15,2.26,2.35,2.37,2.40,2.47,2.54,2.62,</span>
-    <span class="c1">#                2.64,2.90,2.92,2.92,2.93,3.21,3.26,3.30,3.59,3.68,4.30,</span>
-    <span class="c1">#                4.64,5.34,5.42,8.01],dtype=float)</span>
-    <span class="c1"># print(mad(y))</span>
-    <span class="c1"># #[False False False False False False False False False False False False</span>
-    <span class="c1"># # False False False False False False False False False False False False</span>
-    <span class="c1"># # False False]</span>
-
-    <span class="c1"># print(mad(y,z=4))</span>
-    <span class="c1"># #[False False False False False False False False False False False False</span>
-    <span class="c1"># # False False False False False False False False False False False False</span>
-    <span class="c1"># # False  True]</span>
-
-    <span class="c1"># print(mad(y,z=3))</span>
-    <span class="c1"># #[ True False False False False False False False False False False False</span>
-    <span class="c1"># # False False False False False False False False False False False False</span>
-    <span class="c1"># #  True  True]</span>
-
-    <span class="c1"># print(mad(y,z=4,deriv=2))</span>
-    <span class="c1"># #[False False False False False False False False False False False False</span>
-    <span class="c1"># # False False False False False False False False False False False  True]</span>
-
-    <span class="c1"># my = np.ma.array(y, mask=mad(y,z=4))</span>
-    <span class="c1"># print(my)</span>
-    <span class="c1"># #[-0.25 0.68 0.94 1.15 2.26 2.35 2.37 2.4 2.47 2.54 2.62 2.64 2.9 2.92 2.92</span>
-    <span class="c1"># # 2.93 3.21 3.26 3.3 3.59 3.68 4.3 4.64 5.34 5.42 --]</span>
-
-    <span class="c1"># yy = np.transpose(np.array([y,y]))</span>
-    <span class="c1"># print(np.transpose(mad(yy,z=4)))</span>
-    <span class="c1"># #[[False False False False False False False False False False False False</span>
-    <span class="c1"># #  False False False False False False False False False False False False</span>
-    <span class="c1"># #  False  True]</span>
-    <span class="c1"># # [False False False False False False False False False False False False</span>
-    <span class="c1"># #  False False False False False False False False False False False False</span>
-    <span class="c1"># #  False  True]]</span>
-
-    <span class="c1"># yyy = np.transpose(np.array([y,y,y]))</span>
-    <span class="c1"># print(np.transpose(mad(yyy,z=3)))</span>
-    <span class="c1"># #[[ True False False False False False False False False False False False</span>
-    <span class="c1"># #  False False False False False False False False False False False False</span>
-    <span class="c1"># #   True  True]</span>
-    <span class="c1"># # [ True False False False False False False False False False False False</span>
-    <span class="c1"># #  False False False False False False False False False False False False</span>
-    <span class="c1"># #   True  True]</span>
-    <span class="c1"># # [ True False False False False False False False False False False False</span>
-    <span class="c1"># #  False False False False False False False False False False False False</span>
-    <span class="c1"># #   True  True]]</span>
-
-    <span class="c1"># my = np.ma.array(y, mask=np.zeros(y.shape))</span>
-    <span class="c1"># my.mask[-1] = True</span>
-    <span class="c1"># print(mad(my,z=4))</span>
-    <span class="c1"># #[False False False False False False False False False False False False</span>
-    <span class="c1"># # False False False False False False False False False False False False</span>
-    <span class="c1"># # False --]</span>
-
-    <span class="c1"># print(mad(my,z=3))</span>
-    <span class="c1"># #[True False False False False False False False False False False False</span>
-    <span class="c1"># # False False False False False False False False False False False True</span>
-    <span class="c1"># # True --]</span>
-
-    <span class="c1"># ny = y</span>
-    <span class="c1"># ny[-1] = np.nan</span>
-    <span class="c1"># print(mad(ny,z=4))</span>
-    <span class="c1"># #[False False False False False False False False False False False False</span>
-    <span class="c1"># # False False False False False False False False False False False False</span>
-    <span class="c1"># # False False]</span>
-
-    <span class="c1"># print(mad(ny,z=3))</span>
-    <span class="c1"># #[True False False False False False False False False False False False</span>
-    <span class="c1"># # False False False False False False False False False False False True</span>
-    <span class="c1"># # True False]</span>
 </pre></div>
 
           </div>
@@ -445,8 +464,8 @@
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 

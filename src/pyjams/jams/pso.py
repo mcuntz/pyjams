@@ -1,17 +1,14 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 from functools import partial
 import subprocess
-from distutils.util import strtobool
 import numpy as np
-from jams.const import huge
-from jams.npyio import savez_compressed
-from jams.closest import closest
+from pyjams.const import huge
 # ToDo:
 #   Handling constraints
 #   write tmp/population files (as in SCE of Fortran)
 #   write out also in logfile if not None (use jams.tee as in joptimise)
 #   crossover with quadratic function (QIPSO) ?
+
 
 def _ext_obj_wrapper(func, lb, ub, mask,
                      parameterfile, parameterwriter, objectivefile, objectivereader, shell, debug, rank,
@@ -1012,7 +1009,7 @@ def pso(func, x0, lb, ub,
             v = np.empty((iS,D), dtype=np.float64)
             if crank == 0:
                 import scipy.stats as stats
-                from jams.lhs import lhs
+                from pyjams.jams.lhs import lhs
                 dist = [stats.uniform for i in range(D)]
                 pars = [(0,1) for i in range(D)]
                 gx   = lhs(dist, pars, S).transpose()

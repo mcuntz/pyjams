@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np                       # array manipulation
 import netCDF4 as nc
-from jams.readnetcdf import readnetcdf
+from pyjams.readnetcdf import readnetcdf
 
 
 __all__ = ['writenetcdf', 'dumpnetcdf']

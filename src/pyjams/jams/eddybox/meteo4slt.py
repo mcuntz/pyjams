@@ -1,36 +1,36 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.date2dec import date2dec # jams
-from jams.dec2date import dec2date # jams
+from pyjams.jams.date2dec import date2dec  # jams
+from pyjams.jams.dec2date import dec2date  # jams
 import os as os
 import re as re
+
 
 def meteo4slt(sltdir, metfile, p_t_rh, outfile,
               pat='[a-zA-Z0-9]*.slt|[a-zA-Z0-9]*.SLT', delimiter=',',
               skiprows=1, format='ascii'):
-    """       
+    """
         To supply EddyFlux (Kolle & Rebmann, 2007) with meteorological
         data, it is necessary to extract for each available *.slt file the
         corresponding air pressure, air temperature and air relative humidity.
         The module looks in sltdir for available *.slt files and uses the metfile
         for syncronisation
-        
-        
+
+
         Definition
         ----------
         meteo4slt(sltdir, metfile, p_t_rh, outfile,
               pat='[a-zA-Z0-9]*.slt|[a-zA-Z0-9]*.SLT', delimiter=',',
               skiprows=1, format='ascii'):
-        
+
         Input
-        ----- 
-        sltdir      str, path of the folder containing the *.slt files 
-        metfile     str, path of the meteo file 
-        p_t_rh      list, column number of Pressure, T, rH 
-        outfile     str, path of the output file 
-        
-        
+        -----
+        sltdir      str, path of the folder containing the *.slt files
+        metfile     str, path of the meteo file
+        p_t_rh      list, column number of Pressure, T, rH
+        outfile     str, path of the output file
+
+
         Optional Input
         --------------
         pat         str, regular expression, describing the name pattern of
@@ -39,14 +39,14 @@ def meteo4slt(sltdir, metfile, p_t_rh, outfile,
         skiprows    int, number of rows to skip at the beginning of the met file
                     e.g. header lines (default=1)
         format      str, time format of the meteo file (default='ascii')
-                    
-        
+
+
         Output
         ------
         outfile     file, containing Pressure, T and rH values of the meteo
                     file for each *.slt file
-                    
-        
+
+
         Restrictions
         ------------
         - assumes site name in slt fielname is only one character
@@ -55,8 +55,8 @@ def meteo4slt(sltdir, metfile, p_t_rh, outfile,
         - does not work for data containning multiple years because of ugly
           doy calculation
         - works only for half hourly *.stl and half hourly meteo data
-        
-        
+
+
         License
         -------
         This file is part of the JAMS Python package, distributed under the MIT
@@ -83,14 +83,14 @@ def meteo4slt(sltdir, metfile, p_t_rh, outfile,
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
-    
-    
+
+
         History
         -------
         Written,  AP, Jul 2014
-        Modified, MC, Aug 2014 - clean up and Python 3        
+        Modified, MC, Aug 2014 - clean up and Python 3
     """
-    
+
     # half hour in jd
     halfhjd = 1800./86400.
 
@@ -98,24 +98,24 @@ def meteo4slt(sltdir, metfile, p_t_rh, outfile,
     # reading slt directory
     dirlist = os.listdir(sltdir)
     sltdates = np.array([])
-    
+
     ###########################################################################
     # remove all files and folders from list which are not *.slt files and get size
     pat = re.compile(pat)
     for item in dirlist:
         if re.search(pat, item):
             sltdates = np.append(sltdates, item[1:-4])
-    
+
     # replace time steps which dont fit in half hour interval
     mi = np.array([x[-2:] for x in sltdates])
     mi = np.where(mi.astype(int)<30, '00', '30')
     sltdates = np.array([sltdates[i][:-2]+mi[i] for i in range(mi.size)])
-    
+
     ###########################################################################
     # load meteo data
     metdata = np.loadtxt(metfile, dtype='|S100', delimiter=delimiter,
                          skiprows=skiprows, usecols=[0]+p_t_rh)
-    
+
     # get the metdate
     if format == 'ascii':
         # shift met dates one half hour back since slt time stamp marks half
@@ -144,15 +144,15 @@ def meteo4slt(sltdir, metfile, p_t_rh, outfile,
                              for i in range(jd.size)])
     else:
         raise ValueError('meteo4slt: unknown format!')
-    
+
     ###########################################################################
     # sync both dates
     mask = np.in1d(metdates, sltdates)
-    
+
     ###########################################################################
     # write output
     np.savetxt(outfile, metdata[mask,1:], '%s', ',')
-    
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()

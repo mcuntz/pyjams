@@ -1,20 +1,21 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 from random import randint, choice
 from math import ceil, log
 import os
 import getpass
-from jams.sendmail import sendmail
+from pyjams.jams.sendmail import sendmail
+
 
 __all__ = ['file_cipher', 'file_pass', 'set_up_cipher', 'wordEncrypt', 'wordDecrypt', 'sendfail']
 
-# modified from http://code.activestate.com/recipes/577954-encrypt-and-decrypt-text-and-text-files-beta/
 
+# modified from http://code.activestate.com/recipes/577954-encrypt-and-decrypt-text-and-text-files-beta/
 file_cipher = os.path.join(os.path.expanduser('~'),'.jams.cipher')
 file_pass   = os.path.join(os.path.expanduser('~'),'.jams.email.cipher')
 getVar = lambda searchList, ind:  [searchList[i] for i in ind]
 find   = lambda searchList, elem: [[i for i, x in enumerate(searchList) if x == e] for e in elem]
 mod    = lambda n, m:             n % m
+
 
 # --------------------------------------------------------------------
 
@@ -25,6 +26,7 @@ def baseExpansion(n,c,b):
     j      = int(ceil(log(base10 + 1,b)))
     baseExpanded = [mod(base10//pow(b,j-p),b) for p in range(1,j+1)]
     return baseExpanded
+
 
 # --------------------------------------------------------------------
 

@@ -283,7 +283,7 @@ def delta_isogsm2(ifile, output=None, timestep=21600):
     return output
 
 
-if __name__ == '__main__':
+def main(iargs):
 
     import argparse
 
@@ -304,7 +304,7 @@ if __name__ == '__main__':
                         metavar='isogsm_output_file',
                         help='Output file of IsoGSM2.')
 
-    args = parser.parse_args()
+    args = parser.parse_args(iargs)
     ofile    = args.ofile
     timestep = int(args.timestep)
     ifile    = args.ifile

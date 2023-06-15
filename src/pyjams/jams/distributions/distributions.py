@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
-import numpy as np
 """
     License
     -------
@@ -28,6 +26,8 @@ import numpy as np
 
     Modified, MC, Dec 2017 - multinormal
 """
+import numpy as np
+
 
 __all__ = ['exponential', 'laplace',
            'gauss', 'norm', 'normal',                           # Normal (Gauss)

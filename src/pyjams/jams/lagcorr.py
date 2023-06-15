@@ -1,15 +1,14 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.correlate import correlate
+from pyjams.jams.correlate import correlate
+
 
 def lagcorr(y1, y2, max=True, plot=False):
-
     """
         Calculates the time lag between two 1D arrays where the correlation
         of both arrays is maximum or minimum.
 
-        
+
         Definition
         ----------
         def lagcorr(y1, y2, max=True, plot=False):

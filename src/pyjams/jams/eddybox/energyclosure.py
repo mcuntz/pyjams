@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.date2dec import date2dec
-from jams.const import cheat_quartz, cheat_water, cheat_air, density_quartz
+from pyjams.jams.date2dec import date2dec
+from pyjams.const import cheat_quartz, cheat_water, cheat_air, density_quartz
 from scipy.interpolate import splrep, splint
 import scipy.optimize as opt
+
 
 def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
                   depths=None, por=None, method='year', force0=True,
@@ -14,18 +14,18 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
     Calculation of energy balance closure and correction of Eddy Covariance data
     with different methods. Possible calculation of soil heat flux from soil
     temperature and moisture if not given.
-    
-    
+
+
     Definition
     ----------
     energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
                   depths=None, por=None, method='year', force0=True,
                   delimiter=[',',','], skiprows=[1,1], format=['ascii','ascii'],
                   undef=-9999, plot=False):
-    
-    
+
+
     Input
-    ----- 
+    -----
     fluxfile    str, path and file name of fluxflag or fluxfill or fluxpart
                 output file containing fluxes and flags
     metfile     str, path and file name of the meteorology file (must be in
@@ -39,7 +39,7 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
     swdr        int, column number of short wave downward radiation [W m-2] in
                 metfile, column number starts with 0 which is first data column.
                 swdr is used for swdr>0=isday
-                
+
 
     Optional Input
     --------------
@@ -53,7 +53,7 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
                 theta measurements [m], positively increasing with depths
                 e.g. [0.05, 0.30, 0.60]
     por         float, if G is not given, porosity of the soil [-], must be
-                bigger or equal than np.amax(theta)     
+                bigger or equal than np.amax(theta)
     method      str, method of how energy balance closure is calculated and
                 applied.
                     if 'year', fit of whole year daytime flag=0 data
@@ -69,13 +69,13 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
                 (default: [',',','])
     skiprows    list of int, lines to skip at the beginning of fluxfile and
                 metfile, e.g. header lines (default: [1,1])
-    format      list of str, time formats of fluxfile and metfile, 'ascii' and 
+    format      list of str, time formats of fluxfile and metfile, 'ascii' and
                 'eng' possible (default: ['ascii','ascii'])
     undef       int/float, missing value of fluxfile and metfile
                 (default: -9999, np.nan is not possible)
     plot        bool, if True performs plotting (default: False)
-    
-    
+
+
     Output
     ------
     fluxclosed.csv file containing fluxes and flags where depending on the
@@ -83,11 +83,11 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
                         closure
     fluxclosed.pdf if method='year', plot of whole year daytime flag=0 data
                    Rn-G vs. H+Le
-        
+
     fluxclosed_stor.pdf if method='year', plot of whole year daytime flag=0 data
                    Rn-G vs. H+Le including storages
-        
-    
+
+
     Restrictions
     ------------
     Works only with half hourly time steps
@@ -124,30 +124,30 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
     History
     -------
     Written,  AP, Sep 2014
-    '''       
+    '''
     ###########################################################################
     # reading input files
     d = np.loadtxt(fluxfile, dtype='|S100', delimiter=delimiter[0])
     m = np.loadtxt(metfile,  dtype='|S100', delimiter=delimiter[1])
-    
+
     assert (d.shape[1]==22) | (d.shape[1]==32), 'energyclosure: fluxfile must be from fluxpart and have 22 or 32 cols'
-        
+
     if format[0]=='ascii':
         datev   = date2dec(ascii=d[skiprows[0]:,0])
     elif format[0]=='eng':
         datev   = date2dec(eng=d[skiprows[0]:,0])
     else:
-        raise ValueError('energyclosure: unknown format')    
+        raise ValueError('energyclosure: unknown format')
     if format[1]=='ascii':
         datem   = date2dec(ascii=m[skiprows[1]:,0])
     elif format[1]=='eng':
         datem   = date2dec(eng=m[skiprows[1]:,0])
     else:
         raise ValueError('energyclosure: unknown format')
-    
+
     val = np.where(d[skiprows[0]:,1:]=='', str(undef), d[skiprows[0]:,1:]).astype(np.float)
     met = np.where(m[skiprows[1]:,1:]=='', str(undef), m[skiprows[1]:,1:]).astype(np.float)
-    
+
     ###########################################################################
     # assign variables
     if (d.shape[1]==22):
@@ -163,13 +163,13 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
         Le        = val[:,4]
         Leflag    = val[:,6]
         E         = val[:,8]
-        Eflag     = val[:,10]    
+        Eflag     = val[:,10]
         H_stor      = val[:,1]
         Hflag_stor  = val[:,2]
         Le_stor     = val[:,5]
         Leflag_stor = val[:,6]
         E_stor      = val[:,9]
-        Eflag_stor  = val[:,10]    
+        Eflag_stor  = val[:,10]
     Rn        = met[:,Rn]
     Ts        = met[:,Ts]
     swdr      = met[:,swdr]
@@ -184,7 +184,7 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
             G=soilheatflux(Ts, theta, depths, rhos)
     else:
         G = met[:,G]
-        
+
     ###########################################################################
     # apply energy balance closure methods
     # yearly approach
@@ -204,7 +204,7 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
                 H_stor_closed, Le_stor_closed, E_stor_closed = H_stor/closure, Le_stor/closure, E_stor/closure
             else:
                 H_stor_closed, Le_stor_closed, E_stor_closed = H_stor/closure[0], Le_stor/closure[0], E_stor/closure[0]
-            
+
     # Include new methods here
     # Include new methods here
     # Include new methods here
@@ -218,61 +218,61 @@ def energyclosure(fluxfile, metfile, outdir, Rn, G, swdr, Ts=None, theta=None,
         H_stor_closed[H_stor==undef]   = undef
         Le_stor_closed[Le_stor==undef] = undef
         E_stor_closed[E_stor==undef]   = undef
-    
+
     ###########################################################################
     # prepare and write output
-    if (d.shape[1]==22):    
+    if (d.shape[1]==22):
         flux = np.vstack((H_closed,Le_closed,E_closed)).transpose()
     else:
-        flux = np.vstack((H_closed,H_stor_closed,Le_closed,Le_stor_closed,E_closed,E_stor_closed)).transpose()        
-    
+        flux = np.vstack((H_closed,H_stor_closed,Le_closed,Le_stor_closed,E_closed,E_stor_closed)).transpose()
+
     flux_str = np.array([['%11.5f'%x for x in y] for y in flux])
     flux_str = np.where(flux_str=='%11.5f'%undef, ' '*(11-len(str(undef)))+str(undef), flux_str)
-    
-    if (d.shape[1]==22):    
+
+    if (d.shape[1]==22):
         d[skiprows[0]:,[1,4,7]] = flux_str
     else:
         d[skiprows[0]:,[1,2,5,6,9,10]] = flux_str
-    
+
     np.savetxt('%s/fluxclosed.csv'%outdir, d, '%s', delimiter=',')
 
 def soilheatflux(Ts, theta, depths, por, undef=-9999):
     '''
     Calculates soil heat flux from soil temperatures and soil moistures at
     different depths. It's best do include surface temperatures at 0 m.
-    
-    
+
+
     Definition
     ----------
     soilheatflux(Ts, theta, depths, por, undef=-9999):
-    
-    
+
+
     Input
-    ----- 
+    -----
     Ts          array(N,M), soil temperatures [K or degC]
     theta       array(N,M), soil moisture [-]
     depths      list(M) or array(M), depths of the Ts and theta measurements [m]
                 positively increasing with depths e.g. [0.05, 0.30, 0.60]
     por         float, porosity of the soil [-] must be bigger or equal
                 than np.amax(theta)
-               
+
 
     Optional Input
     --------------
     undef       int/float, missing value of Ts and theta
                 (default: -9999, np.nan is not possible)
-    
-    
+
+
     Output
     ------
     G           array(N), soil heat flux [W m-2]
-    
-    
+
+
     Restrictions
     ------------
     Works only with half hourly time steps
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -304,18 +304,18 @@ def soilheatflux(Ts, theta, depths, por, undef=-9999):
     History
     -------
     Written,  AP, Sep 2014
-    '''       
+    '''
     if (np.size(depths)!=Ts.shape[1]) or (Ts.shape!=theta.shape):
         raise ValueError('soilheatflux: dimensions mismatch')
-    
+
     Ts    = np.ma.array(Ts, mask=Ts==undef)
     theta = np.ma.array(theta, mask=theta==undef)
-    
+
     # calc soil density and soil heat capacity
     rhos  = (1.-por)*density_quartz
     csoil = cheat_quartz*(1.-por) + cheat_water*theta + cheat_air*(1-theta)*por
-    
-    # calculate heat flux    
+
+    # calculate heat flux
     T_diff = (Ts[:-1,:] - Ts[1:,:])/1800. * rhos * csoil[:-1,:]
     G      = np.ma.masked_all_like(Ts[:,0])
     for i, item in enumerate(T_diff):
@@ -323,7 +323,7 @@ def soilheatflux(Ts, theta, depths, por, undef=-9999):
             tck  = splrep(depths, item, k=1)
             G[i+1] = splint(depths[0],depths[-1],tck)
     G[0]=G[1]
-    
+
     return np.ma.filled(G, fill_value=undef)
 
 def energyclosure_year(H, Hflag, Le, Leflag, Rn, G, isday, outdir, force0=True,
@@ -331,16 +331,16 @@ def energyclosure_year(H, Hflag, Le, Leflag, Rn, G, isday, outdir, force0=True,
     '''
     Calculates energy balance closure with the 'year' approach. A straight line
     is fitted to Rn-g vs. H+Le and the fraction is returned.
-    
-    
+
+
     Definition
     ----------
     energyclosure_year(H, Le, Rn, G, isday, outdir, force0=force0, undef=undef,
                        plot=plot):
-    
-    
+
+
     Input
-    ----- 
+    -----
     H           array(N), sensible heat flux [W m-2]
     Hflag       array(N), quality flag of sensible heat flux, 0 where good quality
     Le          array(N), latent heat flux [W m-2]
@@ -350,7 +350,7 @@ def energyclosure_year(H, Hflag, Le, Leflag, Rn, G, isday, outdir, force0=True,
     isday       array(N), bool, True if day, False if night, fitting is done
                 only to day data
     outdir      str, path of the output folder
-    
+
 
     Optional Input
     --------------
@@ -361,15 +361,15 @@ def energyclosure_year(H, Hflag, Le, Leflag, Rn, G, isday, outdir, force0=True,
                 not possible)
     plot        bool, if False, no fitting plot is made and saved to outdir
                 (default: False), otherwise give file name like 'energyclosure.pdf'
-    
-    
+
+
     Output
     ------
     fraction    float, energy balance closure gap, e.g 0.8 means 80% of
                 available energy is observed, 20% are missing. list(2) of floats
                 with energy balance closure gap and intercept if force0=False
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -401,17 +401,17 @@ def energyclosure_year(H, Hflag, Le, Leflag, Rn, G, isday, outdir, force0=True,
     History
     -------
     Written,  AP, Sep 2014
-    '''       
+    '''
     ###########################################################################
     # variables
     H  = np.ma.array(H,  mask=(H==undef)  | (~isday) |(Hflag>0))
     Le = np.ma.array(Le, mask=(Le==undef) | (~isday) |(Leflag>0))
     Rn = np.ma.array(Rn, mask=(Rn==undef) | (~isday))
     G  = np.ma.array(G,  mask=(G==undef)  | (~isday))
-    
+
     x = Rn-G
     y = H+Le
-    
+
     ###########################################################################
     # fit
     if force0:
@@ -428,22 +428,22 @@ def energyclosure_year(H, Hflag, Le, Leflag, Rn, G, isday, outdir, force0=True,
         fig1=plt.figure('pre-fit')
         fig1.add_subplot(111, aspect='equal')
         plt.axhline(y=0, color='k')
-        plt.axvline(x=0, color='k')                   
-        plt.plot(x, y, 'bo', label='n: %i'%np.ma.count(x+y))         
+        plt.axvline(x=0, color='k')
+        plt.plot(x, y, 'bo', label='n: %i'%np.ma.count(x+y))
         plt.plot(x_mod, func(x_mod,p_guess), 'r-')
         plt.xlabel('Rn-G')
         plt.ylabel('H+Le')
         plt.legend(loc='best')
         plt.show()
-    
+
     p_opt = opt.fmin(absdif, p_guess, args=(x, y, func), disp=0)
-    
+
     if plot:
-        fig1=plt.figure('post-fit')                                        
+        fig1=plt.figure('post-fit')
         fig1.add_subplot(111, aspect='equal')
         plt.axhline(y=0, color='k')
-        plt.axvline(x=0, color='k')                   
-        plt.plot(x, y, 'bo', label='n: %i'%np.ma.count(x+y))         
+        plt.axvline(x=0, color='k')
+        plt.plot(x, y, 'bo', label='n: %i'%np.ma.count(x+y))
         if force0:
             plt.plot(x_mod, func(x_mod,p_opt), 'r-', label='slope: %0.2f'%p_opt)
         else:
@@ -452,7 +452,7 @@ def energyclosure_year(H, Hflag, Le, Leflag, Rn, G, isday, outdir, force0=True,
         plt.ylabel('H+Le')
         plt.legend(loc='best')
         plt.show()
-        
+
         pp1 = pdf.PdfPages('%s/'%(outdir)+plot)
         fig1.savefig(pp1, format='pdf')
         pp1.close()
@@ -468,7 +468,7 @@ def absdif(p,x,y,func):
 def lin(x, p):
     '''
     energyclosure: linear function
-    '''    
+    '''
     return p[0] * x + p[1]
 
 def lin2(x, p):

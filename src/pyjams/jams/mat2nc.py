@@ -1,19 +1,16 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import netCDF4 as nc
 import scipy.io as sio
-import datetime
 import os
-import warnings
 from collections import OrderedDict
+from pyjams.jams.writenetcdf import writenetcdf
 
-from jams.writenetcdf import writenetcdf
-from jams.readnetcdf  import readnetcdf
 
 def mat2nc(fname, overwrite=False, fname_out=None, verbose=True, squeeze=True,
            varname=None,
-           lat=None, lon=None, lat_file=None, lon_file=None, transposed=False, regular_grid=True,
+           lat=None, lon=None, lat_file=None, lon_file=None, transposed=False,
+           regular_grid=True,
            anchor_time=None, data_time=None):
     """
         This functions writes the content of a Matlab file into a NetCDF file.

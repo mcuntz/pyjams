@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-import jams
+import pyjams
 from collections import OrderedDict
 
+
 __all__ = ['read_data', 'write_data', 'write_data_dmp', 'write_data_dmp_size','write_data_one_file']
+
 
 # --------------------------------------------------------------------
 
@@ -119,12 +120,13 @@ def read_data(files, undef=-9999., strip=None, norecord=False, nofill=False):
 
     # Get unique header and time stamps of all input file
     for cff, ff in enumerate(files):
-        ihead = jams.fread(ff, skip=1, strip=strip, header=True)        # head with TIMESTAMP and RECORD
+        ihead = pyjams.fread(ff, skip=1, strip=strip, header=True)        # head with TIMESTAMP and RECORD
         if not norecord:
             if (ihead[1].split()[0]).lower() != 'record':
                 raise ValueError('Assume the following structure: Date, Record, data, flag, data, flag, ...')
-        idate = jams.sread(ff, skip=1, nc=1, squeeze=True, strip=strip) # TIMESTAMP
-        idate = jams.ascii2eng(idate, full=True)
+        idate = pyjams.sread(ff, skip=1, nc=1, squeeze=True, strip=strip) # TIMESTAMP
+
+        idate = pyjams.date2en(idate, full=True)
         if cff == 0:
             if norecord:
                 hdat   = ihead[1::2]
@@ -144,14 +146,14 @@ def read_data(files, undef=-9999., strip=None, norecord=False, nofill=False):
     hdat   = list(OrderedDict.fromkeys(hdat))   # unique data head
     hflags = list(OrderedDict.fromkeys(hflags)) # unique flags head
     adate  = list(OrderedDict.fromkeys(adate))  # unique dates
-    ii     = jams.argsort(hdat)
+    ii     = pyjams.argsort(hdat)
     hdat   = [ hdat[i] for i in ii ]
     hflags = [ hflags[i] for i in ii ]
     adate.sort()
 
     # Fill missing time steps in all time steps
     if not nofill:
-        date  = jams.date2dec(eng=adate)
+        date  = pyjams.jams.date2dec(eng=adate)
         dd    = np.round(np.diff(date)*24.*60.).astype(np.int) # minutes between time steps
         dmin  = np.amin(dd)                                    # time step in minutes
         dt    = np.float(dmin)/(24.*60.)                       # time step in fractional day
@@ -161,7 +163,7 @@ def read_data(files, undef=-9999., strip=None, norecord=False, nofill=False):
             newdate = (date[i]+np.arange(1,nt)*dt)[::-1]              # the missing dates in reverse order
             for j in range(nt-1):
                 date.insert(i+1, newdate[j]) # fill in missing dates, last one first
-        adate = jams.dec2date(date, eng=True)
+        adate = pyjams.jams.dec2date(date, eng=True)
 
     # Read files and fill in output array
     nrow   = len(adate)
@@ -174,7 +176,7 @@ def read_data(files, undef=-9999., strip=None, norecord=False, nofill=False):
     for cff, ff in enumerate(files):
         if debug: print('File name: ', ff)
         # date, data
-        isdat, ssdat = jams.fsread(ff, skip=1, snc=[0], nc=-1, strip=strip, strarr=True) # array
+        isdat, ssdat = pyjams.fsread(ff, skip=1, snc=[0], nc=-1, strip=strip, strarr=True) # array
         isdate = ssdat[:,0]
         if norecord:
             idat    = isdat[:,0::2]
@@ -183,9 +185,9 @@ def read_data(files, undef=-9999., strip=None, norecord=False, nofill=False):
             irecord = isdat[:,0].astype(np.int)
             idat    = isdat[:,1::2]
             iflags  = isdat[:,2::2].astype(np.int)
-        isdate  = jams.ascii2eng(isdate, full=True)
+        isdate  = pyjams.date2en(isdate, full=True)
         # date header, data header
-        ihead, shead = jams.fsread(ff, skip=1, snc=[0], nc=-1, strip=strip, header=True) # list
+        ihead, shead = pyjams.fsread(ff, skip=1, snc=[0], nc=-1, strip=strip, header=True) # list
         ihdate   = shead[0]
         if norecord:
             ihdat    = ihead[0::2]
@@ -737,7 +739,7 @@ def write_data_norecord(infiles, sdate, dat, flags, iidate, hdate, hdat, hflags,
     assert len(hflags)    == ncol,         'Not enough flag headers.'
 
     # assure YYYY-MM-DD hh:mm:ss format even if sdate has DD.MM.YYYY hh:m:ss format
-    isdate = jams.ascii2eng(sdate, full=True)
+    isdate = pyjams.date2en(sdate, full=True)
 
     # Write individual files
     for cff, ff in enumerate(infiles):
@@ -854,11 +856,11 @@ def write_data_norecord_dmp(infiles, sdate, dat, flags, iidate, hdate, hdat, hfl
     assert len(hdmp)      == ncol,         'Not enough database headers.'
 
     # assure YYYY-MM-DD hh:mm:ss format even if sdate has DD.MM.YYYY hh:m:ss format
-    isdate = jams.ascii2eng(sdate, full=True)
+    isdate = pyjams.date2en(sdate, full=True)
 
     # Tereno flags: OK, DOUBTFUL or BAD
     if np.any(flags > 2): # level1 flags
-        oflags = np.maximum(jams.level1.get_maxflag(flags), 0)
+        oflags = np.maximum(pyjams.jams.level1.get_maxflag(flags), 0)
     else:                 # level2 flags
         oflags = flags
     strflags = np.zeros(oflags.shape, dtype='S'+str(len('DOUBTFUL,Other,From CHS flagging'))) #NIL
@@ -984,11 +986,11 @@ def write_data_norecord_dmp_size(infiles, sdate, dat, flags, iidate, hdate, hdat
 
 
     # assure YYYY-MM-DD hh:mm:ss format even if sdate has DD.MM.YYYY hh:m:ss format
-    isdate = jams.ascii2eng(sdate, full=True)
+    isdate = pyjams.date2en(sdate, full=True)
 
     # Tereno flags: OK, DOUBTFUL or BAD
     if np.any(flags > 2): # level1 flags
-        oflags = np.maximum(jams.level1.get_maxflag(flags), 0)
+        oflags = np.maximum(pyjams.jams.level1.get_maxflag(flags), 0)
     else:                 # level2 flags
         oflags = flags
     strflags = np.zeros(oflags.shape, dtype='S'+str(len('DOUBTFUL,Other,From CHS flagging'))) #NIL
@@ -1131,7 +1133,7 @@ def write_data_norecord_one_file(infile, sdate, dat, flags, hdate, hdat, hflags)
     assert len(hflags)    == ncol,         'Not enough flag headers.'
 
     # assure YYYY-MM-DD hh:mm:ss format even if sdate has DD.MM.YYYY hh:m:ss format
-    isdate = jams.ascii2eng(sdate, full=True)
+    isdate = pyjams.date2en(sdate, full=True)
 
     # Write individual files
     f = open(infile, 'w')
@@ -1245,7 +1247,7 @@ def write_data_record(infiles, sdate, record, dat, flags, iidate, hdate, hrecord
     assert len(hflags)    == ncol,         'Not enough flag headers.'
 
     # assure YYYY-MM-DD hh:mm:ss format even if sdate has DD.MM.YYYY hh:m:ss format
-    isdate = jams.ascii2eng(sdate, full=True)
+    isdate = pyjams.date2en(sdate, full=True)
 
     # Write individual files
     for cff, ff in enumerate(infiles):
@@ -1355,7 +1357,7 @@ def write_data_record_one_file(infile, sdate, record, dat, flags, hdate, hrecord
     assert len(hflags)    == ncol,         'Not enough flag headers.'
 
     # assure YYYY-MM-DD hh:mm:ss format even if sdate has DD.MM.YYYY hh:m:ss format
-    isdate = jams.ascii2eng(sdate, full=True)
+    isdate = pyjams.date2en(sdate, full=True)
 
     # Write individual files
     f = open(infile, 'w')

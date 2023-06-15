@@ -1,25 +1,25 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.eddybox import gapfill
-from jams.esat import esat
-from jams.date2dec import date2dec
-from jams.autostring import astr
+from pyjams.jams.eddybox import gapfill
+from pyjams.air_humidity import esat
+from pyjams.jams.date2dec import date2dec
+from pyjams.jams.autostring import astr
+
 
 def fluxfill(fluxfile, metfile, outdir, rg, tair, rh, delimiter=[',',','],
              skiprows=[1,1], format=['ascii','ascii'], undef=-9999, plot=False):
     '''
     Wrapper function for gapfill with file management and plotting.
-    
-    
+
+
     Definition
     ----------
     fluxfill(fluxfile, metfile, outdir, rg, tair, rh, delimiter=[',',','],
              skiprows=[1,1], format=['ascii','ascii'], undef=-9999, plot=False):
-    
-    
+
+
     Input
-    ----- 
+    -----
     fluxfile    str, path and file name of fluxflag output file containing
                 fluxes and flags
     metfile     str, path and file name of the meteorology file (must be in
@@ -31,28 +31,28 @@ def fluxfill(fluxfile, metfile, outdir, rg, tair, rh, delimiter=[',',','],
                 number starts with 0 which is first data column.
     rh          int, column number of relative humidity [%] in metfile, column
                 number starts with 0 which is first data column.
-                
-                        
+
+
     Optional Input
     --------------
     delimiter   list of str, delimiters of fluxfile and metfile
                 (default: [',',','])
     skiprows    list of int, lines to skip at the beginning of fluxfile and
                 metfile, e.g. header lines (default: [1,1])
-    format      list of str, time formats of fluxfile and metfile, 'ascii' and 
+    format      list of str, time formats of fluxfile and metfile, 'ascii' and
                 'eng' possible (default: ['ascii','ascii'])
     undef       int/float, missing value of fluxfile and metfile
                 (default: -9999, np.nan not possible)
     plot        bool, if True performs plotting (default: False)
-    
-    
+
+
     Output
     ------
     fluxfilled.csv file containing fluxes with original flags and quality flags
-                   of the gap filling. Fluxes are filled where flag>1. 
+                   of the gap filling. Fluxes are filled where flag>1.
     fluxfilled.pdf  plot of each gap filled flux.
-        
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -84,7 +84,7 @@ def fluxfill(fluxfile, metfile, outdir, rg, tair, rh, delimiter=[',',','],
     History
     -------
     Written,  AP, Aug 2014
-    '''       
+    '''
 
     ###########################################################################
     # reading input files
@@ -92,23 +92,23 @@ def fluxfill(fluxfile, metfile, outdir, rg, tair, rh, delimiter=[',',','],
     m = np.loadtxt(metfile,  dtype='|S100', delimiter=delimiter[1], skiprows=skiprows[1])
 
     assert (d.shape[1]==11) | (d.shape[1]==19), 'fluxfill: fluxfile must be from fluxflag or profile2storage and have 11 or 19 cols'
-    
+
     if format[0]=='ascii':
         datev   = date2dec(ascii=d[:,0])
     elif format[0]=='eng':
         datev   = date2dec(eng=d[:,0])
     else:
-        raise ValueError('fluxfill: unknown format')    
+        raise ValueError('fluxfill: unknown format')
     if format[1]=='ascii':
         datem   = date2dec(ascii=m[:,0])
     elif format[1]=='eng':
         datem   = date2dec(eng=m[:,0])
     else:
         raise ValueError('fluxfill: unknown format')
-    
+
     val = np.where(d[:,1:]=='', str(undef), d[:,1:]).astype(np.float)
     met = np.where(m[:,1:]=='', str(undef), m[:,1:]).astype(np.float)
-    
+
     ###########################################################################
     # assign variables
     if (d.shape[1]==11):
@@ -127,17 +127,17 @@ def fluxfill(fluxfile, metfile, outdir, rg, tair, rh, delimiter=[',',','],
     vpd[tair_flag | rh_flag]    = undef
     vpd[~(tair_flag | rh_flag)] = (1.-rh[~(tair_flag | rh_flag)]/100.)*esat(tair[~(tair_flag | rh_flag)]+273.14)
     vpd_flag  = vpd==undef
-    
+
     flux = np.zeros_like(data)
     flag = np.zeros_like(data_flag, dtype=np.int)
-    
+
     ###########################################################################
     if plot:
         import matplotlib as mpl
         import matplotlib.pyplot as plt
         import matplotlib.backends.backend_pdf as pdf
         pp1 = pdf.PdfPages(outdir+'/fluxfilled.pdf')
-        
+
     ###########################################################################
     # do gapfill
     for i in range(data.shape[1]):
@@ -147,30 +147,30 @@ def fluxfill(fluxfile, metfile, outdir, rg, tair, rh, delimiter=[',',','],
                                        vpd_dev=5., longgap=60, fullday=False,
                                        undef=undef, ddof=1, err=False,
                                        shape=False)
-    
+
         #######################################################################
         # plot
         if plot:
             majticks = mpl.dates.MonthLocator(bymonthday=1)
             format_str='%d %m %Y %H:%M'
             date01 = date2dec(yr=1, mo=1, dy=2, hr=0, mi=0, sc=0)
-            
+
             fig1 = plt.figure(1)
             sub1 = fig1.add_subplot(111)
             l1 =sub1.plot(datev-date01, flux[:,i], '-g')
             l2 =sub1.plot(datev-date01, np.ma.array(data[:,i],mask=data_flag[:,i]), '-b')
-            
+
             sub1.set_xlim(datev[0]-date01,datev[-1]-date01)
             sub1.xaxis.set_major_locator(majticks)
             sub1.xaxis.set_major_formatter(mpl.dates.DateFormatter(format_str))
             fig1.autofmt_xdate()
-            
+
             plt.show()
             fig1.savefig(pp1, format='pdf')
-    
+
     if plot:
         pp1.close()
-    
+
     ###########################################################################
     # prepare output and save file
     flux_str       = np.array([['%11.5f'%x for x in y] for y in flux])
@@ -190,12 +190,12 @@ def fluxfill(fluxfile, metfile, outdir, rg, tair, rh, delimiter=[',',','],
                                    '          E', '       E+sE', '   Eflag', '     Egf',
                                    '          C', '       C+sC', '   Cflag', '     Cgf',
                                    '        TAU',    ' TAUflag',             '   TAUgf',
-                                   '         sT', '        sLE', '         sE', '         sC'])    
+                                   '         sT', '        sLE', '         sE', '         sC'])
         output                   = np.hstack((d[:,0:1], np.insert(flux_str, [2,2,4,4,6,6,8,8], flux_str[:,:-1], axis=1),
                                               flux_str[:,-1:].repeat(2, axis=1), d[:,-4:]))
         output[:,[3,7,11,15,18]] = astr(val[:,[2,5,8,11,13]].astype(int), prec=8)
         output[:,[4,8,12,16,19]] = astr(flag[:,[0,2,4,6,8]], prec=8)
-    
+
     np.savetxt('%s/fluxfilled.csv'%outdir,
                np.vstack((np.concatenate((['            date'], header))[np.newaxis,:],
                           output)), '%s', delimiter=',')

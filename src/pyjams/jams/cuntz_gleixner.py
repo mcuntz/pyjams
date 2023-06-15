@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-import jams.const as const
+import pyjams.const as const
 
 
 __all__ = ['cuntz_gleixner']

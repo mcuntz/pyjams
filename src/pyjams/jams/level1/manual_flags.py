@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-import jams
+import pyjams
+
 
 __all__ = ['get_manual_flags']
+
 
 # --------------------------------------------------------------------
 
@@ -18,8 +19,8 @@ def get_manual_flags(flagfile, variable, dendro=None, julian=True):
         The manual flag files is supposed to have the following structure
         var_id,start,end,flag,comment
         Lines starting with # will be ignored.
-        
-        
+
+
         Input
         -----
         flagfile   Filename of manual flag file
@@ -88,8 +89,8 @@ def get_manual_flags(flagfile, variable, dendro=None, julian=True):
     edef = "01.01.2099 23:59:59"
 
     # Read manual flag file
-    sdat    = jams.sread(flagfile, comment="#", strarr=True, skip=0)
-    sdat1 = sdat[0,:]      #header   
+    sdat    = pyjams.sread(flagfile, comment="#", strarr=True, skip=0)
+    sdat1 = sdat[0,:]      #header
     sdat = sdat[1:,:]      # get rid of header for the rest
     var_id  = np.array([ i.strip() for i in sdat[:,0] ])
     start   = sdat[:,1]
@@ -103,7 +104,7 @@ def get_manual_flags(flagfile, variable, dendro=None, julian=True):
         ii = np.where(d_ini=='')[0]
         if ii.size > 0: d_ini[ii] = '0'
     # comment = sdat[:,-1]
-     
+
     # select variable
     ii = np.where(var_id == variable)[0]
     if ii.size > 0:
@@ -116,7 +117,7 @@ def get_manual_flags(flagfile, variable, dendro=None, julian=True):
             comm_col = [m for m,com in enumerate(sdat1) if com[0:7] == 'comment']
             comm = sdat[ii,comm_col][miss_ind]
             print('get_manual_flags: forgotten flag in file '+flagfile+' - var/start/end: '+variable+'/'+str(sdate[miss_ind])+'/'+str(edate[miss_ind])+' - comment: '+comm)
-            jams.encrypt.sendfail(
+            pyjams.jams.encrypt.sendfail(
                 'get_manual_flags: forgotten flag in file '+flagfile+' - var/start/end: '+variable+'/'+str(sdate[miss_ind])+'/'+str(edate[miss_ind])+' - comment: '+comm,
                 sender='benjamin.dechant@ufz.de')
         if dendro:
@@ -130,33 +131,33 @@ def get_manual_flags(flagfile, variable, dendro=None, julian=True):
         # Julian or ascii
         if julian:
             try:
-                sdate = jams.date2dec(ascii=sdate)
+                sdate = pyjams.jams.date2dec(ascii=sdate)
             except Exception as e:
                 for sda_ind,sda in enumerate(sdate):
                     try:
-                        sdate = jams.date2dec(ascii=sda)
-                    except: 
+                        sdate = pyjams.jams.date2dec(ascii=sda)
+                    except:
                         pb_ind = sda_ind
                 comm_col = [m for m,com in enumerate(sdat1) if com[0:7] == 'comment']
                 comm = sdat[ii,comm_col][pb_ind]
                 print('get_manual_flags: invalid start date in file '+flagfile+' - var/start: '+variable+'/'+str(e)[-19:-1]+' - comment: '+comm)
-                jams.encrypt.sendfail(
+                pyjams.jams.encrypt.sendfail(
                     'get_manual_flags: invalid start date in file '+flagfile+' - var/start: '+variable+'/'+str(e)[-19:-1]+' - comment: '+comm,
                     sender='benjamin.dechant@ufz.de')
                 raise ValueError
 
             try:
-                edate = jams.date2dec(ascii=edate)
+                edate = pyjams.jams.date2dec(ascii=edate)
             except Exception as e:
                 for sda_ind,sda in enumerate(edate):
                     try:
-                        sdate = jams.date2dec(ascii=sda)
-                    except: 
+                        sdate = pyjams.jams.date2dec(ascii=sda)
+                    except:
                         pb_ind = sda_ind
                 comm_col = [m for m,com in enumerate(sdat1) if com[0:7] == 'comment']
                 comm = sdat[ii,comm_col][pb_ind]
                 print('get_manual_flags: invalid end date in file '+flagfile+' - var/end: '+variable+'/'+str(e)[-19:-1]+' - comment: '+comm)
-                jams.encrypt.sendfail(
+                pyjams.jams.encrypt.sendfail(
                     'get_manual_flags: invalid end date in file '+flagfile+' - var/end: '+variable+'/'+str(e)[-19:-1]+' - comment: '+comm,
                     sender='benjamin.dechant@ufz.de')
                 raise ValueError                        # maybe not necessary
@@ -171,11 +172,11 @@ def get_manual_flags(flagfile, variable, dendro=None, julian=True):
             l_d_ini = list()
 
     if dendro:
-        return [sdate, edate, mflag, l_dbh, l_d_ini]  
+        return [sdate, edate, mflag, l_dbh, l_d_ini]
     else:
-        return [sdate, edate, mflag]   
+        return [sdate, edate, mflag]
 
-   
+
 
 # --------------------------------------------------------------------
 

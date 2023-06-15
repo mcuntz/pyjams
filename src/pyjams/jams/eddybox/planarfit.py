@@ -1,14 +1,13 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams import sread
-from jams import fread
+from pyjams.fsread import sread
+from pyjams.fsread import fread
 import csv
 import os as os
-import re
 from math import pi
 from scipy.stats import skew
 import sys
+
 
 def planarfit(indirpf, rawfile, outfile, pfmat='pfitmatrix.csv',
               pf0file='pfitdata0.csv', pf1file='pfitdata1.csv',

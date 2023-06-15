@@ -115,7 +115,6 @@
     # plt.imshow(l, cmap=jams.get_brewer('hotcold_18lev'))
 
 
-    
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -153,8 +152,6 @@
               MC, MAr 2014 - colour maps in extra file brewer.cmaps
               JM, Sep 2014 - color maps of Mathematica
 """
-from __future__ import division, absolute_import, print_function
-
 # Define colormaps
 # from jams.find_in_path import find_in_path
 # cmapfile = find_in_path('brewer.cmaps') # in jams_python

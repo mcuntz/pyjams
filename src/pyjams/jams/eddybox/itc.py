@@ -1,22 +1,22 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import warnings
+
 
 def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
     '''
     Calculation of integral turbulence characteristics after
     Thomas & Foken (2002). Plots itc's in outdir and returns flags if values
     deviate by limit from the itc model.
-    
-    
+
+
     Definition
     ----------
     itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
 
-    
+
     Input
-    ----- 
+    -----
     H           np.array(N), sensible heat flux [W/m2]
     zeta        np.array(N), Monin-Obukhov stability parameter (z/L) [-]
     ustar       np.array(N), friction velocity  [m/s]
@@ -27,13 +27,13 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
     lat         float, latitude of tower position [dec deg]
     limit       float, limit of exceedance from the model [-]
     outdir      str, path where the plots shall be saved
-                  
-                        
+
+
     Optional Input
     --------------
     plot        bool, if True plots are generated
-    
-    
+
+
     Output
     ------
     itcu          np.array(N), 0 where itcu did not exceed model limits, 1 where
@@ -47,8 +47,8 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
     itc_w_pos.pdf plot with itcw of positive stability range
     itc_w_neg.pdf plot with itcw of negative stability range
     itc_t.pdf     plot with itct
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -80,13 +80,13 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
     History
     -------
     Written,  AP, Aug 2014
-    '''       
-        
+    '''
+
     ############################################################################
     # itc models
     def itc_flag(meas, mod, limit):
         return np.where(np.logical_or(meas>mod*(1.+limit), meas<mod*(1.-limit)), 1, 0)
-    
+
     def u_pos(value, f):
         return 0.44*np.log((1. * f)/value)+6.3
     def u_neg(value):
@@ -102,7 +102,7 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
                            np.where((-0.0625>=value)&(value>-1),\
                                np.abs(value)**(-1./4.),\
                                    np.abs(value)**(-1./3.))))
-        
+
     ############################################################################
     # calculate coriolis factor
     omega = 2.*np.pi/86164.1 # anglevelocity of earth, day of 23h56min4.1sec
@@ -110,55 +110,55 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
     f     = 2*omega*np.sin(phi) # coriolis factor
 
     ############################################################################
-    # domains 
+    # domains
     zeta_neg = (-3.<zeta)  & (zeta<=-0.2)
     zeta_pos = (-0.2<zeta) & (zeta<0.4)
-    
+
     ############################################################################
     # itcu
     itcu = np.where(np.isnan(varu), np.NaN, 0).astype(np.int)
-    
+
     meas_u_pos      = np.sqrt(varu[zeta_pos])/ustar[zeta_pos]
     mod_u_pos       = u_pos(ustar[zeta_pos], f)
     itcu[zeta_pos] = itc_flag(meas_u_pos, mod_u_pos, limit)
-    
+
     meas_u_neg      = np.sqrt(varu[zeta_neg])/ ustar[zeta_neg]
     mod_u_neg       = u_neg(zeta[zeta_neg])
     itcu[zeta_neg] = itc_flag(meas_u_neg, mod_u_neg, limit)
-    
+
     itcu[(~np.isnan(itcu)) & (~zeta_neg) & (~zeta_pos)] = 2
-    
+
     ############################################################################
     # itcw
     itcw = np.where(np.isnan(varw), np.NaN, 0).astype(np.int)
-    
+
     meas_w_pos      = np.sqrt(varw[zeta_pos])/ustar[zeta_pos]
     mod_w_pos       = w_pos(ustar[zeta_pos], f)
     itcw[zeta_pos] = itc_flag(meas_w_pos, mod_w_pos, limit)
-    
+
     meas_w_neg      = np.sqrt(varw[zeta_neg])/ustar[zeta_neg]
     mod_w_neg       = w_neg(zeta[zeta_neg])
     itcw[zeta_neg] = itc_flag(meas_w_neg, mod_w_neg, limit)
-    
+
     itcw[(~np.isnan(itcw)) & (~zeta_neg) & (~zeta_pos)] = 2
-    
+
     ############################################################################
     # itct
     itct = np.where(np.isnan(vart), np.NaN, 0).astype(np.int)
-    
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         meas_t = np.sqrt(vart) * 1004.67 * rho * ustar/np.abs(H)
     mod_t  = t_all(zeta)
     itct  = itc_flag(meas_t, mod_t, limit)
-    
+
     ############################################################################
     # plots
     if plot:
         import matplotlib
         import matplotlib.pyplot as plt
         import matplotlib.backends.backend_pdf as pdf
-        
+
         x_pos     = np.log((1 * f)/ustar[zeta_pos])
         pos_range = np.arange(np.nanmin(ustar[zeta_pos]),
                               np.nanmax(ustar[zeta_pos]), 0.01)
@@ -166,9 +166,9 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
 
         x_neg     = zeta[zeta_neg]
         neg_range = np.arange(np.nanmin(x_neg),np.nanmax(x_neg), 0.01)
-        
+
         ########################################################################
-        # itcu: 0.44*ln((z_+*f)/u_star)+6.3 
+        # itcu: 0.44*ln((z_+*f)/u_star)+6.3
         fig1 = plt.figure(1)
         sub1 = fig1.add_subplot(111)
         l1 = sub1.plot(x_pos, meas_u_pos, 'bo')
@@ -180,9 +180,9 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
         sub1.set_xlabel('ln(z_+*f/u_star)')
         sub1.legend(loc='best')
         plt.title('for -0.2 < zeta < 0.4')
-        
+
         ########################################################################
-        # itcu: 4.15*(np.abs(zeta))**(1/8) 
+        # itcu: 4.15*(np.abs(zeta))**(1/8)
         fig2 = plt.figure(2)
         sub1 = fig2.add_subplot(111)
         l1 = sub1.plot(x_neg, meas_u_neg, 'bo')
@@ -194,7 +194,7 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
         sub1.set_xlabel('zeta')
         sub1.legend(loc='best')
         plt.title('for -3 < zeta <= -0.2')
-        
+
         ########################################################################
         # itcw: 0.21*ln((z_+*f)/u_star)+3.1
         fig3 = plt.figure(3)
@@ -208,9 +208,9 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
         sub1.set_xlabel('ln(z_+*f/u_star)')
         sub1.legend(loc='best')
         plt.title('for -0.2 < zeta < 0.4')
-        
+
         ########################################################################
-        # itcw: 1.3*(1-2*zeta)**(1/3) 
+        # itcw: 1.3*(1-2*zeta)**(1/3)
         fig4 = plt.figure(4)
         sub1 = fig4.add_subplot(111)
         l1 = sub1.plot(x_neg, meas_w_neg, 'bo')
@@ -222,7 +222,7 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
         sub1.set_xlabel('zeta')
         sub1.legend(loc='best')
         plt.title('for -3 < zeta <= -0.2')
-        
+
         ########################################################################
         # itct: 1>zeta>0.02      => 1.4*np.abs(zeta)**(-1/4)
         #        0.02>zeta>-0.062 => 0.5*np.abs(zeta)**(-1/2)
@@ -242,7 +242,7 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
         sub1.set_ylim(0,10)
         sub1.legend(loc='best')
         plt.show()
-        
+
         ########################################################################
         # save plots
         pp1  = pdf.PdfPages(outdir+'/itc_u_pos.pdf')
@@ -250,13 +250,13 @@ def itc(H, zeta, ustar, varu, varw, vart, rho, lat, limit, outdir, plot=False):
         pp3  = pdf.PdfPages(outdir+'/itc_w_pos.pdf')
         pp4  = pdf.PdfPages(outdir+'/itc_w_neg.pdf')
         pp5  = pdf.PdfPages(outdir+'/itc_t.pdf')
-        
+
         fig1.savefig(pp1, format='pdf')
         fig2.savefig(pp2, format='pdf')
         fig3.savefig(pp3, format='pdf')
         fig4.savefig(pp4, format='pdf')
         fig5.savefig(pp5, format='pdf')
-        
+
         pp1.close()
         pp2.close()
         pp3.close()

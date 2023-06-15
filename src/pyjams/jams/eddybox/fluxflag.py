@@ -1,35 +1,35 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.date2dec   import date2dec
-from jams.dec2date   import dec2date
-from jams.autostring import astr
-from jams.eddybox    import itc
-from jams.eddybox    import spikeflag
-from jams.eddybox    import ustarflag
+from pyjams.jams.date2dec   import date2dec
+from pyjams.jams.dec2date   import dec2date
+from pyjams.jams.autostring import astr
+from pyjams.jams.eddybox    import itc
+from pyjams.jams.eddybox    import spikeflag
+from pyjams.jams.eddybox    import ustarflag
+
 
 def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
              skiprows=[1,1], format=['ascii','ascii'], limit=0.3,
              analyzer='LI7000', spike_f=True, itc_f=True, ustar_f=True,
-             novalue=-9999, plot=False):    
+             novalue=-9999, plot=False):
     '''
     Quality flag calculation for Eddy Covariance data originating from EddyFlux.
     Including stationarity, exceeding limits, exceeding change rates, exceeding
     variances, integral turbulence characteristics, spike detection and ustar
     thresholds. Missing values are flagged with 2. Ustar thresholding works
-    ONLY for a data set of ONE FULL year.  
-    
-    
+    ONLY for a data set of ONE FULL year.
+
+
     Definition
     ----------
     fluxflag(fluxfile, metfile, outdir, Rg, T, lat, delimiter=[',',','],
              skiprows=[1,1], format=['ascii','ascii'], limit=0.3,
              analyzer='LI7000', spike_f=True, itc_f=True, ustar_f=True,
              novalue=-9999, plot=False):
-    
-    
+
+
     Input
-    ----- 
+    -----
     fluxfile    str, path and file name of EddyFlux output file
     metfile     str, path and file name of the meteorology file (must be in
                 sync with fluxfile)
@@ -40,15 +40,15 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
     T           int, column number of air temperature in metfile, column number
                 starts with 0 which is first data column. Used for ustarflag
     lat         latitude of tower position in decimal degrees. Used for itcflag
-    
-                        
+
+
     Optional Input
     --------------
     delimiter   list of str, delimiters of fluxfile and metfile
                 (default: [',',','])
     skiprows    list of int, lines to skip at the beginning of fluxfile and
                 metfile, e.g. header lines (default: [1,1])
-    format      list of str, time formats of fluxfile and metfile, 'ascii' and 
+    format      list of str, time formats of fluxfile and metfile, 'ascii' and
                 'eng' possible (default: ['ascii','ascii'])
     limit       float, relative deviation limit from the itc model above which
                 values are flagged with itcflag. e.g. 0.3 means 30% above and
@@ -63,22 +63,22 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
                 (default: -9999)
     plot        bool, if True subroutines (itc, spike and ustar) perform
                 plotting (default: False)
-    
-    
+
+
     Output
     ------
     flags.csv     file containing all calculated flags
     fluxflags.csv file containing fluxes with the sum of all respective flags
                   for each flux. Where flag>2, flag=2.
     flags.log     file containing statistics for each flag
-    
-    
+
+
     Restrictions
     ------------
     - ustar flagging works ONLY for a data set of ONE FULL year
     - ustar flagging works ONLY for half hourly time steps
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -115,26 +115,26 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
     # reading input files
     d = np.loadtxt(fluxfile, dtype='|S100', delimiter=delimiter[0], skiprows=skiprows[0])
     m = np.loadtxt(metfile,  dtype='|S100', delimiter=delimiter[1], skiprows=skiprows[1])
-    
+
     if format[0]=='ascii':
         datev   = date2dec(ascii=d[:,0])
     elif format[0]=='eng':
         datev   = date2dec(eng=d[:,0])
     else:
-        raise ValueError('fluxflag: unknown format')    
+        raise ValueError('fluxflag: unknown format')
     if format[1]=='ascii':
         datem   = date2dec(ascii=m[:,0])
     elif format[1]=='eng':
         datem   = date2dec(eng=m[:,0])
     else:
         raise ValueError('fluxflag: unknown format')
-    
+
     val = np.where(d[:,1:]=='', str(novalue), d[:,1:]).astype(np.float)
     val = np.where(val==novalue, np.NaN, val)
     met = np.where(m[:,1:]=='', str(novalue), m[:,1:]).astype(np.float)
     met = np.where(met==novalue, np.NaN, met)
     print('LOADING FILES COMPLETED')
-    
+
     ###########################################################################
     # calculate isday
     isday = met[:,swdr]>0.
@@ -147,7 +147,7 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
     rho   = val[:,62]
     H     = val[:,28]
     T     = met[:,T]
-        
+
     ###########################################################################
     # calculate standard flags
     sttest2  = np.where(np.isnan(val[:,37:38]), np.NaN,
@@ -193,7 +193,7 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
     co2var0  = np.where(np.isnan(val[:,10]), np.NaN,
                         np.where(val[:,10] < 0.00001, 2, 0))
     print('CALCULATE STANDARD FLAGS COMPLETE')
-    
+
     ###########################################################################
     # itc flag calculation
     if itc_f:
@@ -204,7 +204,7 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
         itcu = np.zeros_like(H, dtype=np.int)
         itcw = np.zeros_like(H, dtype=np.int)
         itct = np.zeros_like(H, dtype=np.int)
-    
+
     ###########################################################################
     # summing flags for each flux
     Hflag   = np.nansum(np.vstack((sttest2[:,6], itcw, texcr, wexvar, texvar,
@@ -222,7 +222,7 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
     Tauflag = np.nansum(np.vstack((sttest2[:,3], itcu, itcw, tauexcr, wexvar,
                                    wvar0)).transpose(), 1).astype(int)
     Tauflag[Tauflag>1]=2
-        
+
     ###########################################################################
     # spike detection
     #inflag = np.zeros_like(fluxes, dtype=np.int)
@@ -235,7 +235,7 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
         spikef = np.zeros_like(inflag, dtype=np.int)
 
     inflag += spikef
-    
+
     ###########################################################################
     # ustar flagging
     if ustar_f:
@@ -267,7 +267,7 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
     flags_str = np.zeros_like(flags, dtype='|S100')
     for i, item in enumerate(maxlen):
         flags_str[:,i] = astr(flags[:,i], prec=item)
-    
+
     # save flag file
     output = np.hstack((d[:,0:1], flags_str))
     np.savetxt('%s/flags.csv'%outdir,
@@ -302,21 +302,21 @@ def fluxflag(fluxfile, metfile, outdir, swdr, T, lat, delimiter=[',',','],
     Eflag_str   = astr(Eflag, prec=8)
     Cflag_str   = astr(Cflag, prec=8)
     Tauflag_str = astr(Tauflag, prec=8)
-    
+
     output = np.hstack((d[:,0:1], fluxes_str.repeat(2, axis=1)))
     output[:,2::2] = np.vstack((Hflag_str, LEflag_str, Eflag_str, Cflag_str,
                                Tauflag_str)).transpose()
     np.savetxt('%s/fluxflags.csv'%outdir,
                np.vstack((np.concatenate((['            date'], header2))[np.newaxis,:],
                           output)), '%s', delimiter=',')
-    
+
     ###########################################################################
     # write log file with stats
     log = open('%s/flags.log'%outdir, 'w')
     log.write('flag, 0, 1, 2\n')
     for i, item in enumerate(header):
         hist = tuple(np.histogram(flags[:,i], [-0.5,0.5,1.5,2.5])[0])
-        log.write(item.strip()+', %i, %i, %i\n'%hist)    
+        log.write(item.strip()+', %i, %i, %i\n'%hist)
     log.close()
 
 if __name__ == '__main__':

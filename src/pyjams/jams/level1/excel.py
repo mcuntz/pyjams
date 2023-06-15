@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import xlrd
 
+
 __all__ = ['get_header_excel', 'get_value_excel']
+
 
 # --------------------------------------------------------------------
 

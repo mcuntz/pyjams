@@ -1,6 +1,4 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
+#!/usr/bin/env python  # -*- coding: utf-8 -*-
 import numpy as np
 from netcdf4 import NcDataset
 
@@ -12,12 +10,12 @@ def concatDimension(fnames, dim, dimvar=None, outfname=None, **kwargs):
     datasets (List[str]):          datasets to concatenate
     dim (String):                  name of the dimension to concatenate
     dimvar (Optional[String]):     name of the variable defining values
-                                   for the concatenation dimension, 
+                                   for the concatenation dimension,
                                    default: dimvar = dim
     outfname (Optional[str]):      file name of an output dataset
     kwargs (Optional[Any]):        paramaters to pass to the createVariable
                                    Method of NcDataset
-                                
+
 
     Return
     ------
@@ -44,7 +42,7 @@ def concatDimension(fnames, dim, dimvar=None, outfname=None, **kwargs):
                 types.append(data.dtype)
                 vals.extend(data.tolist())
         return np.unique(vals).astype(dtype=np.find_common_type(types, []))
-    
+
     def getCommonVarTypes(fnames):
         vars = {}
         for fname in fnames:
@@ -57,7 +55,7 @@ def concatDimension(fnames, dim, dimvar=None, outfname=None, **kwargs):
         return {
             vname: np.find_common_type(vtypes, [])
             for vname, vtypes in vars.items()}
-            
+
     if not dimvar:
         dimvar = dim
 
@@ -73,7 +71,7 @@ def concatDimension(fnames, dim, dimvar=None, outfname=None, **kwargs):
     for i, fname in enumerate(fnames):
 
         with NcDataset(fname, "r") as nc:
-        
+
             out.copyDimensions(nc.dimensions, skip=out.dimensions, fix=True)
             out.copyAttributes(nc.attributes)
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-import jams.const as const
+
 
 def tcherkez(Rstar, Phi=0.3, T=0.056,
              a2=1.0012, a3=1.0058, a4=1.0161,

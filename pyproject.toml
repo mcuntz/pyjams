@@ -19,6 +19,7 @@ fallback_version = "0.0.0.dev0"
         "*docs*",
         "*tests*",
         "src/pyjams/mcplot.py",
+        "src/pyjams/jams/*",
     ]
 
     [tool.coverage.report]

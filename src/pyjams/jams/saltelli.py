@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
+
 
 def saltelli(params, nbase, lhs=False, nskip=1):
     """
@@ -120,7 +120,7 @@ def saltelli(params, nbase, lhs=False, nskip=1):
     pB   = np.empty((nparams,nbase))
     if lhs:
         import scipy.stats as stats
-        from jams.lhs import lhs
+        from pyjams.jams.lhs import lhs
         dist = [stats.uniform     for i in range(nparams)]
         pars = [(zoff[i],zmul[i]) for i in range(nparams)]
         dist = dist + dist # 2*nparams

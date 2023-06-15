@@ -1,16 +1,15 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 '''
-    JAMS Eddy Covariance utilities 
-    
+    JAMS Eddy Covariance utilities
+
     Get help on each function by typing
     >>> help()
     help> eddybox.function
     Or
     >>> from jams import eddybox
     >>> help(eddybox.function)
-    
-    
+
+
     Provided functions (alphabetic w/o obsolete)
     ------------------
     eddycorr               Calculate time lags between wind and concentrations for EddyFlux.
@@ -32,13 +31,13 @@ from __future__ import division, absolute_import, print_function
     sltclean               Moves *.slt files in a deleted folder to exclude from processing (EddySoft files).
     spikeflag              Spike detection for Eddy Covariance data (and basically all other data)
     ustarflag              Friction velocity flagging for Eddy Covariance data
-    
-    
+
+
     Example
     -------
     see eddysuite.py
-    
-    
+
+
     License
     -------
     This file is part of the JAMS Python package, distributed under the MIT
@@ -66,7 +65,7 @@ from __future__ import division, absolute_import, print_function
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-    
+
     History
     -------
     Written  AP, Sep 2014
@@ -83,9 +82,9 @@ from .itc               import itc
 from .meteo4slt         import meteo4slt
 from .nee2gpp           import nee2gpp, nee2gpp_falge, nee2gpp_lasslop, nee2gpp_reichstein
 from .planarfit         import planarfit
-from .profile2storage   import profile2storage 
+from .profile2storage   import profile2storage
 from .sltclean          import sltclean
-from .spikeflag         import spikeflag 
+from .spikeflag         import spikeflag
 from .ustarflag         import ustarflag
 
 # Information

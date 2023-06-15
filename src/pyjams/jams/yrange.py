@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.around import around
-from jams.const  import eps
+from pyjams.jams.around import around
+from pyjams.const import eps
 
 
 __all__ = ['yrange']

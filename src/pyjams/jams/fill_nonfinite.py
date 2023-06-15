@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.kernel_regression import kernel_regression
+from pyjams.kernel_regression import kernel_regression
 
 
 __all__ = ['fill_nonfinite']

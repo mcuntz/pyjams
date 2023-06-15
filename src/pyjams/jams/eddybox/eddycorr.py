@@ -1,16 +1,13 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 import numpy as np
-from jams.sread import sread
-from jams.fread import fread
-from scipy import interpolate
+from pyjams.fsread import sread
+from pyjams.fsread import fread
 import csv
-import sys
 import os
 import time as t
-import math as m
 import shutil as sh
 from scipy.optimize import fmin
+
 
 def eddycorr(indir, sltdir, cfile, hfile, meteofile, outfile, novalue=-9999,
              histstep=10, attach=True, plot=False):
