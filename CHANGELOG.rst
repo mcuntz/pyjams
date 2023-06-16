@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v1.32 (Jun 2023)
+    * Merged old library JAMS (https://github.com/mcuntz/jams_python) as a
+      subdirectory. Remove deprecated routines that are in the main part now.
+      Remove unsupported routines.
+
 v1.31 (Jun 2023)
     * Set filename without suffix as default plot name in `mcPlot`.
     * Exit if initial population failed twice in `sce`.

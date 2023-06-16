@@ -1,0 +1,907 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>JAMS module &#8212; pyjams 1.32.dev237 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Roman literals" href="romanliterals.html" />
+    <link rel="prev" title="directory/file dialog" href="fgui.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-pyjams.jams">
+<span id="jams-module"></span><span id="jams"></span><h1>JAMS module<a class="headerlink" href="#module-pyjams.jams" title="Permalink to this heading">¶</a></h1>
+<p>JAMS Python Utilities</p>
+<p>Package offers miscellaneous functions and sub-modules in different categories.</p>
+<p>Get help on each function by typing
+&gt;&gt;&gt; import pyjams
+&gt;&gt;&gt; help(pyjams.jams.function)</p>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">encrypt</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">qa</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_undef</span></code>(func, undef, *args, **kwargs)</p></td>
+<td><p>Use a function on arguments masked with undef.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">area_poly</span></code>(x, y)</p></td>
+<td><p>Determines the are of a polygon represented as a list of (x,y) vertex coordinates, implicitly wrapping around from the last vertex to the first.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">around</span></code>(num, powten[, ceil, floor])</p></td>
+<td><p>Round to the passed power of ten.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">autostring</span></code>(num[, prec, zero, ...])</p></td>
+<td><p>Format number (array) with given decimal precision.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">baseflow</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">climate_index_knoben</span></code>(time, precip, tave, pet)</p></td>
+<td><p>Calculates climate index (color and/or indicators) based on Knoben et al. (2018).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clockplot</span></code>(sub, si[, sti, stierr, iplot, ...])</p></td>
+<td><p>The clock plot with modules and up to three index stacks.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">convex_hull</span></code>(points[, graphic, smidgen])</p></td>
+<td><p>Calculate subset of 2D points that make a convex hull around a set of 2D points.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlate</span></code>(x, y[, axis])</p></td>
+<td><p>Computes the cross-correlation function of two series x and y.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cuntz_gleixner</span></code>(idecdate, iGPP, iRd, iCa, ...)</p></td>
+<td><p>Calculates the Cuntz-Gleixner steady state and non-steady state models of 13C discrimiantion in the Calvin cycle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">date2dec</span></code>([calendar, units, excelerr, yr, ...])</p></td>
+<td><p>Convert scalar and array_like with calendar dates into decimal dates.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dec2date</span></code>(indata[, calendar, refdate, units, ...])</p></td>
+<td><p>Converts scale and array_like with decimal dates into calendar dates.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">delta_isogsm2</span></code>(ifile[, output, timestep])</p></td>
+<td><p>Delta values from downloaded IsoGSM2 data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dewpoint</span></code>(pres[, Celsius])</p></td>
+<td><p>Calculates the dew point [K] from ambient humidity [Pa].</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dielectric_water</span></code>(T)</p></td>
+<td><p>Dielectric constant of liquid water in F m^-1.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ellipse_area</span></code>(a[, b])</p></td>
+<td><p>Area of ellipse with major and minor axes a and b.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">errormeasures</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fftngo</span></code>(t, y[, nbins, plot])</p></td>
+<td><p>Fast fourier transformation for dummies (like me).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_nonfinite</span></code>(xin[, yin, nan, inf, undef, ...])</p></td>
+<td><p>Fill missing values by interpolation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_in_path</span></code>(filename)</p></td>
+<td><p>Find the file named filename in the sys.path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fwrite</span></code>(fname, arr[, header, precision, ...])</p></td>
+<td><p>Write numbers of 2D-array to a file.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gap2lai</span></code>(tgap, lgap, G, alpha[, boot])</p></td>
+<td><p>Computes effective leaf area index Le, total leaf area index Lt and clumping factor omega out of canopy gap fraction observations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angle</span></code>(xy1, xy2)</p></td>
+<td><p>Returns the angle in radiant from each point in xy1 to each point in xy2.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_era5</span></code>([vars, area, years, path, ...])</p></td>
+<td><p>Download ERA5 or ERA5-Land data from Copernicus Climate Data Store.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_isogsm2</span></code>(latlon[, baseurl, path, override])</p></td>
+<td><p>Get IsoGSM2 output.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_nearest</span></code>(xy, xyz)</p></td>
+<td><p>Returns the z value for each point in an xy coordinate array which is equal to the z value at the nearest point in a given xyz field.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid_mid2edge</span></code>(lon, lat)</p></td>
+<td><p>2D arrays of longitude and latitude grid edges from grid midpoints.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">head</span></code>(ifile[, n, noblank, comment, skip, ...])</p></td>
+<td><p>Return list with first n lines of file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">heaviside</span></code>(x[, value, unitstep, zero])</p></td>
+<td><p>Heaviside (or unit step) operator</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">homo_sampling</span></code>(p1, p2, n[, func, plot, maxit])</p></td>
+<td><p>Generates homogeneously, randomly distributed sample points within a given rectangular area spanned by p1 (lower left) and p2 (upper right) corner.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">in_poly</span></code>(P, coord_x, coord_y)</p></td>
+<td><p>Determines whether a 2D point falls within a polygon, on a vertex or edge, or is located outside of a polygon.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpol</span></code>(xout, xin, yin)</p></td>
+<td><p>One-dimensional linear interpolation on first dimension.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">intersection</span></code>(x1, y1, x2, y2)</p></td>
+<td><p>Intersections of curves given by x,y coordinates.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">jab</span></code>(arr[, ind, nind, mask, weight, nsteps])</p></td>
+<td><p>Jackknife-after-Bootstrap error, an approximation of the Jackknife error.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">jconfigparser</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">kriging</span></code>(x, y, z, semi_mod, semi_popt[, ...])</p></td>
+<td><p>Kriging a surface from a set of 2D points with a given semivariogram model and associated optimized parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lagcorr</span></code>(y1, y2[, max, plot])</p></td>
+<td><p>Calculates the time lag between two 1D arrays where the correlation of both arrays is maximum or minimum.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">latlon_fmt</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhs</span></code>(dist, param, nsample)</p></td>
+<td><p>Latin Hypercube Sampling of any distribution without correlations after Stein (1987).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lif</span></code>(ifile[, noblank, comment, skip, maxcol])</p></td>
+<td><p>Count number of lines in a file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">line_dev_mask</span></code>(x, y, z[, p_guess, plot])</p></td>
+<td><p>Checks an np.ma.array y for outliers deviating from a straight line fitted to y(x).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lowess</span></code>(x, y, x0[, deg, kernel, l, robust])</p></td>
+<td><p>Locally smoothed regression with the LOWESS algorithm.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maskgroup</span></code>(x, n)</p></td>
+<td><p>Masks elements in masked 1d-array gathered in groups of n elements.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mat2nc</span></code>(fname[, overwrite, fname_out, ...])</p></td>
+<td><p>This functions writes the content of a Matlab file into a NetCDF file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">netcdf4</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">outlier</span></code>(y[, alpha, k, quiet])</p></td>
+<td><p>Estimates the number of outliers in an approximately normal distributed sample according to Rossner''s (1983) generalized Extreme Studentized Deviate (ESD).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pareto_metrics</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pawn_index</span></code>(uncond, cond[, alpha, pawn_stat])</p></td>
+<td><p>Estimation of parameter sensitivity using the PAWN method introduced by</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pca</span></code>(mat[, corr, ndim, rvar])</p></td>
+<td><p>Principal component analysis (PCA) upon the first dimension of an 2D-array.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pet_oudin</span></code>(temperature, lat, doy)</p></td>
+<td><p>Calculates the daily potential evapotranspiration in [mm/d] following the Oudin formula.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pi</span></code>([s, m, norm, b, evalues, ematrix])</p></td>
+<td><p>Calculates the parameter importance index PI or alternatively the B index.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pritay</span></code>(T, Rg, elev[, a])</p></td>
+<td><p>Daily reference evapotranspiration after Priestley &amp; Taylor</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pso</span></code>(func, x0, lb, ub[, mask, ieqcons, ...])</p></td>
+<td><p>Particle Swarm Optimization (PSO)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">readhdf</span></code>(fName[, var, reform, squeeze, ...])</p></td>
+<td><p>Get variables or print information of hdf4 or hdf5 file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">readhdf5</span></code>(fName[, var, reform, squeeze, ...])</p></td>
+<td><p>Get variables or print information of hdf5 file.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">river_network</span></code>([dem, fdir, co, do_co, fa, ...])</p></td>
+<td><p><p class="rubric">Methods</p>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rolling</span></code>(x, win)</p></td>
+<td><p>Uses binary strides to reshape an array in a &quot;rolling window&quot; style to perform any function on a rolling window without for loop</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">saltelli</span></code>(params, nbase[, lhs, nskip])</p></td>
+<td><p>Samples parameters in given ranges so they can be used for the calculation of Sobol indices as described by Saltelli (2002) and Saltelli et al. (2007).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">samevalue</span></code>(x, tol, window)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sap_app</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">savitzky_golay</span></code>(y, window, order[, deriv, rate])</p></td>
+<td><p>Smooth (and optionally differentiate) data with a Savitzky-Golay filter.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">semivariogram</span></code>(x, y, v, nL, di, td[, stype, ...])</p></td>
+<td><p>Calculates single or multiple experimental semivariogram(s) for spatial distributed data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sendmail</span></code>(fromm, to, subject, message, login, ...)</p></td>
+<td><p>Send an e-mail.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigma_filter</span></code>(x, y[, z, func, p, plot, popt])</p></td>
+<td><p>Checks a 1D-array for points deviating more than z standard deviations from a given function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">smooth_minmax</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sobol_index</span></code>([s, ns, ya, yb, yc, si, sti, ...])</p></td>
+<td><p>Calculates the first-order Si and total STi variance-based sensitivity indices summarised in Saltelli et al. (2010) with improvements of Mai et al. (2014).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">srrasa</span></code>(xy[, strata, n, plot])</p></td>
+<td><p>Generates stratified random 2D points within a given rectangular area.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tail</span></code>(ifile[, n, noblank, comment, keepnewline])</p></td>
+<td><p>Return list with last n lines of file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tcherkez</span></code>(Rstar[, Phi, T, a2, a3, a4, t1, ...])</p></td>
+<td><p>Calculates the Tcherkez model of 13C-discrimiantion in the Calvin cycle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">timestepcheck</span></code>(indir, pat, outfile, begin, end)</p></td>
+<td><p>Checks ascii data files with first column being a time stamp in ascii of eng style for correctness.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tsym</span></code>(name)</p></td>
+<td><p>Returns unicodes for common symbols.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">volume_poly</span></code>(func[, x, y, tri, convexhull, ...])</p></td>
+<td><p>Volume of function above polygon.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">writenetcdf</span></code>(fhandle[, vhandle, var, time, ...])</p></td>
+<td><p>Writes dimensions, variables, dependencies and attributes to NetCDF file for 1D to 6D data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">xkcd</span></code>(ax[, mag, f1, f2, f3, bgcolor, ...])</p></td>
+<td><p>Make axis look hand-drawn</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">yrange</span></code>(*args, **kwargs)</p></td>
+<td><p>Calculates plot range from input array</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">zacharias</span></code>(h, clay, sand, db[, params, ...])</p></td>
+<td><p>Soil water content with the van Genuchten equation and the pedotransfer functions of Zacharias et al. (2007).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distributions</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">eddybox</span></code></p></td>
+<td><p>JAMS Eddy Covariance utilities</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">files</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ftp</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">leafmodel</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">level1</span></code></p></td>
+<td><p>Helper functions to deal with CHS level1 data and flags.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="provided-functions-and-modules-alphabetic">
+<h3>Provided functions and modules (alphabetic)<a class="headerlink" href="#provided-functions-and-modules-alphabetic" title="Permalink to this heading">¶</a></h3>
+<p>apply_undef            Use a function on masked arguments.
+area_poly              Area of a polygon.
+around                 Round to the passed power of ten.
+astr                   Wrapper for autostring.
+autostring             Format number (array) with given decimal precision.
+baseflow               Calculate baseflow from discharge timeseries
+climate_index_knoben   Determines continuous climate indexes based on Knoben et al. (2018).
+clockplot              The clockplot of mHM.
+convex_hull            Calculate subset of points that make a convex hull around a set of 2D points.
+correlate              Computes the cross-correlation function of two series x and y.
+cuntz_gleixner         Cuntz-Gleixner model of 13C discrimination.
+dielectric_water       Dielectric constant of liquid water.
+delta_isogsm2          Calculate delta values from downloaded IsoGSM2 data.
+dewpoint               Calculates the dew point from ambient humidity.
+dfgui                  A minimalistic GUI for analyzing Pandas DataFrames based on wxPython.
+distributions          Module for pdfs of additional distributions.
+dumpnetcdf             Convenience function for writenetcdf
+eddybox                Module containing Eddy Covaraince utilities, see eddysuite.py for details
+eddysuite              Example file for processing Eddy data with eddybox and EddySoft
+ellipse_area           Area of ellipse (or circle)
+encrypt                Module to encrypt and decrypt text using a key system as well as a cipher.
+errormeasures          Definition of different error measures.
+fftngo                 Fast fourier transformation for dummies (like me)
+files                  Module with file list function.
+fill_nonfinite         Fill missing values by interpolation.
+find_in_path           Look for file in system path.
+ftp                    Module with functions for interacting with an open FTP connection.
+fwrite                 Writes an array to ascii file
+gap2lai                Calculation of leaf area index from gap probability observations.
+get_angle              Returns the angle in radiant from each point in xy1 to each point in xy2.
+get_era5               Download ERA5 data suitable to produce MuSICA input data.
+get_isogsm2            Get IsoGSM2 output.
+get_nearest            Returns a value z for each point in xy near to the xyz field.
+grid_mid2edge          Longitude and latitude grid edges from grid midpoints.
+hdfread                Wrapper for readhdf.
+hdf5read               Wrapper for readhdf5.
+head                   Return list with first n lines of file.
+heaviside              Heaviside (or unit step) operator.
+homo_sampling          Generation of homogeneous, randomly distributed points in a given rectangular area.
+in_poly                Determines whether a 2D point falls in a polygon.
+inpoly                 Wrapper for in_poly.
+interpol               One-dimensional linear interpolation on first dimension.
+intersection           Intersection of two curves from x,y coordinates.
+jab                    Jackknife-after-Bootstrap error.
+jConfigParser          Extended Python ConfigParser.
+kriging                Krig a surface from a set of 2D points.
+lagcorr                Calculate time lag of maximum or minimum correlation of two arrays.
+lat_fmt                Set lat label string (called by Basemap.drawparallels) if LaTeX package clash.
+leafmodel              Model to compute photosynthesis and stomatal conductance of canopies.
+leafprojection         Calculation of leaf projection from leaf angle observations.
+level1                 Module with functions dealing with CHS level1 data files, data and flags.
+lhs                    Latin Hypercube Sampling of any distribution without correlations.
+lif                    Count number of lines in file.
+line_dev_mask          Maskes elements of an array deviating from a line fit.
+lon_fmt                Set lon label string (called by Basemap.drawmeridians) if LaTeX package clash.
+lowess                 Locally linear regression in n dimensions.
+mat2nc                 Converts Matlab file <a href="#id1"><span class="problematic" id="id2">*</span></a>.mat into NetCDF <a href="#id3"><span class="problematic" id="id4">*</span></a>.nc.
+netcdf4                Convenience layer around netCDF4
+outlier                Rossner’’s extreme standardized deviate outlier test.
+pareto_metrics         Performance metrics to compare Pareto fronts.
+pca                    Principal component analysis (PCA) upon the first dimension of an 2D-array.
+pet_oudin              Daily potential evapotranspiration following the Oudin formula.
+pi                     Parameter importance index PI or alternatively B index calculation.
+pritay                 Daily reference evapotranspiration after Priestley &amp; Taylor.
+pso                    Particle swarm optimization
+qa                     Module of quality (error) measures.
+readhdf                Reads variables or information from hdf4 and hdf5 files.
+readhdf5               Reads variables or information from hdf5 file.
+river_network          a class for creating a river network from a DEM including flow direction, flow accumulation and channel order
+rolling                Reshape an array in a “rolling window” style.
+rossner                Wrapper for outlier.
+t2sap                  Conversion of temperature difference to sap flux density.
+savitzky_golay         Smooth (and optionally differentiate) 1D data with a Savitzky-Golay filter.
+savitzky_golay2d       Smooth (and optionally differentiate) 2D data with a Savitzky-Golay filter.
+saltelli               Parameter sampling for Sobol indices calculation.
+semivariogram          Calculates semivariogram from spatial data.
+sendmail               Send an e-mail.
+sg                     Wrapper savitzky_golay.
+sg2d                   Wrapper savitzky_golay2d.
+sigma_filter           Mask values deviating more than z standard deviations from a given function.
+tail                   Return list with last n lines of file.
+maskgroup              Masks elements in a 1d array gathered in small groups.
+samevalue              Checks if abs. differences of array values within a certain window are smaller than threshold.
+smax                   Calculating smooth maximum of two numbers
+smin                   Calculating smooth minimum of two numbers
+sobol_index            Calculates the first-order and total variance-based sensitivity indices.
+srrasa                 Generates stratified random 2D points within a given rectangular area.
+srrasa_trans           Generates stratified random 2D transects within a given rectangular area.
+tcherkez               Calculates the Tcherkez model of 13C-discrimiantion in the Calvin cycle.
+timestepcheck          Fills missing time steps in ascii data files
+tsym                   Raw unicodes for common symbols.
+volume_poly            Volume of function above a polygon
+writenetcdf            Write netCDF4 file.
+xkcd                   Make plot look handdrawn.
+yrange                 Calculates plot range from input array.
+zacharias              Soil water content with van Genuchten and Zacharias et al. (2007).
+zacharias_check        Checks validity of parameter set for Zacharias et al. (2007).</p>
+</section>
+<section id="provided-functions-and-modules-per-category">
+<h3>Provided functions and modules per category<a class="headerlink" href="#provided-functions-and-modules-per-category" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><p>Array manipulation
+Ascii files
+Data processing
+Grids / Polygons
+Hydrology
+Isotopes
+Math
+Meteorology
+Miscellaneous
+Models
+Plotting
+Special files</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="array-manipulation">
+<h3>Array manipulation<a class="headerlink" href="#array-manipulation" title="Permalink to this heading">¶</a></h3>
+<p>samevalue              Checks if abs. differences of array values within a certain window are smaller than threshold.
+maskgroup              Masks elements in a 1d array gathered in small groups.
+rolling                Reshape an array in a “rolling window” style.
+smax                   Calculating smooth maximum of two numbers
+smin                   Calculating smooth minimum of two numbers</p>
+</section>
+<section id="ascii-files">
+<h3>Ascii files<a class="headerlink" href="#ascii-files" title="Permalink to this heading">¶</a></h3>
+<p>fwrite                 Writes an array to ascii file
+head                   Return list with first n lines of file.
+lif                    Count number of lines in file.
+tail                   Return list with last n lines of file.</p>
+</section>
+<section id="data-processing">
+<h3>Data processing<a class="headerlink" href="#data-processing" title="Permalink to this heading">¶</a></h3>
+<p>convex_hull            Calculate subset of points that make a convex hull around a set of 2D points.
+eddybox                Module containing Eddy Covaraince utilities, see eddybox folder for details
+eddysuite              Example file for processing Eddy data with eddybox and EddySoft
+fill_nonfinite         Fill missing values by interpolation.
+gap2lai                Calculation of leaf projection and leaf area index from gap probability observations.
+interpol               One-dimensional linear interpolation on first dimension.
+kriging                Krig a surface from a set of 2D points.
+leafprojection         Calculation of leaf projection from leaf angle observations.
+level1                 Module with functions dealing with CHS level1 data files, data and flags.
+line_dev_mask          Mask elements of an array deviating from a line fit.
+lowess                 Locally linear regression in n dimensions.
+outlier                Rossner’’s extreme standardized deviate outlier test.
+pca                    Principal component analysis (PCA) upon the first dimension of an 2D-array.
+rossner                Wrapper for outlier.
+t2sap                  Conversion of temperature difference to sap flux density.
+savitzky_golay         Smooth (and optionally differentiate) 1D data with a Savitzky-Golay filter.
+savitzky_golay2d       Smooth (and optionally differentiate) 2D data with a Savitzky-Golay filter.
+semivariogram          Calculates semivariogram from spatial data.
+sg                     Wrapper savitzky_golay.
+sg2d                   Wrapper savitzky_golay2d.
+sigma_filter           Mask values deviating more than z standard deviations from a given function.
+srrasa                 Generates stratified random 2D points within a given rectangular area.
+srrasa_trans           Generates stratified random 2D transects within a given rectangular area.
+timestepcheck          Fills missing time steps in ascii data files</p>
+</section>
+<section id="grids-polygons">
+<h3>Grids / Polygons<a class="headerlink" href="#grids-polygons" title="Permalink to this heading">¶</a></h3>
+<p>area_poly              Area of a polygon
+grid_mid2edge          Longitude and latitude grid edges from grid midpoints.
+homo_sampling          Generation of homogeneous, randomly distributed points in a given rectangular area.
+in_poly                Determines whether a 2D point falls in a polygon.
+inpoly                 Wrapper for in_poly.
+volume_poly            Volume of function above a polygon
+get_angle              Returns the angle in radiant from each point in xy1 to each point in xy2.
+get_nearest            Returns a value z for each point in xy near to the xyz field.</p>
+</section>
+<section id="hydrology">
+<h3>Hydrology<a class="headerlink" href="#hydrology" title="Permalink to this heading">¶</a></h3>
+<p>baseflow               Calculate baseflow from discharge timeseries
+river_network          a class for creating a river network from a DEM including flow direction, flow accumulation and channel order</p>
+</section>
+<section id="isotopes">
+<h3>Isotopes<a class="headerlink" href="#isotopes" title="Permalink to this heading">¶</a></h3>
+<p>cuntz_gleixner         Cuntz-Gleixner model of 13C discrimination.
+delta_isogsm2          Calculate delta values from downloaded IsoGSM2 data.
+get_isogsm2            Get IsoGSM2 output.
+tcherkez               Calculates the Tcherkez model of 13C-discrimiantion in the Calvin cycle.</p>
+</section>
+<section id="math">
+<h3>Math<a class="headerlink" href="#math" title="Permalink to this heading">¶</a></h3>
+<p>around                 Round to the passed power of ten.
+correlate              Computes the cross-correlation function of two series x and y.
+distributions          Module for pdfs of additional distributions.
+ellipse_area           Area of ellipse (or circle)
+errormeasures          Definition of different error measures.
+fftngo                 Fast fourier transformation for dummies (like me)
+heaviside              Heaviside (or unit step) operator.
+intersection           Intersection of two curves from x,y coordinates.
+jab                    Jackknife-after-Bootstrap error.
+lagcorr                Calculate time lag of maximum or minimum correlation of two arrays.
+lhs                    Latin Hypercube Sampling of any distribution without correlations.
+pareto_metrics         Performance metrics to compare Pareto fronts.
+pi                     Parameter importance index PI or alternatively B index calculation.
+pso                    Particle swarm optimization
+qa                     Module of quality assessment (error) measures.
+saltelli               Parameter sampling for Sobol indices calculation.
+sobol                  Generates Sobol sequences
+sobol_index            Calculates the first-order and total variance-based sensitivity indices.</p>
+</section>
+<section id="meteorology">
+<h3>Meteorology<a class="headerlink" href="#meteorology" title="Permalink to this heading">¶</a></h3>
+<p>climate_index_knoben   Determines continuous climate indexes based on Knoben et al. (2018).
+dewpoint               Calculates the dew point from ambient humidity.
+dielectric_water       Dielectric constant of liquid water.
+get_era5               Download ERA5 data suitable to produce MuSICA input data.
+pet_oudin              Daily potential evapotranspiration following the Oudin formula.
+pritay                 Daily reference evapotranspiration after Priestley &amp; Taylor</p>
+</section>
+<section id="miscellaneous">
+<h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this heading">¶</a></h3>
+<p>apply_undef            Use a function on masked arguments.
+astr                   Wrapper for autostring.
+autostring             Format number (array) with given decimal precision.
+encrypt                Module to encrypt and decrypt text using a key system as well as a cipher.
+files                  Module with file list function.
+find_in_path           Look for file in system path.
+ftp                    Module with functions for interacting with an open FTP connection.
+sendmail               Send an e-mail.
+zacharias              Soil water content with van Genuchten and Zacharias et al. (2007).
+zacharias_check        Checks validity of parameter set for Zacharias et al. (2007).</p>
+</section>
+<section id="models">
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this heading">¶</a></h3>
+<p>leafmodel              Model to compute photosynthesis and stomatal conductance of canopies</p>
+</section>
+<section id="plotting">
+<h3>Plotting<a class="headerlink" href="#plotting" title="Permalink to this heading">¶</a></h3>
+<p>clockplot              The clockplot of mHM.
+dfgui                  A minimalistic GUI for analyzing Pandas DataFrames based on wxPython.
+lat_fmt                Set lat label string (called by Basemap.drawparallels) if LaTeX package clash.
+lon_fmt                Set lon label string (called by Basemap.drawmeridians) if LaTeX package clash.
+tsym                   Raw unicodes for common symbols.
+xkcd                   Make plot look handdrawn.
+yrange                 Calculates plot range from input array.</p>
+</section>
+<section id="special-files">
+<h3>Special files<a class="headerlink" href="#special-files" title="Permalink to this heading">¶</a></h3>
+<p>dumpnetcdf             Convenience function for writenetcdf
+hdfread                Wrapper for readhdf.
+hdf5read               Wrapper for readhdf5.
+jConfigParser          Extended Python ConfigParser.
+mat2nc                 Converts Matlab file <a href="#id5"><span class="problematic" id="id6">*</span></a>.mat into NetCDF <a href="#id7"><span class="problematic" id="id8">*</span></a>.nc.
+netcdf4                Convenience layer around netCDF4
+readhdf                Reads variables or information from hdf4 and hdf5 files.
+readhdf5               Reads variables or information from hdf5 file.
+writenetcdf            Write netCDF4 file.</p>
+</section>
+<section id="history">
+<h3>History<a class="headerlink" href="#history" title="Permalink to this heading">¶</a></h3>
+<p>Written,  Matthias Cuntz, Jul 2009
+Modified, Matthias Cuntz, Jul 2009</p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li><p>lif, fread, sread, readnetcdf, cellarea, pack, unpack</p></li>
+</ul>
+</div></blockquote>
+<p>Matthias Cuntz, Aug 2009 - position
+Maren Goehler, Jul 2010  - outlier
+Arndt Piayda, Jan 2011   - date2dec, dec2date
+Arndt Piayda, Feb 2011   - semivariogram
+Tino Rau, May 2011       - gap_filling
+Tino Rau, May 2011       - calcvpd
+Matthias Cuntz, Jun 2011</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>/usr/bin/python to /usr/bin/env python</p></li>
+<li><p>tsym, around</p></li>
+</ul>
+</div></blockquote>
+<p>Matthias Cuntz, Nov 2011 - mad
+Matthias Cuntz, Nov 2011 - try netcdf and stats routines
+Matthias Cuntz, Nov 2011 - autostring
+Matthias Cuntz, Jan 2012</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>esat, closest, dewpoint, division, heaviside, tcherkez, yrange,</p></li>
+<li><p>const, cuntz_gleixner</p></li>
+<li><p>calcvpd obsolete</p></li>
+</ul>
+</div></blockquote>
+<p>Matthias Cuntz, Mar 2012 - gapfill, nee2gpp
+Matthias Cuntz, May 2012</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>astr, div, sobol_index, pi, roman, zacharias, saltelli</p></li>
+</ul>
+</div></blockquote>
+<p>Matthias Zink, Jun 2012  - writenetcdf
+Matthias Cuntz, Jun 2012 - roman -&gt; romanliterals, interpol
+Matthias Zink, Jun 2012  - readhdf5
+Matthias Cuntz, Jun 2012 - readhdf4, readhdf
+Matthias Cuntz, Sep 2012 - brewer
+Matthias Cuntz, Oct 2012 - savitzky_golay
+Matthias Cuntz, Nov 2012</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>added netcdftime but no import so that available w/o netcdf</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Arndt Piayda, Nov 2012</dt><dd><ul class="simple">
+<li><p>convex_hull, in_poly, kriging, semivariogram update</p></li>
+<li><p>srrasa, srrasa_trans</p></li>
+</ul>
+</dd>
+<dt>Matthias Cuntz, Nov 2012</dt><dd><ul class="simple">
+<li><p>nee2gpp, nee2gpp_falge, nee2gpp_lasslop, nee2gpp_reichstein</p></li>
+</ul>
+</dd>
+<dt>Matthias Cuntz, Dec 2012</dt><dd><ul class="simple">
+<li><p>functions</p></li>
+<li><p>gap_filling obsolete</p></li>
+</ul>
+</dd>
+</dl>
+<p>Matthias Cuntz, Feb 2013 - area_poly
+Matthias Cuntz &amp; Juliane Mai, Feb 2013 - volume_poly
+Matthias Cuntz, Feb 2013 - ported to Python 3
+Matthias Cuntz, Mar 2013 - find_in_path, xkcd
+Matthias Cuntz, Apr 2013 - rgb
+Matthias Cuntz, Jun 2013 - colours
+Matthias Cuntz, Jul 2013 - fill_nonfinite, means
+Matthias Cuntz, Oct 2013</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>morris, sce, inpoly, rossner, netcdfread, ncread, readnc</p></li>
+<li><p>hdfread, hdf4read, hdf5read</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Arndt Piayda, Feb 2014</dt><dd><ul class="simple">
+<li><p>maskgroup</p></li>
+<li><p>line_dev_mask</p></li>
+</ul>
+</dd>
+<dt>Matthias Cuntz, Feb 2014</dt><dd><ul class="simple">
+<li><p>removed all import *</p></li>
+<li><p>sigma_filter</p></li>
+</ul>
+</dd>
+</dl>
+<p>Arndt Piayda, Mar 2014   - lagcorr
+Matthias Cuntz, Apr 2014 - correlate
+Matthias Cuntz, May 2014</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>signature2plot</p></li>
+<li><p>adapted new CHS license scheme</p></li>
+</ul>
+</div></blockquote>
+<p>Arndt Piayda, May 2014   - get_nearest
+Arndt Piayda, Jun 2014   - get_angle
+Andreas Wiedemann, Jun 2014 - t2sap
+Arndt Piayda, Jul 2014</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>errormeasures, homo_sampling, sltclean, meteo4slt</p></li>
+<li><p>eddycorr, eddyspec</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Arndt Piayda, Aug 2014</dt><dd><ul class="simple">
+<li><p>planarfit, timestepcheck, fluxplot, itc, spikeflag, ustarflag</p></li>
+<li><p>fluxflag, fluxfill</p></li>
+</ul>
+</dd>
+</dl>
+<p>Arndt Piayda, Sep 2014   - energyclosure, fluxpart
+Stephan Thober, Sep 2014 - dumpnetcdf
+Matthias Cuntz, Sep 2014 - alpha_equ_h2o, alpha_kin_h2o
+Arndt Piayda, Sep 2014</p>
+<blockquote>
+<div><ul>
+<li><p>leafmodel</p></li>
+<li><p>profile2storage</p></li>
+<li><dl>
+<dt>eddybox -&gt; moved eddycorr, eddyspec, energyclosure,</dt><dd><blockquote>
+<div><p>fluxfill, fluxflag, fluxpart,
+fluxplot, gapfill, itc, meteo4slt,
+nee2gpp, nee2gpp_falge,
+nee2gpp_lasslop, nee2gpp_reichstein,
+planarfit, profile2storage,
+sltclean, spikeflag, ustarflag</p>
+</div></blockquote>
+<p>into eddybox module</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>Arndt Piayda, Sep 2014   - eddysuite
+Matthias Cuntz, Oct 2014</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ufz module -&gt; ufz package</p></li>
+<li><p>clockplot, ellipse_area, savez, savez_compressed</p></li>
+<li><p>grid_mid2edge, tee</p></li>
+</ul>
+</div></blockquote>
+<p>Matthias Cuntz, Nov 2014 - pca, head
+Arndt Piayda, Nov 2014   - gap2lai, leafprojection
+Matthias Cuntz, Dec 2014</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>directory_from_gui, file_from_gui, files_from_gui</p></li>
+<li><p>logtools,</p></li>
+<li><p>sendmail, argsort, tail</p></li>
+<li><p>ftp</p></li>
+<li><p>file</p></li>
+<li><p>encrypt</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Matthias Cuntz, Feb 2015</dt><dd><ul class="simple">
+<li><p>fsread</p></li>
+<li><p>ascii2ascii, ascii2eng, eng2ascii</p></li>
+</ul>
+</dd>
+<dt>Matthias Cuntz, Mar 2015</dt><dd><ul class="simple">
+<li><p>module level1 with get_flag, set_flag, read_data, write_data</p></li>
+<li><p>rename file to files</p></li>
+<li><p>dielectric_water</p></li>
+<li><p>color</p></li>
+<li><p>redone all __init__.py</p></li>
+</ul>
+</dd>
+</dl>
+<p>David Schaefer, Sep 2015 - hollickLyneFilter
+Arndt Piayda, Sep 2015   - confidence intervals to errormeasures
+Andreas Wiedemann, Sep 2015 - samevalue
+Matthias Cuntz, Oct 2015 - str2tex, lat_fmt, lon_fmt
+Matthias Cuntz, Oct 2015 - directories_from_gui
+Stephan Thober, Nov 2015 - kge
+Stephan Thober, Dec 2015 - river_network
+Stephan Thober, Feb 2016</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>function for writing 2d arrays to ascii file</p></li>
+</ul>
+</div></blockquote>
+<p>Juliane Mai, Feb 2016    - pareto_metrics
+Stephan Thober, Mar 2016 - smax, smin
+David Schaefer, Mar 2016 - netcdf4
+Matthias Cuntz, May 2016 - qa
+Matthias Cuntz, May 2016 - distributions
+Matthias Cuntz, Oct 2016 - rm colours and rgb from main directory
+Arndt Piayda, Oct 2016   - fftngo
+Juliane Mai, Oct 2016    - mat2nc
+Juliane Mai, Oct 2016    - dag
+Arndt Piayda, Oct 2016   - pritay
+David Schaefer, Oct 2016 - added geoarray
+Matthias Cuntz, Nov 2016 - ported to Python 3
+Matthias Cuntz, Nov 2016 - pso
+Arndt Piayda, Dec 2016   - rolling
+Stephan Thober, Aug 2017 - added fwrite
+Matthias Cuntz, Nov 2017 - xread
+Juliane Mai, Dec 2017    - pawn_index
+Matthias Cuntz, Dec 2017 - screening
+Matthias Cuntz, Jan 2018 - lowess
+Matthias Cuntz, Jan 2018 - apply_undef
+Matthias Cuntz, Mar 2018</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ascii2en, en2ascii, ascii2fr, fr2ascii, ascii2us, us2ascii</p></li>
+</ul>
+</div></blockquote>
+<p>Matthias Cuntz, Jul 2018 - plot
+Matthias Cuntz, Nov 2018 - intersection, jConfigParser
+Matthias Cuntz, Jan 2019</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>dfgui, delta_isogsm2, get_era5, get_era_interim, get_isogsm2</p></li>
+</ul>
+</div></blockquote>
+<p>Matthias Cuntz, Feb 2019 - xlsread, xlsxread
+Matthias Cuntz, Apr 2019 - nc2nc
+Matthias Cuntz, Jul 2019 - argmax, argmin
+Juliane Mai, Feb 2020    - pet_oudin
+Juliane Mai, Feb 2020    - climate_index_knoben
+Matthias Cuntz, Dec 2020 - mcPlot
+Matthias Cuntz, Oct 2021 - started deprecation
+Matthias Cuntz, Jun 2023</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>moved jams to pyjams</p></li>
+<li><p>cleaning deprecated and unsupported routines</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="contents.html">pyjams</a></h1>
+
+
+
+<p class="blurb">A general Python package with a wide variety of miscellaneous utility functions.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_manipulation.html">Array Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ascii_files.html">ASCII Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_processing.html">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="date_time.html">Date and Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grids_polygons.html">Grids and Polygons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotopes.html">Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meteorology.html">Meteorology</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="miscellaneous.html">Miscellaneous</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="const.html">Constant module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fgui.html">directory/file dialog</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">JAMS module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tee.html">tee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="special_files.html">Special Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/mcuntz/pyjams">pyjams @ GitHub</a></li>
+    
+    <li class="toctree-l1"><a href="https://doi.org/10.5281/zenodo.5574388">pyjams @ Zenodo</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pyjams">pyjams @ PyPI</a></li>
+    
+    <li class="toctree-l1"><a href="https://anaconda.org/conda-forge/pyjams">pyjams @ conda-forge</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="contents.html">Documentation overview</a><ul>
+  <li><a href="api.html">API Reference</a><ul>
+  <li><a href="miscellaneous.html">Miscellaneous</a><ul>
+      <li>Previous: <a href="fgui.html" title="previous chapter">directory/file dialog</a></li>
+      <li>Next: <a href="romanliterals.html" title="next chapter">Roman literals</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/jams.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
