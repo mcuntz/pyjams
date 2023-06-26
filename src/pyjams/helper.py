@@ -36,10 +36,15 @@ History
     * Assure array is not 0d-array, Jun 2022, Matthias Cuntz
     * Correct treating of undef if two arrays given, Jan 2023, Matthias Cuntz
     * Add filebase, Mar 2023, Matthias Cuntz
+    * pandas.Series and pandas.DataFrame in input2array,
+      Jun 2023, Matthias Cuntz
+    * Reset undef in pandas.Series and pandas.DataFrame array2input,
+      Jun 2023, Matthias Cuntz
 
 """
 from collections.abc import Iterable
 import numpy as np
+import pandas as pd
 
 
 __all__ = ['isundef', 'filebase', 'array2input', 'input2array']
@@ -70,15 +75,15 @@ def isundef(arr, undef):
     [False True]
 
     """
-    if undef is None:
+    if undef is None:      # None
         return False
-    elif not undef:
+    elif not undef:        # ''
         return arr == undef
-    elif np.isnan(undef):
+    elif np.isnan(undef):  # NaN
         return np.isnan(arr)
-    elif np.isinf(undef):
+    elif np.isinf(undef):  # Inf
         return np.isinf(arr)
-    else:
+    else:                  # anything else
         return arr == undef
 
 
@@ -155,6 +160,9 @@ def array2input(outin, inp, inp2=None, undef=None):
     --------
     >>> inp = [253.15, -9999.]
     >>> inarray = input2array(inp, undef=-9999., default=273.15)
+    >>> print(inarray)
+    [253.15 273.15]
+
     >>> print(array2input(inarray, inp, undef=-9999.))
     [253.15 -9999.]
 
@@ -173,12 +181,18 @@ def array2input(outin, inp, inp2=None, undef=None):
             elif isinstance(inp, str):
                 outout = np.where(isundef(np.array([inp]), undef),
                                   undef, outin)
+            elif isinstance(inp, (pd.DataFrame, pd.Series)):
+                outout = np.where(isundef(inp, undef) | np.isnan(inp),
+                                  undef, outin)
             else:
                 outout = np.where(isundef(np.array(inp), undef), undef, outin)
             return array2input(outout, inp2, undef=undef)
         else:
             if isinstance(inp2, str):
                 outout = np.where(isundef(np.array([inp2]), undef),
+                                  undef, outin)
+            elif isinstance(inp2, (pd.DataFrame, pd.Series)):
+                outout = np.where(isundef(inp2, undef) | np.isnan(inp2),
                                   undef, outin)
             else:
                 outout = np.where(isundef(np.array(inp2), undef), undef, outin)
@@ -216,6 +230,25 @@ def array2input(outin, inp, inp2=None, undef=None):
                     outout = outin
                 else:
                     outout = outin[0]
+        elif isinstance(inp, (pd.DataFrame, pd.Series)):
+            if np.array(outin).shape == inp.shape:
+                if np.any(isundef(inp, undef)):
+                    outout = np.where(isundef(inp, undef), undef, outin)
+                else:
+                    if isinstance(outin, np.ndarray):
+                        outout = outin
+                    else:
+                        outout = np.array(outin)
+                if np.any(np.isnan(inp)):
+                    outout = np.where(np.isnan(inp), np.nan, outout)
+                outout = type(inp)(outout)
+                outout.index = inp.index
+            else:
+                if isinstance(outin, np.ndarray):
+                    outout = outin
+                else:
+                    outout = np.array(outin)
+                outout = type(inp)(outout)
         else:
             if np.array(outin).shape == np.array(inp).shape:
                 if np.any(isundef(np.array(inp), undef)):
@@ -291,6 +324,9 @@ def input2array(inp, undef=None, default=1):
         elif isinstance(inp, str):
             out = np.array([inp])
             out = np.where(isundef(out, undef), default, out)
+        elif isinstance(inp, (pd.DataFrame, pd.Series)):
+            out = inp.to_numpy()
+            out = np.where(isundef(out, undef) | np.isnan(out), default, out)
         else:
             out = np.array(inp)
             out = np.where(isundef(out, undef), default, out)
