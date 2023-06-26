@@ -48,6 +48,8 @@ History
     * Renamed module from esat to to air_humidity, Jan 2023, Matthias Cuntz
     * Added eair2rhair, eair2vpd, rhair2vpd, eair2shair, eair2mrair,
       Jan 2023, Matthias Cuntz
+    * Bug if multi-dimensional array: wrong array index taken for > or < T0,
+      Jun 2023, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -244,20 +246,20 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
     # Split input into masked arrays
     Tlim = 1e-3 if liquid else T0
     if mT.size > 1:
-        ii = np.ma.where(mT >= Tlim)[0]
-        jj = np.ma.where(mT < Tlim)[0]
-        if ii.size > 0:
+        ii = np.ma.where(mT >= Tlim)
+        jj = np.ma.where(mT < Tlim)
+        if ii[0].size > 0:
             T_liq  = mT[ii]
-        if jj.size > 0:
+        if jj[0].size > 0:
             T_ice  = mT[jj]
     else:
         if mT >= Tlim:
-            ii = np.array([0])
-            jj = np.array([])
+            ii = (np.array([0]),)
+            jj = (np.array([], dtype=int),)
             T_liq = mT
         else:
-            ii = np.array([])
-            jj = np.array([0])
+            ii = (np.array([], dtype=int),)
+            jj = (np.array([0]),)
             T_ice = mT
     out = mT.copy()  # to conserve mask
 
@@ -266,7 +268,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
     #
 
     # Liquid
-    if ii.size > 0:
+    if ii[0].size > 0:
         TC_liq = T_liq - T0
         if form == 'buck':
             esat_liq = 6.1121 * np.ma.exp(
@@ -373,7 +375,7 @@ def esat(T, formula='GoffGratch', undef=-9999., liquid=False):
             out = esat_liq
 
     # Ice
-    if jj.size > 0:
+    if jj[0].size > 0:
         TC_ice = T_ice - T0
         if form == 'buck':
             esat_ice = 6.1115 * np.exp((23.036 - TC_ice / 333.7)
