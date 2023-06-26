@@ -2,6 +2,11 @@
 '''
 Download ERA5 or ERA5-Land data from Copernicus Climate Data Store.
 
+It uses the CDS API. You have to have an account on ECMWF's Climate Data Store
+(CDS) or Atmospheric Data Store (ADS). Follow the instructions in the section
+'Download ERA5 family data through the CDS API' on:
+https://confluence.ecmwf.int/display/CKB/How+to+download+ERA5
+
 If override=False (default), the script checks if the data is already available
 in the local download directory (path).
 It expects files with the same naming convention than its own, i.e.
@@ -89,7 +94,6 @@ Script was originally adapted from CDS Web API
 Further help comes from
     https://confluence.ecmwf.int/display/CKB/C3S+ERA5%3A+Web+API+to+CDS+API
 '''
-from __future__ import division, absolute_import, print_function
 import os
 import glob
 import datetime as dt
@@ -546,7 +550,7 @@ def get_era5(vars=['10m_u_component_of_wind', '10m_v_component_of_wind',
 # Script
 #
 
-def main(iargs):
+if __name__ == "__main__":
 
     import argparse
 
@@ -600,7 +604,7 @@ def main(iargs):
     parser.add_argument('-y', '--years', action='store', default=years,
                         dest='years', metavar='years', help=hstr)
 
-    args             = parser.parse_args(iargs)
+    args             = parser.parse_args()
     area             = args.area
     oformat          = args.oformat
     override         = args.override
