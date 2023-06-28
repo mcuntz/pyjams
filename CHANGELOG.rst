@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+v1.33 (??? 2023)
+    * Bug in `esat` if multi-dimensional array: wrong array index were taken
+      for > or < T0 (273.15 K).
+    * Add tests with pandas.Series and pandas.DataFrame to existing functions.
+    * Support pandas.Series and pandas.DataFrame in helper function
+      `input2array` so that most functions support pandas now.
+
 v1.32 (Jun 2023)
     * Merged old library JAMS (https://github.com/mcuntz/jams_python) as a
       subdirectory. Remove deprecated routines that are in the main part now.

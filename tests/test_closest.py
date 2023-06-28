@@ -22,12 +22,12 @@ class TestClosest(unittest.TestCase):
         nn = 51
 
         # 1D
-        arr = np.arange(nn)/float(nn-1) * 5.
+        arr = np.arange(nn) / float(nn - 1) * 5.
         self.assertEqual(closest(arr, 3.125), 31)
         self.assertEqual(closest(arr, 3.125, value=True), 3.1)
 
         # 2D
-        arr = np.arange(nn).reshape((17, 3))/float(nn-1) * 5.
+        arr = np.arange(nn).reshape((17, 3)) / float(nn - 1) * 5.
         self.assertEqual(closest(arr, 3.125), 31)
         ii = np.unravel_index(closest(arr, 3.125), arr.shape)
         self.assertEqual(ii, (10, 1))

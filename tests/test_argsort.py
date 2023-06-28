@@ -116,7 +116,7 @@ class TestArgsort(unittest.TestCase):
         self.assertEqual(b, [0, 1, 2, 3, 4, 5, 5, 6])
         self.assertRaises(KeyError, argsort, a, key=a)
 
-        a = [0,4,6,2,1,5,3,5]
+        a = [0, 4, 6, 2, 1, 5, 3, 5]
         ii = argsort(a, reverse=True)
         b = [ a[i] for i in ii ]
         self.assertEqual(b, [6, 5, 5, 4, 3, 2, 1, 0])
