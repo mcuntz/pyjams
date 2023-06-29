@@ -61,8 +61,8 @@ This means, for example `cost_f1x(p, x, y)` is the same as
 
 There are the following functions in four forms. They have the name in the
 first column. The second form has a `_p` appended to the name. The cost
-functions have `cost_` or `cost2_` prepended to the name, for example :func:`gauss`,
-:func:`gauss_p`, :func:`cost_gauss`, :func:`cost2_gauss`:
+functions have `cost_` or `cost2_` prepended to the name, for example
+:func:`gauss`, :func:`gauss_p`, :func:`cost_gauss`, :func:`cost2_gauss`:
 
 .. list-table::
    :widths: 15 50
@@ -201,7 +201,6 @@ History
     * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
 from .logistic_function import logistic_p, logistic_offset_p
 from .logistic_function import logistic2_offset_p
@@ -265,7 +264,7 @@ def cost_abs(p, func, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-func(x, p)))
+    return np.sum(np.abs(y - func(x, p)))
 
 
 def cost_square(p, func, x, y):
@@ -289,7 +288,7 @@ def cost_square(p, func, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-func(x, p))**2)
+    return np.sum((y - func(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -329,7 +328,7 @@ def arrhenius_p(T, p):
     float
         function value(s)
     """
-    return np.exp((T-(T25-T0))*p[0]/(T25*R*(T+T0)))
+    return np.exp((T - (T25 - T0)) * p[0] / (T25 * R * (T + T0)))
 
 
 def cost_arrhenius(p, T, rate):
@@ -350,7 +349,7 @@ def cost_arrhenius(p, T, rate):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(rate-arrhenius_p(T, p)))
+    return np.sum(np.abs(rate - arrhenius_p(T, p)))
 
 
 def cost2_arrhenius(p, T, rate):
@@ -371,7 +370,7 @@ def cost2_arrhenius(p, T, rate):
     float
         sum of squared deviations
     """
-    return np.sum((rate-arrhenius_p(T, p))**2)
+    return np.sum((rate - arrhenius_p(T, p))**2)
 
 
 # -----------------------------------------------------------
@@ -394,7 +393,7 @@ def f1x(x, a, b):
     float
         function value(s)
     """
-    return a+b/x
+    return a + b / x
 
 
 def f1x_p(x, p):
@@ -415,7 +414,7 @@ def f1x_p(x, p):
     float
         function value(s)
     """
-    return p[0]+p[1]/x
+    return p[0] + p[1] / x
 
 
 def cost_f1x(p, x, y):
@@ -438,7 +437,7 @@ def cost_f1x(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-f1x_p(x, p)))
+    return np.sum(np.abs(y - f1x_p(x, p)))
 
 
 def cost2_f1x(p, x, y):
@@ -461,7 +460,7 @@ def cost2_f1x(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-f1x_p(x, p))**2)
+    return np.sum((y - f1x_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -486,7 +485,7 @@ def fexp(x, a, b, c):
     float
         function value(s)
     """
-    return a+b*np.exp(c*x)
+    return a + b * np.exp(c * x)
 
 
 def fexp_p(x, p):
@@ -508,7 +507,7 @@ def fexp_p(x, p):
     float
         function value(s)
     """
-    return p[0]+p[1]*np.exp(p[2]*x)
+    return p[0] + p[1] * np.exp(p[2] * x)
 
 
 def cost_fexp(p, x, y):
@@ -533,7 +532,7 @@ def cost_fexp(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-fexp_p(x, p)))
+    return np.sum(np.abs(y - fexp_p(x, p)))
 
 
 def cost2_fexp(p, x, y):
@@ -558,7 +557,7 @@ def cost2_fexp(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-fexp_p(x, p))**2)
+    return np.sum((y - fexp_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -582,7 +581,7 @@ def gauss(x, mu, sig):
     float
         function value(s)
     """
-    return np.exp(-(x-mu)**2/(2.*sig**2))/(sig*np.sqrt(2.*np.pi))
+    return np.exp(-(x - mu)**2 / (2. * sig**2)) / (sig * np.sqrt(2. * np.pi))
 
 
 def gauss_p(x, p):
@@ -604,7 +603,8 @@ def gauss_p(x, p):
     float
         function value(s)
     """
-    return np.exp(-(x-p[0])**2/(2.*p[1]**2))/(p[1]*np.sqrt(2.*np.pi))
+    return (np.exp(-(x - p[0])**2 / (2. * p[1]**2)) /
+            (p[1] * np.sqrt(2. * np.pi)))
 
 
 def cost_gauss(p, x, y):
@@ -628,7 +628,7 @@ def cost_gauss(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-gauss_p(x, p)))
+    return np.sum(np.abs(y - gauss_p(x, p)))
 
 
 def cost2_gauss(p, x, y):
@@ -652,7 +652,7 @@ def cost2_gauss(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-gauss_p(x, p))**2)
+    return np.sum((y - gauss_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -691,12 +691,12 @@ def lasslop(Rg, et, VPD, alpha, beta0, k, Rref):
         net ecosystem exchange [umol(CO2) m-2 s-1]
     """
     # Lloyd & Taylor (1994)
-    gamma = Rref*et
+    gamma = Rref * et
     # Koerner (1995)
     VPD0  = 1000.  # 10 hPa
-    kk    = np.clip(-k*(VPD-VPD0), -600., 600.)
-    beta  = np.where(VPD > VPD0, beta0*np.exp(kk), beta0)
-    return -alpha*beta*Rg/(alpha*Rg+beta) + gamma
+    kk    = np.clip(-k * (VPD - VPD0), -600., 600.)
+    beta  = np.where(VPD > VPD0, beta0 * np.exp(kk), beta0)
+    return -alpha * beta * Rg / (alpha * Rg + beta) + gamma
 
 
 def lasslop_p(Rg, et, VPD, p):
@@ -731,12 +731,12 @@ def lasslop_p(Rg, et, VPD, p):
         net ecosystem exchange [umol(CO2) m-2 s-1]
     """
     # Lloyd & Taylor (1994)
-    gamma = p[3]*et
+    gamma = p[3] * et
     # Koerner (1995)
     VPD0  = 1000.  # 10 hPa
-    kk    = np.clip(-p[2]*(VPD-VPD0), -600., 600.)
-    beta  = np.where(VPD > VPD0, p[1]*np.exp(kk), p[1])
-    return -p[0]*beta*Rg/(p[0]*Rg+beta) + gamma
+    kk    = np.clip(-p[2] * (VPD - VPD0), -600., 600.)
+    beta  = np.where(VPD > VPD0, p[1] * np.exp(kk), p[1])
+    return -p[0] * beta * Rg / (p[0] * Rg + beta) + gamma
 
 
 def cost_lasslop(p, Rg, et, VPD, NEE):
@@ -767,7 +767,7 @@ def cost_lasslop(p, Rg, et, VPD, NEE):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(NEE-lasslop(Rg, et, VPD, p[0], p[1], p[2], p[3])))
+    return np.sum(np.abs(NEE - lasslop(Rg, et, VPD, p[0], p[1], p[2], p[3])))
 
 
 def cost2_lasslop(p, Rg, et, VPD, NEE):
@@ -798,7 +798,7 @@ def cost2_lasslop(p, Rg, et, VPD, NEE):
     float
         sum of squared deviations
     """
-    return np.sum((NEE-lasslop(Rg, et, VPD, p[0], p[1], p[2], p[3]))**2)
+    return np.sum((NEE - lasslop(Rg, et, VPD, p[0], p[1], p[2], p[3]))**2)
 
 
 # -----------------------------------------------------------
@@ -821,7 +821,7 @@ def line(x, a, b):
     float
         function value(s)
     """
-    return a+b*x
+    return a + b * x
 
 
 def line_p(x, p):
@@ -842,7 +842,7 @@ def line_p(x, p):
     float
         function value(s)
     """
-    return p[0]+p[1]*x
+    return p[0] + p[1] * x
 
 
 def cost_line(p, x, y):
@@ -865,7 +865,7 @@ def cost_line(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-line_p(x, p)))
+    return np.sum(np.abs(y - line_p(x, p)))
 
 
 def cost2_line(p, x, y):
@@ -888,7 +888,7 @@ def cost2_line(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-line_p(x, p))**2)
+    return np.sum((y - line_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -909,7 +909,7 @@ def line0(x, a):
     float
         function value(s)
     """
-    return a*x
+    return a * x
 
 
 def line0_p(x, p):
@@ -928,7 +928,7 @@ def line0_p(x, p):
     float
         function value(s)
     """
-    return p*x
+    return p * x
 
 
 def cost_line0(p, x, y):
@@ -950,7 +950,7 @@ def cost_line0(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-line0_p(x, p)))
+    return np.sum(np.abs(y - line0_p(x, p)))
 
 
 def cost2_line0(p, x, y):
@@ -972,7 +972,7 @@ def cost2_line0(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-line0_p(x, p))**2)
+    return np.sum((y - line0_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -999,7 +999,7 @@ def lloyd_fix(T, Rref, E0):
     """
     Tref = 283.15  # 10 [degC]
     T0   = 227.13  # -46.02 [degC]
-    return Rref*np.exp(E0*(1./(Tref-T0)-1./(T-T0)))
+    return Rref * np.exp(E0 * (1. / (Tref - T0) - 1. / (T - T0)))
 
 
 def lloyd_fix_p(T, p):
@@ -1024,7 +1024,7 @@ def lloyd_fix_p(T, p):
     """
     Tref = 283.15  # 10 [degC]
     T0   = 227.13  # -46.02 [degC]
-    return p[0]*np.exp(p[1]*(1./(Tref-T0)-1./(T-T0)))
+    return p[0] * np.exp(p[1] * (1. / (Tref - T0) - 1. / (T - T0)))
 
 
 def cost_lloyd_fix(p, T, resp):
@@ -1047,7 +1047,7 @@ def cost_lloyd_fix(p, T, resp):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(resp-lloyd_fix_p(T, p)))
+    return np.sum(np.abs(resp - lloyd_fix_p(T, p)))
 
 
 def cost2_lloyd_fix(p, T, resp):
@@ -1070,7 +1070,7 @@ def cost2_lloyd_fix(p, T, resp):
     float
         sum of squared deviations
     """
-    return np.sum((resp-lloyd_fix_p(T, p))**2)
+    return np.sum((resp - lloyd_fix_p(T, p))**2)
 
 
 # -----------------------------------------------------------
@@ -1095,7 +1095,7 @@ def lloyd_only_rref(et, Rref):
     float
         Respiration [umol(C) m-2 s-1]
     """
-    return Rref*et
+    return Rref * et
 
 
 def lloyd_only_rref_p(et, p):
@@ -1118,7 +1118,7 @@ def lloyd_only_rref_p(et, p):
     float
         Respiration [umol(C) m-2 s-1]
     """
-    return p[0]*et
+    return p[0] * et
 
 
 def cost_lloyd_only_rref(p, et, resp):
@@ -1139,7 +1139,7 @@ def cost_lloyd_only_rref(p, et, resp):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(resp-lloyd_only_rref_p(et, p)))
+    return np.sum(np.abs(resp - lloyd_only_rref_p(et, p)))
 
 
 def cost2_lloyd_only_rref(p, et, resp):
@@ -1160,7 +1160,7 @@ def cost2_lloyd_only_rref(p, et, resp):
     float
         sum of squared deviations
     """
-    return np.sum((resp-lloyd_only_rref_p(et, p))**2)
+    return np.sum((resp - lloyd_only_rref_p(et, p))**2)
 
 
 # -----------------------------------------------------------
@@ -1184,7 +1184,7 @@ def sabx(x, a, b):
     float
         function value(s)
     """
-    return np.sqrt(a+b/x)
+    return np.sqrt(a + b / x)
 
 
 def sabx_p(x, p):
@@ -1205,7 +1205,7 @@ def sabx_p(x, p):
     float
         function value(s)
     """
-    return np.sqrt(p[0]+p[1]/x)
+    return np.sqrt(p[0] + p[1] / x)
 
 
 def cost_sabx(p, x, y):
@@ -1229,7 +1229,7 @@ def cost_sabx(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-sabx_p(x, p)))
+    return np.sum(np.abs(y - sabx_p(x, p)))
 
 
 def cost2_sabx(p, x, y):
@@ -1253,7 +1253,7 @@ def cost2_sabx(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-sabx_p(x, p))**2)
+    return np.sum((y - sabx_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -1315,7 +1315,7 @@ def cost_poly(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-poly_p(x, p)))
+    return np.sum(np.abs(y - poly_p(x, p)))
 
 
 def cost2_poly(p, x, y):
@@ -1337,7 +1337,7 @@ def cost2_poly(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-poly_p(x, p))**2)
+    return np.sum((y - poly_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -1364,7 +1364,7 @@ def cost_logistic(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-logistic_p(x, p)))
+    return np.sum(np.abs(y - logistic_p(x, p)))
 
 
 def cost2_logistic(p, x, y):
@@ -1389,7 +1389,7 @@ def cost2_logistic(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-logistic_p(x, p))**2)
+    return np.sum((y - logistic_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -1417,7 +1417,7 @@ def cost_logistic_offset(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-logistic_offset_p(x, p)))
+    return np.sum(np.abs(y - logistic_offset_p(x, p)))
 
 
 def cost2_logistic_offset(p, x, y):
@@ -1443,7 +1443,7 @@ def cost2_logistic_offset(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-logistic_offset_p(x, p))**2)
+    return np.sum((y - logistic_offset_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -1475,7 +1475,7 @@ def cost_logistic2_offset(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-logistic2_offset_p(x, p)))
+    return np.sum(np.abs(y - logistic2_offset_p(x, p)))
 
 
 def cost2_logistic2_offset(p, x, y):
@@ -1504,7 +1504,7 @@ def cost2_logistic2_offset(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-logistic2_offset_p(x, p))**2)
+    return np.sum((y - logistic2_offset_p(x, p))**2)
 
 
 # -----------------------------------------------------------
@@ -1529,7 +1529,7 @@ def see(x, a, b, c):
     float
         function value(s)
     """
-    return np.where((x-b) < 0., 0., a*(x-b)**c)
+    return np.where((x - b) < 0., 0., a * (x - b)**c)
 
 
 def see_p(x, p):
@@ -1551,7 +1551,7 @@ def see_p(x, p):
     float
         function value(s)
     """
-    return np.where((x-p[1]) < 0., 0., p[0] * (x-p[1])**p[2])
+    return np.where((x - p[1]) < 0., 0., p[0] * (x - p[1])**p[2])
 
 
 def cost_see(p, x, y):
@@ -1576,7 +1576,7 @@ def cost_see(p, x, y):
     float
         sum of absolute deviations
     """
-    return np.sum(np.abs(y-see_p(x, p)))
+    return np.sum(np.abs(y - see_p(x, p)))
 
 
 def cost2_see(p, x, y):
@@ -1601,7 +1601,7 @@ def cost2_see(p, x, y):
     float
         sum of squared deviations
     """
-    return np.sum((y-see_p(x, p))**2)
+    return np.sum((y - see_p(x, p))**2)
 
 
 # -----------------------------------------------------------

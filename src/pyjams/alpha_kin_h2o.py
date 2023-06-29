@@ -23,7 +23,6 @@ History
     * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 
 
 __all__ = ['alpha_kin_h2o']

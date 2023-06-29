@@ -40,7 +40,7 @@
 <span class="sd">Germany, and continued while at Institut National de Recherche pour</span>
 <span class="sd">l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy, France.</span>
 
-<span class="sd">:copyright: Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:copyright: Copyright 2012-2023 Matthias Cuntz, see AUTHORS.rst for details.</span>
 <span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
@@ -56,10 +56,11 @@
 <span class="sd">    * Make numpy docstring format, Apr 2020, Matthias Cuntz</span>
 <span class="sd">    * Ported into pyjams, Oct 2021, Matthias Cuntz</span>
 <span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Support pandas Series and DataFrame, Jun 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">input2array</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;closest&#39;</span><span class="p">]</span>
@@ -110,9 +111,11 @@
 <span class="sd">    3.131</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">-</span><span class="n">num</span><span class="p">))</span>
+    <span class="n">marr</span> <span class="o">=</span> <span class="n">input2array</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">marr</span> <span class="o">-</span> <span class="n">num</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">out</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">marr</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">out</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">out</span></div>
 
@@ -188,8 +191,8 @@
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
     </div>
 

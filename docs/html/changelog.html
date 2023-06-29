@@ -36,6 +36,26 @@
   <section id="changelog">
 <span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
 <dl class="simple">
+<dt>v2.0 (??? 2023)</dt><dd><ul class="simple">
+<li><p>Add tests with pandas.Series and pandas.DataFrame to (almost) all
+existing functions.</p></li>
+<li><p>Remove from future imports from all <code class="docutils literal notranslate"><span class="pre">pyjams</span></code> main modules (not jams)
+and all tests.</p></li>
+<li><p>GUI dialog functions of module <cite>fgui</cite> only imported if Tkinter installed.</p></li>
+<li><p>Support pandas.Series in <cite>argmin</cite>, <cite>argmax</cite>, and <cite>argsort</cite>.</p></li>
+<li><p>Support pandas Series and DataFrame in <cite>closest</cite>.</p></li>
+<li><p>Bug in <cite>esat</cite> if multi-dimensional array: wrong array index.</p></li>
+<li><p>Support pandas.Series and pandas.DataFrame in helper functions
+<cite>input2array</cite> and <cite>array2input</cite>.</p></li>
+<li><p>Add pandas as requirement for <code class="docutils literal notranslate"><span class="pre">pyjams</span></code>.</p></li>
+</ul>
+</dd>
+<dt>v1.32 (Jun 2023)</dt><dd><ul class="simple">
+<li><p>Merged old library JAMS (<a class="reference external" href="https://github.com/mcuntz/jams_python">https://github.com/mcuntz/jams_python</a>) as a
+subdirectory. Remove deprecated routines that are in the main part now.
+Remove unsupported routines.</p></li>
+</ul>
+</dd>
 <dt>v1.31 (Jun 2023)</dt><dd><ul class="simple">
 <li><p>Set filename without suffix as default plot name in <cite>mcPlot</cite>.</p></li>
 <li><p>Exit if initial population failed twice in <cite>sce</cite>.</p></li>
@@ -433,8 +453,8 @@ It also provides a wrapper function <cite>ee</cite> for <cite>screening</cite>.<
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="_sources/changelog.rst.txt"
