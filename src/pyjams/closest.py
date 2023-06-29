@@ -7,7 +7,7 @@ Hydrosystems, Helmholtz Centre for Environmental Research - UFZ, Leipzig,
 Germany, and continued while at Institut National de Recherche pour
 l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-:copyright: Copyright 2012-2022 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2012-2023 Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -23,10 +23,11 @@ History
     * Make numpy docstring format, Apr 2020, Matthias Cuntz
     * Ported into pyjams, Oct 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Support pandas Series and DataFrame, Jun 2023, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
+from .helper import input2array
 
 
 __all__ = ['closest']
@@ -77,9 +78,11 @@ def closest(arr, num, value=False):
     3.131
 
     """
-    out = np.ma.argmin(np.ma.abs(np.ma.array(arr)-num))
+    marr = input2array(arr)
+
+    out = np.argmin(np.abs(marr - num))
     if value:
-        return arr.flat[out]
+        return marr.flat[out]
     else:
         return out
 
