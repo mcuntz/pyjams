@@ -136,8 +136,11 @@ from .division import division, div
 # cftime extension
 from .class_datetime import date2dec, date2num, dec2date, num2date, datetime
 # GUI dialogs to choose files and directories using Tkinter
-from .fgui import directory_from_gui, directories_from_gui
-from .fgui import file_from_gui, files_from_gui
+try:  # Tkinter must be installed
+    from .fgui import directory_from_gui, directories_from_gui
+    from .fgui import file_from_gui, files_from_gui
+except ImportError:
+    pass
 # read numbers and strings from a file into 2D float and string arrays
 from .fsread import fsread, fread, sread
 from .fsread import xread, xlsread, xlsxread
