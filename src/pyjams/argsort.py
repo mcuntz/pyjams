@@ -26,9 +26,11 @@ History
     * Using numpy docstring format, extending examples from numpy docstrings,
       May 2020, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Support pandas.Series, Jun 2023, Matthias Cuntz
 
 """
 import numpy as np
+import pandas as pd
 
 
 __all__ = ['argmax', 'argmin', 'argsort']
@@ -133,6 +135,8 @@ def argmax(a, *args, **kwargs):
         return np.ma.argmax(a, *args, **kwargs)
     elif isinstance(a, np.ndarray):
         return np.argmax(a, *args, **kwargs)
+    elif isinstance(a, pd.Series):
+        return a.argmax(*args, **kwargs)
     else:
         return _argmax(a)
 
@@ -236,6 +240,8 @@ def argmin(a, *args, **kwargs):
         return np.ma.argmin(a, *args, **kwargs)
     elif isinstance(a, np.ndarray):
         return np.argmin(a, *args, **kwargs)
+    elif isinstance(a, pd.Series):
+        return a.argmin(*args, **kwargs)
     else:
         return _argmin(a)
 
@@ -369,6 +375,8 @@ def argsort(a, *args, **kwargs):
         return np.ma.argsort(a, *args, **kwargs)
     elif isinstance(a, np.ndarray):
         return np.argsort(a, *args, **kwargs)
+    elif isinstance(a, pd.Series):
+        return a.argsort(*args, **kwargs)
     else:
         return _argsort(a, *args, **kwargs)
 
