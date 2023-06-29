@@ -1,12 +1,18 @@
 Changelog
 ---------
 
-v1.33 (??? 2023)
-    * Bug in `esat` if multi-dimensional array: wrong array index were taken
-      for > or < T0 (273.15 K).
-    * Add tests with pandas.Series and pandas.DataFrame to existing functions.
-    * Support pandas.Series and pandas.DataFrame in helper function
-      `input2array` so that most functions support pandas now.
+v2.0 (??? 2023)
+    * Add tests with pandas.Series and pandas.DataFrame to (almost) all
+      existing functions.
+    * Remove from future imports from all ``pyjams`` main modules (not jams)
+      and all tests.
+    * GUI dialog functions of module `fgui` only imported if Tkinter installed.
+    * Support pandas.Series in `argmin`, `argmax`, and `argsort`.
+    * Support pandas Series and DataFrame in `closest`.
+    * Bug in `esat` if multi-dimensional array: wrong array index.
+    * Support pandas.Series and pandas.DataFrame in helper functions
+      `input2array` and `array2input`.
+    * Add pandas as requirement for ``pyjams``.
 
 v1.32 (Jun 2023)
     * Merged old library JAMS (https://github.com/mcuntz/jams_python) as a

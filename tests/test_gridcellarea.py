@@ -29,6 +29,7 @@ class TestGridcellarea(unittest.TestCase):
 
     def test_gridcellarea(self):
         import numpy as np
+        import pandas as pd
         from pyjams import gridcellarea
 
         lat = [0., 2.5, 5.0]
@@ -72,8 +73,18 @@ class TestGridcellarea(unittest.TestCase):
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
+        # array, pandas
+        fout  = gridcellarea(np.array(lat), pd.Series(lon))
+        assert isinstance(fout, np.ndarray)
+        self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
+
         # 2 array
         fout  = gridcellarea(np.array(lat), np.array(lon))
+        assert isinstance(fout, np.ndarray)
+        self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
+
+        # 2 pandas
+        fout  = gridcellarea(pd.Series(lat), pd.Series(lon))
         assert isinstance(fout, np.ndarray)
         self.assertEqual(_flatten(np.around(fout, -3)), _flatten(fsoll))
 
