@@ -16,8 +16,8 @@ The following functions are provided:
 .. autosummary::
    isundef
    filebase
-   array2input
    input2array
+   array2input
 
 History
     * Written input2array and array2input, Jan 2022, Matthias Cuntz
@@ -47,7 +47,7 @@ import numpy as np
 import pandas as pd
 
 
-__all__ = ['isundef', 'filebase', 'array2input', 'input2array']
+__all__ = ['isundef', 'filebase', 'input2array', 'array2input']
 
 
 def isundef(arr, undef):
@@ -118,6 +118,63 @@ def filebase(f):
         return f[0:f.rfind(".")]
     else:
         return f
+
+
+def input2array(inp, undef=None, default=1):
+    """
+    Makes numpy array from iterable or scalar input with masked or undef values
+    are set to a default value
+
+    The input variable will be transformed to a numpy array so that numpy
+    functions and similar will work on all input. Undefined and masked values
+    will be set to a default value to avoid math over- and underflow.
+
+    The function is supposed to work with :func:`array2input`, which sets
+    the output to the same type as the input; masked values on input will be
+    masked on output, undefined input values will result in undefined output
+    values.
+
+    Parameters
+    ----------
+    inp : scalar or iterable of numbers
+        Input variable to transform to numpy array
+    undef : float, optional
+        Values in *inp* having value *undef* will be set to *default*
+        (default: None)
+    default : number
+        Values in *inp* having value *undef* will be set to *default*
+        (default: 1)
+
+    Returns
+    -------
+    ndarray
+        Input variable transformed to numpy array with values *undef* set to
+        *default*
+
+    Examples
+    --------
+    >>> print(input2array([253.15, -9999.], undef=-9999., default=273.15))
+    [253.15 273.15]
+
+    """
+    if isinstance(inp, Iterable):
+        if isinstance(inp, np.ma.MaskedArray):
+            out = np.ma.where(isundef(inp, undef), default,
+                              inp).filled(default)
+        elif isinstance(inp, str):
+            out = np.array([inp])
+            out = np.where(isundef(out, undef), default, out)
+        elif isinstance(inp, (pd.DataFrame, pd.Series)):
+            out = inp.to_numpy()
+            out = np.where(isundef(out, undef) | np.isnan(out), default, out)
+        else:
+            out = np.array(inp)
+            out = np.where(isundef(out, undef), default, out)
+    else:
+        # scalar / object
+        out = np.array([default]) if isundef(inp, undef) else np.array([inp])
+
+    return out
 
 
 def array2input(outin, inp, inp2=None, undef=None):
@@ -278,63 +335,6 @@ def array2input(outin, inp, inp2=None, undef=None):
                     outout = outin
 
     return outout
-
-
-def input2array(inp, undef=None, default=1):
-    """
-    Makes numpy array from iterable or scalar input with masked or undef values
-    are set to a default value
-
-    The input variable will be transformed to a numpy array so that numpy
-    functions and similar will work on all input. Undefined and masked values
-    will be set to a default value to avoid math over- and underflow.
-
-    The function is supposed to work with :func:`array2input`, which sets
-    the output to the same type as the input; masked values on input will be
-    masked on output, undefined input values will result in undefined output
-    values.
-
-    Parameters
-    ----------
-    inp : scalar or iterable of numbers
-        Input variable to transform to numpy array
-    undef : float, optional
-        Values in *inp* having value *undef* will be set to *default*
-        (default: None)
-    default : number
-        Values in *inp* having value *undef* will be set to *default*
-        (default: 1)
-
-    Returns
-    -------
-    ndarray
-        Input variable transformed to numpy array with values *undef* set to
-        *default*
-
-    Examples
-    --------
-    >>> print(input2array([253.15, -9999.], undef=-9999., default=273.15))
-    [253.15 273.15]
-
-    """
-    if isinstance(inp, Iterable):
-        if isinstance(inp, np.ma.MaskedArray):
-            out = np.ma.where(isundef(inp, undef), default,
-                              inp).filled(default)
-        elif isinstance(inp, str):
-            out = np.array([inp])
-            out = np.where(isundef(out, undef), default, out)
-        elif isinstance(inp, (pd.DataFrame, pd.Series)):
-            out = inp.to_numpy()
-            out = np.where(isundef(out, undef) | np.isnan(out), default, out)
-        else:
-            out = np.array(inp)
-            out = np.where(isundef(out, undef), default, out)
-    else:
-        # scalar / object
-        out = np.array([default]) if isundef(inp, undef) else np.array([inp])
-
-    return out
 
 
 if __name__ == '__main__':

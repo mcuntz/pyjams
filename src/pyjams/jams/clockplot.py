@@ -44,7 +44,7 @@ def clockplot(sub, si, sti=None, stierr=None,
               dolegend    = False,          # True: add legend to each subplot
               doabc       = False,          # True: add subpanel numbering
               modul         = ['Interception',    'Snow',             'Soil moisture', 'Soil moisture',
-                             'Direct\n runoff', 'Evapo-\n transp.', 'Interflow',     'Percolation',
+                             r'Direct\n runoff', r'Evapo-\n transp.', 'Interflow',     'Percolation',
                              'Routing',         'Geology'],      # module names
               modhalign    = None,          # Horizontal alignment of module names
               modvalign    = None,          # Vertical alignment of module names
@@ -66,201 +66,174 @@ def clockplot(sub, si, sti=None, stierr=None,
               swidth      = 1.0,                                 # star edge width
               ssym        = '*',                                 # star symbol
               sig         = 'J Mai & M Cuntz'):                  # signature
-    """
-        The clock plot with modules and up to three index stacks.
+    r"""
+    The clock plot with modules and up to three index stacks.
 
-        The plot currently defaults to mHM but it can be customized for any model output.
-
-
-        Definition
-        ----------
-        def clockplot(sub, si, sti=None, stierr=None,
-                      usetex=False,
-                      dxabc       = 2,
-                      dyabc       = 0.5,
-                      dxsig       = 1.23,
-                      dysig       = -0.05,
-                      elwidth     = 1.0,
-                      alwidth     = 1.0,
-                      glwidth     = 0.5,
-                      acol        = 'black',
-                      mcol        = '0.4',
-                      ecol        = 'black',
-                      mcols       = ['0.0', '0.4', '0.4', '0.7', '0.7', '1.0'],
-                      lcols       = ['None', 'None', 'None', 'None', 'None', '0.0'],
-                      hatches     = [None, None, None, None, None, '//'],
-                      llxbbox     =  0.0,
-                      llybbox     = 1.15,
-                      ymax = 0.8,
-                      ntextsize   = 'medium',
-                      bmod        = 0.5,
-                      alphamod    = 0.7,
-                      fwm         = 0.05,
-                      ylabel1     = 1.15,
-                      ylabel2     = 1.35,
-                      mtextsize   = 'large',
-                      bpar        = 0.4,
-                      fwb         = [0.7,0.4,0.3],
-                      plwidth     = 0.5,
-                      bplabel     = 0.1,
-                      ptextsize   = 'medium',
-                      space4yaxis = 2,
-                      ytextsize   = 'medium',
-                      dobw      = False,
-                      docomp    = True,
-                      dosig     = False,
-                      dolegend  = False,
-                      doabc     = False,
-                      modul   = ['Interception',    'Snow',             'Soil moisture', 'Soil moisture',
-                               'Direct\n runoff', 'Evapo-\n transp.', 'Interflow',     'Percolation',
-                               'Routing',         'Geology'],
-                      modhalign    = None,
-                      modvalign    = None,
-                      comp  = ['P',               'P',                'S',             'ET',
-                               'Q',               'ET',               'S',             'S',
-                               'Q',               'S'],
-                      pmod  = [ 1,                 8,                  9,               8,
-                                1,                 3,                  5,               3,
-                                5,                 9],
-                      cmod  = 'mhm',
-                      cmap  = [['reds8',   1], ['reds8',   2], ['reds8',   3], ['reds8',   4],
-                               ['blues8',  3], ['blues8',  4], ['blues8',  5], ['blues8',  6], 
-                               ['reds8',   5], ['reds8',   6]],
-                      saname = ['Sobol', 'weighted Sobol', 'RMSE'],
-                      indexname = ['$S_i$', '$S_{Ti}-S_i$'],
-                      star = None,
-                      dystar = 0.95,
-                      scol = '1.0',
-                      sfcol = 'None',
-                      ssize = 3.0,
-                      swidth = 1.0,
-                      ssym = '*',
-                      sig = 'J Mai & M Cuntz'):
+    The plot currently defaults to mHM but it can be customized for any model output.
 
 
-        Input
-        -----
-        sub                          axes handle from for example
-                                     sub = fig.add_axes(jams.position(nrow,ncol,iplot), polar=True)
-        si                           list, list of arrays, 1D-, or 2D-array si[nstacks, nparameters] of, e.g.,
-                                     first-order Sobol' indexes or other indexes
+    Definition
+    ----------
+    def clockplot(sub, si, sti=None, stierr=None,
+                  usetex=False,
+                  dxabc       = 2,
+                  dyabc       = 0.5,
+                  dxsig       = 1.23,
+                  dysig       = -0.05,
+                  elwidth     = 1.0,
+                  alwidth     = 1.0,
+                  glwidth     = 0.5,
+                  acol        = 'black',
+                  mcol        = '0.4',
+                  ecol        = 'black',
+                  mcols       = ['0.0', '0.4', '0.4', '0.7', '0.7', '1.0'],
+                  lcols       = ['None', 'None', 'None', 'None', 'None', '0.0'],
+                  hatches     = [None, None, None, None, None, '//'],
+                  llxbbox     =  0.0,
+                  llybbox     = 1.15,
+                  ymax = 0.8,
+                  ntextsize   = 'medium',
+                  bmod        = 0.5,
+                  alphamod    = 0.7,
+                  fwm         = 0.05,
+                  ylabel1     = 1.15,
+                  ylabel2     = 1.35,
+                  mtextsize   = 'large',
+                  bpar        = 0.4,
+                  fwb         = [0.7,0.4,0.3],
+                  plwidth     = 0.5,
+                  bplabel     = 0.1,
+                  ptextsize   = 'medium',
+                  space4yaxis = 2,
+                  ytextsize   = 'medium',
+                  dobw      = False,
+                  docomp    = True,
+                  dosig     = False,
+                  dolegend  = False,
+                  doabc     = False,
+                  modul   = ['Interception',    'Snow',             'Soil moisture', 'Soil moisture',
+                           'Direct\n runoff', 'Evapo-\n transp.', 'Interflow',     'Percolation',
+                           'Routing',         'Geology'],
+                  modhalign    = None,
+                  modvalign    = None,
+                  comp  = ['P',               'P',                'S',             'ET',
+                           'Q',               'ET',               'S',             'S',
+                           'Q',               'S'],
+                  pmod  = [ 1,                 8,                  9,               8,
+                            1,                 3,                  5,               3,
+                            5,                 9],
+                  cmod  = 'mhm',
+                  cmap  = [['reds8',   1], ['reds8',   2], ['reds8',   3], ['reds8',   4],
+                           ['blues8',  3], ['blues8',  4], ['blues8',  5], ['blues8',  6], 
+                           ['reds8',   5], ['reds8',   6]],
+                  saname = ['Sobol', 'weighted Sobol', 'RMSE'],
+                  indexname = ['$S_i$', '$S_{Ti}-S_i$'],
+                  star = None,
+                  dystar = 0.95,
+                  scol = '1.0',
+                  sfcol = 'None',
+                  ssize = 3.0,
+                  swidth = 1.0,
+                  ssym = '*',
+                  sig = 'J Mai & M Cuntz'):
 
 
-        Optional Input
-        --------------
-        sti = None                   list, list of arrays, 1D-, or 2D-array sti[nstacks, nparameters] of, e.g.,
-                                     total-order Sobol' indexes or upper stack values
-        stierr = None                list, list of arrays, 1D-, or 2D-array si[nstacks, nparameters] of
-                                     error bars of upper stack indexes
-        usetex = False               True: use LaTeX rendering
-        dxabc = 2                    % of (max-min) shift to the right from left y-axis for a,b,c,... labels
-        dyabc = 0.5                  % of (max-min) shift up from lower x-axis for a,b,c,... labels
-        dxsig = 1.23                 % of (max-min) shift to the right from left y-axis for signature
-        dysig = -0.05                % of (max-min) shift up from lower x-axis for signature
-        elwidth = 1.0                errorbar line width
-        alwidth = 1.0                axis line width
-        glwidth = 0.5                grid line width
-        acol = 'black'               axis colour
-        mcol = '0.4'                 grid colour
-        ecol = 'black',              error bar colour
-        mcols = ['0.0', '0.4', '0.4', '0.7', '0.7', '1.0']        stack colors
-        lcols = ['None', 'None', 'None', 'None', 'None', '0.0']   stack border colours
-        hatches = [None, None, None, None, None, '//']            stack hatching
-        llxbbox =  0.0               x-anchor legend bounding box
-        llybbox = 1.15,              y-anchor legend bounding box
-        ymax = 0.8                   y-axis maximum
-        ntextsize = 'medium'         normal textsize
-        bmod = 0.5                   fraction of ymax to start module colours
-        alphamod = 0.7               alpha channel for modules
-        fwm = 0.05                   module width to remove at sides for space between modules
-        ylabel1 = 1.15               fractional position of module names
-        ylabel2 = 1.35               fractional position of class names
-        mtextsize = 'large'          textsize of module labels
-        bpar = 0.4                   fraction of ymax to start parameter bars
-        fwb = [0.7,0.4,0.3]          fractional width of bars depending on number of index stacks
-        plwidth = 0.5                stack border line width
-        bplabel = 0.1                fractional distance of ymax of param numbers in centre from 0-line
-        ptextsize = 'medium'         textsize of param numbers in centre
-        space4yaxis = 2              space for y-axis top tickmark label (integer)
-        ytextsize = 'medium'         textsize of y-axis tickmark labels
-        dobw = False                 True: black & white; False: colour
-        docomp = True                True: Print classification on top of modules
-        dosig = False                True: add signature (sig) to plot
-        dolegend = False             True: add legend to each subplot
-        doabc = False                True: add subpanel numbering
-        modul  = ['Interception',    'Snow',             'Soil moisture', 'Soil moisture',
-                'Direct\n runoff', 'Evapo-\n transp.', 'Interflow',     'Percolation',
-                'Routing',         'Geology'],                                           module names
-        modhalign = None,             list of horizontal alignments of module names
-        modvalign = None,             list of vertical alignments of module names
-        comp = ['P',               'P',                'S',             'ET',
-                'Q',               'ET',               'S',             'S',
-                'Q',               'S'],                                                 class names
-        pmod = [ 1,                 8,                  9,               8,
-                 1,                 3,                  5,               3,
-                 5,                 9],                                                  number of parameters per class
-        cmod = 'mhm',                                                                    color scheme chose ('mhm' or 'noah')
-        cmap = [['reds8',   1], ['reds8',   2], ['reds8',   3], ['reds8',   4],
-                 ['blues8',  3], ['blues8',  4], ['blues8',  5], ['blues8',  6], 
-                 ['reds8',   5], ['reds8',   6]],                                        colors for each class
-        saname = ['Sobol', 'weighted Sobol', 'RMSE'],                                    stack names
-        indexname = ['$S_i$', '$S_{Ti}-S_i$'],                                           index legend name
-        star = None,                                                                     star symbols
-        dystar = 0.95,                                                                   % of ymax for stars
-        scol = '1.0',                                                                    star colour
-        sfcol = 'None',                                                                  star face colour
-        ssize = 3.0,                                                                     star size
-        swidth = 1.0,                                                                    star edge width
-        ssym = '*',                                                                      star symbol
-        sig = 'J Mai & M Cuntz'                                                          signature
+    Input
+    -----
+    sub                          axes handle from for example
+                                 sub = fig.add_axes(jams.position(nrow,ncol,iplot), polar=True)
+    si                           list, list of arrays, 1D-, or 2D-array si[nstacks, nparameters] of, e.g.,
+                                 first-order Sobol' indexes or other indexes
 
 
-        Output
-        ------
-        clockplot on axes sub
+    Optional Input
+    --------------
+    sti = None                   list, list of arrays, 1D-, or 2D-array sti[nstacks, nparameters] of, e.g.,
+                                 total-order Sobol' indexes or upper stack values
+    stierr = None                list, list of arrays, 1D-, or 2D-array si[nstacks, nparameters] of
+                                 error bars of upper stack indexes
+    usetex = False               True: use LaTeX rendering
+    dxabc = 2                    % of (max-min) shift to the right from left y-axis for a,b,c,... labels
+    dyabc = 0.5                  % of (max-min) shift up from lower x-axis for a,b,c,... labels
+    dxsig = 1.23                 % of (max-min) shift to the right from left y-axis for signature
+    dysig = -0.05                % of (max-min) shift up from lower x-axis for signature
+    elwidth = 1.0                errorbar line width
+    alwidth = 1.0                axis line width
+    glwidth = 0.5                grid line width
+    acol = 'black'               axis colour
+    mcol = '0.4'                 grid colour
+    ecol = 'black',              error bar colour
+    mcols = ['0.0', '0.4', '0.4', '0.7', '0.7', '1.0']        stack colors
+    lcols = ['None', 'None', 'None', 'None', 'None', '0.0']   stack border colours
+    hatches = [None, None, None, None, None, '//']            stack hatching
+    llxbbox =  0.0               x-anchor legend bounding box
+    llybbox = 1.15,              y-anchor legend bounding box
+    ymax = 0.8                   y-axis maximum
+    ntextsize = 'medium'         normal textsize
+    bmod = 0.5                   fraction of ymax to start module colours
+    alphamod = 0.7               alpha channel for modules
+    fwm = 0.05                   module width to remove at sides for space between modules
+    ylabel1 = 1.15               fractional position of module names
+    ylabel2 = 1.35               fractional position of class names
+    mtextsize = 'large'          textsize of module labels
+    bpar = 0.4                   fraction of ymax to start parameter bars
+    fwb = [0.7,0.4,0.3]          fractional width of bars depending on number of index stacks
+    plwidth = 0.5                stack border line width
+    bplabel = 0.1                fractional distance of ymax of param numbers in centre from 0-line
+    ptextsize = 'medium'         textsize of param numbers in centre
+    space4yaxis = 2              space for y-axis top tickmark label (integer)
+    ytextsize = 'medium'         textsize of y-axis tickmark labels
+    dobw = False                 True: black & white; False: colour
+    docomp = True                True: Print classification on top of modules
+    dosig = False                True: add signature (sig) to plot
+    dolegend = False             True: add legend to each subplot
+    doabc = False                True: add subpanel numbering
+    modul  = ['Interception',    'Snow',             'Soil moisture', 'Soil moisture',
+            'Direct\n runoff', 'Evapo-\n transp.', 'Interflow',     'Percolation',
+            'Routing',         'Geology'],                                           module names
+    modhalign = None,             list of horizontal alignments of module names
+    modvalign = None,             list of vertical alignments of module names
+    comp = ['P',               'P',                'S',             'ET',
+            'Q',               'ET',               'S',             'S',
+            'Q',               'S'],                                                 class names
+    pmod = [ 1,                 8,                  9,               8,
+             1,                 3,                  5,               3,
+             5,                 9],                                                  number of parameters per class
+    cmod = 'mhm',                                                                    color scheme chose ('mhm' or 'noah')
+    cmap = [['reds8',   1], ['reds8',   2], ['reds8',   3], ['reds8',   4],
+             ['blues8',  3], ['blues8',  4], ['blues8',  5], ['blues8',  6], 
+             ['reds8',   5], ['reds8',   6]],                                        colors for each class
+    saname = ['Sobol', 'weighted Sobol', 'RMSE'],                                    stack names
+    indexname = ['$S_i$', '$S_{Ti}-S_i$'],                                           index legend name
+    star = None,                                                                     star symbols
+    dystar = 0.95,                                                                   % of ymax for stars
+    scol = '1.0',                                                                    star colour
+    sfcol = 'None',                                                                  star face colour
+    ssize = 3.0,                                                                     star size
+    swidth = 1.0,                                                                    star edge width
+    ssym = '*',                                                                      star symbol
+    sig = 'J Mai & M Cuntz'                                                          signature
 
 
-        Restrictions
-        ------------
-        None
+    Output
+    ------
+    clockplot on axes sub
 
 
-        Examples
-        --------
-        see below if __name__ == '__main__':
+    Restrictions
+    ------------
+    None
 
 
-        License
-        -------
-        This file is part of the JAMS Python package, distributed under the MIT
-        License. The JAMS Python package originates from the former UFZ Python library,
-        Department of Computational Hydrosystems, Helmholtz Centre for Environmental
-        Research - UFZ, Leipzig, Germany.
-
-        Copyright (c) 2014 Matthias Cuntz, Juliane Mai - mc (at) macu (dot) de
-
-        Permission is hereby granted, free of charge, to any person obtaining a copy
-        of this software and associated documentation files (the "Software"), to deal
-        in the Software without restriction, including without limitation the rights
-        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        copies of the Software, and to permit persons to whom the Software is
-        furnished to do so, subject to the following conditions:
-
-        The above copyright notice and this permission notice shall be included in all
-        copies or substantial portions of the Software.
-
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        SOFTWARE.
+    Examples
+    --------
+    see below if __name__ == '__main__':
 
 
-        History
-        -------
-        Written,  MC, JM, AP, Oct 2014
+    History
+    -------
+    Written,  MC, JM, AP, Oct 2014
+
     """
     # Check si[nstacks, nparams]
     if sti is not None:
@@ -271,13 +244,13 @@ def clockplot(sub, si, sti=None, stierr=None,
     if np.size(si_shape) == 1:
         nsi = 1
         isi  = np.array(si)
-        isi  = isi[np.newaxis,:]
+        isi  = isi[np.newaxis, :]
         if sti is not None:
             isti = np.array(sti)
-            isti = isti[np.newaxis,:]
+            isti = isti[np.newaxis, :]
         if stierr is not None:
             istierr = np.array(stierr)
-            istierr = istierr[np.newaxis,:]
+            istierr = istierr[np.newaxis, :]
     elif np.size(si_shape) == 2:
         nsi = si_shape[0]
         if nsi > 3:
@@ -291,7 +264,7 @@ def clockplot(sub, si, sti=None, stierr=None,
         raise ValueError('input data must be 1D or 2D.')
     npar = isi.shape[1]
     if sti is not None:
-        idsi = isti-isi
+        idsi = isti - isi
 
     # alignement of module names
     if modhalign is not None:
@@ -299,17 +272,17 @@ def clockplot(sub, si, sti=None, stierr=None,
             assert len(modul) == len(modhalign), 'modhalign must be scalar or same size as modul.'
             imodhalign = modhalign
         else:
-            imodhalign = [modhalign]*len(modul)
+            imodhalign = [modhalign] * len(modul)
     else:
-        imodhalign = ['center']*len(modul)
+        imodhalign = ['center'] * len(modul)
     if modvalign is not None:
         if isinstance(modvalign, (list, tuple, np.ndarray)):
             assert len(modul) == len(modvalign), 'modvalign must be scalar or same size as modul.'
             imodvalign = modvalign
         else:
-            imodvalign = [modvalign]*len(modul)
+            imodvalign = [modvalign] * len(modul)
     else:
-        imodvalign = ['center']*len(modul)
+        imodvalign = ['center'] * len(modul)
 
     # Prepare annotations
     if type(saname) is list:
@@ -323,33 +296,33 @@ def clockplot(sub, si, sti=None, stierr=None,
     if usetex:
         imod = []
         for ii, i in enumerate(ismod):
-            if '\n' in i:
-                ss = i.split('\n')
+            if r'\n' in i:
+                ss = i.split(r'\n')
             else:
                 ss = [i]
-            ss = [ r''+j.strip() for j in ss ]
+            ss = [ r'' + j.strip() for j in ss ]
             for j, s in enumerate(ss):
-                ss[j] = r'$\mathrm{'+s+r'}$'
+                ss[j] = r'$\mathrm{' + s + r'}$'
                 if '-' in ss[j]:
                     ss[j] = ss[j].replace('-}$', '}$-')
                 if ' ' in ss[j]:
-                    ss[j] = ss[j].replace(' ', '\ ')
+                    ss[j] = ss[j].replace(' ', r'\ ')
                 if "'" in isaname[j]:
-                    ss[j] = ss[j].replace("'", "}\\textrm{'}\mathrm{")
+                    ss[j] = ss[j].replace("'", r"}\\textrm{'}\mathrm{")
             imod.append(ss)
         ismod = imod
-        comp = [ r'$\mathbf{'+i+r'}$' for i in comp ]
+        comp = [ r'$\mathbf{' + i + r'}$' for i in comp ]
         for j in range(len(comp)):
             if "'" in comp[j]:
-                comp[j] = comp[j].replace("'", "}\\textrm{'}\mathbf{")
+                comp[j] = comp[j].replace("'", r"}\\textrm{'}\mathbf{")
         for j, s in enumerate(isaname):
-            isaname[j] = r'$\mathrm{'+s+r'}$'
+            isaname[j] = r'$\mathrm{' + s + r'}$'
             if '-' in isaname[j]:
                 isaname[j] = isaname[j].replace('-}$', '}$-')
             if ' ' in isaname[j]:
-                isaname[j] = isaname[j].replace(' ', '\ ')
+                isaname[j] = isaname[j].replace(' ', r'\ ')
             if "'" in isaname[j]:
-                isaname[j] = isaname[j].replace("'", "}\\textrm{'}\mathrm{")
+                isaname[j] = isaname[j].replace("'", r"}\\textrm{'}\mathrm{")
     else:
         imod = []
         for i in ismod:
@@ -357,13 +330,13 @@ def clockplot(sub, si, sti=None, stierr=None,
                 ss = i.split('\n')
             else:
                 ss = [i]
-            ss = [ r''+j.strip() for j in ss ]
+            ss = [ r'' + j.strip() for j in ss ]
             imod.append(ss)
         ismod = imod
 
     # numbers
     nmod   = len(ismod)  # number modules
-    nparam = sum(pmod) # number of parameters
+    nparam = sum(pmod)   # number of parameters
     param  = np.arange(nparam) + 1
     assert nparam == npar, 'si.shape[1] must be sum(pmod).'
     if star is not None:
@@ -372,39 +345,39 @@ def clockplot(sub, si, sti=None, stierr=None,
     # colours
     if dobw:
         c = np.linspace(0.2, 0.85, nmod)
-        c = np.ones(nmod)*0.7
+        c = np.ones(nmod) * 0.7
         c = [ str(i) for i in c ]
     else:
         from pyjams.jams.brewer import get_brewer
         if (cmod == 'mhm'):
-            c = [get_brewer('rdylbu11',rgb=True)[0],  # interception
-                 get_brewer('rdylbu11',rgb=True)[1],  # snow
-                 get_brewer('rdylbu11',rgb=True)[2],  # soil moisture
-                 get_brewer('rdylbu11',rgb=True)[2],  # soil moisture
-                 get_brewer('rdylbu11',rgb=True)[3],  # direct runoff
-                 get_brewer('rdylbu11',rgb=True)[4],  # Evapotranspiration
-                 get_brewer('rdylbu11',rgb=True)[6],  # interflow
-                 get_brewer('rdylbu11',rgb=True)[7],  # percolation
-                 get_brewer('rdylbu11',rgb=True)[8],  # routing
-                 get_brewer('rdylbu11',rgb=True)[9]]  # geology
+            c = [get_brewer('rdylbu11', rgb=True)[0],  # interception
+                 get_brewer('rdylbu11', rgb=True)[1],  # snow
+                 get_brewer('rdylbu11', rgb=True)[2],  # soil moisture
+                 get_brewer('rdylbu11', rgb=True)[2],  # soil moisture
+                 get_brewer('rdylbu11', rgb=True)[3],  # direct runoff
+                 get_brewer('rdylbu11', rgb=True)[4],  # Evapotranspiration
+                 get_brewer('rdylbu11', rgb=True)[6],  # interflow
+                 get_brewer('rdylbu11', rgb=True)[7],  # percolation
+                 get_brewer('rdylbu11', rgb=True)[8],  # routing
+                 get_brewer('rdylbu11', rgb=True)[9]]  # geology
         elif (cmod == 'noah'):
-            c = [get_brewer('reds8',  rgb=True)[3], #  Radiation
-                 get_brewer('ylorbr4',rgb=True)[2], #  SoilPhysiology
-                 get_brewer('ylorrd8',rgb=True)[2], #  Transfer
-                 get_brewer('greens4',rgb=True)[2], #  VegetationStructure
-                 get_brewer('bugn4',  rgb=True)[2], #  Physiology
+            c = [get_brewer('reds8', rgb=True)[3], #  Radiation
+                 get_brewer('ylorbr4', rgb=True)[2], #  SoilPhysiology
+                 get_brewer('ylorrd8', rgb=True)[2], #  Transfer
+                 get_brewer('greens4', rgb=True)[2], #  VegetationStructure
+                 get_brewer('bugn4', rgb=True)[2], #  Physiology
                  get_brewer('blues4', rgb=True)[2], #  SoilWater
                  get_brewer('blues6', rgb=True)[5], #  Runoff
                  get_brewer('greys8', rgb=True)[2], #  SnowEnergy
                  get_brewer('greys8', rgb=True)[4], #  SoilEnergy
                  get_brewer('greys8', rgb=True)[5], #  Carbon
-                 get_brewer('rdpu5',  rgb=True)[2], #  VOC
-                 get_brewer('reds8',  rgb=True)[5], #  Input*
-                 get_brewer('reds8',  rgb=True)[3], #  Radiation*
-                 get_brewer('ylorbr4',rgb=True)[2], #  SoilPhysiology*
-                 get_brewer('ylorrd8',rgb=True)[2], #  Transfer*
-                 get_brewer('greens4',rgb=True)[2], #  VegetationStructure*
-                 get_brewer('bugn4',  rgb=True)[2], #  Physiology*
+                 get_brewer('rdpu5', rgb=True)[2], #  VOC
+                 get_brewer('reds8', rgb=True)[5], #  Input*
+                 get_brewer('reds8', rgb=True)[3], #  Radiation*
+                 get_brewer('ylorbr4', rgb=True)[2], #  SoilPhysiology*
+                 get_brewer('ylorrd8', rgb=True)[2], #  Transfer*
+                 get_brewer('greens4', rgb=True)[2], #  VegetationStructure*
+                 get_brewer('bugn4', rgb=True)[2], #  Physiology*
                  get_brewer('blues4', rgb=True)[2], #  SoilWater*
                  get_brewer('blues6', rgb=True)[5], #  Runoff*
                  get_brewer('blues4', rgb=True)[3], #  SnowWater*
@@ -420,7 +393,7 @@ def clockplot(sub, si, sti=None, stierr=None,
         c = cmap
 
     # conversion factor from parameter number to radian
-    n2rad = 2.*np.pi/(nparam+space4yaxis)
+    n2rad = 2. * np.pi / (nparam + space4yaxis)
 
     # -------------------------------------------------------------------------
     # Plot
@@ -431,42 +404,43 @@ def clockplot(sub, si, sti=None, stierr=None,
     sub.set_theta_zero_location('N') # 0 is North
     sub.set_theta_direction(-1)      # clockwise
 
-    xlim = [0, 2.*np.pi]
-    ylim = [-bpar*ymax, ymax]
+    xlim = [0, 2. * np.pi]
+    ylim = [-bpar * ymax, ymax]
 
     # coloured modules
-    mleft   = (space4yaxis+np.cumsum([0]+pmod[:-1])+fwm)*n2rad # left start at space4yaxis
-    mheight = np.ones(nmod)*ymax*(1.-bmod)                     # height from bmod*ymax to ymax
-    mwidth  = (np.array(pmod)-2.*fwm)*n2rad                    # width is number of params per module
+    mleft   = (space4yaxis + np.cumsum([0] + pmod[:-1]) + fwm) * n2rad  # left start at space4yaxis
+    mheight = np.ones(nmod) * ymax * (1.-bmod)                     # height from bmod*ymax to ymax
+    mwidth  = (np.array(pmod) - 2. * fwm) * n2rad                    # width is number of params per module
     iidx = np.where(np.array(pmod) > 0)
     bar1    = sub.bar(mleft[iidx], mheight[iidx], mwidth[iidx], bottom=bmod*ymax,
                       color=np.array(c)[iidx], alpha=alphamod,
                       linewidth=0)
 
     # module and class labels
-    xm = mleft+0.5*mwidth
+    xm = mleft + 0.5 * mwidth
     for i in range(nmod):
         if (pmod[i] > 0):
             # module
             nm = len(ismod[i])
             for j, m in enumerate(ismod[i]):
-                mlabel12 = (ylabel2-ylabel1)*1./float(nm)
-                if (xm[i] < 0.5*np.pi) | (xm[i] > 1.5*np.pi):
-                    ylab = ylabel2 - (j+1)*mlabel12
+                mlabel12 = (ylabel2 - ylabel1) * 1. / float(nm)
+                if (xm[i] < 0.5 * np.pi) | (xm[i] > 1.5 * np.pi):
+                    ylab = ylabel2 - (j + 1) * mlabel12
                     rot  = np.rad2deg(-xm[i])
                 else:
-                    ylab = ylabel2 - (nm-j)*mlabel12
-                    rot  = np.rad2deg(-xm[i])+180.
-                label = sub.text(xm[i], ylab*ymax, m, rotation=rot,
+                    ylab = ylabel2 - (nm - j) * mlabel12
+                    rot  = np.rad2deg(-xm[i]) + 180.
+                label = sub.text(xm[i], ylab * ymax, m, rotation=rot,
                                  fontsize=ntextsize,
                                  horizontalalignment=imodhalign[i],
                                  verticalalignment=imodvalign[i])
             # class
             if docomp:
-                label = sub.text(xm[i], ylabel2*ymax, comp[i],
+                label = sub.text(xm[i], ylabel2 * ymax, comp[i],
                                  fontsize=mtextsize, fontweight='bold',
-                                 horizontalalignment='center', verticalalignment='center')
-                if (xm[i] < 0.5*np.pi) | (xm[i] > 1.5*np.pi):
+                                 horizontalalignment='center',
+                                 verticalalignment='center')
+                if (xm[i] < 0.5 * np.pi) | (xm[i] > 1.5 * np.pi):
                     label.set_rotation(np.rad2deg(-xm[i]))
                 else:
                     label.set_rotation(np.rad2deg(-xm[i])+180.)
@@ -474,16 +448,18 @@ def clockplot(sub, si, sti=None, stierr=None,
     # y-axis
     # grid
     nyticks = 5
-    dyy     = np.linspace(0,ymax,nyticks)
-    gy      = np.delete(dyy[1:-1], nyticks//2-1)
+    dyy     = np.linspace(0, ymax, nyticks)
+    gy      = np.delete(dyy[1:-1], nyticks // 2 - 1)
     npoints = 100
-    gxx     = np.linspace(0,2.*np.pi,npoints)
+    gxx     = np.linspace(0, 2. * np.pi, npoints)
     for i in range(gy.size):
-        grid = sub.plot(gxx, np.ones(npoints)*gy[i], linestyle='--', color=mcol, linewidth=glwidth)
+        grid = sub.plot(gxx, np.ones(npoints) * gy[i], linestyle='--',
+                        color=mcol, linewidth=glwidth)
     # in "axis normal coordinates" for rectangular ticks, etc.
-    dyy    = np.array([0,ymax])
-    yy     = ((1.+2.*bpar)*ymax+dyy)/((2.+2.*bpar)*ymax)
-    yaxis  = sub.plot([0.5,0.5], yy, transform=sub.transAxes, linestyle='-', linewidth=alwidth, color=acol)
+    dyy    = np.array([0, ymax])
+    yy     = ((1. + 2. * bpar) * ymax + dyy) / ((2. + 2. * bpar) * ymax)
+    yaxis  = sub.plot([0.5, 0.5], yy, transform=sub.transAxes,
+                      linestyle='-', linewidth=alwidth, color=acol)
     nyticks = 5
     xx      = np.ones(nyticks)*0.5
     dyy     = np.linspace(0,ymax,nyticks)

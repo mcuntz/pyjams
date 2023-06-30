@@ -38,9 +38,11 @@ History
     * Return all False instead of all True if all masked before MAD started,
       Jan 2022, Matthias Cuntz
     * prepend, append as in numpy.diff, May 2023, Matthias Cuntz
+    * Support pandas Series and DataFrame, Jul 2023, Matthias Cuntz
 
 """
 import numpy as np
+from .helper import input2array, array2input
 
 
 __all__ = ['mad']
@@ -237,7 +239,10 @@ def mad(datin, z=7, deriv=0, nozero=False, prepend=None, append=None):
       True  True]
 
     """
-    idatin = datin.copy()
+    if isinstance(datin, np.ma.MaskedArray):
+        idatin = datin.copy()
+    else:
+        idatin = input2array(datin)
 
     assert (deriv >= 0) and (deriv <= 2), (f'deriv > 2 unimplemented: {deriv}')
     if deriv == 1:
@@ -259,16 +264,16 @@ def mad(datin, z=7, deriv=0, nozero=False, prepend=None, append=None):
                 if iappend.ndim == idatin.ndim:
                     assert np.all(shpdat[1:] == shpappend[1:]), (
                         f'Shape of append {iappend.shape} must match shape'
-                        f' of datin {datin.shape} except first dimension.')
+                        f' of datin {idatin.shape} except first dimension.')
                 elif iappend.ndim == (idatin.ndim - 1):
                     assert np.all(shpdat[1:] == shpappend), (
                         f'Shape of append {iappend.shape} must match shape'
-                        f' of datin {datin.shape} without first dimension.')
+                        f' of datin {idatin.shape} without first dimension.')
                     iappend = iappend[np.newaxis, ...]
                 else:
                     raise ValueError(
                         f'Shape of append {iappend.shape} must match shape'
-                        f' of datin {datin.shape} except or without first'
+                        f' of datin {idatin.shape} except or without first'
                         f' dimension.')
             else:
                 shpdat = list(idatin.shape)
@@ -312,7 +317,9 @@ def mad(datin, z=7, deriv=0, nozero=False, prepend=None, append=None):
         if ismasked:
             return d.mask
         else:
-            return np.zeros(d.shape, dtype=bool)
+            res = np.zeros(d.shape, dtype=bool)
+            res = array2input(res, datin)
+            return res
 
     # Use bottleneck if available
     try:     # pragma: no cover
@@ -347,7 +354,7 @@ def mad(datin, z=7, deriv=0, nozero=False, prepend=None, append=None):
             res[:, i] = (d[:, i] < (md - thresh)) | (d[:, i] > (md + thresh))
     else:
         np.seterr(**oldsettings)
-        raise ValueError('datin.ndim must be <= 2')
+        raise ValueError('idatin.ndim must be <= 2')
 
     np.seterr(**oldsettings)
     if ismasked:
@@ -355,9 +362,9 @@ def mad(datin, z=7, deriv=0, nozero=False, prepend=None, append=None):
     else:
         # got masked because of NaNs
         if isinstance(res, np.ma.MaskedArray):
-            return np.where(res.mask, False, res)
-        else:
-            return res
+            res = np.where(res.mask, False, res)
+        res = array2input(res, datin)
+        return res
 
 
 if __name__ == '__main__':

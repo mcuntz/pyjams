@@ -8,7 +8,7 @@ v2.0 (??? 2023)
       and all tests.
     * GUI dialog functions of module `fgui` only imported if Tkinter installed.
     * Support pandas.Series in `argmin`, `argmax`, and `argsort`.
-    * Support pandas Series and DataFrame in `closest`.
+    * Support pandas Series and DataFrame in `closest` and `mad`.
     * Bug in `esat` if multi-dimensional array: wrong array index.
     * Support pandas.Series and pandas.DataFrame in helper functions
       `input2array` and `array2input`.

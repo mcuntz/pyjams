@@ -35,11 +35,13 @@ class TestMad(unittest.TestCase):
 
     def test_mad(self):
         import numpy as np
+        import pandas as pd
         from pyjams import mad
 
         y = np.array([-0.25, 0.68, 0.94, 1.15, 2.26, 2.35, 2.37, 2.40, 2.47,
                       2.54, 2.62, 2.64, 2.90, 2.92, 2.92, 2.93, 3.21, 3.26,
                       3.30, 3.59, 3.68, 4.30, 4.64, 5.34, 5.42, 8.01])
+        df = pd.Series(y)
 
         # raw data
         ist = mad(y)
@@ -67,6 +69,12 @@ class TestMad(unittest.TestCase):
         assert _same(ist, soll)
 
         ist = mad(y, z=3)
+        soll = [True, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, True, True]
+        assert _same(ist, soll)
+
+        ist = mad(df, z=3)
         soll = [True, False, False, False, False, False, False, False, False,
                 False, False, False, False, False, False, False, False, False,
                 False, False, False, False, False, False, True, True]
@@ -117,19 +125,25 @@ class TestMad(unittest.TestCase):
                 False, False, False, False, False, False, True, True]
         assert _same(ist, soll)
 
+        ist = mad(df, z=4, deriv=2, prepend=y[0], append=y[-1])
+        soll = [False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, False, False, False,
+                False, False, False, False, False, False, True, True]
+        assert _same(ist, soll)
+
         # direct use
         ist = np.ma.array(y, mask=mad(y, z=4))
         soll = [-0.25, 0.68, 0.94, 1.15, 2.26, 2.35, 2.37, 2.4, 2.47, 2.54,
                 2.62, 2.64, 2.9, 2.92, 2.92, 2.93, 3.21, 3.26, 3.3, 3.59, 3.68,
                 4.3, 4.64, 5.34, 5.42, masked]
-        self.assertEqual(list(np.ma.around(ist, 2)), soll)
+        self.assertEqual(list(np.round(ist, 2)), soll)
 
         ist = np.ma.array(y, mask=mad(y, z=4, deriv=2,
                                       prepend=y[0], append=y[-1]))
         soll = [-0.25, 0.68, 0.94, 1.15, 2.26, 2.35, 2.37, 2.4, 2.47,
                 2.54, 2.62, 2.64, 2.9, 2.92, 2.92, 2.93, 3.21, 3.26, 3.3, 3.59,
                 3.68, 4.3, 4.64, 5.34, masked, masked]
-        self.assertEqual(list(np.ma.around(ist, 2)), soll)
+        self.assertEqual(list(np.round(ist, 2)), soll)
 
         # several dimensions
         yy = np.transpose(np.array([y, y]))
@@ -141,6 +155,18 @@ class TestMad(unittest.TestCase):
                  False, False, False, False, False, False, False, False, False,
                  False, False, False, False, False, False, False, True]]
         ist = list(np.array(ist).flatten())
+        soll = list(np.array(soll).flatten())
+        assert _same(ist, soll)
+
+        df2 = pd.DataFrame(np.array([y, y]).T)
+        ist = mad(df2, z=4)
+        soll = [[False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, True],
+                [False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, False, False,
+                 False, False, False, False, False, False, False, True]]
+        ist = list(ist.to_numpy().T.flatten())
         soll = list(np.array(soll).flatten())
         assert _same(ist, soll)
 

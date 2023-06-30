@@ -82,7 +82,7 @@ def cal_fdir(locs, fdir, factor):
 
 def upscale_fdir(sn, factor, print_info=False, return_maxlocs=False,
                  do_co=False, redo_fa=True, missing_value=-9999.):
-    """
+    r"""
     Upscales a river network by a factor (integer > 1), that has to be a
     divisible of the resolution of the flow direction. Direction is given by
     the cell with the largest flow accumulation. If multiple of these exist,
@@ -160,34 +160,6 @@ def upscale_fdir(sn, factor, print_info=False, return_maxlocs=False,
     [[1.0 2.0 4.0]
      [64.0 16.0 4.0]
      [64.0 64.0 1.0]]
-
-
-    License
-    -------
-    This file is part of the JAMS Python package, distributed under the MIT
-    License. The JAMS Python package originates from the former UFZ Python
-    library, Department of Computational Hydrosystems, Helmholtz Centre for
-    Environmental Research - UFZ, Leipzig, Germany.
-
-    Copyright (c) 2016-2021 Stephan Thober
-
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the "Software"),
-    to deal in the Software without restriction, including without limitation
-    the rights to use, copy, modify, merge, publish, distribute, sublicense,
-    and/or sell copies of the Software, and to permit persons to whom the
-    Software is furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-    DEALINGS IN THE SOFTWARE.
 
 
     History
@@ -275,7 +247,7 @@ class river_network(object):
     def __init__(self, dem=None, fdir=None, co=None, do_co=False,
                  fa=None, do_fa=False, print_info=False, missing_value=-9999.,
                  sinks=None):
-        """
+        r"""
         Initializes a river_network object describing the flow path of a river
         through the landscape.
 
@@ -364,35 +336,6 @@ class river_network(object):
          [1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0]]
 
 
-        License
-        -------
-        This file is part of the JAMS Python package, distributed under the MIT
-        License. The JAMS Python package originates from the former UFZ Python
-        library, Department of Computational Hydrosystems, Helmholtz Centre for
-        Environmental Research - UFZ, Leipzig, Germany.
-
-        Copyright (c) 2016-2021 Stephan Thober
-
-        Permission is hereby granted, free of charge, to any person obtaining a
-        copy of this software and associated documentation files (the
-        "Software"), to deal in the Software without restriction, including
-        without limitation the rights to use, copy, modify, merge, publish,
-        distribute, sublicense, and/or sell copies of the Software, and to
-        permit persons to whom the Software is furnished to do so, subject to
-        the following conditions:
-
-        The above copyright notice and this permission notice shall be included
-        in all copies or substantial portions of the Software.
-
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-        OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-        IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-        CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-        TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
         History
         -------
         Written,  Stephan Thober, Dec 2015
@@ -469,7 +412,7 @@ class river_network(object):
                     missing_value=missing_value, print_info=print_info)
 
     def flow_direction(self, print_info=False):
-        """
+        r"""
         Calculates flow direction from a DEM.
 
         Definition
@@ -547,7 +490,7 @@ class river_network(object):
     def network_properties(self, fd, yy, xx, print_info=False, do_co=True,
                            co=None, do_fa=True, fa=None,
                            missing_value=-9999.):
-        """
+        r"""
         Calculates channel order number and flow accumulation starting from one
         sink in a flow direction map
 
