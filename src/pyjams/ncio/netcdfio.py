@@ -41,6 +41,10 @@ History
     * Delete unnecessary HDF5 filters in variable definition for compatibility
       with netcdf4 > 1.6.0, Jun 2022, Matthias Cuntz
     * Make get_variable_definition public, Apr 2023, Matthias Cuntz
+    * get_variable_definition returns _FillValue and only then missing_value,
+      Jul 2023, Matthias Cuntz
+    * create_variables sets missing_value attribute if present even if used for
+      _FillValue, Jul 2023, Matthias Cuntz
 
 """
 import numpy as np
@@ -124,10 +128,10 @@ def get_variable_definition(ncvar):
             if not isinstance(ncvar.chunking(), str):
                 chunks = list(ncvar.chunking())
     # missing value
-    if "missing_value" in dir(ncvar):
-        ifill = ncvar.missing_value
-    elif "_FillValue" in dir(ncvar):
+    if "_FillValue" in dir(ncvar):
         ifill = ncvar._FillValue
+    elif "missing_value" in dir(ncvar):
+        ifill = ncvar.missing_value
     else:
         ifill = None
     # output variable
@@ -519,7 +523,7 @@ def create_new_variable(invardef, fo, izip=False, fill=None,
             _ = ncdict.pop('chunksizes')
     if 'fill_value' not in ncdict:
         ncdict.update({'fill_value': None})
-    # set missing value if None
+    # set _FillValue if None
     if ncdict['fill_value'] is None:
         if fill:
             if isinstance(fill, bool):
@@ -652,7 +656,7 @@ def create_variables(fi, fo, time=None, timedim='time', izip=False, fill=None,
                             chunks = chunks[:ip] + rchunk + chunks[ip+1:]
                 invardef['dimensions'] = dims
                 invardef['chunksizes'] = chunks
-                # set missing value if None
+                # set _FillValue if None
                 if invardef['fill_value'] is None:
                     if fill:
                         if isinstance(fill, bool):
@@ -668,7 +672,7 @@ def create_variables(fi, fo, time=None, timedim='time', izip=False, fill=None,
                 ovar = fo.createVariable(oname, otype, **invardef)
                 for k in ivar.ncattrs():
                     iattr = ivar.getncattr(k)
-                    if (k != 'missing_value') and (k != '_FillValue'):
+                    if k != '_FillValue':
                         ovar.setncattr(k, iattr)
     return
 

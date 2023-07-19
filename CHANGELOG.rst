@@ -2,6 +2,10 @@ Changelog
 ---------
 
 v2.0 (??? 2023)
+    * `ncio.create_variables` sets missing_value attribute if present even if
+      used for _FillValue.
+    * `ncio.get_variable_definition` returns _FillValue if present and only
+      missing_value if _FillValue is not present.
     * Add tests with pandas.Series and pandas.DataFrame to (almost) all
       existing functions.
     * Remove from future imports from all ``pyjams`` main modules (not jams)
