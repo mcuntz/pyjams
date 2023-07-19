@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-v2.0 (??? 2023)
+v1.33 (Jul 2023)
     * `ncio.create_variables` sets missing_value attribute if present even if
       used for _FillValue.
     * `ncio.get_variable_definition` returns _FillValue if present and only
