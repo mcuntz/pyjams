@@ -75,6 +75,8 @@ History
     * Sample not only from uniform distribution but allow all distributions of
       scipy.stats, Mar 2020, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Raise Error if more than one component changed at once,
+      Jul 2023, Matthias Cuntz
 
 """
 import numpy as np
@@ -239,7 +241,7 @@ def Sampling_Function_2(p, k, r, lb, ub, GroupMat=np.array([])):
         # diagonal is 1 then AuxMat will start with zero and add Delta. If the
         # element on DD0 diagonal is -1 then DD0 will start Delta and goes to
         # zero.
-        AuxMat = Delta * 0.5 * (np.dot(2.*B - A, DD0) + A)
+        AuxMat = Delta * 0.5 * (np.dot(2. * B - A, DD0) + A)
 
         # a --> Define the random vector x0 for the factors. Note that x0 takes
         # value in the hypercube
@@ -270,17 +272,21 @@ def Sampling_Function_2(p, k, r, lb, ub, GroupMat=np.array([])):
         # lb(j) + x(i,j)*(ub(j)-lb(j))
         In = np.tile(lb, (sizeb, 1)) + B0 * np.tile((ub - lb), (sizeb, 1))
 
-        # Create the Factor vector. Each component of this vector indicate
-        # which factor or group of factor has been changed in each step of the
+        # Create the Factor vector. Each component of this vector indicates
+        # which factor or group of factors has been changed in each step of the
         # trajectory.
         for j in range(sizea):
-            Fact[j] = np.where(P0[j, :])[0]
+            ii = np.where(P0[j, :])[0]
+            if ii.size > 1:
+                raise ValueError('More than one component changed per step')
+            Fact[j] = ii[0]
         # Enkel om vorm logisch te houden. of Fact kleiner maken
         Fact[sizea] = int(-1)
 
         # append the create traject to the others
-        Outmatrix[i*(sizea+1):(i+1)*(sizea+1), :] = In
-        OutFact[i*(sizea+1):(i+1)*(sizea+1)] = Fact.reshape((sizea+1, 1))
+        Outmatrix[i * (sizea + 1):(i + 1) * (sizea + 1), :] = In
+        OutFact[i * (sizea + 1):(i + 1) * (sizea + 1)] = Fact.reshape(
+            (sizea + 1, 1))
 
     return Outmatrix, OutFact
 
@@ -350,7 +356,7 @@ def Optimized_Groups(NumFact, lb, ub, r,
         correspondence of the factors that belong to the fixed group. All the
         other elements are zero.
     Diagnostic
-        1=plot the histograms and compute the efficiency of the samplign or
+        1=plot the histograms and compute the efficiency of the sampling or
         not, 0 otherwise (default)
 
 
@@ -370,16 +376,20 @@ def Optimized_Groups(NumFact, lb, ub, r,
     import scipy.stats as stats
 
     if N is None:
-        N = 10*r
+        N = 10 * r
 
     assert len(lb) == NumFact, 'Lower bound must have length NumFact.'
     assert len(ub) == NumFact, 'Upper bound must have length NumFact.'
     if dist is not None:
-        assert len(lb) == len(dist), 'scipy.stats distribution object or None has to be given for each parameter.'
+        assert len(lb) == len(dist), ('scipy.stats distribution object or'
+                                      ' None has to be given for each'
+                                      ' parameter.')
         for dd in dist:
             if dd is not None:
-                if not isinstance(dd, (stats.rv_discrete, stats.rv_continuous)):
-                    raise TypeError(str(dd)+' is not a scipy.stats distribution object.')
+                if not isinstance(dd,
+                                  (stats.rv_discrete, stats.rv_continuous)):
+                    raise TypeError(f'{dd} is not a scipy.stats distribution'
+                                    f' object.')
 
     # np.random.seed(seed=1025)
     # Sample trajectorie between 0 and 1. Will be rescaled to specific
@@ -391,7 +401,7 @@ def Optimized_Groups(NumFact, lb, ub, r,
 
     try:
         Groupnumber = GroupMat.shape[1]
-    except:
+    except:  # pragma: no cover
         Groupnumber = 0
 
     if Groupnumber != 0:
@@ -408,9 +418,10 @@ def Optimized_Groups(NumFact, lb, ub, r,
     # combine all trajectories: eg N=3: 0&1; 0&2; 1&2 (is not dependent from
     # sequence)
     for j in range(N):
-        for z in range(j+1, N):
-            MyDist = distance.cdist(OutMatrix[sizeb*j:sizeb*(j+1), :],
-                                    OutMatrix[sizeb*z:sizeb*(z+1), :])
+        for z in range(j + 1, N):
+            MyDist = distance.cdist(
+                OutMatrix[sizeb * j:sizeb * (j + 1), :],
+                OutMatrix[sizeb * z:sizeb * (z + 1), :])
             if np.where(MyDist == 0.)[0].size == sizeb:
                 # Same trajectory. If the number of zeros in Dist matrix is
                 # equal to (NumFact+1) then the trajectory is a replica. In
@@ -429,21 +440,21 @@ def Optimized_Groups(NumFact, lb, ub, r,
 
     # prepare array with excluded duplicates (alternative would be deleting
     # rows)
-    iidup = np.where(Diff_Traj == -1.)[0]
-    dupli = iidup.size
+    # iidup = np.where(Diff_Traj == -1.)[0]
+    # dupli = iidup.size
     iiind = np.where(Diff_Traj != -1.)[0]
     New_N = iiind.size  # N - iidup.size
-    New_OutMatrix = np.zeros((sizeb*New_N, NumFact))
-    New_OutFact   = np.zeros((sizeb*New_N, 1))
+    New_OutMatrix = np.zeros((sizeb * New_N, NumFact))
+    New_OutFact   = np.zeros((sizeb * New_N, 1))
 
     # Eliminate replicated trajectories in the sampled matrix
     ID = 0
     for i in range(N):
         if Diff_Traj[i] != -1.:
-            New_OutMatrix[ID*sizeb:(ID+1)*sizeb, :] = (
-                OutMatrix[i*sizeb:(i+1)*sizeb, :])
-            New_OutFact[ID*sizeb:(ID+1)*sizeb, :] = (
-                OutFact[i*sizeb:(i+1)*sizeb, :])
+            New_OutMatrix[ID * sizeb:(ID + 1) * sizeb, :] = (
+                OutMatrix[i * sizeb:(i + 1) * sizeb, :])
+            New_OutFact[ID * sizeb:(ID + 1) * sizeb, :] = (
+                OutFact[i * sizeb:(i + 1) * sizeb, :])
             ID += 1
 
     # Select in the distance matrix only the rows and columns of different
@@ -471,14 +482,16 @@ def Optimized_Groups(NumFact, lb, ub, r,
     Pluto = np.where(SumOptDist == SumOptDist.max())[0]
     Opt_Traj_Vec = Traj_Vec[Pluto[0], :]
 
-    OptMatrix = np.zeros((sizeb*r, NumFact))
-    OptOutVec = np.zeros((sizeb*r, 1))
+    OptMatrix = np.zeros((sizeb * r, NumFact))
+    OptOutVec = np.zeros((sizeb * r, 1))
 
     for k in range(r):
-        OptMatrix[k*sizeb:(k+1)*sizeb, :] = (
-            New_OutMatrix[sizeb*Opt_Traj_Vec[k]:sizeb*(Opt_Traj_Vec[k]+1), :])
-        OptOutVec[k*sizeb:(k+1)*sizeb, :] = (
-            New_OutFact[sizeb*Opt_Traj_Vec[k]:sizeb*(Opt_Traj_Vec[k]+1), :])
+        OptMatrix[k * sizeb:(k + 1) * sizeb, :] = (
+            New_OutMatrix[sizeb * Opt_Traj_Vec[k]:
+                          sizeb * (Opt_Traj_Vec[k] + 1), :])
+        OptOutVec[k * sizeb:(k + 1) * sizeb, :] = (
+            New_OutFact[sizeb * Opt_Traj_Vec[k]:
+                        sizeb * (Opt_Traj_Vec[k] + 1), :])
 
     # ----------------------------------------------------------------------
     # Compute values in the original intervals
@@ -488,11 +501,11 @@ def Optimized_Groups(NumFact, lb, ub, r,
     if Diagnostic:
         OptMatrix_b = OptMatrix.copy()  # save for plot
     if dist is None:
-        OptMatrix = (np.tile(lb, (sizeb*r, 1)) +
-                     np.tile(ub-lb, (sizeb*r, 1)) * OptMatrix)
+        OptMatrix = (np.tile(lb, (sizeb * r, 1)) +
+                     np.tile(ub - lb, (sizeb * r, 1)) * OptMatrix)
     else:
         for i, dd in enumerate(dist):
-            OptMatrix[:, i] = lb[i] + (ub[i]-lb[i]) * OptMatrix[:, i]
+            OptMatrix[:, i] = lb[i] + (ub[i] - lb[i]) * OptMatrix[:, i]
             if dd is not None:
                 if distparam is None:
                     pars = (0., 1.)
@@ -514,9 +527,10 @@ def Optimized_Groups(NumFact, lb, ub, r,
 
                 # search the second value
                 for ii in range(1, sizeb):
-                    if OptMatrix_b[j*sizeb+ii, i] != OptMatrix_b[j*sizeb, i]:
+                    if ( OptMatrix_b[j * sizeb + ii, i] !=
+                         OptMatrix_b[j * sizeb, i] ):
                         kk = 1
-                        hplot[j*2+kk, i] = OptMatrix_b[j*sizeb+ii, i]
+                        hplot[j * 2 + kk, i] = OptMatrix_b[j * sizeb + ii, i]
 
         try:  # pragma: no cover
             import matplotlib as mpl
@@ -540,8 +554,8 @@ def Optimized_Groups(NumFact, lb, ub, r,
 
         # Plot the histogram for the original sampling strategy
         # Select the matrix
-        OrigSample = OutMatrix[:r*(sizeb), :]
-        Orihplot   = np.zeros((2*r, NumFact))
+        OrigSample = OutMatrix[:r * (sizeb), :]
+        Orihplot   = np.zeros((2 * r, NumFact))
 
         for i in range(NumFact):
             for j in range(r):
@@ -668,7 +682,7 @@ def Morris_Measure_Groups(NumFact, Sample, OutFact, Output, p=4,
         NumGroups = Group.shape[1]
         if Diagnostic:
             print('{:d} Groups are used'.format(NumGroups))
-    except:
+    except:  # pragma: no cover
         NumGroups = 0
         if Diagnostic:
             print('No Groups are used')
@@ -690,7 +704,7 @@ def Morris_Measure_Groups(NumFact, Sample, OutFact, Output, p=4,
 
     try:
         NumOutp = Output.shape[1]
-    except:
+    except:  # pragma: no cover
         NumOutp = 1
         Output = Output.reshape((Output.size, 1))
 
@@ -1001,7 +1015,8 @@ def elementary_effects(nparam, OptMatrix, OptOutVec, Output,
     [1. 1. 1. 1. 1. 0. 1. 0. 1. 0.]
 
     """
-    return Morris_Measure_Groups(nparam, OptMatrix, OptOutVec, Output, nsteps, Group, Diagnostic)
+    return Morris_Measure_Groups(nparam, OptMatrix, OptOutVec,
+                                 Output, nsteps, Group, Diagnostic)
 
 
 if __name__ == '__main__':

@@ -35,7 +35,7 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
+        out = np.random.random(nt * (self.nparam + 1))
 
         # Check 1
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
@@ -60,7 +60,7 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = None
-        out = np.random.random(nt*(self.nparam+1))
+        out = np.random.random(nt * (self.nparam + 1))
 
         # Check 1
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
@@ -86,7 +86,7 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
+        out = np.random.random(nt * (self.nparam + 1))
 
         # Check 1
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
@@ -119,8 +119,8 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
-        out[1:nt*self.nparam:self.nparam//2] = np.nan
+        out = np.random.random(nt * (self.nparam + 1))
+        out[1:nt * self.nparam:self.nparam // 2] = np.nan
 
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
                                    nsteps=nsteps, ntotal=ntotal,
@@ -139,7 +139,7 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 1
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
+        out = np.random.random(nt * (self.nparam + 1))
 
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
                                    nsteps=nsteps, ntotal=ntotal,
@@ -159,7 +159,7 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
+        out = np.random.random(nt * (self.nparam + 1))
 
         # Check 1
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
@@ -187,7 +187,7 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
+        out = np.random.random(nt * (self.nparam + 1))
 
         # Check 1
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
@@ -215,8 +215,8 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
-        out[1:nt*self.nparam:self.nparam//2] = np.nan
+        out = np.random.random(nt * (self.nparam + 1))
+        out[1:nt * self.nparam:self.nparam // 2] = np.nan
 
         mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt,
                                    nsteps=nsteps, ntotal=ntotal,
@@ -236,10 +236,10 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
+        out = np.random.random(nt * (self.nparam + 1))
 
         dist      = [ stats.uniform for i in range(self.nparam) ]
-        distparam = [ (self.LB[i], self.UB[i]-self.LB[i])
+        distparam = [ (self.LB[i], self.UB[i] - self.LB[i])
                       for i in range(self.nparam) ]
         LB = np.zeros(self.nparam)
         UB = np.ones(self.nparam)
@@ -269,11 +269,11 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
+        out = np.random.random(nt * (self.nparam + 1))
 
-        dist      = [ stats.uniform if i%2 == 0 else None
+        dist      = [ stats.uniform if i % 2 == 0 else None
                       for i in range(self.nparam) ]
-        distparam = [ (self.LB[i], self.UB[i]-self.LB[i])
+        distparam = [ (self.LB[i], self.UB[i] - self.LB[i])
                       for i in range(self.nparam) ]
         LB = self.LB
         UB = self.UB
@@ -300,8 +300,8 @@ class TestMorrisMethod(unittest.TestCase):
         LB = np.zeros(self.nparam)
         UB = np.ones(self.nparam)
         dist       = [ stats.uniform for i in range(self.nparam) ]
-        distparam1 = [ (LB[i], UB[i]-LB[i]) for i in range(self.nparam) ]
-        distparam2 = [ (LB[i], UB[i]-LB[i]) if i%2 == 0 else None
+        distparam1 = [ (LB[i], UB[i] - LB[i]) for i in range(self.nparam) ]
+        distparam2 = [ (LB[i], UB[i] - LB[i]) if i % 2 == 0 else None
                        for i in range(self.nparam) ]
 
         # Check 3
@@ -315,16 +315,16 @@ class TestMorrisMethod(unittest.TestCase):
                                      ntotal=ntotal, dist=dist,
                                      distparam=distparam2,
                                      Diagnostic=self.Diagnostic)
-        self.assertTrue(np.all((mat1-mat2) == 0.))
-        self.assertTrue(np.all((vec1-vec2) == 0.))
+        self.assertTrue(np.all((mat1 - mat2) == 0.))
+        self.assertTrue(np.all((vec1 - vec2) == 0.))
 
         # Check 3
         np.random.seed(seed=self.seed)
         mat3, vec3 = morris_sampling(self.nparam, LB, UB, nt, nsteps=nsteps,
                                      ntotal=ntotal, dist=dist, distparam=None,
                                      Diagnostic=self.Diagnostic)
-        self.assertTrue(np.all((mat1-mat3) == 0.))
-        self.assertTrue(np.all((vec1-vec3) == 0.))
+        self.assertTrue(np.all((mat1 - mat3) == 0.))
+        self.assertTrue(np.all((vec1 - vec3) == 0.))
 
     def test_r_10_dist_raise(self):
         import numpy as np
@@ -334,10 +334,9 @@ class TestMorrisMethod(unittest.TestCase):
         nt     = 10
         nsteps = 6
         ntotal = 100
-        out = np.random.random(nt*(self.nparam+1))
 
         dist      = [ stats.uniform for i in range(self.nparam) ]
-        distparam = [ (self.LB[i], self.UB[i]-self.LB[i])
+        distparam = [ (self.LB[i], self.UB[i] - self.LB[i])
                       for i in range(self.nparam) ]
         LB = np.zeros(self.nparam)
         UB = np.ones(self.nparam)
