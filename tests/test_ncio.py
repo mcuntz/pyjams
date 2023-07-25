@@ -25,6 +25,10 @@ def _flatten(itr):
 class TestNcio(unittest.TestCase):
     """
     Tests for module ncio
+    Missing coverage:
+        Delete HDF5 filters that are False
+        Explicit chunking
+
     """
 
     def test_copy_file(self):
