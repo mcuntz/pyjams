@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+v2.0 (??? 2023)
+    * Changed from around to round in tests of the `air_humidity` module.
+    * Added _FillValue and missing_value to netcdf test files for `ncread` and
+      `ncio`.
+    * Cleaned tests for `ncread` and `ncinfo`.
+    * Raise error in Morris sampling if more than one component changed at once.
+
 v1.33 (Jul 2023)
     * `ncio.create_variables` sets missing_value attribute if present even if
       used for _FillValue.

@@ -14,9 +14,9 @@ import pandas as pd
 
 def _flatten(itr, decimals=0):
     if isinstance(itr, np.ma.MaskedArray):
-        fitr = np.ma.around(np.ma.array(itr).flatten(), decimals)
+        fitr = np.ma.round(np.ma.array(itr).flatten(), decimals)
     else:
-        fitr = np.around(np.array(itr).flatten(), decimals)
+        fitr = np.round(np.array(itr).flatten(), decimals)
     if len(fitr) == 0:
         return list(fitr)
     else:
@@ -42,10 +42,10 @@ class TestEsat(unittest.TestCase):
         # scalar
         T1 = T0 + 20.
         assert isinstance(esat(T1), float)
-        assert np.around(esat(T1), 3) == 2335.847
+        assert np.round(esat(T1), 3) == 2335.847
         T1 = T0 - 20.
         assert isinstance(esat(T1), float)
-        assert np.around(esat(T1), 3) == 103.074
+        assert np.round(esat(T1), 3) == 103.074
 
         # list - different formulas with different word cases
         T1 = [ tt + T0 for tt in T ]
@@ -324,7 +324,7 @@ class TestEsat(unittest.TestCase):
             T1 = Ta
             yair = func(e1, T1, **kwargs) * fac
             assert isinstance(yair, float)
-            assert np.around(yair, 2) == res2
+            assert np.round(yair, 2) == res2
 
             # list
             e1 = [xair, xair]
@@ -444,17 +444,17 @@ class TestEsat(unittest.TestCase):
             T1 = Ta
             es = func(e1, T1, undef=-9998., **kwargs)
             assert isinstance(es, float)
-            assert np.around(es, 2) == -9998.
+            assert np.round(es, 2) == -9998.
             e1 = -9999.
             T1 = Ta
             es = func(e1, T1, **kwargs)
             assert isinstance(es, float)
-            assert np.around(es, 2) == -9999.
+            assert np.round(es, 2) == -9999.
             e1 = xair
             T1 = -9999.
             es = func(e1, T1, **kwargs)
             assert isinstance(es, float)
-            assert np.around(es, 2) == -9999.
+            assert np.round(es, 2) == -9999.
 
             # undef, list
             e1 = [xair, -9999.]
