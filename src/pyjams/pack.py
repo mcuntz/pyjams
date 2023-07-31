@@ -28,6 +28,7 @@ History
     * Rename value keyword to fill_value as in numpy masked arrays,
       May 2023, Matthias Cuntz
     * Assert output type equals input type, May 2023, Matthias Cuntz
+    * Use np.full instead of np.ones * fill_value, Jul 2023, Matthias Cuntz
 
 """
 import numpy as np
@@ -148,7 +149,8 @@ def unpack(array, mask, fill_value=0):
 
     Unpacks the last dimension into several dimensions under a mask.
     The unpacked elements will be set to a user-defined fill_value.
-    The mask can have any number of dimensions up to the array dimensions.
+
+    The array can have any number of dimensions up to the mask dimensions.
 
     Parameters
     ----------
@@ -267,7 +269,7 @@ def unpack(array, mask, fill_value=0):
 
     # Flat output array
     array1d = np.ravel(array)
-    arraynd = np.ones(icount, dtype=array.dtype) * fill_value
+    arraynd = np.full(icount, fill_value, dtype=array.dtype)
     arraynd[ii] = array1d[:]
 
     # Reshaped output array
