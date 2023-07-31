@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Shuffled-Complex-Evolution (SCE) algorithm for function minimization
+The Shuffled Complex Evolution (SCE) global optimizer
 
 This code is based on a Fortran program of Qingyun Duan (2004), ported to
 Python by Stijn Van Hoey (2011). It was taken up, debugged, enhanced and is
@@ -78,6 +78,10 @@ History
     * Warn only if lb > ub, simply set mask if lb == ub,
       May 2023, Matthias Cuntz
     * Exit if initial population failed twice, May 2023, Matthias Cuntz
+    * random_sample(1)[0] to assure scalar, Jul 2023, Matthias Cuntz
+    * call_func method to assure scalar output,
+      Jul 2023, Matthias Cuntz
+    * Require keyword names after mask, Jul 2023, Matthias Cuntz
 
 """
 import warnings
@@ -86,8 +90,6 @@ from scipy.optimize import OptimizeResult, minimize
 from scipy._lib._util import check_random_state
 from scipy.optimize._constraints import Bounds
 
-# ToDo:
-# - write tmp/population files (of Fortran code)
 
 __all__ = ['sce']
 
@@ -150,7 +152,7 @@ def _strtobool(val):
 
 
 def sce(func, x0, lb, ub=None,
-        mask=None,
+        mask=None, *,
         args=(), kwargs={},
         sampling='half-open',
         maxn=1000, kstop=10, pcento=0.0001, peps=0.001,
@@ -161,14 +163,17 @@ def sce(func, x0, lb, ub=None,
         restart=False, restartfile1='',
         restartfile2=''):
     """
-    Shuffled-Complex-Evolution algorithm for function minimization
+    Shuffled Complex Evolution algorithm for finding the minimum of a
+    multivariate function
 
-    The SCE or SCE-UA method is a general purpose global optimization.
+    The SCE or SCE-UA method is a general purpose global optimization, which
+    can be used with high-dimensional problems. It was used successfully,
+    for example, to calibrate hydrologic models with more than 50 parameters
+    [5]_.
     The algorithm has been described in detail in Duan et al. [1]_ and [2]_.
     Another paper of Duan et al. [3]_ discusses how to use the method
-    effectively.
-    This implementation also includes the recommendations of Behrangi et al.
-    [4]_.
+    effectively. The implementation here also includes the recommendations of
+    Behrangi et al. [4]_.
 
     Parameters
     ----------
@@ -194,12 +199,12 @@ def sce(func, x0, lb, ub=None,
         ``sum(mask)``.
     args : tuple, optional
         Extra arguments passed to the function *func*. Note that ``args`` must
-        be iterable. `args=int`and `args=(int)` are not valid (with int being
-        any scalar variable) but should be `args=(int,)`.
+        be iterable. `args=scalar` and `args=(scalar)` are not valid but should
+        be, for example, `args=(scalar,)`.
     kwargs : dict, optional
         Extra keyword arguments passed to the function `func`.
     sampling : string or array_like of strings, optional
-        Options for sampling random numbers. Options can be on of:
+        Options for sampling random numbers. Options can be one of:
 
             - 'half-open': same as 'right-half-open' [lb, ub)
             - 'left-half-open': sample random floats in half-open
@@ -269,11 +274,12 @@ def sce(func, x0, lb, ub=None,
         If True, continue from saved state in `restartfile1` and
         `restartfile2` (default: False).
     restartfile1 : str, optional
-        Filename for saving state of array variables of `SCE` (default: '').
+        Filename for saving state of array variables of optimizer
+        (default: '').
         If `restart==True` and `restartfile1==''` then
         `restartfile1='sce.restart.npz'` will be taken.
     restartfile2 : int, optional
-        Filename for saving state of non-array variables of `SCE`
+        Filename for saving state of non-array variables of optimizer
         (default: `restartfile1 + '.txt'`).
 
     Returns
@@ -302,11 +308,17 @@ def sce(func, x0, lb, ub=None,
            Optimal use of the SCE-UA global optimization method for calibrating
            watershed models, Journal of Hydrology 158, 265-284, 1994,
            https://doi.org/10.1016/0022-1694(94)90057-4
-    .. [4] Behrangi A, Khakbaz B, Vrugt JA, Duan Q, and Sorooshian S
+    .. [4] Behrangi A, Khakbaz B, Vrugt JA, Duan Q, and Sorooshian S,
            Comment on "Dynamically dimensioned search algorithm for
            computationally efficient watershed model calibration" by
            Bryan A. Tolson and Christine A. Shoemaker, Water Resources
            Research 44, W12603, 2008, http://doi.org/10.1029/2007WR006429
+    .. [5] Cuntz M, Mai J, Zink M, Thober S, Kumar R, Schäfer D, Schrön M,
+           Craven J, Rakovec O, Spieler D, Prykhodko V, Dalmasso G, Musuuza J,
+           Langenberg B, Attinger S, and Samaniego L,
+           Computationally inexpensive identification of noninformative model
+           parameters by sequential screening. Water Resources Research 51,
+           6417–6441, 2015, https://doi.org/10.1002/2015WR016907
 
     Examples
     --------
@@ -329,8 +341,8 @@ def sce(func, x0, lb, ub=None,
     >>> print('{:.3f}'.format(res.fun))
     0.001
 
-    A 10-dimensional version using `(min. max)` pars for the bounds and
-    setting a number of parameters could be:
+    A 10-dimensional version using `(min, max)` pairs for parameter bounds
+    as well as setting a number of keyword parameters for the SCE algorithm is:
 
     >>> nopt = 10
     >>> lb = np.full(10, -5.)
@@ -347,6 +359,7 @@ def sce(func, x0, lb, ub=None,
     """
     # using a context manager means that any created Pool objects are
     # cleared up.
+    ret = None
     with SCESolver(func, x0, lb, ub=ub,
                    mask=mask, args=args, kwargs=kwargs, sampling=sampling,
                    maxn=maxn, kstop=kstop, pcento=pcento,
@@ -462,17 +475,19 @@ class SCESolver:
         If True, continue from saved state in `restartfile1` and
         `restartfile2` (default: False).
     restartfile1 : str, optional
-        Filename for saving state of array variables of `SCE` (default: '').
+        Filename for saving state of array variables of optimizer
+        (default: '').
         If `restart==True` and `restartfile1==''` then
         `restartfile1='sce.restart.npz'` will be taken.
     restartfile2 : int, optional
-        Filename for saving state of non-array variables of `SCE`
+        Filename for saving state of non-array variables of optimizer
         (default: `restartfile1 + '.txt'`).
 
     """
 
     def __init__(self, func, x0, lb, ub=None,
-                 mask=None, args=(), kwargs={},
+                 mask=None, *,
+                 args=(), kwargs={},
                  sampling='half-open',
                  maxn=1000, kstop=10, pcento=0.0001,
                  ngs=2, npg=0, nps=0, nspl=0, mings=0,
@@ -568,8 +583,7 @@ class SCESolver:
             self.icall = 0
             self.xf = np.zeros(self.npt)
             for i in range(self.npt):
-                fuc = self.func(self.x[i, :])
-                self.xf[i] = -fuc if self.maxit else fuc
+                self.xf[i] = self.call_func(self.x[i, :])
                 self.icall += 1
                 if self.printit == 1:
                     print('  i, f, X: ', self.icall, self.xf[i], self.x[i, :])
@@ -582,8 +596,7 @@ class SCESolver:
                 for i in range(self.npt):
                     self.x[i, :] = np.where(self.mask, self.x[i, :], x0)
                 for i in range(self.npt):
-                    fuc = self.func(self.x[i, :])
-                    self.xf[i] = -fuc if self.maxit else fuc
+                    self.xf[i] = self.call_func(self.x[i, :])
                     self.icall += 1
                     if self.printit == 1:
                         print('  i, f, X: ', self.icall, self.xf[i],
@@ -658,7 +671,7 @@ class SCESolver:
                             self.npg + 0.5 -
                             np.sqrt((self.npg + 0.5)**2 -
                                     self.npg * (self.npg + 1) *
-                                    self.rnd.random_sample(1)) ))
+                                    self.rnd.random_sample(1)[0]) ))
                         # check if element was already chosen
                         idx = (lcs[0:k3] == lpos).nonzero()
                         if idx[0].size == 0:
@@ -731,6 +744,21 @@ class SCESolver:
 
         return gnrng
 
+    def call_func(self, x):
+        """
+        Call function `func` asserting scalar output and maximum or minimum
+
+        """
+        fuc = self.func(x)
+        if isinstance(fuc, np.ndarray):
+            if fuc.size > 1:
+                raise RuntimeError(
+                    'func(x, *args, **kwargs) must return a'
+                    ' scalar value.')
+            fuc = fuc[0]
+        fuc = -fuc if self.maxit else fuc
+        return fuc
+
     def cce(self, s, sf):
         """
         Generate a new point in a simplex
@@ -775,8 +803,7 @@ class SCESolver:
 
         icall = 0
         # calc function for reflection point
-        fuc = self.func(snew)
-        fnew = -fuc if self.maxit else fuc
+        fnew = self.call_func(snew)
         icall += 1
         if self.printit == 1:
             print('  i, f, X: ', self.icall + icall, fnew, snew)
@@ -785,8 +812,7 @@ class SCESolver:
         if fnew > fw:
             snew = sw + self.beta * (ce - sw)
             snew = np.where(self.mask, snew, sb)
-            fuc = self.func(snew)
-            fnew = -fuc if self.maxit else fuc
+            fnew = self.call_func(snew)
             icall += 1
             if self.printit == 1:
                 print('  i, f, X: ', self.icall + icall, fnew, snew)
@@ -795,8 +821,7 @@ class SCESolver:
         if fnew > fw:
             snew = self.sample_input_matrix(1)[0, :]
             snew = np.where(self.mask, snew, sb)
-            fuc = self.func(snew)
-            fnew = -fuc if self.maxit else fuc
+            fnew = self.call_func(snew)
             icall += 1
             if self.printit == 1:
                 print('  i, f, X: ', self.icall + icall, fnew, snew)
@@ -939,7 +964,7 @@ class SCESolver:
                 elif opt == 'open':
                     iirnd = irnd[j]
                     while not (iirnd > 0.):
-                        iirnd = self.rnd.random_sample(1)
+                        iirnd = self.rnd.random_sample(1)[0]
                     x[i, j] = self.lb[j] + iirnd * bound[j]
                 elif opt == 'log':
                     # x must be > 0. for ln(x)
