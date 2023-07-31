@@ -22,20 +22,36 @@ class TestOptiTestFunctions(unittest.TestCase):
 
     def test_sa_test_functions(self):
         import numpy as np
+        import pandas as pd
         from pyjams.functions import ackley, griewank, goldstein_price
         from pyjams.functions import rastrigin, rosenbrock
         from pyjams.functions import six_hump_camelback
 
         # optima
-        self.assertTrue(np.isclose(ackley(np.zeros(15)), 0.0))
-        self.assertEqual(griewank(np.zeros(2)), 0.0)
-        self.assertEqual(griewank(np.zeros(10)), 0.0)
-        self.assertEqual(goldstein_price([0.0, -1.0]), 3.0)
-        self.assertEqual(rastrigin(np.zeros(2)), -2.0)
-        self.assertEqual(rosenbrock(np.ones(2)), 0.0)
-        self.assertEqual(np.around(six_hump_camelback([-0.08983, 0.7126]), 4),
+        x = np.zeros(15)
+        self.assertTrue(np.isclose(ackley(x), 0.0))
+        self.assertTrue(np.isclose(ackley(pd.Series(x)), 0.0))
+        x = np.zeros(2)
+        self.assertEqual(griewank(x), 0.0)
+        self.assertEqual(griewank(pd.Series(x)), 0.0)
+        x = np.zeros(10)
+        self.assertEqual(griewank(x), 0.0)
+        self.assertEqual(griewank(pd.Series(x)), 0.0)
+        x = [0.0, -1.0]
+        self.assertEqual(goldstein_price(x), 3.0)
+        self.assertEqual(goldstein_price(pd.Series(x)), 3.0)
+        x = np.zeros(2)
+        self.assertEqual(rastrigin(x), -2.0)
+        self.assertEqual(rastrigin(pd.Series(x)), -2.0)
+        x = np.ones(2)
+        self.assertEqual(rosenbrock(x), 0.0)
+        self.assertEqual(rosenbrock(pd.Series(x)), 0.0)
+        x = np.array([-0.08983, 0.7126])
+        self.assertEqual(np.around(six_hump_camelback(x), 4), -1.0316)
+        self.assertEqual(np.around(six_hump_camelback(-x), 4), -1.0316)
+        self.assertEqual(np.around(six_hump_camelback(pd.Series(x)), 4),
                          -1.0316)
-        self.assertEqual(np.around(six_hump_camelback([0.08983, -0.7126]), 4),
+        self.assertEqual(np.around(six_hump_camelback(-pd.Series(x)), 4),
                          -1.0316)
 
 

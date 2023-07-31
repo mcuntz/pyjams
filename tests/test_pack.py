@@ -5,7 +5,8 @@ This is the unittest for pack module.
 python -m unittest -v tests/test_pack.py
 python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_pack.py
 
-265: Index creation failing is probably not possible
+Not covered:
+267: Index creation failing is probably not possible
      at that stage of the algorithm
 
 """

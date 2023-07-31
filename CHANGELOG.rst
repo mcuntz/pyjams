@@ -2,6 +2,12 @@ Changelog
 ---------
 
 v2.0 (??? 2023)
+    * Require keyword names after mask in `sce`.
+    * New call_func method in `sce` to catch new numpy behaviour that
+      single-valued array does not compare to scalar anymore. Same for sampling
+      a single random number.
+    * Change from np.ones*fill_value to np.full in `pack`.
+    * Add tests with pandas.Series and pandas.DataFrame to remaining functions.
     * Changed from around to round in tests of the `air_humidity` module.
     * Added _FillValue and missing_value to netcdf test files for `ncread` and
       `ncio`.
