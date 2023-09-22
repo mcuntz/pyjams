@@ -20,15 +20,23 @@
         "identifier": "https://pypi.org/project/pyjams/",
         "relation": "isIdenticalTo",
         "resource_type": "software"
+    },
+        {
+        "scheme": "url",
+        "identifier": "https://anaconda.org/conda-forge/pyjams",
+        "relation": "isIdenticalTo",
+        "resource_type": "software"
     }
     ],
     "upload_type": "software",
     "keywords": [
         "Python utilities",
         "ASCII files",
+        "Data Processing",
+        "Grids and Polygons",
         "Date/Time",
-        "Hydrology",
         "Isotopes",
+        "Meteorology",
         "JAMS",
         "Python"
     ],

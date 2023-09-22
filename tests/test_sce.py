@@ -86,7 +86,7 @@ class TestSCESolver(unittest.TestCase):
         # test that defaults are set correctly
         solver = SCESolver(rosen, self.x0, self.lb, self.ub)
         assert_equal(solver.sampling, 'half-open')
-        assert_equal(solver.maxn, 1000)
+        assert_equal(solver.maxn, 6496)
         assert_equal(solver.kstop, 10)
         assert_equal(solver.pcento, 0.0001)
         assert_equal(solver.ngs, 2)

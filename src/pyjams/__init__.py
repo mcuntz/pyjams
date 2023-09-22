@@ -90,6 +90,7 @@ History
    * v1.32, added jams, Jun 2023, Matthias Cuntz
    * v1.33, start supporting pandas Series and DataFrames,
      Jul 2023, Matthias Cuntz
+   * v2.0, full pandas support, Sep 2023, Matthias Cuntz
 
 """
 # version, author

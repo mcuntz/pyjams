@@ -1,7 +1,8 @@
 Changelog
 ---------
 
-v2.0 (??? 2023)
+v2.0 (Sep 2023)
+    * Set maximum number of function evaluations to N*log(N) formula in `sce`.
     * Require keyword names after mask in `sce`.
     * New call_func method in `sce` to catch new numpy behaviour that
       single-valued array does not compare to scalar anymore. Same for sampling

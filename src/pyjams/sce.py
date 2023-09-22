@@ -82,6 +82,7 @@ History
     * call_func method to assure scalar output,
       Jul 2023, Matthias Cuntz
     * Require keyword names after mask, Jul 2023, Matthias Cuntz
+    * Set maxn to N*log(N) formula per default, Sep 2023, Matthias Cuntz
 
 """
 import warnings
@@ -155,7 +156,7 @@ def sce(func, x0, lb, ub=None,
         mask=None, *,
         args=(), kwargs={},
         sampling='half-open',
-        maxn=1000, kstop=10, pcento=0.0001, peps=0.001,
+        maxn=0, kstop=10, pcento=0.0001, peps=0.001,
         ngs=2, npg=0, nps=0, nspl=0, mings=0,
         seed=None, iniflg=True,
         alpha=0.8, beta=0.45, maxit=False, printit=2,
@@ -219,7 +220,7 @@ def sce(func, x0, lb, ub=None,
         The default is 'half-open'.
     maxn : int, optional
         Maximum number of function evaluations allowed during minimization
-        (without polishing) (default: 1000).
+        (without polishing) (default: `6400 + 160 * nopt * log10(nopt)`).
     kstop : int, optional
         Maximum number of evolution loops before convergence (default: 10).
     pcento : float, optional
@@ -420,7 +421,7 @@ class SCESolver:
         The default is 'half-open'.
     maxn : int, optional
         Maximum number of function evaluations allowed during minimization
-        (without polishing) (default: 1000).
+        (without polishing) (default: `6400 + 160 * nopt * log10(nopt)`).
     kstop : int, optional
         Maximum number of evolution loops before convergence (default: 10).
     pcento : float, optional
@@ -489,7 +490,7 @@ class SCESolver:
                  mask=None, *,
                  args=(), kwargs={},
                  sampling='half-open',
-                 maxn=1000, kstop=10, pcento=0.0001,
+                 maxn=0, kstop=10, pcento=0.0001,
                  ngs=2, npg=0, nps=0, nspl=0, mings=0,
                  peps=0.001, seed=None, iniflg=True,
                  alpha=0.8, beta=0.45, maxit=False, printit=2,
@@ -504,7 +505,6 @@ class SCESolver:
         self.rnd = check_random_state(seed)
         # parameters for initial run and for restart
         self.sampling = sampling
-        self.maxn = maxn
         self.kstop = kstop
         self.pcento = pcento
         self.peps = peps
@@ -635,6 +635,10 @@ class SCESolver:
         else:  # if not restart
             self.nn = len(x0)
             self.read_restartfiles()
+
+        self.maxn = (maxn
+                     if maxn > 0
+                     else int(6400 + 160 * self.nopt * np.log10(self.nopt)))
 
     def __enter__(self):
         return self
