@@ -5,7 +5,7 @@ Created Oct 2021 by Matthias Cuntz from the `JAMS Python library`_.
 
 It is distributed under the MIT License, see LICENSE file.
 
-Copyright (c) 2012-2022 Matthias Cuntz, Juliane Mai, Stephan Thober, and Arndt
+Copyright (c) 2012-2023 Matthias Cuntz, Juliane Mai, Stephan Thober, and Arndt
 Piayda
 
 Contributors

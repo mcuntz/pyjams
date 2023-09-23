@@ -89,7 +89,6 @@ v1.27 (Dec 2022)
     * Skip test for float128 on Windows in `ncio`.
     * Python 3.6 might not be fully supported anymore.
     * Remove dependency to ``partialwrap`` for tests.
-    * Remove dependency to ``partialwrap`` for tests.
     * Adding `sce` the Shuffled-Complex-Evolution algorithm for function
       minimization.
     * Adding 'a wide variety of' to ``pyjams`` key phrase.
