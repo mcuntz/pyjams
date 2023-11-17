@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>date2date module &#8212; pyjams 1.33.dev11 documentation</title>
+    <title>date2date module &#8212; pyjams 1.33 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -143,18 +144,18 @@ One can also give any format string understood by
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>edate</strong> (<em>array_like</em>) – Date strings in any of three formats standard, English, or
 American/French.</p></li>
-<li><p><strong>fr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Input dates with ‘/’ separators are interpreted as American format
+<li><p><strong>fr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Input dates with ‘/’ separators are interpreted as American format
 <em>MM/DD/YYYY hh:mm:ss</em> if False (default). Input dates with ‘/’
 separators are interpreted as French format <em>DD/MM/YYYY hh:mm:ss</em> if
 True.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Output format. Can be any of ‘’ (default), ‘en’, ‘us’, and ‘fr’ for
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Output format. Can be any of ‘’ (default), ‘en’, ‘us’, and ‘fr’ for
 standard <em>DD.MM.YYYY hh:mm:ss</em>, English <em>YYYY-MM-DD hh:mm:ss</em>, American
 <em>MM/DD/YYYY hh:mm:ss</em>, and French <em>DD/MM/YYYY hh:mm:ss</em> format.
 <em>format</em> can also be any format string understood by
 <code class="xref py py-func docutils literal notranslate"><span class="pre">datetime.strftime()</span></code>.</p></li>
-<li><p><strong>timesep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Separator string between date and time if <em>format</em> is ‘’, ‘en’, ‘us’,
+<li><p><strong>timesep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Separator string between date and time if <em>format</em> is ‘’, ‘en’, ‘us’,
 or ‘fr’. Default is space ‘ ‘, but ISO 8601 uses ‘T’, for example.</p></li>
-<li><p><strong>full</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Output dates are as long as input dates if False (default), e.g.
+<li><p><strong>full</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Output dates are as long as input dates if False (default), e.g.
 <em>[YYYY-MM-DD, YYYY-MM-DD hh:mm]</em>. Output dates are all in full format
 <em>DD.MM.YYYY hh:mm:ss</em> if True; missing time info on input is 00 on
 output.</p></li>
@@ -177,9 +178,9 @@ then every year that is above the current year of the century will be taken
 as being in 1900, i.e. 90 will be taken as 1990, while all other years are
 taken in the 21st century, i.e. 20 will be 2020. 3-digit years will throw
 a ValueError.</p>
-<p>Negative years are not supported. The function uses <a class="reference external" href="https://docs.python.org/3/library/datetime.html#module-datetime" title="(in Python v3.11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code></a> if a
+<p>Negative years are not supported. The function uses <a class="reference external" href="https://docs.python.org/3/library/datetime.html#module-datetime" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code></a> if a
 format string for <code class="xref py py-func docutils literal notranslate"><span class="pre">datetime.strftime()</span></code> is given. This limits the
-minimum year to the limit of <a class="reference external" href="https://docs.python.org/3/library/datetime.html#module-datetime" title="(in Python v3.11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code></a> in this case, which is year
+minimum year to the limit of <a class="reference external" href="https://docs.python.org/3/library/datetime.html#module-datetime" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code></a> in this case, which is year
 ‘0001’.</p>
 </div>
 <p class="rubric">Examples</p>
@@ -624,7 +625,7 @@ but <em>format</em> given in call will overwrite <em>format=’fr’</em>.</p>
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |

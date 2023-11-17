@@ -43,7 +43,7 @@ History
 
 """
 import numpy as np
-from pyjams import morris_sampling, elementary_effects
+from .morris_method import morris_sampling, elementary_effects
 
 
 __all__ = ['screening', 'ee']

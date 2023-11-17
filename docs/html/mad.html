@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>MAD &#8212; pyjams 1.33.dev11 documentation</title>
+    <title>MAD &#8212; pyjams 1.33 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -93,11 +94,11 @@ Jan 2022, Matthias Cuntz</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>datin</strong> (<em>array</em><em> or </em><em>masked array</em>) – <cite>mad</cite> acts on <code class="docutils literal notranslate"><span class="pre">axis=0</span></code></p></li>
-<li><p><strong>z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Input is allowed to deviate maximum <em>z</em> (estimators of) standard
+<li><p><strong>z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Input is allowed to deviate maximum <em>z</em> (estimators of) standard
 deviations from the median (default: 7)</p></li>
-<li><p><strong>deriv</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Act on raw input (0, default), on first derivatives (1), or on 2nd
+<li><p><strong>deriv</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Act on raw input (0, default), on first derivatives (1), or on 2nd
 derivatives (2)</p></li>
-<li><p><strong>nozero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Exclude zeros (0.) from input <em>datin</em> if True.</p></li>
+<li><p><strong>nozero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Exclude zeros (0.) from input <em>datin</em> if True.</p></li>
 <li><p><strong>prepend</strong> (<em>array_like</em><em>, </em><em>optional</em>) – <p>Values to prepend or append to <cite>datin</cite> prior to performing the
 difference with <cite>numpy.diff</cite> if <cite>deriv &gt; 0</cite>.
 <cite>prepend</cite> uses <cite>numpy.insert</cite> and <cite>append</cite> uses <cite>numpy.append</cite>.
@@ -128,7 +129,7 @@ dimension, which is smaller by <cite>deriv</cite> if <cite>prepend</cite> and <c
 are not set.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+<dd class="field-odd"><p>array of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 <div class="admonition-notes admonition">
@@ -371,7 +372,7 @@ if <code class="docutils literal notranslate"><span class="pre">deriv</span> <sp
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |

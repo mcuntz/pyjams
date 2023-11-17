@@ -36,11 +36,12 @@ Subpackages
    mcplot
    means
    morris_method
+   ncinfo
    ncio
+   ncread
    npyio
    pack
    position
-   readnetcdf
    romanliterals
    sce
    screening
@@ -91,6 +92,7 @@ History
    * v1.33, start supporting pandas Series and DataFrames,
      Jul 2023, Matthias Cuntz
    * v2.0, full pandas support, Sep 2023, Matthias Cuntz
+   * v2.1, ncread and ncinfo in individual files, Nov 2023, Matthias Cuntz
 
 """
 # version, author
@@ -159,14 +161,16 @@ from .means import means
 # Sampling of optimised trajectories for and calculation of Morris Measures /
 # Elementary Effects
 from .morris_method import morris_sampling, elementary_effects
+# print information of a netcdf file
+from .ncinfo import ncinfo, infonetcdf
+# get variables from a netcdf file
+from .ncread import ncread, readnetcdf
 # update arrays in a single file in numpy's npz format
 from .npyio import updatez, updatez_compressed
 # like Fortran pack/unpack
 from .pack import pack, unpack
 # positions of subplots, used with add_axes
 from .position import position
-# get variables from or print information of a netcdf file
-from .readnetcdf import infonetcdf, ncinfo, readnetcdf, ncread
 # Convert integer to and from Roman numerals
 from .romanliterals import int2roman, roman2int
 # Shuffled-Complex-Evolution (SCE) algorithm for function minimization
@@ -204,15 +208,16 @@ __all__ = ['__version__', '__author__',
            'file_from_gui', 'files_from_gui',
            'fsread', 'fread', 'sread',
            'xread', 'xlsread', 'xlsxread',
-           'kernel_regression_h', 'kernel_regression'
+           'kernel_regression_h', 'kernel_regression',
            'mad',
            'mcPlot',
            'means',
            'morris_sampling', 'elementary_effects',
+           'ncinfo', 'infonetcdf',
+           'ncread', 'readnetcdf',
            'updatez', 'updatez_compressed',
            'pack', 'unpack',
            'position',
-           'infonetcdf', 'ncinfo', 'readnetcdf', 'ncread',
            'int2roman', 'roman2int',
            'sce',
            'screening', 'ee',

@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Changelog &#8212; pyjams 1.33.dev11 documentation</title>
+    <title>Changelog &#8212; pyjams 1.33 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -15,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contributing" href="contributing.html" />
-    <link rel="prev" title="info/readnetcdf" href="readnetcdf.html" />
+    <link rel="prev" title="updatez" href="npyio.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -35,7 +36,33 @@
   <section id="changelog">
 <span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
 <dl class="simple">
-<dt>v2.0 (??? 2023)</dt><dd><ul class="simple">
+<dt>v2.1 (??? 2023)</dt><dd><ul class="simple">
+<li><p>Split ncread and ncinfo in individual files.</p></li>
+<li><p>Rename readnetcdf file to ncread.</p></li>
+<li><p>Check if scalar is number in array2input.</p></li>
+<li><p>license_file deprecated in setuptools, use license_files.</p></li>
+</ul>
+</dd>
+<dt>v2.0 (Sep 2023)</dt><dd><ul class="simple">
+<li><p>Set maximum number of function evaluations to N*log(N) formula in <cite>sce</cite>.</p></li>
+<li><p>Require keyword names after mask in <cite>sce</cite>.</p></li>
+<li><p>New call_func method in <cite>sce</cite> to catch new numpy behaviour that
+single-valued array does not compare to scalar anymore. Same for sampling
+a single random number.</p></li>
+<li><p>Change from np.ones*fill_value to np.full in <cite>pack</cite>.</p></li>
+<li><p>Add tests with pandas.Series and pandas.DataFrame to remaining functions.</p></li>
+<li><p>Changed from around to round in tests of the <cite>air_humidity</cite> module.</p></li>
+<li><p>Added _FillValue and missing_value to netcdf test files for <cite>ncread</cite> and
+<cite>ncio</cite>.</p></li>
+<li><p>Cleaned tests for <cite>ncread</cite> and <cite>ncinfo</cite>.</p></li>
+<li><p>Raise error in Morris sampling if more than one component changed at once.</p></li>
+</ul>
+</dd>
+<dt>v1.33 (Jul 2023)</dt><dd><ul class="simple">
+<li><p><cite>ncio.create_variables</cite> sets missing_value attribute if present even if
+used for _FillValue.</p></li>
+<li><p><cite>ncio.get_variable_definition</cite> returns _FillValue if present and only
+missing_value if _FillValue is not present.</p></li>
 <li><p>Add tests with pandas.Series and pandas.DataFrame to (almost) all
 existing functions.</p></li>
 <li><p>Remove from future imports from all <code class="docutils literal notranslate"><span class="pre">pyjams</span></code> main modules (not jams)
@@ -110,7 +137,6 @@ datetime class</p></li>
 color module and tests.</p></li>
 <li><p>Skip test for float128 on Windows in <cite>ncio</cite>.</p></li>
 <li><p>Python 3.6 might not be fully supported anymore.</p></li>
-<li><p>Remove dependency to <code class="docutils literal notranslate"><span class="pre">partialwrap</span></code> for tests.</p></li>
 <li><p>Remove dependency to <code class="docutils literal notranslate"><span class="pre">partialwrap</span></code> for tests.</p></li>
 <li><p>Adding <cite>sce</cite> the Shuffled-Complex-Evolution algorithm for function
 minimization.</p></li>
@@ -429,7 +455,7 @@ It also provides a wrapper function <cite>ee</cite> for <cite>screening</cite>.<
 <h3>Related Topics</h3>
 <ul>
   <li><a href="contents.html">Documentation overview</a><ul>
-      <li>Previous: <a href="readnetcdf.html" title="previous chapter">info/readnetcdf</a></li>
+      <li>Previous: <a href="npyio.html" title="previous chapter">updatez</a></li>
       <li>Next: <a href="contributing.html" title="next chapter">Contributing</a></li>
   </ul></li>
 </ul>
@@ -452,7 +478,7 @@ It also provides a wrapper function <cite>ee</cite> for <cite>screening</cite>.<
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |

@@ -41,6 +41,8 @@ History
     * Reset undef in pandas.Series and pandas.DataFrame array2input,
       Jun 2023, Matthias Cuntz
     * Check that scalar is number in array2input, Oct 2023, Matthias Cuntz
+    * Check if outin is Iterable even if inp is not in array2input,
+      Nov 2023, Matthias Cuntz
 
 """
 from collections.abc import Iterable
@@ -328,8 +330,11 @@ def array2input(outin, inp, inp2=None, undef=None):
             outout = undef
         else:
             if isinstance(inp, numbers.Number):
-                if np.size(outin) == 1:
-                    outout = outin[0]
+                if isinstance(outin, Iterable):
+                    if np.size(outin) == 1:
+                        outout = outin[0]
+                    else:
+                        outout = outin
                 else:
                     outout = outin
             else:

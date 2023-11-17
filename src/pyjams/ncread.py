@@ -41,6 +41,7 @@ History
     * Move ncinfo in separate file, Nov 2023, Matthias Cuntz
 
 """
+from .ncinfo import ncinfo
 
 
 __all__ = ['ncread', 'readnetcdf']
@@ -85,7 +86,7 @@ def ncread(ncfile, var='', code=-1, squeeze=False,
 
     Read variable or code
 
-    >>> ncfile = 'test_readnetcdf.nc'
+    >>> ncfile = 'test_ncread.nc'
     >>> print(ncread(ncfile, var='is1'))
     [[1. 1. 1. 1.]
      [1. 1. 1. 1.]]
@@ -106,7 +107,7 @@ def ncread(ncfile, var='', code=-1, squeeze=False,
 
     Change a variable in a file
 
-    >>> ncfile = 'test_readnetcdf1.nc'
+    >>> ncfile = 'test_ncread1.nc'
     >>> print(ncread(ncfile, var='is1'))
     [[1. 1. 1. 1.]
      [1. 1. 1. 1.]]

@@ -13,10 +13,11 @@ import pandas as pd
 
 
 def _flatten(itr, decimals=0):
-    if isinstance(itr, np.ma.MaskedArray):
-        fitr = np.ma.round(np.ma.array(itr).flatten(), decimals)
-    else:
-        fitr = np.round(np.array(itr).flatten(), decimals)
+    # if isinstance(itr, np.ma.MaskedArray):
+    #     fitr = np.ma.round(np.ma.array(itr).flatten(), decimals)
+    # else:
+    #     fitr = np.round(np.array(itr).flatten(), decimals)
+    fitr = np.round(np.ma.array(itr).flatten(), decimals)
     if len(fitr) == 0:
         return list(fitr)
     else:

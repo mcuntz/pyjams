@@ -1,7 +1,7 @@
-info/readnetcdf
----------------
+netcdf info
+-----------
 
-.. automodule:: pyjams.readnetcdf
+.. automodule:: pyjams.ncinfo
    :members:
    :undoc-members:
    :inherited-members:

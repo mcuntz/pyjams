@@ -186,7 +186,7 @@ Functions and modules (alphabetical)
        functions to be used with :mod:`scipy.optimize`
    * - :func:`~pyjams.gridcellarea`
      - Area of grid cells on Earth
-   * - :func:`~pyjams.readnetcdf.infonetcdf`
+   * - :func:`~pyjams.ncinfo.infonetcdf`
      - Extract information from netCDF file, same as :func:`ncinfo`
    * - :func:`~pyjams.romanliterals.int2roman`
      - Integer to Roman numeral conversion
@@ -205,12 +205,12 @@ Functions and modules (alphabetical)
        Effects
    * - :func:`~pyjams.mrair2eair`
      - Partial pressure of water vapour from mixing ratio and total pressure
-   * - :func:`~pyjams.readnetcdf.ncinfo`
+   * - :func:`~pyjams.ncinfo.ncinfo`
      - Extract information from netCDF file
    * - :mod:`~pyjams.ncio`
      - netCDF4 functions to copy a netcdf file while doing some
        transformations on variables and dimensions
-   * - :func:`~pyjams.readnetcdf.ncread`
+   * - :func:`~pyjams.ncread.ncread`
      - Read variables from netCDF file
    * - :func:`~pyjams.class_datetime.num2date`
      - Return datetime objects given numeric time values
@@ -218,7 +218,7 @@ Functions and modules (alphabetical)
      - Pack array with mask like Fortran intrinsic pack
    * - :func:`~pyjams.position`
      - Position arrays of subplots to be used with add_axes
-   * - :func:`~pyjams.readnetcdf.readnetcdf`
+   * - :func:`~pyjams.ncread.readnetcdf`
      - Read variables from netCDF file, same as `ncread`
    * - :func:`~pyjams.rhair2eair`
      - Partial pressure of water vapour from relative humidity and temperature
@@ -532,16 +532,16 @@ Functions and modules per category
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.readnetcdf.infonetcdf`
+       * - :func:`~pyjams.ncinfo.infonetcdf`
          - Extract information from netCDF file, same as `ncinfo`
-       * - :func:`~pyjams.readnetcdf.ncinfo`
+       * - :func:`~pyjams.ncinfo.ncinfo`
          - Extract information from netCDF file
        * - :mod:`~pyjams.ncio`
          - netCDF4 functions to copy a netcdf file while doing some
            transformations on variables and dimensions
-       * - :func:`~pyjams.readnetcdf.ncread`
+       * - :func:`~pyjams.ncread.ncread`
          - Read variables from netCDF file
-       * - :func:`~pyjams.readnetcdf.readnetcdf`
+       * - :func:`~pyjams.ncread.readnetcdf`
          - Read variables from netCDF file, same as `ncread`
        * - :func:`~pyjams.npyio.updatez`
          - Update arrays in uncompressed numpy .npz format
@@ -563,7 +563,7 @@ License
 ``pyjams`` is distributed under the MIT License. See the LICENSE_ file for
 details.
 
-Copyright (c) 2012-2022 Matthias Cuntz, Juliane Mai, Stephan Thober, and Arndt
+Copyright (c) 2012-2023 Matthias Cuntz, Juliane Mai, Stephan Thober, and Arndt
 Piayda
 
 The project structure of ``pyjams`` has borrowed heavily from welltestpy_

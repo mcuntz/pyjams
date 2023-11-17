@@ -24,6 +24,8 @@ History
       routine infonetcdf with wrapper function ncinfo, Mar 2022, Matthias Cuntz
     * Invert functions and wrapper functions, Feb 2023, Matthias Cuntz
     * Move ncinfo in separate file, Nov 2023, Matthias Cuntz
+    * sort=True default, Nov 2023, Matthias Cuntz
+    * Enforce keywords after var, Nov 2023, Matthias Cuntz
 
 """
 
@@ -32,10 +34,11 @@ __all__ = ['ncinfo', 'infonetcdf']
 
 
 def ncinfo(ncfile,
-           var='', code=-1, dims=False, shape=False, attributes=False,
+           var='', *, code=-1,
            variables=False, codes=False,
            long_names=False, units=False,
-           sort=False):
+           dims=False, shape=False, attributes=False,
+           sort=True):
     """
     Get information on variables in a netcdf file
 
@@ -50,15 +53,6 @@ def ncinfo(ncfile,
         Variable code such as in files coming from GRIB,
         only relevant if *dims* or *attributes* are True.
         *var* takes precedence over *code*.
-    dims : bool, optional
-        Get tuple of dimension names for the variable with name *var*
-        or number *code*.
-    shape : bool, optional
-        Get shape of the variable with name *var* or number *code*.
-    attributes : bool, optional
-        Get dictionary of all attributes of variable with name *var* or number
-        *code*, or all file attributes of *ncfile* if *var* and *code* are not
-        given
     variables : bool, optional
         Get list of variables in *ncfile*
     codes : bool, optional
@@ -70,9 +64,18 @@ def ncinfo(ncfile,
     units : bool, optional
         Get list of variable attributes *units*.
         Missing units will be filled with ''.
+    dims : bool, optional
+        Get tuple of dimension names for the variable with name *var*
+        or number *code*.
+    shape : bool, optional
+        Get shape of the variable with name *var* or number *code*.
+    attributes : bool, optional
+        Get dictionary of all attributes of variable with name *var* or number
+        *code*, or all file attributes of *ncfile* if *var* and *code* are not
+        given
     sort : bool, optional
-        Sort output of *variables*, *codes*, *units*, and *long_names*
-        with variable name as the sort key
+        If True (default), sort output of *variables*, *codes*, *units*,
+        and *long_names* with variable name as the sort key
 
     Returns
     -------
@@ -87,7 +90,7 @@ def ncinfo(ncfile,
 
     Get variable names
 
-    >>> ncfile = 'test_readnetcdf.nc'
+    >>> ncfile = 'test_ncread.nc'
     >>> print([ str(i) for i in ncinfo(ncfile, variables=True) ])
     ['x', 'y', 'is1', 'is2']
     >>> print([ str(i)
@@ -97,20 +100,19 @@ def ncinfo(ncfile,
     Get codes
 
     >>> print(ncinfo(ncfile, codes=True))
-    [-1, -1, 128, 129]
+    [128, 129, -1, -1]
     >>> print(ncinfo(ncfile, codes=True, sort=True))
     [128, 129, -1, -1]
+    >>> print(ncinfo(ncfile, codes=True, sort=False))
+    [-1, -1, 128, 129]
 
     Get special attributes units and long_names
 
     >>> print([ str(i) for i in ncinfo(ncfile, units=True) ])
-    ['xx', 'yy', 'arbitrary', 'arbitrary']
-    >>> print([ str(i) for i in ncinfo(ncfile, units=True, sort=True) ])
     ['arbitrary', 'arbitrary', 'xx', 'yy']
+    >>> print([ str(i) for i in ncinfo(ncfile, units=True, sort=False) ])
+    ['xx', 'yy', 'arbitrary', 'arbitrary']
     >>> print([ str(i) for i in ncinfo(ncfile, long_names=True) ])
-    ['x-axis', 'y-axis', 'all ones', 'all twos']
-    >>> print([ str(i)
-    ...        for i in ncinfo(ncfile, long_names=True, sort=True) ])
     ['all ones', 'all twos', 'x-axis', 'y-axis']
 
     Get dims
@@ -120,12 +122,12 @@ def ncinfo(ncfile,
 
     Get shape
 
-    >>> print(ncinfo(ncfile, var='is1', shape=True))
+    >>> print(ncinfo(ncfile, 'is1', shape=True))
     (2, 4)
 
     Get attributes
 
-    >>> t1 = ncinfo(ncfile, var='is1', attributes=True)
+    >>> t1 = ncinfo(ncfile, 'is1', attributes=True)
     >>> print([ str(i) for i in sorted(t1) ])
     ['code', 'long_name', 'units']
 
@@ -155,7 +157,7 @@ def ncinfo(ncfile,
 
     # code
     if codes:
-        cods = [-1]*nvars
+        cods = [-1] * nvars
         for i, v in enumerate(svars):
             attr = f.variables[v].ncattrs()
             if 'code' in attr:

@@ -54,10 +54,10 @@ History
 
 """
 import time as ptime
-# from .str2tex import str2tex
-# from .romanliterals import int2roman
-from pyjams.str2tex import str2tex
-from pyjams.romanliterals import int2roman
+from .str2tex import str2tex
+from .romanliterals import int2roman
+# from pyjams.str2tex import str2tex
+# from pyjams.romanliterals import int2roman
 
 
 __all__ = ['text2plot', 'abc2plot', 'signature2plot']

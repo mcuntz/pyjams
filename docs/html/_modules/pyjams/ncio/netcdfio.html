@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pyjams.ncio.netcdfio &#8212; pyjams 1.33.dev11 documentation</title>
+    <title>pyjams.ncio.netcdfio &#8212; pyjams 1.33 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
@@ -73,6 +74,10 @@
 <span class="sd">    * Delete unnecessary HDF5 filters in variable definition for compatibility</span>
 <span class="sd">      with netcdf4 &gt; 1.6.0, Jun 2022, Matthias Cuntz</span>
 <span class="sd">    * Make get_variable_definition public, Apr 2023, Matthias Cuntz</span>
+<span class="sd">    * get_variable_definition returns _FillValue and only then missing_value,</span>
+<span class="sd">      Jul 2023, Matthias Cuntz</span>
+<span class="sd">    * create_variables sets missing_value attribute if present even if used for</span>
+<span class="sd">      _FillValue, Jul 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -156,10 +161,10 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">chunking</span><span class="p">(),</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="n">chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ncvar</span><span class="o">.</span><span class="n">chunking</span><span class="p">())</span>
     <span class="c1"># missing value</span>
-    <span class="k">if</span> <span class="s2">&quot;missing_value&quot;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
-        <span class="n">ifill</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">missing_value</span>
-    <span class="k">elif</span> <span class="s2">&quot;_FillValue&quot;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;_FillValue&quot;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
         <span class="n">ifill</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">_FillValue</span>
+    <span class="k">elif</span> <span class="s2">&quot;missing_value&quot;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+        <span class="n">ifill</span> <span class="o">=</span> <span class="n">ncvar</span><span class="o">.</span><span class="n">missing_value</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ifill</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="c1"># output variable</span>
@@ -551,7 +556,7 @@
             <span class="n">_</span> <span class="o">=</span> <span class="n">ncdict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;chunksizes&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;fill_value&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ncdict</span><span class="p">:</span>
         <span class="n">ncdict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;fill_value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
-    <span class="c1"># set missing value if None</span>
+    <span class="c1"># set _FillValue if None</span>
     <span class="k">if</span> <span class="n">ncdict</span><span class="p">[</span><span class="s1">&#39;fill_value&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">fill</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
@@ -684,7 +689,7 @@
                             <span class="n">chunks</span> <span class="o">=</span> <span class="n">chunks</span><span class="p">[:</span><span class="n">ip</span><span class="p">]</span> <span class="o">+</span> <span class="n">rchunk</span> <span class="o">+</span> <span class="n">chunks</span><span class="p">[</span><span class="n">ip</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
                 <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;dimensions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dims</span>
                 <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;chunksizes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunks</span>
-                <span class="c1"># set missing value if None</span>
+                <span class="c1"># set _FillValue if None</span>
                 <span class="k">if</span> <span class="n">invardef</span><span class="p">[</span><span class="s1">&#39;fill_value&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">fill</span><span class="p">:</span>
                         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
@@ -700,7 +705,7 @@
                 <span class="n">ovar</span> <span class="o">=</span> <span class="n">fo</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">oname</span><span class="p">,</span> <span class="n">otype</span><span class="p">,</span> <span class="o">**</span><span class="n">invardef</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ivar</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">():</span>
                     <span class="n">iattr</span> <span class="o">=</span> <span class="n">ivar</span><span class="o">.</span><span class="n">getncattr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;missing_value&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;_FillValue&#39;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;_FillValue&#39;</span><span class="p">:</span>
                         <span class="n">ovar</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">iattr</span><span class="p">)</span>
     <span class="k">return</span></div>
 
@@ -853,7 +858,7 @@
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
     </div>

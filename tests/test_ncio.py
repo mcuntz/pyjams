@@ -37,21 +37,21 @@ class TestNcio(unittest.TestCase):
         import pyjams.ncio as ncio
         from pyjams import ncinfo, ncread
 
-        ncfile = 'tests/test_readnetcdf.nc'
+        ncfile = 'tests/test_ncread.nc'
         ofile = 'test_ncio_copy_file.nc'
 
         # full copy
         ncio.copy_file(ncfile, ofile)
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ncfile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ncfile, variables=True, sort=False)
         self.assertEqual(fout, fsoll)
 
-        fout = ncinfo(ofile, long_names=True)
-        fsoll = ncinfo(ncfile, long_names=True)
+        fout = ncinfo(ofile, long_names=True, sort=False)
+        fsoll = ncinfo(ncfile, long_names=True, sort=False)
         self.assertEqual(fout, fsoll)
 
-        fout = ncinfo(ofile, units=True)
-        fsoll = ncinfo(ncfile, units=True)
+        fout = ncinfo(ofile, units=True, sort=False)
+        fsoll = ncinfo(ncfile, units=True, sort=False)
         self.assertEqual(fout, fsoll)
 
         fout = ncread(ofile, var='is1')
@@ -60,22 +60,22 @@ class TestNcio(unittest.TestCase):
 
         # removevar
         ncio.copy_file(ncfile, ofile, removevar=('is1',))
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ncfile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ncfile, variables=True, sort=False)
         fsoll.remove('is1')
         self.assertEqual(fout, fsoll)
 
         ncio.copy_file(ncfile, ofile, removevar=['is1', 'is2'])
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ncfile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ncfile, variables=True, sort=False)
         fsoll.remove('is1')
         fsoll.remove('is2')
         self.assertEqual(fout, fsoll)
 
         # renamevar
         ncio.copy_file(ncfile, ofile, renamevar={'is1': 'is3'})
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ncfile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ncfile, variables=True, sort=False)
         fsoll[fsoll.index('is1')] = 'is3'
         self.assertEqual(fout, fsoll)
 
@@ -83,8 +83,8 @@ class TestNcio(unittest.TestCase):
         isout = np.full((2, 4), 3.)
         ncio.copy_file(ncfile, ofile,
                        replacevar={'is1': {'is3': isout}})
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ncfile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ncfile, variables=True, sort=False)
         fsoll[fsoll.index('is1')] = 'is3'
         self.assertEqual(fout, fsoll)
 
@@ -99,8 +99,8 @@ class TestNcio(unittest.TestCase):
                        replaceatt={'is2': {'long_name': 'twos'},
                                    'is3': {'long_name': 'threes',
                                            'units': 'arbitrary'}})
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ncfile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ncfile, variables=True, sort=False)
         fsoll[fsoll.index('is1')] = 'is3'
         self.assertEqual(fout, fsoll)
 
@@ -109,12 +109,12 @@ class TestNcio(unittest.TestCase):
         self.assertEqual(fout.shape, fsoll.shape)
         self.assertEqual(_flatten(fout), _flatten(fsoll))
 
-        att = ncinfo(ofile, var='is2', attributes=True)
+        att = ncinfo(ofile, var='is2', attributes=True, sort=False)
         fout = att['long_name']
         fsoll = 'twos'
         self.assertEqual(fout, fsoll)
 
-        att = ncinfo(ofile, var='is3', attributes=True)
+        att = ncinfo(ofile, var='is3', attributes=True, sort=False)
         fout = att['long_name']
         fsoll = 'threes'
         self.assertEqual(fout, fsoll)
@@ -243,13 +243,13 @@ class TestNcio(unittest.TestCase):
         fi.close()
         fo.close()
 
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ifile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ifile, variables=True, sort=False)
         self.assertEqual(fout, fsoll)
 
         for vv in ['patchfrac', 'albsoil', 'ratecp', 'SoilMoist']:
-            fout = list(ncinfo(ofile, vv, dims=True))
-            fsoll = list(ncinfo(ifile, vv, dims=True))
+            fout = list(ncinfo(ofile, vv, dims=True, sort=False))
+            fsoll = list(ncinfo(ifile, vv, dims=True, sort=False))
             fsoll = fsoll[:-1]
             if vpatch in fsoll:
                 fsoll[fsoll.index(vpatch)] = opatch
@@ -301,13 +301,13 @@ class TestNcio(unittest.TestCase):
         fi.close()
         fo.close()
 
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ifile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ifile, variables=True, sort=False)
         self.assertEqual(fout, fsoll)
 
         for vv in ['patchfrac', 'albsoil', 'ratecp', 'SoilMoist']:
-            fout = ncinfo(ofile, vv, shape=True)
-            fsoll = ncinfo(ifile, vv, shape=True)
+            fout = ncinfo(ofile, vv, shape=True, sort=False)
+            fsoll = ncinfo(ifile, vv, shape=True, sort=False)
             self.assertEqual(fout[:-1], fsoll[:-1])
             assert fout[-1] == 2 * fsoll[-1]
 
@@ -360,13 +360,13 @@ class TestNcio(unittest.TestCase):
         fi.close()
         fo.close()
 
-        fout = ncinfo(ofile, variables=True)
-        fsoll = ncinfo(ifile, variables=True)
+        fout = ncinfo(ofile, variables=True, sort=False)
+        fsoll = ncinfo(ifile, variables=True, sort=False)
         self.assertEqual(fout, fsoll)
 
         for vv in ['patchfrac', 'albsoil', 'ratecp', 'SoilMoist']:
-            fout = list(ncinfo(ofile, vv, shape=True))
-            fsoll = list(ncinfo(ifile, vv, shape=True))
+            fout = list(ncinfo(ofile, vv, shape=True, sort=False))
+            fsoll = list(ncinfo(ifile, vv, shape=True, sort=False))
             fsoll.append(fsoll[-1])
             self.assertEqual(fout, fsoll)
 
@@ -413,8 +413,8 @@ class TestNcio(unittest.TestCase):
         fi.close()
         fo.close()
 
-        fout = list(ncinfo(ofile, variables=True))
-        fsoll = list(ncinfo(ifile, variables=True))
+        fout = list(ncinfo(ofile, variables=True, sort=False))
+        fsoll = list(ncinfo(ifile, variables=True, sort=False))
         fsoll.remove(rmvar[0])
         for rr in mvvar:
             fsoll[fsoll.index(rr)] = mvvar[rr]
@@ -493,7 +493,7 @@ class TestNcio(unittest.TestCase):
         fi.close()
         fo.close()
 
-        fout = list(ncinfo(ofile, variables=True))
+        fout = list(ncinfo(ofile, variables=True, sort=False))
         assert 'test1' in fout
         assert 'test2' in fout
         assert 'test3' in fout
@@ -501,14 +501,14 @@ class TestNcio(unittest.TestCase):
         assert 'test5' in fout
         assert 'test6' in fout
         fout = [ vv for vv in fout if not vv.startswith('test') ]
-        fsoll = list(ncinfo(ifile, variables=True))
+        fsoll = list(ncinfo(ifile, variables=True, sort=False))
         self.assertEqual(fout, fsoll)
 
         for iv in range(1, 7):
-            fout = ncinfo(ofile, f'test{iv}', shape=True)
+            fout = ncinfo(ofile, f'test{iv}', shape=True, sort=False)
             fsoll = shape
             self.assertEqual(fout, fsoll)
-            fout = ncinfo(ofile, f'test{iv}', dims=True)
+            fout = ncinfo(ofile, f'test{iv}', dims=True, sort=False)
             fsoll = dimensions
             self.assertEqual(fout, fsoll)
             fout = ncread(ofile, var=f'test{iv}')

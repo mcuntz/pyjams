@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>netcdfio &#8212; pyjams 1.33.dev11 documentation</title>
+    <title>netcdfio &#8212; pyjams 1.33 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -14,7 +15,7 @@
     <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="updatez" href="npyio.html" />
+    <link rel="next" title="read netcdf" href="ncread.html" />
     <link rel="prev" title="netCDF I/O module" href="ncio.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -95,6 +96,10 @@ May 2022, Matthias Cuntz</p></li>
 <li><p>Delete unnecessary HDF5 filters in variable definition for compatibility
 with netcdf4 &gt; 1.6.0, Jun 2022, Matthias Cuntz</p></li>
 <li><p>Make get_variable_definition public, Apr 2023, Matthias Cuntz</p></li>
+<li><p>get_variable_definition returns _FillValue and only then missing_value,
+Jul 2023, Matthias Cuntz</p></li>
+<li><p>create_variables sets missing_value attribute if present even if used for
+_FillValue, Jul 2023, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -107,15 +112,15 @@ with netcdf4 &gt; 1.6.0, Jun 2022, Matthias Cuntz</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fi</strong> (<em>file_handle</em>) – File handle of opened netcdf input file</p></li>
 <li><p><strong>fo</strong> (<em>file_handle</em>) – File handle of opened netcdf output file</p></li>
-<li><p><strong>removedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Do not create dimensions given in <em>removedim</em> in output file.</p></li>
-<li><p><strong>renamedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Rename dimensions in output file compared to input file.
+<li><p><strong>removedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Do not create dimensions given in <em>removedim</em> in output file.</p></li>
+<li><p><strong>renamedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Rename dimensions in output file compared to input file.
 Dimension names in input file are given as dictionary keys,
 corresponding dimension names of output file are give as dictionary
 values.</p></li>
-<li><p><strong>changedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Change the size of the output dimension compared to the input file.
+<li><p><strong>changedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Change the size of the output dimension compared to the input file.
 Dimension names are given as dictionary keys, corresponding dimension
 sizes are given as dictionary values.</p></li>
-<li><p><strong>adddim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Add dimension to output file.
+<li><p><strong>adddim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Add dimension to output file.
 New dimension names are given as dictionary keys and new dimension
 sizes are given as dictionary values.</p></li>
 </ul>
@@ -143,23 +148,23 @@ of the input file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ifile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – File name of netcdf input file</p></li>
-<li><p><strong>ofile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – File name of netcdf output file</p></li>
-<li><p><strong>timedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Name of time dimension in input file (default: ‘time’).</p></li>
-<li><p><strong>removevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Do not copy variables given in <em>removevar</em> to output file.</p></li>
-<li><p><strong>renamevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Copy variables from input file with different name in output file.
+<li><p><strong>ifile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – File name of netcdf input file</p></li>
+<li><p><strong>ofile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – File name of netcdf output file</p></li>
+<li><p><strong>timedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Name of time dimension in input file (default: ‘time’).</p></li>
+<li><p><strong>removevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Do not copy variables given in <em>removevar</em> to output file.</p></li>
+<li><p><strong>renamevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Copy variables from input file with different name in output file.
 Variable names in input file are given as dictionary keys,
 corresponding variable names of output file are give as dictionary
 values.</p></li>
-<li><p><strong>replacevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Replace existing variables with variables in dictionary.
+<li><p><strong>replacevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Replace existing variables with variables in dictionary.
 Variable names in input file are given as dictionary keys,
 dictionary values are also dictionaries where keys are the output
 variable name and values are the output variable values.</p></li>
-<li><p><strong>replaceatt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Replace or set attributes of variables in dictionary keys
+<li><p><strong>replaceatt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Replace or set attributes of variables in dictionary keys
 (case sensitive). Dictionary values are also dictionaries with
 {‘attribute_name’: attribute_value}. Dictionary keys are the names
 of the output variables after renaming and replacing.</p></li>
-<li><p><strong>noclose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – Return file handle of opened output file for further manipulation
+<li><p><strong>noclose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Return file handle of opened output file for further manipulation
 if True (default: False)</p></li>
 </ul>
 </dd>
@@ -191,9 +196,9 @@ copied from the input file.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fi</strong> (<em>file_handle</em>) – File handle of opened netcdf input file</p></li>
 <li><p><strong>fo</strong> (<em>file_handle</em>) – File handle of opened netcdf output file</p></li>
-<li><p><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – dict values will be given to attributes given in dict keys.
+<li><p><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – dict values will be given to attributes given in dict keys.
 Attributes will be created if they do not exist yet.</p></li>
-<li><p><strong>remove</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>, </em><em>optional</em>) – Do not create global attributes given in <em>remove</em> in the output file.</p></li>
+<li><p><strong>remove</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – Do not create global attributes given in <em>remove</em> in the output file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -219,12 +224,12 @@ Attributes will be created if they do not exist yet.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fi</strong> (<em>file_handle</em>) – File handle of opened netcdf input file</p></li>
 <li><p><strong>fo</strong> (<em>file_handle</em>) – File handle of opened netcdf output file</p></li>
-<li><p><strong>time</strong> (<em>None</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – None:  copy all variables (default).
+<li><p><strong>time</strong> (<em>None</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – None:  copy all variables (default).
 True:  copy only variables having dimension <em>timedim</em>.
 False: copy only variables that do not have dimension <em>timedim</em>.</p></li>
-<li><p><strong>timedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Name of time dimension (default: ‘time’).</p></li>
-<li><p><strong>removevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Do not copy variables given in <em>removevar</em> to output file.</p></li>
-<li><p><strong>renamevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Copy variables from input file with different name in output file.
+<li><p><strong>timedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Name of time dimension (default: ‘time’).</p></li>
+<li><p><strong>removevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Do not copy variables given in <em>removevar</em> to output file.</p></li>
+<li><p><strong>renamevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Copy variables from input file with different name in output file.
 Variable names in input file are given as dictionary keys,
 corresponding variable names of output file are give as dictionary
 values.</p></li>
@@ -251,22 +256,22 @@ copied from the input file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>invardef</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dictionary with name and dtype plus further attributes
+<li><p><strong>invardef</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dictionary with name and dtype plus further attributes
 used in netCDF4.Dataset.createVariable; all other entries are set as
 variable attributes:
 ‘dimensions’, ‘zlib’, ‘complevel’, ‘shuffle’, ‘fletcher32’,
 ‘contiguous’, ‘chunksizes’, ‘endian’, ‘least_significant_digit’,
 ‘fill_value’, ‘chunk_cache’</p></li>
 <li><p><strong>fo</strong> (<em>file_handle</em>) – File handle of opened netcdf output file</p></li>
-<li><p><strong>izip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – True: the data will be compressed in the netCDF file using gzip
+<li><p><strong>izip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – True: the data will be compressed in the netCDF file using gzip
 compression independent of ‘zlib’ entry in input dictionary <em>invardef</em>
 (default: False).</p></li>
-<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Determine the behaviour if variable has no _FillValue or missing_value.
+<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Determine the behaviour if variable has no _FillValue or missing_value.
 If None or False: no _FillValue will be set.
 If True: _FillValue will be set to default value of the Python netCDF4
 package for this type.
 If number: _FillValue will be set to number.</p></li>
-<li><p><strong>chunksizes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – True: include possible chunksizes in output file (default).
+<li><p><strong>chunksizes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – True: include possible chunksizes in output file (default).
 False: do not include chunksize information from input file in output
 file, even if given in input dictionary <em>invardef</em>.</p></li>
 </ul>
@@ -298,34 +303,34 @@ file, even if given in input dictionary <em>invardef</em>.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fi</strong> (<em>file_handle</em>) – File handle of opened netcdf input file</p></li>
 <li><p><strong>fo</strong> (<em>file_handle</em>) – File handle of opened netcdf output file</p></li>
-<li><p><strong>time</strong> (<em>None</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – None:  create all variables (default).
+<li><p><strong>time</strong> (<em>None</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – None:  create all variables (default).
 True:  create only variables having dimension <em>timedim</em>.
 False: create only variables that do not have dimension <em>timedim</em>.</p></li>
-<li><p><strong>timedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Name of time dimension (default: ‘time’).</p></li>
-<li><p><strong>izip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – True: the data will be compressed in the netCDF file using gzip
+<li><p><strong>timedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Name of time dimension (default: ‘time’).</p></li>
+<li><p><strong>izip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – True: the data will be compressed in the netCDF file using gzip
 compression (default: False).</p></li>
-<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Determine the behaviour if variable have no _FillValue or
+<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Determine the behaviour if variable have no _FillValue or
 missing_value.
 If None or False: no _FillValue will be set.
 If True: _FillValue will be set to default value of the Python
 package netCDF4 for this type.
 If number: _FillValue will be set to number.</p></li>
-<li><p><strong>chunksizes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>optional</em>) – True: include possible chunksizes in output file (default).
+<li><p><strong>chunksizes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – True: include possible chunksizes in output file (default).
 False: do not include chunksize information from input file in output
 file.
 Set to False, for example, if dimension size gets changed because the
 chunksize on a dimension can not be greater than the dimension size.</p></li>
-<li><p><strong>removevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Do not create variables given in <em>removevar</em> in output file.</p></li>
-<li><p><strong>renamevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Rename variables in output file compared to input file.
+<li><p><strong>removevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Do not create variables given in <em>removevar</em> in output file.</p></li>
+<li><p><strong>renamevar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Rename variables in output file compared to input file.
 Variable names in input file are given as dictionary keys,
 corresponding variable names of output file are give as dictionary
 values.</p></li>
-<li><p><strong>removedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Remove dimensions from variable definitions in output file.</p></li>
-<li><p><strong>renamedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Rename dimensions for variables in output file.
+<li><p><strong>removedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Remove dimensions from variable definitions in output file.</p></li>
+<li><p><strong>renamedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Rename dimensions for variables in output file.
 Dimension names in input file are given as dictionary keys,
 corresponding dimension names of output file are give as dictionary
 values.</p></li>
-<li><p><strong>replacedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Replace dimensions for variables in output file.
+<li><p><strong>replacedim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Replace dimensions for variables in output file.
 Dimension names in input file are given as dictionary keys,
 corresponding dimension names of output file are given as dictionary
 values.
@@ -381,7 +386,7 @@ The following keys are returned: ‘name’, ‘dtype’, ‘dimensions’,
 ‘fill_vallue’, ‘chunksizes’</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -398,15 +403,15 @@ the file suffix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ifile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – input file name</p></li>
-<li><p><strong>ext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – string to add before file suffix</p></li>
+<li><p><strong>ifile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – input file name</p></li>
+<li><p><strong>ext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – string to add before file suffix</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>output filename with ext before file suffix</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -455,9 +460,10 @@ the file suffix.</p>
 <li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="special_files.html">Special Files</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="ncio.html">netCDF I/O module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ncread.html">read netcdf</a></li>
 <li class="toctree-l3"><a class="reference internal" href="npyio.html">updatez</a></li>
-<li class="toctree-l3"><a class="reference internal" href="readnetcdf.html">info/readnetcdf</a></li>
 </ul>
 </li>
 </ul>
@@ -488,7 +494,7 @@ the file suffix.</p>
   <li><a href="special_files.html">Special Files</a><ul>
   <li><a href="ncio.html">netCDF I/O module</a><ul>
       <li>Previous: <a href="ncio.html" title="previous chapter">netCDF I/O module</a></li>
-      <li>Next: <a href="npyio.html" title="next chapter">updatez</a></li>
+      <li>Next: <a href="ncread.html" title="next chapter">read netcdf</a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -513,7 +519,7 @@ the file suffix.</p>
       &copy;2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
