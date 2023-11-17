@@ -40,9 +40,11 @@ History
       Jun 2023, Matthias Cuntz
     * Reset undef in pandas.Series and pandas.DataFrame array2input,
       Jun 2023, Matthias Cuntz
+    * Check that scalar is number in array2input, Oct 2023, Matthias Cuntz
 
 """
 from collections.abc import Iterable
+import numbers
 import numpy as np
 import pandas as pd
 
@@ -325,14 +327,20 @@ def array2input(outin, inp, inp2=None, undef=None):
         if isundef(inp, undef):
             outout = undef
         else:
-            try:
-                outout = type(inp)(outin)
-            except:  # pragma: no cover
-                # unknown iterables so no cover
+            if isinstance(inp, numbers.Number):
                 if np.size(outin) == 1:
                     outout = outin[0]
                 else:
                     outout = outin
+            else:
+                try:
+                    outout = type(inp)(outin)
+                except:  # pragma: no cover
+                    # unknown iterables so no cover
+                    if np.size(outin) == 1:
+                        outout = outin[0]
+                    else:
+                        outout = outin
 
     return outout
 

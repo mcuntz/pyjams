@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-This is the unittest for sce module.
+This is the unittest for the sce module.
 
 python -m unittest -v tests/test_sce.py
 python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_sce.py

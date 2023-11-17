@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+v2.1 (??? 2023)
+    * Split ncread and ncinfo in individual files.
+    * Rename readnetcdf file to ncread.
+    * Check if scalar is number in array2input.
+    * license_file deprecated in setuptools, use license_files.
+
 v2.0 (Sep 2023)
     * Set maximum number of function evaluations to N*log(N) formula in `sce`.
     * Require keyword names after mask in `sce`.
