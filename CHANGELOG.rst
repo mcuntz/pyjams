@@ -1,7 +1,10 @@
 Changelog
 ---------
 
-v2.1 (??? 2023)
+v2.1 (Nov 2023)
+    * Changed to sphinx_book_theme for documentation.
+    * Correct all tests.
+    * Check if outin is Iterable even if inp is not in `array2input`.
     * Split ncread and ncinfo in individual files.
     * Rename readnetcdf file to ncread.
     * Check if scalar is number in array2input.

@@ -98,8 +98,7 @@ from .date2date import date2date
 # from pyjams.date2date import date2date
 
 
-# from ._cftime import num2date, date2num, date2index, time2index, num2pydate
-__all__ = ['date2dec', 'date2num', 'date2dec', 'num2date', 'datetime']
+__all__ = ['date2dec', 'date2num', 'dec2date', 'num2date', 'datetime']
 
 
 # supported calendars. Includes synonyms ('excel'=='excel1900')

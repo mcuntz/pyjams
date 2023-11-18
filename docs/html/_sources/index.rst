@@ -100,9 +100,9 @@ Functions and modules (alphabetical)
      - Short description
    * - :func:`~pyjams.text2plot.abc2plot`
      - Write a, B, iii), ... on a plot
-   * - :func:`~pyjams.alpha_equ_h2o`
+   * - :func:`~pyjams.alpha_equ_h2o.alpha_equ_h2o`
      - Equilibrium fractionation between liquid water and vapour
-   * - :func:`~pyjams.alpha_kin_h2o`
+   * - :func:`~pyjams.alpha_kin_h2o.alpha_kin_h2o`
      - Kinetic fractionation of molecular diffusion of water vapour
    * - :func:`~pyjams.argsort.argmax`
      - Wrapper for numpy.argmax, numpy.ma.argmax, and max for Python
@@ -113,7 +113,7 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.argsort.argsort`
      - Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for Python
        iterables
-   * - :func:`~pyjams.closest`
+   * - :func:`~pyjams.closest.closest`
      - Index in array which entry is closest to a given number
    * - :mod:`~pyjams.color`
      - Collection of color palettes and continuous color maps
@@ -145,13 +145,13 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.division.div`
      - Divide two arrays, return 'otherwise' if division by 0,
        same as `division`
-   * - :func:`~pyjams.eair2mrair`
+   * - :func:`~pyjams.air_humidity.eair2mrair`
      - Mixing ratio from partial pressure of water vapour and total pressure
-   * - :func:`~pyjams.eair2rhair`
+   * - :func:`~pyjams.air_humidity.eair2rhair`
      - Relative humidity from partial pressure of water vapour and temperature
-   * - :func:`~pyjams.eair2shair`
+   * - :func:`~pyjams.air_humidity.eair2shair`
      - Specific humidity from partial pressure of water vapour and total pressure
-   * - :func:`~pyjams.eair2vpd`
+   * - :func:`~pyjams.air_humidity.eair2vpd`
      - Air vapour pressure deficit from partial pressure and temperature
    * - :func:`~pyjams.screening.ee`
      - Parameter screening using Morris' method of Elementary Effects,
@@ -164,7 +164,7 @@ Functions and modules (alphabetical)
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
    * - :func:`~pyjams.date2date.en2us`
      - Convert dates to American date format MM/DD/YYYY hh:mm:ss
-   * - :func:`~pyjams.esat`
+   * - :func:`~pyjams.air_humidity.esat`
      - Saturation vapour pressure over water and ice
    * - :func:`~pyjams.date2date.fr2date`
      - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
@@ -184,26 +184,26 @@ Functions and modules (alphabetical)
      - Special functions for testing optimisations, sensitivity analysis,
        several forms of the logistic function and its derivatives, and other
        functions to be used with :mod:`scipy.optimize`
-   * - :func:`~pyjams.gridcellarea`
+   * - :func:`~pyjams.gridcellarea.gridcellarea`
      - Area of grid cells on Earth
    * - :func:`~pyjams.ncinfo.infonetcdf`
      - Extract information from netCDF file, same as :func:`ncinfo`
    * - :func:`~pyjams.romanliterals.int2roman`
      - Integer to Roman numeral conversion
-   * - :func:`~pyjams.kernel_regression`
+   * - :func:`~pyjams.kernel_regression.kernel_regression`
      - Multi-dimensional non-parametric kernel regression
-   * - :func:`~pyjams.kernel_regression_h`
+   * - :func:`~pyjams.kernel_regression.kernel_regression_h`
      - Determination of bandwidth for kernel regression
-   * - :func:`~pyjams.mad`
+   * - :func:`~pyjams.mad.mad`
      - Median absolute deviation test
    * - :class:`~pyjams.mcplot.mcPlot`
      - Matthias Cuntz' standard plotting class
-   * - :func:`~pyjams.means`
+   * - :func:`~pyjams.means.means`
      - Calculate daily, monthly, yearly, etc. means of data
    * - :func:`~pyjams.morris_method.morris_sampling`
      - Sampling of optimised trajectories for Morris measures / Elementary
        Effects
-   * - :func:`~pyjams.mrair2eair`
+   * - :func:`~pyjams.air_humidity.mrair2eair`
      - Partial pressure of water vapour from mixing ratio and total pressure
    * - :func:`~pyjams.ncinfo.ncinfo`
      - Extract information from netCDF file
@@ -216,13 +216,13 @@ Functions and modules (alphabetical)
      - Return datetime objects given numeric time values
    * - :func:`~pyjams.pack.pack`
      - Pack array with mask like Fortran intrinsic pack
-   * - :func:`~pyjams.position`
+   * - :func:`~pyjams.position.position`
      - Position arrays of subplots to be used with add_axes
    * - :func:`~pyjams.ncread.readnetcdf`
      - Read variables from netCDF file, same as `ncread`
-   * - :func:`~pyjams.rhair2eair`
+   * - :func:`~pyjams.air_humidity.rhair2eair`
      - Partial pressure of water vapour from relative humidity and temperature
-   * - :func:`~pyjams.rhair2vpd`
+   * - :func:`~pyjams.air_humidity.rhair2vpd`
      - Air vapour pressure deficit from relative humidity and temperature
    * - :func:`~pyjams.romanliterals.roman2int`
      - Roman numeral to integer conversion
@@ -230,16 +230,16 @@ Functions and modules (alphabetical)
      - Shuffled-Complex-Evolution algorithm for function min(max)imisation
    * - :func:`~pyjams.screening.screening`
      - Parameter screening using Morris' method of Elementary Effects
-   * - :func:`~pyjams.shair2eair`
+   * - :func:`~pyjams.air_humidity.shair2eair`
      - Partial pressure of water vapour from specific humidity and total pressure
    * - :func:`~pyjams.text2plot.signature2plot`
      - Write a copyright notice on a plot
    * - :func:`~pyjams.fsread.sread`
      - Read strings from a file into 2D string array
-   * - :func:`~pyjams.str2tex`
+   * - :func:`~pyjams.str2tex.str2tex`
      - Convert strings to LaTeX strings in math environment used by matplotlib's
        usetex
-   * - :func:`~pyjams.tee`
+   * - :func:`~pyjams.tee.tee`
      - Prints arguments on screen and in file, like Unix/Linux tee utility
    * - :func:`~pyjams.text2plot.text2plot`
      - Write text on a plot
@@ -255,9 +255,9 @@ Functions and modules (alphabetical)
      - Convert dates to English date format YYYY-MM-DD hh:mm:ss
    * - :func:`~pyjams.date2date.us2fr`
      - Convert dates to French date format DD/MM/YYYY hh:mm:ss
-   * - :func:`~pyjams.vpd2eair`
+   * - :func:`~pyjams.air_humidity.vpd2eair`
      - Partial pressure of water vapour from air vapour pressure deficit and temperature
-   * - :func:`~pyjams.vpd2rhair`
+   * - :func:`~pyjams.air_humidity.vpd2rhair`
      - Relative humidity from air vapour pressure deficit and temperature
    * - :func:`~pyjams.fsread.xlsread`
      - Read numbers and strings from Excel file into 2D float and string arrays,
@@ -289,7 +289,7 @@ Functions and modules per category
        * - :func:`~pyjams.argsort.argsort`
          - Wrapper for numpy.argsort, numpy.ma.argsort, and sorted for
            Python iterables
-       * - :func:`~pyjams.closest`
+       * - :func:`~pyjams.closest.closest`
          - Index in array which entry is closest to a given number
        * - :func:`~pyjams.pack.pack`
          - Pack array with mask like Fortran intrinsic pack
@@ -321,13 +321,13 @@ Functions and modules per category
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.kernel_regression`
+       * - :func:`~pyjams.kernel_regression.kernel_regression`
          - Multi-dimensional non-parametric kernel regression
-       * - :func:`~pyjams.kernel_regression_h`
+       * - :func:`~pyjams.kernel_regression.kernel_regression_h`
          - Determination of bandwidth for kernel regression
-       * - :func:`~pyjams.mad`
+       * - :func:`~pyjams.mad.mad`
          - Median absolute deviation test
-       * - :func:`~pyjams.means`
+       * - :func:`~pyjams.means.means`
          - Calculate daily, monthly, yearly, etc. means of data
 
 .. _Date and Time:
@@ -387,7 +387,7 @@ Functions and modules per category
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.gridcellarea`
+       * - :func:`~pyjams.gridcellarea.gridcellarea`
          - Area of grid cells on Earth
 
 .. _Isotopes:
@@ -399,9 +399,9 @@ Functions and modules per category
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.alpha_equ_h2o`
+       * - :func:`~pyjams.alpha_equ_h2o.alpha_equ_h2o`
          - Equilibrium fractionation between liquid water and vapour
-       * - :func:`~pyjams.alpha_kin_h2o`
+       * - :func:`~pyjams.alpha_kin_h2o.alpha_kin_h2o`
          - Kinetic fractionation of molecular diffusion of water vapour
 
 .. _Math:
@@ -444,27 +444,27 @@ Functions and modules per category
 
        * - Function/module
          - Short description
-       * - :func:`~pyjams.eair2mrair`
+       * - :func:`~pyjams.air_humidity.eair2mrair`
          - Mixing ratio from partial pressure of water vapour and total pressure
-       * - :func:`~pyjams.eair2rhair`
+       * - :func:`~pyjams.air_humidity.eair2rhair`
          - Relative humidity from partial pressure of water vapour and temperature
-       * - :func:`~pyjams.eair2shair`
+       * - :func:`~pyjams.air_humidity.eair2shair`
          - Specific humidity from partial pressure of water vapour and total pressure
-       * - :func:`~pyjams.eair2vpd`
+       * - :func:`~pyjams.air_humidity.eair2vpd`
          - Air vapour pressure deficit from partial pressure and temperature
-       * - :func:`~pyjams.esat`
+       * - :func:`~pyjams.air_humidity.esat`
          - Saturation vapour pressure over water and ice
-       * - :func:`~pyjams.mrair2eair`
+       * - :func:`~pyjams.air_humidity.mrair2eair`
          - Partial pressure of water vapour from mixing ratio and total pressure
-       * - :func:`~pyjams.rhair2eair`
+       * - :func:`~pyjams.air_humidity.rhair2eair`
          - Partial pressure of water vapour from relative humidity and temperature
-       * - :func:`~pyjams.rhair2vpd`
+       * - :func:`~pyjams.air_humidity.rhair2vpd`
          - Air vapour pressure deficit from relative humidity and temperature
-       * - :func:`~pyjams.shair2eair`
+       * - :func:`~pyjams.air_humidity.shair2eair`
          - Partial pressure of water vapour from specific humidity and total pressure
-       * - :func:`~pyjams.vpd2eair`
+       * - :func:`~pyjams.air_humidity.vpd2eair`
          - Partial pressure of water vapour from air vapour pressure deficit and temperature
-       * - :func:`~pyjams.vpd2rhair`
+       * - :func:`~pyjams.air_humidity.vpd2rhair`
          - Relative humidity from air vapour pressure deficit and temperature
 
 .. _Miscellaneous:
@@ -491,7 +491,7 @@ Functions and modules per category
          - Integer to Roman numeral conversion
        * - :func:`~pyjams.romanliterals.roman2int`
          - Roman numeral to integer conversion
-       * - :func:`~pyjams.tee`
+       * - :func:`~pyjams.tee.tee`
          - Prints arguments on screen and in file, like Unix/Linux tee utility
 
 .. _Plotting:
@@ -509,15 +509,15 @@ Functions and modules per category
          - Collection of color palettes and continuous color maps
        * - :func:`~pyjams.romanliterals.int2roman`
          - Integer to Roman numeral conversion
-       * - :class:`~pyjams.mcPlot`
+       * - :class:`~pyjams.mcplot.mcPlot`
          - Matthias Cuntz' standard plotting class
-       * - :func:`~pyjams.position`
+       * - :func:`~pyjams.position.position`
          - Position arrays of subplots to be used with add_axes
        * - :func:`~pyjams.romanliterals.roman2int`
          - Roman numeral to integer conversion
        * - :func:`~pyjams.text2plot.signature2plot`
          - Write a copyright notice on a plot
-       * - :func:`~pyjams.str2tex`
+       * - :func:`~pyjams.str2tex.str2tex`
          - Convert strings to LaTeX strings in math environment used by
            matplotlib's usetex
        * - :func:`~pyjams.text2plot.text2plot`
