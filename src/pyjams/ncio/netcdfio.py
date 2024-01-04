@@ -17,7 +17,7 @@ David Schaefer.
 
 The following functions are provided
 
-.. autosummary::
+.. autosumcmary::
    copy_dimensions
    copy_file
    copy_global_attributes
@@ -45,6 +45,7 @@ History
       Jul 2023, Matthias Cuntz
     * create_variables sets missing_value attribute if present even if used for
       _FillValue, Jul 2023, Matthias Cuntz
+    * addglobalatt in copy_file, Dec 2023, Matthias Cuntz
 
 """
 import numpy as np
@@ -136,8 +137,8 @@ def get_variable_definition(ncvar):
         ifill = None
     # output variable
     out.update({
-        "name":       ncvar.name,
-        "dtype":      ncvar.dtype,
+        "name": ncvar.name,
+        "dtype": ncvar.dtype,
         "dimensions": list(ncvar.dimensions),
         "fill_value": ifill,
         "chunksizes": chunks,
@@ -147,6 +148,7 @@ def get_variable_definition(ncvar):
 
 def copy_file(ifile, ofile, timedim='time',
               removevar=[], renamevar={}, replacevar={}, replaceatt={},
+              addglobalatt={},
               noclose=False):
     """
     Copy variables from input file into output file.
@@ -176,6 +178,10 @@ def copy_file(ifile, ofile, timedim='time',
         (case sensitive). Dictionary values are also dictionaries with
         {'attribute_name': attribute_value}. Dictionary keys are the names
         of the output variables after renaming and replacing.
+    addglobalatt : dict, optional
+        Create or add to global file attributes.
+        dict values will be given to attributes given in dict keys.
+        Attributes will be created if they do not exist yet.
     noclose : bool, optional
         Return file handle of opened output file for further manipulation
         if True (default: False)
@@ -206,9 +212,10 @@ def copy_file(ifile, ofile, timedim='time',
         fo = nc.Dataset(ofile, 'w', format='NETCDF4')
 
     # meta data
-    copy_global_attributes(
-        fi, fo, add={'history': ptime.asctime() + ': ' +
-                     'copy_variables(' + ifile + ', ' + ofile + ')'})
+    if 'history' not in addglobalatt:
+        addglobalatt.update({'history': ptime.asctime() + ': ' +
+                             'copy_variables(' + ifile + ', ' + ofile + ')'})
+    copy_global_attributes(fi, fo, add=addglobalatt)
 
     # copy dimensions
     copy_dimensions(fi, fo)
@@ -653,7 +660,7 @@ def create_variables(fi, fo, time=None, timedim='time', izip=False, fill=None,
                                 # use fo not fi because new dims perhaps
                                 # not yet in fi
                                 rchunk.append(len(fo.dimensions[cc]))
-                            chunks = chunks[:ip] + rchunk + chunks[ip+1:]
+                            chunks = chunks[:ip] + rchunk + chunks[ip + 1:]
                 invardef['dimensions'] = dims
                 invardef['chunksizes'] = chunks
                 # set _FillValue if None
@@ -719,7 +726,7 @@ def get_fill_value_for_dtype(dtype):
         return nc.default_fillvals['f8']
     else:
         import warnings
-        warnings.warn("data type unknown: "+str(dtype))
+        warnings.warn("data type unknown: " + str(dtype))
         return None
 
 
@@ -749,7 +756,7 @@ def set_output_filename(ifile, ext):
 
     """
     sifile = ifile.split('.')
-    sifile[-2] = sifile[-2]+ext
+    sifile[-2] = sifile[-2] + ext
     ofile = '.'.join(sifile)
     return ofile
 

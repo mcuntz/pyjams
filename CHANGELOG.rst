@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v2.2 (??? 2024)
+    * Adding global attributes in `ncio.copy_file`.
+
 v2.1 (Nov 2023)
     * Changed to sphinx_book_theme for documentation.
     * Correct all tests.
