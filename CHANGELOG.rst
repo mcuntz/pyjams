@@ -2,6 +2,8 @@ Changelog
 ---------
 
 v2.2 (??? 2024)
+    * Updated Github actions.
+    * Set default options for `mcPlot` if not given on command line.
     * Adding global attributes in `ncio.copy_file`.
 
 v2.1 (Nov 2023)

@@ -100,6 +100,8 @@ History
     * Set filename without suffix as default plot name,
       Jun 2023, Matthias Cuntz
     * Removed space from print of plot filename, Jun 2023, Matthias Cuntz
+    * Set default options if not given on command line,
+      Jan 2024, Matthias Cuntz
 
 """
 import numpy as np
@@ -508,6 +510,9 @@ class mcPlot(object):
                    self.set_matplotlib_rcparams()
 
         """
+        if not hasattr(self, 'dowhite'):
+            self.dowhite = False
+
         # layout and spaces
         self.nrow     = 3     # # of rows of subplots per figure
         self.ncol     = 2     # # of columns of subplots per figure
@@ -584,6 +589,16 @@ class mcPlot(object):
         # self.dpi         = 300
         self.bbox_inches = 'tight'
         self.pad_inches  = 0.035
+        if not hasattr(self, 'dpi'):
+            self.dpi = 300
+        if not hasattr(self, 'transparent'):
+            self.transparent = False
+
+        # misc
+        if not hasattr(self, 'serif'):
+            self.serif = False
+        if not hasattr(self, 'usetex'):
+            self.usetex = False
 
     # -------------------------------------------------------------------------
     # test figure
@@ -601,7 +616,7 @@ class mcPlot(object):
         fig = plt.figure(self.ifig)
 
         nn = 100
-        xx = np.arange(nn) / float(nn) * 4.*np.pi
+        xx = np.arange(nn) / float(nn) * 4. * np.pi
         yy1 = np.sin(xx)
         yy2 = np.cos(xx)
 
@@ -664,11 +679,13 @@ class mcPlot(object):
         """
         self.outtypes = ['', 'pdf', 'png', 'html', 'd3', 'hvplot']
         self.outtype_ends = ['', '.pdf', '_', '.html', '.html', '.html']
+        if not hasattr(self, 'outtype'):
+            self.outtype = ''
 
         self.outtype  = self.outtype.lower()
         if self.outtype not in self.outtypes:
-            estr  = '\nOutput ' + self.outtype + ' type must be in:'
-            raise IOError(estr, self.outtypes)
+            raise IOError(f'Output {self.outtype} type must be in:'
+                          f'{self.outtypes}')
 
         if (self.outtype == 'd3'):
             try:

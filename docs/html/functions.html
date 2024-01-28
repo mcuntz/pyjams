@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Function module &#8212; pyjams</title>
   
@@ -19,29 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=3144513b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'functions';</script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -57,7 +56,7 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -100,12 +99,18 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -120,6 +125,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="contents.html">
@@ -128,10 +134,22 @@
   
   
   
+  
     <p class="title logo__title">pyjams</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
@@ -403,6 +421,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -412,6 +431,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -548,10 +568,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="module-pyjams.functions">
-<span id="function-module"></span><span id="functions"></span><h1>Function module<a class="headerlink" href="#module-pyjams.functions" title="Permalink to this heading">#</a></h1>
+<span id="function-module"></span><span id="functions"></span><h1>Function module<a class="headerlink" href="#module-pyjams.functions" title="Link to this heading">#</a></h1>
 <p>Provides a variety of special functions, including common test functions for
 parameter estimations such as Rosenbrock and Griewank, test functions for
 parameter sensitivity analysis such as the Ishigami and Homma function, several
@@ -567,7 +587,7 @@ use with the <code class="docutils literal notranslate"><span class="pre">scipy.
 </dd>
 </dl>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">#</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="functions.general_functions.html#module-pyjams.functions.general_functions" title="pyjams.functions.general_functions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">general_functions</span></code></a></p></td>
@@ -590,7 +610,7 @@ use with the <code class="docutils literal notranslate"><span class="pre">scipy.
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.B">
-<span class="sig-name descname"><span class="pre">B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.B" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">B</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#B"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.B" title="Link to this definition">#</a></dt>
 <dd><p>B function</p>
 <p>Saltelli et al. (2010) Comp. Phys. Comm. 181, p. 259-270</p>
 <dl class="field-list simple">
@@ -608,7 +628,7 @@ use with the <code class="docutils literal notranslate"><span class="pre">scipy.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.G">
-<span class="sig-name descname"><span class="pre">G</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#G"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.G" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">G</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#G"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.G" title="Link to this definition">#</a></dt>
 <dd><p>G-function</p>
 <p>Sobol’ (1990) Matematicheskoe Modelirovanie 2, 112-118 (in Russian)</p>
 <p>Sobol’ (1993) Mathematical Modelling and Computational Experiment 1,
@@ -632,7 +652,7 @@ with parameters <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.Gstar">
-<span class="sig-name descname"><span class="pre">Gstar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#Gstar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.Gstar" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">Gstar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#Gstar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.Gstar" title="Link to this definition">#</a></dt>
 <dd><p>G* example</p>
 <p>Saltelli et al. (2010) Comp. Phys. Comm., 181, p. 259-270</p>
 <dl class="field-list simple">
@@ -656,7 +676,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.K">
-<span class="sig-name descname"><span class="pre">K</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#K"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.K" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">K</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#K"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.K" title="Link to this definition">#</a></dt>
 <dd><p>K example</p>
 <p>Saltelli et al. (2010) Comp. Phys. Comm., 181, p. 259-270</p>
 <dl class="field-list simple">
@@ -674,7 +694,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.ackley">
-<span class="sig-name descname"><span class="pre">ackley</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#ackley"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.ackley" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ackley</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#ackley"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.ackley" title="Link to this definition">#</a></dt>
 <dd><p>Ackley function (&gt;= 2-D).</p>
 <p>Global Optimum: 0.0 at origin.</p>
 <dl class="field-list simple">
@@ -692,7 +712,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.arrhenius">
-<span class="sig-name descname"><span class="pre">arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.arrhenius" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.arrhenius" title="Link to this definition">#</a></dt>
 <dd><p>Arrhenius temperature dependence of rates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -712,7 +732,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.arrhenius_p">
-<span class="sig-name descname"><span class="pre">arrhenius_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#arrhenius_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.arrhenius_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">arrhenius_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#arrhenius_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.arrhenius_p" title="Link to this definition">#</a></dt>
 <dd><p>Arrhenius temperature dependence of rates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -732,7 +752,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.bratley">
-<span class="sig-name descname"><span class="pre">bratley</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#bratley"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.bratley" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">bratley</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#bratley"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.bratley" title="Link to this definition">#</a></dt>
 <dd><p>K example</p>
 <p>Saltelli et al. (2010) Comp. Phys. Comm., 181, p. 259-270</p>
 <dl class="field-list simple">
@@ -750,7 +770,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_arrhenius">
-<span class="sig-name descname"><span class="pre">cost2_arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_arrhenius" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_arrhenius" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and arrhenius function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -771,7 +791,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_f1x">
-<span class="sig-name descname"><span class="pre">cost2_f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_f1x" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_f1x" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and general 1/x function: <span class="math notranslate nohighlight">\(a + b/x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -799,7 +819,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_fexp">
-<span class="sig-name descname"><span class="pre">cost2_fexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_fexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_fexp" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_fexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_fexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_fexp" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and general exponential function:
 <span class="math notranslate nohighlight">\(a + b * exp(c*x)\)</span></p>
 <dl class="field-list simple">
@@ -829,7 +849,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_gauss">
-<span class="sig-name descname"><span class="pre">cost2_gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_gauss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_gauss" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_gauss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_gauss" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and Gauss function:
 <span class="math notranslate nohighlight">\(1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )\)</span></p>
 <dl class="field-list simple">
@@ -858,7 +878,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_lasslop">
-<span class="sig-name descname"><span class="pre">cost2_lasslop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NEE</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lasslop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_lasslop" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_lasslop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NEE</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lasslop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_lasslop" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and Lasslop et al (2010)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -892,7 +912,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_line">
-<span class="sig-name descname"><span class="pre">cost2_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_line" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_line" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and straight line: <span class="math notranslate nohighlight">\(a + b*x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -920,7 +940,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_line0">
-<span class="sig-name descname"><span class="pre">cost2_line0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_line0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_line0" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_line0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_line0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_line0" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and straight line through origin:
 <span class="math notranslate nohighlight">\(a*x\)</span></p>
 <dl class="field-list simple">
@@ -942,7 +962,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_lloyd_fix">
-<span class="sig-name descname"><span class="pre">cost2_lloyd_fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lloyd_fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_lloyd_fix" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_lloyd_fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lloyd_fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_lloyd_fix" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and Lloyd &amp; Taylor (1994) Arrhenius type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -970,7 +990,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_lloyd_only_rref">
-<span class="sig-name descname"><span class="pre">cost2_lloyd_only_rref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lloyd_only_rref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_lloyd_only_rref" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_lloyd_only_rref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_lloyd_only_rref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_lloyd_only_rref" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and Lloyd &amp; Taylor with fixed E0</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -991,7 +1011,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_logistic">
-<span class="sig-name descname"><span class="pre">cost2_logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_logistic" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_logistic" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and logistic function
 <span class="math notranslate nohighlight">\(L/(1+exp(-k(x-x0)))\)</span></p>
 <dl class="field-list simple">
@@ -1021,7 +1041,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_logistic2_offset">
-<span class="sig-name descname"><span class="pre">cost2_logistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_logistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_logistic2_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_logistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_logistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_logistic2_offset" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and double logistic function with offset:
 <span class="math notranslate nohighlight">\(L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a\)</span></p>
 <dl class="field-list simple">
@@ -1055,7 +1075,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_logistic_offset">
-<span class="sig-name descname"><span class="pre">cost2_logistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_logistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_logistic_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_logistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_logistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_logistic_offset" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and logistic function 1/x function:
 <span class="math notranslate nohighlight">\(L/(1+exp(-k(x-x0))) + a\)</span></p>
 <dl class="field-list simple">
@@ -1086,7 +1106,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_poly">
-<span class="sig-name descname"><span class="pre">cost2_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_poly" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_poly" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and general polynomial:
 <span class="math notranslate nohighlight">\(c0 + c1*x + c2*x**2 + ... + cn*x**n\)</span></p>
 <dl class="field-list simple">
@@ -1108,7 +1128,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_sabx">
-<span class="sig-name descname"><span class="pre">cost2_sabx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_sabx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_sabx" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_sabx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_sabx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_sabx" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and square root of general 1/x function:
 <span class="math notranslate nohighlight">\(sqrt(a + b/x)\)</span></p>
 <dl class="field-list simple">
@@ -1137,7 +1157,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost2_see">
-<span class="sig-name descname"><span class="pre">cost2_see</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_see"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_see" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost2_see</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost2_see"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost2_see" title="Link to this definition">#</a></dt>
 <dd><p>Sum of squared deviations of obs and fit function of Sequential Elementary
 Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
@@ -1167,7 +1187,7 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_abs">
-<span class="sig-name descname"><span class="pre">cost_abs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_abs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_abs" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_abs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_abs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_abs" title="Link to this definition">#</a></dt>
 <dd><p>General cost function for robust optimising <cite>func(x, p)</cite> vs <cite>y</cite> with sum
 of absolute deviations.</p>
 <dl class="field-list simple">
@@ -1190,7 +1210,7 @@ of absolute deviations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_arrhenius">
-<span class="sig-name descname"><span class="pre">cost_arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_arrhenius" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_arrhenius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_arrhenius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_arrhenius" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and arrhenius function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1211,7 +1231,7 @@ of absolute deviations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_f1x">
-<span class="sig-name descname"><span class="pre">cost_f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_f1x" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_f1x" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and general 1/x function: <span class="math notranslate nohighlight">\(a + b/x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1239,7 +1259,7 @@ of absolute deviations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_fexp">
-<span class="sig-name descname"><span class="pre">cost_fexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_fexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_fexp" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_fexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_fexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_fexp" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and general exponential function:
 <span class="math notranslate nohighlight">\(a + b * exp(c*x)\)</span></p>
 <dl class="field-list simple">
@@ -1269,7 +1289,7 @@ of absolute deviations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_gauss">
-<span class="sig-name descname"><span class="pre">cost_gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_gauss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_gauss" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_gauss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_gauss" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and Gauss function:
 <span class="math notranslate nohighlight">\(1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )\)</span></p>
 <dl class="field-list simple">
@@ -1298,7 +1318,7 @@ of absolute deviations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_lasslop">
-<span class="sig-name descname"><span class="pre">cost_lasslop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NEE</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lasslop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_lasslop" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_lasslop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NEE</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lasslop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_lasslop" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and Lasslop et al (2010)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1332,7 +1352,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_line">
-<span class="sig-name descname"><span class="pre">cost_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_line" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_line" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and straight line: <span class="math notranslate nohighlight">\(a + b*x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1360,7 +1380,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_line0">
-<span class="sig-name descname"><span class="pre">cost_line0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_line0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_line0" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_line0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_line0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_line0" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and straight line through origin:
 <span class="math notranslate nohighlight">\(a*x\)</span></p>
 <dl class="field-list simple">
@@ -1382,7 +1402,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_lloyd_fix">
-<span class="sig-name descname"><span class="pre">cost_lloyd_fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lloyd_fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_lloyd_fix" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_lloyd_fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lloyd_fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_lloyd_fix" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and Lloyd &amp; Taylor (1994) Arrhenius type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1410,7 +1430,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_lloyd_only_rref">
-<span class="sig-name descname"><span class="pre">cost_lloyd_only_rref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lloyd_only_rref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_lloyd_only_rref" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_lloyd_only_rref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_lloyd_only_rref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_lloyd_only_rref" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and Lloyd &amp; Taylor with fixed E0</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1431,7 +1451,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_logistic">
-<span class="sig-name descname"><span class="pre">cost_logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_logistic" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_logistic" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and logistic function
 <span class="math notranslate nohighlight">\(L/(1+exp(-k(x-x0)))\)</span></p>
 <dl class="field-list simple">
@@ -1461,7 +1481,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_logistic2_offset">
-<span class="sig-name descname"><span class="pre">cost_logistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_logistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_logistic2_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_logistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_logistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_logistic2_offset" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and double logistic function with offset:
 <span class="math notranslate nohighlight">\(L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a\)</span></p>
 <dl class="field-list simple">
@@ -1495,7 +1515,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_logistic_offset">
-<span class="sig-name descname"><span class="pre">cost_logistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_logistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_logistic_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_logistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_logistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_logistic_offset" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and logistic function 1/x function:
 <span class="math notranslate nohighlight">\(L/(1+exp(-k(x-x0))) + a\)</span></p>
 <dl class="field-list simple">
@@ -1526,7 +1546,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_poly">
-<span class="sig-name descname"><span class="pre">cost_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_poly" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_poly" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and general polynomial:
 <span class="math notranslate nohighlight">\(c0 + c1*x + c2*x**2 + ... + cn*x**n\)</span></p>
 <dl class="field-list simple">
@@ -1548,7 +1568,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_sabx">
-<span class="sig-name descname"><span class="pre">cost_sabx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_sabx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_sabx" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_sabx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_sabx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_sabx" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and square root of general 1/x function:
 <span class="math notranslate nohighlight">\(sqrt(a + b/x)\)</span></p>
 <dl class="field-list simple">
@@ -1577,7 +1597,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_see">
-<span class="sig-name descname"><span class="pre">cost_see</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_see"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_see" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_see</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_see"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_see" title="Link to this definition">#</a></dt>
 <dd><p>Sum of absolute deviations of obs and fit function of Sequential Elementary
 Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
@@ -1607,7 +1627,7 @@ Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.cost_square">
-<span class="sig-name descname"><span class="pre">cost_square</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_square"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_square" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cost_square</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#cost_square"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.cost_square" title="Link to this definition">#</a></dt>
 <dd><p>General cost function for optimising <cite>func(x, p)</cite> vs <cite>y</cite> with sum of
 square deviations.</p>
 <dl class="field-list simple">
@@ -1630,7 +1650,7 @@ square deviations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.curvature">
-<span class="sig-name descname"><span class="pre">curvature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfunc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/general_functions.html#curvature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.curvature" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">curvature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfunc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/general_functions.html#curvature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.curvature" title="Link to this definition">#</a></dt>
 <dd><p>Curvature of a function f</p>
 <div class="math notranslate nohighlight">
 \[f''/(1+f'^2)^{3/2}\]</div>
@@ -1663,7 +1683,7 @@ square deviations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.d2logistic">
-<span class="sig-name descname"><span class="pre">d2logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">d2logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic" title="Link to this definition">#</a></dt>
 <dd><p>Second derivative of <a class="reference internal" href="#pyjams.functions.logistic" title="pyjams.functions.logistic"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic()</span></code></a> function</p>
 <div class="math notranslate nohighlight">
 \[L/(1+exp(-k(x-x0)))\]</div>
@@ -1691,7 +1711,7 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.d2logistic2_offset">
-<span class="sig-name descname"><span class="pre">d2logistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic2_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">d2logistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic2_offset" title="Link to this definition">#</a></dt>
 <dd><p>Second derivative of <a class="reference internal" href="#pyjams.functions.logistic_offset" title="pyjams.functions.logistic_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic_offset()</span></code></a> function</p>
 <div class="math notranslate nohighlight">
 \[L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a\]</div>
@@ -1723,14 +1743,14 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.d2logistic2_offset_p">
-<span class="sig-name descname"><span class="pre">d2logistic2_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic2_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic2_offset_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">d2logistic2_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic2_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic2_offset_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for
 <a class="reference internal" href="#pyjams.functions.d2logistic2_offset" title="pyjams.functions.d2logistic2_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">d2logistic2_offset()</span></code></a>: <cite>d2logistic2_offset(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.d2logistic_offset">
-<span class="sig-name descname"><span class="pre">d2logistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">d2logistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic_offset" title="Link to this definition">#</a></dt>
 <dd><p>Second derivative of <a class="reference internal" href="#pyjams.functions.logistic_offset" title="pyjams.functions.logistic_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic_offset()</span></code></a> function</p>
 <div class="math notranslate nohighlight">
 \[L/(1+exp(-k(x-x0))) + a\]</div>
@@ -1759,19 +1779,19 @@ steepness <em>k</em>, inflection point <em>x0</em>, and offset <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.d2logistic_offset_p">
-<span class="sig-name descname"><span class="pre">d2logistic_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic_offset_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">d2logistic_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic_offset_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for <a class="reference internal" href="#pyjams.functions.d2logistic_offset" title="pyjams.functions.d2logistic_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">d2logistic_offset()</span></code></a>: <cite>d2logistic_offset(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.d2logistic_p">
-<span class="sig-name descname"><span class="pre">d2logistic_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">d2logistic_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#d2logistic_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.d2logistic_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for <a class="reference internal" href="#pyjams.functions.d2logistic" title="pyjams.functions.d2logistic"><code class="xref py py-func docutils literal notranslate"><span class="pre">d2logistic()</span></code></a>: <cite>d2logistic(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.dlogistic">
-<span class="sig-name descname"><span class="pre">dlogistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dlogistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic" title="Link to this definition">#</a></dt>
 <dd><p>First derivative of <a class="reference internal" href="#pyjams.functions.logistic" title="pyjams.functions.logistic"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic()</span></code></a> function</p>
 <div class="math notranslate nohighlight">
 \[L/(1+exp(-k(x-x0)))\]</div>
@@ -1799,7 +1819,7 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.dlogistic2_offset">
-<span class="sig-name descname"><span class="pre">dlogistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic2_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dlogistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic2_offset" title="Link to this definition">#</a></dt>
 <dd><p>First derivative of <a class="reference internal" href="#pyjams.functions.logistic2_offset" title="pyjams.functions.logistic2_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic2_offset()</span></code></a> function</p>
 <div class="math notranslate nohighlight">
 \[L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a\]</div>
@@ -1830,13 +1850,13 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.dlogistic2_offset_p">
-<span class="sig-name descname"><span class="pre">dlogistic2_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic2_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic2_offset_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dlogistic2_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic2_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic2_offset_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for <a class="reference internal" href="#pyjams.functions.dlogistic2_offset" title="pyjams.functions.dlogistic2_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">dlogistic2_offset()</span></code></a>: <cite>dlogistic2_offset(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.dlogistic_offset">
-<span class="sig-name descname"><span class="pre">dlogistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dlogistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic_offset" title="Link to this definition">#</a></dt>
 <dd><p>First derivative of <a class="reference internal" href="#pyjams.functions.logistic_offset" title="pyjams.functions.logistic_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic_offset()</span></code></a> function</p>
 <div class="math notranslate nohighlight">
 \[L/(1+exp(-k(x-x0))) + a\]</div>
@@ -1865,19 +1885,19 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.dlogistic_offset_p">
-<span class="sig-name descname"><span class="pre">dlogistic_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic_offset_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dlogistic_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic_offset_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for <a class="reference internal" href="#pyjams.functions.dlogistic_offset" title="pyjams.functions.dlogistic_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">dlogistic_offset()</span></code></a>: <cite>dlogistic_offset(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.dlogistic_p">
-<span class="sig-name descname"><span class="pre">dlogistic_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dlogistic_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#dlogistic_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.dlogistic_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for <a class="reference internal" href="#pyjams.functions.dlogistic" title="pyjams.functions.dlogistic"><code class="xref py py-func docutils literal notranslate"><span class="pre">dlogistic()</span></code></a>: <cite>dlogistic(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.f1x">
-<span class="sig-name descname"><span class="pre">f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.f1x" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">f1x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#f1x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.f1x" title="Link to this definition">#</a></dt>
 <dd><p>General 1/x function: <span class="math notranslate nohighlight">\(a + b/x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1898,7 +1918,7 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.f1x_p">
-<span class="sig-name descname"><span class="pre">f1x_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#f1x_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.f1x_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">f1x_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#f1x_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.f1x_p" title="Link to this definition">#</a></dt>
 <dd><p>General 1/x function: <span class="math notranslate nohighlight">\(a + b/x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1925,7 +1945,7 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.fexp">
-<span class="sig-name descname"><span class="pre">fexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#fexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fexp" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#fexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fexp" title="Link to this definition">#</a></dt>
 <dd><p>General exponential function: <span class="math notranslate nohighlight">\(a + b * exp(c*x)\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1947,7 +1967,7 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.fexp_p">
-<span class="sig-name descname"><span class="pre">fexp_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#fexp_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fexp_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fexp_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#fexp_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fexp_p" title="Link to this definition">#</a></dt>
 <dd><p>General exponential function: <span class="math notranslate nohighlight">\(a + b * exp(c*x)\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1975,7 +1995,7 @@ steepness <em>k</em> and inflection point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.fmorris">
-<span class="sig-name descname"><span class="pre">fmorris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#fmorris"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fmorris" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fmorris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#fmorris"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.fmorris" title="Link to this definition">#</a></dt>
 <dd><p>Morris-function</p>
 <p>Morris (1991) Technometrics 33, 161-174</p>
 <dl class="field-list simple">
@@ -2001,7 +2021,7 @@ parameters <em>beta0-beta4</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.g">
-<span class="sig-name descname"><span class="pre">g</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#g"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.g" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">g</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#g"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.g" title="Link to this definition">#</a></dt>
 <dd><p>G-function</p>
 <p>Sobol’ (1990) Matematicheskoe Modelirovanie 2, 112-118 (in Russian)</p>
 <p>Sobol’ (1993) Mathematical Modelling and Computational Experiment 1,
@@ -2025,7 +2045,7 @@ with parameters <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.gauss">
-<span class="sig-name descname"><span class="pre">gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#gauss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.gauss" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#gauss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.gauss" title="Link to this definition">#</a></dt>
 <dd><p>Gauss function:
 <span class="math notranslate nohighlight">\(1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )\)</span></p>
 <dl class="field-list simple">
@@ -2047,7 +2067,7 @@ with parameters <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.gauss_p">
-<span class="sig-name descname"><span class="pre">gauss_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#gauss_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.gauss_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">gauss_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#gauss_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.gauss_p" title="Link to this definition">#</a></dt>
 <dd><p>Gauss function:
 <span class="math notranslate nohighlight">\(1 / (sqrt(2*pi)*sig) * exp( -(x-mu)**2 / (2*sig**2) )\)</span></p>
 <dl class="field-list simple">
@@ -2075,7 +2095,7 @@ with parameters <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.goldstein_price">
-<span class="sig-name descname"><span class="pre">goldstein_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#goldstein_price"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.goldstein_price" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">goldstein_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#goldstein_price"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.goldstein_price" title="Link to this definition">#</a></dt>
 <dd><p>Goldstein-Price function (2-D).</p>
 <p>Global Optimum: 3.0 at (0.0, -1.0).</p>
 <dl class="field-list simple">
@@ -2094,7 +2114,7 @@ with parameters <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.griewank">
-<span class="sig-name descname"><span class="pre">griewank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#griewank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.griewank" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">griewank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#griewank"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.griewank" title="Link to this definition">#</a></dt>
 <dd><p>Griewank function (2-D or 10-D).</p>
 <p>Global Optimum: 0.0 at origin.</p>
 <dl class="field-list simple">
@@ -2114,7 +2134,7 @@ with parameters <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.ishigami_homma">
-<span class="sig-name descname"><span class="pre">ishigami_homma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#ishigami_homma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.ishigami_homma" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ishigami_homma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#ishigami_homma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.ishigami_homma" title="Link to this definition">#</a></dt>
 <dd><p>Ishigami and Homma (1990)</p>
 <p>given by Saltelli et al. (2008, page 179)</p>
 <dl class="field-list simple">
@@ -2137,7 +2157,7 @@ with parameters <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.ishigami_homma_easy">
-<span class="sig-name descname"><span class="pre">ishigami_homma_easy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#ishigami_homma_easy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.ishigami_homma_easy" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ishigami_homma_easy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#ishigami_homma_easy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.ishigami_homma_easy" title="Link to this definition">#</a></dt>
 <dd><p>Simplified Ishigami and Homma function</p>
 <div class="math notranslate nohighlight">
 \[Y = sin(X[0]) + X[1]\]</div>
@@ -2158,7 +2178,7 @@ values at <em>X</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.lasslop">
-<span class="sig-name descname"><span class="pre">lasslop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lasslop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lasslop" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lasslop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lasslop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lasslop" title="Link to this definition">#</a></dt>
 <dd><p>NEE of Lasslop et al (2010)</p>
 <p>Lasslop et al. (2010) is the rectangular, hyperbolic light-response
 of NEE as by Falge et al. (2001), where the respiration is calculated
@@ -2189,7 +2209,7 @@ VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.lasslop_p">
-<span class="sig-name descname"><span class="pre">lasslop_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lasslop_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lasslop_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lasslop_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Rg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VPD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lasslop_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lasslop_p" title="Link to this definition">#</a></dt>
 <dd><p>NEE of Lasslop et al (2010)</p>
 <p>Lasslop et al. (2010) is the rectangular, hyperbolic light-response
 of NEE as by Falge et al. (2001), where the respiration is calculated
@@ -2226,7 +2246,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.line">
-<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.line" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.line" title="Link to this definition">#</a></dt>
 <dd><p>Straight line: <span class="math notranslate nohighlight">\(a + b*x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2247,7 +2267,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.line0">
-<span class="sig-name descname"><span class="pre">line0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.line0" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">line0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.line0" title="Link to this definition">#</a></dt>
 <dd><p>Straight line through origin: <span class="math notranslate nohighlight">\(a*x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2267,7 +2287,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.line0_p">
-<span class="sig-name descname"><span class="pre">line0_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line0_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.line0_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">line0_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line0_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.line0_p" title="Link to this definition">#</a></dt>
 <dd><p>Straight line through origin: <span class="math notranslate nohighlight">\(a*x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2287,7 +2307,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.line_p">
-<span class="sig-name descname"><span class="pre">line_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.line_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">line_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#line_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.line_p" title="Link to this definition">#</a></dt>
 <dd><p>Straight line: <span class="math notranslate nohighlight">\(a + b*x\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2314,7 +2334,7 @@ with VPD increase [Pa-1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.linear">
-<span class="sig-name descname"><span class="pre">linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.linear" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.linear" title="Link to this definition">#</a></dt>
 <dd><p>Linear test function</p>
 <div class="math notranslate nohighlight">
 \[Y = a*X + b\]</div>
@@ -2338,7 +2358,7 @@ parameters <em>a</em> and <em>b</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.lloyd_fix">
-<span class="sig-name descname"><span class="pre">lloyd_fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lloyd_fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lloyd_fix" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lloyd_fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lloyd_fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lloyd_fix" title="Link to this definition">#</a></dt>
 <dd><p>Soil respiration of Lloyd &amp; Taylor (1994)</p>
 <p>Lloyd &amp; Taylor (1994) Arrhenius type with T0=-46.02 degC and Tref=10 degC</p>
 <dl class="field-list simple">
@@ -2360,7 +2380,7 @@ parameters <em>a</em> and <em>b</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.lloyd_fix_p">
-<span class="sig-name descname"><span class="pre">lloyd_fix_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lloyd_fix_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lloyd_fix_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lloyd_fix_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lloyd_fix_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lloyd_fix_p" title="Link to this definition">#</a></dt>
 <dd><p>Soil respiration of Lloyd &amp; Taylor (1994)</p>
 <p>Lloyd &amp; Taylor (1994) Arrhenius type with T0=-46.02 degC and Tref=10 degC</p>
 <dl class="field-list simple">
@@ -2388,7 +2408,7 @@ parameters <em>a</em> and <em>b</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.lloyd_only_rref">
-<span class="sig-name descname"><span class="pre">lloyd_only_rref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lloyd_only_rref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lloyd_only_rref" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lloyd_only_rref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lloyd_only_rref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lloyd_only_rref" title="Link to this definition">#</a></dt>
 <dd><p>Soil respiration of Lloyd &amp; Taylor (1994) with fix E0</p>
 <p>If E0 is know in Lloyd &amp; Taylor (1994) then one can calc
 the exponential term outside the routine and the fitting
@@ -2411,7 +2431,7 @@ becomes linear. One could also use functions.line0.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.lloyd_only_rref_p">
-<span class="sig-name descname"><span class="pre">lloyd_only_rref_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lloyd_only_rref_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lloyd_only_rref_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lloyd_only_rref_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#lloyd_only_rref_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.lloyd_only_rref_p" title="Link to this definition">#</a></dt>
 <dd><p>Soil respiration of Lloyd &amp; Taylor (1994) with fix E0</p>
 <p>If E0 is know in Lloyd &amp; Taylor (1994) then one can calc
 the exponential term outside the routine and the fitting
@@ -2434,7 +2454,7 @@ becomes linear. One could also use functions.line0.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.logistic">
-<span class="sig-name descname"><span class="pre">logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic" title="Link to this definition">#</a></dt>
 <dd><p>Logistic function</p>
 <div class="math notranslate nohighlight">
 \[L/(1+exp(-k(x-x0)))\]</div>
@@ -2459,7 +2479,7 @@ point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.logistic2_offset">
-<span class="sig-name descname"><span class="pre">logistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic2_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">logistic2_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic2_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic2_offset" title="Link to this definition">#</a></dt>
 <dd><p>Double logistic function with offset</p>
 <div class="math notranslate nohighlight">
 \[L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a\]</div>
@@ -2487,13 +2507,13 @@ point <em>x0</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.logistic2_offset_p">
-<span class="sig-name descname"><span class="pre">logistic2_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic2_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic2_offset_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">logistic2_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic2_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic2_offset_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for <a class="reference internal" href="#pyjams.functions.logistic2_offset" title="pyjams.functions.logistic2_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic2_offset()</span></code></a>: <cite>logistic2_offset(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.logistic_offset">
-<span class="sig-name descname"><span class="pre">logistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic_offset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">logistic_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic_offset" title="Link to this definition">#</a></dt>
 <dd><p>Logistic function with offset</p>
 <div class="math notranslate nohighlight">
 \[L/(1+exp(-k(x-x0))) + a\]</div>
@@ -2519,19 +2539,19 @@ point <em>x0</em> and offset <em>a</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.logistic_offset_p">
-<span class="sig-name descname"><span class="pre">logistic_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic_offset_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">logistic_offset_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic_offset_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic_offset_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for <a class="reference internal" href="#pyjams.functions.logistic_offset" title="pyjams.functions.logistic_offset"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic_offset()</span></code></a>: <cite>logistic_offset(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.logistic_p">
-<span class="sig-name descname"><span class="pre">logistic_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">logistic_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/logistic_function.html#logistic_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.logistic_p" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper function for <a class="reference internal" href="#pyjams.functions.logistic" title="pyjams.functions.logistic"><code class="xref py py-func docutils literal notranslate"><span class="pre">logistic()</span></code></a>: <cite>logistic(x, *p)</cite></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.morris">
-<span class="sig-name descname"><span class="pre">morris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#morris"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.morris" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">morris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#morris"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.morris" title="Link to this definition">#</a></dt>
 <dd><p>Morris-function</p>
 <p>Morris (1991) Technometrics 33, 161-174</p>
 <dl class="field-list simple">
@@ -2557,7 +2577,7 @@ parameters <em>beta0-beta4</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.oakley_ohagan">
-<span class="sig-name descname"><span class="pre">oakley_ohagan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#oakley_ohagan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.oakley_ohagan" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">oakley_ohagan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#oakley_ohagan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.oakley_ohagan" title="Link to this definition">#</a></dt>
 <dd><p>Oakley and O’Hagan (2004)</p>
 <ol class="upperalpha simple" start="10">
 <li><ol class="upperalpha simple" start="18">
@@ -2580,7 +2600,7 @@ parameters <em>beta0-beta4</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.poly">
-<span class="sig-name descname"><span class="pre">poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.poly" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.poly" title="Link to this definition">#</a></dt>
 <dd><p>General polynomial: <span class="math notranslate nohighlight">\(c0 + c1*x + c2*x**2 + ... + cn*x**n\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2600,7 +2620,7 @@ parameters <em>beta0-beta4</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.poly_p">
-<span class="sig-name descname"><span class="pre">poly_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#poly_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.poly_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">poly_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#poly_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.poly_p" title="Link to this definition">#</a></dt>
 <dd><p>General polynomial: <span class="math notranslate nohighlight">\(c0 + c1*x + c2*x**2 + ... + cn*x**n\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2620,7 +2640,7 @@ parameters <em>beta0-beta4</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.product">
-<span class="sig-name descname"><span class="pre">product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.product" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.product" title="Link to this definition">#</a></dt>
 <dd><p>Product test function</p>
 <div class="math notranslate nohighlight">
 \[Y = X[0] * X[1]\]</div>
@@ -2639,7 +2659,7 @@ parameters <em>beta0-beta4</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.rastrigin">
-<span class="sig-name descname"><span class="pre">rastrigin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#rastrigin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.rastrigin" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rastrigin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#rastrigin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.rastrigin" title="Link to this definition">#</a></dt>
 <dd><p>Rastrigin function (2-D).</p>
 <p>Global Optimum: -2.0 at origin.</p>
 <dl class="field-list simple">
@@ -2658,7 +2678,7 @@ parameters <em>beta0-beta4</em></p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.ratio">
-<span class="sig-name descname"><span class="pre">ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.ratio" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/sa_test_functions.html#ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.ratio" title="Link to this definition">#</a></dt>
 <dd><p>Ratio test function</p>
 <div class="math notranslate nohighlight">
 \[Y = X[0] / X[1]\]</div>
@@ -2691,7 +2711,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.rosenbrock">
-<span class="sig-name descname"><span class="pre">rosenbrock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#rosenbrock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.rosenbrock" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rosenbrock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#rosenbrock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.rosenbrock" title="Link to this definition">#</a></dt>
 <dd><p>Rosenbrock function (2-D).</p>
 <p>Global Optimum: 0.0 at (1.0, 1.0).</p>
 <dl class="field-list simple">
@@ -2711,7 +2731,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.sabx">
-<span class="sig-name descname"><span class="pre">sabx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#sabx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.sabx" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sabx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#sabx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.sabx" title="Link to this definition">#</a></dt>
 <dd><p>Square root of general 1/x function: <span class="math notranslate nohighlight">\(sqrt(a + b/x)\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2732,7 +2752,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.sabx_p">
-<span class="sig-name descname"><span class="pre">sabx_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#sabx_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.sabx_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">sabx_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#sabx_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.sabx_p" title="Link to this definition">#</a></dt>
 <dd><p>Square root of general 1/x function: <span class="math notranslate nohighlight">\(sqrt(a + b/x)\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2759,7 +2779,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.see">
-<span class="sig-name descname"><span class="pre">see</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#see"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.see" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">see</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#see"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.see" title="Link to this definition">#</a></dt>
 <dd><p>Fit function of Sequential Elementary Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2781,7 +2801,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.see_p">
-<span class="sig-name descname"><span class="pre">see_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#see_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.see_p" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">see_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/fit_functions.html#see_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.see_p" title="Link to this definition">#</a></dt>
 <dd><p>Fit function of Sequential Elementary Effects: <span class="math notranslate nohighlight">\(a * (x-b)**c\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2809,7 +2829,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.functions.six_hump_camelback">
-<span class="sig-name descname"><span class="pre">six_hump_camelback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#six_hump_camelback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.six_hump_camelback" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">six_hump_camelback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/functions/opti_test_functions.html#six_hump_camelback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.functions.six_hump_camelback" title="Link to this definition">#</a></dt>
 <dd><p>Six-hump Camelback function (2-D).</p>
 <p>Global Optima: -1.031628453489877
 at (-0.08983, 0.7126) and (0.08983, -0.7126).</p>
@@ -2847,7 +2867,7 @@ at (-0.08983, 0.7126) and (0.08983, -0.7126).</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="division.html"
@@ -2875,6 +2895,7 @@ at (-0.08983, 0.7126) and (0.08983, -0.7126).</p>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -2999,9 +3020,10 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>
@@ -3025,8 +3047,8 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>

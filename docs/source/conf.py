@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# configuration file to build documentation of pyjams, created by
-# sphinx-quickstart on Fri Jan  5 14:20:43 2018.
+# configuration file to build documentation of pyjams
 #
 import datetime
 import warnings
@@ -11,7 +10,7 @@ import sys
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-# This line is hence needed, if pyjams is not installed yet
+# This line is hence needed, if the module is not installed yet
 sys.path.insert(
     0, os.path.dirname(os.path.abspath(__file__)) + '/../../src')
 from pyjams import __version__ as ver
@@ -254,19 +253,19 @@ suppress_warnings = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    "Python":      ("https://docs.python.org/3/",                    None),
-    "NumPy":       ("https://numpy.org/doc/stable/",                 None),
-    "SciPy":       ("https://docs.scipy.org/doc/scipy/reference/",   None),
-    "matplotlib":  ("https://matplotlib.org/",                       None),
-    "Pandas":      ("https://pandas.pydata.org/docs/",               None),
-    "cython":      ("https://cython.readthedocs.io/en/latest/",      None),
-    "cftime":      ("https://unidata.github.io/cftime/",             None),
-    # "netcdf4-python": ("https://unidata.github.io/netcdf4-python/",  None),
-    "openpyxl":    ("https://openpyxl.readthedocs.io/en/stable/",    None),
-    "Sphinx":      ("https://www.sphinx-doc.org/en/master/",         None),
-    "schwimmbad":  ("https://schwimmbad.readthedocs.io/en/latest/",  None),
-    "mpi4py":      ("https://mpi4py.readthedocs.io/en/latest/",      None),
-    "emcee":       ("https://emcee.readthedocs.io/en/latest/",       None),
-    "pyeee":       ("https://pyeee.readthedocs.io/en/latest/",       None),
-    "partialwrap": ("https://partialwrap.readthedocs.io/en/latest/", None),
+    "Python":      ("https://docs.python.org/3/",                   None),
+    "NumPy":       ("https://numpy.org/doc/stable/",                None),
+    "SciPy":       ("https://docs.scipy.org/doc/scipy/reference/",  None),
+    "matplotlib":  ("https://matplotlib.org/stable/",               None),
+    "Pandas":      ("https://pandas.pydata.org/docs/",              None),
+    "cython":      ("https://cython.readthedocs.io/en/latest/",     None),
+    "cftime":      ("https://unidata.github.io/cftime/",            None),
+    # "netcdf4-python": ("https://unidata.github.io/netcdf4-python/", None),
+    "openpyxl":    ("https://openpyxl.readthedocs.io/en/stable/",   None),
+    "Sphinx":      ("https://www.sphinx-doc.org/en/master/",        None),
+    "schwimmbad":  ("https://schwimmbad.readthedocs.io/en/latest/", None),
+    "mpi4py":      ("https://mpi4py.readthedocs.io/en/latest/",     None),
+    "emcee":       ("https://emcee.readthedocs.io/en/latest/",      None),
+    "pyeee":       ("https://mcuntz.github.io/pyeee/html/",         None),
+    "partialwrap": ("https://mcuntz.github.io/partialwrap/html/",   None),
 }

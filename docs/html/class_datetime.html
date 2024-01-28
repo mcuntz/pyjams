@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>datetime module &#8212; pyjams</title>
   
@@ -19,29 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=3144513b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'class_datetime';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -56,7 +55,7 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -99,12 +98,18 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -119,6 +124,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="contents.html">
@@ -127,10 +133,22 @@
   
   
   
+  
     <p class="title logo__title">pyjams</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
@@ -402,6 +420,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -411,6 +430,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -472,10 +492,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="module-pyjams.class_datetime">
-<span id="datetime-module"></span><h1>datetime module<a class="headerlink" href="#module-pyjams.class_datetime" title="Permalink to this heading">#</a></h1>
+<span id="datetime-module"></span><h1>datetime module<a class="headerlink" href="#module-pyjams.class_datetime" title="Link to this heading">#</a></h1>
 <p>Conversion of datetime formats</p>
 <p>The module enhances cftime by non-CF date formats.</p>
 <p>This module was written by Matthias Cuntz while at Institut National de
@@ -578,7 +598,7 @@ datetime objects in date2num, Jul 2022, Matthias Cuntz</p></li>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microsecond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofwk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofyr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microsecond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofwk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofyr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class mimics cftime.datetime but for non-CF-conform calendars</p>
 <p>The cftime.datetime class mimics itself datetime.datetime but
@@ -654,68 +674,68 @@ self.format (default %Y-%m-%d %H:%M:%S).</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.assert_valid_date">
-<span class="sig-name descname"><span class="pre">assert_valid_date</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.assert_valid_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.assert_valid_date" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">assert_valid_date</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.assert_valid_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.assert_valid_date" title="Link to this definition">#</a></dt>
 <dd><p>Check that datetime is a valid date for given calendar</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.change_calendar">
-<span class="sig-name descname"><span class="pre">change_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.change_calendar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.change_calendar" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">change_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.change_calendar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.change_calendar" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.dayofwk">
-<span class="sig-name descname"><span class="pre">dayofwk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.dayofwk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.dayofwk" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dayofwk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.dayofwk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.dayofwk" title="Link to this definition">#</a></dt>
 <dd><p>Day of the week</p>
 <p>Identical to cftime.datetime</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.dayofyr">
-<span class="sig-name descname"><span class="pre">dayofyr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.dayofyr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.dayofyr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dayofyr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.dayofyr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.dayofyr" title="Link to this definition">#</a></dt>
 <dd><p>Day of year</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.daysinmonth">
-<span class="sig-name descname"><span class="pre">daysinmonth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.daysinmonth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.daysinmonth" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">daysinmonth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.daysinmonth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.daysinmonth" title="Link to this definition">#</a></dt>
 <dd><p>Number of days in current month</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.format">
-<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.format" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.format" title="Link to this definition">#</a></dt>
 <dd><p>Standard date representation</p>
 <p>Identical to cftime.datetime</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.fromordinal">
-<span class="sig-name descname"><span class="pre">fromordinal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.fromordinal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.fromordinal" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fromordinal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.fromordinal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.fromordinal" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.isoformat">
-<span class="sig-name descname"><span class="pre">isoformat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'T'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timespec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.isoformat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.isoformat" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">isoformat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'T'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timespec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.isoformat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.isoformat" title="Link to this definition">#</a></dt>
 <dd><p>ISO date representation</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.replace">
-<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.replace" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.replace" title="Link to this definition">#</a></dt>
 <dd><p>Return datetime with new specified fields</p>
 <p>Identical to cftime.datetime</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.round_microseconds">
-<span class="sig-name descname"><span class="pre">round_microseconds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.round_microseconds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.round_microseconds" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">round_microseconds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.round_microseconds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.round_microseconds" title="Link to this definition">#</a></dt>
 <dd><p>Mathematically round microseconds to nearest second.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.strftime">
-<span class="sig-name descname"><span class="pre">strftime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.strftime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.strftime" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">strftime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.strftime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.strftime" title="Link to this definition">#</a></dt>
 <dd><p>Return a string representing the date, controlled by an explicit format
 string</p>
 <p>For a complete list of formatting directives, see section ‘strftime()
@@ -725,7 +745,7 @@ and strptime() Behavior’ in the base Python documentation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.timetuple">
-<span class="sig-name descname"><span class="pre">timetuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.timetuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.timetuple" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">timetuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.timetuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.timetuple" title="Link to this definition">#</a></dt>
 <dd><p>Return a time.struct_time such as returned by time.localtime()</p>
 <p>The DST flag is -1. d.timetuple() is equivalent to
 time.struct_time((d.year, d.month, d.day, d.hour, d.minute,
@@ -736,7 +756,7 @@ day number within the current year starting with 1 for January 1st.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.to_tuple">
-<span class="sig-name descname"><span class="pre">to_tuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.to_tuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.to_tuple" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_tuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.to_tuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.to_tuple" title="Link to this definition">#</a></dt>
 <dd><p>Turn a datetime instance into a tuple of integers. Elements go
 in the order of decreasing significance, making it easy to compare
 datetime instances. Parts of the state that don’t affect ordering
@@ -749,7 +769,7 @@ Compare to timetuple().</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime.toordinal">
-<span class="sig-name descname"><span class="pre">toordinal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fractional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.toordinal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.toordinal" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">toordinal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fractional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime.toordinal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime.toordinal" title="Link to this definition">#</a></dt>
 <dd><p>Julian day (integer) ordinal</p>
 <p>Day 0 starts at noon January 1 of the year -4713 for the
 Excel calendars.</p>
@@ -763,13 +783,13 @@ False).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.class_datetime.date2dec">
-<span class="sig-name descname"><span class="pre">date2dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#date2dec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.date2dec" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">date2dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#date2dec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.date2dec" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#pyjams.class_datetime.date2num" title="pyjams.class_datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.class_datetime.date2num">
-<span class="sig-name descname"><span class="pre">date2num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timesep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#date2num"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.date2num" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">date2num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timesep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#date2num"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.date2num" title="Link to this definition">#</a></dt>
 <dd><p>Return numeric time values given datetime objects or strings</p>
 <p>The units of the numeric time values are described by the
 <em>units</em> and <em>calendar</em> keywords for CF-conform calendars, i.e.
@@ -867,13 +887,13 @@ year, month, day, hour, minute, second, microsecond</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.class_datetime.dec2date">
-<span class="sig-name descname"><span class="pre">dec2date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#dec2date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.dec2date" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dec2date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#dec2date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.dec2date" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#pyjams.class_datetime.num2date" title="pyjams.class_datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.class_datetime.num2date">
-<span class="sig-name descname"><span class="pre">num2date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_pyjams_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_cftime_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_python_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#num2date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.num2date" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num2date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_pyjams_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_cftime_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_use_python_datetimes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#num2date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.num2date" title="Link to this definition">#</a></dt>
 <dd><p>Return datetime objects given numeric time values</p>
 <p>The units of the numeric time values are described by the
 <em>units</em> and <em>calendar</em> keywords for CF-conform calendars, i.e.
@@ -988,7 +1008,7 @@ second, microsecond</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="date2date.html"
@@ -1016,6 +1036,7 @@ second, microsecond</p>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1065,9 +1086,10 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>
@@ -1091,8 +1113,8 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>

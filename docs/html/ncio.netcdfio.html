@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>netcdfio &#8212; pyjams</title>
   
@@ -19,29 +18,29 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=3144513b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'ncio.netcdfio';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -56,7 +55,7 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -99,12 +98,18 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -119,6 +124,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="contents.html">
@@ -127,10 +133,22 @@
   
   
   
+  
     <p class="title logo__title">pyjams</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
@@ -402,6 +420,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -411,6 +430,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -460,10 +480,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="module-pyjams.ncio.netcdfio">
-<span id="netcdfio"></span><h1>netcdfio<a class="headerlink" href="#module-pyjams.ncio.netcdfio" title="Permalink to this heading">#</a></h1>
+<span id="netcdfio"></span><h1>netcdfio<a class="headerlink" href="#module-pyjams.ncio.netcdfio" title="Link to this heading">#</a></h1>
 <p>netCDF4 functions to a copy netcdf file while doing some transformations on
 variables and dimensions.</p>
 <p>This module was written by Matthias Cuntz while at Institut National de
@@ -480,37 +500,6 @@ David Schaefer.</p>
 </dd>
 </dl>
 <p>The following functions are provided</p>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.copy_dimensions" title="pyjams.ncio.netcdfio.copy_dimensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_dimensions</span></code></a>(fi, fo[, removedim, ...])</p></td>
-<td><p>Create dimensions in output file from dimensions in input file.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.copy_file" title="pyjams.ncio.netcdfio.copy_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_file</span></code></a>(ifile, ofile[, timedim, ...])</p></td>
-<td><p>Copy variables from input file into output file.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.copy_global_attributes" title="pyjams.ncio.netcdfio.copy_global_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_global_attributes</span></code></a>(fi, fo[, add, remove])</p></td>
-<td><p>Create global output file attributes from input global file attributes.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.copy_variables" title="pyjams.ncio.netcdfio.copy_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_variables</span></code></a>(fi, fo[, time, timedim, ...])</p></td>
-<td><p>Copy variables from input file into output file.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.create_new_variable" title="pyjams.ncio.netcdfio.create_new_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_new_variable</span></code></a>(invardef, fo[, izip, ...])</p></td>
-<td><p>Create variable in output file from dictionary with variable attributes.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.create_variables" title="pyjams.ncio.netcdfio.create_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_variables</span></code></a>(fi, fo[, time, timedim, ...])</p></td>
-<td><p>Create variables in output from variables in input file.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.get_fill_value_for_dtype" title="pyjams.ncio.netcdfio.get_fill_value_for_dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_fill_value_for_dtype</span></code></a>(dtype)</p></td>
-<td><p>Get default _FillValue of netCDF4 for the given data type.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.get_variable_definition" title="pyjams.ncio.netcdfio.get_variable_definition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_variable_definition</span></code></a>(ncvar)</p></td>
-<td><p>Collect information on input variable.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.ncio.netcdfio.set_output_filename" title="pyjams.ncio.netcdfio.set_output_filename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_output_filename</span></code></a>(ifile, ext)</p></td>
-<td><p>Create output file name from input file name by adding <em>ext</em> before the file suffix.</p></td>
-</tr>
-</tbody>
-</table>
 <dl class="simple">
 <dt>History</dt><dd><ul class="simple">
 <li><p>Written Apr 2020 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
@@ -529,12 +518,13 @@ with netcdf4 &gt; 1.6.0, Jun 2022, Matthias Cuntz</p></li>
 Jul 2023, Matthias Cuntz</p></li>
 <li><p>create_variables sets missing_value attribute if present even if used for
 _FillValue, Jul 2023, Matthias Cuntz</p></li>
+<li><p>addglobalatt in copy_file, Dec 2023, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.copy_dimensions">
-<span class="sig-name descname"><span class="pre">copy_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adddim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#copy_dimensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.copy_dimensions" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">copy_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adddim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#copy_dimensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.copy_dimensions" title="Link to this definition">#</a></dt>
 <dd><p>Create dimensions in output file from dimensions in input file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -572,7 +562,7 @@ of the input file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.copy_file">
-<span class="sig-name descname"><span class="pre">copy_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ofile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replaceatt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noclose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#copy_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.copy_file" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">copy_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ofile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replaceatt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addglobalatt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noclose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#copy_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.copy_file" title="Link to this definition">#</a></dt>
 <dd><p>Copy variables from input file into output file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -593,6 +583,9 @@ variable name and values are the output variable values.</p></li>
 (case sensitive). Dictionary values are also dictionaries with
 {‘attribute_name’: attribute_value}. Dictionary keys are the names
 of the output variables after renaming and replacing.</p></li>
+<li><p><strong>addglobalatt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Create or add to global file attributes.
+dict values will be given to attributes given in dict keys.
+Attributes will be created if they do not exist yet.</p></li>
 <li><p><strong>noclose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Return file handle of opened output file for further manipulation
 if True (default: False)</p></li>
 </ul>
@@ -618,7 +611,7 @@ copied from the input file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.copy_global_attributes">
-<span class="sig-name descname"><span class="pre">copy_global_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#copy_global_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.copy_global_attributes" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">copy_global_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#copy_global_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.copy_global_attributes" title="Link to this definition">#</a></dt>
 <dd><p>Create global output file attributes from input global file attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -646,7 +639,7 @@ Attributes will be created if they do not exist yet.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.copy_variables">
-<span class="sig-name descname"><span class="pre">copy_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#copy_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.copy_variables" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">copy_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#copy_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.copy_variables" title="Link to this definition">#</a></dt>
 <dd><p>Copy variables from input file into output file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -680,7 +673,7 @@ copied from the input file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.create_new_variable">
-<span class="sig-name descname"><span class="pre">create_new_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invardef</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">izip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunksizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#create_new_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.create_new_variable" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_new_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invardef</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">izip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunksizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#create_new_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.create_new_variable" title="Link to this definition">#</a></dt>
 <dd><p>Create variable in output file from dictionary with variable attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -725,7 +718,7 @@ file, even if given in input dictionary <em>invardef</em>.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.create_variables">
-<span class="sig-name descname"><span class="pre">create_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">izip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunksizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#create_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.create_variables" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">izip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunksizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamevar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">removedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renamedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacedim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#create_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.create_variables" title="Link to this definition">#</a></dt>
 <dd><p>Create variables in output from variables in input file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -785,7 +778,7 @@ of the input file defined.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.get_fill_value_for_dtype">
-<span class="sig-name descname"><span class="pre">get_fill_value_for_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#get_fill_value_for_dtype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.get_fill_value_for_dtype" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_fill_value_for_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#get_fill_value_for_dtype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.get_fill_value_for_dtype" title="Link to this definition">#</a></dt>
 <dd><p>Get default _FillValue of netCDF4 for the given data type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -803,7 +796,7 @@ of the input file defined.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.get_variable_definition">
-<span class="sig-name descname"><span class="pre">get_variable_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#get_variable_definition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.get_variable_definition" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_variable_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncvar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#get_variable_definition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.get_variable_definition" title="Link to this definition">#</a></dt>
 <dd><p>Collect information on input variable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -826,7 +819,7 @@ The following keys are returned: ‘name’, ‘dtype’, ‘dimensions’,
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.ncio.netcdfio.set_output_filename">
-<span class="sig-name descname"><span class="pre">set_output_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#set_output_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.set_output_filename" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_output_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/ncio/netcdfio.html#set_output_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.ncio.netcdfio.set_output_filename" title="Link to this definition">#</a></dt>
 <dd><p>Create output file name from input file name by adding <em>ext</em> before
 the file suffix.</p>
 <dl class="field-list simple">
@@ -863,7 +856,7 @@ the file suffix.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="ncio.html"
@@ -891,6 +884,7 @@ the file suffix.</p>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -928,9 +922,10 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2012-2023, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>
@@ -954,8 +949,8 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>
