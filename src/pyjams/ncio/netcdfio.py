@@ -17,7 +17,7 @@ David Schaefer.
 
 The following functions are provided
 
-.. autosumcmary::
+.. autosummary::
    copy_dimensions
    copy_file
    copy_global_attributes

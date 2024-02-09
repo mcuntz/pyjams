@@ -6,7 +6,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-:copyright: Copyright 2021-2022 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2021- Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -36,6 +36,7 @@ History
       Jan 2023, Matthias Cuntz
     * Do not set_bad() for sron palettes, Jan 2023, Matthias Cuntz
     * Allow ncol=1 in get_cmap, Jun 2023, Matthias Cuntz
+    * Added IPCC colours, Feb 2024, Matthias Cuntz
 
 """
 
@@ -284,6 +285,9 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
     oregon_collections = [ i for i in dir(pyjams.color)
                            if i.startswith('oregon_')
                            and not i.endswith('_palettes') ]
+    ipcc_collections = [ i for i in dir(pyjams.color)
+                         if i.startswith('ipcc_')
+                         and not i.endswith('_palettes') ]
     ncl_collections = [ i for i in dir(pyjams.color)
                         if i.startswith('ncl_')
                         and not i.endswith('_palettes') ]
@@ -357,6 +361,13 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
 
     if not found_palette:
         for bb in oregon_collections:
+            dd = eval('pyjams.color.' + bb)
+            if palette in dd:
+                found_palette = True
+                colors = [ _rgb2rgb(i) for i in dd[palette] ]
+
+    if not found_palette:
+        for bb in ipcc_collections:
             dd = eval('pyjams.color.' + bb)
             if palette in dd:
                 found_palette = True
@@ -461,7 +472,7 @@ def print_palettes(collection=''):
     collection : str or list of strings, optional
         Name(s) of color palette collection(s).
         Known collections are 'pyjams', 'sron', 'sron2012', 'mathematica',
-        'oregon', 'ncl', 'matplotlib', and 'brewer'.
+        'oregon', 'ipcc', 'ncl', 'matplotlib', and 'brewer'.
 
     Returns
     -------
@@ -495,6 +506,9 @@ def print_palettes(collection=''):
     oregon_collections = [ i for i in dir(pyjams.color)
                            if i.startswith('oregon_')
                            and not i.endswith('_palettes') ]
+    ipcc_collections = [ i for i in dir(pyjams.color)
+                         if i.startswith('ipcc_')
+                         and not i.endswith('_palettes') ]
     ncl_collections = [ i for i in dir(pyjams.color)
                         if i.startswith('ncl_')
                         and not i.endswith('_palettes') ]
@@ -508,8 +522,8 @@ def print_palettes(collection=''):
         else:
             collections = [ i.lower for i in collection ]
     else:
-        collections = ['pyjams', 'sron', 'sron2012', 'mathematica',
-                       'oregon', 'ncl', 'matplotlib', 'brewer']
+        collections = ['pyjams', 'sron', 'sron2012', 'mathematica', 'oregon',
+                       'ipcc', 'ncl', 'matplotlib', 'brewer']
 
     if 'pyjams' in collections:
         print('pyjams')
@@ -542,6 +556,13 @@ def print_palettes(collection=''):
     if 'oregon' in collections:
         print('oregon')
         for cc in oregon_collections:
+            print('   ', cc)
+            ll = eval('pyjams.color.' + cc + '.keys()')
+            print('       ', list(ll))
+
+    if 'ipcc' in collections:
+        print('ipcc')
+        for cc in ipcc_collections:
             print('   ', cc)
             ll = eval('pyjams.color.' + cc + '.keys()')
             print('       ', list(ll))
@@ -636,7 +657,7 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
         Name(s) of color palette collection(s).
         All palettes will be shown if collection is empty or 'all'.
         Known collections are: 'pyjams', 'sron', 'sron2012', 'mathematica',
-        'oregon', 'ncl', 'matplotlib', and 'brewer'.
+        'oregon', 'ipcc', 'ncl', 'matplotlib', and 'brewer'.
 
     Returns
     -------
@@ -671,7 +692,7 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
 
     # which collections to include
     collections = ['pyjams', 'sron', 'sron2012', 'mathematica', 'oregon',
-                   'ncl', 'matplotlib', 'brewer']
+                   'ipcc', 'ncl', 'matplotlib', 'brewer']
     if collection:
         if isinstance(collection, str):
             if collection.lower() != 'all':
@@ -706,6 +727,9 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     oregon_collections = [ i for i in dir(pyjams.color)
                            if i.startswith('oregon_')
                            and not i.endswith('_palettes') ]
+    ipcc_collections = [ i for i in dir(pyjams.color)
+                         if i.startswith('ipcc_')
+                         and not i.endswith('_palettes') ]
     ncl_collections = [ i for i in dir(pyjams.color)
                         if i.startswith('ncl_')
                         and not i.endswith('_palettes') ]
@@ -728,6 +752,9 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
             all_collections.append(cc)
     if 'oregon' in collections:
         for cc in oregon_collections:
+            all_collections.append(cc)
+    if 'ipcc' in collections:
+        for cc in ipcc_collections:
             all_collections.append(cc)
     if 'ncl' in collections:
         for cc in ncl_collections:

@@ -15,9 +15,11 @@ Color module
 
    color.color.rst
    color.brewer_palettes.rst
+   color.ipcc_palettes.rst
    color.mathematica_palettes.rst
    color.ncl_palettes.rst
    color.oregon_palettes.rst
+   color.pyjams_palettes.rst
    color.sron2012_palettes.rst
    color.sron_palettes.rst
    color.ufz_palettes.rst

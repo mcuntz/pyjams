@@ -218,9 +218,11 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../color.html">Color module</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../color.color.html">Color functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../color.brewer_palettes.html">Brewer palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../color.ipcc_palettes.html">IPCC WG1 palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../color.mathematica_palettes.html">Mathematica palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../color.ncl_palettes.html">NCL palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../color.oregon_palettes.html">Oregon palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../color.pyjams_palettes.html">pyjams palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../color.sron2012_palettes.html">SRON2012 palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../color.sron_palettes.html">SRON palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../color.ufz_palettes.html">UFZ colors</a></li>
@@ -407,7 +409,7 @@ document.write(`
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">:copyright: Copyright 2021-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:copyright: Copyright 2021- Matthias Cuntz, see AUTHORS.rst for details.</span>
 <span class="sd">:license: MIT License, see LICENSE for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
@@ -437,6 +439,7 @@ document.write(`
 <span class="sd">      Jan 2023, Matthias Cuntz</span>
 <span class="sd">    * Do not set_bad() for sron palettes, Jan 2023, Matthias Cuntz</span>
 <span class="sd">    * Allow ncol=1 in get_cmap, Jun 2023, Matthias Cuntz</span>
+<span class="sd">    * Added IPCC colours, Feb 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -693,6 +696,9 @@ document.write(`
     <span class="n">oregon_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
                            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;oregon_&#39;</span><span class="p">)</span>
                            <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
+    <span class="n">ipcc_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+                         <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ipcc_&#39;</span><span class="p">)</span>
+                         <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
     <span class="n">ncl_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ncl_&#39;</span><span class="p">)</span>
                         <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
@@ -766,6 +772,13 @@ document.write(`
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">found_palette</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">oregon_collections</span><span class="p">:</span>
+            <span class="n">dd</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">&#39;pyjams.color.&#39;</span> <span class="o">+</span> <span class="n">bb</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">palette</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">:</span>
+                <span class="n">found_palette</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span> <span class="n">_rgb2rgb</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">[</span><span class="n">palette</span><span class="p">]</span> <span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">found_palette</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">ipcc_collections</span><span class="p">:</span>
             <span class="n">dd</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">&#39;pyjams.color.&#39;</span> <span class="o">+</span> <span class="n">bb</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">palette</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">:</span>
                 <span class="n">found_palette</span> <span class="o">=</span> <span class="kc">True</span>
@@ -873,7 +886,7 @@ document.write(`
 <span class="sd">    collection : str or list of strings, optional</span>
 <span class="sd">        Name(s) of color palette collection(s).</span>
 <span class="sd">        Known collections are &#39;pyjams&#39;, &#39;sron&#39;, &#39;sron2012&#39;, &#39;mathematica&#39;,</span>
-<span class="sd">        &#39;oregon&#39;, &#39;ncl&#39;, &#39;matplotlib&#39;, and &#39;brewer&#39;.</span>
+<span class="sd">        &#39;oregon&#39;, &#39;ipcc&#39;, &#39;ncl&#39;, &#39;matplotlib&#39;, and &#39;brewer&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -907,6 +920,9 @@ document.write(`
     <span class="n">oregon_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
                            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;oregon_&#39;</span><span class="p">)</span>
                            <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
+    <span class="n">ipcc_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+                         <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ipcc_&#39;</span><span class="p">)</span>
+                         <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
     <span class="n">ncl_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ncl_&#39;</span><span class="p">)</span>
                         <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
@@ -920,8 +936,8 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">collection</span> <span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">collections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pyjams&#39;</span><span class="p">,</span> <span class="s1">&#39;sron&#39;</span><span class="p">,</span> <span class="s1">&#39;sron2012&#39;</span><span class="p">,</span> <span class="s1">&#39;mathematica&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;oregon&#39;</span><span class="p">,</span> <span class="s1">&#39;ncl&#39;</span><span class="p">,</span> <span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;brewer&#39;</span><span class="p">]</span>
+        <span class="n">collections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pyjams&#39;</span><span class="p">,</span> <span class="s1">&#39;sron&#39;</span><span class="p">,</span> <span class="s1">&#39;sron2012&#39;</span><span class="p">,</span> <span class="s1">&#39;mathematica&#39;</span><span class="p">,</span> <span class="s1">&#39;oregon&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ipcc&#39;</span><span class="p">,</span> <span class="s1">&#39;ncl&#39;</span><span class="p">,</span> <span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;brewer&#39;</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="s1">&#39;pyjams&#39;</span> <span class="ow">in</span> <span class="n">collections</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pyjams&#39;</span><span class="p">)</span>
@@ -954,6 +970,13 @@ document.write(`
     <span class="k">if</span> <span class="s1">&#39;oregon&#39;</span> <span class="ow">in</span> <span class="n">collections</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;oregon&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">oregon_collections</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">,</span> <span class="n">cc</span><span class="p">)</span>
+            <span class="n">ll</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">&#39;pyjams.color.&#39;</span> <span class="o">+</span> <span class="n">cc</span> <span class="o">+</span> <span class="s1">&#39;.keys()&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;       &#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">ll</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="s1">&#39;ipcc&#39;</span> <span class="ow">in</span> <span class="n">collections</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ipcc&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">ipcc_collections</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">,</span> <span class="n">cc</span><span class="p">)</span>
             <span class="n">ll</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">&#39;pyjams.color.&#39;</span> <span class="o">+</span> <span class="n">cc</span> <span class="o">+</span> <span class="s1">&#39;.keys()&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;       &#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">ll</span><span class="p">))</span>
@@ -1051,7 +1074,7 @@ document.write(`
 <span class="sd">        Name(s) of color palette collection(s).</span>
 <span class="sd">        All palettes will be shown if collection is empty or &#39;all&#39;.</span>
 <span class="sd">        Known collections are: &#39;pyjams&#39;, &#39;sron&#39;, &#39;sron2012&#39;, &#39;mathematica&#39;,</span>
-<span class="sd">        &#39;oregon&#39;, &#39;ncl&#39;, &#39;matplotlib&#39;, and &#39;brewer&#39;.</span>
+<span class="sd">        &#39;oregon&#39;, &#39;ipcc&#39;, &#39;ncl&#39;, &#39;matplotlib&#39;, and &#39;brewer&#39;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1086,7 +1109,7 @@ document.write(`
 
     <span class="c1"># which collections to include</span>
     <span class="n">collections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pyjams&#39;</span><span class="p">,</span> <span class="s1">&#39;sron&#39;</span><span class="p">,</span> <span class="s1">&#39;sron2012&#39;</span><span class="p">,</span> <span class="s1">&#39;mathematica&#39;</span><span class="p">,</span> <span class="s1">&#39;oregon&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;ncl&#39;</span><span class="p">,</span> <span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;brewer&#39;</span><span class="p">]</span>
+                   <span class="s1">&#39;ipcc&#39;</span><span class="p">,</span> <span class="s1">&#39;ncl&#39;</span><span class="p">,</span> <span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;brewer&#39;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">collection</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">collection</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
@@ -1121,6 +1144,9 @@ document.write(`
     <span class="n">oregon_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
                            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;oregon_&#39;</span><span class="p">)</span>
                            <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
+    <span class="n">ipcc_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+                         <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ipcc_&#39;</span><span class="p">)</span>
+                         <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
     <span class="n">ncl_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ncl_&#39;</span><span class="p">)</span>
                         <span class="ow">and</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_palettes&#39;</span><span class="p">)</span> <span class="p">]</span>
@@ -1143,6 +1169,9 @@ document.write(`
             <span class="n">all_collections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;oregon&#39;</span> <span class="ow">in</span> <span class="n">collections</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">oregon_collections</span><span class="p">:</span>
+            <span class="n">all_collections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;ipcc&#39;</span> <span class="ow">in</span> <span class="n">collections</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">ipcc_collections</span><span class="p">:</span>
             <span class="n">all_collections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;ncl&#39;</span> <span class="ow">in</span> <span class="n">collections</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">ncl_collections</span><span class="p">:</span>

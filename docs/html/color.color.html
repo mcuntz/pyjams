@@ -219,9 +219,11 @@
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="color.html">Color module</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Color functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="color.brewer_palettes.html">Brewer palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="color.ipcc_palettes.html">IPCC WG1 palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="color.mathematica_palettes.html">Mathematica palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="color.ncl_palettes.html">NCL palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="color.oregon_palettes.html">Oregon palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="color.pyjams_palettes.html">pyjams palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="color.sron2012_palettes.html">SRON2012 palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="color.sron_palettes.html">SRON palettes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="color.ufz_palettes.html">UFZ colors</a></li>
@@ -486,7 +488,7 @@ Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), N
 France.</p>
 <dl class="field-list simple">
 <dt class="field-odd">copyright<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Copyright 2021-2022 Matthias Cuntz, see AUTHORS.rst for details.</p>
+<dd class="field-odd"><p>Copyright 2021- Matthias Cuntz, see AUTHORS.rst for details.</p>
 </dd>
 <dt class="field-even">license<span class="colon">:</span></dt>
 <dd class="field-even"><p>MIT License, see LICENSE for details.</p>
@@ -529,6 +531,7 @@ matplotlib.colormaps.get_cmap(name) to work with matplotlib &lt; v3.6,
 Jan 2023, Matthias Cuntz</p></li>
 <li><p>Do not set_bad() for sron palettes, Jan 2023, Matthias Cuntz</p></li>
 <li><p>Allow ncol=1 in get_cmap, Jun 2023, Matthias Cuntz</p></li>
+<li><p>Added IPCC colours, Feb 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -637,7 +640,7 @@ and ‘xkcd’.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><em>strings</em><em>, </em><em>optional</em>) – Name(s) of color palette collection(s).
 Known collections are ‘pyjams’, ‘sron’, ‘sron2012’, ‘mathematica’,
-‘oregon’, ‘ncl’, ‘matplotlib’, and ‘brewer’.</p>
+‘oregon’, ‘ipcc’, ‘ncl’, ‘matplotlib’, and ‘brewer’.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Prints list of known color palettes and continuous colormaps to
@@ -664,7 +667,7 @@ console.</p>
 <li><p><strong>collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> of </em><em>strings</em><em>, </em><em>optional</em>) – Name(s) of color palette collection(s).
 All palettes will be shown if collection is empty or ‘all’.
 Known collections are: ‘pyjams’, ‘sron’, ‘sron2012’, ‘mathematica’,
-‘oregon’, ‘ncl’, ‘matplotlib’, and ‘brewer’.</p></li>
+‘oregon’, ‘ipcc’, ‘ncl’, ‘matplotlib’, and ‘brewer’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

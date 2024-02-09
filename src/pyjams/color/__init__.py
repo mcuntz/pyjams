@@ -8,6 +8,7 @@ Subpackages
 ===========
 .. autosummary::
    brewer_palettes
+   ipcc_palettes
    mathematica_palettes
    ncl_palettes
    oregon_palettes
@@ -21,6 +22,7 @@ Subpackages
 # colour palettes
 from .brewer_palettes import brewer_sequential, brewer_diverging
 from .brewer_palettes import brewer_qualitative
+from .ipcc_palettes import ipcc_categorical, ipcc_diverging, ipcc_sequential
 from .mathematica_palettes import mathematica_rainbow
 from .ncl_palettes import ncl_large, ncl_small, ncl_meteo_swiss
 from .oregon_palettes import oregon_sequential, oregon_diverging
@@ -35,6 +37,7 @@ from .color import get_cmap, print_palettes, show_palettes
 
 
 __all__ = ['brewer_sequential', 'brewer_diverging', 'brewer_qualitative',
+           'ipcc_categorical', 'ipcc_diverging', 'ipcc_sequential',
            'mathematica_rainbow',
            'ncl_large', 'ncl_small', 'ncl_meteo_swiss',
            'oregon_sequential', 'oregon_diverging', 'oregon_qualitative',

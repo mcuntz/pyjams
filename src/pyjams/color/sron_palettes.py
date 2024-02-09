@@ -146,7 +146,7 @@ def _rainbow_discrete(n=23):
                 24, 25, 26, 27, 28],
                [0, 1, 3, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 20, 22,
                 24, 25, 26, 27, 28]]
-    cols = [ colors[i] for i in indexes[n-1] ]
+    cols = [ colors[i] for i in indexes[n - 1] ]
     if n == 23:
         return (cols, '#777777')
     else:

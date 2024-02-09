@@ -35,7 +35,8 @@ pyjams_amwg = [
     (124, 104, 157),
     (0, 0, 0),
     (255, 255, 255) ]
-pyjams_amwg = [ (c[0]/255, c[1]/255, c[2]/255) for c in pyjams_amwg ][::-1]
+pyjams_amwg = [ (c[0] / 255, c[1] / 255, c[2] / 255)
+                for c in pyjams_amwg ][::-1]
 
 # pyjams color maps
 pyjams_cmaps = {

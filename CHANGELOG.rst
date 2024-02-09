@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v2.2 (??? 2024)
+    * Added IPCC WG1 colours.
     * Updated Github actions.
     * Set default options for `mcPlot` if not given on command line.
     * Adding global attributes in `ncio.copy_file`.
