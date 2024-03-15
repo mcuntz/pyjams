@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v2.2 (??? 2024)
+    * Add `mcPlot` method `print_layout_options`.
     * Added IPCC WG1 colours.
     * Updated Github actions.
     * Set default options for `mcPlot` if not given on command line.

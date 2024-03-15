@@ -17,12 +17,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
@@ -32,11 +32,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=3144513b"></script>
+    <script src="../../_static/documentation_options.js?v=08d9d191"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -55,7 +55,6 @@
   <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -95,13 +94,10 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <header>
   
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
-  </header>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
@@ -505,6 +501,7 @@ document.write(`
 <span class="sd">    * Removed space from print of plot filename, Jun 2023, Matthias Cuntz</span>
 <span class="sd">    * Set default options if not given on command line,</span>
 <span class="sd">      Jan 2024, Matthias Cuntz</span>
+<span class="sd">    * Add method print_layout_options, Mar 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -566,6 +563,9 @@ document.write(`
 
 <span class="sd">    plot_test()</span>
 <span class="sd">        A simple plot as an example.</span>
+
+<span class="sd">    print_layout_options(rcparams=False)</span>
+<span class="sd">        Prints current layout options and optionally matplotlib&#39;&#39;s rcParams.</span>
 
 <span class="sd">    set_matplotlib_rcparams()</span>
 <span class="sd">        Set rcParams of Matplotlib depending on output type, and chosen layout.</span>
@@ -1528,6 +1528,75 @@ document.write(`
     <span class="k">def</span> <span class="nf">end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for plot_end()&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_end</span><span class="p">()</span></div>
+
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># print layout options</span>
+    <span class="c1">#</span>
+<div class="viewcode-block" id="mcPlot.print_layout_options">
+<a class="viewcode-back" href="../../mcplot.html#pyjams.mcplot.mcPlot.print_layout_options">[docs]</a>
+    <span class="k">def</span> <span class="nf">print_layout_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rcparams</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print the current layout options</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Setting layout options in initialisation</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           pp = pyjams.mcPlot()</span>
+<span class="sd">           pp.print_layout_options(rcparams=True)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Current mcPlot layout options&#39;</span><span class="p">)</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;self.nrow&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrow</span><span class="p">,</span> <span class="s1">&#39;self.ncol&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncol</span><span class="p">,</span>
+                <span class="s1">&#39;self.left&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="s1">&#39;self.right&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
+                <span class="s1">&#39;self.bottom&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">,</span> <span class="s1">&#39;self.top&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">,</span>
+                <span class="s1">&#39;self.hspace&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hspace</span><span class="p">,</span> <span class="s1">&#39;self.vspace&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vspace</span><span class="p">,</span>
+                <span class="s1">&#39;self.textsize&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">textsize</span><span class="p">,</span>
+                <span class="s1">&#39;self.dxabc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dxabc</span><span class="p">,</span> <span class="s1">&#39;self.dyabc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dyabc</span><span class="p">,</span>
+                <span class="s1">&#39;self.lwidth&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lwidth</span><span class="p">,</span> <span class="s1">&#39;self.elwidth&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">elwidth</span><span class="p">,</span>
+                <span class="s1">&#39;self.alwidth&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">alwidth</span><span class="p">,</span> <span class="s1">&#39;self.msize&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">msize</span><span class="p">,</span>
+                <span class="s1">&#39;self.mwidth&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mwidth</span><span class="p">,</span>
+                <span class="s1">&#39;self.dowhite&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dowhite</span><span class="p">,</span> <span class="s1">&#39;self.fgcolor&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fgcolor</span><span class="p">,</span>
+                <span class="s1">&#39;self.bgcolor&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span><span class="p">,</span> <span class="s1">&#39;self.mcols&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcols</span><span class="p">,</span>
+                <span class="s1">&#39;self.mcol1&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcol1</span><span class="p">,</span> <span class="s1">&#39;self.mcol2&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcol2</span><span class="p">,</span>
+                <span class="s1">&#39;self.mcol3&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcol3</span><span class="p">,</span> <span class="s1">&#39;self.mcol4&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcol4</span><span class="p">,</span>
+                <span class="s1">&#39;self.mcol5&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mcol5</span><span class="p">,</span> <span class="s1">&#39;self.lcol1&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lcol1</span><span class="p">,</span>
+                <span class="s1">&#39;self.lcol2&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lcol2</span><span class="p">,</span> <span class="s1">&#39;self.lcol3&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lcol3</span><span class="p">,</span>
+                <span class="s1">&#39;self.lcol4&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lcol4</span><span class="p">,</span> <span class="s1">&#39;self.lcol5&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lcol5</span><span class="p">,</span>
+                <span class="s1">&#39;self.lcols&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lcols</span><span class="p">,</span> <span class="s1">&#39;self.ldashes&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ldashes</span><span class="p">,</span>
+                <span class="s1">&#39;self.llxbbox&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">llxbbox</span><span class="p">,</span>
+                <span class="s1">&#39;self.llybbox&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">llybbox</span><span class="p">,</span> <span class="s1">&#39;self.llrspace&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">llrspace</span><span class="p">,</span>
+                <span class="s1">&#39;self.llcspace&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">llcspace</span><span class="p">,</span>
+                <span class="s1">&#39;self.llhtextpad&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">llhtextpad</span><span class="p">,</span>
+                <span class="s1">&#39;self.llhlength&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">llhlength</span><span class="p">,</span>
+                <span class="s1">&#39;self.frameon&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameon</span><span class="p">,</span>
+                <span class="s1">&#39;self.bbox_inches&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox_inches</span><span class="p">,</span>
+                <span class="s1">&#39;self.pad_inches&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad_inches</span><span class="p">,</span>
+                <span class="s1">&#39;self.dpi&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dpi</span><span class="p">,</span>
+                <span class="s1">&#39;self.transparent&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">transparent</span><span class="p">,</span>
+                <span class="s1">&#39;self.serif&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">serif</span><span class="p">,</span>
+                <span class="s1">&#39;self.usetex&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">usetex</span><span class="p">}</span>
+        <span class="n">kk</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">opts</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kk</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">opts</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rcparams</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;matplotlib.rcParams&#39;</span><span class="p">)</span>
+            <span class="n">cat</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span> <span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cat</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                            <span class="n">koc</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">koc</span> <span class="o">=</span> <span class="n">k</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    </span><span class="si">{</span><span class="n">koc</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 </div>
 
 
@@ -1599,8 +1668,8 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

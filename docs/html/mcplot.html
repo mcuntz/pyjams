@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
@@ -33,11 +33,11 @@
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="_static/documentation_options.js?v=3144513b"></script>
+    <script src="_static/documentation_options.js?v=08d9d191"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -58,7 +58,6 @@
   <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -98,13 +97,10 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <header>
   
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
-  </header>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
@@ -481,6 +477,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.plot_start"><code class="docutils literal notranslate"><span class="pre">mcPlot.plot_start()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.plot_stop"><code class="docutils literal notranslate"><span class="pre">mcPlot.plot_stop()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.plot_test"><code class="docutils literal notranslate"><span class="pre">mcPlot.plot_test()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.print_layout_options"><code class="docutils literal notranslate"><span class="pre">mcPlot.print_layout_options()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">mcPlot.set_layout_options()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.set_matplotlib_rcparams"><code class="docutils literal notranslate"><span class="pre">mcPlot.set_matplotlib_rcparams()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.set_output_type"><code class="docutils literal notranslate"><span class="pre">mcPlot.set_output_type()</span></code></a></li>
@@ -598,6 +595,7 @@ Jun 2023, Matthias Cuntz</p></li>
 <li><p>Removed space from print of plot filename, Jun 2023, Matthias Cuntz</p></li>
 <li><p>Set default options if not given on command line,
 Jan 2024, Matthias Cuntz</p></li>
+<li><p>Add method print_layout_options, Mar 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -673,6 +671,8 @@ options in the initialisation of the extending class.</p>
 <dt>plot_begin() or plot_start()</dt><dd><p>Open output file and similar at the beginning.</p>
 </dd>
 <dt>plot_test()</dt><dd><p>A simple plot as an example.</p>
+</dd>
+<dt>print_layout_options(rcparams=False)</dt><dd><p>Prints current layout options and optionally matplotlib’’s rcParams.</p>
 </dd>
 <dt>set_matplotlib_rcparams()</dt><dd><p>Set rcParams of Matplotlib depending on output type, and chosen layout.
 rcParams can also be re-set in the initialisation of the extending
@@ -767,13 +767,16 @@ class.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.plot_test" title="pyjams.mcplot.mcPlot.plot_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_test</span></code></a>()</p></td>
 <td><p>A simple test plot</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id5" title="pyjams.mcplot.mcPlot.set_layout_options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_layout_options</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.print_layout_options" title="pyjams.mcplot.mcPlot.print_layout_options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_layout_options</span></code></a>([rcparams])</p></td>
+<td><p>Print the current layout options</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#id5" title="pyjams.mcplot.mcPlot.set_layout_options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_layout_options</span></code></a>()</p></td>
 <td><p>Standard layout options that can be used in plotting methods</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.set_matplotlib_rcparams" title="pyjams.mcplot.mcPlot.set_matplotlib_rcparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_matplotlib_rcparams</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.set_matplotlib_rcparams" title="pyjams.mcplot.mcPlot.set_matplotlib_rcparams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_matplotlib_rcparams</span></code></a>()</p></td>
 <td><p>Set rcParams depending on output type and other options such as using LaTeX, serif fonts, etc.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.set_output_type" title="pyjams.mcplot.mcPlot.set_output_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_output_type</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyjams.mcplot.mcPlot.set_output_type" title="pyjams.mcplot.mcPlot.set_output_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_output_type</span></code></a>()</p></td>
 <td><p>Set type of chosen output.</p></td>
 </tr>
 </tbody>
@@ -869,7 +872,7 @@ optional<span class="w"> </span>arguments:
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.8.2)"><em>matplotlib.figure.Figure</em></a>) – Matplotlib figure object.    argstr : string, optional</p></li>
+<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.8.3)"><em>matplotlib.figure.Figure</em></a>) – Matplotlib figure object.    argstr : string, optional</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Additional keywords will be passed to <em>savefig</em> for ‘pdf’,
 ‘png’, and ‘html’; to <em>fig_to_html</em> for ‘d3’, and to
 <em>save</em> for ‘hvplot’. This overwrites <em>self.transparent</em>,
@@ -895,6 +898,18 @@ optional<span class="w"> </span>arguments:
 <dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.plot_test">
 <span class="sig-name descname"><span class="pre">plot_test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.plot_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.plot_test" title="Link to this definition">#</a></dt>
 <dd><p>A simple test plot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyjams.mcplot.mcPlot.print_layout_options">
+<span class="sig-name descname"><span class="pre">print_layout_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rcparams</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/mcplot.html#mcPlot.print_layout_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.mcplot.mcPlot.print_layout_options" title="Link to this definition">#</a></dt>
+<dd><p>Print the current layout options</p>
+<p class="rubric">Examples</p>
+<p>Setting layout options in initialisation</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pp</span> <span class="o">=</span> <span class="n">pyjams</span><span class="o">.</span><span class="n">mcPlot</span><span class="p">()</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">print_layout_options</span><span class="p">(</span><span class="n">rcparams</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -1208,6 +1223,7 @@ installed.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.plot_start"><code class="docutils literal notranslate"><span class="pre">mcPlot.plot_start()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.plot_stop"><code class="docutils literal notranslate"><span class="pre">mcPlot.plot_stop()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.plot_test"><code class="docutils literal notranslate"><span class="pre">mcPlot.plot_test()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.print_layout_options"><code class="docutils literal notranslate"><span class="pre">mcPlot.print_layout_options()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">mcPlot.set_layout_options()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.set_matplotlib_rcparams"><code class="docutils literal notranslate"><span class="pre">mcPlot.set_matplotlib_rcparams()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjams.mcplot.mcPlot.set_output_type"><code class="docutils literal notranslate"><span class="pre">mcPlot.set_output_type()</span></code></a></li>
@@ -1261,8 +1277,8 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

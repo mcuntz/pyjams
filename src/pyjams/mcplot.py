@@ -102,6 +102,7 @@ History
     * Removed space from print of plot filename, Jun 2023, Matthias Cuntz
     * Set default options if not given on command line,
       Jan 2024, Matthias Cuntz
+    * Add method print_layout_options, Mar 2024, Matthias Cuntz
 
 """
 import numpy as np
@@ -161,6 +162,9 @@ class mcPlot(object):
 
     plot_test()
         A simple plot as an example.
+
+    print_layout_options(rcparams=False)
+        Prints current layout options and optionally matplotlib''s rcParams.
 
     set_matplotlib_rcparams()
         Set rcParams of Matplotlib depending on output type, and chosen layout.
@@ -1085,6 +1089,72 @@ class mcPlot(object):
     def end(self):
         """Alias for plot_end()"""
         self.plot_end()
+
+    # -------------------------------------------------------------------------
+    # print layout options
+    #
+    def print_layout_options(self, rcparams=False):
+        """
+        Print the current layout options
+
+        Examples
+        --------
+        Setting layout options in initialisation
+
+        .. code-block:: python
+
+           pp = pyjams.mcPlot()
+           pp.print_layout_options(rcparams=True)
+
+        """
+        import matplotlib as mpl
+        print('Current mcPlot layout options')
+        opts = {'self.nrow': self.nrow, 'self.ncol': self.ncol,
+                'self.left': self.left, 'self.right': self.right,
+                'self.bottom': self.bottom, 'self.top': self.top,
+                'self.hspace': self.hspace, 'self.vspace': self.vspace,
+                'self.textsize': self.textsize,
+                'self.dxabc': self.dxabc, 'self.dyabc': self.dyabc,
+                'self.lwidth': self.lwidth, 'self.elwidth': self.elwidth,
+                'self.alwidth': self.alwidth, 'self.msize': self.msize,
+                'self.mwidth': self.mwidth,
+                'self.dowhite': self.dowhite, 'self.fgcolor': self.fgcolor,
+                'self.bgcolor': self.bgcolor, 'self.mcols': self.mcols,
+                'self.mcol1': self.mcol1, 'self.mcol2': self.mcol2,
+                'self.mcol3': self.mcol3, 'self.mcol4': self.mcol4,
+                'self.mcol5': self.mcol5, 'self.lcol1': self.lcol1,
+                'self.lcol2': self.lcol2, 'self.lcol3': self.lcol3,
+                'self.lcol4': self.lcol4, 'self.lcol5': self.lcol5,
+                'self.lcols': self.lcols, 'self.ldashes': self.ldashes,
+                'self.llxbbox': self.llxbbox,
+                'self.llybbox': self.llybbox, 'self.llrspace': self.llrspace,
+                'self.llcspace': self.llcspace,
+                'self.llhtextpad': self.llhtextpad,
+                'self.llhlength': self.llhlength,
+                'self.frameon': self.frameon,
+                'self.bbox_inches': self.bbox_inches,
+                'self.pad_inches': self.pad_inches,
+                'self.dpi': self.dpi,
+                'self.transparent': self.transparent,
+                'self.serif': self.serif,
+                'self.usetex': self.usetex}
+        kk = sorted(opts.keys())
+        for k in kk:
+            print(f'{k} = {opts[k]}')
+
+        if rcparams:
+            print('')
+            print('matplotlib.rcParams')
+            cat = sorted(set([ k.split('.')[0] for k in mpl.rcParams]))
+            for c in cat:
+                print(f'{c}')
+                for k in mpl.rcParams:
+                    if k.startswith(c):
+                        if '.' in k:
+                            koc = k.removeprefix(f'{c}.')
+                        else:
+                            koc = k
+                        print(f'    {koc} = {mpl.rcParams[k]}')
 
 
 if __name__ == '__main__':
