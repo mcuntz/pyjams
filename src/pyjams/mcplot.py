@@ -103,6 +103,8 @@ History
     * Set default options if not given on command line,
       Jan 2024, Matthias Cuntz
     * Add method print_layout_options, Mar 2024, Matthias Cuntz
+    * Use DejaVuSans and DejaVueSerif as standard fonts if not LaTeX
+      because they come with matplotlib, May 2024, Matthias Cuntz
 
 """
 import numpy as np
@@ -797,10 +799,10 @@ class mcPlot(object):
             else:
                 if self.serif:
                     mpl.rcParams['font.family']     = 'serif'
-                    mpl.rcParams['font.sans-serif'] = 'Times'
+                    mpl.rcParams['font.sans-serif'] = 'DejaVuSerif'
                 else:
                     mpl.rcParams['font.family']     = 'sans-serif'
-                    mpl.rcParams['font.sans-serif'] = 'Arial'  # Arial, Verdana
+                    mpl.rcParams['font.sans-serif'] = 'DejaVuSans'
         elif ((self.outtype == 'png') or (self.outtype == 'html') or
               (self.outtype == 'd3') or (self.outtype == 'hvplot')):
             mpl.use('Agg')  # set directly after import matplotlib
@@ -827,10 +829,10 @@ class mcPlot(object):
             else:
                 if self.serif:
                     mpl.rcParams['font.family']     = 'serif'
-                    mpl.rcParams['font.sans-serif'] = 'Times'
+                    mpl.rcParams['font.sans-serif'] = 'DejaVuSerif'
                 else:
                     mpl.rcParams['font.family']     = 'sans-serif'
-                    mpl.rcParams['font.sans-serif'] = 'Arial'  # Arial, Verdana
+                    mpl.rcParams['font.sans-serif'] = 'DejaVuSans'
             mpl.rc('savefig', dpi=self.dpi, format='png')
         else:
             # a4 portrait

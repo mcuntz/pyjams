@@ -2,6 +2,8 @@ Changelog
 ---------
 
 v2.2 (??? 2024)
+    * Use DejaVuSans and DejaVueSerif as standard fonts if not LaTeX
+      in `mcPlot`.
     * Add `mcPlot` method `print_layout_options`.
     * Added IPCC WG1 colours.
     * Updated Github actions.
