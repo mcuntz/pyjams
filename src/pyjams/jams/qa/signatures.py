@@ -99,7 +99,7 @@ def autocorrelation(dat, lags):
 def flowdurationcurve(dat, quantiles=None, concavity_index=False,
                       mid_segment_slope=False, mhigh_segment_volume=False,
                       high_segment_volume=False, low_segment_volume=False):
-    """
+    r"""
         NAME
             flowdurationcurve
 
@@ -321,7 +321,7 @@ def maximummonthlyflow(date, dat):
 
     Maximum of average flow per month is defined as
        \f[ max_{monthly flow} = Max( F(i), i=1,..12 ) \f]
-    where \$f F(i) $\f is the average flow of month i.
+    where \f$ F(i) $\f is the average flow of month i.
 
     CALLING SEQUENCE
     def maximummonthlyflow(date, dat):
@@ -452,7 +452,7 @@ def moments(dat, mean_data=False, stddev_data=False, median_data=False,
 # --------------------------------------------------------------------
 
 def peakdistribution(dat, quantiles=None, slope=False):
-    """
+    r"""
     NAME
     peakdistribution
 
