@@ -799,10 +799,10 @@ class mcPlot(object):
             else:
                 if self.serif:
                     mpl.rcParams['font.family']     = 'serif'
-                    mpl.rcParams['font.sans-serif'] = 'DejaVuSerif'
+                    mpl.rcParams['font.sans-serif'] = 'DejaVu Serif'
                 else:
                     mpl.rcParams['font.family']     = 'sans-serif'
-                    mpl.rcParams['font.sans-serif'] = 'DejaVuSans'
+                    mpl.rcParams['font.sans-serif'] = 'DejaVu Sans'
         elif ((self.outtype == 'png') or (self.outtype == 'html') or
               (self.outtype == 'd3') or (self.outtype == 'hvplot')):
             mpl.use('Agg')  # set directly after import matplotlib
@@ -829,10 +829,10 @@ class mcPlot(object):
             else:
                 if self.serif:
                     mpl.rcParams['font.family']     = 'serif'
-                    mpl.rcParams['font.sans-serif'] = 'DejaVuSerif'
+                    mpl.rcParams['font.sans-serif'] = 'DejaVu Serif'
                 else:
                     mpl.rcParams['font.family']     = 'sans-serif'
-                    mpl.rcParams['font.sans-serif'] = 'DejaVuSans'
+                    mpl.rcParams['font.sans-serif'] = 'DejaVu Sans'
             mpl.rc('savefig', dpi=self.dpi, format='png')
         else:
             # a4 portrait
