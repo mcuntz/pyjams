@@ -51,6 +51,7 @@ History
     * Use text2plot for signature2plot, Nov 2021, Matthias Cuntz
     * Use text2plot for abc2plot, Nov 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Added upper keyword in abc2plot, Jun 2024, Matthias Cuntz
 
 """
 import time as ptime
@@ -197,7 +198,7 @@ def text2plot(handle, dx, dy, itext,
 
 
 def abc2plot(handle, dx, dy, iplot,
-             integer=False, roman=False, lower=False,
+             integer=False, roman=False, lower=False, upper=None,
              parentheses=None, brackets=None, braces=None,
              bold=False, italic=False,
              usetex=False, mathrm=False, string=False,
@@ -221,7 +222,12 @@ def abc2plot(handle, dx, dy, iplot,
         Use Roman literals instead of a, b, c if True (default: False)
     lower : bool, optional
         Use lowercase letters for a, b, c if True,
-        else use uppercase letters (default)
+        else use uppercase letters (default).
+        lower=True and upper=True are mutually exclusive.
+    upper : bool, optional
+        Use uppercase letters for A, B, C if True (default),
+        else use lowercase letters.
+        lower=True and upper=True are mutually exclusive.
     parentheses : str or None, optional
         Parentheses before or after the letter/number. Possible values are
         'open', 'close', 'both', 'None', and *None*.
@@ -282,8 +288,8 @@ def abc2plot(handle, dx, dy, iplot,
     import matplotlib.pyplot as plt
 
     # Check input
-    assert (roman + integer) < 2, ('either Roman literals or integers can'
-                                   ' be chosen.')
+    assert not (roman and integer), (
+        'either Roman literals or integers can be chosen.')
     iparentheses = False
     if parentheses is not None:
         if parentheses != 'None':
@@ -299,6 +305,14 @@ def abc2plot(handle, dx, dy, iplot,
     ibrack = iparentheses + ibrackets + ibraces
     assert ibrack <= 1, ('only one of parentheses, brackets, or braces'
                          ' can be chosen.')
+    if upper is not None:
+        assert not (upper and lower), (
+            'either uppercase or lowercase can be chosen.')
+        # assure correct lower keyword if upper=False given
+        if upper:
+            lower = False
+        else:
+            lower = True
 
     # Number or letter
     if string:
@@ -310,9 +324,9 @@ def abc2plot(handle, dx, dy, iplot,
             t = str(iplot)
         else:
             if lower:
-                t = chr(96+iplot)
+                t = chr(96 + iplot)
             else:
-                t = chr(64+iplot)
+                t = chr(64 + iplot)
 
     # parentheses
     if iparentheses:
