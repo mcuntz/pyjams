@@ -74,7 +74,7 @@ This module was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-:copyright: Copyright 2020-2022 Matthias Cuntz, see AUTHORS.rst for details.
+:copyright: Copyright 2020- Matthias Cuntz, see AUTHORS.rst for details.
 :license: MIT License, see LICENSE for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -105,6 +105,7 @@ History
     * Add method print_layout_options, Mar 2024, Matthias Cuntz
     * Use DejaVuSans and DejaVueSerif as standard fonts if not LaTeX
       because they come with matplotlib, May 2024, Matthias Cuntz
+    * parents argument to ArgumentParser, Jul 2024, Matthias Cuntz
 
 """
 import numpy as np
@@ -136,14 +137,20 @@ class mcPlot(object):
         called with -h.
     argstr : string, optional
         String given as description for the positional arguments.
+    parents : ArgumentParser or list, optional
+        ArgumentParser or list of ArgumentParser objects whose arguments
+        should also be included.
+        Note, these parsers should be initialised with `add_help=False`.
+        Otherwise, the ArgumentParser will see two -h/--help options
+        and raise an error.
 
     Methods
     -------
-    get_command_line_arguments(desc=None, argstr=None)
+    get_command_line_arguments(desc=None, argstr=None, parents=[])
         Standard command line parser with the default arguments
         such as plot type, filename, etc. If extra arguments are needed,
-        one should copy this routine into the extending class and adapt
-        it to its needs, keeping the existing optional arguments.
+        one can pass an ArgumentParser as parent, which was initialised
+        with `add_help=False`.
     plot_end() or plot_stop() or plot_close() or end() or stop()
         Finish, closing opened output files.
     plot_save(fig, **kwargs)
@@ -237,7 +244,7 @@ class mcPlot(object):
     # -------------------------------------------------------------------------
     # init
     #
-    def __init__(self, desc=None, argstr=None):
+    def __init__(self, desc=None, argstr=None, parents=[]):
         """
         Initialise the class mcPlot.
 
@@ -259,7 +266,8 @@ class mcPlot(object):
 
         """
         # get options
-        self.get_command_line_arguments(desc=desc, argstr=argstr)
+        self.get_command_line_arguments(desc=desc, argstr=argstr,
+                                        parents=parents)
         # pdf, png, ...
         self.set_output_type()
         # nrow, ncol, colours, etc.
@@ -272,7 +280,7 @@ class mcPlot(object):
     # -------------------------------------------------------------------------
     # command line arguments
     #
-    def get_command_line_arguments(self, desc=None, argstr=None):
+    def get_command_line_arguments(self, desc=None, argstr=None, parents=[]):
         """
         Standard command line parser with default arguments
         such as plot type, filename, etc.
@@ -288,6 +296,12 @@ class mcPlot(object):
             called with -h.
         argstr : string, optional
             String given as description for the positional arguments.
+        parents : ArgumentParser or list, optional
+            ArgumentParser or list of ArgumentParser objects whose arguments
+            should also be included.
+            Note, these parsers should be initialised with `add_help=False`.
+            Otherwise, the ArgumentParser will see two -h/--help options
+            and raise an error.
 
         Notes
         -----
@@ -347,9 +361,13 @@ class mcPlot(object):
         usetex   = False
         dowhite  = False
         dpi      = 300
+        try:
+            _ = len(parents)
+        except TypeError:
+            parents = [parents]
         parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter,
-            description=idesc)
+            description=idesc, parents=parents)
         hstr = (f'Name of plot output file for types pdf, html, d3, or'
                 f' hvplot, and name basis for type png (default:'
                 f' {plotname}).')
@@ -382,14 +400,19 @@ class mcPlot(object):
 
         args = parser.parse_args()
 
-        self.args        = args.cargs
-        self.plotname    = args.plotname
-        self.serif       = args.serif
-        self.outtype     = args.outtype
-        self.usetex      = args.usetex
-        self.dowhite     = args.dowhite
-        self.dpi         = args.dpi
-        self.transparent = args.transparent
+        # self.plotname    = args.plotname
+        # self.serif       = args.serif
+        # self.outtype     = args.outtype
+        # self.usetex      = args.usetex
+        # self.dowhite     = args.dowhite
+        # self.dpi         = args.dpi
+        # self.transparent = args.transparent
+        for arg in args.__dict__:
+            setattr(self, arg, args.__dict__[arg])
+        # for backward compatibility
+        # self.args        = args.cargs
+        if 'cargs' in args.__dict__:
+            setattr(self, 'args', args.__dict__['cargs'])
 
         del parser, args
 

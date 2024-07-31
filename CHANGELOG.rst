@@ -2,6 +2,9 @@ Changelog
 ---------
 
 v2.2 (??? 2024)
+    * Argument 'parents' to `mcPlot` to pass extra command line
+      arguments.
+    * Added upper keyword in `abc2plot`.
     * Use DejaVuSans and DejaVueSerif as standard fonts if not LaTeX
       in `mcPlot`.
     * Add `mcPlot` method `print_layout_options`.
