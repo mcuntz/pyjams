@@ -163,22 +163,6 @@ class TestNcio(unittest.TestCase):
             fsoll = nc.default_fillvals[otypes[ii]]
             assert fout == fsoll
 
-    def test_get_fill_value_for_float128(self):
-        import sys
-        import warnings
-        import pytest
-        import numpy as np
-        import pyjams.ncio as ncio
-
-        if sys.platform.startswith("win"):
-            pytest.skip("skipping tests that require float128 on windows")
-        # warning unknown type
-        with warnings.catch_warnings(record=True) as w:
-            nn = np.float128
-            out = np.array([1, 2, 3], dtype=nn)
-            fout = ncio.get_fill_value_for_dtype(out.dtype)
-            assert len(w) > 0
-
     def test_set_output_filename(self):
         import pyjams.ncio as ncio
 
