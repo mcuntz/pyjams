@@ -75,6 +75,8 @@ History
     * NA -> NaN, i.e. R to Python convention in fsread,
       Aug 2022, Matthias Cuntz
     * Correct docstring of strip keyword, Mar 2023, Matthias Cuntz
+    * Assure str(fill_value) in sread, Aug 2024, Matthias Cuntz
+    * Changed deprecated numpy.in1d to numpy.isin, Aug 2024, Matthias Cuntz
 
 """
 import codecs
@@ -317,7 +319,7 @@ def _determine_indices(f, head, nres,
     if ( isinstance(nc, (list, tuple, np.ndarray)) and
          isinstance(snc, (list, tuple, np.ndarray)) ):
         # both indices
-        if np.in1d(nc, snc, assume_unique=True).any():
+        if np.isin(nc, snc, assume_unique=True).any():
             _close_file(f, ixls=ixls)
             raise ValueError('float and string indices overlap.')
         iinc  = nc
@@ -1495,6 +1497,7 @@ def sread(infile,
         cname = sname
     if sfill_value:
         fill_value = sfill_value
+    fill_value = str(fill_value)  # assure str
     # nc=0 in fread and sread reads all columns
     if (nc == 0) and (cname is None):
         nc = -1
