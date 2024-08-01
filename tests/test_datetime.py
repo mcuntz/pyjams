@@ -140,18 +140,18 @@ class TestDatetime(unittest.TestCase):
         f2nums = [date2num, date2dec]
         for calendar in calendars:
             for unit in units:
-                for format in formats:
+                for iformat in formats:
                     for only_pyjams in only_pyjamss:
                         for only_cftime in only_cftimes:
                             for only_python in only_pythons:
                                 for has_year_zero in has_year_zeros:
                                     for itype in range(len(itypes)):
-                                        # print(calendar, unit, format,
+                                        # print(calendar, unit, iformat,
                                         #       only_cftime, only_python,
                                         #       has_year_zero, itypes[itype])
                                         indates = itypes[itype](self.idates)
                                         jdates = date2date(indates,
-                                                           format=format)
+                                                           format=iformat)
                                         ihave0 = has_year_zero
                                         if ( has_year_zero and
                                              (calendar in self._excelcalendars) ):
@@ -161,7 +161,7 @@ class TestDatetime(unittest.TestCase):
                                             jdates, units=unit,
                                             calendar=calendar,
                                             has_year_zero=ihave0,
-                                            format=format)
+                                            format=iformat)
                                         f2date = f2dates[random.randint(0, 1)]
                                         odates = f2date(
                                             idec, units=unit, calendar=calendar,
@@ -174,6 +174,24 @@ class TestDatetime(unittest.TestCase):
                                         assert isinstance(jdates, ttypes[itype])
                                         assert isinstance(idec, ttypes[itype])
                                         assert isinstance(odates, ttypes[itype])
+                                        odates2 = f2date(
+                                            idec, units=unit, calendar=calendar,
+                                            only_use_pyjams_datetimes=only_pyjams,
+                                            only_use_cftime_datetimes=only_cftime,
+                                            only_use_python_datetimes=only_python,
+                                            has_year_zero=ihave0,
+                                            # format='%Y-%m-%d %H:%M:%S.%f',
+                                            format='.%f',
+                                            return_arrays=False)
+                                        if np.any(
+                                                np.array(odates2) !=
+                                                np.str_('.000000')):
+                                            print('Micro0', calendar, unit, iformat,
+                                                  only_pyjams, only_cftime,
+                                                  only_python, has_year_zero,
+                                                  itype, _flatten(odates2))
+                                        assert isinstance(jdates, ttypes[itype])
+                                        # print(calendar, unit, iformat,
                                         self.assertEqual(_flatten(odates),
                                                          _flatten(indates))
 
@@ -199,13 +217,13 @@ class TestDatetime(unittest.TestCase):
         f2nums = [date2num, date2dec]
         for calendar in calendars:
             for unit in units:
-                for format in formats:
+                for iformat in formats:
                     for only_pyjams in only_pyjamss:
                         for only_cftime in only_cftimes:
                             for only_python in only_pythons:
                                 for has_year_zero in has_year_zeros:
                                     for itype in range(len(itypes)):
-                                        # print(calendar, unit, format,
+                                        # print(calendar, unit, iformat,
                                         #       only_cftime, only_python,
                                         #       has_year_zero, itypes[itype])
                                         if calendar in ['',
@@ -216,13 +234,13 @@ class TestDatetime(unittest.TestCase):
                                         else:
                                             indates = itypes[itype](self.idates)
                                         jdates = date2date(indates,
-                                                           format=format)
+                                                           format=iformat)
                                         f2num = f2nums[random.randint(0, 1)]
                                         idec = f2num(
                                             jdates, units=unit,
                                             calendar=calendar,
                                             has_year_zero=has_year_zero,
-                                            format=format)
+                                            format=iformat)
                                         f2date = f2dates[random.randint(0, 1)]
                                         odates = f2date(
                                             idec, units=unit, calendar=calendar,
@@ -243,7 +261,7 @@ class TestDatetime(unittest.TestCase):
         calendar = ''
         units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
                  'days since 1900-01-01 00:00:00']
-        format = ''
+        iformat = ''
         itypes = [list, tuple, np.array]
         ttypes = [list, tuple, np.ndarray]
         f2dates = [num2date, dec2date]
@@ -252,11 +270,11 @@ class TestDatetime(unittest.TestCase):
             for itype in range(len(itypes)):
                 # print(unit, itypes[itype])
                 indates = itypes[itype](self.idates)
-                jdates = date2date(indates, format=format)
+                jdates = date2date(indates, format=iformat)
                 f2num = f2nums[random.randint(0, 1)]
                 idec = f2num(
                     jdates, units=unit, calendar=calendar,
-                    format=format)
+                    format=iformat)
                 f2date = f2dates[random.randint(0, 1)]
                 odates = f2date(
                     idec, units=unit, calendar=calendar,
@@ -638,6 +656,7 @@ class TestDatetime(unittest.TestCase):
                 ohour   = iarrays[:, 3]
                 ominute = iarrays[:, 4]
                 osecond = iarrays[:, 5]
+                # omsecond = iarrays[:, 6]
                 self.assertEqual(_flatten(oyear), _flatten(self.year))
                 self.assertEqual(_flatten(omonth), _flatten(self.month))
                 self.assertEqual(_flatten(oday), _flatten(self.day))
@@ -656,7 +675,29 @@ class TestDatetime(unittest.TestCase):
                 self.assertEqual(_flatten(oday), _flatten(self.day))
                 self.assertEqual(_flatten(ohour), _flatten(self.hour))
                 self.assertEqual(_flatten(ominute), _flatten(self.minute))
+                omsecond = np.array(_flatten(omsecond))
+                if np.any(omsecond != 0.):
+                    print('Seconds', calendar, has_year_zero, omsecond)
                 self.assertEqual(_flatten(osecond), _flatten(self.second))
+                # using return_arrays with microseonds
+                idec = date2num(idtms, units='', calendar=calendar,
+                                has_year_zero=ihave0)
+                oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
+                    num2date(idec, units='', calendar=calendar,
+                             has_year_zero=ihave0,
+                             return_arrays=True))
+                self.assertEqual(_flatten(oyear), _flatten(self.year))
+                self.assertEqual(_flatten(omonth), _flatten(self.month))
+                self.assertEqual(_flatten(oday), _flatten(self.day))
+                self.assertEqual(_flatten(ohour), _flatten(self.hour))
+                self.assertEqual(_flatten(ominute), _flatten(self.minute))
+                omsecond = np.array(_flatten(omsecond))
+                microsecond = np.array(_flatten(self.microsecond))
+                if np.any(omsecond != microsecond):
+                    print('Microeconds', calendar, has_year_zero, omsecond,
+                          self.microsecond, microsecond - omsecond)
+                self.assertEqual(_flatten(osecond), _flatten(self.second))
+                self.assertEqual(_flatten(omsecond), _flatten(self.microssecond))
 
                 # _add_timedelta - with __add__
 
