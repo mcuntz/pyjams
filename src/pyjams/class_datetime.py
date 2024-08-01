@@ -77,6 +77,9 @@ History
     * round_microseconds method for datetime, Jul 2022, Matthias Cuntz
     * only_use_pyjams_datetimes keyword in num2date, Jan 2022, Matthias Cuntz
     * Also CF-calendars in datetime class, Jan 2023, Matthias Cuntz
+    * Use longdouble keyword with date2num if cftime > v1.6.1,
+      Aug 2024, Matthias Cuntz
+    * Filter UserWarning from cftime, Aug 2024, Matthias Cuntz
 
 ToDo
     * Check why datetime + timedelta but not timedelta + datetime
@@ -84,19 +87,20 @@ ToDo
     * add time2index
     * implement fromordinal
     * implement change_calendar
+    * strptime
 
 """
-import re
-import time as ptime
 from datetime import datetime as datetime_python
 from datetime import timedelta
+import re
+import time as ptime
+import warnings
 import numpy as np
 import cftime as cf
 from .helper import input2array, array2input
 from .date2date import date2date
 # from pyjams.helper import input2array, array2input
 # from pyjams.date2date import date2date
-
 
 __all__ = ['date2dec', 'date2num', 'dec2date', 'num2date', 'datetime']
 
@@ -1285,8 +1289,13 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             if int(remainder.split('-')[0]) == 0:
                 if has_year_zero is not None:
                     has_year_zero = True
-        out = cf.date2num(mdates, units, calendar=icalendar,
-                          has_year_zero=has_year_zero)
+        if cf.__version__ > '1.6.1':
+            out = cf.date2num(mdates, units, calendar=icalendar,
+                              has_year_zero=has_year_zero,
+                              longdouble=True)
+        else:
+            out = cf.date2num(mdates, units, calendar=icalendar,
+                              has_year_zero=has_year_zero)
 
     if sincestr == 'as':
         if units not in ['day as %Y%m%d.%f', 'month as %Y%m.%f',
@@ -1299,8 +1308,13 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         cfcalendar = 'julian'
         cfdates = [ cf.datetime(*to_tuple(dt), calendar=cfcalendar)
                     for dt in mdates ]
-        out = cf.date2num(cfdates, units, calendar=cfcalendar,
-                          has_year_zero=has_year_zero)
+        if cf.__version__ > '1.6.1':
+            out = cf.date2num(cfdates, units, calendar=cfcalendar,
+                              has_year_zero=has_year_zero)
+        else:
+            out = cf.date2num(cfdates, units, calendar=cfcalendar,
+                              has_year_zero=has_year_zero,
+                              longdouble=True)
 
     # no cftime.num2date possible
     if icalendar in _decimalcalendars:
@@ -2074,8 +2088,10 @@ class datetime(object):
         # has_year_zero = self.has_year_zero
         # delta = other
         if calendar == 'decimal360':
-            cfdt = cf.datetime(*to_tuple(dt), calendar='360_day',
-                               has_year_zero=dt.has_year_zero)
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                cfdt = cf.datetime(*to_tuple(dt), calendar='360_day',
+                                   has_year_zero=dt.has_year_zero)
             cfdt = cfdt + delta
             year, month, day, hour, minute, second, microsecond = (
                 cfdt.year, cfdt.month, cfdt.day, cfdt.hour, cfdt.minute,
@@ -2223,8 +2239,10 @@ class datetime(object):
             elif isinstance(other, timedelta):
                 # datetime - timedelta
                 if dt.calendar == 'decimal360':
-                    cfdt = cf.datetime(*to_tuple(dt), calendar='360_day',
-                                       has_year_zero=dt.has_year_zero)
+                    with warnings.catch_warnings():
+                        warnings.simplefilter("ignore")
+                        cfdt = cf.datetime(*to_tuple(dt), calendar='360_day',
+                                           has_year_zero=dt.has_year_zero)
                     cfdt = cfdt - other
                     year, month, day, hour, minute, second, microsecond = (
                         cfdt.year, cfdt.month, cfdt.day, cfdt.hour,

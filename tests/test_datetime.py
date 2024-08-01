@@ -40,6 +40,7 @@ python -m pytest --cov=pyjams --cov-report term-missing -v tests/test_datetime.p
 
 """
 import unittest
+import warnings
 
 
 def _flatten(itr):
@@ -359,7 +360,7 @@ class TestDatetime(unittest.TestCase):
                             calendar='decimal')
                    for i in range(len(self.year)) ]
         rdates = [ dt.datetime(self.year[i], self.month[i], self.day[i],
-                            self.hour[i], self.minute[i], self.second[i])
+                               self.hour[i], self.minute[i], self.second[i])
                    for i in range(len(self.year)) ]
         for ical in calendar:
             # print(ical)
@@ -383,7 +384,7 @@ class TestDatetime(unittest.TestCase):
                             calendar='decimal')
                    for i in range(len(self.year)) ]
         rdates = [ dt.datetime(self.year[i], self.month[i], self.day[i],
-                            self.hour[i], self.minute[i], self.second[i])
+                               self.hour[i], self.minute[i], self.second[i])
                    for i in range(len(self.year)) ]
         for ical in calendar:
             # print(ical)
@@ -488,10 +489,12 @@ class TestDatetime(unittest.TestCase):
                 # change_calendar - NotImplemented
 
                 # use cftime as reference
-                cdt = [ cf.datetime(*dt.to_tuple(),
-                                    calendar=cfcalendars[calendar],
-                                    has_year_zero=ihave0)
-                        for dt in idt ]
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    cdt = [ cf.datetime(*dt.to_tuple(),
+                                        calendar=cfcalendars[calendar],
+                                        has_year_zero=ihave0)
+                            for dt in idt ]
 
                 # dayofwk, dayofyr
                 ist  = [ dt.dayofyr() for dt in idt ]
@@ -509,7 +512,7 @@ class TestDatetime(unittest.TestCase):
                 mlen = [ _month_lengths(yy, calendar,
                                         has_year_zero=ihave0)
                          for yy in self.year ]
-                soll = [ mlen[mm][self.month[mm]-1]
+                soll = [ mlen[mm][self.month[mm] - 1]
                          for mm in range(len(self.month)) ]
                 self.assertEqual(_flatten(ist), _flatten(soll))
 
@@ -542,10 +545,10 @@ class TestDatetime(unittest.TestCase):
                 soll = self.idates
                 self.assertEqual(_flatten(ist), _flatten(soll))
                 ist  = [ dt.isoformat(' ', 'milliseconds') for dt in idt ]
-                soll = [ dd+'.000' for dd in self.idates ]
+                soll = [ dd + '.000' for dd in self.idates ]
                 self.assertEqual(_flatten(ist), _flatten(soll))
                 ist  = [ dt.isoformat(' ', 'microseconds') for dt in idt ]
-                soll = [ dd+'.000000' for dd in self.idates ]
+                soll = [ dd + '.000000' for dd in self.idates ]
                 self.assertEqual(_flatten(ist), _flatten(soll))
 
                 # replace
@@ -553,12 +556,12 @@ class TestDatetime(unittest.TestCase):
                 odt = list()
                 for i in range(len(self.year)):
                     kwarg = {
-                        'year': self.year[-(i+1)],
-                        'month': self.month[-(i+1)],
-                        'day': self.day[-(i+1)],
-                        'hour': self.hour[-(i+1)],
-                        'minute': self.minute[-(i+1)],
-                        'second': self.second[-(i+1)],
+                        'year': self.year[-(i + 1)],
+                        'month': self.month[-(i + 1)],
+                        'day': self.day[-(i + 1)],
+                        'hour': self.hour[-(i + 1)],
+                        'minute': self.minute[-(i + 1)],
+                        'second': self.second[-(i + 1)],
                         'has_year_zero': False
                     }
                     odt.append(idt[i].replace(**kwarg))
@@ -882,15 +885,17 @@ class TestDatetime(unittest.TestCase):
                                    isecond[i], imicrosecond[i],
                                    calendar=calendar,
                                    has_year_zero=ihave0)
-                         for i in range(len(iyear)) ]
+                          for i in range(len(iyear)) ]
 
                 # change_calendar - NotImplemented
 
                 # use cftime as reference
-                cdt = [ cf.datetime(*dt.to_tuple(),
-                                    calendar=cfcalendars[calendar],
-                                    has_year_zero=ihave0)
-                        for dt in idt ]
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    cdt = [ cf.datetime(*dt.to_tuple(),
+                                        calendar=cfcalendars[calendar],
+                                        has_year_zero=ihave0)
+                            for dt in idt ]
 
                 # dayofwk, dayofyr
                 ist  = [ dt.dayofyr() for dt in idt ]
@@ -908,7 +913,7 @@ class TestDatetime(unittest.TestCase):
                 mlen = [ _month_lengths(yy, calendar,
                                         has_year_zero=ihave0)
                          for yy in iyear ]
-                soll = [ mlen[mm][imonth[mm]-1]
+                soll = [ mlen[mm][imonth[mm] - 1]
                          for mm in range(len(imonth)) ]
                 self.assertEqual(_flatten(ist), _flatten(soll))
 
@@ -938,10 +943,10 @@ class TestDatetime(unittest.TestCase):
                 soll = idates
                 self.assertEqual(_flatten(ist), _flatten(soll))
                 ist  = [ dt.isoformat(' ', 'milliseconds') for dt in idt ]
-                soll = [ dd+'.000' for dd in idates ]
+                soll = [ dd + '.000' for dd in idates ]
                 self.assertEqual(_flatten(ist), _flatten(soll))
                 ist  = [ dt.isoformat(' ', 'microseconds') for dt in idt ]
-                soll = [ dd+'.000000' for dd in idates ]
+                soll = [ dd + '.000000' for dd in idates ]
                 self.assertEqual(_flatten(ist), _flatten(soll))
 
                 # replace
@@ -951,12 +956,12 @@ class TestDatetime(unittest.TestCase):
                     if ihave0 or (ihave0 is None):
                         ihave = False
                     kwarg = {
-                        'year': np.clip(iyear[-(i+1)], -9999, -1),
-                        'month': imonth[-(i+1)],
-                        'day': iday[-(i+1)],
-                        'hour': ihour[-(i+1)],
-                        'minute': iminute[-(i+1)],
-                        'second': isecond[-(i+1)],
+                        'year': np.clip(iyear[-(i + 1)], -9999, -1),
+                        'month': imonth[-(i + 1)],
+                        'day': iday[-(i + 1)],
+                        'hour': ihour[-(i + 1)],
+                        'minute': iminute[-(i + 1)],
+                        'second': isecond[-(i + 1)],
                         'has_year_zero': False
                     }
                     odt.append(idt[i].replace(**kwarg))
