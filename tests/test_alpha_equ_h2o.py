@@ -174,7 +174,7 @@ class TestAlphaEquH2O(unittest.TestCase):
         assert isinstance(epsilon, pd.Series)
         self.assertEqual(_flatten(epsilon.values[1:], 4),
                          [-1000.0, 91.1296, 79.3443])
-        assert np.isnan(epsilon[0])
+        assert np.isnan(epsilon.iloc[0])
 
 
 if __name__ == "__main__":
