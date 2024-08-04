@@ -354,8 +354,7 @@ class TestDatetime(unittest.TestCase):
                     for i in range(len(jdates)) ])
                 f2num = f2nums[random.randint(0, 1)]
                 idec = f2num(jdates, units=unit, calendar=calendar,
-                             format=iform,
-                             ensure_seconds=True)
+                             format=iform)
                 f2date = f2dates[random.randint(0, 1)]
                 odates = f2date(
                     idec, units=unit, calendar=calendar,
@@ -673,33 +672,6 @@ class TestDatetime(unittest.TestCase):
                 omsecond1 = np.array(_flatten(omsecond))
                 # if np.any(omsecond1 != 0.):
                 #     print('Second0', calendar, has_year_zero, omsecond1)
-                self.assertEqual(_flatten(osecond), _flatten(self.second))
-                self.assertEqual(_flatten(ominute), _flatten(self.minute))
-                self.assertEqual(_flatten(ohour), _flatten(self.hour))
-                self.assertEqual(_flatten(oday), _flatten(self.day))
-                self.assertEqual(_flatten(omonth), _flatten(self.month))
-                self.assertEqual(_flatten(oyear), _flatten(self.year))
-                # using return_arrays with microseonds
-                idtms = [ datetime(self.year[i], self.month[i], self.day[i],
-                                   self.hour[i], self.minute[i],
-                                   self.second[i], self.microsecond[i],
-                                   calendar=calendar,
-                                   has_year_zero=ihave0)
-                          for i in range(len(self.year)) ]
-                idec = date2num(idtms, units='', calendar=calendar,
-                                has_year_zero=ihave0,
-                                ensure_seconds=True)
-                oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
-                    num2date(idec, units='', calendar=calendar,
-                             has_year_zero=ihave0,
-                             return_arrays=True))
-                # omsecond1 = np.array(_flatten(omsecond))
-                # microsecond = np.array(_flatten(self.microsecond))
-                # if np.any(omsecond1 != microsecond):
-                #     print('Microsecond', calendar, has_year_zero,
-                #           omsecond1, self.microsecond)
-                # self.assertEqual(_flatten(omsecond),
-                #                  _flatten(self.microsecond))
                 self.assertEqual(_flatten(osecond), _flatten(self.second))
                 self.assertEqual(_flatten(ominute), _flatten(self.minute))
                 self.assertEqual(_flatten(ohour), _flatten(self.hour))
