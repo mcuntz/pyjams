@@ -125,6 +125,8 @@ _cumdayspermonth_leap = [0, 31, 60, 91, 121, 152, 182,
                          213, 244, 274, 305, 335, 366]
 _cumdayspermonth_360  = [0, 30, 60, 90, 120, 150, 180,
                          210, 240, 270, 300, 330, 360]
+feps = np.finfo(np.float64).eps
+deps = np.finfo(np.longdouble).eps
 
 #
 # Exact copies of private cftime routines
@@ -1293,15 +1295,18 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             out = cf.date2num(mdates, units, calendar=icalendar,
                               has_year_zero=has_year_zero,
                               longdouble=True)
+            out += out * deps
         else:
             out = cf.date2num(mdates, units, calendar=icalendar,
                               has_year_zero=has_year_zero)
+            out += out * feps
 
     if sincestr == 'as':
         if units not in ['day as %Y%m%d.%f', 'month as %Y%m.%f',
                          'year as %Y.%f']:
             raise ValueError(f'Absolute date format unknown: {units}')
         out = _dates2absolute(mdates, units)
+        out += out * deps
 
     # use cftime.date2num with Excel
     if icalendar in _excelcalendars:
@@ -1312,13 +1317,16 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             out = cf.date2num(cfdates, units, calendar=cfcalendar,
                               has_year_zero=has_year_zero,
                               longdouble=True)
+            out += out * deps
         else:
             out = cf.date2num(cfdates, units, calendar=cfcalendar,
                               has_year_zero=has_year_zero)
+            out += out * feps
 
     # no cftime.num2date possible
     if icalendar in _decimalcalendars:
         out = _dates2decimal(mdates, icalendar)
+        out += out * deps
 
     out = array2input(out, dates)
     return out

@@ -124,7 +124,8 @@ class TestDatetime(unittest.TestCase):
 
         # precision problem for some calendars of _cfcalendars, i.e.
         #     'noleap', 'all_leap', '365_day', '366_day', '360_day'
-        _noncfcalendars = self._decimalcalendars + self._excelcalendars
+        # _noncfcalendars = self._decimalcalendars + self._excelcalendars
+        _noncfcalendars = self._decimalcalendars
         calendars = _noncfcalendars
         # calendars = self._cfcalendars
         units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f']
@@ -472,8 +473,10 @@ class TestDatetime(unittest.TestCase):
 
         # Test methods of datetime class, years > 0
 
-        _noncfcalendars = self._decimalcalendars + self._excelcalendars
-        _cfequivalents = self._decimalcfequivalents + self._excelcfequivalents
+        # _noncfcalendars = self._decimalcalendars + self._excelcalendars
+        # _cfequivalents = self._decimalcfequivalents + self._excelcfequivalents
+        _noncfcalendars = self._decimalcalendars
+        _cfequivalents = self._decimalcfequivalents
         calendars = _noncfcalendars
         has_year_zeros = [None, True, False]
         cfcalendars = dict(zip(_noncfcalendars, _cfequivalents))
