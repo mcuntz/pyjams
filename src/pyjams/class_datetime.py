@@ -1310,11 +1310,11 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
                     for dt in mdates ]
         if cf.__version__ > '1.6.1':
             out = cf.date2num(cfdates, units, calendar=cfcalendar,
-                              has_year_zero=has_year_zero)
-        else:
-            out = cf.date2num(cfdates, units, calendar=cfcalendar,
                               has_year_zero=has_year_zero,
                               longdouble=True)
+        else:
+            out = cf.date2num(cfdates, units, calendar=cfcalendar,
+                              has_year_zero=has_year_zero)
 
     # no cftime.num2date possible
     if icalendar in _decimalcalendars:

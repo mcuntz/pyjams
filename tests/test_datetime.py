@@ -109,353 +109,353 @@ class TestDatetime(unittest.TestCase):
                         '-0010-07-15 10:20:40', '-0100-09-20 14:35:50',
                         '-1000-03-18 19:41:34', '0001-08-27 11:08:37']
 
-    # def test_date2num2date(self):
-    #     import random
-    #     import numpy as np
-    #     from pyjams import date2date
-    #     from pyjams import date2num, num2date, date2dec, dec2date
-    #     import cftime as cf
-    #     import datetime as dt
-    #     from pyjams import datetime
+    def test_date2num2date(self):
+        import random
+        import numpy as np
+        from pyjams import date2date
+        from pyjams import date2num, num2date, date2dec, dec2date
+        import cftime as cf
+        import datetime as dt
+        from pyjams import datetime
 
-    #     # Back and forth for _noncfcalendars
+        # Back and forth for _noncfcalendars
 
-    #     # precision problem for some calendars of _cfcalendars, i.e.
-    #     #     'noleap', 'all_leap', '365_day', '366_day', '360_day'
-    #     calendars = self._noncfcalendars
-    #     # calendars = self._cfcalendars
-    #     units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f']
-    #     formats = ['%Y-%m-%d %H:%M:%S', '%d.%m.%Y %H:%M:%S',
-    #                '%d/%m/%Y %H:%M:%S',
-    #                '%Y-%m-%dT%H:%M:%S', '%d.%m.%YT%H:%M:%S',
-    #                '%d/%m/%YT%H:%M:%S',
-    #                '%Y%m%d%H%M%S']
-    #     only_pyjamss = [True, False]
-    #     only_cftimes = [True, False]
-    #     only_pythons = [True, False]
-    #     has_year_zeros = [None, True, False]
-    #     itypes = [list, tuple, np.array]
-    #     ttypes = [list, tuple, np.ndarray]
-    #     f2dates = [num2date, dec2date]
-    #     f2nums = [date2num, date2dec]
-    #     for calendar in calendars:
-    #         for unit in units:
-    #             for iformat in formats:
-    #                 for only_pyjams in only_pyjamss:
-    #                     for only_cftime in only_cftimes:
-    #                         for only_python in only_pythons:
-    #                             for has_year_zero in has_year_zeros:
-    #                                 for itype in range(len(itypes)):
-    #                                     indates = itypes[itype](self.idates)
-    #                                     jdates = date2date(indates,
-    #                                                        format=iformat)
-    #                                     ihave0 = has_year_zero
-    #                                     if ( has_year_zero and
-    #                                          (calendar in self._excelcalendars) ):
-    #                                         ihave0 = False
-    #                                     f2num = f2nums[random.randint(0, 1)]
-    #                                     idec = f2num(
-    #                                         jdates, units=unit,
-    #                                         calendar=calendar,
-    #                                         has_year_zero=ihave0,
-    #                                         format=iformat)
-    #                                     f2date = f2dates[random.randint(0, 1)]
-    #                                     odates = f2date(
-    #                                         idec, units=unit, calendar=calendar,
-    #                                         only_use_pyjams_datetimes=only_pyjams,
-    #                                         only_use_cftime_datetimes=only_cftime,
-    #                                         only_use_python_datetimes=only_python,
-    #                                         has_year_zero=ihave0,
-    #                                         format=self.iformat,
-    #                                         return_arrays=False)
-    #                                     assert isinstance(jdates, ttypes[itype])
-    #                                     assert isinstance(idec, ttypes[itype])
-    #                                     assert isinstance(odates, ttypes[itype])
-    #                                     odates2 = f2date(
-    #                                         idec, units=unit, calendar=calendar,
-    #                                         only_use_pyjams_datetimes=only_pyjams,
-    #                                         only_use_cftime_datetimes=only_cftime,
-    #                                         only_use_python_datetimes=only_python,
-    #                                         has_year_zero=ihave0,
-    #                                         # format='%Y-%m-%d %H:%M:%S.%f',
-    #                                         format='.%f',
-    #                                         return_arrays=False)
-    #                                     if np.any(
-    #                                             np.array(odates2) !=
-    #                                             np.str_('.000000')):
-    #                                         print('Microsecond0', calendar, unit,
-    #                                               iformat, only_pyjams,
-    #                                               only_cftime, only_python,
-    #                                               has_year_zero, itypes[itype],
-    #                                               np.array(_flatten(odates2)))
-    #                                     assert isinstance(jdates,
-    #                                                       ttypes[itype])
-    #                                     self.assertEqual(_flatten(odates),
-    #                                                      _flatten(indates))
+        # precision problem for some calendars of _cfcalendars, i.e.
+        #     'noleap', 'all_leap', '365_day', '366_day', '360_day'
+        calendars = self._noncfcalendars
+        # calendars = self._cfcalendars
+        units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f']
+        formats = ['%Y-%m-%d %H:%M:%S', '%d.%m.%Y %H:%M:%S',
+                   '%d/%m/%Y %H:%M:%S',
+                   '%Y-%m-%dT%H:%M:%S', '%d.%m.%YT%H:%M:%S',
+                   '%d/%m/%YT%H:%M:%S',
+                   '%Y%m%d%H%M%S']
+        only_pyjamss = [True, False]
+        only_cftimes = [True, False]
+        only_pythons = [True, False]
+        has_year_zeros = [None, True, False]
+        itypes = [list, tuple, np.array]
+        ttypes = [list, tuple, np.ndarray]
+        f2dates = [num2date, dec2date]
+        f2nums = [date2num, date2dec]
+        for calendar in calendars:
+            for unit in units:
+                for iformat in formats:
+                    for only_pyjams in only_pyjamss:
+                        for only_cftime in only_cftimes:
+                            for only_python in only_pythons:
+                                for has_year_zero in has_year_zeros:
+                                    for itype in range(len(itypes)):
+                                        indates = itypes[itype](self.idates)
+                                        jdates = date2date(indates,
+                                                           format=iformat)
+                                        ihave0 = has_year_zero
+                                        if ( has_year_zero and
+                                             (calendar in self._excelcalendars) ):
+                                            ihave0 = False
+                                        f2num = f2nums[random.randint(0, 1)]
+                                        idec = f2num(
+                                            jdates, units=unit,
+                                            calendar=calendar,
+                                            has_year_zero=ihave0,
+                                            format=iformat)
+                                        f2date = f2dates[random.randint(0, 1)]
+                                        odates = f2date(
+                                            idec, units=unit, calendar=calendar,
+                                            only_use_pyjams_datetimes=only_pyjams,
+                                            only_use_cftime_datetimes=only_cftime,
+                                            only_use_python_datetimes=only_python,
+                                            has_year_zero=ihave0,
+                                            format=self.iformat,
+                                            return_arrays=False)
+                                        assert isinstance(jdates, ttypes[itype])
+                                        assert isinstance(idec, ttypes[itype])
+                                        assert isinstance(odates, ttypes[itype])
+                                        odates2 = f2date(
+                                            idec, units=unit, calendar=calendar,
+                                            only_use_pyjams_datetimes=only_pyjams,
+                                            only_use_cftime_datetimes=only_cftime,
+                                            only_use_python_datetimes=only_python,
+                                            has_year_zero=ihave0,
+                                            # format='%Y-%m-%d %H:%M:%S.%f',
+                                            format='.%f',
+                                            return_arrays=False)
+                                        if np.any(
+                                                np.array(odates2) !=
+                                                np.str_('.000000')):
+                                            print('Microsecond0', calendar, unit,
+                                                  iformat, only_pyjams,
+                                                  only_cftime, only_python,
+                                                  has_year_zero, itypes[itype],
+                                                  np.array(_flatten(odates2)))
+                                        assert isinstance(jdates,
+                                                          ttypes[itype])
+                                        self.assertEqual(_flatten(odates),
+                                                         _flatten(indates))
 
-    #     # Back and forth for _cfcalendars
+        # Back and forth for _cfcalendars
 
-    #     # precision problem for some calendars of _cfcalendars, i.e.
-    #     #     'noleap', 'all_leap', '365_day', '366_day', '360_day'
-    #     # calendars = _cfcalendars
-    #     calendars = ['standard', 'gregorian', 'proleptic_gregorian', 'julian']
-    #     units = ['']
-    #     formats = ['%Y-%m-%d %H:%M:%S', '%d.%m.%Y %H:%M:%S',
-    #                '%d/%m/%Y %H:%M:%S',
-    #                '%Y-%m-%dT%H:%M:%S', '%d.%m.%YT%H:%M:%S',
-    #                '%d/%m/%YT%H:%M:%S',
-    #                '%Y%m%d%H%M%S']
-    #     only_pyjamss = [True, False]
-    #     only_cftimes = [True, False]
-    #     only_pythons = [False]  # [True, False]
-    #     has_year_zeros = [None, True, False]
-    #     itypes = [list, tuple, np.array]
-    #     ttypes = [list, tuple, np.ndarray]
-    #     f2dates = [num2date, dec2date]
-    #     f2nums = [date2num, date2dec]
-    #     for calendar in calendars:
-    #         for unit in units:
-    #             for iformat in formats:
-    #                 for only_pyjams in only_pyjamss:
-    #                     for only_cftime in only_cftimes:
-    #                         for only_python in only_pythons:
-    #                             for has_year_zero in has_year_zeros:
-    #                                 for itype in range(len(itypes)):
-    #                                     if calendar in ['',
-    #                                                     'gregorian',
-    #                                                     'standard']:
-    #                                         indates = itypes[itype](
-    #                                             self.idates[:3])
-    #                                     else:
-    #                                         indates = itypes[itype](self.idates)
-    #                                     jdates = date2date(indates,
-    #                                                        format=iformat)
-    #                                     f2num = f2nums[random.randint(0, 1)]
-    #                                     idec = f2num(
-    #                                         jdates, units=unit,
-    #                                         calendar=calendar,
-    #                                         has_year_zero=has_year_zero,
-    #                                         format=iformat)
-    #                                     f2date = f2dates[random.randint(0, 1)]
-    #                                     odates = f2date(
-    #                                         idec, units=unit, calendar=calendar,
-    #                                         only_use_pyjams_datetimes=only_pyjams,
-    #                                         only_use_cftime_datetimes=only_cftime,
-    #                                         only_use_python_datetimes=only_python,
-    #                                         has_year_zero=has_year_zero,
-    #                                         format=self.iformat,
-    #                                         return_arrays=False)
-    #                                     assert isinstance(jdates, ttypes[itype])
-    #                                     assert isinstance(idec, ttypes[itype])
-    #                                     assert isinstance(odates, ttypes[itype])
-    #                                     self.assertEqual(_flatten(odates),
-    #                                                      _flatten(indates))
+        # precision problem for some calendars of _cfcalendars, i.e.
+        #     'noleap', 'all_leap', '365_day', '366_day', '360_day'
+        # calendars = _cfcalendars
+        calendars = ['standard', 'gregorian', 'proleptic_gregorian', 'julian']
+        units = ['']
+        formats = ['%Y-%m-%d %H:%M:%S', '%d.%m.%Y %H:%M:%S',
+                   '%d/%m/%Y %H:%M:%S',
+                   '%Y-%m-%dT%H:%M:%S', '%d.%m.%YT%H:%M:%S',
+                   '%d/%m/%YT%H:%M:%S',
+                   '%Y%m%d%H%M%S']
+        only_pyjamss = [True, False]
+        only_cftimes = [True, False]
+        only_pythons = [False]  # [True, False]
+        has_year_zeros = [None, True, False]
+        itypes = [list, tuple, np.array]
+        ttypes = [list, tuple, np.ndarray]
+        f2dates = [num2date, dec2date]
+        f2nums = [date2num, date2dec]
+        for calendar in calendars:
+            for unit in units:
+                for iformat in formats:
+                    for only_pyjams in only_pyjamss:
+                        for only_cftime in only_cftimes:
+                            for only_python in only_pythons:
+                                for has_year_zero in has_year_zeros:
+                                    for itype in range(len(itypes)):
+                                        if calendar in ['',
+                                                        'gregorian',
+                                                        'standard']:
+                                            indates = itypes[itype](
+                                                self.idates[:3])
+                                        else:
+                                            indates = itypes[itype](self.idates)
+                                        jdates = date2date(indates,
+                                                           format=iformat)
+                                        f2num = f2nums[random.randint(0, 1)]
+                                        idec = f2num(
+                                            jdates, units=unit,
+                                            calendar=calendar,
+                                            has_year_zero=has_year_zero,
+                                            format=iformat)
+                                        f2date = f2dates[random.randint(0, 1)]
+                                        odates = f2date(
+                                            idec, units=unit, calendar=calendar,
+                                            only_use_pyjams_datetimes=only_pyjams,
+                                            only_use_cftime_datetimes=only_cftime,
+                                            only_use_python_datetimes=only_python,
+                                            has_year_zero=has_year_zero,
+                                            format=self.iformat,
+                                            return_arrays=False)
+                                        assert isinstance(jdates, ttypes[itype])
+                                        assert isinstance(idec, ttypes[itype])
+                                        assert isinstance(odates, ttypes[itype])
+                                        self.assertEqual(_flatten(odates),
+                                                         _flatten(indates))
 
-    #     # Back and forth for calendar == ''
+        # Back and forth for calendar == ''
 
-    #     calendar = ''
-    #     units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
-    #              'days since 1900-01-01 00:00:00']
-    #     iformat = ''
-    #     itypes = [list, tuple, np.array]
-    #     ttypes = [list, tuple, np.ndarray]
-    #     f2dates = [num2date, dec2date]
-    #     f2nums  = [date2num, date2dec]
-    #     for unit in units:
-    #         for itype in range(len(itypes)):
-    #             indates = itypes[itype](self.idates)
-    #             jdates = date2date(indates, format=iformat)
-    #             f2num = f2nums[random.randint(0, 1)]
-    #             idec = f2num(
-    #                 jdates, units=unit, calendar=calendar,
-    #                 format=iformat)
-    #             f2date = f2dates[random.randint(0, 1)]
-    #             odates = f2date(
-    #                 idec, units=unit, calendar=calendar,
-    #                 format=self.iformat,
-    #                 return_arrays=False)
-    #             assert isinstance(jdates, ttypes[itype])
-    #             assert isinstance(idec, ttypes[itype])
-    #             assert isinstance(odates, ttypes[itype])
-    #             self.assertEqual(_flatten(odates),
-    #                              _flatten(indates))
+        calendar = ''
+        units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
+                 'days since 1900-01-01 00:00:00']
+        iformat = ''
+        itypes = [list, tuple, np.array]
+        ttypes = [list, tuple, np.ndarray]
+        f2dates = [num2date, dec2date]
+        f2nums  = [date2num, date2dec]
+        for unit in units:
+            for itype in range(len(itypes)):
+                indates = itypes[itype](self.idates)
+                jdates = date2date(indates, format=iformat)
+                f2num = f2nums[random.randint(0, 1)]
+                idec = f2num(
+                    jdates, units=unit, calendar=calendar,
+                    format=iformat)
+                f2date = f2dates[random.randint(0, 1)]
+                odates = f2date(
+                    idec, units=unit, calendar=calendar,
+                    format=self.iformat,
+                    return_arrays=False)
+                assert isinstance(jdates, ttypes[itype])
+                assert isinstance(idec, ttypes[itype])
+                assert isinstance(odates, ttypes[itype])
+                self.assertEqual(_flatten(odates),
+                                 _flatten(indates))
 
-    #     # Back and forth for calendar == '' and single date
+        # Back and forth for calendar == '' and single date
 
-    #     calendar = ''
-    #     units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
-    #              'days since 1900-01-01 00:00:00']
-    #     itypes = [list, tuple, np.array]
-    #     ttypes = [list, tuple, np.ndarray]
-    #     f2dates = [num2date, dec2date]
-    #     f2nums = [date2num, date2dec]
-    #     for unit in units:
-    #         for itype in range(len(itypes)):
-    #             indates = itypes[itype]([self.idates[0]])
-    #             jdates = date2date(indates)
-    #             f2num = f2nums[random.randint(0, 1)]
-    #             idec = f2num(jdates, units=unit, calendar=calendar)
-    #             f2date = f2dates[random.randint(0, 1)]
-    #             odates = f2date(
-    #                 idec, units=unit, calendar=calendar,
-    #                 format=self.iformat,
-    #                 return_arrays=False)
-    #             assert isinstance(jdates, ttypes[itype])
-    #             assert isinstance(idec, ttypes[itype])
-    #             assert isinstance(odates, ttypes[itype])
-    #             self.assertEqual(_flatten(odates),
-    #                              _flatten(indates))
+        calendar = ''
+        units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
+                 'days since 1900-01-01 00:00:00']
+        itypes = [list, tuple, np.array]
+        ttypes = [list, tuple, np.ndarray]
+        f2dates = [num2date, dec2date]
+        f2nums = [date2num, date2dec]
+        for unit in units:
+            for itype in range(len(itypes)):
+                indates = itypes[itype]([self.idates[0]])
+                jdates = date2date(indates)
+                f2num = f2nums[random.randint(0, 1)]
+                idec = f2num(jdates, units=unit, calendar=calendar)
+                f2date = f2dates[random.randint(0, 1)]
+                odates = f2date(
+                    idec, units=unit, calendar=calendar,
+                    format=self.iformat,
+                    return_arrays=False)
+                assert isinstance(jdates, ttypes[itype])
+                assert isinstance(idec, ttypes[itype])
+                assert isinstance(odates, ttypes[itype])
+                self.assertEqual(_flatten(odates),
+                                 _flatten(indates))
 
-    #     # Back and forth for calendar == '' and scalar date
+        # Back and forth for calendar == '' and scalar date
 
-    #     calendar = ''
-    #     units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
-    #              'days since 1900-01-01 00:00:00']
-    #     f2dates = [num2date, dec2date]
-    #     f2nums = [date2num, date2dec]
-    #     for unit in units:
-    #         indates = self.idates[0]
-    #         jdates = date2date(indates)
-    #         f2num = f2nums[random.randint(0, 1)]
-    #         idec = f2num(jdates, units=unit, calendar=calendar)
-    #         f2date = f2dates[random.randint(0, 1)]
-    #         odates = f2date(
-    #             idec, units=unit, calendar=calendar,
-    #             format=self.iformat,
-    #             return_arrays=False)
-    #         self.assertEqual(odates, indates)
+        calendar = ''
+        units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
+                 'days since 1900-01-01 00:00:00']
+        f2dates = [num2date, dec2date]
+        f2nums = [date2num, date2dec]
+        for unit in units:
+            indates = self.idates[0]
+            jdates = date2date(indates)
+            f2num = f2nums[random.randint(0, 1)]
+            idec = f2num(jdates, units=unit, calendar=calendar)
+            f2date = f2dates[random.randint(0, 1)]
+            odates = f2date(
+                idec, units=unit, calendar=calendar,
+                format=self.iformat,
+                return_arrays=False)
+            self.assertEqual(odates, indates)
 
-    #     # Back and forth with microseconds
+        # Back and forth with microseconds
 
-    #     calendar = 'decimal'
-    #     units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
-    #              'days since 1900-01-01 00:00:00']
-    #     units = ['month as %Y%m.%f']
-    #     itypes = [list, tuple, np.array]
-    #     ttypes = [list, tuple, np.ndarray]
-    #     f2dates = [num2date, dec2date]
-    #     f2nums = [date2num, date2dec]
-    #     iform = self.iformat + '.%f'
-    #     for unit in units:
-    #         for itype in range(len(itypes)):
-    #             indates = itypes[itype](self.idates)
-    #             jdates = date2date(indates, format='en')
-    #             jdates = itypes[itype]([
-    #                 jdates[i] + '.{:06d}'.format(self.microsecond[i])
-    #                 for i in range(len(jdates)) ])
-    #             f2num = f2nums[random.randint(0, 1)]
-    #             idec = f2num(jdates, units=unit, calendar=calendar,
-    #                          format=iform)
-    #             f2date = f2dates[random.randint(0, 1)]
-    #             odates = f2date(
-    #                 idec, units=unit, calendar=calendar,
-    #                 format=iform,
-    #                 return_arrays=False)
-    #             assert isinstance(jdates, ttypes[itype])
-    #             assert isinstance(idec, ttypes[itype])
-    #             assert isinstance(odates, ttypes[itype])
-    #             self.assertEqual(_flatten(odates),
-    #                              _flatten(jdates))
+        calendar = 'decimal'
+        units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
+                 'days since 1900-01-01 00:00:00']
+        units = ['month as %Y%m.%f']
+        itypes = [list, tuple, np.array]
+        ttypes = [list, tuple, np.ndarray]
+        f2dates = [num2date, dec2date]
+        f2nums = [date2num, date2dec]
+        iform = self.iformat + '.%f'
+        for unit in units:
+            for itype in range(len(itypes)):
+                indates = itypes[itype](self.idates)
+                jdates = date2date(indates, format='en')
+                jdates = itypes[itype]([
+                    jdates[i] + '.{:06d}'.format(self.microsecond[i])
+                    for i in range(len(jdates)) ])
+                f2num = f2nums[random.randint(0, 1)]
+                idec = f2num(jdates, units=unit, calendar=calendar,
+                             format=iform)
+                f2date = f2dates[random.randint(0, 1)]
+                odates = f2date(
+                    idec, units=unit, calendar=calendar,
+                    format=iform,
+                    return_arrays=False)
+                assert isinstance(jdates, ttypes[itype])
+                assert isinstance(idec, ttypes[itype])
+                assert isinstance(odates, ttypes[itype])
+                self.assertEqual(_flatten(odates),
+                                 _flatten(jdates))
 
-    #     # given calendar takes precedence on calendar of datetime objects
+        # given calendar takes precedence on calendar of datetime objects
 
-    #     calendar = self._excelcalendars + self._decimalcalendars
-    #     cdates = [ cf.datetime(self.year[i], self.month[i], self.day[i],
-    #                            self.hour[i], self.minute[i], self.second[i],
-    #                            calendar='julian')
-    #                for i in range(len(self.year)) ]
-    #     ddates = [ datetime(self.year[i], self.month[i], self.day[i],
-    #                         self.hour[i], self.minute[i], self.second[i],
-    #                         calendar='decimal')
-    #                for i in range(len(self.year)) ]
-    #     rdates = [ dt.datetime(self.year[i], self.month[i], self.day[i],
-    #                            self.hour[i], self.minute[i], self.second[i])
-    #                for i in range(len(self.year)) ]
-    #     for ical in calendar:
-    #         indates = date2num(self.idates, format=self.iformat, calendar=ical)
-    #         odates = date2num(cdates, calendar=ical)
-    #         self.assertEqual(odates, indates)
-    #         odates = date2num(ddates, calendar=ical)
-    #         self.assertEqual(odates, indates)
-    #         odates = date2num(rdates, calendar=ical)
-    #         self.assertEqual(odates, indates)
+        calendar = self._excelcalendars + self._decimalcalendars
+        cdates = [ cf.datetime(self.year[i], self.month[i], self.day[i],
+                               self.hour[i], self.minute[i], self.second[i],
+                               calendar='julian')
+                   for i in range(len(self.year)) ]
+        ddates = [ datetime(self.year[i], self.month[i], self.day[i],
+                            self.hour[i], self.minute[i], self.second[i],
+                            calendar='decimal')
+                   for i in range(len(self.year)) ]
+        rdates = [ dt.datetime(self.year[i], self.month[i], self.day[i],
+                               self.hour[i], self.minute[i], self.second[i])
+                   for i in range(len(self.year)) ]
+        for ical in calendar:
+            indates = date2num(self.idates, format=self.iformat, calendar=ical)
+            odates = date2num(cdates, calendar=ical)
+            self.assertEqual(odates, indates)
+            odates = date2num(ddates, calendar=ical)
+            self.assertEqual(odates, indates)
+            odates = date2num(rdates, calendar=ical)
+            self.assertEqual(odates, indates)
 
-    #     # return_arrays
+        # return_arrays
 
-    #     calendar = self._excelcalendars + self._decimalcalendars
-    #     cdates = [ cf.datetime(self.year[i], self.month[i], self.day[i],
-    #                            self.hour[i], self.minute[i], self.second[i],
-    #                            calendar='julian')
-    #                for i in range(len(self.year)) ]
-    #     ddates = [ datetime(self.year[i], self.month[i], self.day[i],
-    #                         self.hour[i], self.minute[i], self.second[i],
-    #                         calendar='decimal')
-    #                for i in range(len(self.year)) ]
-    #     rdates = [ dt.datetime(self.year[i], self.month[i], self.day[i],
-    #                            self.hour[i], self.minute[i], self.second[i])
-    #                for i in range(len(self.year)) ]
-    #     for ical in calendar:
-    #         inyr, inmo, indy, inhr, inmi, insc, inms = (
-    #             date2num(self.idates, format=self.iformat, calendar=ical,
-    #                      return_arrays=True))
-    #         oyr, omo, ody, ohr, omi, osc, oms = (
-    #             date2num(cdates, calendar=ical, return_arrays=True))
-    #         self.assertEqual(oms, inms)
-    #         self.assertEqual(osc, insc)
-    #         self.assertEqual(omi, inmi)
-    #         self.assertEqual(ohr, inhr)
-    #         self.assertEqual(oyr, inyr)
-    #         self.assertEqual(ody, indy)
-    #         self.assertEqual(omo, inmo)
-    #         oyr, omo, ody, ohr, omi, osc, oms = (
-    #             date2num(ddates, calendar=ical, return_arrays=True))
-    #         self.assertEqual(oms, inms)
-    #         self.assertEqual(osc, insc)
-    #         self.assertEqual(omi, inmi)
-    #         self.assertEqual(ohr, inhr)
-    #         self.assertEqual(ody, indy)
-    #         self.assertEqual(omo, inmo)
-    #         self.assertEqual(oyr, inyr)
-    #         oyr, omo, ody, ohr, omi, osc, oms = (
-    #             date2num(rdates, calendar=ical, return_arrays=True))
-    #         self.assertEqual(oms, inms)
-    #         self.assertEqual(osc, insc)
-    #         self.assertEqual(omi, inmi)
-    #         self.assertEqual(ohr, inhr)
-    #         self.assertEqual(ody, indy)
-    #         self.assertEqual(omo, inmo)
-    #         self.assertEqual(oyr, inyr)
+        calendar = self._excelcalendars + self._decimalcalendars
+        cdates = [ cf.datetime(self.year[i], self.month[i], self.day[i],
+                               self.hour[i], self.minute[i], self.second[i],
+                               calendar='julian')
+                   for i in range(len(self.year)) ]
+        ddates = [ datetime(self.year[i], self.month[i], self.day[i],
+                            self.hour[i], self.minute[i], self.second[i],
+                            calendar='decimal')
+                   for i in range(len(self.year)) ]
+        rdates = [ dt.datetime(self.year[i], self.month[i], self.day[i],
+                               self.hour[i], self.minute[i], self.second[i])
+                   for i in range(len(self.year)) ]
+        for ical in calendar:
+            inyr, inmo, indy, inhr, inmi, insc, inms = (
+                date2num(self.idates, format=self.iformat, calendar=ical,
+                         return_arrays=True))
+            oyr, omo, ody, ohr, omi, osc, oms = (
+                date2num(cdates, calendar=ical, return_arrays=True))
+            self.assertEqual(oms, inms)
+            self.assertEqual(osc, insc)
+            self.assertEqual(omi, inmi)
+            self.assertEqual(ohr, inhr)
+            self.assertEqual(oyr, inyr)
+            self.assertEqual(ody, indy)
+            self.assertEqual(omo, inmo)
+            oyr, omo, ody, ohr, omi, osc, oms = (
+                date2num(ddates, calendar=ical, return_arrays=True))
+            self.assertEqual(oms, inms)
+            self.assertEqual(osc, insc)
+            self.assertEqual(omi, inmi)
+            self.assertEqual(ohr, inhr)
+            self.assertEqual(ody, indy)
+            self.assertEqual(omo, inmo)
+            self.assertEqual(oyr, inyr)
+            oyr, omo, ody, ohr, omi, osc, oms = (
+                date2num(rdates, calendar=ical, return_arrays=True))
+            self.assertEqual(oms, inms)
+            self.assertEqual(osc, insc)
+            self.assertEqual(omi, inmi)
+            self.assertEqual(ohr, inhr)
+            self.assertEqual(ody, indy)
+            self.assertEqual(omo, inmo)
+            self.assertEqual(oyr, inyr)
 
-    #     # errors
+        # errors
 
-    #     edate = '2014-11-12 12:00:00'
-    #     enum = 2451914.
-    #     # unknown calendar
-    #     self.assertRaises(ValueError, date2num, edate, calendar='test')
-    #     self.assertRaises(ValueError, date2dec, edate, calendar='test')
-    #     self.assertRaises(ValueError, num2date, enum, calendar='test')
-    #     self.assertRaises(ValueError, dec2date, enum, calendar='test')
-    #     # unknown absolute date format
-    #     self.assertRaises(ValueError, date2num, edate,
-    #                       units='day as %Y%m%d')
-    #     self.assertRaises(ValueError, date2dec, edate,
-    #                       units='day as %Y%m%d')
-    #     self.assertRaises(ValueError, num2date, enum,
-    #                       units='day as %Y%m%d')
-    #     self.assertRaises(ValueError, dec2date, enum,
-    #                       units='day as %Y%m%d')
-    #     # incorrectly formatted date-time unit_string
-    #     self.assertRaises(ValueError, date2num, edate,
-    #                       units='dayssince 1990-01-01')
-    #     # no 'since' or 'as' in unit_string
-    #     self.assertRaises(ValueError, date2num, edate,
-    #                       units='days from 1990-01-01')
-    #     # year zero out of range
-    #     self.assertRaises(ValueError, date2num, self.idates0,
-    #                       calendar='decimal', has_year_zero=False)
-    #     # format and return_arrays
-    #     self.assertRaises(ValueError, num2date, enum,
-    #                       format='%Y-%m-%d', return_arrays=True)
+        edate = '2014-11-12 12:00:00'
+        enum = 2451914.
+        # unknown calendar
+        self.assertRaises(ValueError, date2num, edate, calendar='test')
+        self.assertRaises(ValueError, date2dec, edate, calendar='test')
+        self.assertRaises(ValueError, num2date, enum, calendar='test')
+        self.assertRaises(ValueError, dec2date, enum, calendar='test')
+        # unknown absolute date format
+        self.assertRaises(ValueError, date2num, edate,
+                          units='day as %Y%m%d')
+        self.assertRaises(ValueError, date2dec, edate,
+                          units='day as %Y%m%d')
+        self.assertRaises(ValueError, num2date, enum,
+                          units='day as %Y%m%d')
+        self.assertRaises(ValueError, dec2date, enum,
+                          units='day as %Y%m%d')
+        # incorrectly formatted date-time unit_string
+        self.assertRaises(ValueError, date2num, edate,
+                          units='dayssince 1990-01-01')
+        # no 'since' or 'as' in unit_string
+        self.assertRaises(ValueError, date2num, edate,
+                          units='days from 1990-01-01')
+        # year zero out of range
+        self.assertRaises(ValueError, date2num, self.idates0,
+                          calendar='decimal', has_year_zero=False)
+        # format and return_arrays
+        self.assertRaises(ValueError, num2date, enum,
+                          format='%Y-%m-%d', return_arrays=True)
 
     def test_datetime(self):
         from datetime import timedelta

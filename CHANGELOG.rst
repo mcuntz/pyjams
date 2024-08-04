@@ -3,7 +3,7 @@ Changelog
 
 v2.2 (??? 2024)
     * Filter UserWarning from `cftime`.
-    * Use longdouble keyword with `date2num` of `cftime` > v1.6.1.
+    * Use longdouble keyword with `cftime.date2num` if available.
     * Access positional element of Dataframe with iloc in tests.
     * Changed deprecated numpy.in1d to numpy.isin in `fsread`.
     * Delete test for float128 in `ncio` because no 128-bit datatype
