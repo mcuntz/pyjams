@@ -1242,11 +1242,19 @@ class TestDatetime(unittest.TestCase):
             assert dt.calendar == 'decimal'
 
         # issue #187 of cftime: roundtrip near second boundary
+        # round_microseconds()
+        dt1 = datetime(1810, 4, 24, 16, 15, 10)
+        units = 'days since -4713-01-01 12:00'
+        dt2 = num2date(date2num(dt1, units, calendar='decimal'),
+                       units, calendar='decimal').round_microseconds()
+        assert dt1 == dt2
+        # set microsecond to 0
         dt1 = datetime(1810, 4, 24, 16, 15, 10)
         units = 'days since -4713-01-01 12:00'
         dt2 = num2date(date2num(dt1, units, calendar='decimal',
                                 ensure_seconds=True),
                        units, calendar='decimal')
+        dt.microsecond = 0
         assert dt1 == dt2
 
         # errors
