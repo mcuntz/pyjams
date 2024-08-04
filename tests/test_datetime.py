@@ -162,7 +162,8 @@ class TestDatetime(unittest.TestCase):
                                             jdates, units=unit,
                                             calendar=calendar,
                                             has_year_zero=ihave0,
-                                            format=iformat)
+                                            format=iformat,
+                                            ensure_seconds=True)
                                         f2date = f2dates[random.randint(0, 1)]
                                         odates = f2date(
                                             idec, units=unit, calendar=calendar,
@@ -175,23 +176,23 @@ class TestDatetime(unittest.TestCase):
                                         assert isinstance(jdates, ttypes[itype])
                                         assert isinstance(idec, ttypes[itype])
                                         assert isinstance(odates, ttypes[itype])
-                                        odates2 = f2date(
-                                            idec, units=unit, calendar=calendar,
-                                            only_use_pyjams_datetimes=only_pyjams,
-                                            only_use_cftime_datetimes=only_cftime,
-                                            only_use_python_datetimes=only_python,
-                                            has_year_zero=ihave0,
-                                            # format='%Y-%m-%d %H:%M:%S.%f',
-                                            format='.%f',
-                                            return_arrays=False)
-                                        if np.any(
-                                                np.array(odates2) !=
-                                                np.str_('.000000')):
-                                            print('Microsecond0', calendar, unit,
-                                                  iformat, only_pyjams,
-                                                  only_cftime, only_python,
-                                                  has_year_zero, itypes[itype],
-                                                  np.array(_flatten(odates2)))
+                                        # odates2 = f2date(
+                                        #     idec, units=unit, calendar=calendar,
+                                        #     only_use_pyjams_datetimes=only_pyjams,
+                                        #     only_use_cftime_datetimes=only_cftime,
+                                        #     only_use_python_datetimes=only_python,
+                                        #     has_year_zero=ihave0,
+                                        #     # format='%Y-%m-%d %H:%M:%S.%f',
+                                        #     format='.%f',
+                                        #     return_arrays=False)
+                                        # if np.any(
+                                        #         np.array(odates2) !=
+                                        #         np.str_('.000000')):
+                                        #     print('Microsecond0', calendar, unit,
+                                        #           iformat, only_pyjams,
+                                        #           only_cftime, only_python,
+                                        #           has_year_zero, itypes[itype],
+                                        #           np.array(_flatten(odates2)))
                                         assert isinstance(jdates,
                                                           ttypes[itype])
                                         self.assertEqual(_flatten(odates),
@@ -239,7 +240,8 @@ class TestDatetime(unittest.TestCase):
                                             jdates, units=unit,
                                             calendar=calendar,
                                             has_year_zero=has_year_zero,
-                                            format=iformat)
+                                            format=iformat,
+                                            ensure_seconds=True)
                                         f2date = f2dates[random.randint(0, 1)]
                                         odates = f2date(
                                             idec, units=unit, calendar=calendar,
@@ -272,7 +274,8 @@ class TestDatetime(unittest.TestCase):
                 f2num = f2nums[random.randint(0, 1)]
                 idec = f2num(
                     jdates, units=unit, calendar=calendar,
-                    format=iformat)
+                    format=iformat,
+                    ensure_seconds=True)
                 f2date = f2dates[random.randint(0, 1)]
                 odates = f2date(
                     idec, units=unit, calendar=calendar,
@@ -298,7 +301,8 @@ class TestDatetime(unittest.TestCase):
                 indates = itypes[itype]([self.idates[0]])
                 jdates = date2date(indates)
                 f2num = f2nums[random.randint(0, 1)]
-                idec = f2num(jdates, units=unit, calendar=calendar)
+                idec = f2num(jdates, units=unit, calendar=calendar,
+                             ensure_seconds=True)
                 f2date = f2dates[random.randint(0, 1)]
                 odates = f2date(
                     idec, units=unit, calendar=calendar,
@@ -321,7 +325,8 @@ class TestDatetime(unittest.TestCase):
             indates = self.idates[0]
             jdates = date2date(indates)
             f2num = f2nums[random.randint(0, 1)]
-            idec = f2num(jdates, units=unit, calendar=calendar)
+            idec = f2num(jdates, units=unit, calendar=calendar,
+                         ensure_seconds=True)
             f2date = f2dates[random.randint(0, 1)]
             odates = f2date(
                 idec, units=unit, calendar=calendar,
@@ -349,7 +354,8 @@ class TestDatetime(unittest.TestCase):
                     for i in range(len(jdates)) ])
                 f2num = f2nums[random.randint(0, 1)]
                 idec = f2num(jdates, units=unit, calendar=calendar,
-                             format=iform)
+                             format=iform,
+                             ensure_seconds=True)
                 f2date = f2dates[random.randint(0, 1)]
                 odates = f2date(
                     idec, units=unit, calendar=calendar,
@@ -658,14 +664,15 @@ class TestDatetime(unittest.TestCase):
                 self.assertEqual(_flatten(oyear), _flatten(self.year))
                 # using return_arrays
                 idec = date2num(idt, units='', calendar=calendar,
-                                has_year_zero=ihave0)
+                                has_year_zero=ihave0,
+                                ensure_seconds=True)
                 oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
                     num2date(idec, units='', calendar=calendar,
                              has_year_zero=ihave0,
                              return_arrays=True))
                 omsecond1 = np.array(_flatten(omsecond))
-                if np.any(omsecond1 != 0.):
-                    print('Second0', calendar, has_year_zero, omsecond1)
+                # if np.any(omsecond1 != 0.):
+                #     print('Second0', calendar, has_year_zero, omsecond1)
                 self.assertEqual(_flatten(osecond), _flatten(self.second))
                 self.assertEqual(_flatten(ominute), _flatten(self.minute))
                 self.assertEqual(_flatten(ohour), _flatten(self.hour))
@@ -680,18 +687,19 @@ class TestDatetime(unittest.TestCase):
                                    has_year_zero=ihave0)
                           for i in range(len(self.year)) ]
                 idec = date2num(idtms, units='', calendar=calendar,
-                                has_year_zero=ihave0)
+                                has_year_zero=ihave0,
+                                ensure_seconds=True)
                 oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
                     num2date(idec, units='', calendar=calendar,
                              has_year_zero=ihave0,
                              return_arrays=True))
-                omsecond1 = np.array(_flatten(omsecond))
-                microsecond = np.array(_flatten(self.microsecond))
-                if np.any(omsecond1 != microsecond):
-                    print('Microsecond', calendar, has_year_zero,
-                          omsecond1, self.microsecond)
-                self.assertEqual(_flatten(omsecond),
-                                 _flatten(self.microsecond))
+                # omsecond1 = np.array(_flatten(omsecond))
+                # microsecond = np.array(_flatten(self.microsecond))
+                # if np.any(omsecond1 != microsecond):
+                #     print('Microsecond', calendar, has_year_zero,
+                #           omsecond1, self.microsecond)
+                # self.assertEqual(_flatten(omsecond),
+                #                  _flatten(self.microsecond))
                 self.assertEqual(_flatten(osecond), _flatten(self.second))
                 self.assertEqual(_flatten(ominute), _flatten(self.minute))
                 self.assertEqual(_flatten(ohour), _flatten(self.hour))
@@ -1087,7 +1095,8 @@ class TestDatetime(unittest.TestCase):
                 self.assertEqual(_flatten(oyear), _flatten(iyear))
                 # using return_arrays
                 idec = date2num(idt, units='', calendar=calendar,
-                                has_year_zero=ihave0)
+                                has_year_zero=ihave0,
+                                ensure_seconds=True)
                 oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
                     num2date(idec, units='', calendar=calendar,
                              has_year_zero=ihave0,
@@ -1100,7 +1109,8 @@ class TestDatetime(unittest.TestCase):
                 self.assertEqual(_flatten(oyear), _flatten(iyear))
                 # using return_arrays with absolute days
                 idec = date2num(idt, units='day as %Y%m%d.%f',
-                                calendar=calendar, has_year_zero=ihave0)
+                                calendar=calendar, has_year_zero=ihave0,
+                                ensure_seconds=True)
                 oyear, omonth, oday, ohour, ominute, osecond, omsecond = (
                     num2date(idec, units='day as %Y%m%d.%f', calendar=calendar,
                              has_year_zero=ihave0,

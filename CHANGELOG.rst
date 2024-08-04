@@ -1,7 +1,9 @@
 Changelog
 ---------
 
-v2.2 (??? 2024)
+v2.2 (Aug 2024)
+    * Keyword in `date2num` to ensure second precision for conversion
+      and back-conversion of datetimes.
     * Filter UserWarning from `cftime`.
     * Use longdouble keyword with `cftime.date2num` if available.
     * Access positional element of Dataframe with iloc in tests.

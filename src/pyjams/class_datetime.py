@@ -80,6 +80,7 @@ History
     * Use longdouble keyword with date2num if cftime > v1.6.1,
       Aug 2024, Matthias Cuntz
     * Filter UserWarning from cftime, Aug 2024, Matthias Cuntz
+    * ensure_seconds keyword in date2num, Aug 2024, Matthias Cuntz
 
 ToDo
     * Check why datetime + timedelta but not timedelta + datetime
@@ -125,7 +126,7 @@ _cumdayspermonth_leap = [0, 31, 60, 91, 121, 152, 182,
                          213, 244, 274, 305, 335, 366]
 _cumdayspermonth_360  = [0, 30, 60, 90, 120, 150, 180,
                          210, 240, 270, 300, 330, 360]
-feps = np.finfo(np.float64).eps
+# feps = np.finfo(np.float64).eps
 deps = np.finfo(np.longdouble).eps
 
 #
@@ -1099,9 +1100,9 @@ def _absolute2date(times, units):
 #
 
 def date2num(dates, units='', calendar=None, has_year_zero=None,
-             format='', timesep=' ', fr=False, return_arrays=False):
-    """
-    Return numeric time values given datetime objects or strings
+             format='', timesep=' ', fr=False, return_arrays=False,
+             ensure_seconds=False):
+    """Return numeric time values given datetime objects or strings
 
     The units of the numeric time values are described by the
     *units* and *calendar* keywords for CF-conform calendars, i.e.
@@ -1180,6 +1181,21 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
     return_arrays : bool, optional
         If True, then return a tuple with individual arrays for
         year, month, day, hour, minute, second, microsecond
+    ensure_seconds : bool, optional
+        If True, add small number (< 20 microseconds) to results to
+        ensure that back-conversion (`num2date`) gives the same results
+        up to seconds.
+
+        Results should have an accuracy of approximately 1 microseconds.
+        This is however only possible with 64-bits if the discretization
+        of the time variable is an integer multiple of the units.
+        `cftime` introduced the longdouble keyword in `cftime.date2num`
+        to get microseconds accuracy. The datatype is, however, not available
+        on all platforms. The algorithm has the tendency to give
+        1-3 microseconds less at back-conversion in this case, which gives
+        times such as "11:59:59" instead of "12:00:00". `ensure_seconds`
+        toggles back-conversion above the next second to ensure that the
+        seconds are correct.
 
     Returns
     -------
@@ -1295,18 +1311,15 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             out = cf.date2num(mdates, units, calendar=icalendar,
                               has_year_zero=has_year_zero,
                               longdouble=True)
-            out += out * deps
         else:
             out = cf.date2num(mdates, units, calendar=icalendar,
                               has_year_zero=has_year_zero)
-            out += out * feps
 
     if sincestr == 'as':
         if units not in ['day as %Y%m%d.%f', 'month as %Y%m.%f',
                          'year as %Y.%f']:
             raise ValueError(f'Absolute date format unknown: {units}')
         out = _dates2absolute(mdates, units)
-        out += out * deps
 
     # use cftime.date2num with Excel
     if icalendar in _excelcalendars:
@@ -1317,16 +1330,17 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
             out = cf.date2num(cfdates, units, calendar=cfcalendar,
                               has_year_zero=has_year_zero,
                               longdouble=True)
-            out += out * deps
         else:
             out = cf.date2num(cfdates, units, calendar=cfcalendar,
                               has_year_zero=has_year_zero)
-            out += out * feps
 
     # no cftime.num2date possible
     if icalendar in _decimalcalendars:
         out = _dates2decimal(mdates, icalendar)
-        out += out * deps
+
+    # toggle back-conversion above the second
+    if ensure_seconds:
+        out += np.abs(out) * deps
 
     out = array2input(out, dates)
     return out
