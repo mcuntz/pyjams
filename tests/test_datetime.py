@@ -61,13 +61,15 @@ class TestDatetime(unittest.TestCase):
     Tests for class_datetime.py
     """
     def setUp(self):
-        self._excelcalendars = ['excel', 'excel1900', 'excel1904']
-        self._decimalcalendars = ['decimal', 'decimal360', 'decimal365',
-                                  'decimal366']
-        self._noncfcalendars = self._excelcalendars + self._decimalcalendars
         self._cfcalendars = ['standard', 'gregorian', 'proleptic_gregorian',
                              'noleap', 'julian', 'all_leap', '365_day',
                              '366_day', '360_day']
+        self._excelcalendars = ['excel', 'excel1900', 'excel1904']
+        self._excelcfequivalents = ['julian', 'julian', 'julian']
+        self._decimalcalendars = ['decimal', 'decimal360', 'decimal365',
+                                  'decimal366']
+        self._decimalcfequivalents = ['proleptic_gregorian', '360_day',
+                                      '365_day', '366_day']
         self._dayspermonth      = [31, 28, 31, 30, 31, 30,
                                    31, 31, 30, 31, 30, 31]
         self._dayspermonth_leap = [31, 29, 31, 30, 31, 30,
@@ -118,11 +120,12 @@ class TestDatetime(unittest.TestCase):
         import datetime as dt
         from pyjams import datetime
 
-        # Back and forth for _noncfcalendars
+        # Back and forth for non-cfcalendars
 
         # precision problem for some calendars of _cfcalendars, i.e.
         #     'noleap', 'all_leap', '365_day', '366_day', '360_day'
-        calendars = self._noncfcalendars
+        _noncfcalendars = self._decimalcalendars + self._excelcalendars
+        calendars = _noncfcalendars
         # calendars = self._cfcalendars
         units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f']
         formats = ['%Y-%m-%d %H:%M:%S', '%d.%m.%Y %H:%M:%S',
@@ -469,12 +472,11 @@ class TestDatetime(unittest.TestCase):
 
         # Test methods of datetime class, years > 0
 
-        calendars = self._noncfcalendars
+        _noncfcalendars = self._decimalcalendars + self._excelcalendars
+        _cfequivalents = self._decimalcfequivalents + self._excelcfequivalents
+        calendars = _noncfcalendars
         has_year_zeros = [None, True, False]
-        cfequivalents = ['julian', 'julian', 'julian',
-                         'proleptic_gregorian', '360_day',
-                         '365_day', '366_day']
-        cfcalendars = dict(zip(self._noncfcalendars, cfequivalents))
+        cfcalendars = dict(zip(_noncfcalendars, _cfequivalents))
         for calendar in calendars:
             for has_year_zero in has_year_zeros:
                 ihave0 = has_year_zero
