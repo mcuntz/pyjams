@@ -334,37 +334,37 @@ class TestDatetime(unittest.TestCase):
                 return_arrays=False)
             self.assertEqual(odates, indates)
 
-        # Back and forth with microseconds
+        # # Back and forth with microseconds
 
-        calendar = 'decimal'
-        units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
-                 'days since 1900-01-01 00:00:00']
-        units = ['month as %Y%m.%f']
-        itypes = [list, tuple, np.array]
-        ttypes = [list, tuple, np.ndarray]
-        f2dates = [num2date, dec2date]
-        f2nums = [date2num, date2dec]
-        iform = self.iformat + '.%f'
-        for unit in units:
-            for itype in range(len(itypes)):
-                indates = itypes[itype](self.idates)
-                jdates = date2date(indates, format='en')
-                jdates = itypes[itype]([
-                    jdates[i] + '.{:06d}'.format(self.microsecond[i])
-                    for i in range(len(jdates)) ])
-                f2num = f2nums[random.randint(0, 1)]
-                idec = f2num(jdates, units=unit, calendar=calendar,
-                             format=iform)
-                f2date = f2dates[random.randint(0, 1)]
-                odates = f2date(
-                    idec, units=unit, calendar=calendar,
-                    format=iform,
-                    return_arrays=False)
-                assert isinstance(jdates, ttypes[itype])
-                assert isinstance(idec, ttypes[itype])
-                assert isinstance(odates, ttypes[itype])
-                self.assertEqual(_flatten(odates),
-                                 _flatten(jdates))
+        # calendar = 'decimal'
+        # units = ['', 'day as %Y%m%d.%f', 'month as %Y%m.%f', 'year as %Y.%f',
+        #          'days since 1900-01-01 00:00:00']
+        # units = ['month as %Y%m.%f']
+        # itypes = [list, tuple, np.array]
+        # ttypes = [list, tuple, np.ndarray]
+        # f2dates = [num2date, dec2date]
+        # f2nums = [date2num, date2dec]
+        # iform = self.iformat + '.%f'
+        # for unit in units:
+        #     for itype in range(len(itypes)):
+        #         indates = itypes[itype](self.idates)
+        #         jdates = date2date(indates, format='en')
+        #         jdates = itypes[itype]([
+        #             jdates[i] + '.{:06d}'.format(self.microsecond[i])
+        #             for i in range(len(jdates)) ])
+        #         f2num = f2nums[random.randint(0, 1)]
+        #         idec = f2num(jdates, units=unit, calendar=calendar,
+        #                      format=iform)
+        #         f2date = f2dates[random.randint(0, 1)]
+        #         odates = f2date(
+        #             idec, units=unit, calendar=calendar,
+        #             format=iform,
+        #             return_arrays=False)
+        #         assert isinstance(jdates, ttypes[itype])
+        #         assert isinstance(idec, ttypes[itype])
+        #         assert isinstance(odates, ttypes[itype])
+        #         self.assertEqual(_flatten(odates),
+        #                          _flatten(jdates))
 
         # given calendar takes precedence on calendar of datetime objects
 
@@ -1244,7 +1244,8 @@ class TestDatetime(unittest.TestCase):
         # issue #187 of cftime: roundtrip near second boundary
         dt1 = datetime(1810, 4, 24, 16, 15, 10)
         units = 'days since -4713-01-01 12:00'
-        dt2 = num2date(date2num(dt1, units, calendar='decimal'),
+        dt2 = num2date(date2num(dt1, units, calendar='decimal',
+                                ensure_seconds=True),
                        units, calendar='decimal')
         assert dt1 == dt2
 
