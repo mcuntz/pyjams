@@ -34,6 +34,7 @@ History
     * Rename seasonal to seasonalday, Jul 2022, Matthias Cuntz
     * Add seasonalmonth, Jul 2022, Matthias Cuntz
     * Add seasonalmeanday, Jul 2022, Matthias Cuntz
+    * Use second precision for output dates, Aug 2024, Matthias Cuntz
 
 """
 import datetime as dt
@@ -636,7 +637,7 @@ def means(date, dat,
     # seasonal mean daily
     if seasonalmeanday:
         nmonth = 12
-        mos = range(1, nmonth+1)
+        mos = range(1, nmonth + 1)
         nhour = 24
         hrs = range(nhour)
         nout = nmonth * nhour
@@ -659,9 +660,10 @@ def means(date, dat,
         out = np.array(out)
 
     # decimal date
-    dout = np.array(date2num(dout, calendar=ical))
+    dout = np.array(date2num(dout, calendar=ical,
+                             ensure_seconds=True))
 
-    ii = np.where(dout != 9999.)[0]
+    ii = np.where(dout < 9999.)[0]
     if len(ii) > 0:
         dout = dout[ii]
         out = out[ii, :]

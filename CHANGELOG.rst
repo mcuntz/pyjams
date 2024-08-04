@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v2.2 (Aug 2024)
+    * Use second precision for output dates in `means`.
     * Keyword in `date2num` to ensure second precision for conversion
       and back-conversion of datetimes.
     * Filter UserWarning from `cftime`.

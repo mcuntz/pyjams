@@ -90,12 +90,12 @@ class TestMeans(unittest.TestCase):
         # dsoll = dsoll.round_microseconds()
         # dsoll = dsoll.strftime('%Y-%m-%d %H:%M:%S')
         n = self.nyears * self.ndays * self.nhours * self.nminutes
-        xsoll = n//2 * (n + 1) / n
-        print('')
+        xsoll = n // 2 * (n + 1) / n
+        # print('')
 
         # dates = str
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.dates  # str
         dout, xout = means(dates, self.x)
         assert isinstance(dout, type(dates[0]))
@@ -104,7 +104,7 @@ class TestMeans(unittest.TestCase):
 
         # dates = str w/ format
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         iform = '%Y-%m-%d %H:%M'
         dates = [ dd[:16] for dd in self.dates ]
         dout, xout = means(dates, self.x, format=iform)
@@ -115,7 +115,7 @@ class TestMeans(unittest.TestCase):
 
         # dates = pyjams.datetime
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.ddates  # datetime
         dout, xout = means(dates, self.x)
         assert isinstance(dout, type(dates[0]))
@@ -125,7 +125,7 @@ class TestMeans(unittest.TestCase):
 
         # dates = cf.datetime
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = [ cf.datetime(*dd.to_tuple())
                   for dd in self.ddates ]
         dout, xout = means(dates, self.x)
@@ -136,7 +136,7 @@ class TestMeans(unittest.TestCase):
 
         # dates = datetime.datetime
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = [ pydatetime.datetime(*dd.to_tuple())
                   for dd in self.ddates ]
         dout, xout = means(dates, self.x)
@@ -147,7 +147,7 @@ class TestMeans(unittest.TestCase):
 
         # dates = numeric
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)  # num
         dout, xout = means(dates, self.x, calendar=cal)
@@ -159,7 +159,7 @@ class TestMeans(unittest.TestCase):
 
         # data = ndarray
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.dates
         dout, xout = means(dates, np.vstack([self.x, self.x]).T)
         assert isinstance(dout, type(dates[0]))
@@ -170,7 +170,7 @@ class TestMeans(unittest.TestCase):
 
         # sum
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.dates  # str
         dout, xout = means(dates, self.x, sum=True)
         assert isinstance(dout, type(dates[0]))
@@ -180,7 +180,7 @@ class TestMeans(unittest.TestCase):
 
         # min
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.dates  # str
         dout, xout = means(dates, self.x, min=True)
         assert isinstance(dout, type(dates[0]))
@@ -190,7 +190,7 @@ class TestMeans(unittest.TestCase):
 
         # max
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.dates  # str
         dout, xout = means(dates, self.x, max=True)
         assert isinstance(dout, type(dates[0]))
@@ -200,14 +200,14 @@ class TestMeans(unittest.TestCase):
 
         # onlydat
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.dates
         xout = means(dates, self.x, onlydat=True)
         assert xout == xsoll
 
         # onlydat with dat = ndarray
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.dates
         xout = means(dates, np.vstack([self.x, self.x]).T, onlydat=True)
         xsoll1 = [xsoll, xsoll]
@@ -216,19 +216,19 @@ class TestMeans(unittest.TestCase):
 
         # masked
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         dates = self.dates
         n2 = self.n // 2
         xout = means(dates,
                      np.ma.array(self.x, mask=(self.x > n2)), onlydat=True)
-        xsoll1 = n2//2 * (n2 + 1) / n2
+        xsoll1 = n2 // 2 * (n2 + 1) / n2
         assert xout == xsoll1
 
         # different means
 
         # year
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         dout, xout = means(dates, self.x, year=True, calendar=cal)
@@ -236,7 +236,7 @@ class TestMeans(unittest.TestCase):
         dsoll = [ '{:04d}-06-15 12:00:00'.format(self.year0 + yy)
                   for yy in range(self.nyears) ]
         n = self.ndays * self.nhours * self.nminutes
-        xsoll = (n//2 * (n + 1) + np.arange(self.nyears) * n * n) / n
+        xsoll = (n // 2 * (n + 1) + np.arange(self.nyears) * n * n) / n
         # ToDo: output type wrong
         # assert isinstance(dout, list)
         assert isinstance(dout, np.ndarray)
@@ -250,7 +250,7 @@ class TestMeans(unittest.TestCase):
 
         # year with dat = ndarray
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         dout, xout = means(dates, np.vstack([self.x, self.x]).T,
@@ -259,7 +259,7 @@ class TestMeans(unittest.TestCase):
         dsoll = [ '{:04d}-06-15 12:00:00'.format(self.year0 + yy)
                   for yy in range(self.nyears) ]
         n = self.ndays * self.nhours * self.nminutes
-        xsoll = (n//2 * (n + 1) + np.arange(self.nyears) * n * n) / n
+        xsoll = (n // 2 * (n + 1) + np.arange(self.nyears) * n * n) / n
         xsoll1 = np.vstack([xsoll, xsoll]).T
         # ToDo: output type wrong
         # assert isinstance(dout, list)
@@ -274,32 +274,32 @@ class TestMeans(unittest.TestCase):
 
         # year and onlydat
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         xout = means(dates, self.x, year=True, calendar=cal, onlydat=True)
         n = self.ndays * self.nhours * self.nminutes
-        xsoll = (n//2 * (n + 1) + np.arange(self.nyears) * n * n) / n
+        xsoll = (n // 2 * (n + 1) + np.arange(self.nyears) * n * n) / n
         assert isinstance(xout, np.ndarray)
         self.assertEqual(_flatten(xout),
                          _flatten(xsoll))
 
         # year and onlydat and masked array
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         xout = means(dates, np.ma.array(self.x), year=True,
                      calendar=cal, onlydat=True)
         n = self.ndays * self.nhours * self.nminutes
-        xsoll = (n//2 * (n + 1) + np.arange(self.nyears) * n * n) / n
+        xsoll = (n // 2 * (n + 1) + np.arange(self.nyears) * n * n) / n
         assert isinstance(xout, np.ndarray)
         self.assertEqual(_flatten(xout),
                          _flatten(xsoll))
 
         # year and onlydat and mask
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         n2 = self.n // 2
@@ -310,18 +310,18 @@ class TestMeans(unittest.TestCase):
         assert np.ma.count_masked(xout) > 0
         assert not np.ma.is_masked(xout[0])
         assert np.ma.is_masked(xout[1])
-        xsoll = n//2 * (n + 1) / n
+        xsoll = n // 2 * (n + 1) / n
         assert xout[0] == xsoll
 
         # year and onlydat with dat = ndarray
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         xout = means(dates, np.vstack([self.x, self.x]).T,
                      year=True, calendar=cal, onlydat=True)
         n = self.ndays * self.nhours * self.nminutes
-        xsoll = (n//2 * (n + 1) + np.arange(self.nyears) * n * n) / n
+        xsoll = (n // 2 * (n + 1) + np.arange(self.nyears) * n * n) / n
         xsoll1 = np.vstack([xsoll, xsoll]).T
         assert isinstance(xout, np.ndarray)
         self.assertEqual(_flatten(xout),
@@ -331,7 +331,7 @@ class TestMeans(unittest.TestCase):
 
         # day
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         dout, xout = means(dates, self.x, day=True, calendar=cal)
@@ -352,7 +352,7 @@ class TestMeans(unittest.TestCase):
 
         # hour
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         dout, xout = means(dates, self.x, hour=True, calendar=cal)
@@ -372,7 +372,7 @@ class TestMeans(unittest.TestCase):
 
         # half_hour
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         dout, xout = means(dates, self.x, half_hour=True,
@@ -396,7 +396,7 @@ class TestMeans(unittest.TestCase):
 
         # meanday
         itest += 1
-        print('itest', itest)
+        # print('itest', itest)
         cal = calendars[itest % ncal]
         dates = date2num(self.dates, calendar=cal)
         dout, xout = means(dates, self.x, meanday=True,
