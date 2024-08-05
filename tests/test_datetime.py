@@ -1254,7 +1254,7 @@ class TestDatetime(unittest.TestCase):
         dt2 = num2date(date2num(dt1, units, calendar='decimal',
                                 ensure_seconds=True),
                        units, calendar='decimal')
-        dt.microsecond = 0
+        dt2.microsecond = 0
         assert dt1 == dt2
 
         # errors
