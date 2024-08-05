@@ -38,7 +38,7 @@
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'means';</script>
@@ -517,6 +517,7 @@ Jun 2019, Matthias Cuntz</p></li>
 <li><p>Rename seasonal to seasonalday, Jul 2022, Matthias Cuntz</p></li>
 <li><p>Add seasonalmonth, Jul 2022, Matthias Cuntz</p></li>
 <li><p>Add seasonalmeanday, Jul 2022, Matthias Cuntz</p></li>
+<li><p>Use second precision for output dates, Aug 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -541,7 +542,7 @@ Returned dates will be in same format as incoming dates.</p>
 can be a numeric value, which will be interpreted by <em>pyjams.num2date</em>.
 date should be centred on the input time period, i.e. half-hourly data
 should have dates at 15 min and 45 min of each hour, for example.</p></li>
-<li><p><strong>dat</strong> (<em>ND</em><em> (</em><em>masked-</em><em>)</em><em>array</em>)</p></li>
+<li><p><strong>dat</strong> (<em>ND</em><em> (</em><em>masked-</em><em>)</em><em>array</em>) – </p></li>
 <li><p><strong>year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return annual means</p></li>
 <li><p><strong>month</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return monthly means</p></li>
 <li><p><strong>day</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, return daily means</p></li>

@@ -38,7 +38,7 @@
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'class_datetime';</script>
@@ -590,6 +590,7 @@ datetime objects in date2num, Jul 2022, Matthias Cuntz</p></li>
 <li><p>Use longdouble keyword with date2num if cftime &gt; v1.6.1,
 Aug 2024, Matthias Cuntz</p></li>
 <li><p>Filter UserWarning from cftime, Aug 2024, Matthias Cuntz</p></li>
+<li><p>ensure_seconds keyword in date2num, Aug 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 <dt>ToDo</dt><dd><ul class="simple">
@@ -797,7 +798,7 @@ False).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyjams.class_datetime.date2num">
-<span class="sig-name descname"><span class="pre">date2num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timesep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#date2num"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.date2num" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">date2num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timesep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_arrays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#date2num"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.date2num" title="Link to this definition">#</a></dt>
 <dd><p>Return numeric time values given datetime objects or strings</p>
 <p>The units of the numeric time values are described by the
 <em>units</em> and <em>calendar</em> keywords for CF-conform calendars, i.e.
@@ -866,6 +867,20 @@ French way as ‘%d/%m/%Y %H:%M:%S’, if <em>dates</em> are strings and
 <em>format</em> is empty</p></li>
 <li><p><strong>return_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, then return a tuple with individual arrays for
 year, month, day, hour, minute, second, microsecond</p></li>
+<li><p><strong>ensure_seconds</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>If True, add small number (&lt; 20 microseconds) to results to
+ensure that back-conversion (<cite>num2date</cite>) gives the same results
+up to seconds.</p>
+<p>Results should have an accuracy of approximately 1 microseconds.
+This is however only possible with 64-bits if the discretization
+of the time variable is an integer multiple of the units.
+<cite>cftime</cite> introduced the longdouble keyword in <cite>cftime.date2num</cite>
+to get microseconds accuracy. The datatype is, however, not available
+on all platforms. The algorithm has the tendency to give
+1-3 microseconds less at back-conversion in this case, which gives
+times such as “11:59:59” instead of “12:00:00”. <cite>ensure_seconds</cite>
+toggles back-conversion above the next second to ensure that the
+seconds are correct.</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

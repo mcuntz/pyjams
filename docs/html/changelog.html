@@ -38,7 +38,7 @@
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'changelog';</script>
@@ -468,7 +468,10 @@ document.write(`
   <section id="changelog">
 <span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">#</a></h1>
 <dl class="simple">
-<dt>v2.2 (??? 2024)</dt><dd><ul class="simple">
+<dt>v2.2 (Aug 2024)</dt><dd><ul class="simple">
+<li><p>Use second precision for output dates in <cite>means</cite>.</p></li>
+<li><p>Keyword in <cite>date2num</cite> to ensure second precision for conversion
+and back-conversion of datetimes.</p></li>
 <li><p>Filter UserWarning from <cite>cftime</cite>.</p></li>
 <li><p>Use longdouble keyword with <cite>cftime.date2num</cite> if available.</p></li>
 <li><p>Access positional element of Dataframe with iloc in tests.</p></li>
