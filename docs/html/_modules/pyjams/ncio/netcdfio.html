@@ -37,7 +37,7 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=78f1df99"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/ncio/netcdfio';</script>
@@ -452,6 +452,8 @@ document.write(`
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;copy_dimensions&#39;</span><span class="p">,</span> <span class="s1">&#39;copy_file&#39;</span><span class="p">,</span> <span class="s1">&#39;copy_global_attributes&#39;</span><span class="p">,</span>
@@ -612,6 +614,10 @@ document.write(`
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">ptime</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The netcdf functions of pyjams were transferred to a standalone&#39;</span>
+         <span class="s1">&#39; repository &quot;ncio&quot;. ncio is hence deprecated in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
     <span class="n">fi</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;file_format&#39;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">fi</span><span class="p">):</span>
         <span class="n">fo</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">fi</span><span class="o">.</span><span class="n">file_format</span><span class="p">)</span>
@@ -719,6 +725,10 @@ document.write(`
 <span class="sd">                       changedim={&#39;mland&#39;: 1})</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The netcdf functions of pyjams were transferred to a standalone&#39;</span>
+         <span class="s1">&#39; repository &quot;ncio&quot;. ncio is hence deprecated in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
     <span class="n">removedim</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removedim</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">dimensions</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="c1"># remove dimension if in removedim</span>
@@ -776,6 +786,10 @@ document.write(`
 <span class="sd">           fi, fo, add={&#39;history&#39;: time.asctime()+&#39;: &#39;+&#39; &#39;.join(sys.argv)})</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The netcdf functions of pyjams were transferred to a standalone&#39;</span>
+         <span class="s1">&#39; repository &quot;ncio&quot;. ncio is hence deprecated in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove</span><span class="p">:</span>
             <span class="n">iattr</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="n">getncattr</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
@@ -831,6 +845,10 @@ document.write(`
 <span class="sd">       copy_variable(fi, fo, fill=True, renamevar={&#39;lon&#39;: &#39;longitude&#39;})</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The netcdf functions of pyjams were transferred to a standalone&#39;</span>
+         <span class="s1">&#39; repository &quot;ncio&quot;. ncio is hence deprecated in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
     <span class="n">removevar</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removevar</span><span class="p">)</span>
     <span class="c1"># just copy all variables if no time dimension or</span>
     <span class="c1"># time dimension not known</span>
@@ -931,6 +949,10 @@ document.write(`
 <span class="sd">       ovar = create_new_variable(nvar, fo, fill=True, izip=True)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The netcdf functions of pyjams were transferred to a standalone&#39;</span>
+         <span class="s1">&#39; repository &quot;ncio&quot;. ncio is hence deprecated in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
     <span class="k">assert</span> <span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">invardef</span><span class="p">,</span> <span class="s1">&#39;name not in input dictionary&#39;</span>
     <span class="k">assert</span> <span class="s1">&#39;dtype&#39;</span> <span class="ow">in</span> <span class="n">invardef</span><span class="p">,</span> <span class="s1">&#39;dtype not in input dictionary&#39;</span>
     <span class="n">varname</span>  <span class="o">=</span> <span class="n">invardef</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
@@ -1038,6 +1060,10 @@ document.write(`
 <span class="sd">                       replacedim={&#39;land&#39;: (&#39;y&#39;, &#39;x&#39;)})</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The netcdf functions of pyjams were transferred to a standalone&#39;</span>
+         <span class="s1">&#39; repository &quot;ncio&quot;. ncio is hence deprecated in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
     <span class="n">removevar</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removevar</span><span class="p">)</span>
     <span class="n">removedim</span> <span class="o">=</span> <span class="n">_tolist</span><span class="p">(</span><span class="n">removedim</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">ivar</span> <span class="ow">in</span> <span class="n">fi</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>

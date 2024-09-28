@@ -42,6 +42,8 @@ History
 
 """
 from .ncinfo import ncinfo
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['ncread', 'readnetcdf']
@@ -123,6 +125,9 @@ def ncread(ncfile, var='', code=-1, squeeze=False,
 
     """
     import netCDF4 as nc
+    warn('The netcdf functions of pyjams were transferred to a standalone'
+         ' repository "ncio". ncread is hence deprecated in pyjams.',
+         category=DeprecationWarning)
 
     if (not var) and (code == -1):
         raise ValueError('var or code has to be given.')

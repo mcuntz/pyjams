@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+v2.3 (??? 2024)
+    * Moved netcdf routines to package standalone package
+      ``ncio``. Add DepricationWarning to netcdf routines.
+
 v2.2 (Aug 2024)
     * Use second precision for output dates in `means`.
     * Keyword in `date2num` to ensure second precision for conversion

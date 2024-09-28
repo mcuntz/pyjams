@@ -28,6 +28,8 @@ History
     * Enforce keywords after var, Nov 2023, Matthias Cuntz
 
 """
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['ncinfo', 'infonetcdf']
@@ -133,6 +135,9 @@ def ncinfo(ncfile,
 
     """
     import netCDF4 as nc
+    warn('The netcdf functions of pyjams were transferred to a standalone'
+         ' repository "ncio". ncinfo is hence deprecated in pyjams.',
+         category=DeprecationWarning)
 
     f = nc.Dataset(ncfile, 'r')
 

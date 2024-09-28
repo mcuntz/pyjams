@@ -50,6 +50,8 @@ History
 """
 import numpy as np
 import netCDF4 as nc
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['copy_dimensions', 'copy_file', 'copy_global_attributes',
@@ -205,6 +207,10 @@ def copy_file(ifile, ofile, timedim='time',
 
     """
     import time as ptime
+    warn('The netcdf functions of pyjams were transferred to a standalone'
+         ' repository "ncio". ncio is hence deprecated in pyjams.',
+         category=DeprecationWarning)
+
     fi = nc.Dataset(ifile, 'r')
     if 'file_format' in dir(fi):
         fo = nc.Dataset(ofile, 'w', format=fi.file_format)
@@ -309,6 +315,10 @@ def copy_dimensions(fi, fo, removedim=[], renamedim={}, changedim={},
                        changedim={'mland': 1})
 
     """
+    warn('The netcdf functions of pyjams were transferred to a standalone'
+         ' repository "ncio". ncio is hence deprecated in pyjams.',
+         category=DeprecationWarning)
+
     removedim = _tolist(removedim)
     for d in fi.dimensions.values():
         # remove dimension if in removedim
@@ -363,6 +373,10 @@ def copy_global_attributes(fi, fo, add={}, remove=[]):
            fi, fo, add={'history': time.asctime()+': '+' '.join(sys.argv)})
 
     """
+    warn('The netcdf functions of pyjams were transferred to a standalone'
+         ' repository "ncio". ncio is hence deprecated in pyjams.',
+         category=DeprecationWarning)
+
     for k in fi.ncattrs():
         if k not in remove:
             iattr = fi.getncattr(k)
@@ -415,6 +429,10 @@ def copy_variables(fi, fo, time=None, timedim='time',
        copy_variable(fi, fo, fill=True, renamevar={'lon': 'longitude'})
 
     """
+    warn('The netcdf functions of pyjams were transferred to a standalone'
+         ' repository "ncio". ncio is hence deprecated in pyjams.',
+         category=DeprecationWarning)
+
     removevar = _tolist(removevar)
     # just copy all variables if no time dimension or
     # time dimension not known
@@ -512,6 +530,10 @@ def create_new_variable(invardef, fo, izip=False, fill=None,
        ovar = create_new_variable(nvar, fo, fill=True, izip=True)
 
     """
+    warn('The netcdf functions of pyjams were transferred to a standalone'
+         ' repository "ncio". ncio is hence deprecated in pyjams.',
+         category=DeprecationWarning)
+
     assert 'name' in invardef, 'name not in input dictionary'
     assert 'dtype' in invardef, 'dtype not in input dictionary'
     varname  = invardef.pop("name")
@@ -616,6 +638,10 @@ def create_variables(fi, fo, time=None, timedim='time', izip=False, fill=None,
                        replacedim={'land': ('y', 'x')})
 
     """
+    warn('The netcdf functions of pyjams were transferred to a standalone'
+         ' repository "ncio". ncio is hence deprecated in pyjams.',
+         category=DeprecationWarning)
+
     removevar = _tolist(removevar)
     removedim = _tolist(removedim)
     for ivar in fi.variables.values():
