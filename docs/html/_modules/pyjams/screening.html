@@ -446,6 +446,8 @@ document.write(`
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.morris_method</span> <span class="kn">import</span> <span class="n">morris_sampling</span><span class="p">,</span> <span class="n">elementary_effects</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;screening&#39;</span><span class="p">,</span> <span class="s1">&#39;ee&#39;</span><span class="p">]</span>
@@ -583,6 +585,9 @@ document.write(`
 <span class="sd">    [60.7012889  67.33372626 48.46673528]</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Screening with Elementary Effects of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;pyeee&quot;. Function is thus deprecated in&#39;</span>
+         <span class="s1">&#39; pyjams.&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
     <span class="c1"># Get MPI communicator</span>
     <span class="k">try</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
         <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>

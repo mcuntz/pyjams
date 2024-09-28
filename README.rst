@@ -36,10 +36,9 @@ About pyjams
 
 ``pyjams`` is a general Python package offering a wide variety of
 miscellaneous functions in different categories, such as reading
-different file formats, date conversion routines, or calculating
-Elementary Effects. It has several subpackages offering constants,
-special functions, or objective functions to be used with
-scipy.optimize.
+different file formats, date conversion routines, or meteorology. It
+has several subpackages offering constants, special functions, or
+objective functions to be used with scipy.optimize.
 
 The package modernises and makes available routines of the `JAMS
 Python library`_, which was created 2009 by Matthias Cuntz while at
@@ -69,31 +68,30 @@ or via `conda`:
    conda install -c conda-forge pyjams
 
 Requirements
-    * numpy_
-    * scipy_
-    * matplotlib_
-    * cftime_
-    * netCDF4_
-    * openpyxl_
-    * schwimmbad_
+   * numpy_
+   * scipy_
+   * matplotlib_
+   * cftime_
+   * netCDF4_
+   * openpyxl_
+   * schwimmbad_
 
 
 Content
 -------
 
-Modules and functions are currently provided in the following
-categories:
-    * `Array Manipulation`_
-    * `Ascii Files`_
-    * `Data Processing`_
-    * `Date and Time`_
-    * `Grids and Polygons`_
-    * Isotopes_
-    * Math_
-    * Meteorology_
-    * Miscellaneous_
-    * Plotting_
-    * `Special Files`_
+Modules and functions are currently provided in the following categories:
+   * `Array Manipulation`_
+   * `Ascii Files`_
+   * `Data Processing`_
+   * `Date and Time`_
+   * `Grids and Polygons`_
+   * Isotopes_
+   * Math_
+   * Meteorology_
+   * Miscellaneous_
+   * Plotting_
+   * `Special Files`_
 
 Functions and modules (alphabetical)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -133,13 +131,13 @@ Functions and modules (alphabetical)
      - Return numeric time values given datetime objects or strings,
        same as `date2num`
    * - date2en
-     - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+     - Convert date strings to English date format YYYY-MM-DD hh:mm:ss
    * - date2fr
-     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+     - Convert date strings to French date format DD/MM/YYYY hh:mm:ss
    * - date2num
      - Return numeric time values given datetime objects or strings
    * - date2us
-     - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+     - Convert date strings to American date format MM/DD/YYYY hh:mm:ss
    * - datetime
      - Class as cftime.datetime for non-CF-conform calendars
    * - dec2date
@@ -167,16 +165,17 @@ Functions and modules (alphabetical)
      - Air vapour pressure deficit from partial pressure and
        temperature
    * - ee
-     - Parameter screening using Morris' method of Elementary Effects,
-       same as `screening`
+     - Deprecated, moved to package pyeee_. Parameter screening using
+       Morris' method of Elementary Effects, same as `screening`
    * - elementary_effects
-     - Morris measures mu, stddev and mu*
+     - Deprecated, moved to package pyeee_. Morris measures mu, stddev
+       and mu*
    * - en2date
-     - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+     - Convert date strings to standard date format DD.MM.YYYY hh:mm:ss
    * - en2fr
-     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+     - Convert date strings to French date format DD/MM/YYYY hh:mm:ss
    * - en2us
-     - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+     - Convert date strings to American date format MM/DD/YYYY hh:mm:ss
    * - esat
      - Saturation vapour pressure over water and ice
    * - file_from_gui
@@ -184,11 +183,11 @@ Functions and modules (alphabetical)
    * - files_from_gui
      - Open dialog to select one or several files
    * - fr2date
-     - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
+     - Convert French date strings to standard date format DD.MM.YYYY hh:mm:ss
    * - fr2en
-     - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
+     - Convert French date strings to English date format YYYY-MM-DD hh:mm:ss
    * - fr2us
-     - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
+     - Convert French date strings to American date format MM/DD/YYYY hh:mm:ss
    * - fread
      - Read numbers from a file into 2D float array
    * - fsread
@@ -216,8 +215,8 @@ Functions and modules (alphabetical)
    * - means
      - Calculate daily, monthly, yearly, etc. means of data
    * - morris_sampling
-     - Sampling of optimised trajectories for Morris measures /
-       Elementary Effects
+     - Deprecated, moved to package pyeee_. Sampling of optimised
+       trajectories for Morris measures / Elementary Effects
    * - mrair2eair
      - Partial pressure of water vapour from mixing ratio and total
        pressure
@@ -252,7 +251,8 @@ Functions and modules (alphabetical)
      - Shuffled-Complex-Evolution algorithm for function
        min(max)imisation
    * - screening
-     - Parameter screening using Morris' method of Elementary Effects
+     - Deprecated, moved to package pyeee_. Parameter screening using
+       Morris' method of Elementary Effects
    * - shair2eair
      - Partial pressure of water vapour from specific humidity and
        total pressure
@@ -275,11 +275,11 @@ Functions and modules (alphabetical)
    * - updatez_compressed
      - Update arrays in compressed numpy .npz format
    * - us2date
-     - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+     - Convert date strings to standard date format DD.MM.YYYY hh:mm:ss
    * - us2en
-     - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+     - Convert date strings to English date format YYYY-MM-DD hh:mm:ss
    * - us2fr
-     - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+     - Convert date strings to French date format DD/MM/YYYY hh:mm:ss
    * - vpd2eair
      - Partial pressure of water vapour from air vapour pressure
        deficit and temperature
@@ -375,39 +375,39 @@ Functions and modules per category
          - Return numeric time values given datetime objects or
            strings, same as `date2num`
        * - date2en
-         - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+         - Convert date strings to English date format YYYY-MM-DD hh:mm:ss
        * - date2fr
-         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+         - Convert date strings to French date format DD/MM/YYYY hh:mm:ss
        * - date2num
          - Return numeric time values given datetime objects or
            strings
        * - date2us
-         - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+         - Convert date strings to American date format MM/DD/YYYY hh:mm:ss
        * - datetime
          - Class as cftime.datetime for non-CF-conform calendars
        * - dec2date
          - Return datetime objects given numeric time values,
            same as `num2date`
        * - en2date
-         - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+         - Convert date strings to standard date format DD.MM.YYYY hh:mm:ss
        * - en2fr
-         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+         - Convert date strings to French date format DD/MM/YYYY hh:mm:ss
        * - en2us
-         - Convert dates to American date format MM/DD/YYYY hh:mm:ss
+         - Convert date strings to American date format MM/DD/YYYY hh:mm:ss
        * - fr2date
-         - Convert French dates to standard date format DD.MM.YYYY hh:mm:ss
+         - Convert French date strings to standard date format DD.MM.YYYY hh:mm:ss
        * - fr2en
-         - Convert French dates to English date format YYYY-MM-DD hh:mm:ss
+         - Convert French date strings to English date format YYYY-MM-DD hh:mm:ss
        * - fr2us
-         - Convert French dates to American date format MM/DD/YYYY hh:mm:ss
+         - Convert French date strings to American date format MM/DD/YYYY hh:mm:ss
        * - num2date
          - Return datetime objects given numeric time values
        * - us2date
-         - Convert dates to standard date format DD.MM.YYYY hh:mm:ss
+         - Convert date strings to standard date format DD.MM.YYYY hh:mm:ss
        * - us2en
-         - Convert dates to English date format YYYY-MM-DD hh:mm:ss
+         - Convert date strings to English date format YYYY-MM-DD hh:mm:ss
        * - us2fr
-         - Convert dates to French date format DD/MM/YYYY hh:mm:ss
+         - Convert date strings to French date format DD/MM/YYYY hh:mm:ss
 
 .. _Grids and Polygons:
 
@@ -451,24 +451,26 @@ Functions and modules per category
          - Divide two arrays, return 'otherwise' if division by 0,
            same as `division`
        * - ee
-         - Parameter screening using Morris' method of Elementary
-           Effects, same as `screening`
+         - Deprecated, moved to package pyeee_. Parameter screening
+           using Morris' method of Elementary Effects, same as
+           `screening`
        * - elementary_effects
-         - Morris measures mu, stddev and mu* 
+         - Deprecated, moved to package pyeee_. Morris measures mu,
+           stddev and mu*
        * - functions
          - Special functions for testing optimisations, sensitivity
            analysis, several forms of the logistic function and its
            derivatives, and other functions to be used with
            scipy.optimize
        * - morris_sampling
-         - Sampling of optimised trajectories for Morris measures /
-           Elementary Effects
+         - Deprecated, moved to package pyeee_. Sampling of optimised
+           trajectories for Morris measures / Elementary Effects
        * - sce
          - Shuffled-Complex-Evolution algorithm for function
            min(max)imisation
        * - screening
-         - Parameter screening using Morris' method of Elementary
-           Effects
+         - Deprecated, moved to package pyeee_. Parameter screening
+           using Morris' method of Elementary Effects
 
 .. _Meteorology:
 
@@ -630,6 +632,7 @@ welltestpy_ by `Sebastian Müller`_.
 .. _netCDF4: https://github.com/Unidata/netcdf4-python
 .. _numpy: https://numpy.org/
 .. _openpyxl: https://foss.heptapod.net/openpyxl/openpyxl
+.. _pyeee: https://mcuntz.github.io/pyeee/
 .. _schwimmbad: https://github.com/adrn/schwimmbad/
 .. _scipy: https://scipy.org/
 .. _welltestpy: https://github.com/GeoStat-Framework/welltestpy/

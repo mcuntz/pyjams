@@ -499,10 +499,9 @@ functions.</p>
 <h2>About pyjams<a class="headerlink" href="#about-pyjams" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">pyjams</span></code> is a general Python package offering a wide variety of
 miscellaneous functions in different categories, such as reading
-different file formats, date conversion routines, or calculating
-Elementary Effects. It has several subpackages offering constants,
-special functions, or objective functions to be used with
-mod:<cite>scipy.optimize</cite>.</p>
+different file formats, date conversion routines, or meteorology. It
+has several subpackages offering constants, special functions, or
+objective functions to be used with mod:<cite>scipy.optimize</cite>.</p>
 <p>The package modernises and makes available routines of the <a class="reference external" href="https://github.com/mcuntz/jams_python">JAMS
 Python library</a>, which was created 2009 by Matthias Cuntz while at
 the Department of Computational Hydrosystems, Helmholtz Centre for
@@ -539,10 +538,8 @@ l’Environnement (INRAE), Nancy, France.</p>
 </section>
 <section id="content">
 <h2>Content<a class="headerlink" href="#content" title="Link to this heading">#</a></h2>
-<p>Modules and functions are currently provided in the following
-categories:</p>
-<blockquote>
-<div><ul class="simple">
+<dl class="simple">
+<dt>Modules and functions are currently provided in the following categories:</dt><dd><ul class="simple">
 <li><p><a class="reference internal" href="#array-manipulation">Array Manipulation</a></p></li>
 <li><p><a class="reference internal" href="#ascii-files">Ascii Files</a></p></li>
 <li><p><a class="reference internal" href="#data-processing">Data Processing</a></p></li>
@@ -555,7 +552,8 @@ categories:</p>
 <li><p><a class="reference internal" href="#plotting">Plotting</a></p></li>
 <li><p><a class="reference internal" href="#special-files">Special Files</a></p></li>
 </ul>
-</div></blockquote>
+</dd>
+</dl>
 <section id="functions-and-modules-alphabetical">
 <h3>Functions and modules (alphabetical)<a class="headerlink" href="#functions-and-modules-alphabetical" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -608,16 +606,16 @@ constants</p></td>
 same as <cite>date2num</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2en" title="pyjams.date2date.date2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2en()</span></code></a></p></td>
-<td><p>Convert dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
+<td><p>Convert date strings to English date format YYYY-MM-DD hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2fr" title="pyjams.date2date.date2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2fr()</span></code></a></p></td>
-<td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.date2num" title="pyjams.class_datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p></td>
 <td><p>Return numeric time values given datetime objects or strings</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2us" title="pyjams.date2date.date2us"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2us()</span></code></a></p></td>
-<td><p>Convert dates to American date format MM/DD/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to American date format MM/DD/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.datetime" title="pyjams.class_datetime.datetime"><code class="xref py py-func docutils literal notranslate"><span class="pre">datetime()</span></code></a></p></td>
 <td><p>Class as cftime.datetime for non-CF-conform calendars</p></td>
@@ -656,32 +654,33 @@ total pressure</p></td>
 temperature</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="screening.html#pyjams.screening.ee" title="pyjams.screening.ee"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a></p></td>
-<td><p>Parameter screening using Morris’ method of Elementary Effects,
-same as <cite>screening</cite></p></td>
+<td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Parameter screening using
+Morris’ method of Elementary Effects, same as <cite>screening</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.elementary_effects" title="pyjams.morris_method.elementary_effects"><code class="xref py py-func docutils literal notranslate"><span class="pre">elementary_effects()</span></code></a></p></td>
-<td><p>Morris measures mu, stddev and mu*</p></td>
+<td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Morris measures mu, stddev
+and mu*</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.en2date" title="pyjams.date2date.en2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">en2date()</span></code></a></p></td>
-<td><p>Convert dates to standard date format DD.MM.YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to standard date format DD.MM.YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.en2fr" title="pyjams.date2date.en2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">en2fr()</span></code></a></p></td>
-<td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.en2us" title="pyjams.date2date.en2us"><code class="xref py py-func docutils literal notranslate"><span class="pre">en2us()</span></code></a></p></td>
-<td><p>Convert dates to American date format MM/DD/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to American date format MM/DD/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.esat" title="pyjams.air_humidity.esat"><code class="xref py py-func docutils literal notranslate"><span class="pre">esat()</span></code></a></p></td>
 <td><p>Saturation vapour pressure over water and ice</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.fr2date" title="pyjams.date2date.fr2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">fr2date()</span></code></a></p></td>
-<td><p>Convert French dates to standard date format DD.MM.YYYY hh:mm:ss</p></td>
+<td><p>Convert French date strings to standard date format DD.MM.YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.fr2en" title="pyjams.date2date.fr2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">fr2en()</span></code></a></p></td>
-<td><p>Convert French dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
+<td><p>Convert French date strings to English date format YYYY-MM-DD hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.fr2us" title="pyjams.date2date.fr2us"><code class="xref py py-func docutils literal notranslate"><span class="pre">fr2us()</span></code></a></p></td>
-<td><p>Convert French dates to American date format MM/DD/YYYY hh:mm:ss</p></td>
+<td><p>Convert French date strings to American date format MM/DD/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="fgui.html#pyjams.fgui.file_from_gui" title="pyjams.fgui.file_from_gui"><code class="xref py py-func docutils literal notranslate"><span class="pre">file_from_gui()</span></code></a></p></td>
 <td><p>Open dialog to select one file</p></td>
@@ -728,8 +727,8 @@ netCDF file, same as <code class="xref py py-func docutils literal notranslate">
 <td><p>Calculate daily, monthly, yearly, etc. means of data</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
-<td><p>Sampling of optimised trajectories for Morris measures /
-Elementary Effects</p></td>
+<td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Sampling of optimised
+trajectories for Morris measures / Elementary Effects</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.mrair2eair" title="pyjams.air_humidity.mrair2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">mrair2eair()</span></code></a></p></td>
 <td><p>Partial pressure of water vapour from mixing ratio and total
@@ -777,7 +776,8 @@ temperature</p></td>
 min(max)imisation</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="screening.html#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a></p></td>
-<td><p>Parameter screening using Morris’ method of Elementary Effects</p></td>
+<td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Parameter screening using
+Morris’ method of Elementary Effects</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.shair2eair" title="pyjams.air_humidity.shair2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">shair2eair()</span></code></a></p></td>
 <td><p>Partial pressure of water vapour from specific humidity and
@@ -810,13 +810,13 @@ utility</p></td>
 <td><p>Update arrays in compressed numpy .npz format</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2date" title="pyjams.date2date.us2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2date()</span></code></a></p></td>
-<td><p>Convert dates to standard date format DD.MM.YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to standard date format DD.MM.YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2en" title="pyjams.date2date.us2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2en()</span></code></a></p></td>
-<td><p>Convert dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
+<td><p>Convert date strings to English date format YYYY-MM-DD hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2fr" title="pyjams.date2date.us2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2fr()</span></code></a></p></td>
-<td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.vpd2eair" title="pyjams.air_humidity.vpd2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpd2eair()</span></code></a></p></td>
 <td><p>Partial pressure of water vapour from air vapour pressure
@@ -959,16 +959,16 @@ variants</p></td>
 strings, same as <cite>date2num</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2en" title="pyjams.date2date.date2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2en()</span></code></a></p></td>
-<td><p>Convert dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
+<td><p>Convert date strings to English date format YYYY-MM-DD hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2fr" title="pyjams.date2date.date2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2fr()</span></code></a></p></td>
-<td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.date2num" title="pyjams.class_datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p></td>
 <td><p>Return numeric time values given datetime objects or strings</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.date2us" title="pyjams.date2date.date2us"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2us()</span></code></a></p></td>
-<td><p>Convert dates to American date format MM/DD/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to American date format MM/DD/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.datetime" title="pyjams.class_datetime.datetime"><code class="xref py py-func docutils literal notranslate"><span class="pre">datetime()</span></code></a></p></td>
 <td><p>Class as cftime.datetime for non-CF-conform calendars</p></td>
@@ -978,31 +978,31 @@ strings, same as <cite>date2num</cite></p></td>
 same as <cite>num2date</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.en2date" title="pyjams.date2date.en2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">en2date()</span></code></a></p></td>
-<td><p>Convert dates to standard date format DD.MM.YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to standard date format DD.MM.YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.en2fr" title="pyjams.date2date.en2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">en2fr()</span></code></a></p></td>
-<td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.en2us" title="pyjams.date2date.en2us"><code class="xref py py-func docutils literal notranslate"><span class="pre">en2us()</span></code></a></p></td>
-<td><p>Convert dates to American date format MM/DD/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to American date format MM/DD/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.fr2date" title="pyjams.date2date.fr2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">fr2date()</span></code></a></p></td>
-<td><p>Convert French dates to standard date format DD.MM.YYYY hh:mm:ss</p></td>
+<td><p>Convert French date strings to standard date format DD.MM.YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.fr2en" title="pyjams.date2date.fr2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">fr2en()</span></code></a></p></td>
-<td><p>Convert French dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
+<td><p>Convert French date strings to English date format YYYY-MM-DD hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.fr2us" title="pyjams.date2date.fr2us"><code class="xref py py-func docutils literal notranslate"><span class="pre">fr2us()</span></code></a></p></td>
-<td><p>Convert French dates to American date format MM/DD/YYYY hh:mm:ss</p></td>
+<td><p>Convert French date strings to American date format MM/DD/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2date" title="pyjams.date2date.us2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2date()</span></code></a></p></td>
-<td><p>Convert dates to standard date format DD.MM.YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to standard date format DD.MM.YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2en" title="pyjams.date2date.us2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2en()</span></code></a></p></td>
-<td><p>Convert dates to English date format YYYY-MM-DD hh:mm:ss</p></td>
+<td><p>Convert date strings to English date format YYYY-MM-DD hh:mm:ss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2fr" title="pyjams.date2date.us2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2fr()</span></code></a></p></td>
-<td><p>Convert dates to French date format DD/MM/YYYY hh:mm:ss</p></td>
+<td><p>Convert date strings to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.num2date" title="pyjams.class_datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
 <td><p>Return datetime objects given numeric time values</p></td>
@@ -1076,11 +1076,13 @@ vapour</p></td>
 same as <cite>division</cite></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="screening.html#pyjams.screening.ee" title="pyjams.screening.ee"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a></p></td>
-<td><p>Parameter screening using Morris’ method of Elementary
-Effects, same as <cite>screening</cite></p></td>
+<td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Parameter screening
+using Morris’ method of Elementary Effects, same as
+<cite>screening</cite></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.elementary_effects" title="pyjams.morris_method.elementary_effects"><code class="xref py py-func docutils literal notranslate"><span class="pre">elementary_effects()</span></code></a></p></td>
-<td><p>Morris measures mu, stddev and mu*</p></td>
+<td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Morris measures mu,
+stddev and mu*</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="functions.html#module-pyjams.functions" title="pyjams.functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">functions</span></code></a></p></td>
 <td><p>Special functions for testing optimisations, sensitivity
@@ -1089,16 +1091,16 @@ derivatives, and other functions to be used with
 <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.14.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
-<td><p>Sampling of optimised trajectories for Morris measures /
-Elementary Effects</p></td>
+<td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Sampling of optimised
+trajectories for Morris measures / Elementary Effects</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="sce.html#pyjams.sce.sce" title="pyjams.sce.sce"><code class="xref py py-func docutils literal notranslate"><span class="pre">sce()</span></code></a></p></td>
 <td><p>Shuffled-Complex-Evolution algorithm for function
 min(max)imisation</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="screening.html#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a></p></td>
-<td><p>Parameter screening using Morris’ method of Elementary
-Effects</p></td>
+<td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Parameter screening
+using Morris’ method of Elementary Effects</p></td>
 </tr>
 </tbody>
 </table>

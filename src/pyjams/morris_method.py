@@ -80,6 +80,8 @@ History
 
 """
 import numpy as np
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['morris_sampling', 'elementary_effects']
@@ -374,6 +376,9 @@ def Optimized_Groups(NumFact, lb, ub, r,
     """
     from scipy.spatial import distance
     import scipy.stats as stats
+    warn('Screening with Elementary Effects of pyjams were transferred to a'
+         ' standalone repository "pyeee". Function is thus deprecated in'
+         ' pyjams.', category=DeprecationWarning)
 
     if N is None:
         N = 10 * r
@@ -678,6 +683,9 @@ def Morris_Measure_Groups(NumFact, Sample, OutFact, Output, p=4,
     on page 68ff
 
     """
+    warn('Screening with Elementary Effects of pyjams were transferred to a'
+         ' standalone repository "pyeee". Function is thus deprecated in'
+         ' pyjams.', category=DeprecationWarning)
     try:
         NumGroups = Group.shape[1]
         if Diagnostic:

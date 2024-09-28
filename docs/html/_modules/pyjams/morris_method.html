@@ -482,6 +482,8 @@ document.write(`
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;morris_sampling&#39;</span><span class="p">,</span> <span class="s1">&#39;elementary_effects&#39;</span><span class="p">]</span>
@@ -776,6 +778,9 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
     <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Screening with Elementary Effects of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;pyeee&quot;. Function is thus deprecated in&#39;</span>
+         <span class="s1">&#39; pyjams.&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">r</span>
@@ -1080,6 +1085,9 @@ document.write(`
 <span class="sd">    on page 68ff</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Screening with Elementary Effects of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;pyeee&quot;. Function is thus deprecated in&#39;</span>
+         <span class="s1">&#39; pyjams.&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">NumGroups</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">Diagnostic</span><span class="p">:</span>

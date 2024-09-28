@@ -2,8 +2,10 @@ Changelog
 ---------
 
 v2.3 (??? 2024)
-    * Moved netcdf routines to package standalone package
-      ``ncio``. Add DepricationWarning to netcdf routines.
+    * Add DeprecationWarning to routines for screening with Elementary
+      Effects that moved to standalone package ``pyeee``.
+    * Moved netcdf routines to standalone package ``ncio``. Add
+      DeprecationWarning to netcdf routines.
 
 v2.2 (Aug 2024)
     * Use second precision for output dates in `means`.

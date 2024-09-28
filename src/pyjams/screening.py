@@ -44,6 +44,8 @@ History
 """
 import numpy as np
 from .morris_method import morris_sampling, elementary_effects
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['screening', 'ee']
@@ -179,6 +181,9 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
     [60.7012889  67.33372626 48.46673528]
 
     """
+    warn('Screening with Elementary Effects of pyjams were transferred to a'
+         ' standalone repository "pyeee". Function is thus deprecated in'
+         ' pyjams.', category=DeprecationWarning)
     # Get MPI communicator
     try:  # pragma: no cover
         from mpi4py import MPI
