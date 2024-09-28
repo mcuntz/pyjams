@@ -40,9 +40,9 @@ different file formats, date conversion routines, or meteorology. It
 has several subpackages offering constants, special functions, or
 objective functions to be used with scipy.optimize.
 
-The package modernises and makes available routines of the `JAMS
-Python library`_, which was created 2009 by Matthias Cuntz while at
-the Department of Computational Hydrosystems, Helmholtz Centre for
+The package modernises and makes available routines of the
+`JAMS Python library`_, which was created 2009 by Matthias Cuntz while
+at the Department of Computational Hydrosystems, Helmholtz Centre for
 Environmental Research - UFZ, Leipzig, Germany, and continued while at
 Institut National de Recherche pour l'Agriculture, l'Alimentation et
 l'Environnement (INRAE), Nancy, France.
