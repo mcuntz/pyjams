@@ -39,6 +39,9 @@ History
     * Added IPCC colours, Feb 2024, Matthias Cuntz
 
 """
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
+
 
 __all__ = ['get_color', 'print_colors',
            'get_cmap', 'print_palettes', 'show_palettes']
@@ -116,6 +119,10 @@ def get_color(cname=''):
     from collections.abc import Iterable
     import matplotlib.pyplot as plt
     import pyjams.color
+    warn('The plotting functions of pyjams were transferred to a'
+         ' standalone repository "mcplot". get_color is hence deprecated'
+         ' in pyjams.',
+         category=DeprecationWarning)
 
     mapping = plt.cm.colors.get_named_colors_mapping
     # register ufz colors if not yet done
@@ -160,6 +167,10 @@ def print_colors(collection=''):
     """
     import matplotlib.pyplot as plt
     import pyjams.color
+    warn('The plotting functions of pyjams were transferred to a'
+         ' standalone repository "mcplot". print_color is hence deprecated'
+         ' in pyjams.',
+         category=DeprecationWarning)
 
     if collection:
         if isinstance(collection, str):
@@ -264,6 +275,10 @@ def get_cmap(palette, ncol=0, offset=0, upper=1,
     import matplotlib.pyplot as plt
     import pyjams.color
     from pyjams import argsort
+    warn('The plotting functions of pyjams were transferred to a'
+         ' standalone repository "mcplot". get_cmap is hence deprecated'
+         ' in pyjams.',
+         category=DeprecationWarning)
 
     # _r at end of palette is same as reverse=True
     if palette.endswith('_r'):
@@ -490,6 +505,10 @@ def print_palettes(collection=''):
     # import matplotlib as mpl
     import matplotlib.pyplot as plt
     import pyjams.color
+    warn('The plotting functions of pyjams were transferred to a'
+         ' standalone repository "mcplot". print_palettes is hence deprecated'
+         ' in pyjams.',
+         category=DeprecationWarning)
 
     pyjams_collections = [ i for i in dir(pyjams.color)
                            if i.startswith('pyjams_')
@@ -676,6 +695,11 @@ def show_palettes(outfile='', collection=''):  # pragma: no cover
     import matplotlib as mpl
     import matplotlib.pyplot as plt
     import pyjams.color
+    warn('The plotting functions of pyjams were transferred to a'
+         ' standalone repository "mcplot". show_palettes is hence deprecated'
+         ' in pyjams.',
+         category=DeprecationWarning)
+
     # outtype
     if '.' in outfile:
         outtype = outfile[outfile.rfind('.') + 1:]

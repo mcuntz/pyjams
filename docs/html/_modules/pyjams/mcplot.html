@@ -512,6 +512,8 @@ document.write(`
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">filebase</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mcPlot&#39;</span><span class="p">]</span>
@@ -669,6 +671,10 @@ document.write(`
 <span class="sd">                   super().__init__(*args, **kwargs)`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The plotting functions of pyjams were transferred to a&#39;</span>
+             <span class="s1">&#39; standalone repository &quot;mcplot&quot;. mcPlot is hence deprecated&#39;</span>
+             <span class="s1">&#39; in pyjams.&#39;</span><span class="p">,</span>
+             <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
         <span class="c1"># get options</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_command_line_arguments</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="n">argstr</span><span class="p">,</span>
                                         <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">)</span>

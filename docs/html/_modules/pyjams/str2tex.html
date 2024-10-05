@@ -438,6 +438,8 @@ document.write(`
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">input2array</span><span class="p">,</span> <span class="n">array2input</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;str2tex&#39;</span><span class="p">]</span>
@@ -483,6 +485,10 @@ document.write(`
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The plotting functions of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;mcplot&quot;. str2tex is hence deprecated&#39;</span>
+         <span class="s1">&#39; in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
     <span class="c1"># Input type and shape</span>
     <span class="c1"># use list because numpy array cannot change to raw strings</span>

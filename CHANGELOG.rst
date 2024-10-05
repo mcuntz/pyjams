@@ -2,6 +2,8 @@ Changelog
 ---------
 
 v2.3 (??? 2024)
+    * Moved plotting routines to standalone package ``mcplot``. Add
+      DeprecationWarning to plotting routines.
     * Add DeprecationWarning to routines for screening with Elementary
       Effects that moved to standalone package ``pyeee``.
     * Moved netcdf routines to standalone package ``ncio``. Add

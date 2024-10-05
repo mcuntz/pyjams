@@ -102,7 +102,8 @@ Functions and modules (alphabetical)
    * - Function/module
      - Short description
    * - :func:`~pyjams.text2plot.abc2plot`
-     - Write a, B, iii), ... on a plot
+     - Deprecated, moved to package mcplot_. Write a, B, iii), ... on
+       a plot
    * - :func:`~pyjams.alpha_equ_h2o.alpha_equ_h2o`
      - Equilibrium fractionation between liquid water and vapour
    * - :func:`~pyjams.alpha_kin_h2o.alpha_kin_h2o`
@@ -119,7 +120,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.closest.closest`
      - Index in array which entry is closest to a given number
    * - :mod:`~pyjams.color`
-     - Collection of color palettes and continuous color maps
+     - Deprecated, moved to package mcplot_. Collection of color
+       palettes and continuous color maps
    * - :mod:`~pyjams.const`
      - Physical, mathematical, computational, isotope, and material
        constants
@@ -210,7 +212,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.mad.mad`
      - Median absolute deviation test
    * - :class:`~pyjams.mcplot.mcPlot`
-     - Matthias Cuntz' standard plotting class
+     - Deprecated, moved to package mcplot_. Matthias Cuntz' standard
+       plotting class
    * - :func:`~pyjams.means.means`
      - Calculate daily, monthly, yearly, etc. means of data
    * - :func:`~pyjams.morris_method.morris_sampling`
@@ -234,7 +237,8 @@ Functions and modules (alphabetical)
    * - :func:`~pyjams.pack.pack`
      - Pack array with mask like Fortran intrinsic pack
    * - :func:`~pyjams.position.position`
-     - Position arrays of subplots to be used with add_axes
+     - Deprecated, moved to package mcplot_. Position arrays of
+       subplots to be used with add_axes
    * - :func:`~pyjams.ncread.readnetcdf`
      - Deprecated, moved to package ncio_. Read variables from
        netCDF file, same as `ncread`
@@ -256,17 +260,18 @@ Functions and modules (alphabetical)
      - Partial pressure of water vapour from specific humidity and
        total pressure
    * - :func:`~pyjams.text2plot.signature2plot`
-     - Write a copyright notice on a plot
+     - Deprecated, moved to package mcplot_. Write a copyright notice
+       on a plot
    * - :func:`~pyjams.fsread.sread`
      - Read strings from a file into 2D string array
    * - :func:`~pyjams.str2tex.str2tex`
-     - Convert strings to LaTeX strings in math environment used by
-       matplotlib's usetex
+     - Deprecated, moved to package mcplot_. Convert strings to LaTeX
+       strings in math environment used by matplotlib's usetex
    * - :func:`~pyjams.tee.tee`
      - Prints arguments on screen and in file, like Unix/Linux tee
        utility
    * - :func:`~pyjams.text2plot.text2plot`
-     - Write text on a plot
+     - Deprecated, moved to package mcplot_. Write text on a plot
    * - :func:`~pyjams.pack.unpack`
      - Unpack array using mask like Fortran intrinsic unpack
    * - :func:`~pyjams.npyio.updatez`
@@ -550,24 +555,30 @@ Functions and modules per category
        * - Function/module
          - Short description
        * - :func:`~pyjams.text2plot.abc2plot`
-         - Write a, B, iii), ... on a plot
+         - Deprecated, moved to package mcplot_. Write a, B, iii),
+           ... on a plot
        * - :mod:`~pyjams.color`
-         - Collection of color palettes and continuous color maps
+         - Deprecated, moved to package mcplot_. Collection of color
+           palettes and continuous color maps
        * - :func:`~pyjams.romanliterals.int2roman`
          - Integer to Roman numeral conversion
        * - :class:`~pyjams.mcplot.mcPlot`
-         - Matthias Cuntz' standard plotting class
+         - Deprecated, moved to package mcplot_. Matthias Cuntz'
+           standard plotting class
        * - :func:`~pyjams.position.position`
-         - Position arrays of subplots to be used with add_axes
+         - Deprecated, moved to package mcplot_. Position arrays of
+           subplots to be used with add_axes
        * - :func:`~pyjams.romanliterals.roman2int`
          - Roman numeral to integer conversion
        * - :func:`~pyjams.text2plot.signature2plot`
-         - Write a copyright notice on a plot
+         - Deprecated, moved to package mcplot_. Write a copyright
+           notice on a plot
        * - :func:`~pyjams.str2tex.str2tex`
-         - Convert strings to LaTeX strings in math environment used
-           by matplotlib's usetex
+         - Deprecated, moved to package mcplot_. Convert strings to
+           LaTeX strings in math environment used by matplotlib's
+           usetex
        * - :func:`~pyjams.text2plot.text2plot`
-         - Write text on a plot
+         - Deprecated, moved to package mcplot_. Write text on a plot
 
 .. _Special Files:
 
@@ -626,6 +637,7 @@ welltestpy_ by `Sebastian Müller`_.
 .. _Sebastian Müller: https://github.com/MuellerSeb
 .. _cftime: https://github.com/Unidata/cftime
 .. _matplotlib: https://matplotlib.org/
+.. _mcplot: https://mcuntz.github.io/mcplot/
 .. _ncio: https://mcuntz.github.io/ncio/
 .. _netCDF4: https://github.com/Unidata/netcdf4-python
 .. _numpy: https://numpy.org/

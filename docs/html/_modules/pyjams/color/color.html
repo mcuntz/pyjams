@@ -441,6 +441,9 @@ document.write(`
 <span class="sd">    * Added IPCC colours, Feb 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_color&#39;</span><span class="p">,</span> <span class="s1">&#39;print_colors&#39;</span><span class="p">,</span>
            <span class="s1">&#39;get_cmap&#39;</span><span class="p">,</span> <span class="s1">&#39;print_palettes&#39;</span><span class="p">,</span> <span class="s1">&#39;show_palettes&#39;</span><span class="p">]</span>
@@ -520,6 +523,10 @@ document.write(`
     <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="kn">import</span> <span class="nn">pyjams.color</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The plotting functions of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;mcplot&quot;. get_color is hence deprecated&#39;</span>
+         <span class="s1">&#39; in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
     <span class="n">mapping</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">get_named_colors_mapping</span>
     <span class="c1"># register ufz colors if not yet done</span>
@@ -567,6 +574,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="kn">import</span> <span class="nn">pyjams.color</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The plotting functions of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;mcplot&quot;. print_color is hence deprecated&#39;</span>
+         <span class="s1">&#39; in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">collection</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -674,6 +685,10 @@ document.write(`
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="kn">import</span> <span class="nn">pyjams.color</span>
     <span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">argsort</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The plotting functions of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;mcplot&quot;. get_cmap is hence deprecated&#39;</span>
+         <span class="s1">&#39; in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
     <span class="c1"># _r at end of palette is same as reverse=True</span>
     <span class="k">if</span> <span class="n">palette</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_r&#39;</span><span class="p">):</span>
@@ -903,6 +918,10 @@ document.write(`
     <span class="c1"># import matplotlib as mpl</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="kn">import</span> <span class="nn">pyjams.color</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The plotting functions of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;mcplot&quot;. print_palettes is hence deprecated&#39;</span>
+         <span class="s1">&#39; in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
     <span class="n">pyjams_collections</span> <span class="o">=</span> <span class="p">[</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pyjams</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
                            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;pyjams_&#39;</span><span class="p">)</span>
@@ -1092,6 +1111,11 @@ document.write(`
     <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="kn">import</span> <span class="nn">pyjams.color</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The plotting functions of pyjams were transferred to a&#39;</span>
+         <span class="s1">&#39; standalone repository &quot;mcplot&quot;. show_palettes is hence deprecated&#39;</span>
+         <span class="s1">&#39; in pyjams.&#39;</span><span class="p">,</span>
+         <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
     <span class="c1"># outtype</span>
     <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">outfile</span><span class="p">:</span>
         <span class="n">outtype</span> <span class="o">=</span> <span class="n">outfile</span><span class="p">[</span><span class="n">outfile</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>

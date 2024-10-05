@@ -103,7 +103,8 @@ Functions and modules (alphabetical)
    * - Function/module
      - Short description
    * - abc2plot
-     - Write a, B, iii), ... on a plot
+     - Deprecated, moved to package mcplot_. Write a, B, iii), ... on
+       a plot
    * - alpha_equ_h2o
      - Equilibrium fractionation between liquid water and vapour
    * - alpha_kin_h2o
@@ -120,7 +121,8 @@ Functions and modules (alphabetical)
    * - closest
      - Index in array which entry is closest to a given number
    * - color
-     - Collection of color palettes and continuous color maps
+     - Deprecated, moved to package mcplot_. Collection of color
+       palettes and continuous color maps
    * - const
      - Physical, mathematical, computational, isotope, and material
        constants
@@ -211,7 +213,8 @@ Functions and modules (alphabetical)
    * - mad
      - Median absolute deviation test
    * - mcPlot
-     - Matthias Cuntz' standard plotting class
+     - Deprecated, moved to package mcplot_. Matthias Cuntz' standard
+       plotting class
    * - means
      - Calculate daily, monthly, yearly, etc. means of data
    * - morris_sampling
@@ -235,7 +238,8 @@ Functions and modules (alphabetical)
    * - pack
      - Pack array with mask like Fortran intrinsic pack
    * - position
-     - Position arrays of subplots to be used with add_axes
+     - Deprecated, moved to package mcplot_. Position arrays of
+       subplots to be used with add_axes
    * - readnetcdf
      - Deprecated, moved to package ncio_. Read variables from
        netCDF file, same as `ncread`
@@ -256,18 +260,18 @@ Functions and modules (alphabetical)
    * - shair2eair
      - Partial pressure of water vapour from specific humidity and
        total pressure
-   * - signature2plot
+   * - Deprecated, moved to package mcplot_. signature2plot
      - Write a copyright notice on a plot
    * - sread
      - Read strings from a file into 2D string array
    * - str2tex
-     - Convert strings to LaTeX strings in math environment used by
-       matplotlib's usetex
+     - Deprecated, moved to package mcplot_. Convert strings to LaTeX
+       strings in math environment used by matplotlib's usetex
    * - tee
      - Prints arguments on screen and in file, like Unix/Linux tee
        utility
    * - text2plot
-     - Write text on a plot
+     - Deprecated, moved to package mcplot_. Write text on a plot
    * - unpack
      - Unpack array using mask like Fortran intrinsic unpack
    * - updatez
@@ -552,24 +556,30 @@ Functions and modules per category
        * - Function/module
          - Short description
        * - abc2plot
-         - Write a, B, iii), ... on a plot
+         - Deprecated, moved to package mcplot_. Write a, B, iii),
+           ... on a plot
        * - color
-         - Collection of color palettes and continuous color maps
+         - Deprecated, moved to package mcplot_. Collection of color
+           palettes and continuous color maps
        * - int2roman
          - Integer to Roman numeral conversion
        * - mcPlot
-         - Matthias Cuntz' standard plotting class
+         - Deprecated, moved to package mcplot_. Matthias Cuntz'
+           standard plotting class
        * - position
-         - Position arrays of subplots to be used with add_axes
+         - Deprecated, moved to package mcplot_. Position arrays of
+           subplots to be used with add_axes
        * - roman2int
          - Roman numeral to integer conversion
        * - signature2plot
-         - Write a copyright notice on a plot
+         - Deprecated, moved to package mcplot_. Write a copyright
+           notice on a plot
        * - str2tex
-         - Convert strings to LaTeX strings in math environment used
-           by matplotlib's usetex
+         - Deprecated, moved to package mcplot_. Convert strings to
+           LaTeX strings in math environment used by matplotlib's
+           usetex
        * - text2plot
-         - Write text on a plot
+         - Deprecated, moved to package mcplot_. Write text on a plot
 
 .. _Special Files:
 
@@ -628,6 +638,7 @@ welltestpy_ by `Sebastian Müller`_.
 .. _Sebastian Müller: https://github.com/MuellerSeb
 .. _cftime: https://github.com/Unidata/cftime
 .. _matplotlib: https://matplotlib.org/
+.. _mcplot: https://mcuntz.github.io/mcplot/
 .. _ncio: https://mcuntz.github.io/ncio/
 .. _netCDF4: https://github.com/Unidata/netcdf4-python
 .. _numpy: https://numpy.org/

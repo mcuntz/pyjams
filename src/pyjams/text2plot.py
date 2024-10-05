@@ -59,6 +59,8 @@ from .str2tex import str2tex
 from .romanliterals import int2roman
 # from pyjams.str2tex import str2tex
 # from pyjams.romanliterals import int2roman
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['text2plot', 'abc2plot', 'signature2plot']
@@ -129,6 +131,10 @@ def text2plot(handle, dx, dy, itext,
 
     """
     import matplotlib.pyplot as plt
+    warn('The plotting functions of pyjams were transferred to a'
+         ' standalone repository "mcplot". text2plot is hence deprecated'
+         ' in pyjams.',
+         category=DeprecationWarning)
 
     # Check input
     ifont = small + medium + large + xsmall + xxsmall + xlarge + xxlarge

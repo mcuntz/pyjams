@@ -110,6 +110,8 @@ History
 """
 import numpy as np
 from .helper import filebase
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['mcPlot']
@@ -265,6 +267,10 @@ class mcPlot(object):
                    super().__init__(*args, **kwargs)`
 
         """
+        warn('The plotting functions of pyjams were transferred to a'
+             ' standalone repository "mcplot". mcPlot is hence deprecated'
+             ' in pyjams.',
+             category=DeprecationWarning)
         # get options
         self.get_command_line_arguments(desc=desc, argstr=argstr,
                                         parents=parents)

@@ -36,6 +36,8 @@ History
 
 """
 from .helper import input2array, array2input
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['str2tex']
@@ -79,6 +81,10 @@ def str2tex(strin, space2linebreak=False,
 
     """
     import matplotlib.pyplot as plt
+    warn('The plotting functions of pyjams were transferred to a'
+         ' standalone repository "mcplot". str2tex is hence deprecated'
+         ' in pyjams.',
+         category=DeprecationWarning)
 
     # Input type and shape
     # use list because numpy array cannot change to raw strings

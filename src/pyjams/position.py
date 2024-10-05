@@ -27,6 +27,8 @@ History
     * More consistent docstrings, Jan 2022, Matthias Cuntz
 
 """
+from warnings import warn, filterwarnings
+filterwarnings("default", category=DeprecationWarning)
 
 
 __all__ = ['position']
@@ -166,6 +168,10 @@ def position(row=1, col=1, num=1,
     [0.1   0.33  0.35  0.157]
 
     """
+    warn('The plotting functions of pyjams were transferred to a'
+         ' standalone repository "mcplot". position is hence deprecated'
+         ' in pyjams.',
+         category=DeprecationWarning)
     # Check
     nplots = row * col
     assert num <= nplots, ('num > number of plots: ' + str(num) + ' > '
