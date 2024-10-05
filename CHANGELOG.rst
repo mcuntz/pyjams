@@ -1,6 +1,9 @@
 Changelog
 ---------
 
+v2.4 (??? 2024)
+    * Updated fgui to current tkinter structure.
+
 v2.3 (Oct 2024)
     * Moved plotting routines to standalone package ``mcplot``. Add
       DeprecationWarning to plotting routines.

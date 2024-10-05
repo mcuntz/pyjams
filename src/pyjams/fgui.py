@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-GUI dialogs to choose files and directories using Tkinter
+GUI dialogs to choose files and directories using tkinter
 
 This module was written by Matthias Cuntz while at Department of
 Computational Hydrosystems, Helmholtz Centre for Environmental
@@ -22,10 +22,11 @@ The following functions are provided
    files_from_gui
 
 History
-    * Written Jun 2014 by Matthias Cuntz (mc (at) macu (dot) de)
-    * Added directories_from_gui, Oct 2015, Matthias Cuntz
-    * Using numpy docstring format, May 2020, Matthias Cuntz
-    * Port to pyjams, Jan 2022, Matthias Cuntz
+   * Written Jun 2014 by Matthias Cuntz (mc (at) macu (dot) de)
+   * Added directories_from_gui, Oct 2015, Matthias Cuntz
+   * Using numpy docstring format, May 2020, Matthias Cuntz
+   * Port to pyjams, Jan 2022, Matthias Cuntz
+   * tkFileDialog -> filedialog, Oct 2024, Matthias Cuntz
 
 """
 
@@ -66,17 +67,17 @@ def directory_from_gui(
                raise ValueError('Error: no directory given.')
 
     """
-    import tkinter as Tkinter
-    import tkinter.filedialog as tkFileDialog
+    import tkinter as tk
+    from tkinter import filedialog
 
-    root = Tkinter.Tk()
+    root = tk.Tk()
     root.withdraw()  # hide root window, i.e. white square
 
     # always on top
     # focus on (hidden) window so that child is on top
     root.tk.call('wm', 'attributes', '.', '-topmost', 1)
 
-    direcs = tkFileDialog.askdirectory(
+    direcs = filedialog.askdirectory(
         parent=root, title=title, initialdir=initialdir)
 
     root.destroy()
@@ -116,10 +117,10 @@ def directories_from_gui(
                raise ValueError('Error: no directories given.')
 
     """
-    import tkinter as Tkinter
-    import tkinter.filedialog as tkFileDialog
+    import tkinter as tk
+    from tkinter import filedialog
 
-    root = Tkinter.Tk()
+    root = tk.Tk()
     root.withdraw()  # hide root window, i.e. white square
 
     # always on top
@@ -129,7 +130,7 @@ def directories_from_gui(
     idir = initialdir
     alldirecs = []
     while True:
-        direcs = tkFileDialog.askdirectory(
+        direcs = filedialog.askdirectory(
             parent=root, title=title, initialdir=idir)
         if not direcs:
             break
@@ -204,16 +205,17 @@ def files_from_gui(initialdir='.', title='Choose file(s)',
                raise ValueError('Error: no input file(s) given.')
 
     """
-    import tkinter as Tkinter
-    import tkinter.filedialog as tkFileDialog
-    root = Tkinter.Tk()
+    import tkinter as tk
+    from tkinter import filedialog
+
+    root = tk.Tk()
     root.withdraw()  # hide root window, i.e. white square
 
     # always on top
     # focus on (hidden) window so that child is on top
     root.tk.call('wm', 'attributes', '.', '-topmost', 1)
 
-    files = tkFileDialog.askopenfilename(
+    files = filedialog.askopenfilename(
         parent=root, title=title, multiple=multiple, initialdir=initialdir)
     files = list(root.tk.splitlist(files))
 
