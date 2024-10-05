@@ -95,6 +95,8 @@ History
    * v2.1, ncread and ncinfo in individual files, Nov 2023, Matthias Cuntz
    * v2.2, enhancements of plotting routines, ncio, fsread, and datetime,
      Aug 2024, Matthias Cuntz
+   * v2.3, deprecate ncio and plotting routines that became standalone
+     packages, Oct 2024, Matthias Cuntz
 
 """
 # version, author
