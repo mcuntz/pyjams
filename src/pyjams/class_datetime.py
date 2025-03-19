@@ -1102,7 +1102,8 @@ def _absolute2date(times, units):
 def date2num(dates, units='', calendar=None, has_year_zero=None,
              format='', timesep=' ', fr=False, return_arrays=False,
              ensure_seconds=False):
-    """Return numeric time values given datetime objects or strings
+    """
+    Return numeric time values given datetime objects or strings
 
     The units of the numeric time values are described by the
     *units* and *calendar* keywords for CF-conform calendars, i.e.
@@ -1193,7 +1194,7 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         to get microseconds accuracy. The datatype is, however, not available
         on all platforms. The algorithm has the tendency to give
         1-3 microseconds less at back-conversion in this case, which gives
-        times such as "11:59:59" instead of "12:00:00". `ensure_seconds`
+        times such as '11:59:59' instead of '12:00:00'. `ensure_seconds`
         toggles back-conversion above the next second to ensure that the
         seconds are correct.
 
@@ -1349,6 +1350,7 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
 def date2dec(*args, **kwargs):
     """
     Wrapper for :func:`date2num`
+
     """
     return date2num(*args, **kwargs)
 
@@ -1673,6 +1675,7 @@ def num2date(times, units='', calendar='standard',
 def dec2date(*args, **kwargs):
     """
     Wrapper for :func:`num2date`
+
     """
     return num2date(*args, **kwargs)
 
@@ -1694,7 +1697,7 @@ class datetime(object):
     calendars are supposedly Julian calendars with other reference dates.
     Day 0 of *excel*/*excel1900* starts at 1899-12-31 00:00:00 and day 0
     of *excel1904* (old Lotus date) starts at 1903-12-31 00:00:00.
-    Decimal calendars have the form "%Y.%f", where the fractional year
+    Decimal calendars have the form '%Y.%f', where the fractional year
     assumes leap years as the proleptic Gregorian calendar, or fixed 360,
     365, or 366 days per year.
 
@@ -1775,7 +1778,7 @@ class datetime(object):
         # year
         if not self.has_year_zero:
             if self.year == 0:
-                raise ValueError("Invalid year provided in {0!r}".format(self))
+                raise ValueError('Invalid year provided in {0!r}'.format(self))
         # Comment next block to allow negative days with Excel calendars,
         # which does not exist in Excel
         # if ( ((self.calendar == 'excel') or (self.calendar == 'excel1900'))
@@ -1786,31 +1789,31 @@ class datetime(object):
 
         # month
         if (self.month < 1) or (self.month > 12):
-            raise ValueError("Invalid month provided in {0!r}".format(self))
+            raise ValueError('Invalid month provided in {0!r}'.format(self))
 
         # day
         month_length = _month_lengths(self.year, self.calendar,
                                       self.has_year_zero)
         if (self.day < 1) or (self.day > month_length[self.month - 1]):
             raise ValueError(
-                "Invalid day number provided in {0!r}".format(self))
+                'Invalid day number provided in {0!r}'.format(self))
 
         # hour
         if (self.hour < 0) or (self.hour > 23):
-            raise ValueError("Invalid hour provided in {0!r}".format(self))
+            raise ValueError('Invalid hour provided in {0!r}'.format(self))
 
         # minute
         if (self.minute < 0) or (self.minute > 59):
-            raise ValueError("Invalid minute provided in {0!r}".format(self))
+            raise ValueError('Invalid minute provided in {0!r}'.format(self))
 
         # second
         if (self.second < 0) or (self.second > 59):
-            raise ValueError("Invalid second provided in {0!r}".format(self))
+            raise ValueError('Invalid second provided in {0!r}'.format(self))
 
         # microsecond
         if (self.microsecond) < 0 or (self.microsecond > 999999):
             raise ValueError(
-                "Invalid microsecond provided in {0!r}".format(self))
+                'Invalid microsecond provided in {0!r}'.format(self))
 
     def change_calendar(self, calendar, has_year_zero=None):
         return NotImplemented
@@ -1934,15 +1937,15 @@ class datetime(object):
         Identical to cftime.datetime
 
         """
-        args = {"year": self.year,
-                "month": self.month,
-                "day": self.day,
-                "hour": self.hour,
-                "minute": self.minute,
-                "second": self.second,
-                "microsecond": self.microsecond,
-                "has_year_zero": self.has_year_zero,
-                "calendar": self.calendar}
+        args = {'year': self.year,
+                'month': self.month,
+                'day': self.day,
+                'hour': self.hour,
+                'minute': self.minute,
+                'second': self.second,
+                'microsecond': self.microsecond,
+                'has_year_zero': self.has_year_zero,
+                'calendar': self.calendar}
 
         if 'dayofyr' in kwargs or 'dayofwk' in kwargs:
             raise ValueError('Replacing the dayofyr or dayofwk of a datetime'
@@ -2111,7 +2114,7 @@ class datetime(object):
         # delta = other
         if calendar == 'decimal360':
             with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
+                warnings.simplefilter('ignore')
                 cfdt = cf.datetime(*to_tuple(dt), calendar='360_day',
                                    has_year_zero=dt.has_year_zero)
             cfdt = cfdt + delta
@@ -2160,7 +2163,7 @@ class datetime(object):
         Identical to cftime.datetime
 
         """
-        # the string format "{t_obj}".format(t_obj=t_obj)
+        # the string format '{t_obj}'.format(t_obj=t_obj)
         # without an explicit format gives an empty string (format='')
         # so set this to None to get the default strftime behaviour
         if not format:
@@ -2194,8 +2197,8 @@ class datetime(object):
         String representation
 
         """
-        return ("{0}.{1}({2}, {3}, {4}, {5}, {6}, {7}, {8},"
-                " calendar={9}, has_year_zero={10})".format(
+        return ('{0}.{1}({2}, {3}, {4}, {5}, {6}, {7}, {8},'
+                ' calendar={9}, has_year_zero={10})'.format(
                     'pyjams',
                     self.__class__.__name__,
                     self.year, self.month, self.day,
@@ -2221,16 +2224,16 @@ class datetime(object):
             if isinstance(other, datetime):
                 # datetime - datetime
                 if dt.calendar != other.calendar:
-                    raise TypeError("Cannot compute the time difference"
-                                    " between dates with different calendars")
-                if dt.calendar == "":
-                    raise TypeError("Cannot compute the time difference"
-                                    " between dates that are not"
-                                    " calendar-aware")
+                    raise TypeError('Cannot compute the time difference'
+                                    ' between dates with different calendars')
+                if dt.calendar == '':
+                    raise TypeError('Cannot compute the time difference'
+                                    ' between dates that are not'
+                                    ' calendar-aware')
                 if dt.has_year_zero != other.has_year_zero:
-                    raise TypeError("Cannot compute the time difference"
-                                    " between dates with different year zero"
-                                    " conventions")
+                    raise TypeError('Cannot compute the time difference'
+                                    ' between dates with different year zero'
+                                    ' conventions')
                 ord1 = 0
                 if self.calendar == 'decimal':
                     ord1 = 1721425
