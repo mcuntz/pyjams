@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=78f1df99"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/text2plot';</script>
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../screening.html">screening</a></li>
@@ -229,13 +230,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../ncio.netcdfio.html">netcdfio</a></li>
@@ -456,12 +455,12 @@ document.write(`
 <span class="sd">    * Added upper keyword in abc2plot, Jun 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">ptime</span>
-<span class="kn">from</span> <span class="nn">.str2tex</span> <span class="kn">import</span> <span class="n">str2tex</span>
-<span class="kn">from</span> <span class="nn">.romanliterals</span> <span class="kn">import</span> <span class="n">int2roman</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ptime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.str2tex</span><span class="w"> </span><span class="kn">import</span> <span class="n">str2tex</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.romanliterals</span><span class="w"> </span><span class="kn">import</span> <span class="n">int2roman</span>
 <span class="c1"># from pyjams.str2tex import str2tex</span>
 <span class="c1"># from pyjams.romanliterals import int2roman</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
 <span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 
@@ -470,7 +469,7 @@ document.write(`
 
 <div class="viewcode-block" id="text2plot">
 <a class="viewcode-back" href="../../text2plot.html#pyjams.text2plot.text2plot">[docs]</a>
-<span class="k">def</span> <span class="nf">text2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">itext</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">text2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">itext</span><span class="p">,</span>
               <span class="n">small</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">medium</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">large</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
               <span class="n">xsmall</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xxsmall</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xlarge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xxlarge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
               <span class="n">bold</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -534,7 +533,7 @@ document.write(`
 <span class="sd">                 usetex=usetex, mathrm=False)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
     <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The plotting functions of pyjams were transferred to a&#39;</span>
          <span class="s1">&#39; standalone repository &quot;mcplot&quot;. text2plot is hence deprecated&#39;</span>
          <span class="s1">&#39; in pyjams.&#39;</span><span class="p">,</span>
@@ -610,7 +609,7 @@ document.write(`
 
 <div class="viewcode-block" id="abc2plot">
 <a class="viewcode-back" href="../../text2plot.html#pyjams.text2plot.abc2plot">[docs]</a>
-<span class="k">def</span> <span class="nf">abc2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">iplot</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">abc2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">iplot</span><span class="p">,</span>
              <span class="n">integer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">roman</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">parentheses</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">brackets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">braces</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">bold</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -698,7 +697,7 @@ document.write(`
 <span class="sd">                usetex=usetex, mathrm=False)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
     <span class="c1"># Check input</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="p">(</span><span class="n">roman</span> <span class="ow">and</span> <span class="n">integer</span><span class="p">),</span> <span class="p">(</span>
@@ -809,7 +808,7 @@ document.write(`
 
 <div class="viewcode-block" id="signature2plot">
 <a class="viewcode-back" href="../../text2plot.html#pyjams.text2plot.signature2plot">[docs]</a>
-<span class="k">def</span> <span class="nf">signature2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">itext</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">signature2plot</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">itext</span><span class="p">,</span>
                    <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Write a copyright notice on a plot</span>
@@ -861,7 +860,7 @@ document.write(`
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">doctest</span>
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
 
     <span class="c1"># outtype = &#39;&#39;</span>
@@ -1025,7 +1024,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

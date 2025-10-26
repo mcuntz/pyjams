@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'date2date';</script>
@@ -192,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -230,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -508,7 +507,7 @@ l’Environnement (INRAE), Nancy, France.</p>
 </dd>
 </dl>
 <p>The following functions are provided</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.date2date.date2date" title="pyjams.date2date.date2date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date2date</span></code></a>(edate[, fr, format, timesep, full])</p></td>
 <td><p>Convert date representations between different regional variants</p></td>
@@ -599,18 +598,18 @@ One can also give any format string understood by
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>edate</strong> (<em>array_like</em>) – Date strings in any of three formats standard, English, or
 American/French.</p></li>
-<li><p><strong>fr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Input dates with ‘/’ separators are interpreted as American format
+<li><p><strong>fr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Input dates with ‘/’ separators are interpreted as American format
 <em>MM/DD/YYYY hh:mm:ss</em> if False (default). Input dates with ‘/’
 separators are interpreted as French format <em>DD/MM/YYYY hh:mm:ss</em> if
 True.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Output format. Can be any of ‘’ (default), ‘en’, ‘us’, and ‘fr’ for
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Output format. Can be any of ‘’ (default), ‘en’, ‘us’, and ‘fr’ for
 standard <em>DD.MM.YYYY hh:mm:ss</em>, English <em>YYYY-MM-DD hh:mm:ss</em>, American
 <em>MM/DD/YYYY hh:mm:ss</em>, and French <em>DD/MM/YYYY hh:mm:ss</em> format.
 <em>format</em> can also be any format string understood by
 <code class="xref py py-func docutils literal notranslate"><span class="pre">datetime.strftime()</span></code>.</p></li>
-<li><p><strong>timesep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Separator string between date and time if <em>format</em> is ‘’, ‘en’, ‘us’,
+<li><p><strong>timesep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Separator string between date and time if <em>format</em> is ‘’, ‘en’, ‘us’,
 or ‘fr’. Default is space ‘ ‘, but ISO 8601 uses ‘T’, for example.</p></li>
-<li><p><strong>full</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Output dates are as long as input dates if False (default), e.g.
+<li><p><strong>full</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Output dates are as long as input dates if False (default), e.g.
 <em>[YYYY-MM-DD, YYYY-MM-DD hh:mm]</em>. Output dates are all in full format
 <em>DD.MM.YYYY hh:mm:ss</em> if True; missing time info on input is 00 on
 output.</p></li>
@@ -633,9 +632,9 @@ then every year that is above the current year of the century will be taken
 as being in 1900, i.e. 90 will be taken as 1990, while all other years are
 taken in the 21st century, i.e. 20 will be 2020. 3-digit years will throw
 a ValueError.</p>
-<p>Negative years are not supported. The function uses <a class="reference external" href="https://docs.python.org/3/library/datetime.html#module-datetime" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code></a> if a
+<p>Negative years are not supported. The function uses <a class="reference external" href="https://docs.python.org/3/library/datetime.html#module-datetime" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code></a> if a
 format string for <code class="xref py py-func docutils literal notranslate"><span class="pre">datetime.strftime()</span></code> is given. This limits the
-minimum year to the limit of <a class="reference external" href="https://docs.python.org/3/library/datetime.html#module-datetime" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code></a> in this case, which is year
+minimum year to the limit of <a class="reference external" href="https://docs.python.org/3/library/datetime.html#module-datetime" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code></a> in this case, which is year
 ‘0001’.</p>
 </div>
 <p class="rubric">Examples</p>
@@ -1073,7 +1072,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

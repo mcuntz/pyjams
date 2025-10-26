@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -229,13 +230,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -1089,6 +1088,8 @@ document.write(`
       </ul></li>
       <li><a href="const.const.html#pyjams.const.const.latentheat_vaporization">latentheat_vaporization (in module pyjams.const.const)</a>
 </li>
+      <li><a href="lhs.html#pyjams.lhs.lhs">lhs() (in module pyjams.lhs)</a>
+</li>
       <li><a href="functions.html#pyjams.functions.line">line() (in module pyjams.functions)</a>
 
       <ul>
@@ -1268,6 +1269,8 @@ document.write(`
         <li><a href="jams.html#module-pyjams.jams">pyjams.jams</a>
 </li>
         <li><a href="kernel_regression.html#module-pyjams.kernel_regression">pyjams.kernel_regression</a>
+</li>
+        <li><a href="lhs.html#module-pyjams.lhs">pyjams.lhs</a>
 </li>
         <li><a href="mad.html#module-pyjams.mad">pyjams.mad</a>
 </li>
@@ -1548,8 +1551,6 @@ document.write(`
         <li><a href="color.ufz_palettes.html#module-pyjams.color.ufz_palettes">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pyjams.const
 
@@ -1557,6 +1558,8 @@ document.write(`
         <li><a href="const.html#module-pyjams.const">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pyjams.const.const
 
@@ -1653,6 +1656,13 @@ document.write(`
 
       <ul>
         <li><a href="kernel_regression.html#module-pyjams.kernel_regression">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyjams.lhs
+
+      <ul>
+        <li><a href="lhs.html#module-pyjams.lhs">module</a>
 </li>
       </ul></li>
       <li>
@@ -2017,7 +2027,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

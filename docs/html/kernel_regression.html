@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'kernel_regression';</script>
@@ -192,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -230,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -493,7 +492,7 @@ l’Environnement (INRAE), Nancy, France.</p>
 </dd>
 </dl>
 <p>The following functions are provided</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.kernel_regression.kernel_regression_h" title="pyjams.kernel_regression.kernel_regression_h"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kernel_regression_h</span></code></a>(x, y[, silverman])</p></td>
 <td><p>Optimal bandwidth for multi-dimensional non-parametric kernel regression</p></td>
@@ -533,10 +532,10 @@ or by using Silverman’s rule-of-thumb.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>array_like</em><em> (</em><em>n</em><em>, </em><em>k</em><em>)</em>) – Independent values</p></li>
 <li><p><strong>y</strong> (<em>array_like</em><em> (</em><em>n</em><em>)</em>) – Dependent values</p></li>
-<li><p><strong>h</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em> or </em><em>array_like</em><em>(</em><em>k</em><em>)</em><em>, </em><em>optional</em>) – Use <em>h</em> as bandwidth for calculating regression values if given,
+<li><p><strong>h</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>array_like</em><em>(</em><em>k</em><em>)</em><em>, </em><em>optional</em>) – Use <em>h</em> as bandwidth for calculating regression values if given,
 otherwise determine optimal <em>h</em> using cross-validation or by using
 Silverman’s rule-of-thumb if <em>silverman==True</em>.</p></li>
-<li><p><strong>silverman</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Use Silverman’s rule-of-thumb to calculate bandwidth <em>h</em> if True,
+<li><p><strong>silverman</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Use Silverman’s rule-of-thumb to calculate bandwidth <em>h</em> if True,
 otherwise determine <em>h</em> via cross-validation.
 Only used if <em>h</em> is not given.</p></li>
 <li><p><strong>xout</strong> (<em>ndarray</em><em>(</em><em>n</em><em>, </em><em>k</em><em>)</em><em>, </em><em>optional</em>) – Return fitted values at <em>xout</em> if given,
@@ -616,7 +615,7 @@ Silverman’s rule-of-thumb.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>array_like</em><em> (</em><em>n</em><em>, </em><em>k</em><em>)</em>) – Independent values</p></li>
 <li><p><strong>y</strong> (<em>array_like</em><em> (</em><em>n</em><em>)</em>) – Dependent values</p></li>
-<li><p><strong>silverman</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Use Silverman’s rule-of-thumb to calculate bandwidth <em>h</em> if True,
+<li><p><strong>silverman</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Use Silverman’s rule-of-thumb to calculate bandwidth <em>h</em> if True,
 otherwise determine <em>h</em> via cross-validation</p></li>
 </ul>
 </dd>
@@ -625,7 +624,7 @@ otherwise determine <em>h</em> via cross-validation</p></li>
 1d-array, assuming a diagonal bandwidth matrix.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or array</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or array</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -743,7 +742,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

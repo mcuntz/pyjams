@@ -120,7 +120,7 @@ def saltelli(params, nbase, lhs=False, nskip=1):
     pB   = np.empty((nparams,nbase))
     if lhs:
         import scipy.stats as stats
-        from pyjams.jams.lhs import lhs
+        from pyjams.lhs import lhs
         dist = [stats.uniform     for i in range(nparams)]
         pars = [(zoff[i],zmul[i]) for i in range(nparams)]
         dist = dist + dist # 2*nparams

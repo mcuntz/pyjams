@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=78f1df99"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/fgui';</script>
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../screening.html">screening</a></li>
@@ -229,13 +230,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../ncio.netcdfio.html">netcdfio</a></li>
@@ -402,7 +401,7 @@ document.write(`
   <h1>Source code for pyjams.fgui</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">GUI dialogs to choose files and directories using Tkinter</span>
+<span class="sd">GUI dialogs to choose files and directories using tkinter</span>
 
 <span class="sd">This module was written by Matthias Cuntz while at Department of</span>
 <span class="sd">Computational Hydrosystems, Helmholtz Centre for Environmental</span>
@@ -424,10 +423,11 @@ document.write(`
 <span class="sd">   files_from_gui</span>
 
 <span class="sd">History</span>
-<span class="sd">    * Written Jun 2014 by Matthias Cuntz (mc (at) macu (dot) de)</span>
-<span class="sd">    * Added directories_from_gui, Oct 2015, Matthias Cuntz</span>
-<span class="sd">    * Using numpy docstring format, May 2020, Matthias Cuntz</span>
-<span class="sd">    * Port to pyjams, Jan 2022, Matthias Cuntz</span>
+<span class="sd">   * Written Jun 2014 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">   * Added directories_from_gui, Oct 2015, Matthias Cuntz</span>
+<span class="sd">   * Using numpy docstring format, May 2020, Matthias Cuntz</span>
+<span class="sd">   * Port to pyjams, Jan 2022, Matthias Cuntz</span>
+<span class="sd">   * tkFileDialog -&gt; filedialog, Oct 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -442,7 +442,7 @@ document.write(`
 
 <div class="viewcode-block" id="directory_from_gui">
 <a class="viewcode-back" href="../../fgui.html#pyjams.fgui.directory_from_gui">[docs]</a>
-<span class="k">def</span> <span class="nf">directory_from_gui</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">directory_from_gui</span><span class="p">(</span>
         <span class="n">initialdir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose directory&#39;</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -470,17 +470,17 @@ document.write(`
 <span class="sd">               raise ValueError(&#39;Error: no directory given.&#39;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">Tkinter</span>
-    <span class="kn">import</span> <span class="nn">tkinter.filedialog</span> <span class="k">as</span> <span class="nn">tkFileDialog</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">filedialog</span>
 
-    <span class="n">root</span> <span class="o">=</span> <span class="n">Tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>  <span class="c1"># hide root window, i.e. white square</span>
 
     <span class="c1"># always on top</span>
     <span class="c1"># focus on (hidden) window so that child is on top</span>
     <span class="n">root</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;wm&#39;</span><span class="p">,</span> <span class="s1">&#39;attributes&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;-topmost&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">direcs</span> <span class="o">=</span> <span class="n">tkFileDialog</span><span class="o">.</span><span class="n">askdirectory</span><span class="p">(</span>
+    <span class="n">direcs</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askdirectory</span><span class="p">(</span>
         <span class="n">parent</span><span class="o">=</span><span class="n">root</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">initialdir</span><span class="o">=</span><span class="n">initialdir</span><span class="p">)</span>
 
     <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
@@ -495,7 +495,7 @@ document.write(`
 
 <div class="viewcode-block" id="directories_from_gui">
 <a class="viewcode-back" href="../../fgui.html#pyjams.fgui.directories_from_gui">[docs]</a>
-<span class="k">def</span> <span class="nf">directories_from_gui</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">directories_from_gui</span><span class="p">(</span>
         <span class="n">initialdir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose one or several directories&#39;</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -523,10 +523,10 @@ document.write(`
 <span class="sd">               raise ValueError(&#39;Error: no directories given.&#39;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">Tkinter</span>
-    <span class="kn">import</span> <span class="nn">tkinter.filedialog</span> <span class="k">as</span> <span class="nn">tkFileDialog</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">filedialog</span>
 
-    <span class="n">root</span> <span class="o">=</span> <span class="n">Tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>  <span class="c1"># hide root window, i.e. white square</span>
 
     <span class="c1"># always on top</span>
@@ -536,7 +536,7 @@ document.write(`
     <span class="n">idir</span> <span class="o">=</span> <span class="n">initialdir</span>
     <span class="n">alldirecs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">direcs</span> <span class="o">=</span> <span class="n">tkFileDialog</span><span class="o">.</span><span class="n">askdirectory</span><span class="p">(</span>
+        <span class="n">direcs</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askdirectory</span><span class="p">(</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">root</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">initialdir</span><span class="o">=</span><span class="n">idir</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">direcs</span><span class="p">:</span>
             <span class="k">break</span>
@@ -555,7 +555,7 @@ document.write(`
 
 <div class="viewcode-block" id="file_from_gui">
 <a class="viewcode-back" href="../../fgui.html#pyjams.fgui.file_from_gui">[docs]</a>
-<span class="k">def</span> <span class="nf">file_from_gui</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose file&#39;</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">file_from_gui</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose file&#39;</span><span class="p">,</span>
                   <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for :func:`files_from_gui` with multiple=False, i.e.</span>
@@ -583,7 +583,7 @@ document.write(`
 
 <div class="viewcode-block" id="files_from_gui">
 <a class="viewcode-back" href="../../fgui.html#pyjams.fgui.files_from_gui">[docs]</a>
-<span class="k">def</span> <span class="nf">files_from_gui</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose file(s)&#39;</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">files_from_gui</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose file(s)&#39;</span><span class="p">,</span>
                    <span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open dialog to select one or several files</span>
@@ -617,16 +617,17 @@ document.write(`
 <span class="sd">               raise ValueError(&#39;Error: no input file(s) given.&#39;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">Tkinter</span>
-    <span class="kn">import</span> <span class="nn">tkinter.filedialog</span> <span class="k">as</span> <span class="nn">tkFileDialog</span>
-    <span class="n">root</span> <span class="o">=</span> <span class="n">Tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">filedialog</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>  <span class="c1"># hide root window, i.e. white square</span>
 
     <span class="c1"># always on top</span>
     <span class="c1"># focus on (hidden) window so that child is on top</span>
     <span class="n">root</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;wm&#39;</span><span class="p">,</span> <span class="s1">&#39;attributes&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;-topmost&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">files</span> <span class="o">=</span> <span class="n">tkFileDialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span>
         <span class="n">parent</span><span class="o">=</span><span class="n">root</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">,</span> <span class="n">initialdir</span><span class="o">=</span><span class="n">initialdir</span><span class="p">)</span>
     <span class="n">files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">splitlist</span><span class="p">(</span><span class="n">files</span><span class="p">))</span>
 
@@ -637,7 +638,7 @@ document.write(`
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">doctest</span>
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
 </pre></div>
 
@@ -677,7 +678,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

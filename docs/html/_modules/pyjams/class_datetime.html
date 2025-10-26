@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=78f1df99"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/class_datetime';</script>
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../screening.html">screening</a></li>
@@ -229,13 +230,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../ncio.netcdfio.html">netcdfio</a></li>
@@ -493,15 +492,15 @@ document.write(`
 <span class="sd">    * strptime</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">datetime_python</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">ptime</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">cftime</span> <span class="k">as</span> <span class="nn">cf</span>
-<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">input2array</span><span class="p">,</span> <span class="n">array2input</span>
-<span class="kn">from</span> <span class="nn">.date2date</span> <span class="kn">import</span> <span class="n">date2date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">datetime_python</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ptime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cftime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.helper</span><span class="w"> </span><span class="kn">import</span> <span class="n">input2array</span><span class="p">,</span> <span class="n">array2input</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.date2date</span><span class="w"> </span><span class="kn">import</span> <span class="n">date2date</span>
 <span class="c1"># from pyjams.helper import input2array, array2input</span>
 <span class="c1"># from pyjams.date2date import date2date</span>
 
@@ -539,7 +538,7 @@ document.write(`
 <span class="n">_illegal_s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;((^|[^%])(</span><span class="si">%%</span><span class="s2">)*</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_findall</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">substr</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_findall</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">substr</span><span class="p">):</span>
     <span class="c1"># Also finds overlaps</span>
     <span class="n">sites</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
@@ -552,7 +551,7 @@ document.write(`
     <span class="k">return</span> <span class="n">sites</span>
 
 
-<span class="k">def</span> <span class="nf">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Turn a datetime instance into a tuple of integers. Elements go</span>
 <span class="sd">    in the order of decreasing significance, making it easy to compare</span>
@@ -566,7 +565,7 @@ document.write(`
 
 <span class="c1"># factory function without optional kwargs that can be used in</span>
 <span class="c1"># datetime.__reduce_</span>
-<span class="k">def</span> <span class="nf">_create_datetime</span><span class="p">(</span><span class="n">date_type</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_create_datetime</span><span class="p">(</span><span class="n">date_type</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">date_type</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
@@ -579,7 +578,7 @@ document.write(`
 <span class="c1"># calendar. ;-)</span>
 <span class="c1"># Make also 4-digit negative years</span>
 <span class="c1"># Allow .%f for microseconds</span>
-<span class="k">def</span> <span class="nf">_strftime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_strftime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">_illegal_s</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">fmt</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;This strftime implementation does not handle </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">fmt</span><span class="p">:</span>
@@ -632,7 +631,7 @@ document.write(`
     <span class="k">return</span> <span class="n">s</span>
 
 
-<span class="k">def</span> <span class="nf">_datesplit</span><span class="p">(</span><span class="n">timestr</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_datesplit</span><span class="p">(</span><span class="n">timestr</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split a unit string for time into its three components:</span>
 <span class="sd">    unit, string &#39;since&#39; or &#39;as&#39;, and the remainder</span>
@@ -651,7 +650,7 @@ document.write(`
     <span class="k">return</span> <span class="n">units</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">sincestring</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">remainder</span>
 
 
-<span class="k">def</span> <span class="nf">_year_zero_defaults</span><span class="p">(</span><span class="n">calendar</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_year_zero_defaults</span><span class="p">(</span><span class="n">calendar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set calendar specific defaults for having year 0 or not</span>
 
@@ -700,7 +699,7 @@ document.write(`
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown calendar: </span><span class="si">{</span><span class="n">calendar</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_is_leap</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_leap</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Determines if a specific year in a given calendar is a leap year</span>
 
@@ -781,7 +780,7 @@ document.write(`
     <span class="k">return</span> <span class="n">oleap</span>
 
 
-<span class="k">def</span> <span class="nf">_month_lengths</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_month_lengths</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Number of days of the 12 months in specific year for a given calendar</span>
 
@@ -819,7 +818,7 @@ document.write(`
             <span class="k">return</span> <span class="n">_dayspermonth</span>
 
 
-<span class="k">def</span> <span class="nf">_int_julian_day_from_date</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_int_julian_day_from_date</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span>
                               <span class="n">skip_transition</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute integer Julian Day from year, month, day, and calendar</span>
@@ -931,7 +930,7 @@ document.write(`
 <span class="c1"># Add a datetime.timedelta to a pyjams.datetime instance. Uses</span>
 <span class="c1"># integer arithmetic to avoid rounding errors and preserve</span>
 <span class="c1"># microsecond accuracy.</span>
-<span class="k">def</span> <span class="nf">_add_timedelta</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_add_timedelta</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
     <span class="c1"># extract these inputs here to avoid type conversion in the code below</span>
     <span class="n">delta_microseconds</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">microseconds</span>
     <span class="n">delta_seconds</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">seconds</span>
@@ -1011,7 +1010,7 @@ document.write(`
 <span class="c1"># New routines</span>
 <span class="c1">#</span>
 
-<span class="k">def</span> <span class="nf">_units_defaults</span><span class="p">(</span><span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_units_defaults</span><span class="p">(</span><span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set calendar specific default units as &#39;days since reference_date&#39;</span>
 
@@ -1079,7 +1078,7 @@ document.write(`
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown calendar: </span><span class="si">{</span><span class="n">calendar</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_date2decimal</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">calendar</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_date2decimal</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">calendar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Decimal date from datetime object</span>
 
@@ -1140,7 +1139,7 @@ document.write(`
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span> <span class="nf">_dates2decimal</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">calendar</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_dates2decimal</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">calendar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Decimal dates from datetime objects</span>
 
@@ -1174,7 +1173,7 @@ document.write(`
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span> <span class="nf">_date2absolute</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_date2absolute</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Absolute date from datetime object</span>
 
@@ -1237,7 +1236,7 @@ document.write(`
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span> <span class="nf">_dates2absolute</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_dates2absolute</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Absolute dates from datetime object</span>
 
@@ -1270,7 +1269,7 @@ document.write(`
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span> <span class="nf">_decimal2date</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">calendar</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_decimal2date</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">calendar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split decimal dates into year, month, day, hour, minute, second,</span>
 <span class="sd">    microsecond</span>
@@ -1369,7 +1368,7 @@ document.write(`
     <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">msecond</span>
 
 
-<span class="k">def</span> <span class="nf">_absolute2date</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_absolute2date</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split date(s) in absolute date format into</span>
 <span class="sd">    year, month, day, hour, minute, second, microsecond</span>
@@ -1503,10 +1502,11 @@ document.write(`
 
 <div class="viewcode-block" id="date2num">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.date2num">[docs]</a>
-<span class="k">def</span> <span class="nf">date2num</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">date2num</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">timesep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">fr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_arrays</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
              <span class="n">ensure_seconds</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return numeric time values given datetime objects or strings</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return numeric time values given datetime objects or strings</span>
 
 <span class="sd">    The units of the numeric time values are described by the</span>
 <span class="sd">    *units* and *calendar* keywords for CF-conform calendars, i.e.</span>
@@ -1597,7 +1597,7 @@ document.write(`
 <span class="sd">        to get microseconds accuracy. The datatype is, however, not available</span>
 <span class="sd">        on all platforms. The algorithm has the tendency to give</span>
 <span class="sd">        1-3 microseconds less at back-conversion in this case, which gives</span>
-<span class="sd">        times such as &quot;11:59:59&quot; instead of &quot;12:00:00&quot;. `ensure_seconds`</span>
+<span class="sd">        times such as &#39;11:59:59&#39; instead of &#39;12:00:00&#39;. `ensure_seconds`</span>
 <span class="sd">        toggles back-conversion above the next second to ensure that the</span>
 <span class="sd">        seconds are correct.</span>
 
@@ -1753,9 +1753,10 @@ document.write(`
 
 <div class="viewcode-block" id="date2dec">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.date2dec">[docs]</a>
-<span class="k">def</span> <span class="nf">date2dec</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">date2dec</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for :func:`date2num`</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">date2num</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -1763,7 +1764,7 @@ document.write(`
 
 <div class="viewcode-block" id="num2date">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.num2date">[docs]</a>
-<span class="k">def</span> <span class="nf">num2date</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">num2date</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span>
              <span class="n">only_use_pyjams_datetimes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">only_use_cftime_datetimes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
              <span class="n">only_use_python_datetimes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -2083,9 +2084,10 @@ document.write(`
 
 <div class="viewcode-block" id="dec2date">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.dec2date">[docs]</a>
-<span class="k">def</span> <span class="nf">dec2date</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dec2date</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for :func:`num2date`</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">num2date</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -2095,7 +2097,7 @@ document.write(`
 <span class="c1"># so had to re-code all methods, even identical ones</span>
 <div class="viewcode-block" id="datetime">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime">[docs]</a>
-<span class="k">class</span> <span class="nc">datetime</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">datetime</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class mimics cftime.datetime but for non-CF-conform calendars</span>
 
@@ -2110,7 +2112,7 @@ document.write(`
 <span class="sd">    calendars are supposedly Julian calendars with other reference dates.</span>
 <span class="sd">    Day 0 of *excel*/*excel1900* starts at 1899-12-31 00:00:00 and day 0</span>
 <span class="sd">    of *excel1904* (old Lotus date) starts at 1903-12-31 00:00:00.</span>
-<span class="sd">    Decimal calendars have the form &quot;%Y.%f&quot;, where the fractional year</span>
+<span class="sd">    Decimal calendars have the form &#39;%Y.%f&#39;, where the fractional year</span>
 <span class="sd">    assumes leap years as the proleptic Gregorian calendar, or fixed 360,</span>
 <span class="sd">    365, or 366 days per year.</span>
 
@@ -2130,7 +2132,7 @@ document.write(`
     <span class="c1"># calendar. This boolean is used to decide whether a</span>
     <span class="c1"># cftime.datetime instance can be converted to</span>
     <span class="c1"># datetime.datetime.</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span>
                  <span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                  <span class="n">dayofwk</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dayofyr</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -2185,7 +2187,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.assert_valid_date">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.assert_valid_date">[docs]</a>
-    <span class="k">def</span> <span class="nf">assert_valid_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">assert_valid_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check that datetime is a valid date for given calendar</span>
 
@@ -2193,7 +2195,7 @@ document.write(`
         <span class="c1"># year</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid year provided in </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid year provided in </span><span class="si">{0!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
         <span class="c1"># Comment next block to allow negative days with Excel calendars,</span>
         <span class="c1"># which does not exist in Excel</span>
         <span class="c1"># if ( ((self.calendar == &#39;excel&#39;) or (self.calendar == &#39;excel1900&#39;))</span>
@@ -2204,42 +2206,42 @@ document.write(`
 
         <span class="c1"># month</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid month provided in </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid month provided in </span><span class="si">{0!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
         <span class="c1"># day</span>
         <span class="n">month_length</span> <span class="o">=</span> <span class="n">_month_lengths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span><span class="p">,</span>
                                       <span class="bp">self</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">&gt;</span> <span class="n">month_length</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Invalid day number provided in </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+                <span class="s1">&#39;Invalid day number provided in </span><span class="si">{0!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
         <span class="c1"># hour</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">&gt;</span> <span class="mi">23</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid hour provided in </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid hour provided in </span><span class="si">{0!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
         <span class="c1"># minute</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minute</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minute</span> <span class="o">&gt;</span> <span class="mi">59</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid minute provided in </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid minute provided in </span><span class="si">{0!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
         <span class="c1"># second</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">second</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">second</span> <span class="o">&gt;</span> <span class="mi">59</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid second provided in </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid second provided in </span><span class="si">{0!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
         <span class="c1"># microsecond</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">&gt;</span> <span class="mi">999999</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Invalid microsecond provided in </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+                <span class="s1">&#39;Invalid microsecond provided in </span><span class="si">{0!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="datetime.change_calendar">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.change_calendar">[docs]</a>
-    <span class="k">def</span> <span class="nf">change_calendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">change_calendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">NotImplemented</span></div>
 
 
 <div class="viewcode-block" id="datetime.dayofwk">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.dayofwk">[docs]</a>
-    <span class="k">def</span> <span class="nf">dayofwk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dayofwk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Day of the week</span>
 
@@ -2266,7 +2268,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.dayofyr">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.dayofyr">[docs]</a>
-    <span class="k">def</span> <span class="nf">dayofyr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dayofyr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Day of year</span>
 
@@ -2290,7 +2292,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.daysinmonth">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.daysinmonth">[docs]</a>
-    <span class="k">def</span> <span class="nf">daysinmonth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">daysinmonth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Number of days in current month</span>
 
@@ -2308,7 +2310,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.format">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.format">[docs]</a>
-    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Standard date representation</span>
 
@@ -2320,13 +2322,13 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.fromordinal">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.fromordinal">[docs]</a>
-    <span class="k">def</span> <span class="nf">fromordinal</span><span class="p">(</span><span class="n">jday</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fromordinal</span><span class="p">(</span><span class="n">jday</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;decimal&#39;</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">NotImplemented</span></div>
 
 
 <div class="viewcode-block" id="datetime.isoformat">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.isoformat">[docs]</a>
-    <span class="k">def</span> <span class="nf">isoformat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">timespec</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isoformat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">timespec</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ISO date representation</span>
 
@@ -2369,22 +2371,22 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.replace">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.replace">[docs]</a>
-    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return datetime with new specified fields</span>
 
 <span class="sd">        Identical to cftime.datetime</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
-                <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
-                <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
-                <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
-                <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
-                <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
-                <span class="s2">&quot;microsecond&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">,</span>
-                <span class="s2">&quot;has_year_zero&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">,</span>
-                <span class="s2">&quot;calendar&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span><span class="p">}</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+                <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+                <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+                <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+                <span class="s1">&#39;minute&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+                <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
+                <span class="s1">&#39;microsecond&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">,</span>
+                <span class="s1">&#39;has_year_zero&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">,</span>
+                <span class="s1">&#39;calendar&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="s1">&#39;dayofyr&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="s1">&#39;dayofwk&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Replacing the dayofyr or dayofwk of a datetime&#39;</span>
@@ -2408,7 +2410,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.round_microseconds">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.round_microseconds">[docs]</a>
-    <span class="k">def</span> <span class="nf">round_microseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">round_microseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mathematically round microseconds to nearest second.</span>
 
@@ -2425,7 +2427,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.strftime">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.strftime">[docs]</a>
-    <span class="k">def</span> <span class="nf">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a string representing the date, controlled by an explicit format</span>
 <span class="sd">        string</span>
@@ -2443,7 +2445,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.timetuple">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.timetuple">[docs]</a>
-    <span class="k">def</span> <span class="nf">timetuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">timetuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a time.struct_time such as returned by time.localtime()</span>
 
@@ -2462,7 +2464,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.toordinal">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.toordinal">[docs]</a>
-    <span class="k">def</span> <span class="nf">toordinal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fractional</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toordinal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fractional</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Julian day (integer) ordinal</span>
 
@@ -2495,7 +2497,7 @@ document.write(`
 
 <div class="viewcode-block" id="datetime.to_tuple">
 <a class="viewcode-back" href="../../class_datetime.html#pyjams.class_datetime.datetime.to_tuple">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Turn a datetime instance into a tuple of integers. Elements go</span>
 <span class="sd">        in the order of decreasing significance, making it easy to compare</span>
@@ -2512,10 +2514,10 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_add_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_getstate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_getstate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        return args and kwargs needed to create class instance</span>
 
@@ -2533,7 +2535,7 @@ document.write(`
                   <span class="s1">&#39;has_year_zero&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
 
-    <span class="k">def</span> <span class="nf">_to_real_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_to_real_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extended Python datetime class</span>
 
@@ -2546,7 +2548,7 @@ document.write(`
                                 <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add timedelta to datetime</span>
 
@@ -2569,7 +2571,7 @@ document.write(`
         <span class="c1"># delta = other</span>
         <span class="k">if</span> <span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal360&#39;</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
                 <span class="n">cfdt</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">calendar</span><span class="o">=</span><span class="s1">&#39;360_day&#39;</span><span class="p">,</span>
                                    <span class="n">has_year_zero</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">)</span>
             <span class="n">cfdt</span> <span class="o">=</span> <span class="n">cfdt</span> <span class="o">+</span> <span class="n">delta</span>
@@ -2583,7 +2585,7 @@ document.write(`
                         <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span><span class="p">,</span>
                         <span class="n">calendar</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">calendar</span><span class="p">,</span> <span class="n">has_year_zero</span><span class="o">=</span><span class="n">dt</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compare two datetime instances</span>
 
@@ -2607,7 +2609,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
 
-    <span class="k">def</span> <span class="fm">__format__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__format__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a string representing the date, controlled by an explicit format</span>
 <span class="sd">        string</span>
@@ -2618,14 +2620,14 @@ document.write(`
 <span class="sd">        Identical to cftime.datetime</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># the string format &quot;{t_obj}&quot;.format(t_obj=t_obj)</span>
+        <span class="c1"># the string format &#39;{t_obj}&#39;.format(t_obj=t_obj)</span>
         <span class="c1"># without an explicit format gives an empty string (format=&#39;&#39;)</span>
         <span class="c1"># so set this to None to get the default strftime behaviour</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">format</span><span class="p">:</span>
             <span class="nb">format</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Identical to cftime.datetime</span>
 
@@ -2636,7 +2638,7 @@ document.write(`
             <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timetuple</span><span class="p">())</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Special method that allows instance to be pickled</span>
 
@@ -2647,20 +2649,20 @@ document.write(`
         <span class="n">date_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">_create_datetime</span><span class="p">,</span> <span class="p">(</span><span class="n">date_type</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        String representation</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">.</span><span class="si">{1}</span><span class="s2">(</span><span class="si">{2}</span><span class="s2">, </span><span class="si">{3}</span><span class="s2">, </span><span class="si">{4}</span><span class="s2">, </span><span class="si">{5}</span><span class="s2">, </span><span class="si">{6}</span><span class="s2">, </span><span class="si">{7}</span><span class="s2">, </span><span class="si">{8}</span><span class="s2">,&quot;</span>
-                <span class="s2">&quot; calendar=</span><span class="si">{9}</span><span class="s2">, has_year_zero=</span><span class="si">{10}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">.</span><span class="si">{1}</span><span class="s1">(</span><span class="si">{2}</span><span class="s1">, </span><span class="si">{3}</span><span class="s1">, </span><span class="si">{4}</span><span class="s1">, </span><span class="si">{5}</span><span class="s1">, </span><span class="si">{6}</span><span class="s1">, </span><span class="si">{7}</span><span class="s1">, </span><span class="si">{8}</span><span class="s1">,&#39;</span>
+                <span class="s1">&#39; calendar=</span><span class="si">{9}</span><span class="s1">, has_year_zero=</span><span class="si">{10}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="s1">&#39;pyjams&#39;</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ISO date representation</span>
 
@@ -2669,7 +2671,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Substract timedelta or datetime from the datetime instance</span>
 
@@ -2679,16 +2681,16 @@ document.write(`
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
                 <span class="c1"># datetime - datetime</span>
                 <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">calendar</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">calendar</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot compute the time difference&quot;</span>
-                                    <span class="s2">&quot; between dates with different calendars&quot;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot compute the time difference&quot;</span>
-                                    <span class="s2">&quot; between dates that are not&quot;</span>
-                                    <span class="s2">&quot; calendar-aware&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Cannot compute the time difference&#39;</span>
+                                    <span class="s1">&#39; between dates with different calendars&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Cannot compute the time difference&#39;</span>
+                                    <span class="s1">&#39; between dates that are not&#39;</span>
+                                    <span class="s1">&#39; calendar-aware&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">has_year_zero</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">has_year_zero</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot compute the time difference&quot;</span>
-                                    <span class="s2">&quot; between dates with different year zero&quot;</span>
-                                    <span class="s2">&quot; conventions&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Cannot compute the time difference&#39;</span>
+                                    <span class="s1">&#39; between dates with different year zero&#39;</span>
+                                    <span class="s1">&#39; conventions&#39;</span><span class="p">)</span>
                 <span class="n">ord1</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calendar</span> <span class="o">==</span> <span class="s1">&#39;decimal&#39;</span><span class="p">:</span>
                     <span class="n">ord1</span> <span class="o">=</span> <span class="mi">1721425</span>
@@ -2790,7 +2792,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

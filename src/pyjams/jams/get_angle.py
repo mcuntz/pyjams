@@ -33,7 +33,7 @@ def get_angle(xy1, xy2):
         No support for 1D arrays.
 
 
-        Example
+        Examples
         --------
         >>> ang = np.rad2deg(get_angle(np.array([[0.,0.]]), np.array([[0.,1.]])))
         >>> print(np.ma.round(ang).astype(int))

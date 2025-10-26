@@ -44,7 +44,7 @@ def in_poly(P, coord_x, coord_y):
         vertex/edge points.
 
 
-        Example
+        Examples
         --------
         >>> coord_x = np.array([2.,2.,5.,7.,5.])
         >>> coord_y = np.array([1.,4.,6.,3.,1.])

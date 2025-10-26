@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'screening';</script>
@@ -192,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">screening</a></li>
@@ -230,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -491,7 +490,7 @@ France.</p>
 </dd>
 </dl>
 <p>The following functions are provided</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.screening.ee" title="pyjams.screening.ee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ee</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Wrapper function for <a class="reference internal" href="#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a>.</p></td>
@@ -552,15 +551,15 @@ distributions is infinite at 0.</p></li>
 or upper fraction of percent point function ppf if distribution given.
 Be aware that the percent point function <em>ppf</em> of most continuous
 distributions is infinite at 1.</p></li>
-<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Number of trajectories used for screening.</p></li>
+<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of trajectories used for screening.</p></li>
 <li><p><strong>x0</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Parameter values used with <cite>mask==0</cite>.</p></li>
 <li><p><strong>mask</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Include (1,True) or exclude (0,False) parameters in screening (default:
 include all parameters).</p></li>
-<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of steps along one trajectory (default: 6)</p></li>
-<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories to select the nt most different
+<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of steps along one trajectory (default: 6)</p></li>
+<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories to select the nt most different
 trajectories.
 If None: <cite>max(nt**2,10*nt)</cite> (default: None)</p></li>
-<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
+<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
 the method ppf, Percent Point Function (Inverse of CDF) (default: None).
 If None, the uniform distribution will be sampled from lower bound <cite>lb</cite>
 to upper bound <cite>ub</cite>.
@@ -571,7 +570,7 @@ interval is then given by the parameters <cite>loc=lower</cite> and
 <cite>dist=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite>
 corresponds to
 <cite>lb=0</cite>, <cite>ub=1</cite>, <cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a,b-a]</cite></p></li>
-<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
+<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
 (0, 1)).
 All distributions of scipy.stats have location and scale parameters, at
 least. <cite>loc</cite> and <cite>scale</cite> are implemented as keyword arguments in
@@ -581,8 +580,8 @@ the gamma distribution.
 <cite>distparam</cite> is ignored if <cite>dist</cite> is None.
 The percent point function <em>ppf</em> is called like this:
 <cite>dist(*distparam).ppf(x)</cite></p></li>
-<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>array_like</em>) – Seed for numpy’s random number generator (default: None).</p></li>
-<li><p><strong>processes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The number of processes to use to evaluate objective function and
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>array_like</em>) – Seed for numpy’s random number generator (default: None).</p></li>
+<li><p><strong>processes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of processes to use to evaluate objective function and
 constraints (default: 1).</p></li>
 <li><p><strong>pool</strong> (<cite>schwimmbad</cite> pool object, optional) – <p>Generic map function used from module <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/">schwimmbad</a>, which provides,
 serial, multiprocessor, and MPI mapping functions (default: None).
@@ -596,7 +595,7 @@ screening several times in one program, then you have to choose the
 pool, pass it to screening, and later close the pool in the calling
 program.</p>
 </p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Print progress report during execution if <cite>verbose&gt;0</cite> (default: 0).</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Print progress report during execution if <cite>verbose&gt;0</cite> (default: 0).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -617,10 +616,10 @@ nt trajectories (<cite>sigma</cite>) or zero if <cite>nt==1</cite></p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">function_wrapper</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyjams.functions</span> <span class="kn">import</span> <span class="n">fmorris</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">partialwrap</span><span class="w"> </span><span class="kn">import</span> <span class="n">function_wrapper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyjams.functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">fmorris</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1023</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">npars</span> <span class="o">=</span> <span class="mi">20</span>
@@ -724,7 +723,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

@@ -99,7 +99,7 @@ def sobol_index(s=None, ns=None, ya=None, yb=None, yc=None,
 
         >>> import numpy as np
         >>> import scipy.stats as stats
-        >>> from lhs import lhs
+        >>> from pyjams.lhs import lhs
         >>> from autostring import astr
 
         >>> # ------------------------------------------------------------------------
@@ -588,7 +588,7 @@ if __name__ == '__main__':
 
     # import numpy as np
     # import scipy.stats as stats
-    # from lhs import lhs
+    # from pyjams.lhs import lhs
     # from autostring import astr
 
     # # ------------------------------------------------------------------------

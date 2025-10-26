@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=78f1df99"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/functions/logistic_function';</script>
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../screening.html">screening</a></li>
@@ -229,13 +230,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../ncio.netcdfio.html">netcdfio</a></li>
@@ -481,8 +480,8 @@ document.write(`
 <span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.special</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span> <span class="s1">&#39;logistic_p&#39;</span><span class="p">,</span>
@@ -500,7 +499,7 @@ document.write(`
 <span class="c1"># a/(1+exp(-b(x-c))) - logistic function</span>
 <div class="viewcode-block" id="logistic">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.logistic">[docs]</a>
-<span class="k">def</span> <span class="nf">logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Logistic function</span>
 
@@ -531,7 +530,7 @@ document.write(`
 
 <div class="viewcode-block" id="logistic_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.logistic_p">[docs]</a>
-<span class="k">def</span> <span class="nf">logistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for :func:`logistic`: `logistic(x, *p)`</span>
 
@@ -544,7 +543,7 @@ document.write(`
 <span class="c1"># 1st derivative of logistic functions</span>
 <div class="viewcode-block" id="dlogistic">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.dlogistic">[docs]</a>
-<span class="k">def</span> <span class="nf">dlogistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dlogistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    First derivative of :func:`logistic` function</span>
 
@@ -580,7 +579,7 @@ document.write(`
 
 <div class="viewcode-block" id="dlogistic_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.dlogistic_p">[docs]</a>
-<span class="k">def</span> <span class="nf">dlogistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dlogistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for :func:`dlogistic`: `dlogistic(x, *p)`</span>
 
@@ -593,7 +592,7 @@ document.write(`
 <span class="c1"># 2nd derivative of logistic functions</span>
 <div class="viewcode-block" id="d2logistic">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.d2logistic">[docs]</a>
-<span class="k">def</span> <span class="nf">d2logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">d2logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Second derivative of :func:`logistic` function</span>
 
@@ -630,7 +629,7 @@ document.write(`
 
 <div class="viewcode-block" id="d2logistic_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.d2logistic_p">[docs]</a>
-<span class="k">def</span> <span class="nf">d2logistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">d2logistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for :func:`d2logistic`: `d2logistic(x, *p)`</span>
 
@@ -643,7 +642,7 @@ document.write(`
 <span class="c1"># L/(1+exp(-k(x-x0))) + a - logistic function with offset</span>
 <div class="viewcode-block" id="logistic_offset">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.logistic_offset">[docs]</a>
-<span class="k">def</span> <span class="nf">logistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Logistic function with offset</span>
 
@@ -676,7 +675,7 @@ document.write(`
 
 <div class="viewcode-block" id="logistic_offset_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.logistic_offset_p">[docs]</a>
-<span class="k">def</span> <span class="nf">logistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for :func:`logistic_offset`: `logistic_offset(x, *p)`</span>
 
@@ -689,7 +688,7 @@ document.write(`
 <span class="c1"># 1st derivative of logistic functions with offset</span>
 <div class="viewcode-block" id="dlogistic_offset">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.dlogistic_offset">[docs]</a>
-<span class="k">def</span> <span class="nf">dlogistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dlogistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    First derivative of :func:`logistic_offset` function</span>
 
@@ -727,7 +726,7 @@ document.write(`
 
 <div class="viewcode-block" id="dlogistic_offset_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.dlogistic_offset_p">[docs]</a>
-<span class="k">def</span> <span class="nf">dlogistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dlogistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for :func:`dlogistic_offset`: `dlogistic_offset(x, *p)`</span>
 
@@ -740,7 +739,7 @@ document.write(`
 <span class="c1"># 2nd derivative of logistic functions with offset</span>
 <div class="viewcode-block" id="d2logistic_offset">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.d2logistic_offset">[docs]</a>
-<span class="k">def</span> <span class="nf">d2logistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">d2logistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Second derivative of :func:`logistic_offset` function</span>
 
@@ -779,7 +778,7 @@ document.write(`
 
 <div class="viewcode-block" id="d2logistic_offset_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.d2logistic_offset_p">[docs]</a>
-<span class="k">def</span> <span class="nf">d2logistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">d2logistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for :func:`d2logistic_offset`: `d2logistic_offset(x, *p)`</span>
 
@@ -792,7 +791,7 @@ document.write(`
 <span class="c1"># L/(1+exp(-k(x-x0))) + a - logistic function with offset</span>
 <div class="viewcode-block" id="logistic2_offset">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.logistic2_offset">[docs]</a>
-<span class="k">def</span> <span class="nf">logistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Double logistic function with offset</span>
 
@@ -830,7 +829,7 @@ document.write(`
 
 <div class="viewcode-block" id="logistic2_offset_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.logistic2_offset_p">[docs]</a>
-<span class="k">def</span> <span class="nf">logistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for :func:`logistic2_offset`: `logistic2_offset(x, *p)`</span>
 
@@ -843,7 +842,7 @@ document.write(`
 <span class="c1"># 1st derivative of logistic functions with offset</span>
 <div class="viewcode-block" id="dlogistic2_offset">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.dlogistic2_offset">[docs]</a>
-<span class="k">def</span> <span class="nf">dlogistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dlogistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    First derivative of :func:`logistic2_offset` function</span>
 
@@ -887,7 +886,7 @@ document.write(`
 
 <div class="viewcode-block" id="dlogistic2_offset_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.dlogistic2_offset_p">[docs]</a>
-<span class="k">def</span> <span class="nf">dlogistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dlogistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for :func:`dlogistic2_offset`: `dlogistic2_offset(x, *p)`</span>
 
@@ -900,7 +899,7 @@ document.write(`
 <span class="c1"># 2nd derivative of logistic functions with offset</span>
 <div class="viewcode-block" id="d2logistic2_offset">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.d2logistic2_offset">[docs]</a>
-<span class="k">def</span> <span class="nf">d2logistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">d2logistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Second derivative of :func:`logistic_offset` function</span>
 
@@ -947,7 +946,7 @@ document.write(`
 
 <div class="viewcode-block" id="d2logistic2_offset_p">
 <a class="viewcode-back" href="../../../functions.logistic_function.html#pyjams.functions.d2logistic2_offset_p">[docs]</a>
-<span class="k">def</span> <span class="nf">d2logistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">d2logistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper function for</span>
 <span class="sd">    :func:`d2logistic2_offset`: `d2logistic2_offset(x, *p)`</span>
@@ -960,7 +959,7 @@ document.write(`
 <span class="c1"># -----------------------------------------------------------</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">doctest</span>
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
 
     <span class="c1"># logistic(1., 1., 0., 2.)</span>
@@ -1035,7 +1034,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

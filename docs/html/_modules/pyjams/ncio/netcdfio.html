@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=78f1df99"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/ncio/netcdfio';</script>
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../screening.html">screening</a></li>
@@ -229,13 +230,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../ncio.netcdfio.html">netcdfio</a></li>
@@ -450,9 +449,9 @@ document.write(`
 <span class="sd">    * addglobalatt in copy_file, Dec 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">netCDF4</span> <span class="k">as</span> <span class="nn">nc</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
 <span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 
@@ -462,7 +461,7 @@ document.write(`
            <span class="s1">&#39;set_output_filename&#39;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_tolist</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_tolist</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assure that *arg* is a list, e.g. if string or None are given.</span>
 
@@ -496,7 +495,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_variable_definition">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.get_variable_definition">[docs]</a>
-<span class="k">def</span> <span class="nf">get_variable_definition</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_variable_definition</span><span class="p">(</span><span class="n">ncvar</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Collect information on input variable.</span>
 
@@ -555,7 +554,7 @@ document.write(`
 
 <div class="viewcode-block" id="copy_file">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_file">[docs]</a>
-<span class="k">def</span> <span class="nf">copy_file</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">ofile</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">copy_file</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">ofile</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
               <span class="n">removevar</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamevar</span><span class="o">=</span><span class="p">{},</span> <span class="n">replacevar</span><span class="o">=</span><span class="p">{},</span> <span class="n">replaceatt</span><span class="o">=</span><span class="p">{},</span>
               <span class="n">addglobalatt</span><span class="o">=</span><span class="p">{},</span>
               <span class="n">noclose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -613,7 +612,7 @@ document.write(`
 <span class="sd">                                 {&#39;long_name&#39;: &#39;A range&#39;, &#39;unit&#39;: &#39;-&#39;}})</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">ptime</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ptime</span>
     <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The netcdf functions of pyjams were transferred to a standalone&#39;</span>
          <span class="s1">&#39; repository &quot;ncio&quot;. ncio is hence deprecated in pyjams.&#39;</span><span class="p">,</span>
          <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
@@ -683,7 +682,7 @@ document.write(`
 
 <div class="viewcode-block" id="copy_dimensions">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_dimensions">[docs]</a>
-<span class="k">def</span> <span class="nf">copy_dimensions</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">removedim</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamedim</span><span class="o">=</span><span class="p">{},</span> <span class="n">changedim</span><span class="o">=</span><span class="p">{},</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">copy_dimensions</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">removedim</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamedim</span><span class="o">=</span><span class="p">{},</span> <span class="n">changedim</span><span class="o">=</span><span class="p">{},</span>
                     <span class="n">adddim</span><span class="o">=</span><span class="p">{}):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create dimensions in output file from dimensions in input file.</span>
@@ -757,7 +756,7 @@ document.write(`
 
 <div class="viewcode-block" id="copy_global_attributes">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_global_attributes">[docs]</a>
-<span class="k">def</span> <span class="nf">copy_global_attributes</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="p">{},</span> <span class="n">remove</span><span class="o">=</span><span class="p">[]):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">copy_global_attributes</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="p">{},</span> <span class="n">remove</span><span class="o">=</span><span class="p">[]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create global output file attributes from input global file attributes.</span>
 
@@ -807,7 +806,7 @@ document.write(`
 
 <div class="viewcode-block" id="copy_variables">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.copy_variables">[docs]</a>
-<span class="k">def</span> <span class="nf">copy_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">copy_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
                    <span class="n">removevar</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamevar</span><span class="o">=</span><span class="p">{}):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Copy variables from input file into output file.</span>
@@ -901,7 +900,7 @@ document.write(`
 
 <div class="viewcode-block" id="create_new_variable">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.create_new_variable">[docs]</a>
-<span class="k">def</span> <span class="nf">create_new_variable</span><span class="p">(</span><span class="n">invardef</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">izip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_new_variable</span><span class="p">(</span><span class="n">invardef</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">izip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">chunksizes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create variable in output file from dictionary with variable attributes.</span>
@@ -989,7 +988,7 @@ document.write(`
 
 <div class="viewcode-block" id="create_variables">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.create_variables">[docs]</a>
-<span class="k">def</span> <span class="nf">create_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">izip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_variables</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timedim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">izip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">chunksizes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">removevar</span><span class="o">=</span><span class="p">[],</span> <span class="n">renamevar</span><span class="o">=</span><span class="p">{},</span> <span class="n">removedim</span><span class="o">=</span><span class="p">[],</span>
                      <span class="n">renamedim</span><span class="o">=</span><span class="p">{},</span> <span class="n">replacedim</span><span class="o">=</span><span class="p">{}):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1135,7 +1134,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_fill_value_for_dtype">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.get_fill_value_for_dtype">[docs]</a>
-<span class="k">def</span> <span class="nf">get_fill_value_for_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_fill_value_for_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get default _FillValue of netCDF4 for the given data type.</span>
 
@@ -1176,7 +1175,7 @@ document.write(`
     <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">nc</span><span class="o">.</span><span class="n">default_fillvals</span><span class="p">[</span><span class="s1">&#39;f8&#39;</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">warnings</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;data type unknown: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
@@ -1184,7 +1183,7 @@ document.write(`
 
 <div class="viewcode-block" id="set_output_filename">
 <a class="viewcode-back" href="../../../ncio.netcdfio.html#pyjams.ncio.set_output_filename">[docs]</a>
-<span class="k">def</span> <span class="nf">set_output_filename</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">ext</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_output_filename</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">ext</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create output file name from input file name by adding *ext* before</span>
 <span class="sd">    the file suffix.</span>
@@ -1217,7 +1216,7 @@ document.write(`
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">doctest</span>
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
 </pre></div>
 
@@ -1257,7 +1256,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

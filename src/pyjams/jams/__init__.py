@@ -51,7 +51,6 @@ Subpackages
    kriging
    lagcorr
    latlon_fmt
-   lhs
    lif
    line_dev_mask
    lowess
@@ -149,7 +148,6 @@ lat_fmt                Set lat label string (called by Basemap.drawparallels) if
 leafmodel              Model to compute photosynthesis and stomatal conductance of canopies.
 leafprojection         Calculation of leaf projection from leaf angle observations.
 level1                 Module with functions dealing with CHS level1 data files, data and flags.
-lhs                    Latin Hypercube Sampling of any distribution without correlations.
 lif                    Count number of lines in file.
 line_dev_mask          Maskes elements of an array deviating from a line fit.
 lon_fmt                Set lon label string (called by Basemap.drawmeridians) if LaTeX package clash.
@@ -296,7 +294,6 @@ heaviside              Heaviside (or unit step) operator.
 intersection           Intersection of two curves from x,y coordinates.
 jab                    Jackknife-after-Bootstrap error.
 lagcorr                Calculate time lag of maximum or minimum correlation of two arrays.
-lhs                    Latin Hypercube Sampling of any distribution without correlations.
 pareto_metrics         Performance metrics to compare Pareto fronts.
 pi                     Parameter importance index PI or alternatively B index calculation.
 pso                    Particle swarm optimization
@@ -563,7 +560,6 @@ from .jconfigparser        import jConfigParser
 from .kriging              import kriging
 from .lagcorr              import lagcorr
 from .latlon_fmt           import lat_fmt, lon_fmt
-from .lhs                  import lhs
 from .lif                  import lif
 from .line_dev_mask        import line_dev_mask
 from .lowess               import lowess

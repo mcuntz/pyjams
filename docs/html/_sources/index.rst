@@ -209,6 +209,8 @@ Functions and modules (alphabetical)
      - Multi-dimensional non-parametric kernel regression
    * - :func:`~pyjams.kernel_regression.kernel_regression_h`
      - Determination of bandwidth for kernel regression
+   * - :func:`~pyjams.lhs.lhs`
+     - Latin Hypercube Sampling
    * - :func:`~pyjams.mad.mad`
      - Median absolute deviation test
    * - :class:`~pyjams.mcplot.mcPlot`
@@ -465,6 +467,8 @@ Functions and modules per category
            analysis, several forms of the logistic function and its
            derivatives, and other functions to be used with
            :mod:`scipy.optimize`
+       * - :func:`~pyjams.lhs.lhs`
+         - Latin Hypercube Sampling
        * - :func:`~pyjams.morris_method.morris_sampling`
          - Deprecated, moved to package pyeee_. Sampling of optimised
            trajectories for Morris measures / Elementary Effects
@@ -560,16 +564,12 @@ Functions and modules per category
        * - :mod:`~pyjams.color`
          - Deprecated, moved to package mcplot_. Collection of color
            palettes and continuous color maps
-       * - :func:`~pyjams.romanliterals.int2roman`
-         - Integer to Roman numeral conversion
        * - :class:`~pyjams.mcplot.mcPlot`
          - Deprecated, moved to package mcplot_. Matthias Cuntz'
            standard plotting class
        * - :func:`~pyjams.position.position`
          - Deprecated, moved to package mcplot_. Position arrays of
            subplots to be used with add_axes
-       * - :func:`~pyjams.romanliterals.roman2int`
-         - Roman numeral to integer conversion
        * - :func:`~pyjams.text2plot.signature2plot`
          - Deprecated, moved to package mcplot_. Write a copyright
            notice on a plot

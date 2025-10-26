@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,15 +37,15 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'functions.sa_test_functions';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Morris Method / Elementary Effects" href="morris_method.html" />
+    <link rel="next" title="LHS" href="lhs.html" />
     <link rel="prev" title="Optimisation test functions" href="functions.opti_test_functions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -193,6 +193,7 @@
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -231,13 +232,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -587,7 +586,7 @@ for details.</p>
 </dd>
 </dl>
 <p>Functions:</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.functions.sa_test_functions.B" title="pyjams.functions.sa_test_functions.B"><code class="xref py py-obj docutils literal notranslate"><span class="pre">B</span></code></a>(X)</p></td>
 <td><p>B function</p></td>
@@ -661,7 +660,7 @@ Jan 2020, Matthias Cuntz</p></li>
 <dd class="field-even"><p><strong>B</strong> – float or (npoints,) floats of B function values at <em>X</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -685,7 +684,7 @@ Jan 2020, Matthias Cuntz</p></li>
 with parameters <em>a</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -709,7 +708,7 @@ with parameters <em>a</em></p>
 parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -727,7 +726,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dd class="field-even"><p><strong>K</strong> – float or (npoints,) floats of K function values at <em>X</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -745,7 +744,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dd class="field-even"><p><strong>bratley</strong> – float or (npoints,) floats of K function values at <em>X</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -759,7 +758,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>array_like</em>) – (20,) or (20,npoints) array of floats</p></li>
-<li><p><strong>beta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – float</p></li>
+<li><p><strong>beta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – float</p></li>
 <li><p><strong>beta1</strong> (<em>array_like</em>) – (20,) array of floats</p></li>
 <li><p><strong>beta2</strong> (<em>array_like</em>) – (20,20) array of floats</p></li>
 <li><p><strong>beta3</strong> (<em>array_like</em>) – (20,20,20) array of floats</p></li>
@@ -771,7 +770,7 @@ parameters <em>alpha</em>, <em>delta</em> and <em>a</em></p>
 parameters <em>beta0-beta4</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -795,7 +794,7 @@ parameters <em>beta0-beta4</em></p>
 with parameters <em>a</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -818,7 +817,7 @@ with parameters <em>a</em></p>
 <em>X</em> with parameters <em>a</em> and <em>b</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -839,7 +838,7 @@ with parameters <em>a</em></p>
 values at <em>X</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -863,7 +862,7 @@ values at <em>X</em></p>
 parameters <em>a</em> and <em>b</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -877,7 +876,7 @@ parameters <em>a</em> and <em>b</em></p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>array_like</em>) – (20,) or (20, npoints) array of floats</p></li>
-<li><p><strong>beta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – float</p></li>
+<li><p><strong>beta0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – float</p></li>
 <li><p><strong>beta1</strong> (<em>array_like</em>) – (20,) array of floats</p></li>
 <li><p><strong>beta2</strong> (<em>array_like</em>) – (20, 20) array of floats</p></li>
 <li><p><strong>beta3</strong> (<em>array_like</em>) – (20, 20, 20) array of floats</p></li>
@@ -889,7 +888,7 @@ parameters <em>a</em> and <em>b</em></p>
 parameters <em>beta0-beta4</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -912,7 +911,7 @@ parameters <em>beta0-beta4</em></p>
 <dd class="field-even"><p><strong>oakley_ohagan</strong> – float or (npoints,) floats of Oakley and O’Hagan function values at <em>X</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -931,7 +930,7 @@ parameters <em>beta0-beta4</em></p>
 <dd class="field-even"><p><strong>product</strong> – float or (npoints,) floats of product function values at <em>X</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -964,7 +963,7 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
 <dd class="field-even"><p><strong>ratio</strong> – float or (npoints,) floats of ratio function values at <em>X</em></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a> or ndarray</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a> or ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -992,11 +991,11 @@ Environmental Modelling &amp; Software 67, 1-11.</p>
       </div>
     </a>
     <a class="right-next"
-       href="morris_method.html"
+       href="lhs.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Morris Method / Elementary Effects</p>
+        <p class="prev-next-title">LHS</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1054,7 +1053,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

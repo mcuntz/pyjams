@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'class_datetime';</script>
@@ -192,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -230,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -511,7 +510,7 @@ France.</p>
 </dd>
 </dl>
 <p>The following functions are provided:</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.class_datetime.date2dec" title="pyjams.class_datetime.date2dec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date2dec</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Wrapper for <a class="reference internal" href="#pyjams.class_datetime.date2num" title="pyjams.class_datetime.date2num"><code class="xref py py-func docutils literal notranslate"><span class="pre">date2num()</span></code></a></p></td>
@@ -605,8 +604,8 @@ Aug 2024, Matthias Cuntz</p></li>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyjams.class_datetime.datetime">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microsecond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofwk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofyr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">microsecond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofwk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dayofyr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'decimal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_year_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyjams/class_datetime.html#datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyjams.class_datetime.datetime" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class mimics cftime.datetime but for non-CF-conform calendars</p>
 <p>The cftime.datetime class mimics itself datetime.datetime but
 supports calendars other than the proleptic Gregorian calendar.</p>
@@ -617,7 +616,7 @@ and <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</
 calendars are supposedly Julian calendars with other reference dates.
 Day 0 of <em>excel</em>/<em>excel1900</em> starts at 1899-12-31 00:00:00 and day 0
 of <em>excel1904</em> (old Lotus date) starts at 1903-12-31 00:00:00.
-Decimal calendars have the form “%Y.%f”, where the fractional year
+Decimal calendars have the form ‘%Y.%f’, where the fractional year
 assumes leap years as the proleptic Gregorian calendar, or fixed 360,
 365, or 366 days per year.</p>
 <p>If the has_year_zero keyword argument is set to True, astronomical year
@@ -629,7 +628,7 @@ __str__, and comparison methods.</p>
 <p>The default format of the string produced by strftime is controlled by
 self.format (default %Y-%m-%d %H:%M:%S).</p>
 <p class="rubric">Methods</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.class_datetime.datetime.assert_valid_date" title="pyjams.class_datetime.datetime.assert_valid_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_valid_date</span></code></a>()</p></td>
 <td><p>Check that datetime is a valid date for given calendar</p></td>
@@ -813,11 +812,11 @@ and given <em>units</em> will hence be ignored.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dates</strong> (<em>datetime instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, or </em><em>array_like</em><em> of </em><a class="reference internal" href="#pyjams.class_datetime.datetime" title="pyjams.class_datetime.datetime"><em>datetime</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – datetime objects or strings with string representations.
+<li><p><strong>dates</strong> (<em>datetime instance</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, or </em><em>array_like</em><em> of </em><a class="reference internal" href="#pyjams.class_datetime.datetime" title="pyjams.class_datetime.datetime"><em>datetime</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – datetime objects or strings with string representations.
 datetime objects can either be Python datetime.datetime,
 cf.datetime, or pyjams.datetime objects. If <em>dates</em> are strings,
 then <em>format</em> keyword is relevant.</p></li>
-<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Units string such as ‘seconds since 1900-01-01 00:00:00’ or
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Units string such as ‘seconds since 1900-01-01 00:00:00’ or
 ‘day as %Y%m%d.%f’. Standard units corresponding to days after
 day 0 of a given calendar will be used if omitted, i.e. assuming
 Julian day ordinals.</p>
@@ -831,7 +830,7 @@ and <em>common_years since</em> is allowed only for the <em>365_day</em> calenda
 the same as ‘calendar=decimal’. <em>calendar=’decimal’ will be set in
 case units *time_units as format</em>.</p>
 </p></li>
-<li><p><strong>calendar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – One of the supported calendars, i.e. the CF-conform calendars
+<li><p><strong>calendar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – One of the supported calendars, i.e. the CF-conform calendars
 <em>standard</em>, <em>gregorian</em>, <em>julian</em>, <em>proleptic_gregorian</em>,
 <em>360_day</em>, <em>365_day</em>, <em>366_day</em>, <em>noleap</em>, <em>all_leap</em>,
 as well as the non-CF-conform calendars
@@ -840,7 +839,7 @@ as well as the non-CF-conform calendars
 <em>standard</em> will be taken by default, which is a mixed
 Julian/Gregorian calendar.
 The keyword takes precedence on calendar in datetime objects.</p></li>
-<li><p><strong>has_year_zero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Astronomical year numbering is used and the year zero exists, if set to
+<li><p><strong>has_year_zero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Astronomical year numbering is used and the year zero exists, if set to
 True. If set to False for real-world calendars, then historical year
 numbering is used and the year 1 is preceded by year -1 and no year
 zero exists.
@@ -852,22 +851,22 @@ Excel calendars <em>excel</em>, <em>excel1900</em>, <em>excel1904</em> start onl
 or above so <em>has_year_zero</em> is always False.
 Decimal calendars <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>
 have always year 0, i.e. <em>has_year_zero</em> is True.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – If <em>dates</em> are strings, then <em>format</em> is the Python
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – If <em>dates</em> are strings, then <em>format</em> is the Python
 datetime.strftime/strptime format string if given. If empty (default),
 then the routine pyjams.date2date will be used, which converts between
 formats ‘%Y-%m-%d %H:%M:%S’, ‘%d.%m.%Y %H:%M:%S’, and ‘%m/%d/%Y
 %H:%M:%S’ (called English <em>YYYY-MM-DD hh:mm:ss</em>, standard
 <em>DD.MM.YYYY hh:mm:ss</em>, and American <em>MM/DD/YYYY hh:mm:ss</em> in
 pyjams.date2date), where times can be partial or missing.</p></li>
-<li><p><strong>timesep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Separator string between date and time used by pyjams.date2date if
+<li><p><strong>timesep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Separator string between date and time used by pyjams.date2date if
 if <em>dates</em> are strings and <em>format</em> is empty (default: ‘ ‘)</p></li>
-<li><p><strong>fr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, pyjams.date2date will interpret input dates with ‘/’
+<li><p><strong>fr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, pyjams.date2date will interpret input dates with ‘/’
 separators not as the American format ‘%m/%d/%Y %H:%M:%S’ but the
 French way as ‘%d/%m/%Y %H:%M:%S’, if <em>dates</em> are strings and
 <em>format</em> is empty</p></li>
-<li><p><strong>return_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, then return a tuple with individual arrays for
+<li><p><strong>return_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, then return a tuple with individual arrays for
 year, month, day, hour, minute, second, microsecond</p></li>
-<li><p><strong>ensure_seconds</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>If True, add small number (&lt; 20 microseconds) to results to
+<li><p><strong>ensure_seconds</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>If True, add small number (&lt; 20 microseconds) to results to
 ensure that back-conversion (<cite>num2date</cite>) gives the same results
 up to seconds.</p>
 <p>Results should have an accuracy of approximately 1 microseconds.
@@ -877,7 +876,7 @@ of the time variable is an integer multiple of the units.
 to get microseconds accuracy. The datatype is, however, not available
 on all platforms. The algorithm has the tendency to give
 1-3 microseconds less at back-conversion in this case, which gives
-times such as “11:59:59” instead of “12:00:00”. <cite>ensure_seconds</cite>
+times such as ‘11:59:59’ instead of ‘12:00:00’. <cite>ensure_seconds</cite>
 toggles back-conversion above the next second to ensure that the
 seconds are correct.</p>
 </p></li>
@@ -931,8 +930,8 @@ and given <em>units</em> will hence be ignored.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em> or </em><em>array_like</em>) – Numeric time values</p></li>
-<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Units string such as ‘seconds since 1900-01-01 00:00:00’ or
+<li><p><strong>times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>array_like</em>) – Numeric time values</p></li>
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Units string such as ‘seconds since 1900-01-01 00:00:00’ or
 ‘day as %Y%m%d.%f’. Standard units corresponding to days after
 day 0 of a given calendar will be used if omitted, i.e. assuming
 Julian day ordinals.</p>
@@ -946,7 +945,7 @@ and <em>common_years since</em> is allowed only for the <em>365_day</em> calenda
 the same as ‘calendar=decimal’. <em>calendar=’decimal’ will be set in
 case units *time_units as format</em>.</p>
 </p></li>
-<li><p><strong>calendar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – One of the support calendars, i.e. the CF-conform calendars
+<li><p><strong>calendar</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – One of the support calendars, i.e. the CF-conform calendars
 <em>standard</em>, <em>gregorian</em>, <em>julian</em>, <em>proleptic_gregorian</em>,
 <em>360_day</em>, <em>365_day</em>, <em>366_day</em>, <em>noleap</em>, <em>all_leap</em>,
 as well as the non-CF-conform calendars
@@ -954,28 +953,28 @@ as well as the non-CF-conform calendars
 <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>.
 <em>standard</em> will be taken by default, which is a mixed
 Julian/Gregorian calendar.</p></li>
-<li><p><strong>only_use_pyjams_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
+<li><p><strong>only_use_pyjams_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
 Only if only_use_pyjams_datetimes is set to False (default: True) and
 only_use_cftime_datetimes is set to True then cftime.datetime objects
 will be returned where possible.
 Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
 to False and only_use_python_datetimes is set to True then Python
 datetime.datetime objects will be returned where possible.</p></li>
-<li><p><strong>only_use_cftime_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
+<li><p><strong>only_use_cftime_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
 Only if only_use_pyjams_datetimes is set to False and
 only_use_cftime_datetimes is set to True (default: False) then
 cftime.datetime objects will be returned where possible.
 Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
 to False and only_use_python_datetimes is set to True then Python
 datetime.datetime objects will be returned where possible.</p></li>
-<li><p><strong>only_use_python_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
+<li><p><strong>only_use_python_datetimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – pyjams.datetime objects are returned by default.
 Only if only_use_pyjams_datetimes is set to False and
 only_use_cftime_datetimes is set to True then cftime.datetime objects
 will be returned where possible.
 Only if only_use_pyjams_datetimes and only_use_cftime_datetimes are set
 to False and only_use_python_datetimes is set to True (default: False)
 then Python datetime.datetime objects will be returned where possible.</p></li>
-<li><p><strong>has_year_zero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Astronomical year numbering is used and the year zero exists, if set to
+<li><p><strong>has_year_zero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Astronomical year numbering is used and the year zero exists, if set to
 True. If set to False for real-world calendars, then historical year
 numbering is used and the year 1 is preceded by year -1 and no year
 zero exists.
@@ -987,9 +986,9 @@ Excel calendars <em>excel</em>, <em>excel1900</em>, <em>excel1904</em> start onl
 or above so <em>has_year_zero</em> is always False.
 Decimal calendars <em>decimal</em>, <em>decimal360</em>, <em>decimal365</em>, <em>decimal366</em>
 have always year 0, i.e. <em>has_year_zero</em> is True.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – If format string is given than a string representation of the
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – If format string is given than a string representation of the
 datetime objects will be returned.</p></li>
-<li><p><strong>return_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, then return a tuple with individual arrays for
+<li><p><strong>return_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, then return a tuple with individual arrays for
 year, month, day, hour, minute, second, microsecond</p></li>
 </ul>
 </dd>
@@ -1112,7 +1111,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

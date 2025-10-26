@@ -44,7 +44,7 @@ def pritay(T, Rg, elev, a=1.12):
 
 
         Literature
-        -----
+        ----------
         Priestley, C.H.B., Taylor, R.J., 1972. On the assessment of surface
         heat flux and evaporation using large-scale parameters. Monthly
         Weather Review 100, 81-92.

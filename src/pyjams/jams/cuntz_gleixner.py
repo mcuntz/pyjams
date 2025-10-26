@@ -75,7 +75,7 @@ def cuntz_gleixner(idecdate, iGPP, iRd, iCa, iRa, igtot, sunrise, Vcyt=None,
 
 
     Input (only nss model)
-    -----
+    ----------------------
     Vcyt
         C-concentration of sucrose pool in cytoplasm [umol(C)/m2(leaf)]
 

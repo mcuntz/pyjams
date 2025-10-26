@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
@@ -192,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -230,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -486,9 +485,12 @@ document.write(`
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">#</a></h1>
 <p>A general Python package with a wide variety of miscellaneous utility
 functions.</p>
-<a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.5574388"><img alt="Zenodo DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.5574388.svg" /></a>
-<a class="reference external image-reference" href="https://badge.fury.io/py/pyjams"><img alt="PyPI version" src="https://badge.fury.io/py/pyjams.svg" /></a>
-<a class="reference external image-reference" href="https://anaconda.org/conda-forge/pyjams"><img alt="Conda version" src="https://img.shields.io/conda/vn/conda-forge/pyjams.svg" /></a>
+<a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.5574388"><img alt="Zenodo DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.5574388.svg" />
+</a>
+<a class="reference external image-reference" href="https://badge.fury.io/py/pyjams"><img alt="PyPI version" src="https://badge.fury.io/py/pyjams.svg" />
+</a>
+<a class="reference external image-reference" href="https://anaconda.org/conda-forge/pyjams"><img alt="Conda version" src="https://img.shields.io/conda/vn/conda-forge/pyjams.svg" />
+</a>
 <a class="reference external image-reference" href="https://github.com/mcuntz/pyjams/blob/master/LICENSE"><img alt="License" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" />
 </a>
 <a class="reference external image-reference" href="https://github.com/mcuntz/pyjams/actions"><img alt="Build status" src="https://github.com/mcuntz/pyjams/workflows/Continuous%20Integration/badge.svg?branch=main" />
@@ -701,7 +703,7 @@ arrays</p></td>
 <td><p>Special functions for testing optimisations, sensitivity
 analysis, several forms of the logistic function and its
 derivatives, and other functions to be used with
-<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.14.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.16.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="gridcellarea.html#pyjams.gridcellarea.gridcellarea" title="pyjams.gridcellarea.gridcellarea"><code class="xref py py-func docutils literal notranslate"><span class="pre">gridcellarea()</span></code></a></p></td>
 <td><p>Area of grid cells on Earth</p></td>
@@ -719,127 +721,130 @@ netCDF file, same as <code class="xref py py-func docutils literal notranslate">
 <tr class="row-odd"><td><p><a class="reference internal" href="kernel_regression.html#pyjams.kernel_regression.kernel_regression_h" title="pyjams.kernel_regression.kernel_regression_h"><code class="xref py py-func docutils literal notranslate"><span class="pre">kernel_regression_h()</span></code></a></p></td>
 <td><p>Determination of bandwidth for kernel regression</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="mad.html#pyjams.mad.mad" title="pyjams.mad.mad"><code class="xref py py-func docutils literal notranslate"><span class="pre">mad()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="lhs.html#pyjams.lhs.lhs" title="pyjams.lhs.lhs"><code class="xref py py-func docutils literal notranslate"><span class="pre">lhs()</span></code></a></p></td>
+<td><p>Latin Hypercube Sampling</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mad.html#pyjams.mad.mad" title="pyjams.mad.mad"><code class="xref py py-func docutils literal notranslate"><span class="pre">mad()</span></code></a></p></td>
 <td><p>Median absolute deviation test</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="mcplot.html#pyjams.mcplot.mcPlot" title="pyjams.mcplot.mcPlot"><code class="xref py py-class docutils literal notranslate"><span class="pre">mcPlot</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="mcplot.html#pyjams.mcplot.mcPlot" title="pyjams.mcplot.mcPlot"><code class="xref py py-class docutils literal notranslate"><span class="pre">mcPlot</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Matthias Cuntz’ standard
 plotting class</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="means.html#pyjams.means.means" title="pyjams.means.means"><code class="xref py py-func docutils literal notranslate"><span class="pre">means()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="means.html#pyjams.means.means" title="pyjams.means.means"><code class="xref py py-func docutils literal notranslate"><span class="pre">means()</span></code></a></p></td>
 <td><p>Calculate daily, monthly, yearly, etc. means of data</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Sampling of optimised
 trajectories for Morris measures / Elementary Effects</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.mrair2eair" title="pyjams.air_humidity.mrair2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">mrair2eair()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.mrair2eair" title="pyjams.air_humidity.mrair2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">mrair2eair()</span></code></a></p></td>
 <td><p>Partial pressure of water vapour from mixing ratio and total
 pressure</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ncinfo.html#pyjams.ncinfo.ncinfo" title="pyjams.ncinfo.ncinfo"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncinfo()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ncinfo.html#pyjams.ncinfo.ncinfo" title="pyjams.ncinfo.ncinfo"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncinfo()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/ncio/">ncio</a>. Extract information from
 netCDF file</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ncio.html#module-pyjams.ncio" title="pyjams.ncio"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ncio</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ncio.html#module-pyjams.ncio" title="pyjams.ncio"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ncio</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/ncio/">ncio</a>. netCDF4 functions to
 copy a netcdf file while doing some transformations on
 variables and dimensions</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ncread.html#pyjams.ncread.ncread" title="pyjams.ncread.ncread"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncread()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ncread.html#pyjams.ncread.ncread" title="pyjams.ncread.ncread"><code class="xref py py-func docutils literal notranslate"><span class="pre">ncread()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/ncio/">ncio</a>. Read variables from
 netCDF file</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.num2date" title="pyjams.class_datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="class_datetime.html#pyjams.class_datetime.num2date" title="pyjams.class_datetime.num2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">num2date()</span></code></a></p></td>
 <td><p>Return datetime objects given numeric time values</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pack.html#pyjams.pack.pack" title="pyjams.pack.pack"><code class="xref py py-func docutils literal notranslate"><span class="pre">pack()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pack.html#pyjams.pack.pack" title="pyjams.pack.pack"><code class="xref py py-func docutils literal notranslate"><span class="pre">pack()</span></code></a></p></td>
 <td><p>Pack array with mask like Fortran intrinsic pack</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="position.html#pyjams.position.position" title="pyjams.position.position"><code class="xref py py-func docutils literal notranslate"><span class="pre">position()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="position.html#pyjams.position.position" title="pyjams.position.position"><code class="xref py py-func docutils literal notranslate"><span class="pre">position()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Position arrays of
 subplots to be used with add_axes</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ncread.html#pyjams.ncread.readnetcdf" title="pyjams.ncread.readnetcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">readnetcdf()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ncread.html#pyjams.ncread.readnetcdf" title="pyjams.ncread.readnetcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">readnetcdf()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/ncio/">ncio</a>. Read variables from
 netCDF file, same as <cite>ncread</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.rhair2eair" title="pyjams.air_humidity.rhair2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">rhair2eair()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.rhair2eair" title="pyjams.air_humidity.rhair2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">rhair2eair()</span></code></a></p></td>
 <td><p>Partial pressure of water vapour from relative humidity and
 temperature</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.rhair2vpd" title="pyjams.air_humidity.rhair2vpd"><code class="xref py py-func docutils literal notranslate"><span class="pre">rhair2vpd()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.rhair2vpd" title="pyjams.air_humidity.rhair2vpd"><code class="xref py py-func docutils literal notranslate"><span class="pre">rhair2vpd()</span></code></a></p></td>
 <td><p>Air vapour pressure deficit from relative humidity and
 temperature</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="romanliterals.html#pyjams.romanliterals.roman2int" title="pyjams.romanliterals.roman2int"><code class="xref py py-func docutils literal notranslate"><span class="pre">roman2int()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="romanliterals.html#pyjams.romanliterals.roman2int" title="pyjams.romanliterals.roman2int"><code class="xref py py-func docutils literal notranslate"><span class="pre">roman2int()</span></code></a></p></td>
 <td><p>Roman numeral to integer conversion</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="sce.html#pyjams.sce.sce" title="pyjams.sce.sce"><code class="xref py py-func docutils literal notranslate"><span class="pre">sce()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="sce.html#pyjams.sce.sce" title="pyjams.sce.sce"><code class="xref py py-func docutils literal notranslate"><span class="pre">sce()</span></code></a></p></td>
 <td><p>Shuffled-Complex-Evolution algorithm for function
 min(max)imisation</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="screening.html#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="screening.html#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Parameter screening using
 Morris’ method of Elementary Effects</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.shair2eair" title="pyjams.air_humidity.shair2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">shair2eair()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.shair2eair" title="pyjams.air_humidity.shair2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">shair2eair()</span></code></a></p></td>
 <td><p>Partial pressure of water vapour from specific humidity and
 total pressure</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.signature2plot" title="pyjams.text2plot.signature2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">signature2plot()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.signature2plot" title="pyjams.text2plot.signature2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">signature2plot()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Write a copyright notice
 on a plot</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.sread" title="pyjams.fsread.sread"><code class="xref py py-func docutils literal notranslate"><span class="pre">sread()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.sread" title="pyjams.fsread.sread"><code class="xref py py-func docutils literal notranslate"><span class="pre">sread()</span></code></a></p></td>
 <td><p>Read strings from a file into 2D string array</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="str2tex.html#pyjams.str2tex.str2tex" title="pyjams.str2tex.str2tex"><code class="xref py py-func docutils literal notranslate"><span class="pre">str2tex()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="str2tex.html#pyjams.str2tex.str2tex" title="pyjams.str2tex.str2tex"><code class="xref py py-func docutils literal notranslate"><span class="pre">str2tex()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Convert strings to LaTeX
 strings in math environment used by matplotlib’s usetex</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="tee.html#pyjams.tee.tee" title="pyjams.tee.tee"><code class="xref py py-func docutils literal notranslate"><span class="pre">tee()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="tee.html#pyjams.tee.tee" title="pyjams.tee.tee"><code class="xref py py-func docutils literal notranslate"><span class="pre">tee()</span></code></a></p></td>
 <td><p>Prints arguments on screen and in file, like Unix/Linux tee
 utility</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.text2plot" title="pyjams.text2plot.text2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">text2plot()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.text2plot" title="pyjams.text2plot.text2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">text2plot()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Write text on a plot</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pack.html#pyjams.pack.unpack" title="pyjams.pack.unpack"><code class="xref py py-func docutils literal notranslate"><span class="pre">unpack()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pack.html#pyjams.pack.unpack" title="pyjams.pack.unpack"><code class="xref py py-func docutils literal notranslate"><span class="pre">unpack()</span></code></a></p></td>
 <td><p>Unpack array using mask like Fortran intrinsic unpack</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="npyio.html#pyjams.npyio.updatez" title="pyjams.npyio.updatez"><code class="xref py py-func docutils literal notranslate"><span class="pre">updatez()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="npyio.html#pyjams.npyio.updatez" title="pyjams.npyio.updatez"><code class="xref py py-func docutils literal notranslate"><span class="pre">updatez()</span></code></a></p></td>
 <td><p>Update arrays in uncompressed numpy .npz format</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="npyio.html#pyjams.npyio.updatez_compressed" title="pyjams.npyio.updatez_compressed"><code class="xref py py-func docutils literal notranslate"><span class="pre">updatez_compressed()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="npyio.html#pyjams.npyio.updatez_compressed" title="pyjams.npyio.updatez_compressed"><code class="xref py py-func docutils literal notranslate"><span class="pre">updatez_compressed()</span></code></a></p></td>
 <td><p>Update arrays in compressed numpy .npz format</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2date" title="pyjams.date2date.us2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2date()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2date" title="pyjams.date2date.us2date"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2date()</span></code></a></p></td>
 <td><p>Convert date strings to standard date format DD.MM.YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2en" title="pyjams.date2date.us2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2en()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2en" title="pyjams.date2date.us2en"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2en()</span></code></a></p></td>
 <td><p>Convert date strings to English date format YYYY-MM-DD hh:mm:ss</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2fr" title="pyjams.date2date.us2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2fr()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="date2date.html#pyjams.date2date.us2fr" title="pyjams.date2date.us2fr"><code class="xref py py-func docutils literal notranslate"><span class="pre">us2fr()</span></code></a></p></td>
 <td><p>Convert date strings to French date format DD/MM/YYYY hh:mm:ss</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.vpd2eair" title="pyjams.air_humidity.vpd2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpd2eair()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.vpd2eair" title="pyjams.air_humidity.vpd2eair"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpd2eair()</span></code></a></p></td>
 <td><p>Partial pressure of water vapour from air vapour pressure
 deficit and temperature</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.vpd2rhair" title="pyjams.air_humidity.vpd2rhair"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpd2rhair()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#pyjams.air_humidity.vpd2rhair" title="pyjams.air_humidity.vpd2rhair"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpd2rhair()</span></code></a></p></td>
 <td><p>Relative humidity from air vapour pressure deficit and
 temperature</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsread" title="pyjams.fsread.xlsread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsread()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsread" title="pyjams.fsread.xlsread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsread()</span></code></a></p></td>
 <td><p>Read numbers and strings from Excel file into 2D float and
 string arrays, same as <cite>xread</cite></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsxread" title="pyjams.fsread.xlsxread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsxread()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xlsxread" title="pyjams.fsread.xlsxread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlsxread()</span></code></a></p></td>
 <td><p>Read numbers and strings from Excel file into 2D float and
 string arrays, same as <cite>xread</cite></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xread" title="pyjams.fsread.xread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xread()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="fsread.html#pyjams.fsread.xread" title="pyjams.fsread.xread"><code class="xref py py-func docutils literal notranslate"><span class="pre">xread()</span></code></a></p></td>
 <td><p>Read numbers and strings from Excel file into 2D float and
 string arrays</p></td>
 </tr>
@@ -1093,17 +1098,20 @@ stddev and mu*</p></td>
 <td><p>Special functions for testing optimisations, sensitivity
 analysis, several forms of the logistic function and its
 derivatives, and other functions to be used with
-<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.14.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize" title="(in SciPy v1.16.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code></a></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="lhs.html#pyjams.lhs.lhs" title="pyjams.lhs.lhs"><code class="xref py py-func docutils literal notranslate"><span class="pre">lhs()</span></code></a></p></td>
+<td><p>Latin Hypercube Sampling</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="morris_method.html#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Sampling of optimised
 trajectories for Morris measures / Elementary Effects</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="sce.html#pyjams.sce.sce" title="pyjams.sce.sce"><code class="xref py py-func docutils literal notranslate"><span class="pre">sce()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="sce.html#pyjams.sce.sce" title="pyjams.sce.sce"><code class="xref py py-func docutils literal notranslate"><span class="pre">sce()</span></code></a></p></td>
 <td><p>Shuffled-Complex-Evolution algorithm for function
 min(max)imisation</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="screening.html#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="screening.html#pyjams.screening.screening" title="pyjams.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/pyeee/">pyeee</a>. Parameter screening
 using Morris’ method of Elementary Effects</p></td>
 </tr>
@@ -1235,19 +1243,13 @@ utility</p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Collection of color
 palettes and continuous color maps</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="romanliterals.html#pyjams.romanliterals.int2roman" title="pyjams.romanliterals.int2roman"><code class="xref py py-func docutils literal notranslate"><span class="pre">int2roman()</span></code></a></p></td>
-<td><p>Integer to Roman numeral conversion</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="mcplot.html#pyjams.mcplot.mcPlot" title="pyjams.mcplot.mcPlot"><code class="xref py py-class docutils literal notranslate"><span class="pre">mcPlot</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="mcplot.html#pyjams.mcplot.mcPlot" title="pyjams.mcplot.mcPlot"><code class="xref py py-class docutils literal notranslate"><span class="pre">mcPlot</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Matthias Cuntz’
 standard plotting class</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="position.html#pyjams.position.position" title="pyjams.position.position"><code class="xref py py-func docutils literal notranslate"><span class="pre">position()</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="position.html#pyjams.position.position" title="pyjams.position.position"><code class="xref py py-func docutils literal notranslate"><span class="pre">position()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Position arrays of
 subplots to be used with add_axes</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="romanliterals.html#pyjams.romanliterals.roman2int" title="pyjams.romanliterals.roman2int"><code class="xref py py-func docutils literal notranslate"><span class="pre">roman2int()</span></code></a></p></td>
-<td><p>Roman numeral to integer conversion</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="text2plot.html#pyjams.text2plot.signature2plot" title="pyjams.text2plot.signature2plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">signature2plot()</span></code></a></p></td>
 <td><p>Deprecated, moved to package <a class="reference external" href="https://mcuntz.github.io/mcplot/">mcplot</a>. Write a copyright
@@ -1412,7 +1414,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

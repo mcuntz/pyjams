@@ -28,7 +28,7 @@ def pawn_index( uncond, cond,
                         pawn_stat='median'):
 
         Input
-        ----------
+        -----
         uncond     unconditional sets of model output
                    dim_1 = nu
         cond       conditional sets of model output

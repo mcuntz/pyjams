@@ -32,7 +32,7 @@ def get_nearest(xy, xyz):
         valid data.
 
 
-        Example
+        Examples
         --------
         # make some data
         >>> np.random.seed(seed=1)

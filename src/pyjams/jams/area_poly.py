@@ -34,7 +34,7 @@ def area_poly(x, y):
             Formula above = integral_perimeter(-y dx + x dy) = integral_area((-(-dy)/dy+dx/dx)dydyx = 2*Area
 
 
-        Example
+        Examples
         --------
         >>> x = np.array([1.0, 2.0, 2.0, 1.0])
         >>> y = np.array([1.0, 1.0, 2.0, 2.0])

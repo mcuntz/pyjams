@@ -35,7 +35,7 @@ def rolling(x, win):
         (http://arogozhnikov.github.io/)
 
 
-        Example
+        Examples
         --------
         >>> x = np.arange(10)
 

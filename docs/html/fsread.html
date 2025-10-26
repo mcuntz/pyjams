@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'fsread';</script>
@@ -192,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -230,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="special_files.html">Special Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">fsread / xread</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -497,7 +496,7 @@ l’Environnement (INRAE), Nancy, France.</p>
 </dd>
 </dl>
 <p>The following functions are provided</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.fsread.fsread" title="pyjams.fsread.fsread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fsread</span></code></a>(infile[, nc, cname, snc, sname, ...])</p></td>
 <td><p>Read numbers and strings from a file into 2D float and string arrays</p></td>
@@ -587,15 +586,15 @@ separately with the (almost) same call as reading the floats.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Source file name</p></li>
-<li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as floats [default: all (<em>nc=0</em>)]. <em>nc</em>
+<li><p><strong>infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Source file name</p></li>
+<li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as floats [default: all (<em>nc=0</em>)]. <em>nc</em>
 can be an int or a vector of column indexes, starting with 0.
 <em>nc&lt;=0</em> reads all columns.</p></li>
-<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
+<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
-<li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Not used in fread; will be silently ignored.</p></li>
-<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Not used in fread; will be silently ignored.</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – All other keywords will be passed to <cite>fsread</cite>.</p></li>
+<li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Not used in fread; will be silently ignored.</p></li>
+<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Not used in fread; will be silently ignored.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>, </em><em>optional</em>) – All other keywords will be passed to <cite>fsread</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -810,7 +809,7 @@ with <em>header=False</em> and once with <em>header=True</em>.</p>
 </pre></div>
 </div>
 <p>Clean up doctest</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename2</span><span class="p">)</span>
@@ -828,55 +827,55 @@ separately with the (almost) same call as reading the numbers or string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Source file name</p></li>
-<li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as floats [default: none (<em>nc=0</em>)]. <em>nc</em>
+<li><p><strong>infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Source file name</p></li>
+<li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as floats [default: none (<em>nc=0</em>)]. <em>nc</em>
 can be an int or a vector of column indexes, starting with 0. If
 <em>snc!=0</em>, then <em>nc</em> must be iterable, or -1 to read all other columns
 as floats. If both <em>nc</em> and <em>snc</em> are int, then first <em>snc</em> string
 columns will be read and then <em>nc</em> float columns will be read.</p></li>
-<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
+<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
-<li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: none (<em>snc=0</em>)].
+<li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: none (<em>snc=0</em>)].
 <em>snc</em> can be an int or a vector of column indexes, starting with 0. If
 <em>nc!=0</em>, then <em>snc</em> must be iterable, or -1 to read all other columns
 as strings. If both <em>nc</em> and <em>snc</em> are int, then first <em>snc</em> string
 columns will be read and then <em>nc</em> float columns will be read.</p></li>
-<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
+<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
-<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines to skip at the beginning of file (default: 0)</p></li>
-<li><p><strong>cskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of columns to skip at the beginning of each line (default: 0)</p></li>
-<li><p><strong>hskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines in skip that do not belong to header (default: 0)</p></li>
-<li><p><strong>separator</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Column separator. If not given, columns separators are (in order):
+<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines to skip at the beginning of file (default: 0)</p></li>
+<li><p><strong>cskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of columns to skip at the beginning of each line (default: 0)</p></li>
+<li><p><strong>hskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines in skip that do not belong to header (default: 0)</p></li>
+<li><p><strong>separator</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Column separator. If not given, columns separators are (in order):
 comma (‘,’), semicolon (‘;’), whitespace.</p></li>
-<li><p><strong>squeeze</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to <em>True</em>, the 2-dim array will be cleaned of degenerated
+<li><p><strong>squeeze</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to <em>True</em>, the 2-dim array will be cleaned of degenerated
 dimension, possibly resulting in a vector, otherwise output is always
 2-dimensional.</p></li>
-<li><p><strong>skip_blank</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Continues reading after a blank line if True, else stops reading
+<li><p><strong>skip_blank</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Continues reading after a blank line if True, else stops reading
 at the first blank line (default).</p></li>
 <li><p><strong>comment</strong> (<em>iterable</em><em>, </em><em>optional</em>) – Line gets excluded if the first character is in comment sequence.
 Sequence must be iterable such as string, list and tuple, .e.g ‘#’ or
 [‘#’, ‘!’].</p></li>
-<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Fills in <cite>fill_value</cite> if True and not enough columns in input line,
+<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Fills in <cite>fill_value</cite> if True and not enough columns in input line,
 else raises ValueError (default).</p></li>
-<li><p><strong>fill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Value to fill in float array in empty cells or if not enough columns
+<li><p><strong>fill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Value to fill in float array in empty cells or if not enough columns
 in line and <em>fill==True</em> (default: numpy.nan).</p></li>
-<li><p><strong>sfill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
+<li><p><strong>sfill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
 in line and <em>fill==True</em> (default: ‘’).</p></li>
-<li><p><strong>strip</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Strip float columns with <em>str.strip(strip)</em>. If <em>strip</em> is <em>None</em>,
+<li><p><strong>strip</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Strip float columns with <em>str.strip(strip)</em>. If <em>strip</em> is <em>None</em>,
 quotes “ and ‘ are stripped from input fields (default), otherwise the
 character in <em>strip</em> is stripped from the input fields.
 <em>strip</em> has to be set explicitly to also strip string columns.
 If <em>strip</em> is set to <em>False</em> then nothing is stripped and reading is
 about 30% faster.</p></li>
-<li><p><strong>hstrip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Strip header cells to match <em>cname</em> if True (default), else take header
+<li><p><strong>hstrip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Strip header cells to match <em>cname</em> if True (default), else take header
 cells literally.</p></li>
-<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Specifies the encoding which is to be used for the file
+<li><p><strong>encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Specifies the encoding which is to be used for the file
 (default: ‘ascii’).
 Any encoding that encodes to and decodes from bytes is allowed.</p></li>
-<li><p><strong>errors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Errors may be given to define the error handling during encoding
+<li><p><strong>errors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Errors may be given to define the error handling during encoding
 of the file.
 Possible values are ‘strict’, ‘replace’, and ‘ignore’ (default).</p></li>
-<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Return header strings instead of numbers/strings in rest of file. This
+<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Return header strings instead of numbers/strings in rest of file. This
 allows to use (almost) the same call to get values and header:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">head</span><span class="p">,</span> <span class="n">shead</span> <span class="o">=</span> <span class="n">fsread</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">snc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">data</span><span class="p">,</span> <span class="n">sdata</span> <span class="o">=</span> <span class="n">fsread</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">snc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -884,13 +883,13 @@ allows to use (almost) the same call to get values and header:</p>
 </pre></div>
 </div>
 </p></li>
-<li><p><strong>full_header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Header will be a list of the header lines if set.</p></li>
-<li><p><strong>transpose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – <cite>fsread</cite> reads in row-major format, i.e. the first dimension are the
+<li><p><strong>full_header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Header will be a list of the header lines if set.</p></li>
+<li><p><strong>transpose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <cite>fsread</cite> reads in row-major format, i.e. the first dimension are the
 rows and second dimension are the columns <em>out(:nrow, :ncol)</em>. This
 will be transposed to column-major format <em>out(:ncol, :nrow)</em> if
 <em>transpose</em> is set.</p></li>
-<li><p><strong>strarr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Return header as numpy array rather than list.</p></li>
-<li><p><strong>return_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Return lists rather than arrays.</p></li>
+<li><p><strong>strarr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Return header as numpy array rather than list.</p></li>
+<li><p><strong>return_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Return lists rather than arrays.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1060,7 +1059,7 @@ with <em>header=False</em> and once with <em>header=True</em>.</p>
 </pre></div>
 </div>
 <p>Clean up doctest</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1075,32 +1074,32 @@ separately with the (almost) same call as reading the strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Source file name</p></li>
-<li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: all (<em>nc=0</em>)]. <em>nc</em>
+<li><p><strong>infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Source file name</p></li>
+<li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: all (<em>nc=0</em>)]. <em>nc</em>
 can be an int or a vector of column indexes, starting with 0.
 <em>nc&lt;=0</em> reads all columns.
 <em>snc</em> takes precedence if <em>nc</em> and <em>snc</em> are set.</p></li>
-<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
+<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
 line; must be an iterable with strings.
 <em>sname</em> takes precedence if <em>cname</em> and <em>sname</em> are set.</p></li>
-<li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: all (<em>snc=0</em>)].
+<li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: all (<em>snc=0</em>)].
 <em>snc</em> can be an int or a vector of column indexes, starting with 0.
 <em>snc&lt;=0</em> reads all columns.
 <em>snc</em> takes precedence if <em>nc</em> and <em>snc</em> are set.</p></li>
-<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
+<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
 line; must be an iterable with strings.
 <em>sname</em> takes precedence if <em>cname</em> and <em>sname</em> are set.</p></li>
-<li><p><strong>fill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
+<li><p><strong>fill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
 in line and <em>fill==True</em> (default: ‘’).
 <em>sfill_value</em> takes precedence if <em>fill_value</em> and <em>sfill_value</em> are
 set.</p></li>
-<li><p><strong>sfill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
+<li><p><strong>sfill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
 in line and <em>fill==True</em> (default: ‘’).
 <em>sfill_value</em> takes precedence if <em>fill_value</em> and <em>sfill_value</em> are
 set.</p></li>
 <li><p><strong>fill_value</strong> – value to fill in array in empty cells or if not enough columns in line
 and <cite>fill==True</cite> (default: ‘’).</p></li>
-<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Return header strings instead of strings in rest of file. This
+<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Return header strings instead of strings in rest of file. This
 allows to use (almost) the same call to get values and header:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shead</span> <span class="o">=</span> <span class="n">sread</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">sdata</span> <span class="o">=</span> <span class="n">sread</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -1108,8 +1107,8 @@ allows to use (almost) the same call to get values and header:</p>
 </pre></div>
 </div>
 </p></li>
-<li><p><strong>full_header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Header will be a list of the header lines if set.</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – All other keywords will be passed to <cite>fsread</cite>.</p></li>
+<li><p><strong>full_header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Header will be a list of the header lines if set.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>, </em><em>optional</em>) – All other keywords will be passed to <cite>fsread</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1287,7 +1286,7 @@ with <em>header=False</em> and once with <em>header=True</em>.</p>
 </pre></div>
 </div>
 <p>Clean up doctest</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename3</span><span class="p">)</span>
@@ -1318,43 +1317,43 @@ separately with the (almost) same call as reading the numbers or string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Excel source file name</p></li>
-<li><p><strong>sheet</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Name or number of Excel sheet (default: first sheet)</p></li>
-<li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as floats [default: none (<em>nc=0</em>)]. <em>nc</em>
+<li><p><strong>infile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Excel source file name</p></li>
+<li><p><strong>sheet</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Name or number of Excel sheet (default: first sheet)</p></li>
+<li><p><strong>nc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as floats [default: none (<em>nc=0</em>)]. <em>nc</em>
 can be an int or a vector of column indexes, starting with 0. If
 <em>snc!=0</em>, then <em>nc</em> must be iterable, or -1 to read all other columns
 as floats. If both <em>nc</em> and <em>snc</em> are int, then first <em>snc</em> string
 columns will be read and then <em>nc</em> float columns will be read.</p></li>
-<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
+<li><p><strong>cname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for floats can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
-<li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: none (<em>snc=0</em>)].
+<li><p><strong>snc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>iterable</em><em>, </em><em>optional</em>) – Number of columns to be read as strings [default: none (<em>snc=0</em>)].
 <em>snc</em> can be an int or a vector of column indexes, starting with 0. If
 <em>nc!=0</em>, then <em>snc</em> must be iterable, or -1 to read all other columns
 as strings. If both <em>nc</em> and <em>snc</em> are int, then first <em>snc</em> string
 columns will be read and then <em>nc</em> float columns will be read.</p></li>
-<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
+<li><p><strong>sname</strong> (<em>iterable</em><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Columns for strings can be chosen by the values in the first header
 line; must be an iterable with strings.</p></li>
-<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines to skip at the beginning of file (default: 0)</p></li>
-<li><p><strong>cskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of columns to skip at the beginning of each line (default: 0)</p></li>
-<li><p><strong>hskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines in skip that do not belong to header (default: 0)</p></li>
-<li><p><strong>squeeze</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to <em>True</em>, the 2-dim array will be cleaned of degenerated
+<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines to skip at the beginning of file (default: 0)</p></li>
+<li><p><strong>cskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of columns to skip at the beginning of each line (default: 0)</p></li>
+<li><p><strong>hskip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of lines in skip that do not belong to header (default: 0)</p></li>
+<li><p><strong>squeeze</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to <em>True</em>, the 2-dim array will be cleaned of degenerated
 dimension, possibly resulting in a vector, otherwise output is always
 2-dimensional.</p></li>
-<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Fills in <cite>fill_value</cite> if True and not enough columns in input line,
+<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Fills in <cite>fill_value</cite> if True and not enough columns in input line,
 else raises ValueError (default).</p></li>
-<li><p><strong>fill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Value to fill in float array in empty cells or if not enough columns
+<li><p><strong>fill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Value to fill in float array in empty cells or if not enough columns
 in line and <em>fill==True</em> (default: numpy.nan).</p></li>
-<li><p><strong>sfill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
+<li><p><strong>sfill_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Value to fill in string array in empty cells or if not enough columns
 in line and <em>fill==True</em> (default: ‘’).</p></li>
-<li><p><strong>strip</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Strip float columns with <em>str.strip(strip)</em>. If <em>strip</em> is <em>None</em>,
+<li><p><strong>strip</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Strip float columns with <em>str.strip(strip)</em>. If <em>strip</em> is <em>None</em>,
 quotes “ and ‘ are stripped from input fields (default), otherwise the
 character in <em>strip</em> is stripped from the input fields.
 <em>strip</em> has to be set explicitly to also strip string columns.
 If <em>strip</em> is set to <em>False</em> then nothing is stripped and reading is
 about 30% faster for text files.</p></li>
-<li><p><strong>hstrip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Strip header cells to match <em>cname</em> if True (default), else take header
+<li><p><strong>hstrip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Strip header cells to match <em>cname</em> if True (default), else take header
 cells literally.</p></li>
-<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Return header strings instead of numbers/strings in rest of file. This
+<li><p><strong>header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Return header strings instead of numbers/strings in rest of file. This
 allows to use (almost) the same call to get values and header:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">head</span><span class="p">,</span> <span class="n">shead</span> <span class="o">=</span> <span class="n">xread</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">snc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">data</span><span class="p">,</span> <span class="n">sdata</span> <span class="o">=</span> <span class="n">xread</span><span class="p">(</span><span class="n">ifile</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">snc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1362,13 +1361,13 @@ allows to use (almost) the same call to get values and header:</p>
 </pre></div>
 </div>
 </p></li>
-<li><p><strong>full_header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Header will be a list of the header lines if set.</p></li>
-<li><p><strong>transpose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – <cite>fsread</cite> reads in row-major format, i.e. the first dimension are the
+<li><p><strong>full_header</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Header will be a list of the header lines if set.</p></li>
+<li><p><strong>transpose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <cite>fsread</cite> reads in row-major format, i.e. the first dimension are the
 rows and second dimension are the columns <em>out(:nrow, :ncol)</em>. This
 will be transposed to column-major format <em>out(:ncol, :nrow)</em> if
 <em>transpose</em> is set.</p></li>
-<li><p><strong>strarr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Return header as numpy array rather than list.</p></li>
-<li><p><strong>return_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Return lists rather than arrays.</p></li>
+<li><p><strong>strarr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Return header as numpy array rather than list.</p></li>
+<li><p><strong>return_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Return lists rather than arrays.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1623,7 +1622,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

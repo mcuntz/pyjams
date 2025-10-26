@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,11 +37,10 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -193,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -231,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -496,7 +494,7 @@ scipy.optimize.curvefit, and much more.</p>
 </dl>
 <section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="air_humidity.html#module-pyjams.air_humidity" title="pyjams.air_humidity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">air_humidity</span></code></a></p></td>
 <td><p>Air humidity calculations</p></td>
@@ -532,7 +530,7 @@ scipy.optimize.curvefit, and much more.</p>
 <td><p>Divide two arrays, return <cite>otherwise</cite> if division by 0.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="fgui.html#module-pyjams.fgui" title="pyjams.fgui"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fgui</span></code></a></p></td>
-<td><p>GUI dialogs to choose files and directories using Tkinter</p></td>
+<td><p>GUI dialogs to choose files and directories using tkinter</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="fsread.html#module-pyjams.fsread" title="pyjams.fsread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fsread</span></code></a>(infile[, nc, cname, snc, sname, ...])</p></td>
 <td><p>Read numbers and strings from a file into 2D float and string arrays</p></td>
@@ -546,52 +544,55 @@ scipy.optimize.curvefit, and much more.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="kernel_regression.html#module-pyjams.kernel_regression" title="pyjams.kernel_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kernel_regression</span></code></a>(x, y[, h, silverman, xout])</p></td>
 <td><p>Multi-dimensional non-parametric kernel regression</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="mad.html#module-pyjams.mad" title="pyjams.mad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mad</span></code></a>(datin[, z, deriv, nozero, prepend, append])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="lhs.html#module-pyjams.lhs" title="pyjams.lhs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhs</span></code></a>(dist, param, nsample)</p></td>
+<td><p>Latin Hypercube Sampling of any distribution after Stein (1987)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mad.html#module-pyjams.mad" title="pyjams.mad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mad</span></code></a>(datin[, z, deriv, nozero, prepend, append])</p></td>
 <td><p>Median absolute deviation test</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="mcplot.html#module-pyjams.mcplot" title="pyjams.mcplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mcplot</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="mcplot.html#module-pyjams.mcplot" title="pyjams.mcplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mcplot</span></code></a></p></td>
 <td><p>Standard plotting class of Matthias Cuntz.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="means.html#module-pyjams.means" title="pyjams.means"><code class="xref py py-obj docutils literal notranslate"><span class="pre">means</span></code></a>(date, dat[, year, month, day, hour, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="means.html#module-pyjams.means" title="pyjams.means"><code class="xref py py-obj docutils literal notranslate"><span class="pre">means</span></code></a>(date, dat[, year, month, day, hour, ...])</p></td>
 <td><p>Calculate daily, monthly, yearly, etc.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="morris_method.html#module-pyjams.morris_method" title="pyjams.morris_method"><code class="xref py py-obj docutils literal notranslate"><span class="pre">morris_method</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="morris_method.html#module-pyjams.morris_method" title="pyjams.morris_method"><code class="xref py py-obj docutils literal notranslate"><span class="pre">morris_method</span></code></a></p></td>
 <td><p>Morris' Method of Elementary Effects.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ncinfo.html#module-pyjams.ncinfo" title="pyjams.ncinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncinfo</span></code></a>(ncfile[, var, code, variables, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ncinfo.html#module-pyjams.ncinfo" title="pyjams.ncinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncinfo</span></code></a>(ncfile[, var, code, variables, ...])</p></td>
 <td><p>Get information on variables in a netcdf file</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ncio.html#module-pyjams.ncio" title="pyjams.ncio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncio</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ncio.html#module-pyjams.ncio" title="pyjams.ncio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncio</span></code></a></p></td>
 <td><p>netCDF4 functions to copy a netcdf file while doing some transformations on variables and dimensions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ncread.html#module-pyjams.ncread" title="pyjams.ncread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncread</span></code></a>(ncfile[, var, code, squeeze, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ncread.html#module-pyjams.ncread" title="pyjams.ncread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncread</span></code></a>(ncfile[, var, code, squeeze, ...])</p></td>
 <td><p>Gets variables of a netcdf file</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="npyio.html#module-pyjams.npyio" title="pyjams.npyio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">npyio</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="npyio.html#module-pyjams.npyio" title="pyjams.npyio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">npyio</span></code></a></p></td>
 <td><p>Update arrays in a single file in numpy's npz format</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pack.html#module-pyjams.pack" title="pyjams.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>(array, mask)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pack.html#module-pyjams.pack" title="pyjams.pack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pack</span></code></a>(array, mask)</p></td>
 <td><p>Mimics Fortran intrinsic pack (without optional vector)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="position.html#module-pyjams.position" title="pyjams.position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code></a>([row, col, num, left, right, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="position.html#module-pyjams.position" title="pyjams.position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code></a>([row, col, num, left, right, ...])</p></td>
 <td><p>Gives positions of subplots, to be used with add_axes instead of subplot</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="romanliterals.html#module-pyjams.romanliterals" title="pyjams.romanliterals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">romanliterals</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="romanliterals.html#module-pyjams.romanliterals" title="pyjams.romanliterals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">romanliterals</span></code></a></p></td>
 <td><p>Convert integer to and from Roman numerals</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="sce.html#module-pyjams.sce" title="pyjams.sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sce</span></code></a>(func, x0, lb[, ub, mask, args, kwargs, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="sce.html#module-pyjams.sce" title="pyjams.sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sce</span></code></a>(func, x0, lb[, ub, mask, args, kwargs, ...])</p></td>
 <td><p>Shuffled Complex Evolution algorithm for finding the minimum of a multivariate function</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="screening.html#module-pyjams.screening" title="pyjams.screening"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screening</span></code></a>(func, lb, ub, nt[, x0, mask, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="screening.html#module-pyjams.screening" title="pyjams.screening"><code class="xref py py-obj docutils literal notranslate"><span class="pre">screening</span></code></a>(func, lb, ub, nt[, x0, mask, ...])</p></td>
 <td><p>Parameter screening using Morris' method of Elementary Effects.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="str2tex.html#module-pyjams.str2tex" title="pyjams.str2tex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str2tex</span></code></a>(strin[, space2linebreak, bold, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="str2tex.html#module-pyjams.str2tex" title="pyjams.str2tex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str2tex</span></code></a>(strin[, space2linebreak, bold, ...])</p></td>
 <td><p>Convert strings to LaTeX strings in math environment used by matplotlib's usetex</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="tee.html#module-pyjams.tee" title="pyjams.tee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tee</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="tee.html#module-pyjams.tee" title="pyjams.tee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tee</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Prints arguments on screen and in file, like Unix/Linux tee utility.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="text2plot.html#module-pyjams.text2plot" title="pyjams.text2plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text2plot</span></code></a>(handle, dx, dy, itext[, small, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="text2plot.html#module-pyjams.text2plot" title="pyjams.text2plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">text2plot</span></code></a>(handle, dx, dy, itext[, small, ...])</p></td>
 <td><p>Write text on plot</p></td>
 </tr>
 </tbody>
@@ -644,6 +645,9 @@ Jul 2023, Matthias Cuntz</p></li>
 <li><p>v2.1, ncread and ncinfo in individual files, Nov 2023, Matthias Cuntz</p></li>
 <li><p>v2.2, enhancements of plotting routines, ncio, fsread, and datetime,
 Aug 2024, Matthias Cuntz</p></li>
+<li><p>v2.3, deprecate ncio and plotting routines that became standalone
+packages, Oct 2024, Matthias Cuntz</p></li>
+<li><p>v2.4, added lhs, Oct 2025, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -683,6 +687,7 @@ Aug 2024, Matthias Cuntz</p></li>
 <li class="toctree-l1"><a class="reference internal" href="math.html">Math</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="division.html">division</a></li>
 <li class="toctree-l2"><a class="reference internal" href="functions.html">Function module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l2"><a class="reference internal" href="screening.html">screening</a></li>
@@ -704,13 +709,11 @@ Aug 2024, Matthias Cuntz</p></li>
 <li class="toctree-l2"><a class="reference internal" href="color.html">Color module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l2"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="special_files.html">Special Files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncio.html">netCDF I/O module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ncread.html">read netcdf</a></li>
@@ -791,7 +794,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

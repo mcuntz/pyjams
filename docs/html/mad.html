@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -193,6 +193,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -231,13 +232,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -493,7 +492,7 @@ l’Environnement (INRAE), Nancy, France.</p>
 </dd>
 </dl>
 <p>The following functions are provided</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.mad.mad" title="pyjams.mad.mad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mad</span></code></a>(datin[, z, deriv, nozero, prepend, append])</p></td>
 <td><p>Median absolute deviation test</p></td>
@@ -537,11 +536,11 @@ Jan 2022, Matthias Cuntz</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>datin</strong> (<em>array</em><em> or </em><em>masked array</em>) – <cite>mad</cite> acts on <code class="docutils literal notranslate"><span class="pre">axis=0</span></code></p></li>
-<li><p><strong>z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><em>optional</em>) – Input is allowed to deviate maximum <em>z</em> (estimators of) standard
+<li><p><strong>z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Input is allowed to deviate maximum <em>z</em> (estimators of) standard
 deviations from the median (default: 7)</p></li>
-<li><p><strong>deriv</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Act on raw input (0, default), on first derivatives (1), or on 2nd
+<li><p><strong>deriv</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Act on raw input (0, default), on first derivatives (1), or on 2nd
 derivatives (2)</p></li>
-<li><p><strong>nozero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Exclude zeros (0.) from input <em>datin</em> if True.</p></li>
+<li><p><strong>nozero</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Exclude zeros (0.) from input <em>datin</em> if True.</p></li>
 <li><p><strong>prepend</strong> (<em>array_like</em><em>, </em><em>optional</em>) – <p>Values to prepend or append to <cite>datin</cite> prior to performing the
 difference with <cite>numpy.diff</cite> if <cite>deriv &gt; 0</cite>.
 <cite>prepend</cite> uses <cite>numpy.insert</cite> and <cite>append</cite> uses <cite>numpy.append</cite>.
@@ -572,7 +571,7 @@ dimension, which is smaller by <cite>deriv</cite> if <cite>prepend</cite> and <c
 are not set.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-odd"><p>array of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 <div class="admonition-notes admonition">
@@ -588,7 +587,7 @@ difference would give 0 for spikes.</p>
 if <code class="docutils literal notranslate"><span class="pre">deriv</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.68</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">,</span> <span class="mf">2.26</span><span class="p">,</span> <span class="mf">2.35</span><span class="p">,</span> <span class="mf">2.37</span><span class="p">,</span> <span class="mf">2.40</span><span class="p">,</span> <span class="mf">2.47</span><span class="p">,</span>
 <span class="gp">... </span>              <span class="mf">2.54</span><span class="p">,</span> <span class="mf">2.62</span><span class="p">,</span> <span class="mf">2.64</span><span class="p">,</span> <span class="mf">2.90</span><span class="p">,</span> <span class="mf">2.92</span><span class="p">,</span> <span class="mf">2.92</span><span class="p">,</span> <span class="mf">2.93</span><span class="p">,</span> <span class="mf">3.21</span><span class="p">,</span> <span class="mf">3.26</span><span class="p">,</span>
 <span class="gp">... </span>              <span class="mf">3.30</span><span class="p">,</span> <span class="mf">3.59</span><span class="p">,</span> <span class="mf">3.68</span><span class="p">,</span> <span class="mf">4.30</span><span class="p">,</span> <span class="mf">4.64</span><span class="p">,</span> <span class="mf">5.34</span><span class="p">,</span> <span class="mf">5.42</span><span class="p">,</span> <span class="mf">8.01</span><span class="p">])</span>
@@ -795,7 +794,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

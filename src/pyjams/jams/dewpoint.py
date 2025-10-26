@@ -33,7 +33,7 @@ def dewpoint(pres, Celsius=False):
 
 
         References
-        ---------
+        ----------
         Uses Bucks original vapour pressure formulation based on Tetens formula
         Buck, A. L., New equations for computing vapour pressure and enhancement factor,
                      J. Appl. Meteorol., 20, 1527-1532, 1981.

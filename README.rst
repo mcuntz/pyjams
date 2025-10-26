@@ -210,6 +210,8 @@ Functions and modules (alphabetical)
      - Multi-dimensional non-parametric kernel regression
    * - kernel_regression_h
      - Determination of bandwidth for kernel regression
+   * - lhs
+     - Latin Hypercube Sampling
    * - mad
      - Median absolute deviation test
    * - mcPlot
@@ -466,6 +468,8 @@ Functions and modules per category
            analysis, several forms of the logistic function and its
            derivatives, and other functions to be used with
            scipy.optimize
+       * - lhs
+         - Latin Hypercube Sampling
        * - morris_sampling
          - Deprecated, moved to package pyeee_. Sampling of optimised
            trajectories for Morris measures / Elementary Effects

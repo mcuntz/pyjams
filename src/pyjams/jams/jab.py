@@ -75,7 +75,7 @@ def jab(arr, ind=None, nind=None, mask=None, weight=False, nsteps=1):
         Society Washington, DC, USA., pp. 240-245, doi:10.1145/268437.268486
 
 
-    Example
+    Examples
     --------
     # 5 Bootstrap with 2 standard error outputs, e.g. for 2 parameters
     >>> import numpy as np

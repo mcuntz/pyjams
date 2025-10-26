@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'npyio';</script>
@@ -192,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -230,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="special_files.html">Special Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -491,7 +490,7 @@ France.</p>
 </dd>
 </dl>
 <p>The following functions are provided:</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.npyio.updatez" title="pyjams.npyio.updatez"><code class="xref py py-obj docutils literal notranslate"><span class="pre">updatez</span></code></a>(file, *args, **kwds)</p></td>
 <td><p>Update arrays in a single file in uncompressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> format.</p></td>
@@ -523,7 +522,7 @@ Existing arrays with the same name will be replaced by the new arrays.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Filename where the data will be saved. The <code class="docutils literal notranslate"><span class="pre">.npz</span></code> extension will be
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Filename where the data will be saved. The <code class="docutils literal notranslate"><span class="pre">.npz</span></code> extension will be
 appended to the filename if it is not already there.</p></li>
 <li><p><strong>args</strong> (<em>Arguments</em><em>, </em><em>optional</em>) – Arrays to save to the file. Please use keyword arguments (see
 <cite>kwds</cite> below) to assign names to arrays.  Arrays specified as
@@ -539,13 +538,13 @@ output file with its corresponding keyword name.</p></li>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez.html#numpy.savez" title="(in NumPy v2.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savez</span></code></a></dt><dd><p>Save several arrays into an uncompressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> archive</p>
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez.html#numpy.savez" title="(in NumPy v2.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savez</span></code></a></dt><dd><p>Save several arrays into an uncompressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> archive</p>
 </dd>
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez_compressed.html#numpy.savez_compressed" title="(in NumPy v2.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savez_compressed</span></code></a></dt><dd><p>Save arrays into a compressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> archive</p>
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez_compressed.html#numpy.savez_compressed" title="(in NumPy v2.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savez_compressed</span></code></a></dt><dd><p>Save arrays into a compressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> archive</p>
 </dd>
 <dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyjams.updatez_compressed</span></code></dt><dd><p>Update arrays in a compressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> archive</p>
 </dd>
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html#numpy.load" title="(in NumPy v2.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.load</span></code></a></dt><dd><p>Load the files created by updatez.</p>
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html#numpy.load" title="(in NumPy v2.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.load</span></code></a></dt><dd><p>Load the files created by updatez.</p>
 </dd>
 </dl>
 </div>
@@ -554,7 +553,7 @@ output file with its corresponding keyword name.</p></li>
 <p>The <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file format is a zipped archive of files named after the
 variables they contain.  The archive is not compressed and each file
 in the archive contains one variable in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> format. For a
-description of the <code class="docutils literal notranslate"><span class="pre">.npy</span></code> format, see <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#module-numpy.lib.format" title="(in NumPy v2.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.lib.format</span></code></a>.</p>
+description of the <code class="docutils literal notranslate"><span class="pre">.npy</span></code> format, see <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#module-numpy.lib.format" title="(in NumPy v2.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.lib.format</span></code></a>.</p>
 <p>When opening the saved <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file with <cite>load</cite> a <cite>NpzFile</cite> object is
 returned. This is a dictionary-like object which can be queried for
 its list of arrays (with the <code class="docutils literal notranslate"><span class="pre">.files</span></code> attribute), and for the arrays
@@ -569,9 +568,9 @@ twice in the call to <code class="docutils literal notranslate"><span class="pre
 file-like or path-like objects.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">mkstemp</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">mkstemp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fd</span><span class="p">,</span> <span class="n">outfile</span> <span class="o">=</span> <span class="n">mkstemp</span><span class="p">(</span><span class="s1">&#39;.npz&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -636,7 +635,7 @@ to <code class="docutils literal notranslate"><span class="pre">numpy.savez_comp
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Filename where the data will be saved. The <code class="docutils literal notranslate"><span class="pre">.npz</span></code> extension will be
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Filename where the data will be saved. The <code class="docutils literal notranslate"><span class="pre">.npz</span></code> extension will be
 appended to the filename if it is not already there.</p></li>
 <li><p><strong>args</strong> (<em>Arguments</em><em>, </em><em>optional</em>) – Arrays to save to the file. Please use keyword arguments (see
 <cite>kwds</cite> below) to assign names to arrays.  Arrays specified as
@@ -652,13 +651,13 @@ output file with its corresponding keyword name.</p></li>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez.html#numpy.savez" title="(in NumPy v2.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savez</span></code></a></dt><dd><p>Save arrays into an uncompressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file format</p>
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez.html#numpy.savez" title="(in NumPy v2.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savez</span></code></a></dt><dd><p>Save arrays into an uncompressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file format</p>
 </dd>
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez_compressed.html#numpy.savez_compressed" title="(in NumPy v2.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savez_compressed</span></code></a></dt><dd><p>Save arrays into a compressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file format</p>
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez_compressed.html#numpy.savez_compressed" title="(in NumPy v2.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savez_compressed</span></code></a></dt><dd><p>Save arrays into a compressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file format</p>
 </dd>
 <dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyjams.updatez</span></code></dt><dd><p>Update arrays in uncompressed <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file format</p>
 </dd>
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html#numpy.load" title="(in NumPy v2.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.load</span></code></a></dt><dd><p>Load the files created by updatez_compressed.</p>
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html#numpy.load" title="(in NumPy v2.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.load</span></code></a></dt><dd><p>Load the files created by updatez_compressed.</p>
 </dd>
 </dl>
 </div>
@@ -668,7 +667,7 @@ output file with its corresponding keyword name.</p></li>
 variables they contain.  The archive is compressed with
 <code class="docutils literal notranslate"><span class="pre">zipfile.ZIP_DEFLATED</span></code> and each file in the archive contains one variable
 in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> format. For a description of the <code class="docutils literal notranslate"><span class="pre">.npy</span></code> format, see
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#module-numpy.lib.format" title="(in NumPy v2.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.lib.format</span></code></a>.</p>
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#module-numpy.lib.format" title="(in NumPy v2.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.lib.format</span></code></a>.</p>
 <p>When opening the saved <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file with <cite>load</cite> a <cite>NpzFile</cite> object is
 returned. This is a dictionary-like object which can be queried for
 its list of arrays (with the <code class="docutils literal notranslate"><span class="pre">.files</span></code> attribute), and for the arrays
@@ -683,9 +682,9 @@ twice in the call to <code class="docutils literal notranslate"><span class="pre
 filenames and not file-like or path-like objects.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">mkstemp</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">mkstemp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fd</span><span class="p">,</span> <span class="n">outfile</span> <span class="o">=</span> <span class="n">mkstemp</span><span class="p">(</span><span class="s1">&#39;.npz&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -808,7 +807,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

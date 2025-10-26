@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,15 +37,15 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=78f1df99"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'morris_method';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="sce" href="sce.html" />
-    <link rel="prev" title="Sensitivity analysis test functions" href="functions.sa_test_functions.html" />
+    <link rel="prev" title="LHS" href="lhs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="lhs.html">LHS</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screening.html">screening</a></li>
@@ -230,13 +231,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="ncio.netcdfio.html">netcdfio</a></li>
@@ -510,7 +509,7 @@ for details.</p>
 </dd>
 </dl>
 <p>The following wrappers are provided</p>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyjams.morris_method.morris_sampling" title="pyjams.morris_method.morris_sampling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">morris_sampling</span></code></a>(nparam, lb, ub, nt[, ...])</p></td>
 <td><p>Sample trajectories in parameter space</p></td>
@@ -571,7 +570,7 @@ values and the group matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Number of parameters / factors list [OptMatrix, OptOutVec] with
+<li><p><strong>nparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of parameters / factors list [OptMatrix, OptOutVec] with
 OptMatrix((nparam+1)*nt,nparam) and OptOutVec(nparam*nt)</p></li>
 <li><p><strong>OptMatrix</strong> (<em>ndarray</em>) – ((nparam+1)*nt,nparam) Matrix of the Morris sampled trajectories from
 morris_sampling</p></li>
@@ -579,11 +578,11 @@ morris_sampling</p></li>
 morris_sampling</p></li>
 <li><p><strong>Output</strong> (<em>ndarray</em>) – ((nparam+1)*nt,) Matrix of the output values of each point of each
 trajectory</p></li>
-<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of levels, i.e. intervals in trajectories (default: 4)</p></li>
+<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of levels, i.e. intervals in trajectories (default: 4)</p></li>
 <li><p><strong>Group</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – (nparam,NumGroups) Matrix describing the groups. (default: [])
 Each column represents a group. The elements of each column are zero
 if the parameter / factor is not in the group, otherwise it is 1.</p></li>
-<li><p><strong>Diagnostic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Print out diagnostics if True (default: False)</p></li>
+<li><p><strong>Diagnostic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Print out diagnostics if True (default: False)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -593,7 +592,7 @@ OutMatrix(nparam*Output.shape[1], 3) = [Mu*, Mu, StDev] Morris Measures</p>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a> of ndarrays</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a> of ndarrays</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -601,7 +600,7 @@ OutMatrix(nparam*Output.shape[1], 3) = [Mu*, Mu, StDev] Morris Measures</p>
 Series in Probability and Statistics, John Wiley &amp; Sons, New York, 1-504. -
 on page 68ff</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1023</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">npara</span> <span class="o">=</span> <span class="mi">10</span>
@@ -641,7 +640,7 @@ means elementary effects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Number of parameters / factors</p></li>
+<li><p><strong>nparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of parameters / factors</p></li>
 <li><p><strong>lb</strong> (<em>array_like</em>) – (nparam,) Lower bound of the uniform distribution for each parameter /
 factor or lower fraction of percent point function ppf if distribution
 given.
@@ -652,11 +651,11 @@ factor or upper fraction of percent point function ppf if distribution
 given.
 Be aware that the percent point function <em>ppf</em> of most continuous
 distributions is infinite at 1.</p></li>
-<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Final number of optimal trajectories</p></li>
-<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of levels, i.e. intervals in trajectories (default: 6)</p></li>
-<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories. If None: <cite>ntotal=10*nt</cite> (default:
+<li><p><strong>nt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Final number of optimal trajectories</p></li>
+<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of levels, i.e. intervals in trajectories (default: 6)</p></li>
+<li><p><strong>ntotal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Total number of sampled trajectories. If None: <cite>ntotal=10*nt</cite> (default:
 None)</p></li>
-<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
+<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><em>optional</em>) – List of None or scipy.stats distribution objects for each factor having
 the method ppf, Percent Point Function (Inverse of CDF) (default: None)
 If None, the uniform distribution will be sampled from lower bound <cite>lb</cite>
 to upper bound <cite>ub</cite>.
@@ -667,7 +666,7 @@ sampling interval is then given by the parameters <cite>loc=lower</cite> and
 <cite>dist=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite>
 corresponds to
 <cite>lb=0</cite>, <cite>ub=1</cite>, <cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a,b-a]</cite></p></li>
-<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
+<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><em>optional</em>) – List with tuples with parameters as required for <cite>dist</cite> (default:
 (0,1)).
 All distributions of scipy.stats have location and scale parameters, at
 least. <cite>loc</cite> and <cite>scale</cite> are implemented as keyword arguments in
@@ -680,7 +679,7 @@ The percent point function ppf is called like this:
 <li><p><strong>GroupMat</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – (nparam,ngroup) Matrix describing the groups. (default: np.array([]))
 Each column represents a group. The elements of each column are zero
 if the parameter / factor is not in the group, otherwise it is 1.</p></li>
-<li><p><strong>Diagnostic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Plot the histograms and compute the efficiency of the sampling if True
+<li><p><strong>Diagnostic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Plot the histograms and compute the efficiency of the sampling if True
 (default: False)</p></li>
 </ul>
 </dd>
@@ -689,7 +688,7 @@ if the parameter / factor is not in the group, otherwise it is 1.</p></li>
 <cite>OptOutVec(nparam*nt)</cite></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -697,7 +696,7 @@ if the parameter / factor is not in the group, otherwise it is 1.</p></li>
 Series in Probability and Statistics, John Wiley &amp; Sons, New York, 1-504. -
 on page 68ff</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1023</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">npara</span> <span class="o">=</span> <span class="mi">10</span>
@@ -720,7 +719,7 @@ on page 68ff</p>
 <span class="go">[0.6 0.4 0.8 0.6 0.6 0.5 0.4 0.5 0.  0.5]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1023</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">npara</span> <span class="o">=</span> <span class="mi">10</span>
@@ -762,12 +761,12 @@ on page 68ff</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="functions.sa_test_functions.html"
+       href="lhs.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Sensitivity analysis test functions</p>
+        <p class="prev-next-title">LHS</p>
       </div>
     </a>
     <a class="right-next"
@@ -821,7 +820,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyjams.lhs &#8212; pyjams</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/lhs';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../contents.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pyjams</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../array_manipulation.html">Array Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../argsort.html">argmax/argmin/argsort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../closest.html">closest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../pack.html">pack/unpack</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../ascii_files.html">ASCII Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../fsread.html">fsread / xread</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../data_processing.html">Data Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../kernel_regression.html">kernel_regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mad.html">MAD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../means.html">means</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../date_time.html">Date and Time</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../date2date.html">date2date module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../class_datetime.html">datetime module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../grids_polygons.html">Grids and Polygons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../gridcellarea.html">gridcellarea</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../isotopes.html">Isotopes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../alpha_equ_h2o.html">alpha_equ_h2o</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../alpha_kin_h2o.html">alpha_kin_h2o</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../math.html">Math</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../division.html">division</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../functions.html">Function module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../functions.fit_functions.html">Fit functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../functions.general_functions.html">General functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../functions.logistic_function.html">Logistic function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../functions.opti_test_functions.html">Optimisation test functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lhs.html">LHS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../sce.html">sce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../screening.html">screening</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../meteorology.html">Meteorology</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../air_humidity.html">Air humidity</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../miscellaneous.html">Miscellaneous</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../const.html">Constant module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../const.const.html">Constants</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../fgui.html">directory/file dialog</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../jams.html">JAMS module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../romanliterals.html">Roman literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tee.html">tee</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../plotting.html">Plotting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../color.html">Color module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../color.color.html">Color functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.brewer_palettes.html">Brewer palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.ipcc_palettes.html">IPCC WG1 palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.mathematica_palettes.html">Mathematica palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.ncl_palettes.html">NCL palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.oregon_palettes.html">Oregon palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.pyjams_palettes.html">pyjams palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.sron2012_palettes.html">SRON2012 palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.sron_palettes.html">SRON palettes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../color.ufz_palettes.html">UFZ colors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mcplot.html">mcPlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../position.html">position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../str2tex.html">str2tex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../text2plot.html">text2plot</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ncinfo.html">netcdf info</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../ncio.netcdfio.html">netcdfio</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ncread.html">read netcdf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../npyio.html">updatez</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyjams" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyjams/issues/new?title=Issue%20on%20page%20%2F_modules/pyjams/lhs.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyjams.lhs</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Function for Latin Hypercube Sampling</span>
+
+<span class="sd">This module was written by Matthias Cuntz while at Department of</span>
+<span class="sd">Computational Hydrosystems, Helmholtz Centre for Environmental</span>
+<span class="sd">Research - UFZ, Leipzig, Germany, and continued while at Institut</span>
+<span class="sd">National de Recherche pour l&#39;Agriculture, l&#39;Alimentation et</span>
+<span class="sd">l&#39;Environnement (INRAE), Nancy, France.</span>
+
+<span class="sd">:copyright: Copyright 2012-2025 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   lhs</span>
+
+<span class="sd">History</span>
+<span class="sd">   * Written May 2012 by Matthias Cuntz making a combination of a Matlab</span>
+<span class="sd">     routine of Budiman (2003) and a Python routine of Flavio Codeco Coelho (2008)</span>
+<span class="sd">   * Ported to Python 3, Feb 2013, Matthias Cuntz</span>
+<span class="sd">   * Preserve shape of dist parameter, Nov 2016, Matthias Cuntz</span>
+<span class="sd">   * Code refactoring, Sep 2021, Matthias Cuntz</span>
+<span class="sd">   * Porting into pyjams, Oct 2025, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lhs&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="lhs">
+<a class="viewcode-back" href="../../lhs.html#pyjams.lhs.lhs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">lhs</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">nsample</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Latin Hypercube Sampling of any distribution after Stein (1987)</span>
+
+<span class="sd">    There can be no correlation between parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dist : instance or list of scipy.stats distributions</span>
+<span class="sd">        Instance(s) of random number generator from scipy.stats such as</span>
+<span class="sd">        scipy.stats.norm, scipy.stats.beta, etc.</span>
+<span class="sd">    param : tuple or list of tuple</span>
+<span class="sd">        Tuple of parameters as required for *dist*</span>
+<span class="sd">    nsample : int</span>
+<span class="sd">        Number of samples per parameter, i.e. per *dist*</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    [len(dist), nsample] ndarray</span>
+<span class="sd">        Latin Hypercube Samples of dist</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Stein, M. 1987. Large Sample Properties of Simulations Using</span>
+<span class="sd">        Latin Hypercube Sampling. Technometrics 29:143-151</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import scipy.stats as stats</span>
+<span class="sd">    &gt;&gt;&gt; # seed for reproducible results in doctest</span>
+<span class="sd">    &gt;&gt;&gt; np.random.seed(1)</span>
+
+<span class="sd">    &gt;&gt;&gt; dist = [stats.norm, stats.uniform] # for uniform (min, max-min)</span>
+<span class="sd">    &gt;&gt;&gt; pars = [(50, 2), (1, 5)]</span>
+<span class="sd">    &gt;&gt;&gt; c = lhs(dist, pars, 20)</span>
+<span class="sd">    &gt;&gt;&gt; print(c[0:2, 0:4])</span>
+<span class="sd">    [[52.8216393  51.95643181 46.71040364 50.58536004]</span>
+<span class="sd">     [ 4.95018614  2.49206539  2.07835604  4.67308065]]</span>
+
+<span class="sd">    &gt;&gt;&gt; np.random.seed(1)</span>
+<span class="sd">    &gt;&gt;&gt; dist = [stats.norm]</span>
+<span class="sd">    &gt;&gt;&gt; pars = [(50,2)]</span>
+<span class="sd">    &gt;&gt;&gt; c = lhs(dist, pars, 20)</span>
+<span class="sd">    &gt;&gt;&gt; print(c.shape)</span>
+<span class="sd">    (1, 20)</span>
+
+<span class="sd">    &gt;&gt;&gt; print(c[0, 0:4])</span>
+<span class="sd">    [51.17074344 48.56164788 51.68328332 50.58536004]</span>
+
+<span class="sd">    &gt;&gt;&gt; np.random.seed(1)</span>
+<span class="sd">    &gt;&gt;&gt; dist = stats.norm</span>
+<span class="sd">    &gt;&gt;&gt; pars = (50,2)</span>
+<span class="sd">    &gt;&gt;&gt; c = lhs(dist, pars, 20)</span>
+
+<span class="sd">    &gt;&gt;&gt; print(c.shape)</span>
+<span class="sd">    (20,)</span>
+
+<span class="sd">    &gt;&gt;&gt; print(c[0:4])</span>
+<span class="sd">    [51.17074344 48.56164788 51.68328332 50.58536004]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check input</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">nodim</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">dist</span>  <span class="o">=</span> <span class="p">[</span><span class="n">dist</span><span class="p">]</span>
+        <span class="n">param</span> <span class="o">=</span> <span class="p">[</span><span class="n">param</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nodim</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+    <span class="n">ndist</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+
+    <span class="c1"># LHS</span>
+    <span class="n">ran</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="p">(</span><span class="n">ndist</span><span class="p">,</span> <span class="n">nsample</span><span class="p">))</span>
+    <span class="n">lhsout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">ndist</span><span class="p">,</span> <span class="n">nsample</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dist</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">rv_discrete</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;dist is not a scipy.stats distribution object&#39;</span><span class="p">)</span>
+        <span class="c1"># force type to float for sage compatibility</span>
+        <span class="n">pars</span> <span class="o">=</span> <span class="p">(</span> <span class="nb">float</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">param</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">nsample</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="n">ran</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">nsample</span><span class="p">)</span>  <span class="c1"># probability of cdf</span>
+        <span class="n">lhsout</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="o">*</span><span class="n">pars</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>          <span class="c1"># inverse of cdf</span>
+
+    <span class="k">if</span> <span class="n">nodim</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">lhsout</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">lhsout</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+
+    <span class="c1"># import matplotlib.pyplot as plt</span>
+    <span class="c1"># dist = [stats.norm, stats.uniform]</span>
+    <span class="c1"># pars = [(50, 2), (1, 5)]</span>
+    <span class="c1"># c    = lhs(dist, pars, 20000)</span>
+
+    <span class="c1"># plt.figure()</span>
+    <span class="c1"># plt.hist(c[0, :], bins=1000)</span>
+
+    <span class="c1"># plt.figure()</span>
+    <span class="c1"># plt.hist(c[1, :], bins=1000)</span>
+
+    <span class="c1"># dist = [stats.uniform, stats.uniform]</span>
+    <span class="c1"># pars = [(50, 2), (1, 5)]</span>
+    <span class="c1"># c    = lhs(dist, pars, 20000)</span>
+
+    <span class="c1"># plt.figure()</span>
+    <span class="c1"># plt.plot(c[0, :], c[1, :], &#39;ko&#39;, markersize=1.0)</span>
+    <span class="c1"># plt.show()</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

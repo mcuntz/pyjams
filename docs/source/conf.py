@@ -253,7 +253,7 @@ suppress_warnings = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    "cartopy": ("https://scitools.org.uk/cartopy/docs/latest/", None),
+    "cartopy": ("https://cartopy.readthedocs.io/stable/", None),
     "cftime": ("https://unidata.github.io/cftime/", None),
     "cython": ("https://docs.cython.org/en/latest/", None),
     "dask": ("https://docs.dask.org/en/latest/", None),

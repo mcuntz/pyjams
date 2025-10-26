@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=78f1df99"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/morris_method';</script>
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../screening.html">screening</a></li>
@@ -229,13 +230,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../ncio.netcdfio.html">netcdfio</a></li>
@@ -481,15 +480,15 @@ document.write(`
 <span class="sd">      Jul 2023, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">filterwarnings</span>
 <span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;morris_sampling&#39;</span><span class="p">,</span> <span class="s1">&#39;elementary_effects&#39;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">Sampling_Function_2</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">GroupMat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Sampling_Function_2</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">GroupMat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Morris sampling function</span>
 
@@ -695,7 +694,7 @@ document.write(`
     <span class="k">return</span> <span class="n">Outmatrix</span><span class="p">,</span> <span class="n">OutFact</span>
 
 
-<span class="k">def</span> <span class="nf">Optimized_Groups</span><span class="p">(</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Optimized_Groups</span><span class="p">(</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span>
                      <span class="n">p</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">dist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">GroupMat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -776,8 +775,8 @@ document.write(`
 <span class="sd">    on page 68ff</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
-    <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial</span><span class="w"> </span><span class="kn">import</span> <span class="n">distance</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
     <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Screening with Elementary Effects of pyjams were transferred to a&#39;</span>
          <span class="s1">&#39; standalone repository &quot;pyeee&quot;. Function is thus deprecated in&#39;</span>
          <span class="s1">&#39; pyjams.&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
@@ -940,9 +939,9 @@ document.write(`
                         <span class="n">hplot</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">kk</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">OptMatrix_b</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">sizeb</span> <span class="o">+</span> <span class="n">ii</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
 
         <span class="k">try</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-            <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
             <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>
-            <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
             <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sans-serif&#39;</span>
             <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Arial&#39;</span>  <span class="c1"># Arial, Verdana</span>
             <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
@@ -1028,7 +1027,7 @@ document.write(`
     <span class="k">return</span> <span class="n">OptMatrix</span><span class="p">,</span> <span class="n">OptOutVec</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">Morris_Measure_Groups</span><span class="p">(</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">Sample</span><span class="p">,</span> <span class="n">OutFact</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Morris_Measure_Groups</span><span class="p">(</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">Sample</span><span class="p">,</span> <span class="n">OutFact</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                           <span class="n">Group</span><span class="o">=</span><span class="p">[],</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given the Morris sample matrix, the output values and the group matrix</span>
@@ -1221,7 +1220,7 @@ document.write(`
 
 <div class="viewcode-block" id="morris_sampling">
 <a class="viewcode-back" href="../../morris_method.html#pyjams.morris_method.morris_sampling">[docs]</a>
-<span class="k">def</span> <span class="nf">morris_sampling</span><span class="p">(</span><span class="n">nparam</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">morris_sampling</span><span class="p">(</span><span class="n">nparam</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span>
                     <span class="n">nsteps</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">dist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">GroupMat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -1356,7 +1355,7 @@ document.write(`
 
 <div class="viewcode-block" id="elementary_effects">
 <a class="viewcode-back" href="../../morris_method.html#pyjams.morris_method.elementary_effects">[docs]</a>
-<span class="k">def</span> <span class="nf">elementary_effects</span><span class="p">(</span><span class="n">nparam</span><span class="p">,</span> <span class="n">OptMatrix</span><span class="p">,</span> <span class="n">OptOutVec</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">elementary_effects</span><span class="p">(</span><span class="n">nparam</span><span class="p">,</span> <span class="n">OptMatrix</span><span class="p">,</span> <span class="n">OptOutVec</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span>
                        <span class="n">nsteps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">Group</span><span class="o">=</span><span class="p">[],</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the Morris measures given the Morris sample matrix, the output</span>
@@ -1436,7 +1435,7 @@ document.write(`
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">doctest</span>
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
 
     <span class="c1"># # nt = 10</span>
@@ -1619,7 +1618,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

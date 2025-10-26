@@ -1009,7 +1009,7 @@ def pso(func, x0, lb, ub,
             v = np.empty((iS,D), dtype=np.float64)
             if crank == 0:
                 import scipy.stats as stats
-                from pyjams.jams.lhs import lhs
+                from pyjams.lhs import lhs
                 dist = [stats.uniform for i in range(D)]
                 pars = [(0,1) for i in range(D)]
                 gx   = lhs(dist, pars, S).transpose()

@@ -19,26 +19,26 @@ The following functions are provided
    mad
 
 History
-    * Written Nov 2011 by Matthias Cuntz - mc (at) macu (dot) de
-    * ND-array, act on axis=0, May 2012, Matthias Cuntz
-    * Removed bug in broadcasting, axis=0 did not always work: spread md and
-      MAD to input dimensions, Jun 2012, Matthias Cuntz
-    * Better usage of numpy possibilities, e.g. using np.diff,
-      remove spreads, Jun 2012, Matthias Cuntz
-    * Ported to Python 3, Feb 2013, Matthias Cuntz
-    * Use bottleneck for medians, otherwise loop over axis=1,
-      Jul 2013, Matthias Cuntz and Juliane Mai
-    * Re-allow masked arrays and arrays with NaNs, Jul 2013, Matthias Cuntz
-    * Removed bug in NaN treatment, Oct 2013, Matthias Cuntz
-    * Keyword nonzero, Oct 2013, Matthias Cuntz
-    * Using numpy docstring format, May 2020, Matthias Cuntz
-    * Code refactoring, Sep 2021, Matthias Cuntz
-    * Ported to pyjams, Jan 2022, Matthias Cuntz
-    * Only one test of bottleneck availability, Jan 2022, Matthias Cuntz
-    * Return all False instead of all True if all masked before MAD started,
-      Jan 2022, Matthias Cuntz
-    * prepend, append as in numpy.diff, May 2023, Matthias Cuntz
-    * Support pandas Series and DataFrame, Jul 2023, Matthias Cuntz
+   * Written Nov 2011 by Matthias Cuntz - mc (at) macu (dot) de
+   * ND-array, act on axis=0, May 2012, Matthias Cuntz
+   * Removed bug in broadcasting, axis=0 did not always work: spread md and
+     MAD to input dimensions, Jun 2012, Matthias Cuntz
+   * Better usage of numpy possibilities, e.g. using np.diff,
+     remove spreads, Jun 2012, Matthias Cuntz
+   * Ported to Python 3, Feb 2013, Matthias Cuntz
+   * Use bottleneck for medians, otherwise loop over axis=1,
+     Jul 2013, Matthias Cuntz and Juliane Mai
+   * Re-allow masked arrays and arrays with NaNs, Jul 2013, Matthias Cuntz
+   * Removed bug in NaN treatment, Oct 2013, Matthias Cuntz
+   * Keyword nonzero, Oct 2013, Matthias Cuntz
+   * Using numpy docstring format, May 2020, Matthias Cuntz
+   * Code refactoring, Sep 2021, Matthias Cuntz
+   * Ported to pyjams, Jan 2022, Matthias Cuntz
+   * Only one test of bottleneck availability, Jan 2022, Matthias Cuntz
+   * Return all False instead of all True if all masked before MAD started,
+     Jan 2022, Matthias Cuntz
+   * prepend, append as in numpy.diff, May 2023, Matthias Cuntz
+   * Support pandas Series and DataFrame, Jul 2023, Matthias Cuntz
 
 """
 import numpy as np

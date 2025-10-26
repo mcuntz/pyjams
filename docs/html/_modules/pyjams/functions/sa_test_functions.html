@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=78f1df99"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/documentation_options.js?v=b095b6e2"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyjams/functions/sa_test_functions';</script>
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../functions.sa_test_functions.html">Sensitivity analysis test functions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lhs.html">LHS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../morris_method.html">Morris Method / Elementary Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../sce.html">sce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../screening.html">screening</a></li>
@@ -229,13 +230,11 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../mcplot.html">mcPlot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../position.html">position</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../romanliterals.html">Roman literals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../str2tex.html">str2tex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../text2plot.html">text2plot</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../special_files.html">Special Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../fsread.html">fsread / xread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../ncinfo.html">netcdf info</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../ncio.html">netCDF I/O module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../ncio.netcdfio.html">netcdfio</a></li>
@@ -513,7 +512,7 @@ document.write(`
 <span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;Gstar&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;bratley&#39;</span><span class="p">,</span> <span class="s1">&#39;fmorris&#39;</span><span class="p">,</span> <span class="s1">&#39;morris&#39;</span><span class="p">,</span>
@@ -525,7 +524,7 @@ document.write(`
 
 <div class="viewcode-block" id="B">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.B">[docs]</a>
-<span class="k">def</span> <span class="nf">B</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">B</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    B function</span>
 
@@ -569,7 +568,7 @@ document.write(`
 
 <div class="viewcode-block" id="g">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.g">[docs]</a>
-<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    G-function</span>
 
@@ -601,7 +600,7 @@ document.write(`
 
 <div class="viewcode-block" id="G">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.G">[docs]</a>
-<span class="k">def</span> <span class="nf">G</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">G</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    G-function</span>
 
@@ -633,7 +632,7 @@ document.write(`
 
 <div class="viewcode-block" id="Gstar">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.Gstar">[docs]</a>
-<span class="k">def</span> <span class="nf">Gstar</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Gstar</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    G* example</span>
 
@@ -695,7 +694,7 @@ document.write(`
 
 <div class="viewcode-block" id="linear">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.linear">[docs]</a>
-<span class="k">def</span> <span class="nf">linear</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">linear</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Linear test function</span>
 
@@ -745,7 +744,7 @@ document.write(`
 
 <div class="viewcode-block" id="product">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.product">[docs]</a>
-<span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">product</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Product test function</span>
 
@@ -790,7 +789,7 @@ document.write(`
 
 <div class="viewcode-block" id="ratio">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.ratio">[docs]</a>
-<span class="k">def</span> <span class="nf">ratio</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ratio</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Ratio test function</span>
 
@@ -849,7 +848,7 @@ document.write(`
 
 <div class="viewcode-block" id="ishigami_homma_easy">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.ishigami_homma_easy">[docs]</a>
-<span class="k">def</span> <span class="nf">ishigami_homma_easy</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ishigami_homma_easy</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simplified Ishigami and Homma function</span>
 
@@ -897,7 +896,7 @@ document.write(`
 
 <div class="viewcode-block" id="ishigami_homma">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.ishigami_homma">[docs]</a>
-<span class="k">def</span> <span class="nf">ishigami_homma</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ishigami_homma</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Ishigami and Homma (1990)</span>
 
@@ -947,7 +946,7 @@ document.write(`
 
 <div class="viewcode-block" id="K">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.K">[docs]</a>
-<span class="k">def</span> <span class="nf">K</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">K</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    K example</span>
 
@@ -993,7 +992,7 @@ document.write(`
 
 <div class="viewcode-block" id="bratley">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.bratley">[docs]</a>
-<span class="k">def</span> <span class="nf">bratley</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bratley</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    K example</span>
 
@@ -1019,7 +1018,7 @@ document.write(`
 
 <div class="viewcode-block" id="fmorris">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.fmorris">[docs]</a>
-<span class="k">def</span> <span class="nf">fmorris</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">beta0</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">beta3</span><span class="p">,</span> <span class="n">beta4</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fmorris</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">beta0</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">beta3</span><span class="p">,</span> <span class="n">beta4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Morris-function</span>
 
@@ -1092,7 +1091,7 @@ document.write(`
 
 <div class="viewcode-block" id="morris">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.morris">[docs]</a>
-<span class="k">def</span> <span class="nf">morris</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">morris</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Morris-function</span>
 
@@ -1129,7 +1128,7 @@ document.write(`
 
 <div class="viewcode-block" id="oakley_ohagan">
 <a class="viewcode-back" href="../../../functions.sa_test_functions.html#pyjams.functions.oakley_ohagan">[docs]</a>
-<span class="k">def</span> <span class="nf">oakley_ohagan</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">oakley_ohagan</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Oakley and O&#39;Hagan (2004)</span>
 
@@ -1211,7 +1210,7 @@ document.write(`
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">doctest</span>
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
 
     <span class="c1"># ishigami_homma([np.pi/2.,np.pi/2.,1.], 1., 1.)</span>
@@ -1304,7 +1303,7 @@ By Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda
 
   <p class="copyright">
     
-      © Copyright 2012-2024, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
+      © Copyright 2012-2025, Matthias Cuntz, Juliane Mai, Stephan Thober, Arndt Piayda.
       <br/>
     
   </p>

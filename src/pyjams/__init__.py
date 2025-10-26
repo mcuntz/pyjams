@@ -32,6 +32,7 @@ Subpackages
    functions
    jams
    kernel_regression
+   lhs
    mad
    mcplot
    means
@@ -97,6 +98,7 @@ History
      Aug 2024, Matthias Cuntz
    * v2.3, deprecate ncio and plotting routines that became standalone
      packages, Oct 2024, Matthias Cuntz
+   * v2.4, added lhs, Oct 2025, Matthias Cuntz
 
 """
 # version, author
@@ -155,6 +157,8 @@ from .fsread import fsread, fread, sread
 from .fsread import xread, xlsread, xlsxread
 # multi-dimensional non-parametric kernel regression
 from .kernel_regression import kernel_regression_h, kernel_regression
+# latin hypercube sampling
+from .lhs import lhs
 # median absolute deviation test
 from .mad import mad
 # Matthias Cuntz' standard plotting class.
@@ -213,6 +217,7 @@ __all__ = ['__version__', '__author__',
            'fsread', 'fread', 'sread',
            'xread', 'xlsread', 'xlsxread',
            'kernel_regression_h', 'kernel_regression',
+           'lhs',
            'mad',
            'mcPlot',
            'means',

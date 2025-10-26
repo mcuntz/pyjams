@@ -28,7 +28,7 @@ def tsym(name):
 
 
         Known symbols
-        ------------
+        -------------
         deg         Degree symbol
         degree      Degree symbol
         degc        Degree Celcius
