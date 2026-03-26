@@ -43,12 +43,18 @@ History
     * Check that scalar is number in array2input, Oct 2023, Matthias Cuntz
     * Check if outin is Iterable even if inp is not in array2input,
       Nov 2023, Matthias Cuntz
+    * Added NaT to isundef, Dec 2025, Matthias Cuntz
+    * Added pandas.DatetimeIndex, Dec 2025, Matthias Cuntz
+    * Remove NaT from isundef again because does throw error if wrong datatype,
+      Dec 2025, Matthias Cuntz
+    * Added xarray.DateArray, Mar 2026, Matthias Cuntz
 
 """
 from collections.abc import Iterable
 import numbers
 import numpy as np
 import pandas as pd
+import xarray as xr
 
 
 __all__ = ['isundef', 'filebase', 'input2array', 'array2input']
@@ -85,6 +91,8 @@ def isundef(arr, undef):
         return arr == undef
     elif np.isnan(undef):  # NaN
         return np.isnan(arr)
+    # elif np.isnat(undef):  # NaT
+    #     return np.isnat(arr)
     elif np.isinf(undef):  # Inf
         return np.isinf(arr)
     else:                  # anything else
@@ -168,9 +176,13 @@ def input2array(inp, undef=None, default=1):
         elif isinstance(inp, str):
             out = np.array([inp])
             out = np.where(isundef(out, undef), default, out)
-        elif isinstance(inp, (pd.DataFrame, pd.Series)):
+        elif isinstance(inp, (pd.DataFrame, pd.Series, xr.DataArray)):
             out = inp.to_numpy()
             out = np.where(isundef(out, undef) | np.isnan(out), default, out)
+        elif isinstance(inp, pd.DatetimeIndex):
+            out = inp.to_numpy()
+            # out = np.where changes type; out[:] keeps the type
+            out[:] = np.where(isundef(out, undef) | np.isnat(out), default, out)
         else:
             out = np.array(inp)
             out = np.where(isundef(out, undef), default, out)
@@ -192,6 +204,9 @@ def array2input(outin, inp, inp2=None, undef=None):
     If *inp2* is given, then type of *inp* will take precedence,
     except if *inp* is a scalar or *inp2* is a masked array in which case
     the type of *inp2* will be taken.
+
+    If *inp* is an xarray.DataFrame, the output will have the same
+    name and the same attributes than *inp*.
 
     The function is supposed to work with :func:`input2array`, which makes the
     input a numpy array, setting masked values and undefined values to some
@@ -242,8 +257,11 @@ def array2input(outin, inp, inp2=None, undef=None):
             elif isinstance(inp, str):
                 outout = np.where(isundef(np.array([inp]), undef),
                                   undef, outin)
-            elif isinstance(inp, (pd.DataFrame, pd.Series)):
+            elif isinstance(inp, (pd.DataFrame, pd.Series, xr.DataArray)):
                 outout = np.where(isundef(inp, undef) | np.isnan(inp),
+                                  undef, outin)
+            elif isinstance(inp, pd.DatetimeIndex):
+                outout = np.where(isundef(inp, undef) | np.isnat(inp),
                                   undef, outin)
             else:
                 outout = np.where(isundef(np.array(inp), undef), undef, outin)
@@ -252,8 +270,11 @@ def array2input(outin, inp, inp2=None, undef=None):
             if isinstance(inp2, str):
                 outout = np.where(isundef(np.array([inp2]), undef),
                                   undef, outin)
-            elif isinstance(inp2, (pd.DataFrame, pd.Series)):
+            elif isinstance(inp2, (pd.DataFrame, pd.Series, xr.DataArray)):
                 outout = np.where(isundef(inp2, undef) | np.isnan(inp2),
+                                  undef, outin)
+            elif isinstance(inp2, pd.DatetimeIndex):
+                outout = np.where(isundef(inp2, undef) | np.isnat(inp2),
                                   undef, outin)
             else:
                 outout = np.where(isundef(np.array(inp2), undef), undef, outin)
@@ -302,6 +323,44 @@ def array2input(outin, inp, inp2=None, undef=None):
                         outout = np.array(outin)
                 if np.any(np.isnan(inp)):
                     outout = np.where(np.isnan(inp), np.nan, outout)
+                outout = type(inp)(outout)
+                outout.index = inp.index
+            else:
+                if isinstance(outin, np.ndarray):
+                    outout = outin
+                else:
+                    outout = np.array(outin)
+                outout = type(inp)(outout)
+        elif isinstance(inp, xr.DataArray):
+            if np.array(outin).shape == inp.shape:
+                if np.any(isundef(inp, undef)):
+                    outout1 = np.where(isundef(inp, undef), undef, outin)
+                else:
+                    if isinstance(outin, np.ndarray):
+                        outout1 = outin
+                    else:
+                        outout1 = np.array(outin)
+                if np.any(np.isnan(inp)):
+                    outout1 = np.where(np.isnan(inp), np.nan, outout1)
+                outout = inp.copy()
+                outout.values = outout1
+            else:
+                if isinstance(outin, np.ndarray):
+                    outout = outin
+                else:
+                    outout = np.array(outin)
+                outout = type(inp)(outout)
+        elif isinstance(inp, pd.DatetimeIndex):
+            if np.array(outin).shape == inp.shape:
+                if np.any(isundef(inp, undef)):
+                    outout = np.where(isundef(inp, undef), undef, outin)
+                else:
+                    if isinstance(outin, np.ndarray):
+                        outout = outin
+                    else:
+                        outout = np.array(outin)
+                if np.any(np.isnat(inp)):
+                    outout = np.where(np.isnat(inp), np.nat, outout)
                 outout = type(inp)(outout)
                 outout.index = inp.index
             else:

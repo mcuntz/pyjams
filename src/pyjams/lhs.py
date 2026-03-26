@@ -38,7 +38,7 @@ def lhs(dist, param, nsample):
     """
     Latin Hypercube Sampling of any distribution after Stein (1987)
 
-    There can be no correlation between parameters.
+    There can be no correlations between parameters.
 
     Parameters
     ----------

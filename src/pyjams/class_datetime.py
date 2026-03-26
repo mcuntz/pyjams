@@ -81,6 +81,7 @@ History
       Aug 2024, Matthias Cuntz
     * Filter UserWarning from cftime, Aug 2024, Matthias Cuntz
     * ensure_seconds keyword in date2num, Aug 2024, Matthias Cuntz
+    * Add pd.Timestamp to date2num, Dec 2025, Matthias Cuntz
 
 ToDo
     * Check why datetime + timedelta but not timedelta + datetime
@@ -98,6 +99,7 @@ import time as ptime
 import warnings
 import numpy as np
 import cftime as cf
+import pandas as pd
 from .helper import input2array, array2input
 from .date2date import date2date
 # from pyjams.helper import input2array, array2input
@@ -1227,6 +1229,8 @@ def date2num(dates, units='', calendar=None, has_year_zero=None,
         else:
             iform = '%Y-%m-%d %H:%M:%S'
         default = cf.real_datetime(1990, 1, 1).strftime(iform)
+    elif isinstance(date0, pd.Timestamp):
+        default = pd.to_datetime('1990-01-01')
     else:
         default = cf.real_datetime(1990, 1, 1)
     mdates = input2array(dates, default=default)

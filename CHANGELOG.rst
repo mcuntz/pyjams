@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+v2.5 (??? 2026)
+   * Added xarray to requirements of ``pyjams``.
+   * Added xarray.DataArray to helper functions `input2array` and
+     `array2input`.
+   * Added pandas.DatetimeIndex to helper functions `input2array` and
+     `array2input`.
+
 v2.4 (Oct 2025)
    * Add Latin Hypercube Sampling `lhs`.
    * Updated fgui to current tkinter structure.
