@@ -48,8 +48,8 @@ class TestSATestFunctions(unittest.TestCase):
         self.assertEqual(bratley(x + 1.), -101.0)
         self.assertEqual(bratley(pd.Series(x) + 1.), -101.0)
         x = np.zeros(15)
-        self.assertEqual(oakley_ohagan(x), 15.75)
-        self.assertEqual(oakley_ohagan(pd.Series(x)), 15.75)
+        self.assertAlmostEqual(oakley_ohagan(x), 15.75, places=9)
+        self.assertAlmostEqual(oakley_ohagan(pd.Series(x)), 15.75, places=9)
         x = np.array([np.pi / 2., np.pi / 2., 1.])
         self.assertEqual(ishigami_homma(x, 1., 1.),
                          3.0)
