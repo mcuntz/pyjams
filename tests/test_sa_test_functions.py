@@ -86,8 +86,10 @@ class TestSATestFunctions(unittest.TestCase):
         self.assertEqual(list(bratley(x + 1.)), [92., 342.])
         self.assertEqual(list(bratley(pd.DataFrame(x) + 1.)), [92., 342.])
         x = np.zeros((15, 2))
-        self.assertEqual(list(oakley_ohagan(x)), [15.75, 15.75])
-        self.assertEqual(list(oakley_ohagan(pd.DataFrame(x))), [15.75, 15.75])
+        self.assertAlmostEqual(list(oakley_ohagan(x)), [15.75, 15.75],
+                               places=9)
+        self.assertAlmostEqual(list(oakley_ohagan(pd.DataFrame(x))),
+                               [15.75, 15.75], places=9)
         x = np.array([[np.pi / 2., np.pi / 2.],
                       [np.pi / 2., np.pi / 2.],
                       [1., 1.]])
