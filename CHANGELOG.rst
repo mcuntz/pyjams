@@ -2,6 +2,7 @@ Changelog
 ---------
 
 v2.5 (??? 2026)
+   * Updated Github actions.
    * Added xarray to requirements of ``pyjams``.
    * Added xarray.DataArray to helper functions `input2array` and
      `array2input`.
